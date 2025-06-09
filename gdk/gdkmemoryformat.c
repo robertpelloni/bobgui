@@ -946,6 +946,7 @@ struct _GdkMemoryFormatDescription
       GLenum type;
     } gl;
     guint32 dmabuf_fourcc;
+    DXGI_FORMAT dxgi_format;
   } shader[3];
 #ifdef GDK_RENDERING_VULKAN
   struct {
@@ -1023,6 +1024,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_B8G8R8A8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1092,6 +1094,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GDK_GL_UNSIGNED_BYTE_FLIPPED,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1160,6 +1163,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R8G8B8A8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1225,6 +1229,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GDK_GL_UNSIGNED_BYTE_FLIPPED,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1290,6 +1295,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_B8G8R8A8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1355,6 +1361,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GDK_GL_UNSIGNED_BYTE_FLIPPED,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1419,6 +1426,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R8G8B8A8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1484,6 +1492,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GDK_GL_UNSIGNED_BYTE_FLIPPED,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1549,6 +1558,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_B8G8R8A8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1619,6 +1629,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GDK_GL_UNSIGNED_BYTE_FLIPPED,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1688,6 +1699,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R8G8B8A8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1754,6 +1766,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GDK_GL_UNSIGNED_BYTE_FLIPPED,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1820,6 +1833,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1885,6 +1899,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -1953,6 +1968,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2020,6 +2036,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16G16B16A16_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2087,6 +2104,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16G16B16A16_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2154,6 +2172,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_HALF_FLOAT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2220,6 +2239,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_HALF_FLOAT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16G16B16A16_FLOAT,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2286,6 +2306,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_HALF_FLOAT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16G16B16A16_FLOAT,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2353,6 +2374,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_FLOAT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R32G32B32_FLOAT,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2419,6 +2441,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_FLOAT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R32G32B32A32_FLOAT,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2485,6 +2508,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_FLOAT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R32G32B32A32_FLOAT,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2550,6 +2574,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R8G8_UNORM,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2615,6 +2640,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R8G8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2680,6 +2706,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2748,6 +2775,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16G16_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2816,6 +2844,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16G16_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2884,6 +2913,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -2949,6 +2979,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_A8_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3017,6 +3048,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16_UNORM,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3084,6 +3116,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_HALF_FLOAT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R16_FLOAT,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3151,6 +3184,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_FLOAT,
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R32_FLOAT,
         }
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3220,6 +3254,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_R8_UNORM,
         },
         {
             .plane = 1,
@@ -3230,6 +3265,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_GR88,
+            .dxgi_format = DXGI_FORMAT_R8G8_UNORM,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3299,6 +3335,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_R8_UNORM,
         },
         {
             .plane = 1,
@@ -3309,6 +3346,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_RG88,
+            .dxgi_format = DXGI_FORMAT_R8G8_UNORM,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3378,6 +3416,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -3388,6 +3427,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_GR88,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3457,6 +3497,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -3467,6 +3508,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_RG88,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3536,6 +3578,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -3546,6 +3589,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_GR88,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3615,6 +3659,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -3625,6 +3670,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_RG88,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3695,6 +3741,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT
             },
             .dmabuf_fourcc = DRM_FORMAT_LE_ONLY (DRM_FORMAT_R16),
+            .dxgi_format = DXGI_FORMAT_R16_UNORM,
         },
         {
             .plane = 1,
@@ -3705,6 +3752,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT
             },
             .dmabuf_fourcc = DRM_FORMAT_LE_ONLY (DRM_FORMAT_GR1616),
+            .dxgi_format = DXGI_FORMAT_R16G16_UNORM,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3775,6 +3823,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT
             },
             .dmabuf_fourcc = DRM_FORMAT_LE_ONLY (DRM_FORMAT_R16),
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -3785,6 +3834,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT
             },
             .dmabuf_fourcc = DRM_FORMAT_LE_ONLY (DRM_FORMAT_GR1616),
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3855,6 +3905,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT
             },
             .dmabuf_fourcc = DRM_FORMAT_LE_ONLY (DRM_FORMAT_R16),
+            .dxgi_format = DXGI_FORMAT_R16_UNORM,
         },
         {
             .plane = 1,
@@ -3865,6 +3916,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_SHORT
             },
             .dmabuf_fourcc = DRM_FORMAT_LE_ONLY (DRM_FORMAT_GR1616),
+            .dxgi_format = DXGI_FORMAT_R16G16_UNORM,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -3948,6 +4000,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 2,
@@ -3958,6 +4011,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4041,6 +4095,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -4051,6 +4106,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4217,6 +4273,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 2,
@@ -4227,6 +4284,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -4237,6 +4295,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4310,6 +4369,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -4320,6 +4380,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 2,
@@ -4330,6 +4391,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4403,6 +4465,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 2,
@@ -4413,6 +4476,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -4423,6 +4487,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4496,6 +4561,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -4506,6 +4572,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 2,
@@ -4516,6 +4583,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4589,6 +4657,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 2,
@@ -4599,6 +4668,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -4609,6 +4679,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4682,6 +4753,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -4692,6 +4764,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 2,
@@ -4702,6 +4775,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4775,6 +4849,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 2,
@@ -4785,6 +4860,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 1,
@@ -4795,6 +4871,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = DRM_FORMAT_R8,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4860,6 +4937,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R8G8_B8G8_UNORM,
         },
         {
             .plane = 0,
@@ -4870,6 +4948,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_R8G8B8A8_UNORM,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -4935,6 +5014,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 0,
@@ -4945,6 +5025,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -5010,6 +5091,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 0,
@@ -5020,6 +5102,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -5030,7 +5113,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
     },
 #endif
     .win32 = {
-         .dxgi_format = DXGI_FORMAT_R8G8_B8G8_UNORM,
+        .dxgi_format = DXGI_FORMAT_UNKNOWN,
         .dxgi_srgb_format = DXGI_FORMAT_UNKNOWN,
     },
     .dmabuf = {
@@ -5085,6 +5168,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
         {
             .plane = 0,
@@ -5095,6 +5179,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
                 .type = GL_UNSIGNED_BYTE
             },
             .dmabuf_fourcc = 0,
+            .dxgi_format = DXGI_FORMAT_UNKNOWN,
         },
     },
 #ifdef GDK_RENDERING_VULKAN
@@ -6378,7 +6463,7 @@ static const GdkMemoryFormatDescription memory_formats[] = {
     .mipmap_linear = x2b10g10r10_mipmap_linear,
   },
 };
-
+    
 /* if this fails, somebody forgot to add formats above */
 G_STATIC_ASSERT (G_N_ELEMENTS (memory_formats) == GDK_MEMORY_N_FORMATS);
 
@@ -6823,6 +6908,16 @@ DXGI_FORMAT
 gdk_memory_format_get_dxgi_srgb_format (GdkMemoryFormat format)
 {
   return memory_formats[format].win32.dxgi_srgb_format;
+}
+
+DXGI_FORMAT
+gdk_memory_format_get_dxgi_srv_format (GdkMemoryFormat  format,
+                                       gsize            nth,
+                                       guint           *out_shader_4_component_mapping)
+{
+  *out_shader_4_component_mapping = gdk_swizzle_to_d3d12 (memory_formats[format].shader[nth].swizzle);
+
+  return memory_formats[format].shader[nth].dxgi_format;
 }
 
 gboolean
