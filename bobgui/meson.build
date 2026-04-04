@@ -454,6 +454,9 @@ bobgui_public_sources = files([
   'modules/system/vision/bobguivision.c',
   'modules/core/entity/bobguientity.c',
   'modules/visual/rhi/bobguirhi.c',
+  'modules/system/input/bobguiinput.c',
+  'modules/media/audio/bobguiaudiowidgets.c',
+  'modules/system/ipc/bobguiipc.c',
 ])
 
 bobgui_public_sources += bobgui_print_sources
@@ -722,6 +725,9 @@ bobgui_public_headers = files([
   'modules/system/vision/bobguivision.h',
   'modules/core/entity/bobguientity.h',
   'modules/visual/rhi/bobguirhi.h',
+  'modules/system/input/bobguiinput.h',
+  'modules/media/audio/bobguiaudiowidgets.h',
+  'modules/system/ipc/bobguiipc.h',
   'bobgui.h',
 ])
 
