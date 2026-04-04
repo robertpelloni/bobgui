@@ -4,5 +4,6 @@
 #include "forge/bobguiforge.h"
 #include "report/bobguireport.h"
 #include "studio/bobguistudio.h"
+#include "test/bobguitest.h"
 
 #endif

@@ -1,6 +1,12 @@
 #ifndef BOBGUI_MODULES_VISUAL_H
 #define BOBGUI_MODULES_VISUAL_H
 
+#include "chart/bobguichart.h"
+#include "design/bobguidesign.h"
+#include "dock/bobguidock.h"
+#include "dsl/bobguidsl.h"
+#include "graph/bobguigraph.h"
+#include "imgui/bobguiimgui.h"
 #include "rhi/bobguirhi.h"
 
 #endif
