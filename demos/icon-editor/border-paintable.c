@@ -21,7 +21,7 @@
 
 #include "border-paintable.h"
 #include "path-paintable.h"
-#include "gtk/svg/gtksvgelementprivate.h"
+#include "bobgui/svg/bobguisvgelementprivate.h"
 
 struct _BorderPaintable
 {
@@ -62,10 +62,10 @@ get_origin_location (GskPath          *path,
 }
 
 /* }}} */
-/* {{{ GtkSymbolicPaintable implementation */
+/* {{{ BobguiSymbolicPaintable implementation */
 
 static void
-snapshot_spines (GtkSnapshot           *snapshot,
+snapshot_spines (BobguiSnapshot           *snapshot,
                  graphene_rect_t       *bounds,
                  PathPaintable         *paintable,
                  SvgElement                 *shape,
@@ -104,16 +104,16 @@ snapshot_spines (GtkSnapshot           *snapshot,
             graphene_point_t pos;
             g_autoptr (GskPath) dot = NULL;
 
-            gtk_snapshot_push_stroke (snapshot, path, stroke);
-            gtk_snapshot_append_color (snapshot, c, bounds);
-            gtk_snapshot_pop (snapshot);
+            bobgui_snapshot_push_stroke (snapshot, path, stroke);
+            bobgui_snapshot_append_color (snapshot, c, bounds);
+            bobgui_snapshot_pop (snapshot);
 
             get_origin_location (path, origin, &pos);
 
             dot = circle_path_new (pos.x, pos.y, 4.f/scale);
-            gtk_snapshot_push_fill (snapshot, dot, GSK_FILL_RULE_WINDING);
-            gtk_snapshot_append_color (snapshot, c, bounds);
-            gtk_snapshot_pop (snapshot);
+            bobgui_snapshot_push_fill (snapshot, dot, GSK_FILL_RULE_WINDING);
+            bobgui_snapshot_append_color (snapshot, c, bounds);
+            bobgui_snapshot_pop (snapshot);
 
             path_paintable_get_attach_path_for_shape (paintable, shape, &attach_to, &attach_pos);
 
@@ -129,9 +129,9 @@ snapshot_spines (GtkSnapshot           *snapshot,
                 gsk_path_builder_rel_line_to (builder, 4.f/scale, 3.f/scale);
                 gsk_path_builder_rel_line_to (builder, -4.f/scale, 3.f/scale);
                 arrow = gsk_path_builder_free_to_path (builder);
-                gtk_snapshot_push_stroke (snapshot, arrow, stroke);
-                gtk_snapshot_append_color (snapshot, c, bounds);
-                gtk_snapshot_pop (snapshot);
+                bobgui_snapshot_push_stroke (snapshot, arrow, stroke);
+                bobgui_snapshot_append_color (snapshot, c, bounds);
+                bobgui_snapshot_pop (snapshot);
                 gsk_path_unref (arrow);
               }
           }
@@ -143,8 +143,8 @@ snapshot_spines (GtkSnapshot           *snapshot,
 }
 
 static void
-border_paintable_snapshot_with_weight (GtkSymbolicPaintable  *paintable,
-                                       GtkSnapshot           *snapshot,
+border_paintable_snapshot_with_weight (BobguiSymbolicPaintable  *paintable,
+                                       BobguiSnapshot           *snapshot,
                                        double                 width,
                                        double                 height,
                                        const GdkRGBA         *colors,
@@ -169,7 +169,7 @@ border_paintable_snapshot_with_weight (GtkSymbolicPaintable  *paintable,
   if (self->show_grid && scale >= 3.f)
     {
       GskPathBuilder *builder;
-      GdkRGBA grid_color = colors[GTK_SYMBOLIC_COLOR_FOREGROUND];
+      GdkRGBA grid_color = colors[BOBGUI_SYMBOLIC_COLOR_FOREGROUND];
       g_autoptr (GskStroke) stroke = NULL;
       g_autoptr (GskPath) grid_path = NULL;
 
@@ -190,11 +190,11 @@ border_paintable_snapshot_with_weight (GtkSymbolicPaintable  *paintable,
         }
 
       grid_path = gsk_path_builder_free_to_path (builder);
-      gtk_snapshot_push_stroke (snapshot, grid_path, stroke);
-      gtk_snapshot_append_color (snapshot,
+      bobgui_snapshot_push_stroke (snapshot, grid_path, stroke);
+      bobgui_snapshot_append_color (snapshot,
                                  &grid_color,
                                  &GRAPHENE_RECT_INIT (0, 0, width, height));
-      gtk_snapshot_pop (snapshot);
+      bobgui_snapshot_pop (snapshot);
     }
 
   if (self->show_bounds)
@@ -205,15 +205,15 @@ border_paintable_snapshot_with_weight (GtkSymbolicPaintable  *paintable,
       for (int i = 0; i < 4; i++)
         {
           border_width[i] = 1;
-          border_color[i] = colors[GTK_SYMBOLIC_COLOR_FOREGROUND];
+          border_color[i] = colors[BOBGUI_SYMBOLIC_COLOR_FOREGROUND];
         }
 
-      gtk_snapshot_append_border (snapshot,
+      bobgui_snapshot_append_border (snapshot,
                                   &GSK_ROUNDED_RECT_INIT (0, 0, scale * w, scale * h),
                                   border_width, border_color);
     }
 
-  gtk_symbolic_paintable_snapshot_with_weight (GTK_SYMBOLIC_PAINTABLE (self->paintable),
+  bobgui_symbolic_paintable_snapshot_with_weight (BOBGUI_SYMBOLIC_PAINTABLE (self->paintable),
                                                snapshot,
                                                width, height,
                                                colors, n_colors,
@@ -229,8 +229,8 @@ border_paintable_snapshot_with_weight (GtkSymbolicPaintable  *paintable,
 
       stroke = gsk_stroke_new (1.f/scale);
 
-      gtk_snapshot_save (snapshot);
-      gtk_snapshot_scale (snapshot, scale, scale);
+      bobgui_snapshot_save (snapshot);
+      bobgui_snapshot_scale (snapshot, scale, scale);
 
       state = path_paintable_get_state (self->paintable);
       viewport = path_paintable_get_viewport (self->paintable);
@@ -242,13 +242,13 @@ border_paintable_snapshot_with_weight (GtkSymbolicPaintable  *paintable,
           snapshot_spines (snapshot, &bounds, self->paintable, shape, state, viewport, scale, &c, stroke);
         }
 
-      gtk_snapshot_restore (snapshot);
+      bobgui_snapshot_restore (snapshot);
     }
 }
 
 static void
-border_paintable_snapshot_symbolic (GtkSymbolicPaintable  *paintable,
-                                    GtkSnapshot           *snapshot,
+border_paintable_snapshot_symbolic (BobguiSymbolicPaintable  *paintable,
+                                    BobguiSnapshot           *snapshot,
                                     double                 width,
                                     double                 height,
                                     const GdkRGBA         *colors,
@@ -262,7 +262,7 @@ border_paintable_snapshot_symbolic (GtkSymbolicPaintable  *paintable,
 }
 
 static void
-border_paintable_init_symbolic_paintable_interface (GtkSymbolicPaintableInterface *iface)
+border_paintable_init_symbolic_paintable_interface (BobguiSymbolicPaintableInterface *iface)
 {
   iface->snapshot_symbolic = border_paintable_snapshot_symbolic;
   iface->snapshot_with_weight = border_paintable_snapshot_with_weight;
@@ -273,11 +273,11 @@ border_paintable_init_symbolic_paintable_interface (GtkSymbolicPaintableInterfac
 
 static void
 border_paintable_snapshot (GdkPaintable  *paintable,
-                           GtkSnapshot   *snapshot,
+                           BobguiSnapshot   *snapshot,
                            double         width,
                            double         height)
 {
-  border_paintable_snapshot_symbolic (GTK_SYMBOLIC_PAINTABLE (paintable),
+  border_paintable_snapshot_symbolic (BOBGUI_SYMBOLIC_PAINTABLE (paintable),
                                       snapshot,
                                       width, height,
                                       NULL, 0);
@@ -335,7 +335,7 @@ static GParamSpec *properties[NUM_PROPERTIES];
 G_DEFINE_TYPE_WITH_CODE (BorderPaintable, border_paintable, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GDK_TYPE_PAINTABLE,
                                                 border_paintable_init_paintable_interface)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SYMBOLIC_PAINTABLE,
+                         G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_SYMBOLIC_PAINTABLE,
                                                 border_paintable_init_symbolic_paintable_interface))
 
 static void

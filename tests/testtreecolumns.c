@@ -17,7 +17,7 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
@@ -43,51 +43,51 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
  * IT IS ACTUALLY CORRECT CODE, IT IS NOT USEFUL.
  */
 
-GtkWidget *left_tree_view;
-GtkWidget *top_right_tree_view;
-GtkWidget *bottom_right_tree_view;
-GtkTreeModel *left_tree_model;
-GtkTreeModel *top_right_tree_model;
-GtkTreeModel *bottom_right_tree_model;
-GtkWidget *sample_tree_view_top;
-GtkWidget *sample_tree_view_bottom;
+BobguiWidget *left_tree_view;
+BobguiWidget *top_right_tree_view;
+BobguiWidget *bottom_right_tree_view;
+BobguiTreeModel *left_tree_model;
+BobguiTreeModel *top_right_tree_model;
+BobguiTreeModel *bottom_right_tree_model;
+BobguiWidget *sample_tree_view_top;
+BobguiWidget *sample_tree_view_bottom;
 
 #define column_data "my_column_data"
 
-static void move_row  (GtkTreeModel *src,
-		       GtkTreeIter  *src_iter,
-		       GtkTreeModel *dest,
-		       GtkTreeIter  *dest_iter);
+static void move_row  (BobguiTreeModel *src,
+		       BobguiTreeIter  *src_iter,
+		       BobguiTreeModel *dest,
+		       BobguiTreeIter  *dest_iter);
 
 /* Kids, don't try this at home.  */
 
-/* Small GtkTreeModel to model columns */
+/* Small BobguiTreeModel to model columns */
 typedef struct _ViewColumnModel ViewColumnModel;
 typedef struct _ViewColumnModelClass ViewColumnModelClass;
 
 struct _ViewColumnModel
 {
-  GtkListStore parent;
-  GtkTreeView *view;
+  BobguiListStore parent;
+  BobguiTreeView *view;
   GList *columns;
   int stamp;
 };
 
 struct _ViewColumnModelClass
 {
-  GtkListStoreClass parent_class;
+  BobguiListStoreClass parent_class;
 };
 
-static void view_column_model_tree_model_init (GtkTreeModelIface *iface);
-static void view_column_model_drag_source_init (GtkTreeDragSourceIface *iface);
-static void view_column_model_drag_dest_init (GtkTreeDragDestIface *iface);
+static void view_column_model_tree_model_init (BobguiTreeModelIface *iface);
+static void view_column_model_drag_source_init (BobguiTreeDragSourceIface *iface);
+static void view_column_model_drag_dest_init (BobguiTreeDragDestIface *iface);
 
 
 static GType view_column_model_get_type (void);
-G_DEFINE_TYPE_WITH_CODE (ViewColumnModel, view_column_model, GTK_TYPE_LIST_STORE,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_MODEL, view_column_model_tree_model_init)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_DRAG_SOURCE, view_column_model_drag_source_init)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_DRAG_DEST, view_column_model_drag_dest_init))
+G_DEFINE_TYPE_WITH_CODE (ViewColumnModel, view_column_model, BOBGUI_TYPE_LIST_STORE,
+                         G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_TREE_MODEL, view_column_model_tree_model_init)
+                         G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_TREE_DRAG_SOURCE, view_column_model_drag_source_init)
+                         G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_TREE_DRAG_DEST, view_column_model_drag_dest_init))
 
 
 
@@ -97,13 +97,13 @@ static void view_column_model_init (ViewColumnModel *model)
 }
 
 static int
-view_column_model_get_n_columns (GtkTreeModel *tree_model)
+view_column_model_get_n_columns (BobguiTreeModel *tree_model)
 {
   return 2;
 }
 
 static GType
-view_column_model_get_column_type (GtkTreeModel *tree_model,
+view_column_model_get_column_type (BobguiTreeModel *tree_model,
 				   int           index)
 {
   switch (index)
@@ -111,25 +111,25 @@ view_column_model_get_column_type (GtkTreeModel *tree_model,
     case 0:
       return G_TYPE_STRING;
     case 1:
-      return GTK_TYPE_TREE_VIEW_COLUMN;
+      return BOBGUI_TYPE_TREE_VIEW_COLUMN;
     default:
       return G_TYPE_INVALID;
     }
 }
 
 static gboolean
-view_column_model_get_iter (GtkTreeModel *tree_model,
-			    GtkTreeIter  *iter,
-			    GtkTreePath  *path)
+view_column_model_get_iter (BobguiTreeModel *tree_model,
+			    BobguiTreeIter  *iter,
+			    BobguiTreePath  *path)
 
 {
   ViewColumnModel *view_model = (ViewColumnModel *)tree_model;
   GList *list;
   int i;
 
-  g_return_val_if_fail (gtk_tree_path_get_depth (path) > 0, FALSE);
+  g_return_val_if_fail (bobgui_tree_path_get_depth (path) > 0, FALSE);
 
-  i = gtk_tree_path_get_indices (path)[0];
+  i = bobgui_tree_path_get_indices (path)[0];
   list = g_list_nth (view_model->columns, i);
 
   if (list == NULL)
@@ -141,12 +141,12 @@ view_column_model_get_iter (GtkTreeModel *tree_model,
   return TRUE;
 }
 
-static GtkTreePath *
-view_column_model_get_path (GtkTreeModel *tree_model,
-			    GtkTreeIter  *iter)
+static BobguiTreePath *
+view_column_model_get_path (BobguiTreeModel *tree_model,
+			    BobguiTreeIter  *iter)
 {
   ViewColumnModel *view_model = (ViewColumnModel *)tree_model;
-  GtkTreePath *retval;
+  BobguiTreePath *retval;
   GList *list;
   int i = 0;
 
@@ -161,14 +161,14 @@ view_column_model_get_path (GtkTreeModel *tree_model,
   if (list == NULL)
     return NULL;
 
-  retval = gtk_tree_path_new ();
-  gtk_tree_path_append_index (retval, i);
+  retval = bobgui_tree_path_new ();
+  bobgui_tree_path_append_index (retval, i);
   return retval;
 }
 
 static void
-view_column_model_get_value (GtkTreeModel *tree_model,
-			     GtkTreeIter  *iter,
+view_column_model_get_value (BobguiTreeModel *tree_model,
+			     BobguiTreeIter  *iter,
 			     int           column,
 			     GValue       *value)
 {
@@ -183,18 +183,18 @@ view_column_model_get_value (GtkTreeModel *tree_model,
   if (column == 0)
     {
       g_value_init (value, G_TYPE_STRING);
-      g_value_set_string (value, gtk_tree_view_column_get_title (GTK_TREE_VIEW_COLUMN (((GList *)iter->user_data)->data)));
+      g_value_set_string (value, bobgui_tree_view_column_get_title (BOBGUI_TREE_VIEW_COLUMN (((GList *)iter->user_data)->data)));
     }
   else
     {
-      g_value_init (value, GTK_TYPE_TREE_VIEW_COLUMN);
+      g_value_init (value, BOBGUI_TYPE_TREE_VIEW_COLUMN);
       g_value_set_object (value, ((GList *)iter->user_data)->data);
     }
 }
 
 static gboolean
-view_column_model_iter_next (GtkTreeModel  *tree_model,
-			     GtkTreeIter   *iter)
+view_column_model_iter_next (BobguiTreeModel  *tree_model,
+			     BobguiTreeIter   *iter)
 {
 #ifndef G_DISABLE_CHECKS
   ViewColumnModel *view_model = (ViewColumnModel *)tree_model;
@@ -208,9 +208,9 @@ view_column_model_iter_next (GtkTreeModel  *tree_model,
 }
 
 static gboolean
-view_column_model_iter_children (GtkTreeModel *tree_model,
-				 GtkTreeIter  *iter,
-				 GtkTreeIter  *parent)
+view_column_model_iter_children (BobguiTreeModel *tree_model,
+				 BobguiTreeIter  *iter,
+				 BobguiTreeIter  *parent)
 {
   ViewColumnModel *view_model = (ViewColumnModel *)tree_model;
 
@@ -233,23 +233,23 @@ view_column_model_iter_children (GtkTreeModel *tree_model,
 }
 
 static gboolean
-view_column_model_iter_has_child (GtkTreeModel *tree_model,
-				  GtkTreeIter  *iter)
+view_column_model_iter_has_child (BobguiTreeModel *tree_model,
+				  BobguiTreeIter  *iter)
 {
   return FALSE;
 }
 
 static int
-view_column_model_iter_n_children (GtkTreeModel *tree_model,
-				   GtkTreeIter  *iter)
+view_column_model_iter_n_children (BobguiTreeModel *tree_model,
+				   BobguiTreeIter  *iter)
 {
   return g_list_length (((ViewColumnModel *)tree_model)->columns);
 }
 
 static int
-view_column_model_iter_nth_child (GtkTreeModel *tree_model,
- 				  GtkTreeIter  *iter,
-				  GtkTreeIter  *parent,
+view_column_model_iter_nth_child (BobguiTreeModel *tree_model,
+ 				  BobguiTreeIter  *iter,
+				  BobguiTreeIter  *parent,
 				  int           n)
 {
   ViewColumnModel *view_model = (ViewColumnModel *)tree_model;
@@ -264,15 +264,15 @@ view_column_model_iter_nth_child (GtkTreeModel *tree_model,
 }
 
 static gboolean
-view_column_model_iter_parent (GtkTreeModel *tree_model,
-			       GtkTreeIter  *iter,
-			       GtkTreeIter  *child)
+view_column_model_iter_parent (BobguiTreeModel *tree_model,
+			       BobguiTreeIter  *iter,
+			       BobguiTreeIter  *child)
 {
   return FALSE;
 }
 
 static void
-view_column_model_tree_model_init (GtkTreeModelIface *iface)
+view_column_model_tree_model_init (BobguiTreeModelIface *iface)
 {
   iface->get_n_columns = view_column_model_get_n_columns;
   iface->get_column_type = view_column_model_get_column_type;
@@ -288,15 +288,15 @@ view_column_model_tree_model_init (GtkTreeModelIface *iface)
 }
 
 static GdkContentProvider *
-view_column_model_drag_data_get (GtkTreeDragSource *drag_source,
-				 GtkTreePath       *path)
+view_column_model_drag_data_get (BobguiTreeDragSource *drag_source,
+				 BobguiTreePath       *path)
 {
-  return gtk_tree_create_row_drag_content (GTK_TREE_MODEL (drag_source), path);
+  return bobgui_tree_create_row_drag_content (BOBGUI_TREE_MODEL (drag_source), path);
 }
 
 static gboolean
-view_column_model_drag_data_delete (GtkTreeDragSource *drag_source,
-				    GtkTreePath       *path)
+view_column_model_drag_data_delete (BobguiTreeDragSource *drag_source,
+				    BobguiTreePath       *path)
 {
   /* Nothing -- we handle moves on the dest side */
   
@@ -304,13 +304,13 @@ view_column_model_drag_data_delete (GtkTreeDragSource *drag_source,
 }
 
 static gboolean
-view_column_model_row_drop_possible (GtkTreeDragDest *drag_dest,
-				     GtkTreePath     *dest_path,
+view_column_model_row_drop_possible (BobguiTreeDragDest *drag_dest,
+				     BobguiTreePath     *dest_path,
 				     const GValue    *value)
 {
-  GtkTreeModel *src_model;
+  BobguiTreeModel *src_model;
   
-  if (gtk_tree_get_row_drag_data (value,
+  if (bobgui_tree_get_row_drag_data (value,
 				  &src_model,
 				  NULL))
     {
@@ -324,55 +324,55 @@ view_column_model_row_drop_possible (GtkTreeDragDest *drag_dest,
 }
 
 static gboolean
-view_column_model_drag_data_received (GtkTreeDragDest *drag_dest,
-				      GtkTreePath     *dest,
+view_column_model_drag_data_received (BobguiTreeDragDest *drag_dest,
+				      BobguiTreePath     *dest,
 				      const GValue    *value)
 {
-  GtkTreeModel *src_model;
-  GtkTreePath *src_path = NULL;
+  BobguiTreeModel *src_model;
+  BobguiTreePath *src_path = NULL;
   gboolean retval = FALSE;
   
-  if (gtk_tree_get_row_drag_data (value,
+  if (bobgui_tree_get_row_drag_data (value,
 				  &src_model,
 				  &src_path))
     {
-      GtkTreeIter src_iter;
-      GtkTreeIter dest_iter;
+      BobguiTreeIter src_iter;
+      BobguiTreeIter dest_iter;
       gboolean have_dest;
 
       /* We are a little lazy here, and assume if we can't convert dest
-       * to an iter, we need to append. See gtkliststore.c for a more
+       * to an iter, we need to append. See bobguiliststore.c for a more
        * careful handling of this.
        */
-      have_dest = gtk_tree_model_get_iter (GTK_TREE_MODEL (drag_dest), &dest_iter, dest);
+      have_dest = bobgui_tree_model_get_iter (BOBGUI_TREE_MODEL (drag_dest), &dest_iter, dest);
 
-      if (gtk_tree_model_get_iter (src_model, &src_iter, src_path))
+      if (bobgui_tree_model_get_iter (src_model, &src_iter, src_path))
 	{
 	  if (src_model == left_tree_model ||
 	      src_model == top_right_tree_model ||
 	      src_model == bottom_right_tree_model)
 	    {
-	      move_row (src_model, &src_iter, GTK_TREE_MODEL (drag_dest),
+	      move_row (src_model, &src_iter, BOBGUI_TREE_MODEL (drag_dest),
 			have_dest ? &dest_iter : NULL);
 	      retval = TRUE;
 	    }
 	}
 
-      gtk_tree_path_free (src_path);
+      bobgui_tree_path_free (src_path);
     }
   
   return retval;
 }
 
 static void
-view_column_model_drag_source_init (GtkTreeDragSourceIface *iface)
+view_column_model_drag_source_init (BobguiTreeDragSourceIface *iface)
 {
   iface->drag_data_get = view_column_model_drag_data_get;
   iface->drag_data_delete = view_column_model_drag_data_delete;
 }
 
 static void
-view_column_model_drag_dest_init (GtkTreeDragDestIface *iface)
+view_column_model_drag_dest_init (BobguiTreeDragDestIface *iface)
 {
   iface->drag_data_received = view_column_model_drag_data_received;
   iface->row_drop_possible = view_column_model_row_drop_possible;
@@ -384,20 +384,20 @@ view_column_model_class_init (ViewColumnModelClass *klass)
 }
 
 static void
-update_columns (GtkTreeView *view, ViewColumnModel *view_model)
+update_columns (BobguiTreeView *view, ViewColumnModel *view_model)
 {
   GList *old_columns = view_model->columns;
   int old_length, length;
   GList *a, *b;
 
-  view_model->columns = gtk_tree_view_get_columns (view_model->view);
+  view_model->columns = bobgui_tree_view_get_columns (view_model->view);
 
   /* As the view tells us one change at a time, we can do this hack. */
   length = g_list_length (view_model->columns);
   old_length = g_list_length (old_columns);
   if (length != old_length)
     {
-      GtkTreePath *path;
+      BobguiTreePath *path;
       int i = 0;
 
       /* where are they different */
@@ -407,28 +407,28 @@ update_columns (GtkTreeView *view, ViewColumnModel *view_model)
 	    break;
 	  i++;
 	}
-      path = gtk_tree_path_new ();
-      gtk_tree_path_append_index (path, i);
+      path = bobgui_tree_path_new ();
+      bobgui_tree_path_append_index (path, i);
       if (length < old_length)
 	{
 	  view_model->stamp++;
-	  gtk_tree_model_row_deleted (GTK_TREE_MODEL (view_model), path);
+	  bobgui_tree_model_row_deleted (BOBGUI_TREE_MODEL (view_model), path);
 	}
       else
 	{
-	  GtkTreeIter iter;
+	  BobguiTreeIter iter;
 	  iter.stamp = view_model->stamp;
 	  iter.user_data = b;
-	  gtk_tree_model_row_inserted (GTK_TREE_MODEL (view_model), path, &iter);
+	  bobgui_tree_model_row_inserted (BOBGUI_TREE_MODEL (view_model), path, &iter);
 	}
-      gtk_tree_path_free (path);
+      bobgui_tree_path_free (path);
     }
   else
     {
       int i;
       int m = 0, n = 1;
       int *new_order;
-      GtkTreePath *path;
+      BobguiTreePath *path;
 
       a = old_columns; b = view_model->columns;
 
@@ -476,26 +476,26 @@ update_columns (GtkTreeView *view, ViewColumnModel *view_model)
 	    new_order[i] = i;
 	}
 
-      path = gtk_tree_path_new ();
-      gtk_tree_model_rows_reordered (GTK_TREE_MODEL (view_model),
+      path = bobgui_tree_path_new ();
+      bobgui_tree_model_rows_reordered (BOBGUI_TREE_MODEL (view_model),
 				     path,
 				     NULL,
 				     new_order);
-      gtk_tree_path_free (path);
+      bobgui_tree_path_free (path);
       g_free (new_order);
     }
   if (old_columns)
     g_list_free (old_columns);
 }
 
-static GtkTreeModel *
-view_column_model_new (GtkTreeView *view)
+static BobguiTreeModel *
+view_column_model_new (BobguiTreeView *view)
 {
-  GtkTreeModel *retval;
+  BobguiTreeModel *retval;
 
   retval = g_object_new (view_column_model_get_type (), NULL);
   ((ViewColumnModel *)retval)->view = view;
-  ((ViewColumnModel *)retval)->columns = gtk_tree_view_get_columns (view);
+  ((ViewColumnModel *)retval)->columns = bobgui_tree_view_get_columns (view);
 
   g_signal_connect (view, "columns_changed", G_CALLBACK (update_columns), retval);
 
@@ -506,169 +506,169 @@ view_column_model_new (GtkTreeView *view)
  */
 
 static void
-add_clicked (GtkWidget *button, gpointer data)
+add_clicked (BobguiWidget *button, gpointer data)
 {
   static int i = 0;
 
-  GtkTreeIter iter;
-  GtkTreeViewColumn *column;
-  GtkTreeSelection *selection;
-  GtkCellRenderer *cell;
+  BobguiTreeIter iter;
+  BobguiTreeViewColumn *column;
+  BobguiTreeSelection *selection;
+  BobguiCellRenderer *cell;
   char *label = g_strdup_printf ("Column %d", i);
 
-  cell = gtk_cell_renderer_text_new ();
-  column = gtk_tree_view_column_new_with_attributes (label, cell, "text", 0, NULL);
+  cell = bobgui_cell_renderer_text_new ();
+  column = bobgui_tree_view_column_new_with_attributes (label, cell, "text", 0, NULL);
   g_object_set_data_full (G_OBJECT (column), column_data, label, g_free);
-  gtk_tree_view_column_set_reorderable (column, TRUE);
-  gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-  gtk_tree_view_column_set_resizable (column, TRUE);
-  gtk_list_store_append (GTK_LIST_STORE (left_tree_model), &iter);
-  gtk_list_store_set (GTK_LIST_STORE (left_tree_model), &iter, 0, label, 1, column, -1);
+  bobgui_tree_view_column_set_reorderable (column, TRUE);
+  bobgui_tree_view_column_set_sizing (column, BOBGUI_TREE_VIEW_COLUMN_GROW_ONLY);
+  bobgui_tree_view_column_set_resizable (column, TRUE);
+  bobgui_list_store_append (BOBGUI_LIST_STORE (left_tree_model), &iter);
+  bobgui_list_store_set (BOBGUI_LIST_STORE (left_tree_model), &iter, 0, label, 1, column, -1);
   i++;
 
-  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (left_tree_view));
-  gtk_tree_selection_select_iter (selection, &iter);
+  selection = bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (left_tree_view));
+  bobgui_tree_selection_select_iter (selection, &iter);
 }
 
 static void
-get_visible (GtkTreeViewColumn *tree_column,
-	     GtkCellRenderer   *cell,
-	     GtkTreeModel      *tree_model,
-	     GtkTreeIter       *iter,
+get_visible (BobguiTreeViewColumn *tree_column,
+	     BobguiCellRenderer   *cell,
+	     BobguiTreeModel      *tree_model,
+	     BobguiTreeIter       *iter,
 	     gpointer           data)
 {
-  GtkTreeViewColumn *column;
+  BobguiTreeViewColumn *column;
 
-  gtk_tree_model_get (tree_model, iter, 1, &column, -1);
+  bobgui_tree_model_get (tree_model, iter, 1, &column, -1);
   if (column)
     {
-      gtk_cell_renderer_toggle_set_active (GTK_CELL_RENDERER_TOGGLE (cell),
-					   gtk_tree_view_column_get_visible (column));
+      bobgui_cell_renderer_toggle_set_active (BOBGUI_CELL_RENDERER_TOGGLE (cell),
+					   bobgui_tree_view_column_get_visible (column));
     }
 }
 
 static void
-set_visible (GtkCellRendererToggle *cell,
+set_visible (BobguiCellRendererToggle *cell,
 	     char                  *path_str,
 	     gpointer               data)
 {
-  GtkTreeView *tree_view = (GtkTreeView *) data;
-  GtkTreeViewColumn *column;
-  GtkTreeModel *model;
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
+  BobguiTreeView *tree_view = (BobguiTreeView *) data;
+  BobguiTreeViewColumn *column;
+  BobguiTreeModel *model;
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_str);
 
-  model = gtk_tree_view_get_model (tree_view);
+  model = bobgui_tree_view_get_model (tree_view);
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, 1, &column, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, 1, &column, -1);
 
   if (column)
     {
-      gtk_tree_view_column_set_visible (column, ! gtk_tree_view_column_get_visible (column));
-      gtk_tree_model_row_changed (model, path, &iter);
+      bobgui_tree_view_column_set_visible (column, ! bobgui_tree_view_column_get_visible (column));
+      bobgui_tree_model_row_changed (model, path, &iter);
     }
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-move_to_left (GtkTreeModel *src,
-	      GtkTreeIter  *src_iter,
-	      GtkTreeIter  *dest_iter)
+move_to_left (BobguiTreeModel *src,
+	      BobguiTreeIter  *src_iter,
+	      BobguiTreeIter  *dest_iter)
 {
-  GtkTreeIter iter;
-  GtkTreeViewColumn *column;
-  GtkTreeSelection *selection;
+  BobguiTreeIter iter;
+  BobguiTreeViewColumn *column;
+  BobguiTreeSelection *selection;
   char *label;
 
-  gtk_tree_model_get (src, src_iter, 0, &label, 1, &column, -1);
+  bobgui_tree_model_get (src, src_iter, 0, &label, 1, &column, -1);
 
   if (src == top_right_tree_model)
-    gtk_tree_view_remove_column (GTK_TREE_VIEW (sample_tree_view_top), column);
+    bobgui_tree_view_remove_column (BOBGUI_TREE_VIEW (sample_tree_view_top), column);
   else
-    gtk_tree_view_remove_column (GTK_TREE_VIEW (sample_tree_view_bottom), column);
+    bobgui_tree_view_remove_column (BOBGUI_TREE_VIEW (sample_tree_view_bottom), column);
 
-  /*  gtk_list_store_remove (GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (data))), &iter);*/
+  /*  bobgui_list_store_remove (BOBGUI_LIST_STORE (bobgui_tree_view_get_model (BOBGUI_TREE_VIEW (data))), &iter);*/
 
   /* Put it back on the left */
   if (dest_iter)
-    gtk_list_store_insert_before (GTK_LIST_STORE (left_tree_model),
+    bobgui_list_store_insert_before (BOBGUI_LIST_STORE (left_tree_model),
 				  &iter, dest_iter);
   else
-    gtk_list_store_append (GTK_LIST_STORE (left_tree_model), &iter);
+    bobgui_list_store_append (BOBGUI_LIST_STORE (left_tree_model), &iter);
   
-  gtk_list_store_set (GTK_LIST_STORE (left_tree_model), &iter, 0, label, 1, column, -1);
-  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (left_tree_view));
-  gtk_tree_selection_select_iter (selection, &iter);
+  bobgui_list_store_set (BOBGUI_LIST_STORE (left_tree_model), &iter, 0, label, 1, column, -1);
+  selection = bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (left_tree_view));
+  bobgui_tree_selection_select_iter (selection, &iter);
 
   g_free (label);
 }
 
 static void
-move_to_right (GtkTreeIter  *src_iter,
-	       GtkTreeModel *dest,
-	       GtkTreeIter  *dest_iter)
+move_to_right (BobguiTreeIter  *src_iter,
+	       BobguiTreeModel *dest,
+	       BobguiTreeIter  *dest_iter)
 {
   char *label;
-  GtkTreeViewColumn *column;
+  BobguiTreeViewColumn *column;
   int before = -1;
 
-  gtk_tree_model_get (GTK_TREE_MODEL (left_tree_model),
+  bobgui_tree_model_get (BOBGUI_TREE_MODEL (left_tree_model),
 		      src_iter, 0, &label, 1, &column, -1);
-  gtk_list_store_remove (GTK_LIST_STORE (left_tree_model), src_iter);
+  bobgui_list_store_remove (BOBGUI_LIST_STORE (left_tree_model), src_iter);
 
   if (dest_iter)
     {
-      GtkTreePath *path = gtk_tree_model_get_path (dest, dest_iter);
-      before = (gtk_tree_path_get_indices (path))[0];
-      gtk_tree_path_free (path);
+      BobguiTreePath *path = bobgui_tree_model_get_path (dest, dest_iter);
+      before = (bobgui_tree_path_get_indices (path))[0];
+      bobgui_tree_path_free (path);
     }
   
   if (dest == top_right_tree_model)
-    gtk_tree_view_insert_column (GTK_TREE_VIEW (sample_tree_view_top), column, before);
+    bobgui_tree_view_insert_column (BOBGUI_TREE_VIEW (sample_tree_view_top), column, before);
   else
-    gtk_tree_view_insert_column (GTK_TREE_VIEW (sample_tree_view_bottom), column, before);
+    bobgui_tree_view_insert_column (BOBGUI_TREE_VIEW (sample_tree_view_bottom), column, before);
 
   g_free (label);
 }
 
 static void
-move_up_or_down (GtkTreeModel *src,
-		 GtkTreeIter  *src_iter,
-		 GtkTreeModel *dest,
-		 GtkTreeIter  *dest_iter)
+move_up_or_down (BobguiTreeModel *src,
+		 BobguiTreeIter  *src_iter,
+		 BobguiTreeModel *dest,
+		 BobguiTreeIter  *dest_iter)
 {
-  GtkTreeViewColumn *column;
+  BobguiTreeViewColumn *column;
   char *label;
   int before = -1;
   
-  gtk_tree_model_get (src, src_iter, 0, &label, 1, &column, -1);
+  bobgui_tree_model_get (src, src_iter, 0, &label, 1, &column, -1);
 
   if (dest_iter)
     {
-      GtkTreePath *path = gtk_tree_model_get_path (dest, dest_iter);
-      before = (gtk_tree_path_get_indices (path))[0];
-      gtk_tree_path_free (path);
+      BobguiTreePath *path = bobgui_tree_model_get_path (dest, dest_iter);
+      before = (bobgui_tree_path_get_indices (path))[0];
+      bobgui_tree_path_free (path);
     }
   
   if (src == top_right_tree_model)
-    gtk_tree_view_remove_column (GTK_TREE_VIEW (sample_tree_view_top), column);
+    bobgui_tree_view_remove_column (BOBGUI_TREE_VIEW (sample_tree_view_top), column);
   else
-    gtk_tree_view_remove_column (GTK_TREE_VIEW (sample_tree_view_bottom), column);
+    bobgui_tree_view_remove_column (BOBGUI_TREE_VIEW (sample_tree_view_bottom), column);
 
   if (dest == top_right_tree_model)
-    gtk_tree_view_insert_column (GTK_TREE_VIEW (sample_tree_view_top), column, before);
+    bobgui_tree_view_insert_column (BOBGUI_TREE_VIEW (sample_tree_view_top), column, before);
   else
-    gtk_tree_view_insert_column (GTK_TREE_VIEW (sample_tree_view_bottom), column, before);
+    bobgui_tree_view_insert_column (BOBGUI_TREE_VIEW (sample_tree_view_bottom), column, before);
 
   g_free (label);
 }
 
 static void
-move_row  (GtkTreeModel *src,
-	   GtkTreeIter  *src_iter,
-	   GtkTreeModel *dest,
-	   GtkTreeIter  *dest_iter)
+move_row  (BobguiTreeModel *src,
+	   BobguiTreeIter  *src_iter,
+	   BobguiTreeModel *dest,
+	   BobguiTreeIter  *dest_iter)
 {
   if (src == left_tree_model)
     move_to_right (src_iter, dest, dest_iter);
@@ -679,41 +679,41 @@ move_row  (GtkTreeModel *src,
 }
 
 static void
-add_left_clicked (GtkWidget *button,
+add_left_clicked (BobguiWidget *button,
 		  gpointer data)
 {
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
 
-  GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (data));
+  BobguiTreeSelection *selection = bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (data));
 
-  gtk_tree_selection_get_selected (selection, NULL, &iter);
+  bobgui_tree_selection_get_selected (selection, NULL, &iter);
 
-  move_to_left (gtk_tree_view_get_model (GTK_TREE_VIEW (data)), &iter, NULL);
+  move_to_left (bobgui_tree_view_get_model (BOBGUI_TREE_VIEW (data)), &iter, NULL);
 }
 
 static void
-add_right_clicked (GtkWidget *button, gpointer data)
+add_right_clicked (BobguiWidget *button, gpointer data)
 {
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
 
-  GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (left_tree_view));
+  BobguiTreeSelection *selection = bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (left_tree_view));
 
-  gtk_tree_selection_get_selected (selection, NULL, &iter);
+  bobgui_tree_selection_get_selected (selection, NULL, &iter);
 
-  move_to_right (&iter, gtk_tree_view_get_model (GTK_TREE_VIEW (data)), NULL);
+  move_to_right (&iter, bobgui_tree_view_get_model (BOBGUI_TREE_VIEW (data)), NULL);
 }
 
 static void
-selection_changed (GtkTreeSelection *selection, GtkWidget *button)
+selection_changed (BobguiTreeSelection *selection, BobguiWidget *button)
 {
-  if (gtk_tree_selection_get_selected (selection, NULL, NULL))
-    gtk_widget_set_sensitive (button, TRUE);
+  if (bobgui_tree_selection_get_selected (selection, NULL, NULL))
+    bobgui_widget_set_sensitive (button, TRUE);
   else
-    gtk_widget_set_sensitive (button, FALSE);
+    bobgui_widget_set_sensitive (button, FALSE);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -726,194 +726,194 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *hbox, *vbox;
-  GtkWidget *vbox2, *bbox;
-  GtkWidget *button;
-  GtkTreeViewColumn *column;
-  GtkCellRenderer *cell;
-  GtkWidget *swindow;
-  GtkTreeModel *sample_model;
+  BobguiWidget *window;
+  BobguiWidget *hbox, *vbox;
+  BobguiWidget *vbox2, *bbox;
+  BobguiWidget *button;
+  BobguiTreeViewColumn *column;
+  BobguiCellRenderer *cell;
+  BobguiWidget *swindow;
+  BobguiTreeModel *sample_model;
   GdkContentFormats *targets;
   int i;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
   /* First initialize all the models for signal purposes */
-  left_tree_model = (GtkTreeModel *) gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_POINTER);
-  sample_model = (GtkTreeModel *) gtk_list_store_new (1, G_TYPE_STRING);
-  sample_tree_view_top = gtk_tree_view_new_with_model (sample_model);
-  sample_tree_view_bottom = gtk_tree_view_new_with_model (sample_model);
-  top_right_tree_model = (GtkTreeModel *) view_column_model_new (GTK_TREE_VIEW (sample_tree_view_top));
-  bottom_right_tree_model = (GtkTreeModel *) view_column_model_new (GTK_TREE_VIEW (sample_tree_view_bottom));
-  top_right_tree_view = gtk_tree_view_new_with_model (top_right_tree_model);
-  bottom_right_tree_view = gtk_tree_view_new_with_model (bottom_right_tree_model);
+  left_tree_model = (BobguiTreeModel *) bobgui_list_store_new (2, G_TYPE_STRING, G_TYPE_POINTER);
+  sample_model = (BobguiTreeModel *) bobgui_list_store_new (1, G_TYPE_STRING);
+  sample_tree_view_top = bobgui_tree_view_new_with_model (sample_model);
+  sample_tree_view_bottom = bobgui_tree_view_new_with_model (sample_model);
+  top_right_tree_model = (BobguiTreeModel *) view_column_model_new (BOBGUI_TREE_VIEW (sample_tree_view_top));
+  bottom_right_tree_model = (BobguiTreeModel *) view_column_model_new (BOBGUI_TREE_VIEW (sample_tree_view_bottom));
+  top_right_tree_view = bobgui_tree_view_new_with_model (top_right_tree_model);
+  bottom_right_tree_view = bobgui_tree_view_new_with_model (bottom_right_tree_model);
 
   for (i = 0; i < 10; i++)
     {
-      GtkTreeIter iter;
+      BobguiTreeIter iter;
       char *string = g_strdup_printf ("%d", i);
-      gtk_list_store_append (GTK_LIST_STORE (sample_model), &iter);
-      gtk_list_store_set (GTK_LIST_STORE (sample_model), &iter, 0, string, -1);
+      bobgui_list_store_append (BOBGUI_LIST_STORE (sample_model), &iter);
+      bobgui_list_store_set (BOBGUI_LIST_STORE (sample_model), &iter, 0, string, -1);
       g_free (string);
     }
 
   /* Set up the test windows. */
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done); 
-  gtk_window_set_default_size (GTK_WINDOW (window), 300, 300);
-  gtk_window_set_title (GTK_WINDOW (window), "Top Window");
-  swindow = gtk_scrolled_window_new ();
-  gtk_window_set_child (GTK_WINDOW (window), swindow);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (swindow), sample_tree_view_top);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 300, 300);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Top Window");
+  swindow = bobgui_scrolled_window_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), swindow);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (swindow), sample_tree_view_top);
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done); 
-  gtk_window_set_default_size (GTK_WINDOW (window), 300, 300);
-  gtk_window_set_title (GTK_WINDOW (window), "Bottom Window");
-  swindow = gtk_scrolled_window_new ();
-  gtk_window_set_child (GTK_WINDOW (window), swindow);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (swindow), sample_tree_view_bottom);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 300, 300);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Bottom Window");
+  swindow = bobgui_scrolled_window_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), swindow);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (swindow), sample_tree_view_bottom);
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   /* Set up the main window */
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  gtk_window_set_default_size (GTK_WINDOW (window), 500, 300);
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 500, 300);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 8);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
-  gtk_box_append (GTK_BOX (vbox), hbox);
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 8);
+  bobgui_box_append (BOBGUI_BOX (vbox), hbox);
 
   /* Left Pane */
-  cell = gtk_cell_renderer_text_new ();
+  cell = bobgui_cell_renderer_text_new ();
 
-  swindow = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  left_tree_view = gtk_tree_view_new_with_model (left_tree_model);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (swindow), left_tree_view);
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (left_tree_view), -1,
+  swindow = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (swindow), BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
+  left_tree_view = bobgui_tree_view_new_with_model (left_tree_model);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (swindow), left_tree_view);
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (left_tree_view), -1,
 					       "Unattached Columns", cell, "text", 0, NULL);
-  cell = gtk_cell_renderer_toggle_new ();
+  cell = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (cell, "toggled", G_CALLBACK (set_visible), left_tree_view);
-  column = gtk_tree_view_column_new_with_attributes ("Visible", cell, NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (left_tree_view), column);
+  column = bobgui_tree_view_column_new_with_attributes ("Visible", cell, NULL);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (left_tree_view), column);
 
-  gtk_tree_view_column_set_cell_data_func (column, cell, get_visible, NULL, NULL);
-  gtk_box_append (GTK_BOX (hbox), swindow);
+  bobgui_tree_view_column_set_cell_data_func (column, cell, get_visible, NULL, NULL);
+  bobgui_box_append (BOBGUI_BOX (hbox), swindow);
 
   /* Middle Pane */
-  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_box_append (GTK_BOX (hbox), vbox2);
+  vbox2 = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 8);
+  bobgui_box_append (BOBGUI_BOX (hbox), vbox2);
 
-  bbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_box_append (GTK_BOX (vbox2), bbox);
+  bbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_box_append (BOBGUI_BOX (vbox2), bbox);
 
-  button = gtk_button_new_with_mnemonic ("<< (_Q)");
-  gtk_widget_set_sensitive (button, FALSE);
+  button = bobgui_button_new_with_mnemonic ("<< (_Q)");
+  bobgui_widget_set_sensitive (button, FALSE);
   g_signal_connect (button, "clicked", G_CALLBACK (add_left_clicked), top_right_tree_view);
-  g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (top_right_tree_view)),
+  g_signal_connect (bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (top_right_tree_view)),
                     "changed", G_CALLBACK (selection_changed), button);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  button = gtk_button_new_with_mnemonic (">> (_W)");
-  gtk_widget_set_sensitive (button, FALSE);
+  button = bobgui_button_new_with_mnemonic (">> (_W)");
+  bobgui_widget_set_sensitive (button, FALSE);
   g_signal_connect (button, "clicked", G_CALLBACK (add_right_clicked), top_right_tree_view);
-  g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (left_tree_view)),
+  g_signal_connect (bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (left_tree_view)),
                     "changed", G_CALLBACK (selection_changed), button);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  bbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_box_append (GTK_BOX (vbox2), bbox);
+  bbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_box_append (BOBGUI_BOX (vbox2), bbox);
 
-  button = gtk_button_new_with_mnemonic ("<< (_E)");
-  gtk_widget_set_sensitive (button, FALSE);
+  button = bobgui_button_new_with_mnemonic ("<< (_E)");
+  bobgui_widget_set_sensitive (button, FALSE);
   g_signal_connect (button, "clicked", G_CALLBACK (add_left_clicked), bottom_right_tree_view);
-  g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (bottom_right_tree_view)),
+  g_signal_connect (bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (bottom_right_tree_view)),
                     "changed", G_CALLBACK (selection_changed), button);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  button = gtk_button_new_with_mnemonic (">> (_R)");
-  gtk_widget_set_sensitive (button, FALSE);
+  button = bobgui_button_new_with_mnemonic (">> (_R)");
+  bobgui_widget_set_sensitive (button, FALSE);
   g_signal_connect (button, "clicked", G_CALLBACK (add_right_clicked), bottom_right_tree_view);
-  g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (left_tree_view)),
+  g_signal_connect (bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (left_tree_view)),
                     "changed", G_CALLBACK (selection_changed), button);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
 
   /* Right Pane */
-  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_box_append (GTK_BOX (hbox), vbox2);
+  vbox2 = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 8);
+  bobgui_box_append (BOBGUI_BOX (hbox), vbox2);
 
-  swindow = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (top_right_tree_view), FALSE);
-  cell = gtk_cell_renderer_text_new ();
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (top_right_tree_view), -1,
+  swindow = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (swindow), BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
+  bobgui_tree_view_set_headers_visible (BOBGUI_TREE_VIEW (top_right_tree_view), FALSE);
+  cell = bobgui_cell_renderer_text_new ();
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (top_right_tree_view), -1,
 					       NULL, cell, "text", 0, NULL);
-  cell = gtk_cell_renderer_toggle_new ();
+  cell = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (cell, "toggled", G_CALLBACK (set_visible), top_right_tree_view);
-  column = gtk_tree_view_column_new_with_attributes (NULL, cell, NULL);
-  gtk_tree_view_column_set_cell_data_func (column, cell, get_visible, NULL, NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (top_right_tree_view), column);
+  column = bobgui_tree_view_column_new_with_attributes (NULL, cell, NULL);
+  bobgui_tree_view_column_set_cell_data_func (column, cell, get_visible, NULL, NULL);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (top_right_tree_view), column);
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (swindow), top_right_tree_view);
-  gtk_box_append (GTK_BOX (vbox2), swindow);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (swindow), top_right_tree_view);
+  bobgui_box_append (BOBGUI_BOX (vbox2), swindow);
 
-  swindow = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (bottom_right_tree_view), FALSE);
-  cell = gtk_cell_renderer_text_new ();
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (bottom_right_tree_view), -1,
+  swindow = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (swindow), BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
+  bobgui_tree_view_set_headers_visible (BOBGUI_TREE_VIEW (bottom_right_tree_view), FALSE);
+  cell = bobgui_cell_renderer_text_new ();
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (bottom_right_tree_view), -1,
 					       NULL, cell, "text", 0, NULL);
-  cell = gtk_cell_renderer_toggle_new ();
+  cell = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (cell, "toggled", G_CALLBACK (set_visible), bottom_right_tree_view);
-  column = gtk_tree_view_column_new_with_attributes (NULL, cell, NULL);
-  gtk_tree_view_column_set_cell_data_func (column, cell, get_visible, NULL, NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (bottom_right_tree_view), column);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (swindow), bottom_right_tree_view);
-  gtk_box_append (GTK_BOX (vbox2), swindow);
+  column = bobgui_tree_view_column_new_with_attributes (NULL, cell, NULL);
+  bobgui_tree_view_column_set_cell_data_func (column, cell, get_visible, NULL, NULL);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (bottom_right_tree_view), column);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (swindow), bottom_right_tree_view);
+  bobgui_box_append (BOBGUI_BOX (vbox2), swindow);
 
 
   /* Drag and Drop */
-  targets = gdk_content_formats_new_for_gtype (GTK_TYPE_TREE_ROW_DATA);
-  gtk_tree_view_enable_model_drag_source (GTK_TREE_VIEW (left_tree_view),
+  targets = gdk_content_formats_new_for_gtype (BOBGUI_TYPE_TREE_ROW_DATA);
+  bobgui_tree_view_enable_model_drag_source (BOBGUI_TREE_VIEW (left_tree_view),
 					  GDK_BUTTON1_MASK,
                                           targets,
 					  GDK_ACTION_MOVE);
-  gtk_tree_view_enable_model_drag_dest (GTK_TREE_VIEW (left_tree_view),
+  bobgui_tree_view_enable_model_drag_dest (BOBGUI_TREE_VIEW (left_tree_view),
 					targets,
 					GDK_ACTION_MOVE);
 
-  gtk_tree_view_enable_model_drag_source (GTK_TREE_VIEW (top_right_tree_view),
+  bobgui_tree_view_enable_model_drag_source (BOBGUI_TREE_VIEW (top_right_tree_view),
 					  GDK_BUTTON1_MASK,
 					  targets,
 					  GDK_ACTION_MOVE);
-  gtk_tree_view_enable_model_drag_dest (GTK_TREE_VIEW (top_right_tree_view),
+  bobgui_tree_view_enable_model_drag_dest (BOBGUI_TREE_VIEW (top_right_tree_view),
 					targets,
 					GDK_ACTION_MOVE);
 
-  gtk_tree_view_enable_model_drag_source (GTK_TREE_VIEW (bottom_right_tree_view),
+  bobgui_tree_view_enable_model_drag_source (BOBGUI_TREE_VIEW (bottom_right_tree_view),
 					  GDK_BUTTON1_MASK,
 					  targets,
 					  GDK_ACTION_MOVE);
-  gtk_tree_view_enable_model_drag_dest (GTK_TREE_VIEW (bottom_right_tree_view),
+  bobgui_tree_view_enable_model_drag_dest (BOBGUI_TREE_VIEW (bottom_right_tree_view),
 					targets,
 					GDK_ACTION_MOVE);
   gdk_content_formats_unref (targets);
 
-  gtk_box_append (GTK_BOX (vbox), gtk_separator_new (GTK_ORIENTATION_HORIZONTAL));
+  bobgui_box_append (BOBGUI_BOX (vbox), bobgui_separator_new (BOBGUI_ORIENTATION_HORIZONTAL));
 
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
-  gtk_box_append (GTK_BOX (vbox), hbox);
-  button = gtk_button_new_with_mnemonic ("_Add new Column");
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 8);
+  bobgui_box_append (BOBGUI_BOX (vbox), hbox);
+  button = bobgui_button_new_with_mnemonic ("_Add new Column");
   g_signal_connect (button, "clicked", G_CALLBACK (add_clicked), left_tree_model);
-  gtk_box_append (GTK_BOX (hbox), button);
+  bobgui_box_append (BOBGUI_BOX (hbox), button);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

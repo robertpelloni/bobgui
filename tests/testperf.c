@@ -17,7 +17,7 @@ callback (const SysprofCaptureFrame *frame,
   if (frame->type == SYSPROF_CAPTURE_FRAME_MARK)
     {
       SysprofCaptureMark *mark = (SysprofCaptureMark *)frame;
-      if (strcmp (mark->group, "gtk") == 0 &&
+      if (strcmp (mark->group, "bobgui") == 0 &&
           strcmp (mark->name, data->group) == 0)
         {
           data->value = mark->duration;
@@ -75,15 +75,15 @@ main (int argc, char *argv[])
       SysprofCaptureCursor *cursor;
       SysprofCaptureCondition *condition;
 
-      fd = g_file_open_tmp ("gtk.XXXXXX.syscap", &name, &error);
+      fd = g_file_open_tmp ("bobgui.XXXXXX.syscap", &name, &error);
       if (error)
         g_error ("Create syscap file: %s", error->message);
 
       launcher = g_subprocess_launcher_new (0);
       g_subprocess_launcher_take_fd (launcher, fd, fd);
       g_snprintf (fd_str, sizeof (fd_str), "%d", fd);
-      g_subprocess_launcher_setenv (launcher, "GTK_TRACE_FD", fd_str, TRUE);
-      g_subprocess_launcher_setenv (launcher, "GTK_DEBUG_AUTO_QUIT", "1", TRUE);
+      g_subprocess_launcher_setenv (launcher, "BOBGUI_TRACE_FD", fd_str, TRUE);
+      g_subprocess_launcher_setenv (launcher, "BOBGUI_DEBUG_AUTO_QUIT", "1", TRUE);
 
       subprocess = g_subprocess_launcher_spawnv (launcher, (const char *const *)argv + 1, &error);
       if (error)

@@ -1,4 +1,4 @@
-project('gtk', 'c',
+project('bobgui', 'c',
         version: '4.23.0',
         default_options: [
           'buildtype=debugoptimized',
@@ -51,26 +51,26 @@ add_project_arguments([
 
 # Making releases:
 #  1. new development cycle:
-#    a. gtk_minor_version += 1
-#    b. gtk_micro_version = 0
+#    a. bobgui_minor_version += 1
+#    b. bobgui_micro_version = 0
 #  2. new stable cycle:
-#    a. gtk_minor_version += 1
-#    b. gtk_micro_version = 0
+#    a. bobgui_minor_version += 1
+#    b. bobgui_micro_version = 0
 #  3. every new release:
-#    a. gtk_micro_version += 1
-gtk_version       = meson.project_version()
-gtk_major_version = gtk_version.split('.')[0].to_int()
-gtk_minor_version = gtk_version.split('.')[1].to_int()
-gtk_micro_version = gtk_version.split('.')[2].to_int()
+#    a. bobgui_micro_version += 1
+bobgui_version       = meson.project_version()
+bobgui_major_version = bobgui_version.split('.')[0].to_int()
+bobgui_minor_version = bobgui_version.split('.')[1].to_int()
+bobgui_micro_version = bobgui_version.split('.')[2].to_int()
 
 # Interface age gets reset during development cycles, when
 # we add new API; new micro versions of the same minor
 # stable cycle will have the same interface age
 #
 # If new API is added during a stable cycle, reset to 0
-gtk_interface_age = gtk_minor_version.is_odd() ? 0 : gtk_micro_version
+bobgui_interface_age = bobgui_minor_version.is_odd() ? 0 : bobgui_micro_version
 
-add_project_arguments('-DGTK_VERSION="@0@"'.format(gtk_version), language: 'c')
+add_project_arguments('-DBOBGUI_VERSION="@0@"'.format(bobgui_version), language: 'c')
 
 add_project_arguments('-D_GNU_SOURCE', language: 'c')
 
@@ -84,33 +84,33 @@ endif
 
 # Use debug/optimization flags to determine whether to enable debug or disable
 # cast checks
-gtk_debug_cflags = []
+bobgui_debug_cflags = []
 debug = get_option('debug')
 optimization = get_option('optimization')
 if debug
-  gtk_debug_cflags += '-DG_ENABLE_DEBUG'
+  bobgui_debug_cflags += '-DG_ENABLE_DEBUG'
   if optimization in ['0', 'g']
-    gtk_debug_cflags += '-DG_ENABLE_CONSISTENCY_CHECKS'
+    bobgui_debug_cflags += '-DG_ENABLE_CONSISTENCY_CHECKS'
   endif
 elif optimization in ['2', '3', 's']
-  gtk_debug_cflags += ['-DG_DISABLE_CAST_CHECKS', '-DG_DISABLE_ASSERT']
+  bobgui_debug_cflags += ['-DG_DISABLE_CAST_CHECKS', '-DG_DISABLE_ASSERT']
 endif
 
-add_project_arguments(gtk_debug_cflags, language: 'c')
+add_project_arguments(bobgui_debug_cflags, language: 'c')
 
 # Define a string for the earliest version that this release has
 # backwards binary compatibility with for all interfaces a module
 # might. Unless we add module-only API with lower stability
 # guarantees, this should be unchanged until we break binary compat
-# for GTK+.
-gtk_binary_version = '4.0.0'
+# for BOBGUI+.
+bobgui_binary_version = '4.0.0'
 
-gtk_binary_age = 100 * gtk_minor_version + gtk_micro_version
+bobgui_binary_age = 100 * bobgui_minor_version + bobgui_micro_version
 
-gtk_soversion = '1'
-gtk_library_version = '1.@0@.@1@'.format(gtk_binary_age - gtk_interface_age, gtk_interface_age)
+bobgui_soversion = '1'
+bobgui_library_version = '1.@0@.@1@'.format(bobgui_binary_age - bobgui_interface_age, bobgui_interface_age)
 
-gtk_api_version = '4.0'
+bobgui_api_version = '4.0'
 
 x11_enabled      = get_option('x11-backend')
 wayland_enabled  = get_option('wayland-backend')
@@ -142,7 +142,7 @@ if host_machine.system() == 'darwin'
     ''',
     name: 'macOS SDK version >= 10.15',
   )
-    error('macOS SDK 10.15 or newer is required to build GTK')
+    error('macOS SDK 10.15 or newer is required to build BOBGUI')
   endif
 
   os_darwin = true
@@ -176,24 +176,24 @@ else
   android_enabled = false
 endif
 
-gtk_prefix = get_option('prefix')
-gtk_includedir = join_paths(gtk_prefix, get_option('includedir'))
-gtk_libdir = join_paths(gtk_prefix, get_option('libdir'))
-gtk_datadir = join_paths(gtk_prefix, get_option('datadir'))
-gtk_localedir = join_paths(gtk_prefix, get_option('localedir'))
-gtk_sysconfdir = join_paths(gtk_prefix, get_option('sysconfdir'))
-gtk_bindir = join_paths(gtk_prefix, get_option('bindir'))
-gtk_applicationsdir = join_paths(gtk_datadir, 'applications')
-gtk_schemasdir = join_paths(gtk_datadir, 'glib-2.0/schemas')
-gtk_appdatadir = join_paths(gtk_datadir, 'metainfo')
+bobgui_prefix = get_option('prefix')
+bobgui_includedir = join_paths(bobgui_prefix, get_option('includedir'))
+bobgui_libdir = join_paths(bobgui_prefix, get_option('libdir'))
+bobgui_datadir = join_paths(bobgui_prefix, get_option('datadir'))
+bobgui_localedir = join_paths(bobgui_prefix, get_option('localedir'))
+bobgui_sysconfdir = join_paths(bobgui_prefix, get_option('sysconfdir'))
+bobgui_bindir = join_paths(bobgui_prefix, get_option('bindir'))
+bobgui_applicationsdir = join_paths(bobgui_datadir, 'applications')
+bobgui_schemasdir = join_paths(bobgui_datadir, 'glib-2.0/schemas')
+bobgui_appdatadir = join_paths(bobgui_datadir, 'metainfo')
 
 cdata = configuration_data()
 cdata.set_quoted('PACKAGE_VERSION', meson.project_version())
-cdata.set_quoted('GTK_LOCALEDIR', gtk_localedir)
-cdata.set_quoted('GTK_DATADIR', gtk_datadir)
-cdata.set_quoted('GTK_LIBDIR', gtk_libdir)
-cdata.set_quoted('GTK_SYSCONFDIR', gtk_sysconfdir)
-cdata.set_quoted('GETTEXT_PACKAGE', 'gtk40')
+cdata.set_quoted('BOBGUI_LOCALEDIR', bobgui_localedir)
+cdata.set_quoted('BOBGUI_DATADIR', bobgui_datadir)
+cdata.set_quoted('BOBGUI_LIBDIR', bobgui_libdir)
+cdata.set_quoted('BOBGUI_SYSCONFDIR', bobgui_sysconfdir)
+cdata.set_quoted('GETTEXT_PACKAGE', 'bobgui40')
 
 check_headers = [
   'dev/evdev/input.h',
@@ -269,11 +269,11 @@ cdata.set('HAVE_BACKTRACE', cc.has_function('backtrace', prefix: '#include <exec
 
 # Disable deprecation checks for all libraries we depend on on stable branches.
 # This is so newer versions of those libraries don't cause more warnings with
-# a stable GTK version.
+# a stable BOBGUI version.
 #
 # We don't ever want to turn off deprecation warnings for development cycles,
 # however, because that's where we get rid of deprecated API we use.
-if gtk_minor_version.is_even()
+if bobgui_minor_version.is_even()
   cdata.set('GLIB_DISABLE_DEPRECATION_WARNINGS', 1)
 endif
 
@@ -299,14 +299,14 @@ if cc.get_id() == 'msvc'
     '/wd4152', # nonstandard function to data covnversion - g_task_set_source_tag() uses it
     '/wd4189', # MSVC can't handle G_GNUC_UNUSED
     '/wd4200', # zero-sized array in struct/union
-    '/wd4201', # nameless struct/union is required with GTK
+    '/wd4201', # nameless struct/union is required with BOBGUI
     '/wd4206', # empty file - gdkkeys-win32-impl-wow64.c qualifies
     '/wd4232', # non-static DLL imports - we do that in lots of places with functions, particularly get_type()
-    '/wd4245', # conversion from signed to unsigned (no gcc warning, so GTK's littered with it)
-    '/wd4267', # conversion from $64BIT to $32BIT, possible loss of data (no gcc warning, so GTK's littered with it)
+    '/wd4245', # conversion from signed to unsigned (no gcc warning, so BOBGUI's littered with it)
+    '/wd4267', # conversion from $64BIT to $32BIT, possible loss of data (no gcc warning, so BOBGUI's littered with it)
     '/wd4324', # structure was padded due to alignment specifier - why are you warning about doing what I told you?!
     '/wd4334', # '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
-    '/wd4389', # comparison between signed and unsigned (no gcc warning, so GTK's littered with it)
+    '/wd4389', # comparison between signed and unsigned (no gcc warning, so BOBGUI's littered with it)
     '/wd4701', # potentially uninitialized variable - triggers all the time in debug builds
     '/wd4702', # unreachable code, triggers after assert_not_reached() which can be compiled out
   ]
@@ -398,7 +398,7 @@ elif cc.get_id() == 'gcc' or cc.get_id() == 'clang'
     test_cflags += ['-Wcast-align'] # This warns too much on clang
   endif
 
-  if not gtk_debug_cflags.contains('-DG_DISABLE_ASSERT')
+  if not bobgui_debug_cflags.contains('-DG_DISABLE_ASSERT')
     test_cflags += ['-Wnull-dereference'] # Too noisy when assertions are disabled
   endif
 else
@@ -425,7 +425,7 @@ common_ldflags = cc.get_supported_link_arguments([
 confinc = include_directories('.')
 gdkinc = include_directories('gdk')
 gskinc = include_directories('gsk')
-gtkinc = include_directories('gtk')
+bobguiinc = include_directories('bobgui')
 testinc = include_directories('tests')
 
 harfbuzz_fallback_options = [
@@ -473,7 +473,7 @@ pangoft_dep    = dependency('pangoft2', version: pango_req,
                             required: wayland_enabled or x11_enabled)
 
 if win32_enabled
-  # for GTK_IM_CONTEXT_IME
+  # for BOBGUI_IM_CONTEXT_IME
   pangowin32_dep = dependency('pangowin32')
 endif
 
@@ -487,6 +487,8 @@ epoxy_dep         = dependency('epoxy', version: epoxy_req)
 xkbdep            = dependency('xkbcommon', version: xkbcommon_req, required: wayland_enabled)
 graphene_dep      = dependency('graphene-gobject-1.0', version: graphene_req,
                                default_options: ['tests=false', 'gobject_types=true'])
+soup_dep          = dependency('libsoup-3.0')
+sqlite_dep        = dependency('sqlite3')
 iso_codes_dep     = dependency('iso-codes', required: false)
 gstplay_dep       = dependency('gstreamer-play-1.0', version: gstreamer_req,
                                required: get_option('media-gstreamer'),
@@ -752,7 +754,7 @@ if not get_option('sysprof').disabled()
     default_options: [
       'agent=false',
       'examples=false',
-      'gtk=false',
+      'bobgui=false',
       'tests=false',
       'tools=false',
       'libsysprof=true',
@@ -887,7 +889,7 @@ gen_profile_conf = find_program('build-aux/meson/gen-profile-conf.py')
 
 profile = get_option('profile')
 if profile == 'auto'
-  if gtk_minor_version.is_even()
+  if bobgui_minor_version.is_even()
     profile = 'default'
   else
     profile = 'devel'
@@ -905,10 +907,10 @@ profile_conf_h = declare_dependency(
 )
 
 subdir('gdk/version')
-subdir('gtk/css')
+subdir('bobgui/css')
 subdir('gdk')
 subdir('gsk')
-subdir('gtk')
+subdir('bobgui')
 
 subdir('tools')
 subdir('po')
@@ -950,7 +952,7 @@ if vulkan_pkg_found
 endif
 
 gsk_packages = [ 'graphene-gobject-1.0 @0@'.format(graphene_req) ]
-gtk_packages = [ 'gio-2.0 @0@'.format(glib_req) ]
+bobgui_packages = [ 'gio-2.0 @0@'.format(glib_req) ]
 
 enabled_backends = []
 foreach backend: [ 'android', 'broadway', 'macos', 'wayland', 'win32', 'x11', ]
@@ -961,61 +963,61 @@ endforeach
 
 common_pc_variables = [
   'targets=@0@'.format(' '.join(enabled_backends)),
-  'gtk_binary_version=@0@'.format(gtk_binary_version),
-  'gtk_host=@0@-@1@'.format(host_machine.cpu_family(), host_machine.system()), # FIXME
+  'bobgui_binary_version=@0@'.format(bobgui_binary_version),
+  'bobgui_host=@0@-@1@'.format(host_machine.cpu_family(), host_machine.system()), # FIXME
 ]
 
-pkg_config.generate(libgtk,
-  filebase: 'gtk4',
+pkg_config.generate(libbobgui,
+  filebase: 'bobgui4',
   unescaped_variables: common_pc_variables,
-  name: 'GTK',
-  description: 'GTK Graphical UI Library',
-  requires: gdk_packages + gsk_packages + gtk_packages,
-  subdirs: ['gtk-@0@'.format(gtk_api_version)],
+  name: 'BOBGUI',
+  description: 'BOBGUI Graphical UI Library',
+  requires: gdk_packages + gsk_packages + bobgui_packages,
+  subdirs: ['bobgui-@0@'.format(bobgui_api_version)],
 )
-meson.override_dependency('gtk4', libgtk_dep)
+meson.override_dependency('bobgui4', libbobgui_dep)
 
 foreach backend: enabled_backends
-  pkg = 'gtk4-@0@'.format(backend)
+  pkg = 'bobgui4-@0@'.format(backend)
   pkg_config.generate(
     filebase: pkg,
     unescaped_variables: common_pc_variables,
-    name: 'GTK',
-    description: 'GTK Graphical UI Library',
-    requires: ['gtk4', get_variable('@0@_public_deps'.format(backend), [])],
+    name: 'BOBGUI',
+    description: 'BOBGUI Graphical UI Library',
+    requires: ['bobgui4', get_variable('@0@_public_deps'.format(backend), [])],
   )
-  meson.override_dependency(pkg, libgtk_dep)
+  meson.override_dependency(pkg, libbobgui_dep)
 endforeach
 
-foreach a11y_backend: gtk_a11y_backends
-  pkg = 'gtk4-@0@'.format(a11y_backend)
+foreach a11y_backend: bobgui_a11y_backends
+  pkg = 'bobgui4-@0@'.format(a11y_backend)
   pkg_config.generate(
     filebase: pkg,
     unescaped_variables: common_pc_variables,
-    name: 'GTK',
-    description: gtk_a11y_backend_info[a11y_backend]['description'],
-    requires: ['gtk4', get_variable('@0@_public_deps'.format(a11y_backend), [])],
+    name: 'BOBGUI',
+    description: bobgui_a11y_backend_info[a11y_backend]['description'],
+    requires: ['bobgui4', get_variable('@0@_public_deps'.format(a11y_backend), [])],
   )
-  meson.override_dependency(pkg, libgtk_dep)
+  meson.override_dependency(pkg, libbobgui_dep)
 endforeach
 
 if os_unix
   pkg_config.generate(
-    filebase: 'gtk4-unix-print',
+    filebase: 'bobgui4-unix-print',
     unescaped_variables: common_pc_variables,
-    name: 'GTK',
-    description: 'GTK Unix print support',
-    requires: 'gtk4',
-    subdirs: ['gtk-@0@/unix-print'.format(gtk_api_version)],
+    name: 'BOBGUI',
+    description: 'BOBGUI Unix print support',
+    requires: 'bobgui4',
+    subdirs: ['bobgui-@0@/unix-print'.format(bobgui_api_version)],
   )
-  meson.override_dependency('gtk4-unix-print', libgtk_dep)
+  meson.override_dependency('bobgui4-unix-print', libbobgui_dep)
 endif
 
 
 if not meson.is_cross_build()
   gnome.post_install(
     glib_compile_schemas: true,
-    gtk_update_icon_cache: get_option('build-demos'),
+    bobgui_update_icon_cache: get_option('build-demos'),
     update_mime_database: os_linux,
   )
 else
@@ -1029,8 +1031,8 @@ endif
 if host_machine.system() != 'windows'
   # Install Valgrind suppression files (except on Windows,
   # as Valgrind is currently not supported on Windows)
-  install_data('gtk.supp',
-    install_dir : join_paths(gtk_datadir, 'gtk-4.0', 'valgrind'))
+  install_data('bobgui.supp',
+    install_dir : join_paths(bobgui_datadir, 'bobgui-4.0', 'valgrind'))
 endif
 
 
@@ -1060,7 +1062,7 @@ summary('Tests', get_option('build-tests'), section: 'Build')
 summary('Demos', get_option('build-demos'), section: 'Build')
 summary('Examples', get_option('build-examples'), section: 'Build')
 
-summary('Prefix', gtk_prefix, section: 'Directories')
-summary('Includedir', gtk_includedir, section: 'Directories')
-summary('Libdir', gtk_libdir, section: 'Directories')
-summary('Datadir', gtk_datadir, section: 'Directories')
+summary('Prefix', bobgui_prefix, section: 'Directories')
+summary('Includedir', bobgui_includedir, section: 'Directories')
+summary('Libdir', bobgui_libdir, section: 'Directories')
+summary('Datadir', bobgui_datadir, section: 'Directories')

@@ -26,13 +26,13 @@
 
 #include <graphene.h>
 
-/* HACK: So we don't need to include any (not-yet-created) GSK or GTK headers */
-GdkSnapshot *   gtk_snapshot_new                        (void);
-void            gtk_snapshot_push_debug                 (GdkSnapshot            *snapshot,
+/* HACK: So we don't need to include any (not-yet-created) GSK or BOBGUI headers */
+GdkSnapshot *   bobgui_snapshot_new                        (void);
+void            bobgui_snapshot_push_debug                 (GdkSnapshot            *snapshot,
                                                          const char             *message,
                                                          ...) G_GNUC_PRINTF (2, 3);
-void            gtk_snapshot_pop                        (GdkSnapshot            *snapshot);
-GdkPaintable *  gtk_snapshot_free_to_paintable          (GdkSnapshot            *snapshot,
+void            bobgui_snapshot_pop                        (GdkSnapshot            *snapshot);
+GdkPaintable *  bobgui_snapshot_free_to_paintable          (GdkSnapshot            *snapshot,
                                                          const graphene_size_t  *size);
 
 /**
@@ -118,9 +118,9 @@ gdk_paintable_default_get_current_image (GdkPaintable *paintable)
   if (width <= 0 || height <= 0)
     return gdk_paintable_new_empty (width, height);
 
-  snapshot = gtk_snapshot_new ();
+  snapshot = bobgui_snapshot_new ();
   gdk_paintable_snapshot (paintable, snapshot, width, height);
-  return gtk_snapshot_free_to_paintable (snapshot, NULL);
+  return bobgui_snapshot_free_to_paintable (snapshot, NULL);
 }
 
 static GdkPaintableFlags
@@ -247,12 +247,12 @@ gdk_paintable_snapshot (GdkPaintable *paintable,
   if (width <= 0.0 || height <= 0.0)
     return;
 
-  gtk_snapshot_push_debug (snapshot, "%s %p @ %gx%g", G_OBJECT_TYPE_NAME (paintable), paintable, width, height);
+  bobgui_snapshot_push_debug (snapshot, "%s %p @ %gx%g", G_OBJECT_TYPE_NAME (paintable), paintable, width, height);
 
   iface = GDK_PAINTABLE_GET_IFACE (paintable);
   iface->snapshot (paintable, snapshot, width, height);
 
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 #define GDK_PAINTABLE_IMMUTABLE (GDK_PAINTABLE_STATIC_SIZE | GDK_PAINTABLE_STATIC_CONTENTS)
@@ -474,7 +474,7 @@ gdk_paintable_invalidate_size (GdkPaintable *paintable)
  *
  * It is not necessary to call this function when both @specified_width
  * and @specified_height are known, but it is useful to call this
- * function in GtkWidget:measure implementations to compute the
+ * function in BobguiWidget:measure implementations to compute the
  * other dimension when only one dimension is given.
  */
 void
@@ -680,7 +680,7 @@ gdk_empty_paintable_init (GdkEmptyPaintable *self)
  * This is often useful for implementing the
  * [vfunc@Gdk.Paintable.get_current_image] virtual function
  * when the paintable is in an incomplete state (like a
- * [GtkMediaStream](../gtk4/class.MediaStream.html) before receiving
+ * [BobguiMediaStream](../bobgui4/class.MediaStream.html) before receiving
  * the first frame).
  *
  * Returns: (transfer full): a `GdkPaintable`

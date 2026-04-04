@@ -1,6 +1,6 @@
 /* -*- mode: C; c-basic-offset: 2; indent-tabs-mode: nil; -*- */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "frame-stats.h"
 
@@ -41,38 +41,38 @@ data_table_item_new (int data)
 
 
 static void
-set_adjustment_to_fraction (GtkAdjustment *adjustment,
+set_adjustment_to_fraction (BobguiAdjustment *adjustment,
                             double         fraction)
 {
-  double upper = gtk_adjustment_get_upper (adjustment);
-  double lower = gtk_adjustment_get_lower (adjustment);
-  double page_size = gtk_adjustment_get_page_size (adjustment);
+  double upper = bobgui_adjustment_get_upper (adjustment);
+  double lower = bobgui_adjustment_get_lower (adjustment);
+  double page_size = bobgui_adjustment_get_page_size (adjustment);
 
-  gtk_adjustment_set_value (adjustment,
+  bobgui_adjustment_set_value (adjustment,
                             (1 - fraction) * lower +
                             fraction * (upper - page_size));
 }
 
 static void
-move_adjustment_by_pages (GtkAdjustment *adjustment,
+move_adjustment_by_pages (BobguiAdjustment *adjustment,
                           double         n_pages)
 {
-  double page_size = gtk_adjustment_get_page_size (adjustment);
-  double value = gtk_adjustment_get_value (adjustment);
+  double page_size = bobgui_adjustment_get_page_size (adjustment);
+  double value = bobgui_adjustment_get_value (adjustment);
 
   value += page_size * n_pages;
   /* the adjustment will clamp properly */
-  gtk_adjustment_set_value (adjustment, value);
+  bobgui_adjustment_set_value (adjustment, value);
 }
 
 static gboolean
-scroll_column_view (GtkWidget     *column_view,
+scroll_column_view (BobguiWidget     *column_view,
                     GdkFrameClock *frame_clock,
                     gpointer       user_data)
 {
-  GtkAdjustment *vadjustment;
+  BobguiAdjustment *vadjustment;
 
-  vadjustment = gtk_scrollable_get_vadjustment (GTK_SCROLLABLE (column_view));
+  vadjustment = bobgui_scrollable_get_vadjustment (BOBGUI_SCROLLABLE (column_view));
 
   if (scroll_pages == 0.0)
     set_adjustment_to_fraction (vadjustment, g_random_double ());
@@ -93,45 +93,45 @@ enum WidgetType
 static enum WidgetType widget_type = WIDGET_TYPE_INSCRIPTION;
 
 static void
-setup (GtkSignalListItemFactory *factory,
+setup (BobguiSignalListItemFactory *factory,
        GObject                  *listitem)
 {
-  GtkWidget *widget;
+  BobguiWidget *widget;
 
   switch (widget_type)
     {
     case WIDGET_TYPE_NONE:
       /* It's actually a box, just to request size similar to labels. */
-      widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-      gtk_widget_set_size_request (widget, 50, 18);
+      widget = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+      bobgui_widget_set_size_request (widget, 50, 18);
       break;
     case WIDGET_TYPE_LABEL:
-      widget = gtk_label_new ("");
+      widget = bobgui_label_new ("");
       break;
     case WIDGET_TYPE_TEXT:
-      widget = gtk_text_new ();
+      widget = bobgui_text_new ();
       break;
     case WIDGET_TYPE_INSCRIPTION:
-      widget = gtk_inscription_new ("");
-      gtk_inscription_set_min_chars (GTK_INSCRIPTION (widget), 6);
+      widget = bobgui_inscription_new ("");
+      bobgui_inscription_set_min_chars (BOBGUI_INSCRIPTION (widget), 6);
       break;
     default:
       g_assert_not_reached ();
     }
 
-  gtk_list_item_set_child (GTK_LIST_ITEM (listitem), widget);
+  bobgui_list_item_set_child (BOBGUI_LIST_ITEM (listitem), widget);
 }
 
 static void
-bind (GtkSignalListItemFactory *factory,
+bind (BobguiSignalListItemFactory *factory,
       GObject                  *listitem,
       gpointer                  name)
 {
-  GtkWidget *widget;
+  BobguiWidget *widget;
   GObject *item;
 
-  widget = gtk_list_item_get_child (GTK_LIST_ITEM (listitem));
-  item = gtk_list_item_get_item (GTK_LIST_ITEM (listitem));
+  widget = bobgui_list_item_get_child (BOBGUI_LIST_ITEM (listitem));
+  item = bobgui_list_item_get_item (BOBGUI_LIST_ITEM (listitem));
 
   char buffer[16] = { 0, };
   g_snprintf (buffer,
@@ -145,13 +145,13 @@ bind (GtkSignalListItemFactory *factory,
     case WIDGET_TYPE_NONE:
       break;
     case WIDGET_TYPE_LABEL:
-      gtk_label_set_label (GTK_LABEL (widget), buffer);
+      bobgui_label_set_label (BOBGUI_LABEL (widget), buffer);
       break;
     case WIDGET_TYPE_TEXT:
-      gtk_editable_set_text (GTK_EDITABLE (widget), buffer);
+      bobgui_editable_set_text (BOBGUI_EDITABLE (widget), buffer);
       break;
     case WIDGET_TYPE_INSCRIPTION:
-      gtk_inscription_set_text (GTK_INSCRIPTION (widget), buffer);
+      bobgui_inscription_set_text (BOBGUI_INSCRIPTION (widget), buffer);
       break;
     default:
       g_assert_not_reached ();
@@ -233,7 +233,7 @@ static GOptionEntry options[] = {
 };
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -246,12 +246,12 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char **argv)
 {
-  GtkWidget *window;
-  GtkWidget *scrolled_window;
+  BobguiWidget *window;
+  BobguiWidget *scrolled_window;
   GListStore *store;
   int i;
-  GtkMultiSelection *multi_selection;
-  GtkWidget *column_view;
+  BobguiMultiSelection *multi_selection;
+  BobguiWidget *column_view;
   GError *error = NULL;
   gboolean done = FALSE;
 
@@ -265,14 +265,14 @@ main (int argc, char **argv)
       return 1;
     }
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  frame_stats_ensure (GTK_WINDOW (window));
-  gtk_window_set_default_size (GTK_WINDOW (window), 1700, 900);
+  window = bobgui_window_new ();
+  frame_stats_ensure (BOBGUI_WINDOW (window));
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 1700, 900);
 
-  scrolled_window = gtk_scrolled_window_new ();
-  gtk_window_set_child (GTK_WINDOW (window), scrolled_window);
+  scrolled_window = bobgui_scrolled_window_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), scrolled_window);
 
   store = g_list_store_new (DATA_TABLE_TYPE_ITEM);
   for (i = 0; i < 10000; ++i)
@@ -282,37 +282,37 @@ main (int argc, char **argv)
       g_object_unref (item);
     }
 
-  multi_selection = gtk_multi_selection_new (G_LIST_MODEL (store));
-  column_view = gtk_column_view_new (GTK_SELECTION_MODEL (multi_selection));
+  multi_selection = bobgui_multi_selection_new (G_LIST_MODEL (store));
+  column_view = bobgui_column_view_new (BOBGUI_SELECTION_MODEL (multi_selection));
 
-  gtk_column_view_set_show_column_separators (GTK_COLUMN_VIEW (column_view), TRUE);
-  gtk_column_view_set_show_row_separators (GTK_COLUMN_VIEW (column_view), TRUE);
-  gtk_widget_add_css_class (column_view, "data-table");
+  bobgui_column_view_set_show_column_separators (BOBGUI_COLUMN_VIEW (column_view), TRUE);
+  bobgui_column_view_set_show_row_separators (BOBGUI_COLUMN_VIEW (column_view), TRUE);
+  bobgui_widget_add_css_class (column_view, "data-table");
 
   for (i = 0; i < MIN (n_columns, 127 - 65); ++i)
     {
       const char name[] = { 'A' + i, '\0' };
 
-      GtkListItemFactory *factory = gtk_signal_list_item_factory_new ();
+      BobguiListItemFactory *factory = bobgui_signal_list_item_factory_new ();
       g_signal_connect (factory, "setup", G_CALLBACK (setup), NULL);
       g_signal_connect (factory, "bind", G_CALLBACK (bind), GINT_TO_POINTER (name[0]));
 
-      gtk_column_view_append_column (GTK_COLUMN_VIEW (column_view),
-                                     gtk_column_view_column_new (name, factory));
+      bobgui_column_view_append_column (BOBGUI_COLUMN_VIEW (column_view),
+                                     bobgui_column_view_column_new (name, factory));
     }
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window),
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled_window),
                                  column_view);
 
   if (!no_auto_scroll)
     {
-      gtk_widget_add_tick_callback (column_view,
+      bobgui_widget_add_tick_callback (column_view,
                                     scroll_column_view,
                                     NULL,
                                     NULL);
     }
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
   g_signal_connect (window, "destroy",
                     G_CALLBACK (quit_cb), &done);
 

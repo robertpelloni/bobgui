@@ -129,40 +129,40 @@
       </section>
     </section>
   </menu>
-  <object class="GtkAdjustment" id="adjustment1">
+  <object class="BobguiAdjustment" id="adjustment1">
     <property name="upper">100</property>
     <property name="value">50</property>
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="adjustment2">
+  <object class="BobguiAdjustment" id="adjustment2">
     <property name="upper">1000</property>
     <property name="lower">1</property>
     <property name="value">50</property>
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="adjustment3">
+  <object class="BobguiAdjustment" id="adjustment3">
     <property name="upper">4</property>
     <property name="value">2</property>
     <property name="step-increment">1</property>
     <property name="page-increment">1</property>
   </object>
-  <object class="GtkAdjustment" id="pg_adjustment">
+  <object class="BobguiAdjustment" id="pg_adjustment">
     <property name="upper">99</property>
     <property name="lower">1</property>
     <property name="value">2</property>
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="pg_adjustment2">
+  <object class="BobguiAdjustment" id="pg_adjustment2">
     <property name="upper">99</property>
     <property name="lower">1</property>
     <property name="value">4</property>
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkListStore" id="liststore1">
+  <object class="BobguiListStore" id="liststore1">
     <columns>
       <column type="gboolean"/>
       <column type="gchararray"/>
@@ -201,20 +201,20 @@
       </row>
     </data>
   </object>
-  <object class="GtkEntryCompletion" id="name_completion">
+  <object class="BobguiEntryCompletion" id="name_completion">
     <property name="model">liststore1</property>
     <property name="text-column">2</property>
     <property name="inline-completion">1</property>
     <property name="popup-single-match">0</property>
     <property name="inline-selection">1</property>
     <child>
-      <object class="GtkCellRendererText"/>
+      <object class="BobguiCellRendererText"/>
       <attributes>
         <attribute name="text">2</attribute>
       </attributes>
     </child>
   </object>
-  <object class="GtkListStore" id="lrmodel">
+  <object class="BobguiListStore" id="lrmodel">
     <columns>
       <column type="gchararray"/>
     </columns>
@@ -230,27 +230,27 @@
       </row>
     </data>
   </object>
-  <object class="GtkTextTagTable" id="tags">
+  <object class="BobguiTextTagTable" id="tags">
     <child type="tag">
-      <object class="GtkTextTag">
+      <object class="BobguiTextTag">
         <property name="name">bold</property>
         <property name="weight">800</property>
       </object>
     </child>
     <child type="tag">
-      <object class="GtkTextTag">
+      <object class="BobguiTextTag">
         <property name="name">italic</property>
         <property name="style">2</property>
       </object>
     </child>
     <child type="tag">
-      <object class="GtkTextTag">
+      <object class="BobguiTextTag">
         <property name="name">underline</property>
         <property name="underline">1</property>
       </object>
     </child>
   </object>
-  <object class="GtkTextBuffer" id="textbuffer1">
+  <object class="BobguiTextBuffer" id="textbuffer1">
     <property name="tag-table">tags</property>
     <property name="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Nullam fringilla, est ut feugiat ultrices, elit lacus ultricies nibh, id commodo tortor nisi id elit.
@@ -266,7 +266,7 @@ Duis eu lectus quam. Vivamus eget metus a mauris molestie venenatis pulvinar ele
 Nulla facilisi. Pellentesque at dolor sit amet purus dapibus pulvinar molestie quis neque.
 Suspendisse feugiat quam quis dolor accumsan cursus.</property>
   </object>
-  <object class="GtkTextBuffer" id="textbuffer2">
+  <object class="BobguiTextBuffer" id="textbuffer2">
     <property name="text">* Translation updates:
  Aragonese
  Assamese
@@ -283,7 +283,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
  Spanish
  Uyghur</property>
   </object>
-  <object class="GtkListStore" id="iconsmodel">
+  <object class="BobguiListStore" id="iconsmodel">
     <columns>
       <column type="gchararray"/>
     </columns>
@@ -416,7 +416,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
       </row>
     </data>
   </object>
-  <object class="GtkTreeStore" id="charlemodel">
+  <object class="BobguiTreeStore" id="charlemodel">
     <columns>
       <column type="gchararray"/>
       <column type="gchararray"/>
@@ -424,26 +424,26 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
       <column type="gboolean"/>
     </columns>
   </object>
-  <object class="GtkApplicationWindow" id="window">
-    <property name="title">GTK Widget Factory</property>
+  <object class="BobguiApplicationWindow" id="window">
+    <property name="title">BOBGUI Widget Factory</property>
     <property name="titlebar">
-      <object class="GtkHeaderBar" id="headerbar1">
+      <object class="BobguiHeaderBar" id="headerbar1">
         <property name="title-widget">
-          <object class="GtkStackSwitcher" id="stack_switcher">
+          <object class="BobguiStackSwitcher" id="stack_switcher">
             <property name="stack">toplevel_stack</property>
           </object>
         </property>
         <child type="end">
-          <object class="GtkMenuButton" id="gear_menu_button">
+          <object class="BobguiMenuButton" id="gear_menu_button">
             <property name="valign">3</property>
             <property name="focus-on-click">0</property>
             <property name="popover">
-              <object class="GtkPopoverMenu" id="gear_menu">
+              <object class="BobguiPopoverMenu" id="gear_menu">
                 <property name="menu-model">gear_menu_model</property>
                 <child type="transition-speed">
-                  <object class="GtkScale">
+                  <object class="BobguiScale">
                     <property name="adjustment">
-                      <object class="GtkAdjustment">
+                      <object class="BobguiAdjustment">
                         <property name="upper">1000</property>
                         <property name="value">250</property>
                         <property name="step-increment">50</property>
@@ -456,7 +456,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
               </object>
             </property>
             <property name="child">
-              <object class="GtkImage">
+              <object class="BobguiImage">
                 <property name="paintable">open-menu-symbolic</property>
               </object>
             </property>
@@ -465,37 +465,37 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
       </object>
     </property>
     <property name="child">
-      <object class="GtkBox" id="box1">
+      <object class="BobguiBox" id="box1">
         <property name="orientation">1</property>
         <property name="margin-start">10</property>
         <property name="margin-end">10</property>
         <property name="margin-top">10</property>
         <property name="margin-bottom">10</property>
         <child>
-          <object class="GtkStack" id="toplevel_stack">
+          <object class="BobguiStack" id="toplevel_stack">
             <property name="transition-duration">250</property>
             <property name="transition-type">1</property>
             <child>
-              <object class="GtkStackPage">
+              <object class="BobguiStackPage">
                 <property name="name">page1</property>
                 <property name="title" translatable="1">Page _1</property>
                 <property name="use-underline">1</property>
                 <property name="child">
-                  <object class="GtkBox" id="page1">
+                  <object class="BobguiBox" id="page1">
                     <property name="orientation">1</property>
                     <property name="spacing">10</property>
                     <child>
-                      <object class="GtkBox" id="box2">
+                      <object class="BobguiBox" id="box2">
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkBox" id="box3">
+                          <object class="BobguiBox" id="box3">
                             <property name="orientation">1</property>
                             <property name="spacing">10</property>
                             <child>
-                              <object class="GtkComboBoxText" id="comboboxtext1">
+                              <object class="BobguiComboBoxText" id="comboboxtext1">
                                 <property name="has-entry">1</property>
                                 <child internal-child="entry">
-                                  <object class="GtkEntry" id="comboboxtext-entry">
+                                  <object class="BobguiEntry" id="comboboxtext-entry">
                                     <property name="text" translatable="1">comboboxentry</property>
                                   </object>
                                 </child>
@@ -507,11 +507,11 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="comboboxtext2">
+                              <object class="BobguiComboBoxText" id="comboboxtext2">
                                 <property name="sensitive">0</property>
                                 <property name="has-entry">1</property>
                                 <child internal-child="entry">
-                                  <object class="GtkEntry" id="comboboxtext-entry2">
+                                  <object class="BobguiEntry" id="comboboxtext-entry2">
                                     <property name="invisible-char">•</property>
                                     <property name="text" translatable="1">comboboxentry</property>
                                   </object>
@@ -519,13 +519,13 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="entry1">
+                              <object class="BobguiEntry" id="entry1">
                                 <property name="enable-emoji-completion">1</property>
                                 <property name="invisible_char">•</property>
                                 <property name="placeholder-text" translatable="1">Click icon to change mode</property>
                                 <property name="secondary-icon-paintable">
-                                  <object class="GtkSvg">
-                                    <property name="resource">/org/gtk/WidgetFactory4/icons/view-refresh.gpa</property>
+                                  <object class="BobguiSvg">
+                                    <property name="resource">/org/bobgui/WidgetFactory4/icons/view-refresh.gpa</property>
                                     <property name="playing">1</property>
                                   </object>
                                 </property>
@@ -534,27 +534,27 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="entry2">
+                              <object class="BobguiEntry" id="entry2">
                                 <property name="sensitive">0</property>
                                 <property name="text" translatable="1">entry</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox" id="box223">
+                              <object class="BobguiBox" id="box223">
                                 <style>
                                   <class name="linked"/>
                                 </style>
                                 <child>
-                                  <object class="GtkEntry" id="entry24">
+                                  <object class="BobguiEntry" id="entry24">
                                     <property name="enable-emoji-completion">1</property>
                                     <property name="text" translatable="1">entry</property>
                                     <property name="hexpand">1</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="button224">
+                                  <object class="BobguiButton" id="button224">
                                     <property name="child">
-                                      <object class="GtkImage">
+                                      <object class="BobguiImage">
                                         <property name="paintable">window-close-symbolic</property>
                                       </object>
                                     </property>
@@ -563,24 +563,24 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkPasswordEntry">
+                              <object class="BobguiPasswordEntry">
                                 <property name="show-peek-icon">1</property>
                                 <property name="placeholder-text" translatable="1">Password…</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <property name="hexpand">0</property>
                                 <style>
                                   <class name="linked"/>
                                 </style>
                                 <child>
-                                  <object class="GtkComboBox">
+                                  <object class="BobguiComboBox">
                                     <property name="model">lrmodel</property>
                                     <property name="active">0</property>
                                     <property name="hexpand">1</property>
                                     <child>
-                                      <object class="GtkCellRendererText"/>
+                                      <object class="BobguiCellRendererText"/>
                                       <attributes>
                                         <attribute name="text">0</attribute>
                                       </attributes>
@@ -588,12 +588,12 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox">
+                                  <object class="BobguiComboBox">
                                     <property name="model">lrmodel</property>
                                     <property name="active">1</property>
                                     <property name="hexpand">1</property>
                                     <child>
-                                      <object class="GtkCellRendererText"/>
+                                      <object class="BobguiCellRendererText"/>
                                       <attributes>
                                         <attribute name="text">0</attribute>
                                       </attributes>
@@ -601,12 +601,12 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox">
+                                  <object class="BobguiComboBox">
                                     <property name="model">lrmodel</property>
                                     <property name="active">2</property>
                                     <property name="hexpand">1</property>
                                     <child>
-                                      <object class="GtkCellRendererText"/>
+                                      <object class="BobguiCellRendererText"/>
                                       <attributes>
                                         <attribute name="text">0</attribute>
                                       </attributes>
@@ -616,28 +616,28 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox" id="box18">
+                              <object class="BobguiBox" id="box18">
                                 <property name="spacing">20</property>
                                 <child>
-                                  <object class="GtkLabel" id="label3">
+                                  <object class="BobguiLabel" id="label3">
                                     <property name="label" translatable="1">label</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label4">
+                                  <object class="BobguiLabel" id="label4">
                                     <property name="sensitive">0</property>
                                     <property name="label" translatable="1">label</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="spinbutton1">
+                                  <object class="BobguiSpinButton" id="spinbutton1">
                                     <property name="width-chars">2</property>
                                     <property name="max-width-chars">2</property>
                                     <property name="adjustment">adjustment2</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="spinbutton2">
+                                  <object class="BobguiSpinButton" id="spinbutton2">
                                     <property name="sensitive">0</property>
                                     <property name="width-chars">2</property>
                                     <property name="max-width-chars">2</property>
@@ -646,18 +646,18 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkGrid" id="grid1">
+                              <object class="BobguiGrid" id="grid1">
                                 <property name="row-homogeneous">1</property>
                                 <property name="column-spacing">18</property>
                                 <property name="row-spacing">6</property>
                                 <child>
-                                  <object class="GtkCheckButton" id="checkbutton1">
+                                  <object class="BobguiCheckButton" id="checkbutton1">
                                     <property name="label" translatable="1">checkbutton</property>
                                     <property name="active">1</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="checkbutton2">
+                                  <object class="BobguiCheckButton" id="checkbutton2">
                                     <property name="label" translatable="1">checkbutton</property>
                                     <layout>
                                       <property name="column">0</property>
@@ -666,7 +666,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="checkbutton3">
+                                  <object class="BobguiCheckButton" id="checkbutton3">
                                     <property name="label" translatable="1">checkbutton</property>
                                     <property name="inconsistent">1</property>
                                     <layout>
@@ -676,7 +676,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="checkbutton4">
+                                  <object class="BobguiCheckButton" id="checkbutton4">
                                     <property name="label" translatable="1">checkbutton</property>
                                     <property name="sensitive">0</property>
                                     <property name="active">1</property>
@@ -687,7 +687,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="checkbutton5">
+                                  <object class="BobguiCheckButton" id="checkbutton5">
                                     <property name="label" translatable="1">checkbutton</property>
                                     <property name="sensitive">0</property>
                                     <layout>
@@ -697,7 +697,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="checkbutton6">
+                                  <object class="BobguiCheckButton" id="checkbutton6">
                                     <property name="label" translatable="1">checkbutton</property>
                                     <property name="sensitive">0</property>
                                     <property name="inconsistent">1</property>
@@ -708,7 +708,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="radiobutton1">
+                                  <object class="BobguiCheckButton" id="radiobutton1">
                                     <property name="label" translatable="1">radiobutton</property>
                                     <property name="active">1</property>
                                     <layout>
@@ -718,7 +718,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton">
+                                  <object class="BobguiCheckButton">
                                     <property name="label" translatable="1">radiobutton</property>
                                     <property name="group">radiobutton1</property>
                                     <layout>
@@ -728,7 +728,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="radiobutton3">
+                                  <object class="BobguiCheckButton" id="radiobutton3">
                                     <property name="label" translatable="1">radiobutton</property>
                                     <property name="inconsistent">1</property>
                                     <property name="group">radiobutton1</property>
@@ -739,7 +739,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="radiobutton4">
+                                  <object class="BobguiCheckButton" id="radiobutton4">
                                     <property name="label" translatable="1">radiobutton</property>
                                     <property name="sensitive">0</property>
                                     <property name="active">1</property>
@@ -750,7 +750,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="radiobutton5">
+                                  <object class="BobguiCheckButton" id="radiobutton5">
                                     <property name="label" translatable="1">radiobutton</property>
                                     <property name="sensitive">0</property>
                                     <property name="group">radiobutton4</property>
@@ -761,7 +761,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="radiobutton6">
+                                  <object class="BobguiCheckButton" id="radiobutton6">
                                     <property name="label" translatable="1">radiobutton</property>
                                     <property name="sensitive">0</property>
                                     <property name="inconsistent">1</property>
@@ -773,7 +773,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinner" id="spinner1">
+                                  <object class="BobguiSpinner" id="spinner1">
                                     <property name="spinning">1</property>
                                     <layout>
                                       <property name="column">2</property>
@@ -781,7 +781,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinner" id="spinner2">
+                                  <object class="BobguiSpinner" id="spinner2">
                                     <layout>
                                       <property name="column">2</property>
                                       <property name="row">1</property>
@@ -789,7 +789,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinner" id="spinner3">
+                                  <object class="BobguiSpinner" id="spinner3">
                                     <property name="spinning">1</property>
                                     <property name="sensitive">0</property>
                                     <layout>
@@ -799,7 +799,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinner" id="spinner4">
+                                  <object class="BobguiSpinner" id="spinner4">
                                     <property name="sensitive">0</property>
                                     <layout>
                                       <property name="column">2</property>
@@ -812,31 +812,31 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox" id="box19">
+                          <object class="BobguiBox" id="box19">
                             <property name="orientation">1</property>
                             <property name="spacing">10</property>
                             <child>
-                              <object class="GtkToggleButton" id="togglebutton1">
+                              <object class="BobguiToggleButton" id="togglebutton1">
                                 <property name="label" translatable="1">togglebutton</property>
                                 <property name="receives-default">1</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkToggleButton" id="togglebutton2">
+                              <object class="BobguiToggleButton" id="togglebutton2">
                                 <property name="label" translatable="1">togglebutton</property>
                                 <property name="sensitive">0</property>
                                 <property name="receives-default">1</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkToggleButton" id="togglebutton3">
+                              <object class="BobguiToggleButton" id="togglebutton3">
                                 <property name="label" translatable="1">togglebutton</property>
                                 <property name="receives-default">1</property>
                                 <property name="active">1</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkToggleButton" id="togglebutton4">
+                              <object class="BobguiToggleButton" id="togglebutton4">
                                 <property name="label" translatable="1">togglebutton</property>
                                 <property name="sensitive">0</property>
                                 <property name="receives-default">1</property>
@@ -844,11 +844,11 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkComboBox" id="combobox1">
+                              <object class="BobguiComboBox" id="combobox1">
                                 <property name="model">liststore1</property>
                                 <property name="active">0</property>
                                 <child>
-                                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                                  <object class="BobguiCellRendererText" id="cellrenderertext1"/>
                                   <attributes>
                                     <attribute name="text">2</attribute>
                                   </attributes>
@@ -856,12 +856,12 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkComboBox" id="combobox2">
+                              <object class="BobguiComboBox" id="combobox2">
                                 <property name="sensitive">0</property>
                                 <property name="model">liststore1</property>
                                 <property name="active">1</property>
                                 <child>
-                                  <object class="GtkCellRendererText" id="cellrenderertext2"/>
+                                  <object class="BobguiCellRendererText" id="cellrenderertext2"/>
                                   <attributes>
                                     <attribute name="text">2</attribute>
                                   </attributes>
@@ -869,33 +869,33 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkFontButton" id="fontbutton1">
+                              <object class="BobguiFontButton" id="fontbutton1">
                                 <property name="receives-default">1</property>
                                 <property name="level">family|style|size|features|variations</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkColorButton" id="colorbutton1">
+                              <object class="BobguiColorButton" id="colorbutton1">
                                 <property name="receives-default">1</property>
                                 <property name="rgba">#31316867a09f</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLinkButton" id="linkbutton1">
+                              <object class="BobguiLinkButton" id="linkbutton1">
                                 <property name="label" translatable="1">link button</property>
                                 <property name="receives-default">1</property>
                                 <property name="has-tooltip">1</property>
                                 <property name="has-frame">0</property>
-                                <property name="uri">http://www.gtk.org</property>
+                                <property name="uri">http://www.bobgui.org</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkSwitch" id="switch1">
+                              <object class="BobguiSwitch" id="switch1">
                                 <property name="halign">3</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkSwitch" id="switch2">
+                              <object class="BobguiSwitch" id="switch2">
                                 <property name="sensitive">0</property>
                                 <property name="halign">3</property>
                               </object>
@@ -903,38 +903,38 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox" id="box20">
+                          <object class="BobguiBox" id="box20">
                             <property name="orientation">1</property>
                             <property name="spacing">6</property>
                             <property name="hexpand">1</property>
                             <child>
-                              <object class="GtkBox" id="box21">
+                              <object class="BobguiBox" id="box21">
                                 <property name="orientation">1</property>
                                 <property name="spacing">6</property>
                                 <child>
-                                  <object class="GtkProgressBar" id="progressbar1">
+                                  <object class="BobguiProgressBar" id="progressbar1">
                                     <property name="fraction">0.5</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkProgressBar" id="progressbar2">
+                                  <object class="BobguiProgressBar" id="progressbar2">
                                     <property name="fraction">0.5</property>
                                     <property name="inverted">1</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkProgressBar" id="progressbar3">
+                                  <object class="BobguiProgressBar" id="progressbar3">
                                     <property name="fraction">0.5</property>
                                     <property name="show-text">1</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkLevelBar" id="levelbar1">
+                                  <object class="BobguiLevelBar" id="levelbar1">
                                     <property name="value">0.6</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkLevelBar" id="levelbar2">
+                                  <object class="BobguiLevelBar" id="levelbar2">
                                     <property name="max-value">5</property>
                                     <property name="value">2</property>
                                     <property name="mode">1</property>
@@ -948,21 +948,21 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox" id="box27">
+                              <object class="BobguiBox" id="box27">
                                 <child>
-                                  <object class="GtkBox" id="box24">
+                                  <object class="BobguiBox" id="box24">
                                     <property name="hexpand">1</property>
                                     <property name="orientation">1</property>
                                     <property name="homogeneous">1</property>
                                     <child>
-                                      <object class="GtkScale" id="scale1">
+                                      <object class="BobguiScale" id="scale1">
                                         <property name="adjustment">adjustment1</property>
                                         <property name="restrict-to-fill-level">0</property>
                                         <property name="fill-level">75</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkScale" id="scale2">
+                                      <object class="BobguiScale" id="scale2">
                                         <property name="sensitive">0</property>
                                         <property name="adjustment">adjustment1</property>
                                         <property name="restrict-to-fill-level">0</property>
@@ -974,7 +974,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkScale" id="scale5">
+                              <object class="BobguiScale" id="scale5">
                                 <property name="has-origin">0</property>
                                 <property name="round-digits">0</property>
                                 <property name="adjustment">adjustment3</property>
@@ -989,22 +989,22 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox" id="box25">
+                              <object class="BobguiBox" id="box25">
                                 <property name="homogeneous">1</property>
                                 <child>
-                                  <object class="GtkBox" id="box28">
+                                  <object class="BobguiBox" id="box28">
                                     <property name="vexpand">1</property>
                                     <property name="spacing">6</property>
                                     <property name="homogeneous">1</property>
                                     <child>
-                                      <object class="GtkProgressBar" id="progressbar5">
+                                      <object class="BobguiProgressBar" id="progressbar5">
                                         <property name="orientation">1</property>
                                         <property name="fraction">0.5</property>
                                         <property name="halign">2</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkProgressBar" id="progressbar6">
+                                      <object class="BobguiProgressBar" id="progressbar6">
                                         <property name="orientation">1</property>
                                         <property name="fraction">0.5</property>
                                         <property name="inverted">1</property>
@@ -1014,12 +1014,12 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkBox" id="box23">
+                                  <object class="BobguiBox" id="box23">
                                     <property name="vexpand">1</property>
                                     <property name="spacing">6</property>
                                     <property name="homogeneous">1</property>
                                     <child>
-                                      <object class="GtkScale" id="scale3">
+                                      <object class="BobguiScale" id="scale3">
                                         <property name="height-request">100</property>
                                         <property name="orientation">1</property>
                                         <property name="adjustment">adjustment1</property>
@@ -1031,7 +1031,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkScale" id="scale4">
+                                      <object class="BobguiScale" id="scale4">
                                         <property name="height-request">100</property>
                                         <property name="sensitive">0</property>
                                         <property name="orientation">1</property>
@@ -1050,14 +1050,14 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox" id="box26">
+                          <object class="BobguiBox" id="box26">
                             <property name="orientation">1</property>
                             <property name="spacing">10</property>
                             <property name="hexpand">1</property>
                             <child>
-                              <object class="GtkFrame">
+                              <object class="BobguiFrame">
                                 <property name="child">
-                                  <object class="GtkVideo" id="video">
+                                  <object class="BobguiVideo" id="video">
                                     <property name="autoplay">1</property>
                                     <property name="loop">1</property>
                                   </object>
@@ -1065,25 +1065,25 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkFrame">
+                              <object class="BobguiFrame">
                                 <property name="label-widget">
-                                  <object class="GtkLabel" id="label1">
+                                  <object class="BobguiLabel" id="label1">
                                     <property name="label" translatable="1">&lt;b&gt;Text Styles&lt;/b&gt;</property>
                                     <property name="use-markup">1</property>
                                   </object>
                                 </property>
                                 <property name="child">
-                                  <object class="GtkScrolledWindow">
+                                  <object class="BobguiScrolledWindow">
                                     <property name="vexpand">1</property>
                                     <property name="hscrollbar-policy">2</property>
                                     <property name="propagate-natural-height">1</property>
                                     <property name="propagate-natural-width">1</property>
                                     <property name="child">
-                                      <object class="GtkBox">
+                                      <object class="BobguiBox">
                                         <property name="orientation">1</property>
                                         <property name="spacing">10</property>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Large Title</property>
                                             <style>
                                               <class name="large-title"/>
@@ -1091,7 +1091,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Title 1</property>
                                             <style>
                                               <class name="title-1"/>
@@ -1099,7 +1099,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Title 2</property>
                                             <style>
                                               <class name="title-2"/>
@@ -1107,7 +1107,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Title 3</property>
                                             <style>
                                               <class name="title-3"/>
@@ -1115,7 +1115,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Title 4</property>
                                             <style>
                                               <class name="title-4"/>
@@ -1123,7 +1123,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Heading</property>
                                             <style>
                                               <class name="heading"/>
@@ -1131,7 +1131,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Body</property>
                                             <style>
                                               <class name="body"/>
@@ -1139,7 +1139,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Caption Heading</property>
                                             <style>
                                               <class name="caption-heading"/>
@@ -1147,7 +1147,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="label">Caption</property>
                                             <style>
                                               <class name="caption"/>
@@ -1163,29 +1163,29 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox" id="box4">
+                          <object class="BobguiBox" id="box4">
                             <property name="orientation">1</property>
                             <property name="spacing">6</property>
                             <property name="hexpand">1</property>
                             <child>
-                              <object class="GtkScrolledWindow" id="scrolledwindow1">
+                              <object class="BobguiScrolledWindow" id="scrolledwindow1">
                                 <property name="width-request">150</property>
                                 <property name="vscrollbar-policy">0</property>
                                 <property name="has-frame">1</property>
                                 <property name="vexpand">1</property>
                                 <property name="child">
-                                  <object class="GtkTreeView" id="treeview1">
+                                  <object class="BobguiTreeView" id="treeview1">
                                     <property name="model">liststore1</property>
                                     <property name="headers-clickable">0</property>
                                     <property name="search-column">0</property>
                                     <child internal-child="selection">
-                                      <object class="GtkTreeSelection" id="treeview-selection"/>
+                                      <object class="BobguiTreeSelection" id="treeview-selection"/>
                                     </child>
                                     <child>
-                                      <object class="GtkTreeViewColumn" id="treeviewcolumn3">
+                                      <object class="BobguiTreeViewColumn" id="treeviewcolumn3">
                                         <property name="title" translatable="1">Cool</property>
                                         <child>
-                                          <object class="GtkCellRendererToggle" id="cellrenderertoggle1"/>
+                                          <object class="BobguiCellRendererToggle" id="cellrenderertoggle1"/>
                                           <attributes>
                                             <attribute name="active">0</attribute>
                                             <attribute name="radio">4</attribute>
@@ -1194,11 +1194,11 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkTreeViewColumn" id="treeviewcolumn4">
+                                      <object class="BobguiTreeViewColumn" id="treeviewcolumn4">
                                         <property name="title" translatable="1">Icon</property>
                                         <property name="reorderable">1</property>
                                         <child>
-                                          <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
+                                          <object class="BobguiCellRendererPixbuf" id="cellrendererpixbuf1"/>
                                           <attributes>
                                             <attribute name="icon_name">1</attribute>
                                           </attributes>
@@ -1206,14 +1206,14 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkTreeViewColumn" id="treeviewcolumn1">
+                                      <object class="BobguiTreeViewColumn" id="treeviewcolumn1">
                                         <property name="title" translatable="1">Name</property>
                                         <property name="resizable">1</property>
                                         <property name="reorderable">1</property>
                                         <property name="sort-indicator">1</property>
                                         <property name="sort-column-id">2</property>
                                         <child>
-                                          <object class="GtkCellRendererText" id="cellrenderertext3">
+                                          <object class="BobguiCellRendererText" id="cellrenderertext3">
                                             <property name="ellipsize">3</property>
                                           </object>
                                           <attributes>
@@ -1223,14 +1223,14 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkTreeViewColumn" id="treeviewcolumn2">
+                                      <object class="BobguiTreeViewColumn" id="treeviewcolumn2">
                                         <property name="title" translatable="1">Nick</property>
                                         <property name="resizable">1</property>
                                         <property name="reorderable">1</property>
                                         <property name="sort-indicator">1</property>
                                         <property name="sort-column-id">3</property>
                                         <child>
-                                          <object class="GtkCellRendererText" id="cellrenderertext4">
+                                          <object class="BobguiCellRendererText" id="cellrenderertext4">
                                             <property name="ellipsize">3</property>
                                           </object>
                                           <attributes>
@@ -1244,11 +1244,11 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkScrolledWindow" id="scrolledwindow2">
+                              <object class="BobguiScrolledWindow" id="scrolledwindow2">
                                 <property name="has-frame">1</property>
                                 <property name="vexpand">1</property>
                                 <property name="child">
-                                  <object class="GtkTextView" id="textview1">
+                                  <object class="BobguiTextView" id="textview1">
                                     <property name="buffer">textbuffer1</property>
                                     <property name="wrap-mode">2</property>
                                     <property name="left-margin">10</property>
@@ -1262,24 +1262,24 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkBox" id="box5">
+                      <object class="BobguiBox" id="box5">
                         <property name="spacing">10</property>
                         <property name="homogeneous">1</property>
                         <child>
-                          <object class="GtkNotebook" id="notebook1">
+                          <object class="BobguiNotebook" id="notebook1">
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="child">
-                                  <object class="GtkPicture" id="notebook_sunset">
+                                  <object class="BobguiPicture" id="notebook_sunset">
                                     <property name="content-fit">cover</property>
                                     <property name="alternative-text">Sunset on the pond</property>
                                     <child>
-                                      <object class="GtkDragSource">
+                                      <object class="BobguiDragSource">
                                         <signal name="prepare" handler="on_picture_drag_prepare" swapped="no"/>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkDropTarget">
+                                      <object class="BobguiDropTarget">
                                         <property name="actions">copy</property>
                                         <property name="formats">GdkTexture</property>
                                         <signal name="drop" handler="on_picture_drop" swapped="no"/>
@@ -1288,24 +1288,24 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label5">
+                                  <object class="BobguiLabel" id="label5">
                                     <property name="label" translatable="1">Sunset</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="child">
-                                  <object class="GtkPicture" id="notebook_nyc">
+                                  <object class="BobguiPicture" id="notebook_nyc">
                                     <property name="alternative-text">New York from above</property>
                                     <child>
-                                      <object class="GtkDragSource">
+                                      <object class="BobguiDragSource">
                                         <signal name="prepare" handler="on_picture_drag_prepare" swapped="no"/>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkDropTarget">
+                                      <object class="BobguiDropTarget">
                                         <property name="actions">copy</property>
                                         <property name="formats">GdkTexture</property>
                                         <signal name="drop" handler="on_picture_drop" swapped="no"/>
@@ -1314,24 +1314,24 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label6">
+                                  <object class="BobguiLabel" id="label6">
                                     <property name="label" translatable="1">NYC</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="child">
-                                  <object class="GtkPicture" id="notebook_beach">
+                                  <object class="BobguiPicture" id="notebook_beach">
                                     <property name="alternative-text">Rodeo beach</property>
                                     <child>
-                                      <object class="GtkDragSource">
+                                      <object class="BobguiDragSource">
                                         <signal name="prepare" handler="on_picture_drag_prepare" swapped="no"/>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkDropTarget">
+                                      <object class="BobguiDropTarget">
                                         <property name="actions">copy</property>
                                         <property name="formats">GdkTexture</property>
                                         <signal name="drop" handler="on_picture_drop" swapped="no"/>
@@ -1340,7 +1340,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label7">
+                                  <object class="BobguiLabel" id="label7">
                                     <property name="label" translatable="1">Beach</property>
                                   </object>
                                 </property>
@@ -1349,47 +1349,47 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkNotebook" id="notebook2">
+                          <object class="BobguiNotebook" id="notebook2">
                             <property name="tab-pos">1</property>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="child">
-                                  <object class="GtkBox" id="box8">
+                                  <object class="BobguiBox" id="box8">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label8">
+                                  <object class="BobguiLabel" id="label8">
                                     <property name="label" translatable="1">page 1</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="position">1</property>
                                 <property name="child">
-                                  <object class="GtkBox" id="box10">
+                                  <object class="BobguiBox" id="box10">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label9">
+                                  <object class="BobguiLabel" id="label9">
                                     <property name="label" translatable="1">page 2</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="position">2</property>
                                 <property name="child">
-                                  <object class="GtkBox" id="box11">
+                                  <object class="BobguiBox" id="box11">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label10">
+                                  <object class="BobguiLabel" id="label10">
                                     <property name="label" translatable="1">page 3</property>
                                   </object>
                                 </property>
@@ -1398,47 +1398,47 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkNotebook" id="notebook3">
+                          <object class="BobguiNotebook" id="notebook3">
                             <property name="tab-pos">3</property>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="child">
-                                  <object class="GtkBox" id="box12">
+                                  <object class="BobguiBox" id="box12">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label11">
+                                  <object class="BobguiLabel" id="label11">
                                     <property name="label" translatable="1">page 1</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="position">1</property>
                                 <property name="child">
-                                  <object class="GtkBox" id="box13">
+                                  <object class="BobguiBox" id="box13">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label12">
+                                  <object class="BobguiLabel" id="label12">
                                     <property name="label" translatable="1">page 2</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="position">2</property>
                                 <property name="child">
-                                  <object class="GtkBox" id="box14">
+                                  <object class="BobguiBox" id="box14">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label13">
+                                  <object class="BobguiLabel" id="label13">
                                     <property name="label" translatable="1">page 3</property>
                                   </object>
                                 </property>
@@ -1447,47 +1447,47 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkNotebook" id="notebook4">
+                          <object class="BobguiNotebook" id="notebook4">
                             <property name="tab-pos">0</property>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="child">
-                                  <object class="GtkBox" id="box15">
+                                  <object class="BobguiBox" id="box15">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label14">
+                                  <object class="BobguiLabel" id="label14">
                                     <property name="label" translatable="1">page 1</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="position">1</property>
                                 <property name="child">
-                                  <object class="GtkBox" id="box16">
+                                  <object class="BobguiBox" id="box16">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label15">
+                                  <object class="BobguiLabel" id="label15">
                                     <property name="label" translatable="1">page 2</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="position">2</property>
                                 <property name="child">
-                                  <object class="GtkBox" id="box17">
+                                  <object class="BobguiBox" id="box17">
                                     <property name="orientation">1</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel" id="label16">
+                                  <object class="BobguiLabel" id="label16">
                                     <property name="label" translatable="1">page 3</property>
                                   </object>
                                 </property>
@@ -1502,48 +1502,48 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
               </object>
             </child>
             <child>
-              <object class="GtkStackPage">
+              <object class="BobguiStackPage">
                 <property name="name">page2</property>
                 <property name="title" translatable="1">Page _2</property>
                 <property name="use-underline">1</property>
                 <property name="child">
-                  <object class="GtkOverlay" id="page2">
+                  <object class="BobguiOverlay" id="page2">
                     <child type="overlay">
-                      <object class="GtkRevealer" id="page2revealer">
+                      <object class="BobguiRevealer" id="page2revealer">
                         <property name="transition-type">9</property>
                         <property name="halign">3</property>
                         <property name="valign">1</property>
                         <property name="child">
-                          <object class="GtkFrame" id="page2frame">
+                          <object class="BobguiFrame" id="page2frame">
                             <style>
                               <class name="app-notification"/>
                             </style>
                             <property name="child">
-                              <object class="GtkBox" id="page2box">
+                              <object class="BobguiBox" id="page2box">
                                 <property name="spacing">20</property>
                                 <property name="margin-start">10</property>
                                 <property name="margin-end">10</property>
                                 <property name="margin-top">10</property>
                                 <property name="margin-bottom">10</property>
                                 <child>
-                                  <object class="GtkLabel" id="page2note">
+                                  <object class="BobguiLabel" id="page2note">
                                     <property name="hexpand">1</property>
                                     <property name="halign">1</property>
                                     <property name="label">NEWS!</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="page2reset">
+                                  <object class="BobguiButton" id="page2reset">
                                     <property name="valign">3</property>
                                     <property name="label" translatable="1">Reset</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="page2dismiss">
+                                  <object class="BobguiButton" id="page2dismiss">
                                     <property name="focus-on-click">0</property>
                                     <property name="has-frame">0</property>
                                     <property name="child">
-                                      <object class="GtkImage">
+                                      <object class="BobguiImage">
                                         <property name="paintable">window-close-symbolic</property>
                                       </object>
                                     </property>
@@ -1556,36 +1556,36 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                       </object>
                     </child>
                     <property name="child">
-                      <object class="GtkBox">
+                      <object class="BobguiBox">
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <property name="orientation">1</property>
                             <property name="spacing">10</property>
                             <child>
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <property name="spacing">6</property>
                                 <child>
-                                  <object class="GtkSpinButton" id="verticalspin1">
+                                  <object class="BobguiSpinButton" id="verticalspin1">
                                     <property name="orientation">1</property>
                                     <property name="adjustment">adjustment2</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="verticalspin2">
+                                  <object class="BobguiSpinButton" id="verticalspin2">
                                     <property name="sensitive">0</property>
                                     <property name="orientation">1</property>
                                     <property name="adjustment">adjustment2</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkGrid">
+                                  <object class="BobguiGrid">
                                     <property name="row-spacing">6</property>
                                     <property name="column-spacing">6</property>
                                     <property name="halign">3</property>
                                     <property name="valign">3</property>
                                     <child>
-                                      <object class="GtkVolumeButton">
+                                      <object class="BobguiVolumeButton">
                                         <accessibility>
                                           <property name="label" translatable="1">Volume</property>
                                         </accessibility>
@@ -1600,7 +1600,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkScaleButton" id="mic-button">
+                                      <object class="BobguiScaleButton" id="mic-button">
                                         <accessibility>
                                           <property name="label" translatable="1">Microphone gain</property>
                                         </accessibility>
@@ -1624,24 +1624,24 @@ microphone-sensitivity-medium-symbolic</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkFrame" id="page2frame1">
+                              <object class="BobguiFrame" id="page2frame1">
                                 <property name="child">
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="orientation">1</property>
                                     <child>
-                                      <object class="GtkStack" id="stack">
+                                      <object class="BobguiStack" id="stack">
                                         <property name="transition-type">22</property>
                                         <property name="transition-duration">250</property>
                                         <child>
-                                          <object class="GtkStackPage">
+                                          <object class="BobguiStackPage">
                                             <property name="name">page1</property>
                                             <property name="icon-name">preferences-desktop-locale-symbolic</property>
                                             <property name="title">News</property>
                                             <property name="child">
-                                              <object class="GtkScrolledWindow" id="swo">
+                                              <object class="BobguiScrolledWindow" id="swo">
                                                 <property name="hscrollbar-policy">2</property>
                                                 <property name="child">
-                                                  <object class="GtkTextView" id="tvo">
+                                                  <object class="BobguiTextView" id="tvo">
                                                     <property name="buffer">textbuffer2</property>
                                                     <property name="left-margin">10</property>
                                                     <property name="right-margin">10</property>
@@ -1652,13 +1652,13 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkStackPage">
+                                          <object class="BobguiStackPage">
                                             <property name="name">page2</property>
                                             <property name="icon-name">folder-pictures-symbolic</property>
                                             <property name="title">Logo</property>
                                             <property name="child">
-                                              <object class="GtkImage" id="imageo">
-                                                <property name="paintable">resource:///org/gtk/WidgetFactory4/icons/scalable/apps/org.gtk.WidgetFactory4.svg</property>
+                                              <object class="BobguiImage" id="imageo">
+                                                <property name="paintable">resource:///org/bobgui/WidgetFactory4/icons/scalable/apps/org.bobgui.WidgetFactory4.svg</property>
                                                 <property name="pixel-size">256</property>
                                                 <style>
                                                   <class name="icon-dropshadow"/>
@@ -1670,20 +1670,20 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkActionBar" id="actionbar1">
+                                      <object class="BobguiActionBar" id="actionbar1">
                                         <child type="center">
-                                          <object class="GtkStackSwitcher" id="switcher">
+                                          <object class="BobguiStackSwitcher" id="switcher">
                                             <property name="stack">stack</property>
                                             <property name="halign">3</property>
                                           </object>
                                         </child>
                                         <child type="end">
-                                          <object class="GtkMenuButton">
+                                          <object class="BobguiMenuButton">
                                             <property name="menu-model">dinner_menu</property>
                                             <property name="halign">3</property>
                                             <property name="valign">3</property>
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">emblem-system-symbolic</property>
                                               </object>
                                             </property>
@@ -1696,32 +1696,32 @@ microphone-sensitivity-medium-symbolic</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkScrolledWindow">
+                              <object class="BobguiScrolledWindow">
                                 <property name="has-frame">1</property>
                                 <property name="hscrollbar-policy">2</property>
                                 <property name="min-content-height">200</property>
                                 <property name="hexpand">0</property>
                                 <property name="vexpand">1</property>
                                 <property name="child">
-                                  <object class="GtkListBox" id="listbox">
+                                  <object class="BobguiListBox" id="listbox">
                                     <property name="selection-mode">0</property>
                                     <property name="show-separators">1</property>
                                     <style>
                                       <class name="rich-list"/>
                                     </style>
                                     <child type="placeholder">
-                                      <object class="GtkLabel">
+                                      <object class="BobguiLabel">
                                         <property name="label">No rows found</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkListBoxRow" id="listboxrow1">
+                                      <object class="BobguiListBoxRow" id="listboxrow1">
                                         <property name="activatable">0</property>
                                         <property name="selectable">0</property>
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Row 1</property>
                                                 <property name="halign">1</property>
                                                 <property name="valign">3</property>
@@ -1729,7 +1729,7 @@ microphone-sensitivity-medium-symbolic</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkSwitch" id="listboxrow1switch">
+                                              <object class="BobguiSwitch" id="listboxrow1switch">
                                                 <property name="halign">2</property>
                                                 <property name="valign">3</property>
                                               </object>
@@ -1739,12 +1739,12 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkListBoxRow" id="listboxrow2">
+                                      <object class="BobguiListBoxRow" id="listboxrow2">
                                         <property name="activatable">0</property>
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Row 2</property>
                                                 <property name="halign">1</property>
                                                 <property name="valign">3</property>
@@ -1752,7 +1752,7 @@ microphone-sensitivity-medium-symbolic</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkScale" id="opacity">
+                                              <object class="BobguiScale" id="opacity">
                                                 <property name="halign">2</property>
                                                 <property name="valign">3</property>
                                                 <property name="width-request">150</property>
@@ -1764,11 +1764,11 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkListBoxRow" id="listboxrow3">
+                                      <object class="BobguiListBoxRow" id="listboxrow3">
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Row 3</property>
                                                 <property name="halign">1</property>
                                                 <property name="valign">3</property>
@@ -1776,10 +1776,10 @@ microphone-sensitivity-medium-symbolic</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkImage" id="listboxrow3image">
+                                              <object class="BobguiImage" id="listboxrow3image">
                                                 <property name="paintable">
-                                                  <object class="GtkSvg">
-                                                    <property name="resource">/org/gtk/WidgetFactory4/icons/checked.gpa</property>
+                                                  <object class="BobguiSvg">
+                                                    <property name="resource">/org/bobgui/WidgetFactory4/icons/checked.gpa</property>
                                                     <property name="playing">1</property>
                                                   </object>
                                                 </property>
@@ -1792,12 +1792,12 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkListBoxRow" id="listboxrow4">
+                                      <object class="BobguiListBoxRow" id="listboxrow4">
                                         <property name="activatable">0</property>
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Row 4</property>
                                                 <property name="halign">1</property>
                                                 <property name="valign">3</property>
@@ -1805,7 +1805,7 @@ microphone-sensitivity-medium-symbolic</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkSpinButton">
+                                              <object class="BobguiSpinButton">
                                                 <property name="adjustment">adjustment1</property>
                                                 <property name="hexpand">1</property>
                                                 <property name="halign">2</property>
@@ -1817,12 +1817,12 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkListBoxRow" id="listboxrow5">
+                                      <object class="BobguiListBoxRow" id="listboxrow5">
                                         <property name="activatable">0</property>
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Row 5</property>
                                                 <property name="halign">1</property>
                                                 <property name="valign">3</property>
@@ -1830,11 +1830,11 @@ microphone-sensitivity-medium-symbolic</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkButton" id="listboxrow5button">
+                                              <object class="BobguiButton" id="listboxrow5button">
                                                 <property name="halign">2</property>
                                                 <property name="valign">3</property>
                                                 <property name="child">
-                                                  <object class="GtkImage">
+                                                  <object class="BobguiImage">
                                                     <property name="paintable">appointment-soon-symbolic</property>
                                                   </object>
                                                 </property>
@@ -1845,12 +1845,12 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkListBoxRow" id="listboxrow6">
+                                      <object class="BobguiListBoxRow" id="listboxrow6">
                                         <property name="activatable">0</property>
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Row 6</property>
                                                 <property name="halign">1</property>
                                                 <property name="valign">3</property>
@@ -1858,7 +1858,7 @@ microphone-sensitivity-medium-symbolic</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkCheckButton">
+                                              <object class="BobguiCheckButton">
                                                 <property name="halign">2</property>
                                                 <property name="valign">3</property>
                                               </object>
@@ -1868,11 +1868,11 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkListBoxRow" id="listboxrow7">
+                                      <object class="BobguiListBoxRow" id="listboxrow7">
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Row 7</property>
                                                 <property name="halign">1</property>
                                                 <property name="valign">3</property>
@@ -1884,11 +1884,11 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkListBoxRow" id="listboxrow8">
+                                      <object class="BobguiListBoxRow" id="listboxrow8">
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Row 8</property>
                                                 <property name="halign">1</property>
                                                 <property name="valign">3</property>
@@ -1906,30 +1906,30 @@ microphone-sensitivity-medium-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <property name="orientation">1</property>
                             <property name="spacing">10</property>
                             <child>
-                              <object class="GtkFrame" id="page2frame2">
+                              <object class="BobguiFrame" id="page2frame2">
                                 <property name="child">
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="orientation">1</property>
                                     <child>
-                                      <object class="GtkPopoverMenuBar">
+                                      <object class="BobguiPopoverMenuBar">
                                         <property name="menu-model">menu_bar_model</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkBox" id="toolbar">
+                                      <object class="BobguiBox" id="toolbar">
                                         <style>
                                           <class name="toolbar"/>
                                         </style>
                                         <child>
-                                          <object class="GtkButton">
+                                          <object class="BobguiButton">
                                             <property name="label" translatable="1">New</property>
 
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">document-new-symbolic</property>
                                               </object>
                                             </property>
@@ -1937,10 +1937,10 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkButton">
+                                          <object class="BobguiButton">
                                             <property name="label" translatable="1">Save</property>
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">document-save-symbolic</property>
                                               </object>
                                             </property>
@@ -1948,13 +1948,13 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkSeparator"/>
+                                          <object class="BobguiSeparator"/>
                                         </child>
                                         <child>
-                                          <object class="GtkButton">
+                                          <object class="BobguiButton">
                                             <property name="label" translatable="1">Search</property>
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">edit-find-symbolic</property>
                                               </object>
                                             </property>
@@ -1963,11 +1963,11 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkButton">
+                                          <object class="BobguiButton">
                                             <property name="sensitive">0</property>
                                             <property name="label" translatable="1">Insert</property>
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">insert-image-symbolic</property>
                                               </object>
                                             </property>
@@ -1975,7 +1975,7 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkColorButton">
+                                          <object class="BobguiColorButton">
                                             <property name="rgba">#9141AC</property>
                                             <property name="tooltip-text" translatable="1">Select a color</property>
                                           </object>
@@ -1983,20 +1983,20 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkSearchBar" id="searchbar">
+                                      <object class="BobguiSearchBar" id="searchbar">
                                         <property name="child">
-                                          <object class="GtkSearchEntry"/>
+                                          <object class="BobguiSearchEntry"/>
                                         </property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkInfoBar" id="infobar">
+                                      <object class="BobguiInfoBar" id="infobar">
                                         <property name="visible">0</property>
                                         <property name="show-close-button">1</property>
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <child>
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label">You wanted to delete something.</property>
                                               </object>
                                             </child>
@@ -2005,7 +2005,7 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkScrolledWindow">
+                                      <object class="BobguiScrolledWindow">
                                         <property name="vexpand">1</property>
                                         <property name="child">
                                           <object class="MyTextView" id="text3">
@@ -2019,38 +2019,38 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkSeparator"/>
+                                      <object class="BobguiSeparator"/>
                                     </child>
                                     <child>
-                                      <object class="GtkStatusbar" id="statusbar"/>
+                                      <object class="BobguiStatusbar" id="statusbar"/>
                                     </child>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="spacing">10</property>
                                     <property name="hexpand">1</property>
                                     <property name="vexpand">1</property>
                                     <child>
-                                      <object class="GtkFrame" id="panedframe1">
+                                      <object class="BobguiFrame" id="panedframe1">
                                         <property name="hexpand">1</property>
                                         <property name="vexpand">1</property>
                                         <property name="child">
-                                          <object class="GtkPaned">
+                                          <object class="BobguiPaned">
                                             <style>
                                               <class name="view"/>
                                             </style>
                                             <property name="start-child">
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label">Left</property>
                                               </object>
                                             </property>
                                             <property name="end-child">
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label">Right</property>
                                               </object>
                                             </property>
@@ -2059,22 +2059,22 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkFrame" id="panedframe2">
+                                      <object class="BobguiFrame" id="panedframe2">
                                         <property name="hexpand">1</property>
                                         <property name="vexpand">1</property>
                                         <property name="child">
-                                          <object class="GtkPaned">
+                                          <object class="BobguiPaned">
                                             <property name="orientation">1</property>
                                             <style>
                                               <class name="view"/>
                                             </style>
                                             <property name="start-child">
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label">Top</property>
                                               </object>
                                             </property>
                                             <property name="end-child">
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label">Bottom</property>
                                               </object>
                                             </property>
@@ -2089,31 +2089,31 @@ microphone-sensitivity-medium-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox" id="filler2">
+                          <object class="BobguiBox" id="filler2">
                             <property name="orientation">1</property>
                             <property name="spacing">10</property>
                             <child>
-                              <object class="GtkCalendar">
+                              <object class="BobguiCalendar">
                                 <property name="halign">3</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkExpander" id="expander1">
+                              <object class="BobguiExpander" id="expander1">
                                 <property name="expanded">1</property>
                                 <property name="child">
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="orientation">1</property>
                                     <child>
-                                      <object class="GtkScrolledWindow" id="scrolledwindow3">
+                                      <object class="BobguiScrolledWindow" id="scrolledwindow3">
                                         <property name="has-frame">1</property>
                                         <property name="margin-top">6</property>
                                         <property name="height-request">226</property>
                                         <property name="child">
-                                          <object class="GtkIconView" id="iconview1">
+                                          <object class="BobguiIconView" id="iconview1">
                                             <property name="selection-mode">3</property>
                                             <property name="model">iconsmodel</property>
                                             <child>
-                                              <object class="GtkCellRendererPixbuf" id="iconviewcell"/>
+                                              <object class="BobguiCellRendererPixbuf" id="iconviewcell"/>
                                               <attributes>
                                                 <attribute name="icon-name">0</attribute>
                                               </attributes>
@@ -2123,14 +2123,14 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkBox">
+                                      <object class="BobguiBox">
                                         <style>
                                           <class name="linked"/>
                                         </style>
                                         <child>
-                                          <object class="GtkButton" id="decrease_button">
+                                          <object class="BobguiButton" id="decrease_button">
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">zoom-out-symbolic</property>
                                               </object>
                                             </property>
@@ -2139,9 +2139,9 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkButton" id="increase_button">
+                                          <object class="BobguiButton" id="increase_button">
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">zoom-in-symbolic</property>
                                               </object>
                                             </property>
@@ -2150,9 +2150,9 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkButton" id="reset_button">
+                                          <object class="BobguiButton" id="reset_button">
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">zoom-original-symbolic</property>
                                               </object>
                                             </property>
@@ -2165,32 +2165,32 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </property>
                                 <property name="label-widget">
-                                  <object class="GtkLabel" id="label19">
+                                  <object class="BobguiLabel" id="label19">
                                     <property name="label" translatable="1">Expander</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkButton" id="info_dialog_button">
+                              <object class="BobguiButton" id="info_dialog_button">
                                 <property name="label" translatable="1">_Inform</property>
                                 <property name="use-underline">1</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkButton" id="action_dialog_button">
+                              <object class="BobguiButton" id="action_dialog_button">
                                 <property name="label" translatable="1">_Act</property>
                                 <property name="use-underline">1</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkButton" id="preference_dialog_button">
+                              <object class="BobguiButton" id="preference_dialog_button">
                                 <property name="label" translatable="1">_Configure</property>
                                 <property name="use-underline">1</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkButton" id="selection_dialog_button">
+                              <object class="BobguiButton" id="selection_dialog_button">
                                 <property name="label" translatable="1">S_elect</property>
                                 <property name="use-underline">1</property>
                               </object>
@@ -2204,43 +2204,43 @@ microphone-sensitivity-medium-symbolic</property>
               </object>
             </child>
             <child>
-              <object class="GtkStackPage">
+              <object class="BobguiStackPage">
                 <property name="name">page3</property>
                 <property name="title" translatable="1">Page _3</property>
                 <property name="use-underline">1</property>
                 <property name="child">
-                  <object class="GtkBox">
+                  <object class="BobguiBox">
                     <property name="spacing">10</property>
                     <child>
-                      <object class="GtkBox">
+                      <object class="BobguiBox">
                         <property name="orientation">1</property>
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <property name="orientation">1</property>
                             <property name="spacing">4</property>
                             <child>
-                              <object class="GtkScrolledWindow">
+                              <object class="BobguiScrolledWindow">
                                 <property name="hscrollbar-policy">2</property>
                                 <property name="vscrollbar-policy">0</property>
                                 <property name="height-request">300</property>
                                 <property name="has-frame">1</property>
                                 <property name="child">
-                                  <object class="GtkTreeView" id="charletree">
+                                  <object class="BobguiTreeView" id="charletree">
                                     <property name="enable-grid-lines">2</property>
                                     <property name="enable-tree-lines">1</property>
                                     <property name="rubber-banding">1</property>
                                     <property name="model">charlemodel</property>
                                     <child internal-child="selection">
-                                      <object class="GtkTreeSelection">
+                                      <object class="BobguiTreeSelection">
                                         <property name="mode">3</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkTreeViewColumn">
+                                      <object class="BobguiTreeViewColumn">
                                         <property name="title" translatable="1">Name</property>
                                         <child>
-                                          <object class="GtkCellRendererText"/>
+                                          <object class="BobguiCellRendererText"/>
                                           <attributes>
                                             <attribute name="text">0</attribute>
                                           </attributes>
@@ -2248,10 +2248,10 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkTreeViewColumn">
+                                      <object class="BobguiTreeViewColumn">
                                         <property name="title" translatable="1">Birth</property>
                                         <child>
-                                          <object class="GtkCellRendererText"/>
+                                          <object class="BobguiCellRendererText"/>
                                           <attributes>
                                             <attribute name="text">1</attribute>
                                           </attributes>
@@ -2259,10 +2259,10 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkTreeViewColumn">
+                                      <object class="BobguiTreeViewColumn">
                                         <property name="title" translatable="1">Death</property>
                                         <child>
-                                          <object class="GtkCellRendererText"/>
+                                          <object class="BobguiCellRendererText"/>
                                           <attributes>
                                             <attribute name="text">2</attribute>
                                           </attributes>
@@ -2274,7 +2274,7 @@ microphone-sensitivity-medium-symbolic</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="BobguiLabel">
                                 <property name="selectable">1</property>
                                 <property name="halign">1</property>
                                 <property name="use-markup">1</property>
@@ -2284,12 +2284,12 @@ microphone-sensitivity-medium-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkScrolledWindow">
+                          <object class="BobguiScrolledWindow">
                             <property name="hscrollbar-policy">2</property>
                             <property name="vexpand">1</property>
                             <property name="has-frame">1</property>
                             <property name="child">
-                              <object class="GtkListBox" id="munsell">
+                              <object class="BobguiListBox" id="munsell">
                                 <property name="selection-mode">3</property>
                                 <property name="activate-on-single-click">0</property>
                               </object>
@@ -2299,20 +2299,20 @@ microphone-sensitivity-medium-symbolic</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkBox">
+                      <object class="BobguiBox">
                         <property name="orientation">1</property>
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <property name="spacing">6</property>
                             <property name="valign">center</property>
                             <child>
-                              <object class="GtkBox" id="lockbox">
+                              <object class="BobguiBox" id="lockbox">
                                 <property name="hexpand">1</property>
                                 <property name="spacing">6</property>
                                 <property name="valign">center</property>
                                 <child>
-                                  <object class="GtkMenuButton" id="open_menubutton">
+                                  <object class="BobguiMenuButton" id="open_menubutton">
                                     <property name="halign">3</property>
                                     <property name="popover">open_popover</property>
                                     <property name="label">Open</property>
@@ -2320,7 +2320,7 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkToggleButton" id="record_button">
+                                  <object class="BobguiToggleButton" id="record_button">
                                     <property name="halign">3</property>
                                     <property name="valign">center</property>
                                     <signal name="toggled" handler="on_record_button_toggled"/>
@@ -2330,18 +2330,18 @@ microphone-sensitivity-medium-symbolic</property>
                                       <class name="destructive-action"/>
                                     </style>
                                     <property name="child">
-                                      <object class="GtkBox">
+                                      <object class="BobguiBox">
                                         <property name="spacing">6</property>
                                         <property name="valign">center</property>
                                         <child>
-                                          <object class="GtkImage">
+                                          <object class="BobguiImage">
                                             <property name="valign">4</property>
                                             <property name="paintable">media-record-symbolic</property>
                                             <property name="valign">center</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel">
+                                          <object class="BobguiLabel">
                                             <property name="valign">4</property>
                                             <property name="label">Record</property>
                                             <property name="valign">center</property>
@@ -2352,16 +2352,16 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="valign">center</property>
                                     <style>
                                       <class name="linked"/>
                                     </style>
                                     <child>
-                                      <object class="GtkToggleButton" id="grid_button">
+                                      <object class="BobguiToggleButton" id="grid_button">
                                         <property name="active">1</property>
                                         <property name="child">
-                                          <object class="GtkImage">
+                                          <object class="BobguiImage">
                                             <property name="paintable">view-grid-symbolic</property>
                                           </object>
                                         </property>
@@ -2369,10 +2369,10 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkToggleButton" id="list_button">
+                                      <object class="BobguiToggleButton" id="list_button">
                                         <property name="group">grid_button</property>
                                         <property name="child">
-                                          <object class="GtkImage">
+                                          <object class="BobguiImage">
                                             <property name="paintable">view-list-symbolic</property>
                                           </object>
                                         </property>
@@ -2382,9 +2382,9 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="circular_button">
+                                  <object class="BobguiButton" id="circular_button">
                                     <property name="child">
-                                      <object class="GtkImage">
+                                      <object class="BobguiImage">
                                         <property name="paintable">emblem-system-symbolic</property>
                                       </object>
                                     </property>
@@ -2397,14 +2397,14 @@ microphone-sensitivity-medium-symbolic</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLockButton" id="lockbutton">
+                              <object class="BobguiLockButton" id="lockbutton">
                                 <property name="valign">center</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkMenuButton">
+                              <object class="BobguiMenuButton">
                                 <property name="child">
-                                  <object class="GtkImage">
+                                  <object class="BobguiImage">
                                     <property name="paintable">view-more-symbolic</property>
                                   </object>
                                 </property>
@@ -2415,22 +2415,22 @@ microphone-sensitivity-medium-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkFrame">
+                          <object class="BobguiFrame">
                             <property name="child">
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <child>
-                                  <object class="GtkStackSidebar">
+                                  <object class="BobguiStackSidebar">
                                     <property name="stack">sidebar_stack</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkStack" id="sidebar_stack">
+                                  <object class="BobguiStack" id="sidebar_stack">
                                     <child>
-                                      <object class="GtkStackPage">
+                                      <object class="BobguiStackPage">
                                         <property name="name">id</property>
                                         <property name="title">Identity</property>
                                         <property name="child">
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <property name="orientation">1</property>
                                             <property name="margin-start">20</property>
                                             <property name="margin-end">20</property>
@@ -2440,12 +2440,12 @@ microphone-sensitivity-medium-symbolic</property>
                                             <property name="halign">3</property>
                                             <property name="valign">3</property>
                                             <child>
-                                              <object class="GtkEntry">
+                                              <object class="BobguiEntry">
                                                 <property name="placeholder-text">First Name</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkEntry">
+                                              <object class="BobguiEntry">
                                                 <property name="placeholder-text">Last Name</property>
                                               </object>
                                             </child>
@@ -2454,11 +2454,11 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkStackPage">
+                                      <object class="BobguiStackPage">
                                         <property name="name">bd</property>
                                         <property name="title">Birthdate</property>
                                         <property name="child">
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <property name="orientation">1</property>
                                             <property name="margin-start">20</property>
                                             <property name="margin-end">20</property>
@@ -2468,10 +2468,10 @@ microphone-sensitivity-medium-symbolic</property>
                                             <property name="halign">3</property>
                                             <property name="valign">3</property>
                                             <child>
-                                              <object class="GtkBox">
+                                              <object class="BobguiBox">
                                                 <property name="spacing">2</property>
                                                 <child>
-                                                  <object class="GtkComboBoxText">
+                                                  <object class="BobguiComboBoxText">
                                                     <property name="active">9</property>
                                                     <items>
                                                       <item>1</item>
@@ -2509,7 +2509,7 @@ microphone-sensitivity-medium-symbolic</property>
                                                   </object>
                                                 </child>
                                                 <child>
-                                                  <object class="GtkComboBoxText">
+                                                  <object class="BobguiComboBoxText">
                                                     <property name="active">9</property>
                                                     <items>
                                                       <item>January</item>
@@ -2530,7 +2530,7 @@ microphone-sensitivity-medium-symbolic</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkEntry">
+                                              <object class="BobguiEntry">
                                                 <property name="placeholder-text">Year</property>
                                               </object>
                                             </child>
@@ -2539,11 +2539,11 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkStackPage">
+                                      <object class="BobguiStackPage">
                                         <property name="name">ad</property>
                                         <property name="title">Address</property>
                                         <property name="child">
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <property name="orientation">1</property>
                                             <property name="margin-start">20</property>
                                             <property name="margin-end">20</property>
@@ -2555,17 +2555,17 @@ microphone-sensitivity-medium-symbolic</property>
                                               <class name="linked"/>
                                             </style>
                                             <child>
-                                              <object class="GtkEntry">
+                                              <object class="BobguiEntry">
                                                 <property name="placeholder-text">Street</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkEntry">
+                                              <object class="BobguiEntry">
                                                 <property name="placeholder-text">City</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkEntry">
+                                              <object class="BobguiEntry">
                                                 <property name="placeholder-text">Province</property>
                                               </object>
                                             </child>
@@ -2574,11 +2574,11 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkStackPage">
+                                      <object class="BobguiStackPage">
                                         <property name="name">pg</property>
                                         <property name="title">Pages</property>
                                         <property name="child">
-                                          <object class="GtkBox">
+                                          <object class="BobguiBox">
                                             <property name="orientation">1</property>
                                             <property name="margin-start">20</property>
                                             <property name="margin-end">20</property>
@@ -2590,7 +2590,7 @@ microphone-sensitivity-medium-symbolic</property>
                                               <class name="linked"/>
                                             </style>
                                             <child>
-                                              <object class="GtkComboBoxText" id="page_combo">
+                                              <object class="BobguiComboBoxText" id="page_combo">
                                                 <property name="active">0</property>
                                                 <signal name="changed" handler="on_page_combo_changed"/>
                                                 <items>
@@ -2603,19 +2603,19 @@ microphone-sensitivity-medium-symbolic</property>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkSpinButton" id="range_from_spin">
+                                              <object class="BobguiSpinButton" id="range_from_spin">
                                                 <property name="adjustment">pg_adjustment</property>
                                                 <signal name="value-changed" handler="on_range_from_changed"/>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkSpinButton" id="range_to_spin">
+                                              <object class="BobguiSpinButton" id="range_to_spin">
                                                 <property name="adjustment">pg_adjustment2</property>
                                                 <signal name="value-changed" handler="on_range_to_changed"/>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkButton" id="print_button">
+                                              <object class="BobguiButton" id="print_button">
                                                 <property name="label">Print</property>
                                                 <property name="action-name">win.print</property>
                                               </object>
@@ -2631,17 +2631,17 @@ microphone-sensitivity-medium-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <child>
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <property name="orientation">1</property>
                                 <style>
                                   <class name="linked"/>
                                 </style>
                                 <child>
-                                  <object class="GtkButton" id="toolbutton1">
+                                  <object class="BobguiButton" id="toolbutton1">
                                     <property name="child">
-                                      <object class="GtkImage">
+                                      <object class="BobguiImage">
                                         <property name="paintable">document-open-symbolic</property>
                                       </object>
                                     </property>
@@ -2650,9 +2650,9 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="toolbutton2">
+                                  <object class="BobguiButton" id="toolbutton2">
                                     <property name="child">
-                                      <object class="GtkImage">
+                                      <object class="BobguiImage">
                                         <property name="paintable">send-to-symbolic</property>
                                       </object>
                                     </property>
@@ -2661,9 +2661,9 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="toolbutton3">
+                                  <object class="BobguiButton" id="toolbutton3">
                                     <property name="child">
-                                      <object class="GtkImage">
+                                      <object class="BobguiImage">
                                         <property name="paintable">view-fullscreen-symbolic</property>
                                       </object>
                                     </property>
@@ -2672,9 +2672,9 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="toolbutton4">
+                                  <object class="BobguiButton" id="toolbutton4">
                                     <property name="child">
-                                      <object class="GtkImage">
+                                      <object class="BobguiImage">
                                         <property name="paintable">start-new-symbolic</property>
                                       </object>
                                     </property>
@@ -2685,28 +2685,28 @@ microphone-sensitivity-medium-symbolic</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkScrolledWindow">
+                              <object class="BobguiScrolledWindow">
                                 <property name="has-frame">1</property>
                                 <property name="hexpand">1</property>
                                 <property name="child">
-                                  <object class="GtkTextView" id="tooltextview"/>
+                                  <object class="BobguiTextView" id="tooltextview"/>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <property name="orientation">1</property>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="orientation">1</property>
                                     <style>
                                       <class name="linked"/>
                                     </style>
                                     <child>
-                                      <object class="GtkButton" id="cutbutton">
+                                      <object class="BobguiButton" id="cutbutton">
                                         <property name="sensitive">0</property>
                                         <property name="child">
-                                          <object class="GtkImage">
+                                          <object class="BobguiImage">
                                             <property name="paintable">edit-cut-symbolic</property>
                                           </object>
                                         </property>
@@ -2715,10 +2715,10 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkButton" id="copybutton">
+                                      <object class="BobguiButton" id="copybutton">
                                         <property name="sensitive">0</property>
                                         <property name="child">
-                                          <object class="GtkImage">
+                                          <object class="BobguiImage">
                                             <property name="paintable">edit-copy-symbolic</property>
                                           </object>
                                         </property>
@@ -2727,10 +2727,10 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkButton" id="pastebutton">
+                                      <object class="BobguiButton" id="pastebutton">
                                         <property name="sensitive">0</property>
                                         <property name="child">
-                                          <object class="GtkImage">
+                                          <object class="BobguiImage">
                                             <property name="paintable">edit-paste-symbolic</property>
                                           </object>
                                         </property>
@@ -2741,11 +2741,11 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="deletebutton">
+                                  <object class="BobguiButton" id="deletebutton">
                                     <property name="sensitive">0</property>
                                     <property name="valign">2</property>
                                     <property name="child">
-                                      <object class="GtkImage">
+                                      <object class="BobguiImage">
                                         <property name="paintable">edit-delete-symbolic</property>
                                       </object>
                                     </property>
@@ -2758,9 +2758,9 @@ microphone-sensitivity-medium-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkOverlay">
+                          <object class="BobguiOverlay">
                             <child type="overlay">
-                              <object class="GtkBox" id="totem_like_osd">
+                              <object class="BobguiBox" id="totem_like_osd">
                                 <property name="visible">0</property>
                                 <property name="opacity">0.9</property>
                                 <property name="margin-start">20</property>
@@ -2772,23 +2772,23 @@ microphone-sensitivity-medium-symbolic</property>
                                   <class name="osd"/>
                                 </style>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <style>
                                       <class name="linked"/>
                                     </style>
                                     <child>
-                                      <object class="GtkButton">
+                                      <object class="BobguiButton">
                                         <property name="child">
-                                          <object class="GtkImage">
+                                          <object class="BobguiImage">
                                             <property name="paintable">go-previous-symbolic</property>
                                           </object>
                                         </property>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkButton">
+                                      <object class="BobguiButton">
                                         <property name="child">
-                                          <object class="GtkImage">
+                                          <object class="BobguiImage">
                                             <property name="paintable">go-next-symbolic</property>
                                           </object>
                                         </property>
@@ -2797,13 +2797,13 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkScale">
+                                  <object class="BobguiScale">
                                     <property name="hexpand">1</property>
                                     <property name="adjustment">adjustment1</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkVolumeButton">
+                                  <object class="BobguiVolumeButton">
                                     <property name="orientation">1</property>
                                     <property name="value">.5</property>
                                     <style>
@@ -2814,19 +2814,19 @@ microphone-sensitivity-medium-symbolic</property>
                               </object>
                             </child>
                             <property name="child">
-                              <object class="GtkFrame" id="osd_frame">
+                              <object class="BobguiFrame" id="osd_frame">
                                 <property name="child">
-                                  <object class="GtkPaned">
+                                  <object class="BobguiPaned">
                                     <property name="wide-handle">1</property>
                                     <property name="start-child">
-                                      <object class="GtkNotebook">
+                                      <object class="BobguiNotebook">
                                         <property name="show-border">0</property>
                                         <child type="action-end">
-                                          <object class="GtkMenuButton">
+                                          <object class="BobguiMenuButton">
                                             <property name="valign">3</property>
                                             <property name="popover">notebook_info_popover2</property>
                                             <property name="child">
-                                              <object class="GtkImage">
+                                              <object class="BobguiImage">
                                                 <property name="paintable">emblem-important-symbolic</property>
                                               </object>
                                             </property>
@@ -2837,28 +2837,28 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkNotebookPage">
+                                          <object class="BobguiNotebookPage">
                                             <property name="tab-expand">1</property>
                                             <property name="child">
-                                              <object class="GtkBox" id="closable_page_1">
+                                              <object class="BobguiBox" id="closable_page_1">
                                                 <property name="height-request">120</property>
                                               </object>
                                             </property>
                                             <property name="tab">
-                                              <object class="GtkBox">
+                                              <object class="BobguiBox">
                                                 <child>
-                                                  <object class="GtkLabel">
+                                                  <object class="BobguiLabel">
                                                     <property name="label" translatable="1">Page 1</property>
                                                     <property name="halign">3</property>
                                                     <property name="hexpand">1</property>
                                                   </object>
                                                 </child>
                                                 <child>
-                                                  <object class="GtkButton">
+                                                  <object class="BobguiButton">
                                                     <property name="has-frame">0</property>
                                                     <property name="focus-on-click">0</property>
                                                     <property name="child">
-                                                      <object class="GtkImage">
+                                                      <object class="BobguiImage">
                                                         <property name="paintable">window-close-symbolic</property>
                                                       </object>
                                                     </property>
@@ -2873,28 +2873,28 @@ microphone-sensitivity-medium-symbolic</property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkNotebookPage">
+                                          <object class="BobguiNotebookPage">
                                             <property name="tab-expand">1</property>
                                             <property name="child">
-                                              <object class="GtkBox" id="closable_page_2">
+                                              <object class="BobguiBox" id="closable_page_2">
                                                 <property name="vexpand">1</property>
                                               </object>
                                             </property>
                                             <property name="tab">
-                                              <object class="GtkBox">
+                                              <object class="BobguiBox">
                                                 <child>
-                                                  <object class="GtkLabel">
+                                                  <object class="BobguiLabel">
                                                     <property name="label" translatable="1">Page 2</property>
                                                     <property name="halign">3</property>
                                                     <property name="hexpand">1</property>
                                                   </object>
                                                 </child>
                                                 <child>
-                                                  <object class="GtkButton">
+                                                  <object class="BobguiButton">
                                                     <property name="has-frame">0</property>
                                                     <property name="focus-on-click">0</property>
                                                     <property name="child">
-                                                      <object class="GtkImage">
+                                                      <object class="BobguiImage">
                                                         <property name="paintable">window-close-symbolic</property>
                                                       </object>
                                                     </property>
@@ -2911,17 +2911,17 @@ microphone-sensitivity-medium-symbolic</property>
                                       </object>
                                     </property>
                                     <property name="end-child">
-                                      <object class="GtkNotebook">
+                                      <object class="BobguiNotebook">
                                         <property name="show-border">0</property>
                                         <child>
-                                          <object class="GtkNotebookPage">
+                                          <object class="BobguiNotebookPage">
                                             <property name="child">
-                                              <object class="GtkBox">
+                                              <object class="BobguiBox">
                                                 <property name="vexpand">1</property>
                                               </object>
                                             </property>
                                             <property name="tab">
-                                              <object class="GtkLabel">
+                                              <object class="BobguiLabel">
                                                 <property name="label" translatable="1">Page 3</property>
                                               </object>
                                             </property>
@@ -2932,7 +2932,7 @@ microphone-sensitivity-medium-symbolic</property>
                                   </object>
                                 </property>
                                 <child>
-                                  <object class="GtkGestureClick">
+                                  <object class="BobguiGestureClick">
                                     <signal name="pressed" handler="osd_frame_pressed" object="osd_frame" swapped="no"/>
                                   </object>
                                 </child>
@@ -2943,20 +2943,20 @@ microphone-sensitivity-medium-symbolic</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkBox">
+                      <object class="BobguiBox">
                         <property name="orientation">1</property>
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <child>
-                              <object class="GtkEntry">
+                              <object class="BobguiEntry">
                                 <property name="hexpand">1</property>
                                 <property name="placeholder-text" translatable="1">Name…</property>
                                 <property name="completion">name_completion</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkEntry">
+                              <object class="BobguiEntry">
                                 <property name="hexpand">1</property>
                                 <property name="show-emoji-icon">1</property>
                                 <property name="placeholder-text" translatable="1">Age…</property>
@@ -2969,14 +2969,14 @@ microphone-sensitivity-medium-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkNotebook">
+                          <object class="BobguiNotebook">
                             <property name="scrollable">1</property>
                             <child type="action-end">
-                              <object class="GtkMenuButton">
+                              <object class="BobguiMenuButton">
                                 <property name="valign">3</property>
                                 <property name="popover">notebook_info_popover</property>
                                 <property name="child">
-                                  <object class="GtkImage">
+                                  <object class="BobguiImage">
                                     <property name="paintable">emblem-important-symbolic</property>
                                   </object>
                                 </property>
@@ -2987,69 +2987,69 @@ microphone-sensitivity-medium-symbolic</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="tab-expand">1</property>
                                 <property name="child">
-                                  <object class="GtkBox" id="box_for_context">
+                                  <object class="BobguiBox" id="box_for_context">
                                     <property name="height-request">120</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel">
+                                  <object class="BobguiLabel">
                                     <property name="label" translatable="1">Page 1</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="tab-expand">1</property>
                                 <property name="child">
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="height-request">40</property>
                                   </object>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel">
+                                  <object class="BobguiLabel">
                                     <property name="label" translatable="1">Page 2</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="tab-expand">1</property>
                                 <property name="child">
-                                  <object class="GtkBox"/>
+                                  <object class="BobguiBox"/>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel">
+                                  <object class="BobguiLabel">
                                     <property name="label" translatable="1">Page 3</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="tab-expand">1</property>
                                 <property name="child">
-                                  <object class="GtkBox"/>
+                                  <object class="BobguiBox"/>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel">
+                                  <object class="BobguiLabel">
                                     <property name="label" translatable="1">Page 4</property>
                                   </object>
                                 </property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkNotebookPage">
+                              <object class="BobguiNotebookPage">
                                 <property name="tab-expand">1</property>
                                 <property name="child">
-                                  <object class="GtkBox"/>
+                                  <object class="BobguiBox"/>
                                 </property>
                                 <property name="tab">
-                                  <object class="GtkLabel">
+                                  <object class="BobguiLabel">
                                     <property name="label" translatable="1">Page 5</property>
                                   </object>
                                 </property>
@@ -3058,7 +3058,7 @@ microphone-sensitivity-medium-symbolic</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkColorChooserWidget" id="cchooser">
+                          <object class="BobguiColorChooserWidget" id="cchooser">
                             <property name="show-editor">1</property>
                           </object>
                         </child>
@@ -3073,7 +3073,7 @@ microphone-sensitivity-medium-symbolic</property>
       </object>
     </property>
   </object>
-  <object class="GtkMessageDialog" id="info_dialog">
+  <object class="BobguiMessageDialog" id="info_dialog">
     <property name="transient-for">window</property>
     <property name="resizable">0</property>
     <property name="modal">1</property>
@@ -3082,13 +3082,13 @@ microphone-sensitivity-medium-symbolic</property>
 bad things might happen.</property>
     <property name="hide-on-close">1</property>
     <child type="action">
-      <object class="GtkButton" id="cancel_info_dialog">
+      <object class="BobguiButton" id="cancel_info_dialog">
         <property name="label" translatable="1">_Cancel</property>
         <property name="use-underline">1</property>
       </object>
     </child>
     <child type="action">
-      <object class="GtkButton" id="doit_info_dialog">
+      <object class="BobguiButton" id="doit_info_dialog">
         <property name="label" translatable="1">_Do It</property>
         <property name="use-underline">1</property>
       </object>
@@ -3098,7 +3098,7 @@ bad things might happen.</property>
       <action-widget response="ok" default="true">doit_info_dialog</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkDialog" id="action_dialog">
+  <object class="BobguiDialog" id="action_dialog">
     <property name="transient-for">window</property>
     <property name="resizable">0</property>
     <property name="modal">1</property>
@@ -3107,9 +3107,9 @@ bad things might happen.</property>
     <property name="hide-on-close">1</property>
     <property name="default-widget">act_action_dialog</property>
     <child internal-child="content_area">
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="margin-start">20</property>
             <property name="margin-end">20</property>
             <property name="margin-top">20</property>
@@ -3120,13 +3120,13 @@ bad things might happen.</property>
       </object>
     </child>
     <child type="action">
-      <object class="GtkButton" id="cancel_action_dialog">
+      <object class="BobguiButton" id="cancel_action_dialog">
         <property name="label" translatable="1">_Run</property>
         <property name="use-underline">1</property>
       </object>
     </child>
     <child type="action">
-      <object class="GtkButton" id="act_action_dialog">
+      <object class="BobguiButton" id="act_action_dialog">
         <property name="label" translatable="1">_Act</property>
         <property name="use-underline">1</property>
       </object>
@@ -3136,7 +3136,7 @@ bad things might happen.</property>
       <action-widget response="ok" default="true">act_action_dialog</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkDialog" id="preference_dialog">
+  <object class="BobguiDialog" id="preference_dialog">
     <property name="transient-for">window</property>
     <property name="modal">1</property>
     <property name="resizable">0</property>
@@ -3144,9 +3144,9 @@ bad things might happen.</property>
     <property name="title" translatable="1">Settings</property>
     <property name="hide-on-close">1</property>
     <child internal-child="content_area">
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkGrid">
+          <object class="BobguiGrid">
             <property name="row-spacing">10</property>
             <property name="column-spacing">10</property>
             <property name="margin-start">20</property>
@@ -3154,7 +3154,7 @@ bad things might happen.</property>
             <property name="margin-top">20</property>
             <property name="margin-bottom">20</property>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">2</property>
                 <property name="valign">4</property>
                 <property name="label">_Details</property>
@@ -3170,7 +3170,7 @@ bad things might happen.</property>
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="details_entry">
+              <object class="BobguiEntry" id="details_entry">
                 <property name="valign">4</property>
                 <signal name="notify::text" handler="validate_more_details" object="more_details_entry" swapped="yes"/>
                 <layout>
@@ -3181,7 +3181,7 @@ bad things might happen.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">2</property>
                 <property name="valign">4</property>
                 <property name="label">More D_etails</property>
@@ -3197,7 +3197,7 @@ bad things might happen.</property>
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="more_details_entry">
+              <object class="BobguiEntry" id="more_details_entry">
                 <property name="valign">4</property>
                 <signal name="notify::text" handler="validate_more_details" object="details_entry" swapped="no"/>
                 <layout>
@@ -3208,7 +3208,7 @@ bad things might happen.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">2</property>
                 <property name="valign">4</property>
                 <property name="label">_Level</property>
@@ -3224,7 +3224,7 @@ bad things might happen.</property>
               </object>
             </child>
             <child>
-              <object class="GtkScale" id="level_scale">
+              <object class="BobguiScale" id="level_scale">
                 <property name="valign">4</property>
                 <property name="adjustment">adjustment1</property>
                 <signal name="value-changed" handler="level_scale_value_changed"/>
@@ -3236,7 +3236,7 @@ bad things might happen.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">2</property>
                 <property name="valign">4</property>
                 <property name="label">_Mode</property>
@@ -3252,7 +3252,7 @@ bad things might happen.</property>
               </object>
             </child>
             <child>
-              <object class="GtkSwitch" id="mode_switch">
+              <object class="BobguiSwitch" id="mode_switch">
                 <property name="halign">1</property>
                 <property name="valign">4</property>
                 <signal name="state-set" handler="mode_switch_state_set"/>
@@ -3263,7 +3263,7 @@ bad things might happen.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="error_label">
+              <object class="BobguiLabel" id="error_label">
                 <property name="visible">0</property>
                 <property name="halign">1</property>
                 <property name="valign">4</property>
@@ -3282,7 +3282,7 @@ bad things might happen.</property>
       </object>
     </child>
   </object>
-  <object class="GtkDialog" id="selection_dialog">
+  <object class="BobguiDialog" id="selection_dialog">
     <property name="transient-for">window</property>
     <property name="modal">1</property>
     <property name="use-header-bar">1</property>
@@ -3290,9 +3290,9 @@ bad things might happen.</property>
     <property name="hide-on-close">1</property>
     <property name="default-widget">select_selection_dialog</property>
     <child internal-child="content_area">
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkFlowBox" id="selection_flowbox">
+          <object class="BobguiFlowBox" id="selection_flowbox">
             <property name="row-spacing">10</property>
             <property name="column-spacing">10</property>
             <property name="margin-start">10</property>
@@ -3306,13 +3306,13 @@ bad things might happen.</property>
       </object>
     </child>
     <child type="action">
-      <object class="GtkButton" id="cancel_selection_dialog">
+      <object class="BobguiButton" id="cancel_selection_dialog">
         <property name="label" translatable="1">_Cancel</property>
         <property name="use-underline">1</property>
       </object>
     </child>
     <child type="action">
-      <object class="GtkButton" id="select_selection_dialog">
+      <object class="BobguiButton" id="select_selection_dialog">
         <property name="label" translatable="1">_Select</property>
         <property name="use-underline">1</property>
       </object>
@@ -3322,9 +3322,9 @@ bad things might happen.</property>
       <action-widget response="ok" default="true">select_selection_dialog</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkPopover" id="open_popover">
+  <object class="BobguiPopover" id="open_popover">
     <property name="child">
-      <object class="GtkGrid">
+      <object class="BobguiGrid">
         <property name="margin-start">10</property>
         <property name="margin-end">10</property>
         <property name="margin-top">10</property>
@@ -3332,13 +3332,13 @@ bad things might happen.</property>
         <property name="row-spacing">10</property>
         <property name="column-spacing">10</property>
         <child>
-          <object class="GtkLabel" id="title_label">
+          <object class="BobguiLabel" id="title_label">
             <property name="label">Title:</property>
             <property name="xalign">1</property>
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="description_label">
+          <object class="BobguiLabel" id="description_label">
             <property name="valign">1</property>
             <property name="label">Description:</property>
             <property name="xalign">1</property>
@@ -3349,7 +3349,7 @@ bad things might happen.</property>
           </object>
         </child>
         <child>
-          <object class="GtkScrolledWindow">
+          <object class="BobguiScrolledWindow">
             <property name="valign">1</property>
             <property name="has-frame">1</property>
             <property name="min-content-height">70</property>
@@ -3357,7 +3357,7 @@ bad things might happen.</property>
             <property name="min-content-width">100</property>
             <property name="max-content-width">100</property>
             <property name="child">
-              <object class="GtkTextView" id="open_popover_textview"/>
+              <object class="BobguiTextView" id="open_popover_textview"/>
             </property>
             <layout>
               <property name="column">1</property>
@@ -3367,7 +3367,7 @@ bad things might happen.</property>
           </object>
         </child>
         <child>
-          <object class="GtkEntry" id="open_popover_entry">
+          <object class="BobguiEntry" id="open_popover_entry">
             <property name="activates-default">1</property>
             <layout>
               <property name="row">0</property>
@@ -3377,14 +3377,14 @@ bad things might happen.</property>
           </object>
         </child>
         <child>
-          <object class="GtkExpander">
+          <object class="BobguiExpander">
             <property name="label-widget">
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label">Extra Info</property>
               </object>
             </property>
             <property name="child">
-              <object class="GtkEntry" id="extra_info_entry">
+              <object class="BobguiEntry" id="extra_info_entry">
                 <property name="placeholder-text">Tell me anything…</property>
                 <property name="progress-fraction">0.2</property>
               </object>
@@ -3397,10 +3397,10 @@ bad things might happen.</property>
           </object>
         </child>
         <child>
-          <object class="GtkMenuButton">
+          <object class="BobguiMenuButton">
             <property name="halign">2</property>
             <property name="child">
-              <object class="GtkImage">
+              <object class="BobguiImage">
                 <property name="paintable">emblem-system-symbolic</property>
               </object>
             </property>
@@ -3413,7 +3413,7 @@ bad things might happen.</property>
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="open_popover_button">
+          <object class="BobguiButton" id="open_popover_button">
             <property name="label">_Open</property>
             <property name="use-underline">1</property>
             <property name="sensitive">0</property>
@@ -3429,7 +3429,7 @@ bad things might happen.</property>
       </object>
     </property>
   </object>
-  <object class="GtkSizeGroup">
+  <object class="BobguiSizeGroup">
     <property name="mode">2</property>
     <widgets>
       <widget name="listboxrow1"/>
@@ -3442,44 +3442,44 @@ bad things might happen.</property>
       <widget name="listboxrow8"/>
     </widgets>
   </object>
-  <object class="GtkSizeGroup">
+  <object class="BobguiSizeGroup">
     <property name="mode">3</property>
     <widgets>
       <widget name="panedframe1"/>
       <widget name="panedframe2"/>
     </widgets>
   </object>
-  <object class="GtkPopover" id="notebook_info_popover">
+  <object class="BobguiPopover" id="notebook_info_popover">
     <property name="autohide">0</property>
     <property name="child">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">No updates at this time</property>
       </object>
     </property>
   </object>
-  <object class="GtkPopover" id="notebook_info_popover3">
+  <object class="BobguiPopover" id="notebook_info_popover3">
     <property name="autohide">0</property>
     <property name="child">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">You&apos;re in too deep!</property>
       </object>
     </property>
   </object>
-  <object class="GtkPopover" id="notebook_info_popover2">
+  <object class="BobguiPopover" id="notebook_info_popover2">
     <property name="autohide">0</property>
     <property name="child">
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label">Hidden gems:</property>
           </object>
         </child>
         <child>
-          <object class="GtkMenuButton">
+          <object class="BobguiMenuButton">
             <property name="valign">3</property>
             <property name="popover">notebook_info_popover3</property>
             <property name="child">
-              <object class="GtkImage">
+              <object class="BobguiImage">
                 <property name="paintable">emblem-important-symbolic</property>
               </object>
             </property>

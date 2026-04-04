@@ -1,4 +1,4 @@
-/* GTK - The GIMP Toolkit
+/* BOBGUI - The GIMP Toolkit
  * Copyright (C) 2017 Benjamin Otte
  *
  * This library is free software; you can redistribute it and/or
@@ -45,7 +45,7 @@
  * by a GType into a serialized form (i.e. a byte stream) that is
  * identified by a mime type.
  *
- * GTK provides serializers and deserializers for common data types
+ * BOBGUI provides serializers and deserializers for common data types
  * such as text, colors, images or file lists. To register your own
  * serialization functions, use [func@Gdk.content_register_serializer].
  *
@@ -365,7 +365,7 @@ gdk_content_serializer_return_success (GdkContentSerializer *serializer)
                                gdk_content_serializer_emit_callback,
                                serializer,
                                g_object_unref);
-  gdk_source_set_static_name_by_id (source_id, "[gtk] gdk_content_serializer_emit_callback");
+  gdk_source_set_static_name_by_id (source_id, "[bobgui] gdk_content_serializer_emit_callback");
   /* NB: the idle will destroy our reference */
 }
 
@@ -401,7 +401,7 @@ gdk_content_serializer_return_error (GdkContentSerializer *serializer,
  *
  * Registers a function to serialize objects of a given type.
  *
- * Since 4.20, when looking up a serializer to use, GTK will
+ * Since 4.20, when looking up a serializer to use, BOBGUI will
  * use the last registered serializer for a given mime type,
  * so applications can override the built-in serializers.
  */
@@ -841,7 +841,7 @@ file_uri_serializer (GdkContentSerializer *serializer)
         }
       else
         {
-          g_string_append (str, "# GTK does not crash when copying a NULL GFile!");
+          g_string_append (str, "# BOBGUI does not crash when copying a NULL GFile!");
         }
       g_string_append (str, "\r\n");
     }

@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gsk/gskrectprivate.h"
 #include "../reftests/reftest-compare.h"
 
@@ -73,7 +73,7 @@ test_normalize_linear_gradient (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv);
+  bobgui_test_init (&argc, &argv);
 
   g_test_add_func ("/node/normalize/color", test_normalize_color);
   g_test_add_func ("/node/normalize/linear-gradient", test_normalize_linear_gradient);

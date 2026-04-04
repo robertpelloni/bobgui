@@ -1,4 +1,4 @@
-/* gtkcellrendereraccel.h
+/* bobguicellrendereraccel.h
  * Copyright (C) 2000  Red Hat, Inc.,  Jonathan Blandford <jrb@redhat.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -15,76 +15,76 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gdk/gdkkeysyms.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
 static void
-accel_edited_callback (GtkCellRendererText *cell,
+accel_edited_callback (BobguiCellRendererText *cell,
                        const char          *path_string,
                        guint                keyval,
                        GdkModifierType      mask,
                        guint                hardware_keycode,
                        gpointer             data)
 {
-  GtkTreeModel *model = (GtkTreeModel *)data;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
-  GtkTreeIter iter;
+  BobguiTreeModel *model = (BobguiTreeModel *)data;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_string);
+  BobguiTreeIter iter;
 
-  gtk_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get_iter (model, &iter, path);
 
   g_print ("%u %d %u\n", keyval, mask, hardware_keycode);
   
-  gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+  bobgui_list_store_set (BOBGUI_LIST_STORE (model), &iter,
                       0, (int)mask,
                       1, keyval,
                       2, hardware_keycode,
                       -1);
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-accel_cleared_callback (GtkCellRendererText *cell,
+accel_cleared_callback (BobguiCellRendererText *cell,
                         const char          *path_string,
                         gpointer             data)
 {
-  GtkTreeModel *model = (GtkTreeModel *)data;
-  GtkTreePath *path;
-  GtkTreeIter iter;
+  BobguiTreeModel *model = (BobguiTreeModel *)data;
+  BobguiTreePath *path;
+  BobguiTreeIter iter;
 
-  path = gtk_tree_path_new_from_string (path_string);
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, 0, 1, 0, 2, 0, -1);
-  gtk_tree_path_free (path);
+  path = bobgui_tree_path_new_from_string (path_string);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_list_store_set (BOBGUI_LIST_STORE (model), &iter, 0, 0, 1, 0, 2, 0, -1);
+  bobgui_tree_path_free (path);
 }
-static GtkWidget *
+static BobguiWidget *
 key_test (void)
 {
-  GtkWidget *window, *sw, *tv;
-  GtkListStore *store;
-  GtkTreeViewColumn *column;
-  GtkCellRenderer *rend;
+  BobguiWidget *window, *sw, *tv;
+  BobguiListStore *store;
+  BobguiTreeViewColumn *column;
+  BobguiCellRenderer *rend;
   int i;
-  GtkWidget *box, *entry;
+  BobguiWidget *box, *entry;
 
   /* create window */
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 400, 400);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 400, 400);
 
-  sw = gtk_scrolled_window_new ();
-  gtk_widget_set_vexpand (sw, TRUE);
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
-  gtk_window_set_child (GTK_WINDOW (window), box);
-  gtk_box_append (GTK_BOX (box), sw);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_widget_set_vexpand (sw, TRUE);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 10);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
+  bobgui_box_append (BOBGUI_BOX (box), sw);
 
-  store = gtk_list_store_new (3, G_TYPE_INT, G_TYPE_UINT, G_TYPE_UINT);
-  tv = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), tv);
-  column = gtk_tree_view_column_new ();
-  rend = gtk_cell_renderer_accel_new ();
+  store = bobgui_list_store_new (3, G_TYPE_INT, G_TYPE_UINT, G_TYPE_UINT);
+  tv = bobgui_tree_view_new_with_model (BOBGUI_TREE_MODEL (store));
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), tv);
+  column = bobgui_tree_view_column_new ();
+  rend = bobgui_cell_renderer_accel_new ();
   g_object_set (G_OBJECT (rend),
-                "accel-mode", GTK_CELL_RENDERER_ACCEL_MODE_GTK,
+                "accel-mode", BOBGUI_CELL_RENDERER_ACCEL_MODE_BOBGUI,
                 "editable", TRUE,
                 NULL);
   g_signal_connect (G_OBJECT (rend),
@@ -96,24 +96,24 @@ key_test (void)
                     G_CALLBACK (accel_cleared_callback),
                     store);
 
-  gtk_tree_view_column_pack_start (column, rend,
+  bobgui_tree_view_column_pack_start (column, rend,
                                    TRUE);
-  gtk_tree_view_column_set_attributes (column, rend,
+  bobgui_tree_view_column_set_attributes (column, rend,
                                       "accel-mods", 0,
                                       "accel-key", 1,
                                       "keycode", 2,
                                       NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (tv), column);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (tv), column);
 
   for (i = 0; i < 10; i++)
     {
-      GtkTreeIter iter;
+      BobguiTreeIter iter;
 
-      gtk_list_store_append (store, &iter);
+      bobgui_list_store_append (store, &iter);
     }
 
-  entry = gtk_entry_new ();
-  gtk_box_append (GTK_BOX (box), entry);
+  entry = bobgui_entry_new ();
+  bobgui_box_append (BOBGUI_BOX (box), entry);
 
   return window;
 }
@@ -121,13 +121,13 @@ key_test (void)
 int
 main (int argc, char **argv)
 {
-  GtkWidget *dialog;
+  BobguiWidget *dialog;
   
-  gtk_init ();
+  bobgui_init ();
 
   dialog = key_test ();
 
-  gtk_window_present (GTK_WINDOW (dialog));
+  bobgui_window_present (BOBGUI_WINDOW (dialog));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

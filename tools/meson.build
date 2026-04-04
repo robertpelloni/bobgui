@@ -4,7 +4,7 @@ extra_update_icon_cache_objs = []
 if win32_enabled
   gen_uac_manifest = find_program('generate-uac-manifest.py')
 
-  uac_exe_pkg = 'gtk4'
+  uac_exe_pkg = 'bobgui4'
   uac_exe_name = '@0@-update-icon-cache'.format(uac_exe_pkg)
 
   # Well, we have to forgo the xxx.exe.manifest in the output listing, since
@@ -22,56 +22,56 @@ if win32_enabled
   extra_update_icon_cache_objs = import('windows').compile_resources(uac_rc)
 endif
 
-gtk_tools = [
-  ['gtk4-path-tool', ['gtk-path-tool.c',
-                      'gtk-path-tool-decompose.c',
-                      'gtk-path-tool-info.c',
-                      'gtk-path-tool-render.c',
-                      'gtk-path-tool-restrict.c',
-                      'gtk-path-tool-reverse.c',
-                      'gtk-path-tool-show.c',
-                      'gtk-path-tool-utils.c',
-                      'path-view.c'], [libgtk_dep]],
-  ['gtk4-query-settings', ['gtk-query-settings.c'], [libgtk_dep]],
-  ['gtk4-builder-tool', ['gtk-builder-tool.c',
-                         'gtk-builder-tool-simplify.c',
-                         'gtk-builder-tool-validate.c',
-                         'gtk-builder-tool-enumerate.c',
-                         'gtk-builder-tool-screenshot.c',
-                         'gtk-builder-tool-preview.c',
-                         'fake-scope.c'], [libgtk_dep] ],
-  ['gtk4-rendernode-tool', ['gtk-rendernode-tool.c',
-                        'gtk-rendernode-filter-copypaste.c',
-                        'gtk-rendernode-filter-strip.c',
-                        'gtk-rendernode-filter-texture.c',
-                        'gtk-rendernode-tool-benchmark.c',
-                        'gtk-rendernode-tool-compare.c',
-                        'gtk-rendernode-tool-convert.c',
-                        'gtk-rendernode-tool-extract.c',
-                        'gtk-rendernode-tool-filter.c',
-                        'gtk-rendernode-tool-info.c',
-                        'gtk-rendernode-tool-match.c',
-                        'gtk-rendernode-tool-render.c',
-                        'gtk-rendernode-tool-show.c',
-                       'gtk-tool-utils.c',
-                        '../testsuite/reftests/reftest-compare.c'], [libgtk_dep] ],
-  ['gtk4-image-tool', ['gtk-image-tool.c',
-                       'gtk-image-tool-info.c',
-                       'gtk-image-tool-compare.c',
-                       'gtk-image-tool-convert.c',
-                       'gtk-image-tool-play.c',
-                       'gtk-image-tool-relabel.c',
-                       'gtk-image-tool-show.c',
-                       'gtk-tool-utils.c',
-                        '../testsuite/reftests/reftest-compare.c'], [libgtk_dep] ],
-  ['gtk4-update-icon-cache', ['updateiconcache.c', '../gtk/gtkiconcachevalidator.c' ] + extra_update_icon_cache_objs, [ libgtk_dep ] ],
+bobgui_tools = [
+  ['bobgui4-path-tool', ['bobgui-path-tool.c',
+                      'bobgui-path-tool-decompose.c',
+                      'bobgui-path-tool-info.c',
+                      'bobgui-path-tool-render.c',
+                      'bobgui-path-tool-restrict.c',
+                      'bobgui-path-tool-reverse.c',
+                      'bobgui-path-tool-show.c',
+                      'bobgui-path-tool-utils.c',
+                      'path-view.c'], [libbobgui_dep]],
+  ['bobgui4-query-settings', ['bobgui-query-settings.c'], [libbobgui_dep]],
+  ['bobgui4-builder-tool', ['bobgui-builder-tool.c',
+                         'bobgui-builder-tool-simplify.c',
+                         'bobgui-builder-tool-validate.c',
+                         'bobgui-builder-tool-enumerate.c',
+                         'bobgui-builder-tool-screenshot.c',
+                         'bobgui-builder-tool-preview.c',
+                         'fake-scope.c'], [libbobgui_dep] ],
+  ['bobgui4-rendernode-tool', ['bobgui-rendernode-tool.c',
+                        'bobgui-rendernode-filter-copypaste.c',
+                        'bobgui-rendernode-filter-strip.c',
+                        'bobgui-rendernode-filter-texture.c',
+                        'bobgui-rendernode-tool-benchmark.c',
+                        'bobgui-rendernode-tool-compare.c',
+                        'bobgui-rendernode-tool-convert.c',
+                        'bobgui-rendernode-tool-extract.c',
+                        'bobgui-rendernode-tool-filter.c',
+                        'bobgui-rendernode-tool-info.c',
+                        'bobgui-rendernode-tool-match.c',
+                        'bobgui-rendernode-tool-render.c',
+                        'bobgui-rendernode-tool-show.c',
+                       'bobgui-tool-utils.c',
+                        '../testsuite/reftests/reftest-compare.c'], [libbobgui_dep] ],
+  ['bobgui4-image-tool', ['bobgui-image-tool.c',
+                       'bobgui-image-tool-info.c',
+                       'bobgui-image-tool-compare.c',
+                       'bobgui-image-tool-convert.c',
+                       'bobgui-image-tool-play.c',
+                       'bobgui-image-tool-relabel.c',
+                       'bobgui-image-tool-show.c',
+                       'bobgui-tool-utils.c',
+                        '../testsuite/reftests/reftest-compare.c'], [libbobgui_dep] ],
+  ['bobgui4-update-icon-cache', ['updateiconcache.c', '../bobgui/bobguiiconcachevalidator.c' ] + extra_update_icon_cache_objs, [ libbobgui_dep ] ],
 ]
 
 if os_unix
-  gtk_tools += [['gtk4-launch', ['gtk-launch.c'], [libgtk_dep]]]
+  bobgui_tools += [['bobgui4-launch', ['bobgui-launch.c'], [libbobgui_dep]]]
 endif
 
-foreach tool: gtk_tools
+foreach tool: bobgui_tools
   tool_name = tool.get(0)
   tool_srcs = tool.get(1)
   tool_deps = tool.get(2)
@@ -89,21 +89,21 @@ foreach tool: gtk_tools
 endforeach
 
 # Data to install
-install_data('gtk4builder.rng', install_dir: gtk_datadir / 'gtk-4.0')
+install_data('bobgui4builder.rng', install_dir: bobgui_datadir / 'bobgui-4.0')
 
 install_data([
-    'gtk4builder.loc',
-    'gtk4builder.its',
+    'bobgui4builder.loc',
+    'bobgui4builder.its',
   ],
-  install_dir: gtk_datadir / 'gettext/its',
+  install_dir: bobgui_datadir / 'gettext/its',
 )
 
 if bash.found()
   install_data([
-      'completions/gtk4-builder-tool',
-      'completions/gtk4-image-tool',
-      'completions/gtk4-path-tool',
-      'completions/gtk4-rendernode-tool',
+      'completions/bobgui4-builder-tool',
+      'completions/bobgui4-image-tool',
+      'completions/bobgui4-path-tool',
+      'completions/bobgui4-rendernode-tool',
     ],
     install_dir: bash_comp_inst_dir,
     install_tag: 'bin',

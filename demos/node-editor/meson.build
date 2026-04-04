@@ -1,5 +1,5 @@
 node_editor_sources = [
-  'gtkrendererpaintable.c',
+  'bobguirendererpaintable.c',
   'main.c',
   'node-editor-application.c',
   'node-editor-window.c',
@@ -10,9 +10,9 @@ node_editor_resources = gnome.compile_resources('node_editor_resources',
   source_dir: meson.current_source_dir(),
 )
 
-executable('gtk4-node-editor',
+executable('bobgui4-node-editor',
   sources: [node_editor_sources, node_editor_resources],
-  dependencies: [ libgtk_dep, gmodule_headers_dep, profile_conf_h ],
+  dependencies: [ libbobgui_dep, gmodule_headers_dep, profile_conf_h ],
   include_directories: confinc,
   c_args: common_cflags,
   win_subsystem: 'windows',
@@ -22,26 +22,26 @@ executable('gtk4-node-editor',
 )
 
 # icons
-icontheme_dir = join_paths(gtk_datadir, 'icons/hicolor')
+icontheme_dir = join_paths(bobgui_datadir, 'icons/hicolor')
 
 foreach size: ['scalable', 'symbolic']
   install_subdir('data/' + size, install_dir: icontheme_dir)
 endforeach
 
 # desktop file
-install_data('org.gtk.gtk4.NodeEditor.desktop', install_dir: gtk_applicationsdir)
+install_data('org.bobgui.bobgui4.NodeEditor.desktop', install_dir: bobgui_applicationsdir)
 
 # appdata
 configure_file(
-  input: 'org.gtk.gtk4.NodeEditor.appdata.xml.in',
-  output: 'org.gtk.gtk4.NodeEditor.appdata.xml',
+  input: 'org.bobgui.bobgui4.NodeEditor.appdata.xml.in',
+  output: 'org.bobgui.bobgui4.NodeEditor.appdata.xml',
   configuration: appdata_config,
-  install_dir: gtk_appdatadir
+  install_dir: bobgui_appdatadir
 )
 
 if bash.found()
   install_data([ 'completion' ],
-    rename: [ 'gtk4-node-editor' ],
+    rename: [ 'bobgui4-node-editor' ],
     install_dir: bash_comp_inst_dir,
     install_tag: 'bin',
   )

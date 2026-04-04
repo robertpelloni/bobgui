@@ -1,7 +1,7 @@
 <!--
   Please, read the CONTRIBUTING.md guide on how to file a new issue.
 
-  https://gitlab.gnome.org/GNOME/gtk/-/blob/main/CONTRIBUTING.md
+  https://gitlab.gnome.org/GNOME/bobgui/-/blob/main/CONTRIBUTING.md
 -->
 ## Steps to reproduce
 <!--
@@ -32,14 +32,14 @@
 
 ## Version information
 <!--
- - Which version of GTK you are using
+ - Which version of BOBGUI you are using
  - What operating system and version
  - What windowing system (X11 or Wayland)
  - What graphics driver / mesa version
  - For Linux, which distribution
- - If you built GTK yourself, the list of options used to configure the build
+ - If you built BOBGUI yourself, the list of options used to configure the build
 
- The GTK Inspector has a "Copy to clipboard as gitlab markup" button that
+ The BOBGUI Inspector has a "Copy to clipboard as gitlab markup" button that
  produces a helpful summary containing most of this information (and more).
 -->
 

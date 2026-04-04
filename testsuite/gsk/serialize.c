@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "../testutils.h"
 
 static const char *file;
@@ -41,7 +41,7 @@ test_serialize_roundtrip (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv);
+  bobgui_test_init (&argc, &argv);
 
   file = argv[1];
   g_test_add_func ("/node/serialize/roundtrip", test_serialize_roundtrip);

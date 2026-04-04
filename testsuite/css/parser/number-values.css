@@ -1,31 +1,31 @@
 a {
-  -gtk-dpi: 0;
+  -bobgui-dpi: 0;
 }
 
 b {
-  -gtk-dpi: 100;
+  -bobgui-dpi: 100;
 }
 
 c {
-  -gtk-dpi: -39;
+  -bobgui-dpi: -39;
 }
 
 d {
-  -gtk-dpi: 0.5;
+  -bobgui-dpi: 0.5;
 }
 
 e {
-  -gtk-dpi: 2.6e2;
+  -bobgui-dpi: 2.6e2;
 }
 
 f {
-  -gtk-dpi: 2.6E20;
+  -bobgui-dpi: 2.6E20;
 }
 
 g {
-  -gtk-dpi: 5e-1;
+  -bobgui-dpi: 5e-1;
 }
 
 h {
-  -gtk-dpi: 2E-19;
+  -bobgui-dpi: 2E-19;
 }

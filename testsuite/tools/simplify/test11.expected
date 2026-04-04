@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkPaned">
+  <object class="BobguiPaned">
     <property name="start-child">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">start</property>
       </object>
     </property>
     <property name="end-child">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">end</property>
       </object>
     </property>

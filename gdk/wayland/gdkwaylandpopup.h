@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if !defined (__GDKWAYLAND_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKWAYLAND_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/wayland/gdkwayland.h> can be included directly."
 #endif
 
@@ -28,7 +28,7 @@
 
 G_BEGIN_DECLS
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkWaylandPopup GdkWaylandPopup;
 #else
 typedef GdkPopup GdkWaylandPopup;

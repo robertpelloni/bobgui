@@ -17,7 +17,7 @@
  * Authors: Matthias Clasen
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gsk/gskrendernodeprivate.h"
 
 static void
@@ -99,7 +99,7 @@ int
 main (int   argc,
       char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/node/can-diff/basic", test_can_diff_basic);
   g_test_add_func ("/node/can-diff/transform", test_can_diff_transform);

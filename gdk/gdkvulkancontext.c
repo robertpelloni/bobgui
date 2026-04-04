@@ -79,7 +79,7 @@ struct _GdkVulkanPresent
  * Support for `GdkVulkanContext` is platform-specific and context creation
  * can fail, returning %NULL context.
  *
- * Deprecated: 4.14: GTK does not expose any Vulkan internals. This
+ * Deprecated: 4.14: BOBGUI does not expose any Vulkan internals. This
  *   struct is a leftover that was accidentally exposed.
  */
 
@@ -133,7 +133,7 @@ gdk_vulkan_strerror (VkResult result)
 {
   /* If your compiler brought you here with a warning about missing
    * enumeration values, you're running a newer Vulkan version than
-   * the GTK developers (or you are a GTK developer) and have
+   * the BOBGUI developers (or you are a BOBGUI developer) and have
    * encountered a newly added Vulkan error message.
    * You want to add it to this enum now.
    *
@@ -156,7 +156,7 @@ gdk_vulkan_strerror (VkResult result)
    *    message.
    * 8. If that didn't lead to one (or you are lazy), just use the
    *    literal string of the enum value as the error message. A
-   *    GTK developer will add the correct one once it's added to the
+   *    BOBGUI developer will add the correct one once it's added to the
    *    specification.
    */
   switch (result)
@@ -474,18 +474,18 @@ gdk_vulkan_context_check_swapchain (GdkVulkanContext  *context,
    */
   if (capabilities.currentExtent.width == -1 || capabilities.currentExtent.height == -1)
     {
-      GDK_DEBUG (VULKAN, "GTK selecting swapchain size as %ux%u",
+      GDK_DEBUG (VULKAN, "BOBGUI selecting swapchain size as %ux%u",
                  (guint) size.width, (guint) size.height);
     }
   else if (capabilities.currentExtent.width == size.width &&
            capabilities.currentExtent.height == size.height)
     {
-      GDK_DEBUG (VULKAN, "Vulkan and GTK agree on size as %ux%u",
+      GDK_DEBUG (VULKAN, "Vulkan and BOBGUI agree on size as %ux%u",
                  (guint) size.width, (guint) size.height);
     }
   else
     {
-      GDK_DEBUG (VULKAN, "Vulkan %ux%u and GTK %ux%u disagree on size, using GTK's",
+      GDK_DEBUG (VULKAN, "Vulkan %ux%u and BOBGUI %ux%u disagree on size, using BOBGUI's",
                  (guint) capabilities.currentExtent.width, (guint) capabilities.currentExtent.height,
                  (guint) size.width, (guint) size.height);
     }
@@ -1356,7 +1356,7 @@ gdk_vulkan_context_get_queue_family_index (GdkVulkanContext *context)
 static char *
 gdk_vulkan_get_pipeline_cache_dirname (void)
 {
-  return g_build_filename (g_get_user_cache_dir (), "gtk-4.0", "vulkan-pipeline-cache", NULL);
+  return g_build_filename (g_get_user_cache_dir (), "bobgui-4.0", "vulkan-pipeline-cache", NULL);
 }
 
 static GFile *
@@ -2001,7 +2001,7 @@ gdk_display_create_vulkan_instance (GdkDisplay  *display,
                                    .pNext = NULL,
                                    .pApplicationName = g_get_application_name (),
                                    .applicationVersion = 0,
-                                   .pEngineName = "GTK",
+                                   .pEngineName = "BOBGUI",
                                    .engineVersion = VK_MAKE_VERSION (GDK_MAJOR_VERSION, GDK_MINOR_VERSION, GDK_MICRO_VERSION),
                                    .apiVersion = VK_API_VERSION_1_3
                                },

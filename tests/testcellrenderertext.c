@@ -1,5 +1,5 @@
-/* GTK - The GIMP Toolkit
- * testcellrenderertext.c: Tests for the various properties of GtkCellRendererText
+/* BOBGUI - The GIMP Toolkit
+ * testcellrenderertext.c: Tests for the various properties of BobguiCellRendererText
  * Copyright (C) 2005, Novell, Inc.
  *
  * Authors:
@@ -19,7 +19,7 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
@@ -105,13 +105,13 @@ static const struct cell_params cell_params[] = {
   { "0  0  0  0  T  -1 -1 -1 -1 CH F  NO AR", TESTR,  0,  0, 0.0, 0.0, TRUE,  -1, -1, -1, 20, WO, FALSE, NO , AR }, /* 21 */
 };
 
-static GtkListStore *
+static BobguiListStore *
 create_list_store (void)
 {
-  GtkListStore *list_store;
+  BobguiListStore *list_store;
   int i;
 
-  list_store = gtk_list_store_new (NUM_COLS,
+  list_store = bobgui_list_store_new (NUM_COLS,
 				   G_TYPE_STRING,		/* 0 */ 
 				   G_TYPE_STRING,		/* 1 */ 
 				   G_TYPE_INT,			/* 2 */ 
@@ -133,15 +133,15 @@ create_list_store (void)
   for (i = 0; i < G_N_ELEMENTS (cell_params); i++)
     {
       const struct cell_params *p;
-      GtkTreeIter iter;
+      BobguiTreeIter iter;
       char buf[50];
 
       p = cell_params + i;
 
       g_snprintf (buf, sizeof (buf), "%d", i);
 
-      gtk_list_store_append (list_store, &iter);
-      gtk_list_store_set (list_store, &iter,
+      bobgui_list_store_append (list_store, &iter);
+      bobgui_list_store_set (list_store, &iter,
 			  0, p->description,
 			  1, p->test,
 			  2, p->xpad,
@@ -165,51 +165,51 @@ create_list_store (void)
   return list_store;
 }
 
-static GtkWidget *
+static BobguiWidget *
 create_tree (gboolean rtl)
 {
-  GtkWidget *sw;
-  GtkWidget *treeview;
-  GtkListStore *list_store;
-  GtkTreeViewColumn *column;
-  GtkCellRenderer *renderer;
+  BobguiWidget *sw;
+  BobguiWidget *treeview;
+  BobguiListStore *list_store;
+  BobguiTreeViewColumn *column;
+  BobguiCellRenderer *renderer;
   GdkPixbuf *pixbuf;
 
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (sw), TRUE);
-  gtk_widget_set_direction (sw, rtl ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_has_frame (BOBGUI_SCROLLED_WINDOW (sw), TRUE);
+  bobgui_widget_set_direction (sw, rtl ? BOBGUI_TEXT_DIR_RTL : BOBGUI_TEXT_DIR_LTR);
 
   list_store = create_list_store ();
 
-  treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL (list_store));
-  gtk_widget_set_direction (treeview, rtl ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), treeview);
+  treeview = bobgui_tree_view_new_with_model (BOBGUI_TREE_MODEL (list_store));
+  bobgui_widget_set_direction (treeview, rtl ? BOBGUI_TEXT_DIR_RTL : BOBGUI_TEXT_DIR_LTR);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), treeview);
 
   /* Line number */
 
-  renderer = gtk_cell_renderer_text_new ();
-  column = gtk_tree_view_column_new_with_attributes ("#",
+  renderer = bobgui_cell_renderer_text_new ();
+  column = bobgui_tree_view_column_new_with_attributes ("#",
 						     renderer,
 						     "text", COL_LINE_NUM,
 						     NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (treeview), column);
 
   /* Description */
 
-  renderer = gtk_cell_renderer_text_new ();
+  renderer = bobgui_cell_renderer_text_new ();
   g_object_set (renderer,
 		"font", "monospace",
 		NULL);
-  column = gtk_tree_view_column_new_with_attributes ("Description",
+  column = bobgui_tree_view_column_new_with_attributes ("Description",
 						     renderer,
 						     "text", 0,
 						     NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (treeview), column);
 
   /* Test text */
 
-  renderer = gtk_cell_renderer_text_new ();
-  column = gtk_tree_view_column_new_with_attributes ("Test",
+  renderer = bobgui_cell_renderer_text_new ();
+  column = bobgui_tree_view_column_new_with_attributes ("Test",
 						     renderer,
 						     "text", 1,
 						     "xpad", 2,
@@ -227,29 +227,29 @@ create_tree (gboolean rtl)
 						     "alignment", 14,
 						     "cell_background", 15,
 						     NULL);
-  gtk_tree_view_column_set_resizable (column, TRUE);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+  bobgui_tree_view_column_set_resizable (column, TRUE);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (treeview), column);
 
   /* Empty column */
 
   pixbuf = gdk_pixbuf_new_from_file ("apple-red.png", NULL);
 
-  renderer = gtk_cell_renderer_pixbuf_new ();
+  renderer = bobgui_cell_renderer_pixbuf_new ();
   g_object_set (renderer,
 		"pixbuf", pixbuf,
 		"xpad", 10,
 		"ypad", 10,
 		NULL);
-  column = gtk_tree_view_column_new_with_attributes ("Empty",
+  column = bobgui_tree_view_column_new_with_attributes ("Empty",
 						     renderer,
 						     NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (treeview), column);
 
   return sw;
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -262,40 +262,40 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char **argv)
 {
-  GtkWidget *window;
-  GtkWidget *vbox;
-  GtkWidget *label;
-  GtkWidget *tree;
+  BobguiWidget *window;
+  BobguiWidget *vbox;
+  BobguiWidget *label;
+  BobguiWidget *tree;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "destroy",
 		    G_CALLBACK (quit_cb), &done);
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 12);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
   /* LTR */
 
-  label = gtk_label_new ("Left to right");
-  gtk_box_append (GTK_BOX (vbox), label);
+  label = bobgui_label_new ("Left to right");
+  bobgui_box_append (BOBGUI_BOX (vbox), label);
 
   tree = create_tree (FALSE);
-  gtk_widget_set_vexpand (tree, TRUE);
-  gtk_box_append (GTK_BOX (vbox), tree);
+  bobgui_widget_set_vexpand (tree, TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), tree);
 
   /* RTL */
 
-  label = gtk_label_new ("Right to left");
-  gtk_box_append (GTK_BOX (vbox), label);
+  label = bobgui_label_new ("Right to left");
+  bobgui_box_append (BOBGUI_BOX (vbox), label);
 
   tree = create_tree (TRUE);
-  gtk_widget_set_vexpand (tree, TRUE);
-  gtk_box_append (GTK_BOX (vbox), tree);
+  bobgui_widget_set_vexpand (tree, TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), tree);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

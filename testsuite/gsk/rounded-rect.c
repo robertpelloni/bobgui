@@ -19,7 +19,7 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gsk/gskroundedrectprivate.h>
 #include <gsk/gskrectprivate.h>
 
@@ -549,7 +549,7 @@ int
 main (int   argc,
       char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
   g_test_set_nonfatal_assertions ();
 
   g_test_add_func ("/rounded-rect/contains-rect", test_contains_rect);

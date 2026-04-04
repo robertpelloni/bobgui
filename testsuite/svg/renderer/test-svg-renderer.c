@@ -20,16 +20,16 @@
 
 #include <string.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
-#include "gtk/svg/gtksvgprivate.h"
-#include "gtk/svg/gtksvgenumtypes.h"
+#include <bobgui/bobgui.h>
+#include "bobgui/svg/bobguisvgprivate.h"
+#include "bobgui/svg/bobguisvgenumtypes.h"
 #include "testsuite/testutils.h"
 
 typedef struct
 {
   GFile *input;
   GFile *reference;
-  GtkSvgFeatures features;
+  BobguiSvgFeatures features;
   GdkRGBA colors[5];
   size_t n_colors;
   double weight;
@@ -42,9 +42,9 @@ init_test_data (TestData *data)
 {
   data->input = NULL;
   data->reference = NULL;
-  data->features = GTK_SVG_EXTERNAL_RESOURCES |
-                   GTK_SVG_EXTENSIONS |
-                   GTK_SVG_ANIMATIONS;
+  data->features = BOBGUI_SVG_EXTERNAL_RESOURCES |
+                   BOBGUI_SVG_EXTENSIONS |
+                   BOBGUI_SVG_ANIMATIONS;
   data->n_colors = 0;
   data->weight = -1;
   data->generate = FALSE;
@@ -217,12 +217,12 @@ static void
 add_error_context (const GError *error,
                    GString      *string)
 {
-  if (error->domain == GTK_SVG_ERROR)
+  if (error->domain == BOBGUI_SVG_ERROR)
     {
-      const GtkSvgLocation *start = gtk_svg_error_get_start (error);
-      const GtkSvgLocation *end = gtk_svg_error_get_end (error);
-      const char *element = gtk_svg_error_get_element (error);
-      const char *attribute = gtk_svg_error_get_attribute (error);
+      const BobguiSvgLocation *start = bobgui_svg_error_get_start (error);
+      const BobguiSvgLocation *end = bobgui_svg_error_get_end (error);
+      const char *element = bobgui_svg_error_get_element (error);
+      const char *attribute = bobgui_svg_error_get_attribute (error);
 
       if (start)
         {
@@ -245,15 +245,15 @@ add_error_context (const GError *error,
 }
 
 static void
-error_cb (GtkSvg       *svg,
+error_cb (BobguiSvg       *svg,
           const GError *error,
           GString      *errors)
 {
   add_error_context (error,errors);
 
-  if (error->domain == GTK_SVG_ERROR)
+  if (error->domain == BOBGUI_SVG_ERROR)
     {
-      GEnumClass *class = g_type_class_get (GTK_TYPE_SVG_ERROR);
+      GEnumClass *class = g_type_class_get (BOBGUI_TYPE_SVG_ERROR);
       GEnumValue *value = g_enum_get_value (class, error->code);
       g_string_append (errors, value->value_name);
     }
@@ -273,7 +273,7 @@ render_svg_file (TestData *data)
 {
   gboolean compressed;
   gboolean compressed_ref;
-  GtkSvg *svg;
+  BobguiSvg *svg;
   char *svg_file;
   const char *file_ext;
   char *errors_file;
@@ -281,7 +281,7 @@ render_svg_file (TestData *data)
   size_t length;
   GBytes *bytes;
   char *diff;
-  GtkSnapshot *snapshot;
+  BobguiSnapshot *snapshot;
   GskRenderNode *node;
   GString *errors;
   GError *error = NULL;
@@ -317,21 +317,21 @@ render_svg_file (TestData *data)
       bytes = g_bytes_new_take (contents, length);
     }
 
-  svg = gtk_svg_new ();
+  svg = bobgui_svg_new ();
   g_signal_connect (svg, "error", G_CALLBACK (error_cb), errors);
 
-  gtk_svg_set_features (svg, data->features);
-  gtk_svg_set_weight (svg, data->weight);
+  bobgui_svg_set_features (svg, data->features);
+  bobgui_svg_set_weight (svg, data->weight);
 
-  gtk_svg_load_from_bytes (svg, bytes);
+  bobgui_svg_load_from_bytes (svg, bytes);
   g_clear_pointer (&bytes, g_bytes_unref);
 
-  gtk_svg_play (svg);
+  bobgui_svg_play (svg);
 
-  snapshot = gtk_snapshot_new ();
+  snapshot = bobgui_snapshot_new ();
 
   if (data->n_colors > 0)
-    gtk_symbolic_paintable_snapshot_symbolic (GTK_SYMBOLIC_PAINTABLE (svg), snapshot,
+    bobgui_symbolic_paintable_snapshot_symbolic (BOBGUI_SYMBOLIC_PAINTABLE (svg), snapshot,
                                               gdk_paintable_get_intrinsic_width (GDK_PAINTABLE (svg)),
                                               gdk_paintable_get_intrinsic_height (GDK_PAINTABLE (svg)),
                                               data->colors,
@@ -341,7 +341,7 @@ render_svg_file (TestData *data)
                             gdk_paintable_get_intrinsic_width (GDK_PAINTABLE (svg)),
                             gdk_paintable_get_intrinsic_height (GDK_PAINTABLE (svg)));
 
-  node = gtk_snapshot_free_to_node (snapshot);
+  node = bobgui_snapshot_free_to_node (snapshot);
 
   if (node)
     bytes = gsk_render_node_serialize (node);
@@ -490,10 +490,10 @@ read_test_data (GFile    *file,
 
   g_key_file_unref (args);
 
-  data->features = GTK_SVG_EXTERNAL_RESOURCES |
-                   GTK_SVG_EXTENSIONS |
-                   (animations ? GTK_SVG_ANIMATIONS : 0) |
-                   (symbolic ? GTK_SVG_TRADITIONAL_SYMBOLIC : 0);
+  data->features = BOBGUI_SVG_EXTERNAL_RESOURCES |
+                   BOBGUI_SVG_EXTENSIONS |
+                   (animations ? BOBGUI_SVG_ANIMATIONS : 0) |
+                   (symbolic ? BOBGUI_SVG_TRADITIONAL_SYMBOLIC : 0);
 
   g_free (input);
   g_free (reference);
@@ -574,7 +574,7 @@ main (int argc, char **argv)
       GFile *file;
       TestData data;
 
-      gtk_init ();
+      bobgui_init ();
 
       file = g_file_new_for_commandline_arg (generate);
 
@@ -594,7 +594,7 @@ main (int argc, char **argv)
       return 0;
     }
 
-  gtk_test_init (&argc, &argv);
+  bobgui_test_init (&argc, &argv);
 
   for (guint i = 1; i < argc; i++)
     {

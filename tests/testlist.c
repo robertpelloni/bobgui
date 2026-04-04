@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include <string.h>
 
@@ -9,14 +9,14 @@ typedef struct _RowClass RowClass;
 
 struct _Row
 {
-  GtkListBoxRow parent_instance;
-  GtkWidget *label;
+  BobguiListBoxRow parent_instance;
+  BobguiWidget *label;
   int sort_id;
 };
 
 struct _RowClass
 {
-  GtkListBoxRowClass parent_class;
+  BobguiListBoxRowClass parent_class;
 };
 
 const char *css =
@@ -33,7 +33,7 @@ const char *css =
   "}";
 
 static GType row_get_type (void);
-G_DEFINE_TYPE (Row, row, GTK_TYPE_LIST_BOX_ROW)
+G_DEFINE_TYPE (Row, row, BOBGUI_TYPE_LIST_BOX_ROW)
 
 static void
 row_init (Row *row)
@@ -45,50 +45,50 @@ row_class_init (RowClass *class)
 {
 }
 
-static GtkWidget *
+static BobguiWidget *
 row_new (const char * text, int sort_id) {
   Row *row;
 
   row = g_object_new (row_get_type (), NULL);
   if (text != NULL)
     {
-      row->label = gtk_label_new (text);
-      gtk_list_box_row_set_child (GTK_LIST_BOX_ROW (row), row->label);
+      row->label = bobgui_label_new (text);
+      bobgui_list_box_row_set_child (BOBGUI_LIST_BOX_ROW (row), row->label);
     }
   row->sort_id = sort_id;
 
-  return GTK_WIDGET (row);
+  return BOBGUI_WIDGET (row);
 }
 
 
 static void
 update_header_cb (Row *row, Row *before, gpointer data)
 {
-  GtkWidget *hbox, *l, *b;
+  BobguiWidget *hbox, *l, *b;
 
   if (before == NULL ||
       (row->label != NULL &&
-       strcmp (gtk_label_get_text (GTK_LABEL (row->label)), "blah3") == 0))
+       strcmp (bobgui_label_get_text (BOBGUI_LABEL (row->label)), "blah3") == 0))
     {
       /* Create header if needed */
-      if (gtk_list_box_row_get_header (GTK_LIST_BOX_ROW (row)) == NULL)
+      if (bobgui_list_box_row_get_header (BOBGUI_LIST_BOX_ROW (row)) == NULL)
         {
-          hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-          l = gtk_label_new ("Header");
-          gtk_box_append (GTK_BOX (hbox), l);
-          b = gtk_button_new_with_label ("button");
-          gtk_box_append (GTK_BOX (hbox), b);
-          gtk_list_box_row_set_header (GTK_LIST_BOX_ROW (row), hbox);
+          hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+          l = bobgui_label_new ("Header");
+          bobgui_box_append (BOBGUI_BOX (hbox), l);
+          b = bobgui_button_new_with_label ("button");
+          bobgui_box_append (BOBGUI_BOX (hbox), b);
+          bobgui_list_box_row_set_header (BOBGUI_LIST_BOX_ROW (row), hbox);
       }
 
-      hbox = gtk_list_box_row_get_header(GTK_LIST_BOX_ROW (row));
+      hbox = bobgui_list_box_row_get_header(BOBGUI_LIST_BOX_ROW (row));
 
-      l = gtk_widget_get_first_child (hbox);
-      gtk_label_set_text (GTK_LABEL (l), g_strdup_printf ("Header %d", row->sort_id));
+      l = bobgui_widget_get_first_child (hbox);
+      bobgui_label_set_text (BOBGUI_LABEL (l), g_strdup_printf ("Header %d", row->sort_id));
     }
   else
     {
-      gtk_list_box_row_set_header(GTK_LIST_BOX_ROW (row), NULL);
+      bobgui_list_box_row_set_header(BOBGUI_LIST_BOX_ROW (row), NULL);
     }
 }
 
@@ -111,7 +111,7 @@ filter_cb (Row *row, gpointer data)
 
   if (row->label != NULL)
     {
-      text = gtk_label_get_text (GTK_LABEL (row->label));
+      text = bobgui_label_get_text (BOBGUI_LABEL (row->label));
       return strcmp (text, "blah3") != 0;
     }
 
@@ -119,250 +119,250 @@ filter_cb (Row *row, gpointer data)
 }
 
 static void
-row_activated_cb (GtkListBox *list_box,
-                  GtkListBoxRow *row)
+row_activated_cb (BobguiListBox *list_box,
+                  BobguiListBoxRow *row)
 {
   g_print ("activated row %p\n", row);
 }
 
 static void
-row_selected_cb (GtkListBox *list_box,
-                 GtkListBoxRow *row)
+row_selected_cb (BobguiListBox *list_box,
+                 BobguiListBoxRow *row)
 {
   g_print ("selected row %p\n", row);
 }
 
 static void
-sort_clicked_cb (GtkButton *button,
+sort_clicked_cb (BobguiButton *button,
                  gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  gtk_list_box_set_sort_func (list, (GtkListBoxSortFunc)sort_cb, NULL, NULL);
+  bobgui_list_box_set_sort_func (list, (BobguiListBoxSortFunc)sort_cb, NULL, NULL);
 }
 
 static void
-reverse_sort_clicked_cb (GtkButton *button,
+reverse_sort_clicked_cb (BobguiButton *button,
                          gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  gtk_list_box_set_sort_func (list, (GtkListBoxSortFunc)reverse_sort_cb, NULL, NULL);
+  bobgui_list_box_set_sort_func (list, (BobguiListBoxSortFunc)reverse_sort_cb, NULL, NULL);
 }
 
 static void
-filter_clicked_cb (GtkButton *button,
+filter_clicked_cb (BobguiButton *button,
                    gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  gtk_list_box_set_filter_func (list, (GtkListBoxFilterFunc)filter_cb, NULL, NULL);
+  bobgui_list_box_set_filter_func (list, (BobguiListBoxFilterFunc)filter_cb, NULL, NULL);
 }
 
 static void
-unfilter_clicked_cb (GtkButton *button,
+unfilter_clicked_cb (BobguiButton *button,
                    gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  gtk_list_box_set_filter_func (list, NULL, NULL, NULL);
+  bobgui_list_box_set_filter_func (list, NULL, NULL, NULL);
 }
 
 static void
-change_clicked_cb (GtkButton *button,
+change_clicked_cb (BobguiButton *button,
                    gpointer data)
 {
   Row *row = data;
 
-  if (strcmp (gtk_label_get_text (GTK_LABEL (row->label)), "blah3") == 0)
+  if (strcmp (bobgui_label_get_text (BOBGUI_LABEL (row->label)), "blah3") == 0)
     {
-      gtk_label_set_text (GTK_LABEL (row->label), "blah5");
+      bobgui_label_set_text (BOBGUI_LABEL (row->label), "blah5");
       row->sort_id = 5;
     }
   else
     {
-      gtk_label_set_text (GTK_LABEL (row->label), "blah3");
+      bobgui_label_set_text (BOBGUI_LABEL (row->label), "blah3");
       row->sort_id = 3;
     }
-  gtk_list_box_row_changed (GTK_LIST_BOX_ROW (row));
+  bobgui_list_box_row_changed (BOBGUI_LIST_BOX_ROW (row));
 }
 
 static void
-add_clicked_cb (GtkButton *button,
+add_clicked_cb (BobguiButton *button,
                 gpointer data)
 {
-  GtkListBox *list = data;
-  GtkWidget *new_row;
+  BobguiListBox *list = data;
+  BobguiWidget *new_row;
   static int new_button_nr = 1;
 
   new_row = row_new( g_strdup_printf ("blah2 new %d", new_button_nr), new_button_nr);
-  gtk_list_box_insert (GTK_LIST_BOX (list), new_row, -1);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (list), new_row, -1);
   new_button_nr++;
 }
 
 static void
-separate_clicked_cb (GtkButton *button,
+separate_clicked_cb (BobguiButton *button,
                      gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  gtk_list_box_set_header_func (list, (GtkListBoxUpdateHeaderFunc)update_header_cb, NULL, NULL);
+  bobgui_list_box_set_header_func (list, (BobguiListBoxUpdateHeaderFunc)update_header_cb, NULL, NULL);
 }
 
 static void
-unseparate_clicked_cb (GtkButton *button,
+unseparate_clicked_cb (BobguiButton *button,
                        gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  gtk_list_box_set_header_func (list, NULL, NULL, NULL);
+  bobgui_list_box_set_header_func (list, NULL, NULL, NULL);
 }
 
 static void
-visibility_clicked_cb (GtkButton *button,
+visibility_clicked_cb (BobguiButton *button,
                        gpointer data)
 {
-  GtkWidget *row = data;
+  BobguiWidget *row = data;
 
-  gtk_widget_set_visible (row, !gtk_widget_get_visible (row));
+  bobgui_widget_set_visible (row, !bobgui_widget_get_visible (row));
 }
 
 static void
-selection_mode_changed (GtkComboBox *combo, gpointer data)
+selection_mode_changed (BobguiComboBox *combo, gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  gtk_list_box_set_selection_mode (list, gtk_combo_box_get_active (combo));
+  bobgui_list_box_set_selection_mode (list, bobgui_combo_box_get_active (combo));
 }
 
 static void
-single_click_clicked (GtkButton *check, gpointer data)
+single_click_clicked (BobguiButton *check, gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  g_print ("single: %d\n", gtk_check_button_get_active (GTK_CHECK_BUTTON (check)));
-  gtk_list_box_set_activate_on_single_click (list, gtk_check_button_get_active (GTK_CHECK_BUTTON (check)));
+  g_print ("single: %d\n", bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (check)));
+  bobgui_list_box_set_activate_on_single_click (list, bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (check)));
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkCssProvider *provider;
-  GtkWidget *window, *hbox, *vbox, *list, *row, *row3, *row_vbox, *row_hbox, *l;
-  GtkWidget *check, *button, *combo, *scrolled;
+  BobguiCssProvider *provider;
+  BobguiWidget *window, *hbox, *vbox, *list, *row, *row3, *row_vbox, *row_hbox, *l;
+  BobguiWidget *check, *button, *combo, *scrolled;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), hbox);
+  window = bobgui_window_new ();
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), hbox);
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_data (provider, css, -1);
-  gtk_style_context_add_provider_for_display (gtk_widget_get_display (window),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_USER);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_data (provider, css, -1);
+  bobgui_style_context_add_provider_for_display (bobgui_widget_get_display (window),
+                                              BOBGUI_STYLE_PROVIDER (provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_USER);
 
 
-  list = gtk_list_box_new ();
+  list = bobgui_list_box_new ();
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_box_append (GTK_BOX (hbox), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_box_append (BOBGUI_BOX (hbox), vbox);
 
-  combo = gtk_combo_box_text_new ();
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo),
-                                  "GTK_SELECTION_NONE");
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo),
-                                  "GTK_SELECTION_SINGLE");
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo),
-                                  "GTK_SELECTION_BROWSE");
+  combo = bobgui_combo_box_text_new ();
+  bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo),
+                                  "BOBGUI_SELECTION_NONE");
+  bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo),
+                                  "BOBGUI_SELECTION_SINGLE");
+  bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo),
+                                  "BOBGUI_SELECTION_BROWSE");
   g_signal_connect (combo, "changed", G_CALLBACK (selection_mode_changed), list);
-  gtk_box_append (GTK_BOX (vbox), combo);
-  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), gtk_list_box_get_selection_mode (GTK_LIST_BOX (list)));
-  check = gtk_check_button_new_with_label ("single click mode");
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (check), gtk_list_box_get_activate_on_single_click (GTK_LIST_BOX (list)));
+  bobgui_box_append (BOBGUI_BOX (vbox), combo);
+  bobgui_combo_box_set_active (BOBGUI_COMBO_BOX (combo), bobgui_list_box_get_selection_mode (BOBGUI_LIST_BOX (list)));
+  check = bobgui_check_button_new_with_label ("single click mode");
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (check), bobgui_list_box_get_activate_on_single_click (BOBGUI_LIST_BOX (list)));
   g_signal_connect (check, "toggled", G_CALLBACK (single_click_clicked), list);
-  gtk_box_append (GTK_BOX (vbox), check);
+  bobgui_box_append (BOBGUI_BOX (vbox), check);
 
-  scrolled = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled), list);
-  gtk_box_append (GTK_BOX (hbox), scrolled);
+  scrolled = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (scrolled), BOBGUI_POLICY_NEVER, BOBGUI_POLICY_AUTOMATIC);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled), list);
+  bobgui_box_append (BOBGUI_BOX (hbox), scrolled);
 
   g_signal_connect (list, "row-activated", G_CALLBACK (row_activated_cb), NULL);
   g_signal_connect (list, "row-selected", G_CALLBACK (row_selected_cb), NULL);
 
   row = row_new ("blah4", 4);
-  gtk_list_box_insert (GTK_LIST_BOX (list), row, -1);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row, -1);
   row3 = row = row_new ("blah3", 3);
-  gtk_list_box_insert (GTK_LIST_BOX (list), row, -1);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row, -1);
   row = row_new ("blah1", 1);
-  gtk_list_box_insert (GTK_LIST_BOX (list), row, -1);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row, -1);
   row = row_new ("blah2", 2);
-  gtk_list_box_insert (GTK_LIST_BOX (list), row, -1);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row, -1);
 
   row = row_new (NULL, 0);
-  row_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  row_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  l = gtk_label_new ("da box for da man");
-  gtk_box_append (GTK_BOX (row_hbox), l);
-  check = gtk_check_button_new ();
-  gtk_box_append (GTK_BOX (row_hbox), check);
-  button = gtk_button_new_with_label ("ya!");
-  gtk_box_append (GTK_BOX (row_hbox), button);
-  gtk_box_append (GTK_BOX (row_vbox), row_hbox);
-  check = gtk_check_button_new ();
-  gtk_box_append (GTK_BOX (row_vbox), check);
-  gtk_list_box_row_set_child (GTK_LIST_BOX_ROW (row), row_vbox);
-  gtk_list_box_insert (GTK_LIST_BOX (list), row, -1);
+  row_vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  row_hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  l = bobgui_label_new ("da box for da man");
+  bobgui_box_append (BOBGUI_BOX (row_hbox), l);
+  check = bobgui_check_button_new ();
+  bobgui_box_append (BOBGUI_BOX (row_hbox), check);
+  button = bobgui_button_new_with_label ("ya!");
+  bobgui_box_append (BOBGUI_BOX (row_hbox), button);
+  bobgui_box_append (BOBGUI_BOX (row_vbox), row_hbox);
+  check = bobgui_check_button_new ();
+  bobgui_box_append (BOBGUI_BOX (row_vbox), check);
+  bobgui_list_box_row_set_child (BOBGUI_LIST_BOX_ROW (row), row_vbox);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row, -1);
 
   row = row_new (NULL, 0);
-  button = gtk_button_new_with_label ("focusable row");
-  gtk_widget_set_hexpand (button, FALSE);
-  gtk_widget_set_halign (button, GTK_ALIGN_START);
-  gtk_list_box_row_set_child (GTK_LIST_BOX_ROW (row), button);
-  gtk_list_box_insert (GTK_LIST_BOX (list), row, -1);
+  button = bobgui_button_new_with_label ("focusable row");
+  bobgui_widget_set_hexpand (button, FALSE);
+  bobgui_widget_set_halign (button, BOBGUI_ALIGN_START);
+  bobgui_list_box_row_set_child (BOBGUI_LIST_BOX_ROW (row), button);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row, -1);
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_box_append (GTK_BOX (hbox), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_box_append (BOBGUI_BOX (hbox), vbox);
 
-  button = gtk_button_new_with_label ("sort");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("sort");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (sort_clicked_cb), list);
 
-  button = gtk_button_new_with_label ("reverse");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("reverse");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (reverse_sort_clicked_cb), list);
 
-  button = gtk_button_new_with_label ("change");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("change");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (change_clicked_cb), row3);
 
-  button = gtk_button_new_with_label ("filter");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("filter");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (filter_clicked_cb), list);
 
-  button = gtk_button_new_with_label ("unfilter");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("unfilter");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (unfilter_clicked_cb), list);
 
-  button = gtk_button_new_with_label ("add");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("add");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (add_clicked_cb), list);
 
-  button = gtk_button_new_with_label ("separate");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("separate");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (separate_clicked_cb), list);
 
-  button = gtk_button_new_with_label ("unseparate");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("unseparate");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (unseparate_clicked_cb), list);
 
-  button = gtk_button_new_with_label ("visibility");
-  gtk_box_append (GTK_BOX (vbox), button);
+  button = bobgui_button_new_with_label ("visibility");
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (visibility_clicked_cb), row3);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

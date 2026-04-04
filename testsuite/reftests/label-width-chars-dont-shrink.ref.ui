@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox" id="box1">
+      <object class="BobguiBox" id="box1">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkLabel" id="label1">
+          <object class="BobguiLabel" id="label1">
             <property name="label" translatable="yes">Hello World</property>
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label2">
+          <object class="BobguiLabel" id="label2">
             <property name="label" translatable="yes">Hello World</property>
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label3">
+          <object class="BobguiLabel" id="label3">
             <property name="label" translatable="yes">Hello World</property>
           </object>
         </child>

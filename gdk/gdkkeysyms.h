@@ -18,7 +18,7 @@
 
 /*
  * File auto-generated from script at:
- * https://gitlab.gnome.org/GNOME/gtk/-/raw/main/gdk/gdk-keysyms-update.py?ref_type=heads&inline=false
+ * https://gitlab.gnome.org/GNOME/bobgui/-/raw/main/gdk/gdk-keysyms-update.py?ref_type=heads&inline=false
  *
  * using the input files:
  *  https://gitlab.freedesktop.org/xorg/proto/xorgproto/-/raw/master/include/X11/keysymdef.h

@@ -1,15 +1,15 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 button_role (void)
 {
-  GtkWidget *button = gtk_button_new ();
+  BobguiWidget *button = bobgui_button_new ();
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_role (button, GTK_ACCESSIBLE_ROLE_BUTTON);
+  bobgui_test_accessible_assert_role (button, BOBGUI_ACCESSIBLE_ROLE_BUTTON);
 
   /* Simple command buttons have a "pressed" state set to "undefined" */
-  gtk_test_accessible_assert_state (button, GTK_ACCESSIBLE_STATE_PRESSED, GTK_ACCESSIBLE_VALUE_UNDEFINED);
+  bobgui_test_accessible_assert_state (button, BOBGUI_ACCESSIBLE_STATE_PRESSED, BOBGUI_ACCESSIBLE_VALUE_UNDEFINED);
 
   g_object_unref (button);
 }
@@ -17,11 +17,11 @@ button_role (void)
 static void
 button_label (void)
 {
-  GtkWidget *button = gtk_button_new_with_label ("Hello");
+  BobguiWidget *button = bobgui_button_new_with_label ("Hello");
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_relation (GTK_ACCESSIBLE (button),
-                                       GTK_ACCESSIBLE_RELATION_LABELLED_BY, gtk_widget_get_first_child (button), NULL);
+  bobgui_test_accessible_assert_relation (BOBGUI_ACCESSIBLE (button),
+                                       BOBGUI_ACCESSIBLE_RELATION_LABELLED_BY, bobgui_widget_get_first_child (button), NULL);
 
   g_object_unref (button);
 }
@@ -32,12 +32,12 @@ button_label (void)
 static void
 button_relation (void)
 {
-  GtkWidget *button = gtk_button_new_with_mnemonic ("_Hello");
+  BobguiWidget *button = bobgui_button_new_with_mnemonic ("_Hello");
 
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_relation (GTK_ACCESSIBLE (button),
-                                       GTK_ACCESSIBLE_RELATION_LABELLED_BY, gtk_widget_get_first_child (button), NULL);
+  bobgui_test_accessible_assert_relation (BOBGUI_ACCESSIBLE (button),
+                                       BOBGUI_ACCESSIBLE_RELATION_LABELLED_BY, bobgui_widget_get_first_child (button), NULL);
 
   g_object_unref (button);
 }
@@ -45,18 +45,18 @@ button_relation (void)
 static void
 button_state (void)
 {
-  GtkWidget *button = gtk_button_new_with_mnemonic ("_Hello");
+  BobguiWidget *button = bobgui_button_new_with_mnemonic ("_Hello");
 
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_state (GTK_ACCESSIBLE (button),
-                                    GTK_ACCESSIBLE_STATE_HIDDEN, button, FALSE,
+  bobgui_test_accessible_assert_state (BOBGUI_ACCESSIBLE (button),
+                                    BOBGUI_ACCESSIBLE_STATE_HIDDEN, button, FALSE,
                                     -1);
 
-  gtk_widget_set_visible (button, FALSE);
+  bobgui_widget_set_visible (button, FALSE);
 
-  gtk_test_accessible_assert_state (GTK_ACCESSIBLE (button),
-                                    GTK_ACCESSIBLE_STATE_HIDDEN, button, TRUE,
+  bobgui_test_accessible_assert_state (BOBGUI_ACCESSIBLE (button),
+                                    BOBGUI_ACCESSIBLE_STATE_HIDDEN, button, TRUE,
                                     -1);
 
   g_object_unref (button);
@@ -65,10 +65,10 @@ button_state (void)
 static void
 linkbutton_role (void)
 {
-  GtkWidget *button = gtk_link_button_new ("Hello");
+  BobguiWidget *button = bobgui_link_button_new ("Hello");
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_role (button, GTK_ACCESSIBLE_ROLE_LINK);
+  bobgui_test_accessible_assert_role (button, BOBGUI_ACCESSIBLE_ROLE_LINK);
 
   g_object_unref (button);
 }
@@ -76,11 +76,11 @@ linkbutton_role (void)
 static void
 linkbutton_label (void)
 {
-  GtkWidget *button = gtk_link_button_new ("Hello");
+  BobguiWidget *button = bobgui_link_button_new ("Hello");
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_relation (GTK_ACCESSIBLE (button),
-                                       GTK_ACCESSIBLE_RELATION_LABELLED_BY, gtk_widget_get_first_child (button), NULL);
+  bobgui_test_accessible_assert_relation (BOBGUI_ACCESSIBLE (button),
+                                       BOBGUI_ACCESSIBLE_RELATION_LABELLED_BY, bobgui_widget_get_first_child (button), NULL);
 
   g_object_unref (button);
 }
@@ -88,7 +88,7 @@ linkbutton_label (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/a11y/button/role", button_role);
   g_test_add_func ("/a11y/button/label", button_label);

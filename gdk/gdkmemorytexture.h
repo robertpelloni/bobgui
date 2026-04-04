@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined (__GDK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdk.h> can be included directly."
 #endif
 
@@ -31,7 +31,7 @@ G_BEGIN_DECLS
 /**
  * GDK_MEMORY_DEFAULT:
  *
- * The default memory format used by GTK.
+ * The default memory format used by BOBGUI.
  *
  * This is the format provided by [method@Gdk.Texture.download].
  * It is equal to %CAIRO_FORMAT_ARGB32.

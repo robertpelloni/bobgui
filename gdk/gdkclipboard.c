@@ -528,7 +528,7 @@ gdk_clipboard_get_content (GdkClipboard *clipboard)
  * unless a "clipboard manager" is running.
  *
  * This function is called automatically when a
- * [GtkApplication](../gtk4/class.Application.html)
+ * [BobguiApplication](../bobgui4/class.Application.html)
  * is shut down, so you likely don't need to call it.
  */
 void

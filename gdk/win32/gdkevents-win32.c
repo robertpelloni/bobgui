@@ -19,10 +19,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2020.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2020.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 /* Cannot use TrackMouseEvent, as the stupid WM_MOUSELEAVE message
@@ -118,7 +118,7 @@ static GSourceFuncs event_funcs = {
   NULL
 };
 
-/* TODO: pending removal, pending gtkprintoperation-win32 rewrite */
+/* TODO: pending removal, pending bobguiprintoperation-win32 rewrite */
 static UINT got_gdk_events_message;
 static HWND modal_win32_dialog = NULL;
 
@@ -804,7 +804,7 @@ apply_message_filters (GdkDisplay *display,
  * transient owner.
  *
  * It would be a good idea if applications don’t chain transient surfaces
- * together.  There’s a limit to how much evil GTK can try to shield you
+ * together.  There’s a limit to how much evil BOBGUI can try to shield you
  * from.
  */
 static void
@@ -838,17 +838,17 @@ show_surface_recurse (GdkSurface *surface,
 		{
 		  if (gdk_toplevel_get_state (GDK_TOPLEVEL (surface)) & GDK_TOPLEVEL_STATE_MAXIMIZED)
 		    {
-		      GtkShowSurfaceHWND (surface, SW_SHOWMAXIMIZED);
+		      BobguiShowSurfaceHWND (surface, SW_SHOWMAXIMIZED);
 		    }
 		  else
 		    {
-		      GtkShowSurfaceHWND (surface, SW_RESTORE);
+		      BobguiShowSurfaceHWND (surface, SW_RESTORE);
 		    }
 		}
 	    }
 	  else
 	    {
-	      GtkShowSurfaceHWND (surface, SW_MINIMIZE);
+	      BobguiShowSurfaceHWND (surface, SW_MINIMIZE);
 	    }
 	}
 
@@ -1569,7 +1569,7 @@ _gdk_win32_surface_fill_min_max_info (GdkSurface *surface,
            * This doesn't seem to be documented anywhere.
            * The following code uses a simple CSD/non-CSD test, but it could be that
            * this behaviour hinges on just one particular window style.
-           * Finding exactly which style that could be is not very useful for GTK, however.
+           * Finding exactly which style that could be is not very useful for BOBGUI, however.
            */
           mmi->ptMaxPosition.x = 0;
           mmi->ptMaxPosition.y = 0;
@@ -1697,7 +1697,7 @@ gdk_event_translate (MSG *msg,
                            (gulong) msg->wParam,
                            (gpointer) msg->lParam,
                            gdk_win32_display_input_locale_is_ime (win32_display) ? " (IME)" : ""));
-        gdk_display_setting_changed (display, "gtk-im-module");
+        gdk_display_setting_changed (display, "bobgui-im-module");
 
         /* Generate a dummy key event to "nudge" IMContext */
         translated.keyval = GDK_KEY_VoidSymbol;
@@ -2207,7 +2207,7 @@ gdk_event_translate (MSG *msg,
 
       /* If we haven't moved, don't create any GDK event. Windows
        * sends WM_MOUSEMOVE messages after a new surface is shown under
-       * the mouse, even if the mouse hasn't moved. This disturbs gtk.
+       * the mouse, even if the mouse hasn't moved. This disturbs bobgui.
        */
       if (msg->pt.x == win32_display->event_record->current_root_x &&
           msg->pt.y == win32_display->event_record->current_root_y)
@@ -3065,7 +3065,7 @@ gdk_event_translate (MSG *msg,
       if (GDK_IS_POPUP (surface) || GDK_IS_DRAG_SURFACE (surface))
         {
           /* Popups cannot be activated or de-activated - 
-           * they only support keyboard focus, which GTK
+           * they only support keyboard focus, which BOBGUI
            * will handle for us.
            */
           *ret_valp = 0;
@@ -3289,7 +3289,7 @@ gdk_event_dispatch (GSource     *source,
 }
 
 void
-gdk_win32_set_modal_dialog_libgtk_only (HWND hwnd)
+gdk_win32_set_modal_dialog_libbobgui_only (HWND hwnd)
 {
   modal_win32_dialog = hwnd;
 }

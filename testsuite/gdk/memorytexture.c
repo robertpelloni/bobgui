@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "gdk/gdktexturedownloaderprivate.h"
 #include "gdk/gdkmemoryformatprivate.h"
@@ -711,7 +711,7 @@ main (int argc, char *argv[])
   GdkDisplay *display;
   int result;
 
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   add_test ("/memorytexture/download_1x1", test_download_1x1);
   add_test ("/memorytexture/download_random", test_download_random);

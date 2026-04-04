@@ -17,7 +17,7 @@
  * Authors: Matthias Clasen <mclasen@redhat.com>
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gsk/gskboundingboxprivate.h>
 
 static void
@@ -83,7 +83,7 @@ int
 main (int   argc,
       char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/bounding-box/to-rect", test_to_rect);
   g_test_add_func ("/bounding-box/contains", test_contains);

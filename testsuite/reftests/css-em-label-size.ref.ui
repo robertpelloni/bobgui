@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid">
+      <object class="BobguiGrid">
         <property name="row_homogeneous">1</property>
         <property name="width-request">300&gt;</property>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label" translatable="yes">px</property>
             <property name="height-request">100&gt;</property>
             <layout>
@@ -17,7 +17,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label" translatable="yes">pt</property>
             <layout>
               <property name="column">0</property>
@@ -26,7 +26,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label" translatable="yes">in</property>
             <layout>
               <property name="column">0</property>
@@ -35,7 +35,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label" translatable="yes">cm</property>
             <layout>
               <property name="column">0</property>
@@ -44,7 +44,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label" translatable="yes">mm</property>
             <layout>
               <property name="column">0</property>
@@ -53,7 +53,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label" translatable="yes">em</property>
             <layout>
               <property name="column">0</property>
@@ -62,7 +62,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label" translatable="yes">ex</property>
             <layout>
               <property name="column">0</property>
@@ -71,9 +71,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="px-box">
+          <object class="BobguiBox" id="px-box">
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="12px"></attribute>
@@ -81,7 +81,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="12px"></attribute>
@@ -96,9 +96,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="pt-box">
+          <object class="BobguiBox" id="pt-box">
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="16px"></attribute>
@@ -106,7 +106,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="16px"></attribute>
@@ -121,9 +121,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="in-box">
+          <object class="BobguiBox" id="in-box">
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="24px"></attribute>
@@ -131,7 +131,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="24px"></attribute>
@@ -146,9 +146,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="cm-box">
+          <object class="BobguiBox" id="cm-box">
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="24px"></attribute>
@@ -156,7 +156,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="24px"></attribute>
@@ -171,9 +171,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="mm-box">
+          <object class="BobguiBox" id="mm-box">
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="24px"></attribute>
@@ -181,7 +181,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="24px"></attribute>
@@ -196,9 +196,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="em-box">
+          <object class="BobguiBox" id="em-box">
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="18px"></attribute>
@@ -206,7 +206,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="18px"></attribute>
@@ -221,9 +221,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="ex-box">
+          <object class="BobguiBox" id="ex-box">
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="15px"></attribute>
@@ -231,7 +231,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" translatable="yes">███</property>
                 <attributes>
                   <attribute name="font-desc" value="15px"></attribute>

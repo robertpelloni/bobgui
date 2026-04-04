@@ -1,4 +1,4 @@
-/* GTK - The GIMP Toolkit
+/* BOBGUI - The GIMP Toolkit
  * Copyright (C) 2023 Benjamin Otte
  *
  * This library is free software; you can redistribute it and/or
@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if !defined (__GDK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdk.h> can be included directly."
 #endif
 

@@ -16,7 +16,7 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 /* Show an SVG animation using the SVG renderer.
@@ -25,17 +25,17 @@
 
 
 static void
-clicked (GtkGestureClick *click,
+clicked (BobguiGestureClick *click,
          int              n_press,
          double           x,
          double           y,
-         GtkSvg          *svg)
+         BobguiSvg          *svg)
 {
   unsigned int state;
 
-  state = gtk_svg_get_state (svg);
+  state = bobgui_svg_get_state (svg);
 
-  if (gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (click)) == 1)
+  if (bobgui_gesture_single_get_current_button (BOBGUI_GESTURE_SINGLE (click)) == 1)
     {
       if (state == 63)
         state = 0;
@@ -51,18 +51,18 @@ clicked (GtkGestureClick *click,
     }
 
   g_print ("state now %u\n", state);
-  gtk_svg_set_state (svg, state);
+  bobgui_svg_set_state (svg, state);
 }
 
 static void
-error_cb (GtkSvg *svg, GError *error)
+error_cb (BobguiSvg *svg, GError *error)
 {
-  if (error->domain == GTK_SVG_ERROR)
+  if (error->domain == BOBGUI_SVG_ERROR)
     {
-      const GtkSvgLocation *start = gtk_svg_error_get_start (error);
-      const GtkSvgLocation *end = gtk_svg_error_get_end (error);
-      const char *element = gtk_svg_error_get_element (error);
-      const char *attribute = gtk_svg_error_get_attribute (error);
+      const BobguiSvgLocation *start = bobgui_svg_error_get_start (error);
+      const BobguiSvgLocation *end = bobgui_svg_error_get_end (error);
+      const char *element = bobgui_svg_error_get_element (error);
+      const char *attribute = bobgui_svg_error_get_attribute (error);
 
       if (start)
         {
@@ -86,13 +86,13 @@ error_cb (GtkSvg *svg, GError *error)
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *picture;
+  BobguiWidget *window, *picture;
   char *contents;
   size_t length;
   GBytes *bytes;
   GError *error = NULL;
-  GtkSvg *svg;
-  GtkEventController *click;
+  BobguiSvg *svg;
+  BobguiEventController *click;
 
   if (argc < 2)
     {
@@ -100,32 +100,32 @@ main (int argc, char *argv[])
       return 0;
     }
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
 
   if (!g_file_get_contents (argv[1], &contents, &length, &error))
     g_error ("%s", error->message);
 
   bytes = g_bytes_new_take (contents, length);
 
-  svg = gtk_svg_new ();
+  svg = bobgui_svg_new ();
   g_signal_connect (svg, "error", G_CALLBACK (error_cb), NULL);
-  gtk_svg_load_from_bytes (svg, bytes);
+  bobgui_svg_load_from_bytes (svg, bytes);
 
-  gtk_svg_play (svg);
+  bobgui_svg_play (svg);
 
-  picture = gtk_picture_new_for_paintable (GDK_PAINTABLE (svg));
-  gtk_window_set_child (GTK_WINDOW (window), picture);
+  picture = bobgui_picture_new_for_paintable (GDK_PAINTABLE (svg));
+  bobgui_window_set_child (BOBGUI_WINDOW (window), picture);
 
-  click = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
-  gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (click), 0);
+  click = BOBGUI_EVENT_CONTROLLER (bobgui_gesture_click_new ());
+  bobgui_gesture_single_set_button (BOBGUI_GESTURE_SINGLE (click), 0);
   g_signal_connect (click, "pressed", G_CALLBACK (clicked), svg);
-  gtk_widget_add_controller (picture, click);
+  bobgui_widget_add_controller (picture, click);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()))
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()))
     g_main_context_iteration (NULL, TRUE);
 
   return 0;

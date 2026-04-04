@@ -16,15 +16,15 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #pragma once
 
-#if !defined (__GDK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdk.h> can be included directly."
 #endif
 
@@ -336,9 +336,9 @@ typedef enum
  * @GDK_CROSSING_NORMAL: crossing because of pointer motion.
  * @GDK_CROSSING_GRAB: crossing because a grab is activated.
  * @GDK_CROSSING_UNGRAB: crossing because a grab is deactivated.
- * @GDK_CROSSING_GTK_GRAB: crossing because a GTK grab is activated.
- * @GDK_CROSSING_GTK_UNGRAB: crossing because a GTK grab is deactivated.
- * @GDK_CROSSING_STATE_CHANGED: crossing because a GTK widget changed
+ * @GDK_CROSSING_BOBGUI_GRAB: crossing because a BOBGUI grab is activated.
+ * @GDK_CROSSING_BOBGUI_UNGRAB: crossing because a BOBGUI grab is deactivated.
+ * @GDK_CROSSING_STATE_CHANGED: crossing because a BOBGUI widget changed
  *   state (e.g. sensitivity).
  * @GDK_CROSSING_TOUCH_BEGIN: crossing because a touch sequence has begun,
  *   this event is synthetic as the pointer might have not left the surface.
@@ -355,8 +355,8 @@ typedef enum
   GDK_CROSSING_NORMAL,
   GDK_CROSSING_GRAB,
   GDK_CROSSING_UNGRAB,
-  GDK_CROSSING_GTK_GRAB,
-  GDK_CROSSING_GTK_UNGRAB,
+  GDK_CROSSING_BOBGUI_GRAB,
+  GDK_CROSSING_BOBGUI_UNGRAB,
   GDK_CROSSING_STATE_CHANGED,
   GDK_CROSSING_TOUCH_BEGIN,
   GDK_CROSSING_TOUCH_END,

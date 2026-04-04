@@ -12,7 +12,7 @@ if get_option('werror')
   gidocgen_common_args += ['--fatal-warnings']
 endif
 
-docs_dir = gtk_datadir / 'doc'
+docs_dir = bobgui_datadir / 'doc'
 
 if get_option('documentation') and not build_gir
   error('API reference requires introspection.')
@@ -20,4 +20,4 @@ endif
 
 subdir('gdk')
 subdir('gsk')
-subdir('gtk')
+subdir('bobgui')

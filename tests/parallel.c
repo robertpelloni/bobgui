@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gdk/gdkmemoryformatprivate.h"
 
 static void
@@ -13,7 +13,7 @@ main (int argc, char *argv[])
 {
   int rounds = 10;
 
-  gtk_init ();
+  bobgui_init ();
 
   for (gsize i = 2; i < 500; i += 2)
     {

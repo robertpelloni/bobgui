@@ -31,9 +31,9 @@
  * read, using one of the `GdkDrop` methods for this purpose:
  * [method@Gdk.Drop.read_async] or [method@Gdk.Drop.read_value_async].
  *
- * GTK provides a higher level abstraction based on top of these functions,
- * and so they are not normally needed in GTK applications. See the
- * "Drag and Drop" section of the GTK documentation for more information.
+ * BOBGUI provides a higher level abstraction based on top of these functions,
+ * and so they are not normally needed in BOBGUI applications. See the
+ * "Drag and Drop" section of the BOBGUI documentation for more information.
  */
 
 #include "config.h"
@@ -701,8 +701,8 @@ gdk_drop_read_async (GdkDrop             *self,
  * Finishes an async drop read operation.
  *
  * Note that you must not use blocking read calls on the returned stream
- * in the GTK thread, since some platforms might require communication with
- * GTK to complete the data transfer. You can use async APIs such as
+ * in the BOBGUI thread, since some platforms might require communication with
+ * BOBGUI to complete the data transfer. You can use async APIs such as
  * g_input_stream_read_bytes_async().
  *
  * See [method@Gdk.Drop.read_async].

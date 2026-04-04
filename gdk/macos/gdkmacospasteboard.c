@@ -281,10 +281,10 @@ _gdk_macos_pasteboard_read_finish (GObject       *object,
 void
 _gdk_macos_pasteboard_register_drag_types (NSWindow *window)
 {
-  // TODO: how can GTK tell us what drag types expected?
+  // TODO: how can BOBGUI tell us what drag types expected?
   // Now the app will accept everything.
   [window registerForDraggedTypes:[NSArray arrayWithObjects:@"public.item",
-                                                            @"org.gtk.internal",
+                                                            @"org.bobgui.internal",
                                                             nil]];
 }
 
@@ -352,7 +352,7 @@ _gdk_macos_pasteboard_register_drag_types (NSWindow *window)
       gdk_content_formats_get_gtypes (formats, &n_gtypes);
 
       if (n_gtypes)
-        [ret addObject:@"org.gtk.internal"];
+        [ret addObject:@"org.bobgui.internal"];
 
       gdk_content_formats_unref (formats);
     }

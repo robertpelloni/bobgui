@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gsk/gskcurveprivate.h"
 
 static void

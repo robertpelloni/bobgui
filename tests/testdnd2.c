@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -9,7 +9,7 @@
 static GdkTexture *
 render_paintable_to_texture (GdkPaintable *paintable)
 {
-  GtkSnapshot *snapshot;
+  BobguiSnapshot *snapshot;
   GskRenderNode *node;
   int width, height;
   cairo_surface_t *surface;
@@ -27,9 +27,9 @@ render_paintable_to_texture (GdkPaintable *paintable)
 
   surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
 
-  snapshot = gtk_snapshot_new ();
+  snapshot = bobgui_snapshot_new ();
   gdk_paintable_snapshot (paintable, snapshot, width, height);
-  node = gtk_snapshot_free_to_node (snapshot);
+  node = bobgui_snapshot_free_to_node (snapshot);
 
   cr = cairo_create (surface);
   gsk_render_node_draw (node, cr);
@@ -54,36 +54,36 @@ render_paintable_to_texture (GdkPaintable *paintable)
 }
 
 static GdkTexture *
-get_image_texture (GtkImage *image)
+get_image_texture (BobguiImage *image)
 {
-  GtkIconTheme *icon_theme;
+  BobguiIconTheme *icon_theme;
   const char *icon_name;
   int width = 48;
   GdkPaintable *paintable = NULL;
   GdkTexture *texture = NULL;
-  GtkIconPaintable *icon;
+  BobguiIconPaintable *icon;
 
-  switch (gtk_image_get_storage_type (image))
+  switch (bobgui_image_get_storage_type (image))
     {
-    case GTK_IMAGE_PAINTABLE:
-      paintable = gtk_image_get_paintable (image);
+    case BOBGUI_IMAGE_PAINTABLE:
+      paintable = bobgui_image_get_paintable (image);
       break;
-    case GTK_IMAGE_ICON_NAME:
-      icon_name = gtk_image_get_icon_name (image);
-      icon_theme = gtk_icon_theme_get_for_display (gtk_widget_get_display (GTK_WIDGET (image)));
-      icon = gtk_icon_theme_lookup_icon (icon_theme,
+    case BOBGUI_IMAGE_ICON_NAME:
+      icon_name = bobgui_image_get_icon_name (image);
+      icon_theme = bobgui_icon_theme_get_for_display (bobgui_widget_get_display (BOBGUI_WIDGET (image)));
+      icon = bobgui_icon_theme_lookup_icon (icon_theme,
                                          icon_name,
                                          NULL,
                                          width, 1,
-                                         gtk_widget_get_direction (GTK_WIDGET (image)),
+                                         bobgui_widget_get_direction (BOBGUI_WIDGET (image)),
                                          0);
       paintable = GDK_PAINTABLE (icon);
       break;
-    case GTK_IMAGE_GICON:
-    case GTK_IMAGE_EMPTY:
+    case BOBGUI_IMAGE_GICON:
+    case BOBGUI_IMAGE_EMPTY:
     default:
       g_warning ("Image storage type %d not handled",
-                 gtk_image_get_storage_type (image));
+                 bobgui_image_get_storage_type (image));
     }
 
   if (paintable)
@@ -106,7 +106,7 @@ got_texture (GObject *source,
              gpointer data)
 {
   GdkDrop *drop = GDK_DROP (source);
-  GtkWidget *image = data;
+  BobguiWidget *image = data;
   const GValue *value;
   GError *error = NULL;
 
@@ -114,7 +114,7 @@ got_texture (GObject *source,
   if (value)
     {
       GdkTexture *texture = g_value_get_object (value);
-      gtk_image_set_from_paintable (GTK_IMAGE (image), GDK_PAINTABLE (texture));
+      bobgui_image_set_from_paintable (BOBGUI_IMAGE (image), GDK_PAINTABLE (texture));
       gdk_drop_finish (drop, GDK_ACTION_COPY);
     }
   else
@@ -128,7 +128,7 @@ got_texture (GObject *source,
 
 static void
 perform_drop (GdkDrop   *drop,
-              GtkWidget *image)
+              BobguiWidget *image)
 {
   if (gdk_content_formats_contain_gtype (gdk_drop_get_formats (drop), GDK_TYPE_TEXTURE))
     gdk_drop_read_value_async (drop, GDK_TYPE_TEXTURE, G_PRIORITY_DEFAULT, NULL, got_texture, image);
@@ -140,24 +140,24 @@ perform_drop (GdkDrop   *drop,
 }
 
 static void
-do_copy (GtkWidget *button)
+do_copy (BobguiWidget *button)
 {
-  GtkWidget *popover = gtk_widget_get_ancestor (button, GTK_TYPE_POPOVER);
-  GtkWidget *image = gtk_widget_get_parent (popover);
+  BobguiWidget *popover = bobgui_widget_get_ancestor (button, BOBGUI_TYPE_POPOVER);
+  BobguiWidget *image = bobgui_widget_get_parent (popover);
   GdkDrop *drop = GDK_DROP (g_object_get_data (G_OBJECT (image), "drop"));
 
-  gtk_popover_popdown (GTK_POPOVER (popover));
+  bobgui_popover_popdown (BOBGUI_POPOVER (popover));
   perform_drop (drop, image);
 }
 
 static void
-do_cancel (GtkWidget *button)
+do_cancel (BobguiWidget *button)
 {
-  GtkWidget *popover = gtk_widget_get_ancestor (button, GTK_TYPE_POPOVER);
-  GtkWidget *image = gtk_widget_get_parent (popover);
+  BobguiWidget *popover = bobgui_widget_get_ancestor (button, BOBGUI_TYPE_POPOVER);
+  BobguiWidget *image = bobgui_widget_get_parent (popover);
   GdkDrop *drop = GDK_DROP (g_object_get_data (G_OBJECT (image), "drop"));
 
-  gtk_popover_popdown (GTK_POPOVER (popover));
+  bobgui_popover_popdown (BOBGUI_POPOVER (popover));
   gdk_drop_finish (drop, GDK_ACTION_NONE);
 
   g_object_set_data (G_OBJECT (image), "drop", NULL);
@@ -165,54 +165,54 @@ do_cancel (GtkWidget *button)
 
 static void
 ask_actions (GdkDrop *drop,
-             GtkWidget *image)
+             BobguiWidget *image)
 {
-  GtkWidget *popover, *box, *button;
+  BobguiWidget *popover, *box, *button;
 
   popover = g_object_get_data (G_OBJECT (image), "popover");
   if (!popover)
     {
-      popover = gtk_popover_new ();
-      gtk_widget_set_parent (popover, image);
+      popover = bobgui_popover_new ();
+      bobgui_widget_set_parent (popover, image);
       g_object_set_data (G_OBJECT (image), "popover", popover);
 
-      box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-      gtk_popover_set_child (GTK_POPOVER (popover), box);
-      button = gtk_button_new_with_label ("Copy");
+      box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+      bobgui_popover_set_child (BOBGUI_POPOVER (popover), box);
+      button = bobgui_button_new_with_label ("Copy");
       g_signal_connect (button, "clicked", G_CALLBACK (do_copy), NULL);
-      gtk_box_append (GTK_BOX (box), button);
-      button = gtk_button_new_with_label ("Move");
+      bobgui_box_append (BOBGUI_BOX (box), button);
+      button = bobgui_button_new_with_label ("Move");
       g_signal_connect (button, "clicked", G_CALLBACK (do_copy), NULL);
-      gtk_box_append (GTK_BOX (box), button);
-      button = gtk_button_new_with_label ("Cancel");
+      bobgui_box_append (BOBGUI_BOX (box), button);
+      button = bobgui_button_new_with_label ("Cancel");
       g_signal_connect (button, "clicked", G_CALLBACK (do_cancel), NULL);
-      gtk_box_append (GTK_BOX (box), button);
+      bobgui_box_append (BOBGUI_BOX (box), button);
     }
-  gtk_popover_popup (GTK_POPOVER (popover));
+  bobgui_popover_popup (BOBGUI_POPOVER (popover));
 }
 
 static gboolean
 delayed_deny (gpointer data)
 {
-  GtkDropTargetAsync *dest = data;
-  GtkWidget *image = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (dest));
+  BobguiDropTargetAsync *dest = data;
+  BobguiWidget *image = bobgui_event_controller_get_widget (BOBGUI_EVENT_CONTROLLER (dest));
   GdkDrop *drop = GDK_DROP (g_object_get_data (G_OBJECT (image), "drop"));
 
   if (drop)
     {
       g_print ("denying drop, late\n");
-      gtk_drop_target_async_reject_drop (dest, drop);
+      bobgui_drop_target_async_reject_drop (dest, drop);
     }
 
   return G_SOURCE_REMOVE;
 }
 
 static gboolean
-image_drag_accept (GtkDropTargetAsync *dest,
+image_drag_accept (BobguiDropTargetAsync *dest,
                    GdkDrop            *drop,
                    gpointer            data)
 {
-  GtkWidget *image = data;
+  BobguiWidget *image = data;
   g_object_set_data_full (G_OBJECT (image), "drop", g_object_ref (drop), g_object_unref);
 
   g_print ("accept\n");
@@ -223,13 +223,13 @@ image_drag_accept (GtkDropTargetAsync *dest,
 }
 
 static gboolean
-image_drag_drop (GtkDropTarget    *dest,
+image_drag_drop (BobguiDropTarget    *dest,
                  GdkDrop          *drop,
                  double            x,
                  double            y,
                  gpointer          data)
 {
-  GtkWidget *image = data;
+  BobguiWidget *image = data;
   GdkDragAction action = gdk_drop_get_actions (drop);
   const char *name[] = { "copy", "move", "link", "ask" };
 
@@ -256,23 +256,23 @@ image_drag_drop (GtkDropTarget    *dest,
 }
 
 static void
-update_source_icon (GtkDragSource *source,
+update_source_icon (BobguiDragSource *source,
                     const char *icon_name,
                     int hotspot)
 {
-  GtkWidget *widget = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (source));
-  GtkIconPaintable *icon;
+  BobguiWidget *widget = bobgui_event_controller_get_widget (BOBGUI_EVENT_CONTROLLER (source));
+  BobguiIconPaintable *icon;
   int hot_x, hot_y;
   int size = 48;
 
   if (widget == NULL)
     return;
 
-  icon = gtk_icon_theme_lookup_icon (gtk_icon_theme_get_for_display (gtk_widget_get_display (widget)),
+  icon = bobgui_icon_theme_lookup_icon (bobgui_icon_theme_get_for_display (bobgui_widget_get_display (widget)),
                                      icon_name,
                                      NULL,
                                      size, 1,
-                                     gtk_widget_get_direction (widget),
+                                     bobgui_widget_get_direction (widget),
                                      0);
   switch (hotspot)
     {
@@ -290,20 +290,20 @@ update_source_icon (GtkDragSource *source,
       hot_y = size;
       break;
     }
-  gtk_drag_source_set_icon (source, GDK_PAINTABLE (icon), hot_x, hot_y);
+  bobgui_drag_source_set_icon (source, GDK_PAINTABLE (icon), hot_x, hot_y);
   g_object_unref (icon);
 }
 
 static GdkContentProvider *
-drag_prepare (GtkDragSource *source,
+drag_prepare (BobguiDragSource *source,
               double         x,
               double         y)
 {
-  GtkImage *image = GTK_IMAGE (gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (source)));
+  BobguiImage *image = BOBGUI_IMAGE (bobgui_event_controller_get_widget (BOBGUI_EVENT_CONTROLLER (source)));
   GdkTexture *texture;
   GdkContentProvider *content;
 
-  content = gdk_content_provider_new_typed (G_TYPE_STRING, gtk_image_get_icon_name (GTK_IMAGE (image)));
+  content = gdk_content_provider_new_typed (G_TYPE_STRING, bobgui_image_get_icon_name (BOBGUI_IMAGE (image)));
 
   texture = get_image_texture (image);
   if (texture)
@@ -319,19 +319,19 @@ drag_prepare (GtkDragSource *source,
 }
 
 static void
-drag_begin (GtkDragSource *source)
+drag_begin (BobguiDragSource *source)
 {
   g_print ("drag begin\n");
 }
 
 static void
-drag_end (GtkDragSource *source)
+drag_end (BobguiDragSource *source)
 {
   g_print ("drag end\n");
 }
 
 static gboolean
-drag_cancel (GtkDragSource       *source,
+drag_cancel (BobguiDragSource       *source,
              GdkDrag             *drag,
              GdkDragCancelReason  reason)
 {
@@ -340,68 +340,68 @@ drag_cancel (GtkDragSource       *source,
   return FALSE;
 }
 
-static GtkWidget *
+static BobguiWidget *
 make_image (const char *icon_name, int hotspot)
 {
-  GtkWidget *image;
-  GtkDragSource *source;
-  GtkDropTargetAsync *dest;
+  BobguiWidget *image;
+  BobguiDragSource *source;
+  BobguiDropTargetAsync *dest;
   GdkContentFormats *formats;
   GdkContentFormatsBuilder *builder;
 
-  image = gtk_image_new_from_icon_name (icon_name);
-  gtk_image_set_icon_size (GTK_IMAGE (image), GTK_ICON_SIZE_LARGE);
+  image = bobgui_image_new_from_icon_name (icon_name);
+  bobgui_image_set_icon_size (BOBGUI_IMAGE (image), BOBGUI_ICON_SIZE_LARGE);
 
   builder = gdk_content_formats_builder_new ();
   gdk_content_formats_builder_add_gtype (builder, GDK_TYPE_TEXTURE);
   gdk_content_formats_builder_add_gtype (builder, G_TYPE_STRING);
   formats = gdk_content_formats_builder_free_to_formats (builder);
 
-  source = gtk_drag_source_new ();
-  gtk_drag_source_set_actions (source, GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_ASK);
+  source = bobgui_drag_source_new ();
+  bobgui_drag_source_set_actions (source, GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_ASK);
   update_source_icon (source, icon_name, hotspot);
 
   g_signal_connect (source, "prepare", G_CALLBACK (drag_prepare), NULL);
   g_signal_connect (source, "drag-begin", G_CALLBACK (drag_begin), NULL);
   g_signal_connect (source, "drag-end", G_CALLBACK (drag_end), NULL);
   g_signal_connect (source, "drag-cancel", G_CALLBACK (drag_cancel), NULL);
-  gtk_widget_add_controller (image, GTK_EVENT_CONTROLLER (source));
+  bobgui_widget_add_controller (image, BOBGUI_EVENT_CONTROLLER (source));
 
-  dest = gtk_drop_target_async_new (formats, GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_ASK);
+  dest = bobgui_drop_target_async_new (formats, GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_ASK);
   g_signal_connect (dest, "accept", G_CALLBACK (image_drag_accept), image);
   g_signal_connect (dest, "drop", G_CALLBACK (image_drag_drop), image);
-  gtk_widget_add_controller (image, GTK_EVENT_CONTROLLER (dest));
+  bobgui_widget_add_controller (image, BOBGUI_EVENT_CONTROLLER (dest));
 
   return image;
 }
 
 static void
-spinner_drag_begin (GtkDragSource *source,
+spinner_drag_begin (BobguiDragSource *source,
                     GdkDrag       *drag,
-                    GtkWidget     *widget)
+                    BobguiWidget     *widget)
 {
   GdkPaintable *paintable;
 
-  paintable = gtk_widget_paintable_new (widget);
-  gtk_drag_source_set_icon (source, paintable, 0, 0);
+  paintable = bobgui_widget_paintable_new (widget);
+  bobgui_drag_source_set_icon (source, paintable, 0, 0);
   g_object_unref (paintable);
 }
 
-static GtkWidget *
+static BobguiWidget *
 make_spinner (void)
 {
-  GtkWidget *spinner;
-  GtkDragSource *source;
+  BobguiWidget *spinner;
+  BobguiDragSource *source;
   GdkContentProvider *content;
 
-  spinner = gtk_spinner_new ();
-  gtk_spinner_start (GTK_SPINNER (spinner));
+  spinner = bobgui_spinner_new ();
+  bobgui_spinner_start (BOBGUI_SPINNER (spinner));
 
   content = gdk_content_provider_new_typed (G_TYPE_STRING, "ACTIVE");
-  source = gtk_drag_source_new ();
-  gtk_drag_source_set_content (source, content);
+  source = bobgui_drag_source_new ();
+  bobgui_drag_source_set_content (source, content);
   g_signal_connect (source, "drag-begin", G_CALLBACK (spinner_drag_begin), spinner);
-  gtk_widget_add_controller (spinner, GTK_EVENT_CONTROLLER (source));
+  bobgui_widget_add_controller (spinner, BOBGUI_EVENT_CONTROLLER (source));
 
   g_object_unref (content);
 
@@ -411,17 +411,17 @@ make_spinner (void)
 int
 main (int argc, char *Argv[])
 {
-  GtkWidget *window;
-  GtkWidget *grid;
-  GtkWidget *entry;
+  BobguiWidget *window;
+  BobguiWidget *grid;
+  BobguiWidget *entry;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "Drag And Drop");
-  gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Drag And Drop");
+  bobgui_window_set_resizable (BOBGUI_WINDOW (window), FALSE);
 
-  grid = gtk_grid_new ();
+  grid = bobgui_grid_new ();
   g_object_set (grid,
                 "margin-start", 20,
                 "margin-end", 20,
@@ -430,21 +430,21 @@ main (int argc, char *Argv[])
                 "row-spacing", 20,
                 "column-spacing", 20,
                 NULL);
-  gtk_window_set_child (GTK_WINDOW (window), grid);
-  gtk_grid_attach (GTK_GRID (grid), make_image ("dialog-warning", TOP_LEFT), 0, 0, 1, 1);
-  gtk_grid_attach (GTK_GRID (grid), make_image ("process-stop", BOTTOM_RIGHT), 1, 0, 1, 1);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), grid);
+  bobgui_grid_attach (BOBGUI_GRID (grid), make_image ("dialog-warning", TOP_LEFT), 0, 0, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), make_image ("process-stop", BOTTOM_RIGHT), 1, 0, 1, 1);
 
-  entry = gtk_entry_new ();
-  gtk_grid_attach (GTK_GRID (grid), entry, 0, 1, 2, 1);
+  entry = bobgui_entry_new ();
+  bobgui_grid_attach (BOBGUI_GRID (grid), entry, 0, 1, 2, 1);
 
-  gtk_grid_attach (GTK_GRID (grid), make_spinner (), 0, 2, 1, 1);
-  gtk_grid_attach (GTK_GRID (grid), make_image ("weather-clear", CENTER), 1, 2, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), make_spinner (), 0, 2, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), make_image ("weather-clear", CENTER), 1, 2, 1, 1);
 
-  gtk_grid_attach (GTK_GRID (grid), make_image ("dialog-question", TOP_LEFT), 0, 3, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), make_image ("dialog-question", TOP_LEFT), 0, 3, 1, 1);
 
-  gtk_grid_attach (GTK_GRID (grid), make_image ("dialog-information", CENTER), 1, 3, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), make_image ("dialog-information", CENTER), 1, 3, 1, 1);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);
 

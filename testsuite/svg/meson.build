@@ -14,8 +14,8 @@ foreach t : internal_tests
   test_name = t
   test_srcs = ['@0@.c'.format(test_name)]
   test_exe = executable(test_name, test_srcs,
-    dependencies : libgtk_static_dep,
-    c_args : test_cargs + common_cflags + ['-DGTK_COMPILATION'],
+    dependencies : libbobgui_static_dep,
+    c_args : test_cargs + common_cflags + ['-DBOBGUI_COMPILATION'],
   )
 
   test(test_name, test_exe,

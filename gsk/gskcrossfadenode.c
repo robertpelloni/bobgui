@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2016  Endless
  *

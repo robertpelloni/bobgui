@@ -1,4 +1,4 @@
-/* gdkapplaunchcontext.c - Gtk+ implementation for GAppLaunchContext
+/* gdkapplaunchcontext.c - Bobgui+ implementation for GAppLaunchContext
 
    Copyright (C) 2007 Red Hat, Inc.
 
@@ -42,7 +42,7 @@
  *
  * gdk_app_launch_context_set_timestamp (gdk_event_get_time (event));
  *
- * if (!g_app_info_launch_default_for_uri ("http://www.gtk.org", context, &error))
+ * if (!g_app_info_launch_default_for_uri ("http://www.bobgui.org", context, &error))
  *   g_warning ("Launching failed: %s\n", error->message);
  *
  * g_object_unref (context);

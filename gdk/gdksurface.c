@@ -17,10 +17,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -60,7 +60,7 @@
  * Represents a rectangular region on the screen.
  *
  * It’s a low-level object, used to implement high-level objects
- * such as [GtkWindow](../gtk4/class.Window.html).
+ * such as [BobguiWindow](../bobgui4/class.Window.html).
  *
  * The surfaces you see in practice are either [iface@Gdk.Toplevel] or
  * [iface@Gdk.Popup], and those interfaces provide much of the required
@@ -1232,7 +1232,7 @@ gdk_surface_create_cairo_context (GdkSurface *surface)
  *
  * Returns: (transfer full): %NULL
  *
- * Deprecated: 4.14: GTK does not expose any Vulkan internals. This
+ * Deprecated: 4.14: BOBGUI does not expose any Vulkan internals. This
  *   function is a leftover that was accidentally exposed.
  */
 GdkVulkanContext *
@@ -1240,7 +1240,7 @@ gdk_surface_create_vulkan_context (GdkSurface  *surface,
                                    GError    **error)
 {
   g_set_error (error, GDK_VULKAN_ERROR, GDK_VULKAN_ERROR_UNSUPPORTED,
-               "GTK does not expose Vulkan internals.");
+               "BOBGUI does not expose Vulkan internals.");
   return FALSE;
 }
 
@@ -1559,7 +1559,7 @@ gdk_surface_thaw_updates (GdkSurface *surface)
         {
           surface->request_motion_id =
             g_idle_add_full (GDK_PRIORITY_REDRAW + 20, request_motion_cb, surface, NULL);
-          gdk_source_set_static_name_by_id (surface->request_motion_id, "[gtk] request_motion_cb");
+          gdk_source_set_static_name_by_id (surface->request_motion_id, "[bobgui] request_motion_cb");
         }
     }
 }
@@ -1676,7 +1676,7 @@ gdk_surface_get_device_position (GdkSurface       *surface,
  * For toplevel surfaces, withdraws them, so they will no longer be
  * known to the window manager; for all surfaces, unmaps them, so
  * they won’t be displayed. Normally done automatically as
- * part of [gtk_widget_hide()](../gtk4/method.Widget.hide.html).
+ * part of [bobgui_widget_hide()](../bobgui4/method.Widget.hide.html).
  */
 void
 gdk_surface_hide (GdkSurface *surface)
@@ -2341,7 +2341,7 @@ gdk_surface_destroy_notify (GdkSurface *surface)
  * by [method@Gdk.Drag.get_drag_surface].
  *
  * This function returns a reference to the [class@Gdk.Drag] object,
- * but GTK keeps its own reference as well, as long as the DND operation
+ * but BOBGUI keeps its own reference as well, as long as the DND operation
  * is going on.
  *
  * Note: if @actions include %GDK_ACTION_MOVE, you need to listen for
@@ -2622,10 +2622,10 @@ gdk_surface_update_opaque_region (GdkSurface *self)
  *
  * This function only works for toplevel surfaces.
  *
- * GTK will update this property automatically if the @surface background
+ * BOBGUI will update this property automatically if the @surface background
  * is opaque, as we know where the opaque regions are. If your surface
  * background is not opaque, please update this property in your
- * [GtkWidgetClass.css_changed](../gtk4/vfunc.Widget.css_changed.html) handler.
+ * [BobguiWidgetClass.css_changed](../bobgui4/vfunc.Widget.css_changed.html) handler.
  *
  * Deprecated: 4.16: GDK can figure out the opaque parts of a window itself
  *   by inspecting the contents that are drawn.
@@ -2822,7 +2822,7 @@ gdk_surface_queue_set_is_mapped (GdkSurface *surface,
 
       surface->set_is_mapped_source_id =
         g_idle_add_full (G_PRIORITY_HIGH - 10, set_is_mapped_idle, surface, NULL);
-      gdk_source_set_static_name_by_id (surface->set_is_mapped_source_id, "[gtk] set_is_mapped_idle");
+      gdk_source_set_static_name_by_id (surface->set_is_mapped_source_id, "[bobgui] set_is_mapped_idle");
     }
 }
 
@@ -3017,7 +3017,7 @@ gdk_surface_handle_event (GdkEvent *event)
  *
  * The motion event will be delivered if the pointer is over the
  * surface, regardless whether the pointer has moved or not. This
- * is used by GTK after moving widgets around.
+ * is used by BOBGUI after moving widgets around.
  */
 void
 gdk_surface_request_motion (GdkSurface *surface)

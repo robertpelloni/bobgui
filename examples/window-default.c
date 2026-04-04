@@ -1,25 +1,25 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
-activate (GtkApplication* app,
+activate (BobguiApplication* app,
           gpointer        user_data)
 {
-  GtkWidget *window;
+  BobguiWidget *window;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Window");
-  gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
-  gtk_window_present (GTK_WINDOW (window));
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Window");
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 200, 200);
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 int
 main (int    argc,
       char **argv)
 {
-  GtkApplication *app;
+  BobguiApplication *app;
   int status;
 
-  app = gtk_application_new ("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
+  app = bobgui_application_new ("org.bobgui.example", G_APPLICATION_DEFAULT_FLAGS);
   g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
   status = g_application_run (G_APPLICATION (app), argc, argv);
   g_object_unref (app);

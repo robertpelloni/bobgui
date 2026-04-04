@@ -25,7 +25,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #ifdef G_OS_WIN32
 #  include <io.h>
@@ -38,24 +38,24 @@
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
 #if 0
-static GtkWidget *preview_label;
-static GtkWidget *preview_image;
+static BobguiWidget *preview_label;
+static BobguiWidget *preview_image;
 #endif
-static GtkFileChooserAction action;
+static BobguiFileChooserAction action;
 
 static void
-response_cb (GtkDialog *dialog,
+response_cb (BobguiDialog *dialog,
 	     int        response_id,
              gpointer   data)
 {
   gboolean *done = data;
 
-  if (response_id == GTK_RESPONSE_OK)
+  if (response_id == BOBGUI_RESPONSE_OK)
     {
       GListModel *files;
       guint i, n;
 
-      files = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (dialog));
+      files = bobgui_file_chooser_get_files (BOBGUI_FILE_CHOOSER (dialog));
       n = g_list_model_get_n_items (files);
 
       g_print ("Selected files:\n");
@@ -79,7 +79,7 @@ response_cb (GtkDialog *dialog,
 }
 
 static void
-filter_changed (GtkFileChooserDialog *dialog,
+filter_changed (BobguiFileChooserDialog *dialog,
 		gpointer              data)
 {
   g_print ("file filter changed\n");
@@ -91,87 +91,87 @@ filter_changed (GtkFileChooserDialog *dialog,
 
 
 static void
-set_current_folder (GtkFileChooser *chooser,
+set_current_folder (BobguiFileChooser *chooser,
 		    const char     *name)
 {
   GFile *file = g_file_new_for_path (name);
-  if (!gtk_file_chooser_set_current_folder (chooser, file, NULL))
+  if (!bobgui_file_chooser_set_current_folder (chooser, file, NULL))
     {
-      GtkWidget *dialog;
+      BobguiWidget *dialog;
 
-      dialog = gtk_message_dialog_new (GTK_WINDOW (chooser),
-				       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-				       GTK_MESSAGE_ERROR,
-				       GTK_BUTTONS_CLOSE,
+      dialog = bobgui_message_dialog_new (BOBGUI_WINDOW (chooser),
+				       BOBGUI_DIALOG_MODAL | BOBGUI_DIALOG_DESTROY_WITH_PARENT,
+				       BOBGUI_MESSAGE_ERROR,
+				       BOBGUI_BUTTONS_CLOSE,
 				       "Could not set the folder to %s",
 				       name);
-      gtk_window_present (GTK_WINDOW (dialog));
+      bobgui_window_present (BOBGUI_WINDOW (dialog));
       g_signal_connect (dialog, "response",
-                        G_CALLBACK (gtk_window_destroy),
+                        G_CALLBACK (bobgui_window_destroy),
                         NULL);
     }
   g_object_unref (file);
 }
 
 static void
-set_folder_nonexistent_cb (GtkButton      *button,
-			   GtkFileChooser *chooser)
+set_folder_nonexistent_cb (BobguiButton      *button,
+			   BobguiFileChooser *chooser)
 {
   set_current_folder (chooser, "/nonexistent");
 }
 
 static void
-set_folder_existing_nonexistent_cb (GtkButton      *button,
-				    GtkFileChooser *chooser)
+set_folder_existing_nonexistent_cb (BobguiButton      *button,
+				    BobguiFileChooser *chooser)
 {
   set_current_folder (chooser, "/usr/nonexistent");
 }
 
 static void
-set_filename (GtkFileChooser *chooser,
+set_filename (BobguiFileChooser *chooser,
 	      const char     *name)
 {
   GFile *file = g_file_new_for_path (name);
-  if (!gtk_file_chooser_set_file (chooser, file, NULL))
+  if (!bobgui_file_chooser_set_file (chooser, file, NULL))
     {
-      GtkWidget *dialog;
+      BobguiWidget *dialog;
 
-      dialog = gtk_message_dialog_new (GTK_WINDOW (chooser),
-				       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-				       GTK_MESSAGE_ERROR,
-				       GTK_BUTTONS_CLOSE,
+      dialog = bobgui_message_dialog_new (BOBGUI_WINDOW (chooser),
+				       BOBGUI_DIALOG_MODAL | BOBGUI_DIALOG_DESTROY_WITH_PARENT,
+				       BOBGUI_MESSAGE_ERROR,
+				       BOBGUI_BUTTONS_CLOSE,
 				       "Could not select %s",
 				       name);
-      gtk_window_present (GTK_WINDOW (dialog));
+      bobgui_window_present (BOBGUI_WINDOW (dialog));
       g_signal_connect (dialog, "response",
-                        G_CALLBACK (gtk_window_destroy),
+                        G_CALLBACK (bobgui_window_destroy),
                         NULL);
     }
   g_object_unref (file);
 }
 
 static void
-set_filename_nonexistent_cb (GtkButton      *button,
-			     GtkFileChooser *chooser)
+set_filename_nonexistent_cb (BobguiButton      *button,
+			     BobguiFileChooser *chooser)
 {
   set_filename (chooser, "/nonexistent");
 }
 
 static void
-set_filename_existing_nonexistent_cb (GtkButton      *button,
-				      GtkFileChooser *chooser)
+set_filename_existing_nonexistent_cb (BobguiButton      *button,
+				      BobguiFileChooser *chooser)
 {
   set_filename (chooser, "/usr/nonexistent");
 }
 
 static void
-get_selection_cb (GtkButton      *button,
-		  GtkFileChooser *chooser)
+get_selection_cb (BobguiButton      *button,
+		  BobguiFileChooser *chooser)
 {
   GListModel *selection;
   guint i, n;
 
-  selection = gtk_file_chooser_get_files (chooser);
+  selection = bobgui_file_chooser_get_files (chooser);
   n = g_list_model_get_n_items (selection);
 
   g_print ("Selection: ");
@@ -189,38 +189,38 @@ get_selection_cb (GtkButton      *button,
 }
 
 static void
-get_current_name_cb (GtkButton      *button,
-		     GtkFileChooser *chooser)
+get_current_name_cb (BobguiButton      *button,
+		     BobguiFileChooser *chooser)
 {
   char *name;
 
-  name = gtk_file_chooser_get_current_name (chooser);
+  name = bobgui_file_chooser_get_current_name (chooser);
   g_print ("Current name: %s\n", name ? name : "NULL");
   g_free (name);
 }
 
 static void
-unmap_and_remap_cb (GtkButton *button,
-		    GtkFileChooser *chooser)
+unmap_and_remap_cb (BobguiButton *button,
+		    BobguiFileChooser *chooser)
 {
-  gtk_widget_set_visible (GTK_WIDGET (chooser), FALSE);
-  gtk_widget_set_visible (GTK_WIDGET (chooser), TRUE);
+  bobgui_widget_set_visible (BOBGUI_WIDGET (chooser), FALSE);
+  bobgui_widget_set_visible (BOBGUI_WIDGET (chooser), TRUE);
 }
 
 static void
-kill_dependent (GtkWindow *win, GtkWidget *dep)
+kill_dependent (BobguiWindow *win, BobguiWidget *dep)
 {
-  gtk_window_destroy (GTK_WINDOW (dep));
+  bobgui_window_destroy (BOBGUI_WINDOW (dep));
 }
 
 int
 main (int argc, char **argv)
 {
-  GtkWidget *control_window;
-  GtkWidget *vbbox;
-  GtkWidget *button;
-  GtkWidget *dialog;
-  GtkFileFilter *filter;
+  BobguiWidget *control_window;
+  BobguiWidget *vbbox;
+  BobguiWidget *button;
+  BobguiWidget *dialog;
+  BobguiFileFilter *filter;
   gboolean force_rtl = FALSE;
   gboolean multiple = FALSE;
   char *action_arg = NULL;
@@ -249,7 +249,7 @@ main (int argc, char **argv)
     }
   g_option_context_free (context);
 
-  gtk_init ();
+  bobgui_init ();
 
   if (initial_filename && initial_folder)
     {
@@ -258,18 +258,18 @@ main (int argc, char **argv)
     }
 
   if (force_rtl)
-    gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+    bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
 
-  action = GTK_FILE_CHOOSER_ACTION_OPEN;
+  action = BOBGUI_FILE_CHOOSER_ACTION_OPEN;
 
   if (action_arg != NULL)
     {
       if (! strcmp ("open", action_arg))
-	action = GTK_FILE_CHOOSER_ACTION_OPEN;
+	action = BOBGUI_FILE_CHOOSER_ACTION_OPEN;
       else if (! strcmp ("save", action_arg))
-	action = GTK_FILE_CHOOSER_ACTION_SAVE;
+	action = BOBGUI_FILE_CHOOSER_ACTION_SAVE;
       else if (! strcmp ("select_folder", action_arg))
-	action = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
+	action = BOBGUI_FILE_CHOOSER_ACTION_SELECT_FOLDER;
       else
 	{
 	  g_print ("--action must be one of \"open\", \"save\", \"select_folder\"\n");
@@ -279,140 +279,140 @@ main (int argc, char **argv)
       g_free (action_arg);
     }
 
-  dialog = g_object_new (GTK_TYPE_FILE_CHOOSER_DIALOG,
+  dialog = g_object_new (BOBGUI_TYPE_FILE_CHOOSER_DIALOG,
 			 "action", action,
 			 "select-multiple", multiple,
 			 NULL);
 
   switch (action)
     {
-    case GTK_FILE_CHOOSER_ACTION_OPEN:
-    case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
-      gtk_window_set_title (GTK_WINDOW (dialog), "Select a file");
-      gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-			      _("_Cancel"), GTK_RESPONSE_CANCEL,
-			      _("_Open"), GTK_RESPONSE_OK,
+    case BOBGUI_FILE_CHOOSER_ACTION_OPEN:
+    case BOBGUI_FILE_CHOOSER_ACTION_SELECT_FOLDER:
+      bobgui_window_set_title (BOBGUI_WINDOW (dialog), "Select a file");
+      bobgui_dialog_add_buttons (BOBGUI_DIALOG (dialog),
+			      _("_Cancel"), BOBGUI_RESPONSE_CANCEL,
+			      _("_Open"), BOBGUI_RESPONSE_OK,
 			      NULL);
       break;
-    case GTK_FILE_CHOOSER_ACTION_SAVE:
-      gtk_window_set_title (GTK_WINDOW (dialog), "Save a file");
-      gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-			      _("_Cancel"), GTK_RESPONSE_CANCEL,
-			      _("_Save"), GTK_RESPONSE_OK,
+    case BOBGUI_FILE_CHOOSER_ACTION_SAVE:
+      bobgui_window_set_title (BOBGUI_WINDOW (dialog), "Save a file");
+      bobgui_dialog_add_buttons (BOBGUI_DIALOG (dialog),
+			      _("_Cancel"), BOBGUI_RESPONSE_CANCEL,
+			      _("_Save"), BOBGUI_RESPONSE_OK,
 			      NULL);
       break;
     default:
       g_assert_not_reached ();
     }
-  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+  bobgui_dialog_set_default_response (BOBGUI_DIALOG (dialog), BOBGUI_RESPONSE_OK);
 
   g_signal_connect (dialog, "response",
 		    G_CALLBACK (response_cb), &done);
 
   /* Filters */
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_set_name (filter, "All Files");
-  gtk_file_filter_add_pattern (filter, "*");
-  gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (filter, "All Files");
+  bobgui_file_filter_add_pattern (filter, "*");
+  bobgui_file_chooser_add_filter (BOBGUI_FILE_CHOOSER (dialog), filter);
 
   /* Make this filter the default */
-  gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (dialog), filter);
+  bobgui_file_chooser_set_filter (BOBGUI_FILE_CHOOSER (dialog), filter);
   g_object_unref (filter);
 
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_set_name (filter, "Starts with D");
-  gtk_file_filter_add_pattern (filter, "D*");
-  gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (filter, "Starts with D");
+  bobgui_file_filter_add_pattern (filter, "D*");
+  bobgui_file_chooser_add_filter (BOBGUI_FILE_CHOOSER (dialog), filter);
   g_object_unref (filter);
 
   g_signal_connect (dialog, "notify::filter",
 		    G_CALLBACK (filter_changed), NULL);
 
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_set_name (filter, "PNG and JPEG");
-  gtk_file_filter_add_mime_type (filter, "image/jpeg");
-  gtk_file_filter_add_mime_type (filter, "image/png");
-  gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (filter, "PNG and JPEG");
+  bobgui_file_filter_add_mime_type (filter, "image/jpeg");
+  bobgui_file_filter_add_mime_type (filter, "image/png");
+  bobgui_file_chooser_add_filter (BOBGUI_FILE_CHOOSER (dialog), filter);
   g_object_unref (filter);
 
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_set_name (filter, "Images");
-  gtk_file_filter_add_pixbuf_formats (filter);
-  gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (filter, "Images");
+  bobgui_file_filter_add_pixbuf_formats (filter);
+  bobgui_file_chooser_add_filter (BOBGUI_FILE_CHOOSER (dialog), filter);
   g_object_unref (filter);
 
   /* Choices */
 
-  gtk_file_chooser_add_choice (GTK_FILE_CHOOSER (dialog), "choice1",
+  bobgui_file_chooser_add_choice (BOBGUI_FILE_CHOOSER (dialog), "choice1",
                                "Choose one:",
                                (const char *[]){"one", "two", "three", NULL},
                                (const char *[]){"One", "Two", "Three", NULL});
-  gtk_file_chooser_set_choice (GTK_FILE_CHOOSER (dialog), "choice1", "two");
+  bobgui_file_chooser_set_choice (BOBGUI_FILE_CHOOSER (dialog), "choice1", "two");
 
   /* Shortcuts */
 
   file = g_file_new_for_uri ("file:///usr/share/pixmaps");
-  gtk_file_chooser_add_shortcut_folder (GTK_FILE_CHOOSER (dialog), file, NULL);
+  bobgui_file_chooser_add_shortcut_folder (BOBGUI_FILE_CHOOSER (dialog), file, NULL);
   g_object_unref (file);
 
   file = g_file_new_for_path (g_get_user_special_dir (G_USER_DIRECTORY_MUSIC));
-  gtk_file_chooser_add_shortcut_folder (GTK_FILE_CHOOSER (dialog), file, NULL);
+  bobgui_file_chooser_add_shortcut_folder (BOBGUI_FILE_CHOOSER (dialog), file, NULL);
   g_object_unref (file);
 
   /* Initial filename or folder */
 
   if (initial_filename)
-    set_filename (GTK_FILE_CHOOSER (dialog), initial_filename);
+    set_filename (BOBGUI_FILE_CHOOSER (dialog), initial_filename);
 
   if (initial_folder)
-    set_current_folder (GTK_FILE_CHOOSER (dialog), initial_folder);
+    set_current_folder (BOBGUI_FILE_CHOOSER (dialog), initial_folder);
 
-  gtk_window_present (GTK_WINDOW (dialog));
+  bobgui_window_present (BOBGUI_WINDOW (dialog));
 
   /* Extra controls for manipulating the test environment
    */
 
-  control_window = gtk_window_new ();
+  control_window = bobgui_window_new ();
 
-  vbbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (control_window), vbbox);
+  vbbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (control_window), vbbox);
 
-  button = gtk_button_new_with_label ("set_current_folder (\"/nonexistent\")");
-  gtk_box_append (GTK_BOX (vbbox), button);
+  button = bobgui_button_new_with_label ("set_current_folder (\"/nonexistent\")");
+  bobgui_box_append (BOBGUI_BOX (vbbox), button);
   g_signal_connect (button, "clicked",
 		    G_CALLBACK (set_folder_nonexistent_cb), dialog);
 
-  button = gtk_button_new_with_label ("set_current_folder (\"/usr/nonexistent\")");
-  gtk_box_append (GTK_BOX (vbbox), button);
+  button = bobgui_button_new_with_label ("set_current_folder (\"/usr/nonexistent\")");
+  bobgui_box_append (BOBGUI_BOX (vbbox), button);
   g_signal_connect (button, "clicked",
 		    G_CALLBACK (set_folder_existing_nonexistent_cb), dialog);
 
-  button = gtk_button_new_with_label ("set_filename (\"/nonexistent\")");
-  gtk_box_append (GTK_BOX (vbbox), button);
+  button = bobgui_button_new_with_label ("set_filename (\"/nonexistent\")");
+  bobgui_box_append (BOBGUI_BOX (vbbox), button);
   g_signal_connect (button, "clicked",
 		    G_CALLBACK (set_filename_nonexistent_cb), dialog);
 
-  button = gtk_button_new_with_label ("set_filename (\"/usr/nonexistent\")");
-  gtk_box_append (GTK_BOX (vbbox), button);
+  button = bobgui_button_new_with_label ("set_filename (\"/usr/nonexistent\")");
+  bobgui_box_append (BOBGUI_BOX (vbbox), button);
   g_signal_connect (button, "clicked",
 		    G_CALLBACK (set_filename_existing_nonexistent_cb), dialog);
 
-  button = gtk_button_new_with_label ("Get selection");
-  gtk_box_append (GTK_BOX (vbbox), button);
+  button = bobgui_button_new_with_label ("Get selection");
+  bobgui_box_append (BOBGUI_BOX (vbbox), button);
   g_signal_connect (button, "clicked",
 		    G_CALLBACK (get_selection_cb), dialog);
 
-  button = gtk_button_new_with_label ("Get current name");
-  gtk_box_append (GTK_BOX (vbbox), button);
+  button = bobgui_button_new_with_label ("Get current name");
+  bobgui_box_append (BOBGUI_BOX (vbbox), button);
   g_signal_connect (button, "clicked",
 		    G_CALLBACK (get_current_name_cb), dialog);
 
-  button = gtk_button_new_with_label ("Unmap and remap");
-  gtk_box_append (GTK_BOX (vbbox), button);
+  button = bobgui_button_new_with_label ("Unmap and remap");
+  bobgui_box_append (BOBGUI_BOX (vbbox), button);
   g_signal_connect (button, "clicked",
 		    G_CALLBACK (unmap_and_remap_cb), dialog);
 
-  gtk_widget_show (control_window);
+  bobgui_widget_show (control_window);
 
   g_signal_connect (dialog, "destroy",
 		    G_CALLBACK (kill_dependent), control_window);
@@ -423,7 +423,7 @@ main (int argc, char **argv)
   g_object_ref (dialog);
   while (!done)
     g_main_context_iteration (NULL, TRUE);
-  gtk_window_destroy (GTK_WINDOW (dialog));
+  bobgui_window_destroy (BOBGUI_WINDOW (dialog));
   g_object_unref (dialog);
 
   return 0;

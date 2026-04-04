@@ -1,5 +1,5 @@
-#include <gtk/gtk.h>
-#include <gtk/gtksnapshotprivate.h>
+#include <bobgui/bobgui.h>
+#include <bobgui/bobguisnapshotprivate.h>
 #include <gsk/gskarithmeticnodeprivate.h>
 #include <gsk/gskblendnodeprivate.h>
 #include <gsk/gskbordernodeprivate.h>
@@ -10,43 +10,43 @@
 #include <gsk/gskoutsetshadownodeprivate.h>
 #include <gsk/gskrendernodeprivate.h>
 #include <gsk/gskrepeatnodeprivate.h>
-#include <gtk/gtksnapshotprivate.h>
+#include <bobgui/bobguisnapshotprivate.h>
 #include "../gdk/udmabuf.h"
 
 void
-replay_node (GskRenderNode *node, GtkSnapshot *snapshot);
+replay_node (GskRenderNode *node, BobguiSnapshot *snapshot);
 
 static void
-replay_container_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_container_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   for (guint i = 0; i < gsk_container_node_get_n_children (node); i++)
     replay_node (gsk_container_node_get_child (node, i), snapshot);
 }
 
 static void
-replay_cairo_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_cairo_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   cairo_surface_t *surface = gsk_cairo_node_get_surface (node);
   graphene_rect_t bounds;
   gsk_render_node_get_bounds (node, &bounds);
 
-  cairo_t *cr = gtk_snapshot_append_cairo (snapshot, &bounds);
+  cairo_t *cr = bobgui_snapshot_append_cairo (snapshot, &bounds);
   cairo_set_source_surface (cr, surface, 0, 0);
   cairo_paint (cr);
 }
 
 static void
-replay_color_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_color_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   graphene_rect_t bounds;
   gsk_render_node_get_bounds (node, &bounds);
-  gtk_snapshot_add_color (snapshot,
+  bobgui_snapshot_add_color (snapshot,
                           gsk_color_node_get_gdk_color (node),
                           &bounds);
 }
 
 static void
-replay_linear_gradient_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_linear_gradient_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   graphene_rect_t bounds;
   const graphene_point_t *start, *end;
@@ -57,11 +57,11 @@ replay_linear_gradient_node (GskRenderNode *node, GtkSnapshot *snapshot)
   end = gsk_linear_gradient_node_get_end (node);
   gradient = gsk_gradient_node_get_gradient (node);
 
-  gtk_snapshot_add_linear_gradient (snapshot, &bounds, start, end, gradient);
+  bobgui_snapshot_add_linear_gradient (snapshot, &bounds, start, end, gradient);
 }
 
 static void
-replay_radial_gradient_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_radial_gradient_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   graphene_rect_t bounds;
   gsk_render_node_get_bounds (node, &bounds);
@@ -72,7 +72,7 @@ replay_radial_gradient_node (GskRenderNode *node, GtkSnapshot *snapshot)
   float end = gsk_radial_gradient_node_get_end (node);
   const GskGradient *gradient = gsk_gradient_node_get_gradient (node);
 
-  gtk_snapshot_add_radial_gradient (snapshot, &bounds,
+  bobgui_snapshot_add_radial_gradient (snapshot, &bounds,
                                     center, hradius * start,
                                     center, hradius * end,
                                     hradius / vradius,
@@ -80,7 +80,7 @@ replay_radial_gradient_node (GskRenderNode *node, GtkSnapshot *snapshot)
 }
 
 static void
-replay_conic_gradient_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_conic_gradient_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   graphene_rect_t bounds;
   gsk_render_node_get_bounds (node, &bounds);
@@ -88,21 +88,21 @@ replay_conic_gradient_node (GskRenderNode *node, GtkSnapshot *snapshot)
   float rotation = gsk_conic_gradient_node_get_rotation (node);
   const GskGradient *gradient = gsk_gradient_node_get_gradient (node);
 
-  gtk_snapshot_add_conic_gradient (snapshot, &bounds, center, rotation, gradient);
+  bobgui_snapshot_add_conic_gradient (snapshot, &bounds, center, rotation, gradient);
 }
 
 static void
-replay_border_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_border_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   const GskRoundedRect *outline = gsk_border_node_get_outline (node);
   const float *border_width = gsk_border_node_get_widths (node);
   const GdkColor *border_color = gsk_border_node_get_gdk_colors (node);
 
-  gtk_snapshot_add_border (snapshot, outline, border_width, border_color);
+  bobgui_snapshot_add_border (snapshot, outline, border_width, border_color);
 }
 
 static void
-replay_texture_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_texture_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GdkTexture *texture = gsk_texture_node_get_texture (node);
   graphene_rect_t bounds;
@@ -122,13 +122,13 @@ replay_texture_node (GskRenderNode *node, GtkSnapshot *snapshot)
         }
     }
 
-  gtk_snapshot_append_texture (snapshot, texture, &bounds);
+  bobgui_snapshot_append_texture (snapshot, texture, &bounds);
 
   g_object_unref (texture);
 }
 
 static void
-replay_inset_shadow_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_inset_shadow_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   const GskRoundedRect *outline = gsk_inset_shadow_node_get_outline (node);
   const GdkColor *color = gsk_inset_shadow_node_get_gdk_color (node);
@@ -136,12 +136,12 @@ replay_inset_shadow_node (GskRenderNode *node, GtkSnapshot *snapshot)
   float spread = gsk_inset_shadow_node_get_spread (node);
   float blur_radius = gsk_inset_shadow_node_get_blur_radius (node);
 
-  gtk_snapshot_add_inset_shadow (snapshot, outline, color,
+  bobgui_snapshot_add_inset_shadow (snapshot, outline, color,
                                  offset, spread, blur_radius);
 }
 
 static void
-replay_outset_shadow_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_outset_shadow_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   const GskRoundedRect *outline = gsk_outset_shadow_node_get_outline (node);
   const GdkColor *color = gsk_outset_shadow_node_get_gdk_color (node);
@@ -149,47 +149,47 @@ replay_outset_shadow_node (GskRenderNode *node, GtkSnapshot *snapshot)
   float spread = gsk_outset_shadow_node_get_spread (node);
   float blur_radius = gsk_outset_shadow_node_get_blur_radius (node);
 
-  gtk_snapshot_add_outset_shadow (snapshot, outline, color,
+  bobgui_snapshot_add_outset_shadow (snapshot, outline, color,
                                   offset, spread, blur_radius);
 }
 
 static void
-replay_transform_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_transform_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GskTransform *transform = gsk_transform_node_get_transform (node);
   GskRenderNode *child = gsk_transform_node_get_child (node);
 
-  gtk_snapshot_save (snapshot);
-  gtk_snapshot_transform (snapshot, transform);
+  bobgui_snapshot_save (snapshot);
+  bobgui_snapshot_transform (snapshot, transform);
   replay_node (child, snapshot);
-  gtk_snapshot_restore (snapshot);
+  bobgui_snapshot_restore (snapshot);
 }
 
 static void
-replay_opacity_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_opacity_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   float opacity = gsk_opacity_node_get_opacity (node);
   GskRenderNode *child = gsk_opacity_node_get_child (node);
 
-  gtk_snapshot_push_opacity (snapshot, opacity);
+  bobgui_snapshot_push_opacity (snapshot, opacity);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_color_matrix_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_color_matrix_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   const graphene_matrix_t *matrix = gsk_color_matrix_node_get_color_matrix (node);
   const graphene_vec4_t *offset = gsk_color_matrix_node_get_color_offset (node);
   GskRenderNode *child = gsk_color_matrix_node_get_child (node);
 
-  gtk_snapshot_push_color_matrix (snapshot, matrix, offset);
+  bobgui_snapshot_push_color_matrix (snapshot, matrix, offset);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_repeat_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_repeat_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GskRenderNode *child = gsk_repeat_node_get_child (node);
   const graphene_rect_t *child_bounds = gsk_repeat_node_get_child_bounds (node);
@@ -197,48 +197,48 @@ replay_repeat_node (GskRenderNode *node, GtkSnapshot *snapshot)
   graphene_rect_t bounds;
   gsk_render_node_get_bounds (node, &bounds);
 
-  gtk_snapshot_push_repeat2 (snapshot, &bounds, child_bounds, repeat);
+  bobgui_snapshot_push_repeat2 (snapshot, &bounds, child_bounds, repeat);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_clip_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_clip_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   const graphene_rect_t *clip = gsk_clip_node_get_clip (node);
   GskRenderNode *child = gsk_clip_node_get_child (node);
 
-  gtk_snapshot_push_clip (snapshot, clip);
+  bobgui_snapshot_push_clip (snapshot, clip);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_rounded_clip_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_rounded_clip_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   const GskRoundedRect *bounds = gsk_rounded_clip_node_get_clip (node);
   GskRenderNode *child = gsk_rounded_clip_node_get_child (node);
 
-  gtk_snapshot_push_rounded_clip (snapshot, bounds);
+  bobgui_snapshot_push_rounded_clip (snapshot, bounds);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_shadow_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_shadow_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   gsize n_shadows = gsk_shadow_node_get_n_shadows (node);
   /* Hack: we know GskShadowNode stores shadows in a contiguous array.  */
   const GskShadowEntry *shadow = gsk_shadow_node_get_shadow_entry (node, 0);
   GskRenderNode *child = gsk_shadow_node_get_child (node);
 
-  gtk_snapshot_push_shadows (snapshot, shadow, n_shadows);
+  bobgui_snapshot_push_shadows (snapshot, shadow, n_shadows);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_blend_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_blend_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GskRenderNode *bottom_child = gsk_blend_node_get_bottom_child (node);
   GskRenderNode *top_child = gsk_blend_node_get_top_child (node);
@@ -246,39 +246,39 @@ replay_blend_node (GskRenderNode *node, GtkSnapshot *snapshot)
   GdkColorState *color_state = gsk_blend_node_get_color_state (node);
   GskRenderNode *child;
 
-  gtk_snapshot_push_collect (snapshot);
+  bobgui_snapshot_push_collect (snapshot);
   replay_node (bottom_child, snapshot);
-  bottom_child = gtk_snapshot_pop_collect (snapshot);
-  gtk_snapshot_push_collect (snapshot);
+  bottom_child = bobgui_snapshot_pop_collect (snapshot);
+  bobgui_snapshot_push_collect (snapshot);
   replay_node (top_child, snapshot);
-  top_child = gtk_snapshot_pop_collect (snapshot);
+  top_child = bobgui_snapshot_pop_collect (snapshot);
 
   child = gsk_blend_node_new2 (bottom_child, top_child, color_state, blend_mode);
-  gtk_snapshot_append_node (snapshot, child);
+  bobgui_snapshot_append_node (snapshot, child);
   gsk_render_node_unref (child);
   gsk_render_node_unref (bottom_child);
   gsk_render_node_unref (top_child);
 }
 
 static void
-replay_cross_fade_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_cross_fade_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GskRenderNode *start_child = gsk_cross_fade_node_get_start_child (node);
   GskRenderNode *end_child = gsk_cross_fade_node_get_end_child (node);
   float progress = gsk_cross_fade_node_get_progress (node);
 
-  gtk_snapshot_push_cross_fade (snapshot, progress);
+  bobgui_snapshot_push_cross_fade (snapshot, progress);
   replay_node (start_child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
   replay_node (end_child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_text_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_text_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
 #if 0
-  /* The following does not compile, since gtk_snapshot_append_text () is
+  /* The following does not compile, since bobgui_snapshot_append_text () is
    * not exported.  */
 
   PangoFont *font = gsk_text_node_get_font (node);
@@ -291,37 +291,37 @@ replay_text_node (GskRenderNode *node, GtkSnapshot *snapshot)
   glyphs.num_glyphs = n_glyphs;
   glyphs.log_clusters = NULL;
 
-  gtk_snapshot_append_text (snapshot, font, glyphs, color,
+  bobgui_snapshot_append_text (snapshot, font, glyphs, color,
                             offset->x, offset->y);
 #else
-  gtk_snapshot_append_node (snapshot, node);
+  bobgui_snapshot_append_node (snapshot, node);
 #endif
 }
 
 static void
-replay_blur_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_blur_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   float radius = gsk_blur_node_get_radius (node);
   GskRenderNode *child = gsk_blur_node_get_child (node);
 
-  gtk_snapshot_push_blur (snapshot, radius);
+  bobgui_snapshot_push_blur (snapshot, radius);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_debug_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_debug_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   const char *message = gsk_debug_node_get_message (node);
   GskRenderNode *child = gsk_debug_node_get_child (node);
 
-  gtk_snapshot_push_debug (snapshot, "%s", message);
+  bobgui_snapshot_push_debug (snapshot, "%s", message);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_gl_shader_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_gl_shader_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   graphene_rect_t bounds;
@@ -329,19 +329,19 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   GskGLShader *shader = gsk_gl_shader_node_get_shader (node);
   GBytes *args = gsk_gl_shader_node_get_args (node);
 
-  gtk_snapshot_push_gl_shader (snapshot, shader, &bounds, g_bytes_ref (args));
+  bobgui_snapshot_push_gl_shader (snapshot, shader, &bounds, g_bytes_ref (args));
   for (guint i = 0; i < gsk_gl_shader_node_get_n_children (node); i++)
     {
       GskRenderNode *child = gsk_gl_shader_node_get_child (node, i);
       replay_node (child, snapshot);
-      gtk_snapshot_gl_shader_pop_texture (snapshot);
+      bobgui_snapshot_gl_shader_pop_texture (snapshot);
     }
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 static void
-replay_texture_scale_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_texture_scale_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GdkTexture *texture = gsk_texture_scale_node_get_texture (node);
   GskScalingFilter filter = gsk_texture_scale_node_get_filter (node);
@@ -369,117 +369,117 @@ replay_texture_scale_node (GskRenderNode *node, GtkSnapshot *snapshot)
         }
     }
 
-  gtk_snapshot_append_scaled_texture (snapshot, texture, filter, &bounds);
+  bobgui_snapshot_append_scaled_texture (snapshot, texture, filter, &bounds);
 
   g_object_unref (texture);
 }
 
 static void
-replay_mask_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_mask_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GskMaskMode mask_mode = gsk_mask_node_get_mask_mode (node);
   GskRenderNode *source = gsk_mask_node_get_source (node);
   GskRenderNode *mask = gsk_mask_node_get_mask (node);
 
-  gtk_snapshot_push_mask (snapshot, mask_mode);
+  bobgui_snapshot_push_mask (snapshot, mask_mode);
   replay_node (mask, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
   replay_node (source, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_fill_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_fill_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GskPath *path = gsk_fill_node_get_path (node);
   GskFillRule fill_rule = gsk_fill_node_get_fill_rule (node);
   GskRenderNode *child = gsk_fill_node_get_child (node);
 
-  gtk_snapshot_push_fill (snapshot, path, fill_rule);
+  bobgui_snapshot_push_fill (snapshot, path, fill_rule);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_stroke_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_stroke_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   GskPath *path = gsk_stroke_node_get_path (node);
   const GskStroke *stroke = gsk_stroke_node_get_stroke (node);
   GskRenderNode *child = gsk_stroke_node_get_child (node);
 
-  gtk_snapshot_push_stroke (snapshot, path, stroke);
+  bobgui_snapshot_push_stroke (snapshot, path, stroke);
   replay_node (child, snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_component_transfer_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_component_transfer_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
-  GtkSnapshot *snapshot2;
+  BobguiSnapshot *snapshot2;
   GskRenderNode *node2;
 
-  snapshot2 = gtk_snapshot_new ();
+  snapshot2 = bobgui_snapshot_new ();
   replay_node (gsk_component_transfer_node_get_child (node), snapshot2);
-  node2 = gsk_component_transfer_node_new2 (gtk_snapshot_free_to_node (snapshot2),
+  node2 = gsk_component_transfer_node_new2 (bobgui_snapshot_free_to_node (snapshot2),
                                             gsk_component_transfer_node_get_color_state (node),
                                             gsk_component_transfer_node_get_transfer (node, 0),
                                             gsk_component_transfer_node_get_transfer (node, 1),
                                             gsk_component_transfer_node_get_transfer (node, 2),
                                             gsk_component_transfer_node_get_transfer (node, 3));
-  gtk_snapshot_append_node (snapshot, node2);
+  bobgui_snapshot_append_node (snapshot, node2);
   gsk_render_node_unref (node2);
 }
 
 static void
-replay_copy_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_copy_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
-  gtk_snapshot_push_copy (snapshot);
+  bobgui_snapshot_push_copy (snapshot);
   replay_node (gsk_copy_node_get_child (node), snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_paste_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_paste_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   graphene_rect_t bounds;
 
   gsk_render_node_get_bounds (node, &bounds);
 
-  gtk_snapshot_append_paste (snapshot,
+  bobgui_snapshot_append_paste (snapshot,
                              &bounds,
                              gsk_paste_node_get_depth (node));
 }
 
 static void
-replay_composite_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_composite_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
-  gtk_snapshot_push_composite (snapshot, gsk_composite_node_get_operator (node));
+  bobgui_snapshot_push_composite (snapshot, gsk_composite_node_get_operator (node));
   replay_node (gsk_composite_node_get_mask (node), snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
   replay_node (gsk_composite_node_get_child (node), snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_isolation_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_isolation_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
-  gtk_snapshot_push_isolation (snapshot, gsk_isolation_node_get_isolations (node));
+  bobgui_snapshot_push_isolation (snapshot, gsk_isolation_node_get_isolations (node));
   replay_node (gsk_isolation_node_get_child (node), snapshot);
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_pop (snapshot);
 }
 
 static void
-replay_displacement_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_displacement_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
-  gtk_snapshot_append_node (snapshot, node);
+  bobgui_snapshot_append_node (snapshot, node);
 }
 
 static void
 replay_arithmetic_node (GskRenderNode *node,
-                        GtkSnapshot   *snapshot)
+                        BobguiSnapshot   *snapshot)
 {
   float k1, k2, k3, k4;
-  GtkSnapshot *snap;
+  BobguiSnapshot *snap;
   GskRenderNode *node1, *node2;
   graphene_rect_t bounds;
   GdkColorState *color_state;
@@ -488,21 +488,21 @@ replay_arithmetic_node (GskRenderNode *node,
   gsk_arithmetic_node_get_factors (node, &k1, &k2, &k3, &k4);
   color_state = gsk_arithmetic_node_get_color_state (node);
 
-  snap = gtk_snapshot_new ();
+  snap = bobgui_snapshot_new ();
   replay_node (gsk_arithmetic_node_get_first_child (node), snap);
-  node1 = gtk_snapshot_free_to_node (snap);
+  node1 = bobgui_snapshot_free_to_node (snap);
 
-  snap = gtk_snapshot_new ();
+  snap = bobgui_snapshot_new ();
   replay_node (gsk_arithmetic_node_get_second_child (node), snap);
-  node2 = gtk_snapshot_free_to_node (snap);
+  node2 = bobgui_snapshot_free_to_node (snap);
 
   node = gsk_arithmetic_node_new (&bounds, node1, node2, color_state, k1, k2, k3, k4);
-  gtk_snapshot_append_node (snapshot, node);
+  bobgui_snapshot_append_node (snapshot, node);
   gsk_render_node_unref (node);
 }
 
 void
-replay_node (GskRenderNode *node, GtkSnapshot *snapshot)
+replay_node (GskRenderNode *node, BobguiSnapshot *snapshot)
 {
   switch (gsk_render_node_get_node_type (node))
     {

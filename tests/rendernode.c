@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static gboolean benchmark = FALSE;
 static gboolean dump_variant = FALSE;
@@ -59,7 +59,7 @@ main(int argc, char **argv)
       return 1;
     }
 
-  gtk_init ();
+  bobgui_init ();
 
   if (runs < 1)
     {

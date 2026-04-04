@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -1523,7 +1523,7 @@ _gdk_x11_keymap_add_virt_mods (GdkKeymap       *keymap,
   int i;
 
   /*  This loop used to start at 3, which included MOD1 in the
-   *  virtual mapping. However, all of GTK+ treats MOD1 as a
+   *  virtual mapping. However, all of BOBGUI+ treats MOD1 as a
    *  synonym for Alt, and does not expect it to be mapped around,
    *  therefore it's more sane to simply treat MOD1 like SHIFT and
    *  CONTROL, which are not mappable either.

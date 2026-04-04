@@ -1,7 +1,7 @@
 <!--
   Please, read the CONTRIBUTING.md guide on how to file a new issue.
 
-  https://gitlab.gnome.org/GNOME/gtk/-/blob/main/CONTRIBUTING.md
+  https://gitlab.gnome.org/GNOME/bobgui/-/blob/main/CONTRIBUTING.md
 
   You should also read how to report issues on the Handbook:
 
@@ -27,10 +27,10 @@
 
 ## Version information
 <!--
- - Which version of GTK you are using
+ - Which version of BOBGUI you are using
  - What operating system and version
   - for Linux, which distribution
- - If you built GTK yourself, the list of options used to configure the build
+ - If you built BOBGUI yourself, the list of options used to configure the build
 -->
 
 ## Warnings

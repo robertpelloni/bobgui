@@ -1,4 +1,4 @@
-/* GTK - The GIMP Toolkit
+/* BOBGUI - The GIMP Toolkit
  * Copyright (C) 2017 Benjamin Otte
  *
  * This library is free software; you can redistribute it and/or
@@ -40,7 +40,7 @@
  * The `GdkContentDeserializer` transforms serialized content that is
  * identified by a mime type into an object identified by a GType.
  *
- * GTK provides serializers and deserializers for common data types
+ * BOBGUI provides serializers and deserializers for common data types
  * such as text, colors, images or file lists. To register your own
  * deserialization functions, use [func@content_register_deserializer].
  *
@@ -359,7 +359,7 @@ gdk_content_deserializer_return_success (GdkContentDeserializer *deserializer)
                                gdk_content_deserializer_emit_callback,
                                deserializer,
                                g_object_unref);
-  gdk_source_set_static_name_by_id (source_id, "[gtk] gdk_content_deserializer_emit_callback");
+  gdk_source_set_static_name_by_id (source_id, "[bobgui] gdk_content_deserializer_emit_callback");
   /* NB: the idle will destroy our reference */
 }
 
@@ -395,7 +395,7 @@ gdk_content_deserializer_return_error (GdkContentDeserializer *deserializer,
  *
  * Registers a function to deserialize object of a given type.
  *
- * Since 4.20, when looking up a deserializer to use, GTK will
+ * Since 4.20, when looking up a deserializer to use, BOBGUI will
  * use the last registered deserializer for a given mime type,
  * so applications can override the built-in deserializers.
  */

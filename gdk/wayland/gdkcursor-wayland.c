@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -94,7 +94,7 @@ get_cursor_texture (const char *name,
             {
               char path[256];
 
-              g_snprintf (path, sizeof (path), "/org/gtk/libgdk/cursor/%s", name);
+              g_snprintf (path, sizeof (path), "/org/bobgui/libgdk/cursor/%s", name);
               if (g_resources_get_info (path, 0, NULL, NULL, NULL))
                 textures[i].texture = gdk_texture_new_from_resource (path);
             }

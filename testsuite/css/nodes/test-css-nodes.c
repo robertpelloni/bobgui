@@ -20,7 +20,7 @@
 
 #include <string.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "testsuite/testutils.h"
 
 #ifdef G_OS_WIN32
@@ -51,13 +51,13 @@ test_get_reference_file (const char *ui_file)
 }
 
 static void
-style_context_changed (GtkWidget *window, const char **output)
+style_context_changed (BobguiWidget *window, const char **output)
 {
-  GtkStyleContext *context;
+  BobguiStyleContext *context;
 
-  context = gtk_widget_get_style_context (window);
+  context = bobgui_widget_get_style_context (window);
 
-  *output = gtk_style_context_to_string (context, GTK_STYLE_CONTEXT_PRINT_RECURSE);
+  *output = bobgui_style_context_to_string (context, BOBGUI_STYLE_CONTEXT_PRINT_RECURSE);
 
   g_main_context_wakeup (NULL);
 }
@@ -65,8 +65,8 @@ style_context_changed (GtkWidget *window, const char **output)
 static void
 load_ui_file (GFile *file, gboolean generate)
 {
-  GtkBuilder *builder;
-  GtkWidget *window;
+  BobguiBuilder *builder;
+  BobguiWidget *window;
   char *output, *diff;
   char *ui_file, *reference_file;
   GError *error = NULL;
@@ -74,19 +74,19 @@ load_ui_file (GFile *file, gboolean generate)
   ui_file = g_file_get_path (file);
 
   if (g_str_has_suffix (ui_file, ".rtl.ui"))
-    gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+    bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
   else
-    gtk_widget_set_default_direction (GTK_TEXT_DIR_LTR);
+    bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_LTR);
 
-  builder = gtk_builder_new_from_file (ui_file);
-  window = GTK_WIDGET (gtk_builder_get_object (builder, "window1"));
+  builder = bobgui_builder_new_from_file (ui_file);
+  window = BOBGUI_WIDGET (bobgui_builder_get_object (builder, "window1"));
 
   g_assert_nonnull (window);
 
   output = NULL;
   g_signal_connect (window, "map", G_CALLBACK (style_context_changed), &output);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!output)
     g_main_context_iteration (NULL, FALSE);
@@ -198,13 +198,13 @@ add_tests_for_files_in_directory (GFile *dir)
 int
 main (int argc, char **argv)
 {
-  g_setenv ("GTK_CSS_DEBUG", "1", TRUE);
+  g_setenv ("BOBGUI_CSS_DEBUG", "1", TRUE);
 
   if (argc >=3 && strcmp (argv[1], "--generate") == 0)
     {
       GFile *file = g_file_new_for_commandline_arg (argv[2]);
 
-      gtk_init ();
+      bobgui_init ();
 
       load_ui_file (file, TRUE);
 
@@ -213,7 +213,7 @@ main (int argc, char **argv)
       return 0;
     }
 
-  gtk_test_init (&argc, &argv);
+  bobgui_test_init (&argc, &argv);
 
   if (argc < 2)
     {

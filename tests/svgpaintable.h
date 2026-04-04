@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_BEGIN_DECLS
 

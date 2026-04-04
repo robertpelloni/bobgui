@@ -303,7 +303,7 @@ gdk_macos_keymap_update (GdkMacosKeymap *self)
                * the first of which is U+00a0, which isn't
                * interesting; so we return the second. More
                * sophisticated handling is the job of a
-               * GtkIMContext.
+               * BobguiIMContext.
                *
                * If state isn't zero, it means that it's a dead
                * key of some sort. Some of those are enumerated in
@@ -325,7 +325,7 @@ gdk_macos_keymap_update (GdkMacosKeymap *self)
                     }
                 }
 
-              /* Special-case shift-tab since GTK expects
+              /* Special-case shift-tab since BOBGUI expects
                * GDK_KEY_ISO_Left_Tab for that.
                */
               if (found && p[j] == GDK_KEY_Tab && modifiers[j] == shiftKey)

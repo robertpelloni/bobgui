@@ -1,4 +1,4 @@
-/* gdkapplaunchcontext.h - Gtk+ implementation for GAppLaunchContext
+/* gdkapplaunchcontext.h - Bobgui+ implementation for GAppLaunchContext
  *
  * Copyright (C) 2007 Red Hat, Inc.
  *
@@ -20,7 +20,7 @@
 
 #pragma once
 
-#if !defined (__GDK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdk.h> can be included directly."
 #endif
 

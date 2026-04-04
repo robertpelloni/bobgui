@@ -1,9 +1,9 @@
 <interface>
-  <template class="MyDialog2" parent="GtkDialog">
+  <template class="MyDialog2" parent="BobguiDialog">
     <child internal-child="content_area">
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkLabel" id="content">
+          <object class="BobguiLabel" id="content">
             <property name="visible">True</property>
             <property name="label">template content</property>
           </object>

@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  * Copyright 2016  Endless
  *
  * This library is free software; you can redistribute it and/or
@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if !defined (__GSK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GSK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gsk/gsk.h> can be included directly."
 #endif
 
@@ -530,7 +530,7 @@ typedef enum {
  * @GSK_TRANSFORM_CATEGORY_2D_TRANSLATE: The matrix is a 2D translation.
  * @GSK_TRANSFORM_CATEGORY_IDENTITY: The matrix is the identity matrix.
  *
- * The categories of matrices relevant for GSK and GTK.
+ * The categories of matrices relevant for GSK and BOBGUI.
  *
  * Note that any category includes matrices of all later categories.
  * So if you want to for example check if a matrix is a 2D matrix,
@@ -566,7 +566,7 @@ typedef enum
  * Defines the types of the uniforms that `GskGLShaders` declare.
  *
  * It defines both what the type is called in the GLSL shader
- * code, and what the corresponding C type is on the Gtk side.
+ * code, and what the corresponding C type is on the Bobgui side.
  *
  * Deprecated: 4.16
  */

@@ -1,43 +1,43 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <glib/gstdio.h>
 
 static void
-print_hello (GtkWidget *widget,
+print_hello (BobguiWidget *widget,
              gpointer   data)
 {
   g_print ("Hello World\n");
 }
 
 static void
-quit_cb (GtkWidget *widget, gpointer data)
+quit_cb (BobguiWidget *widget, gpointer data)
 {
-  GtkWindow *window = data;
+  BobguiWindow *window = data;
 
-  gtk_window_close (window);
+  bobgui_window_close (window);
 }
 
 static void
-activate (GtkApplication *app,
+activate (BobguiApplication *app,
           gpointer        user_data)
 {
-  /* Construct a GtkBuilder instance and load our UI description */
-  GtkBuilder *builder = gtk_builder_new ();
-  gtk_builder_add_from_file (builder, "builder.ui", NULL);
+  /* Construct a BobguiBuilder instance and load our UI description */
+  BobguiBuilder *builder = bobgui_builder_new ();
+  bobgui_builder_add_from_file (builder, "builder.ui", NULL);
 
   /* Connect signal handlers to the constructed widgets. */
-  GObject *window = gtk_builder_get_object (builder, "window");
-  gtk_window_set_application (GTK_WINDOW (window), app);
+  GObject *window = bobgui_builder_get_object (builder, "window");
+  bobgui_window_set_application (BOBGUI_WINDOW (window), app);
 
-  GObject *button = gtk_builder_get_object (builder, "button1");
+  GObject *button = bobgui_builder_get_object (builder, "button1");
   g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
 
-  button = gtk_builder_get_object (builder, "button2");
+  button = bobgui_builder_get_object (builder, "button2");
   g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
 
-  button = gtk_builder_get_object (builder, "quit");
+  button = bobgui_builder_get_object (builder, "quit");
   g_signal_connect_swapped (button, "clicked", G_CALLBACK (quit_cb), window);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
   g_object_unref (builder);
 }
 
@@ -45,11 +45,11 @@ int
 main (int   argc,
       char *argv[])
 {
-#ifdef GTK_SRCDIR
-  g_chdir (GTK_SRCDIR);
+#ifdef BOBGUI_SRCDIR
+  g_chdir (BOBGUI_SRCDIR);
 #endif
 
-  GtkApplication *app = gtk_application_new ("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
+  BobguiApplication *app = bobgui_application_new ("org.bobgui.example", G_APPLICATION_DEFAULT_FLAGS);
   g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
 
   int status = g_application_run (G_APPLICATION (app), argc, argv);

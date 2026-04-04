@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -444,7 +444,7 @@ gdk_rgba_print (const GdkRGBA *rgba,
 }
 
 static gboolean
-parse_color_channel_value (GtkCssParser *parser,
+parse_color_channel_value (BobguiCssParser *parser,
                            float        *value,
                            gboolean      is_percentage)
 {
@@ -452,7 +452,7 @@ parse_color_channel_value (GtkCssParser *parser,
 
   if (is_percentage)
     {
-      if (!gtk_css_parser_consume_percentage (parser, &dvalue))
+      if (!bobgui_css_parser_consume_percentage (parser, &dvalue))
         return FALSE;
 
       *value = CLAMP (dvalue, 0.0, 100.0) / 100.0;
@@ -460,7 +460,7 @@ parse_color_channel_value (GtkCssParser *parser,
     }
   else
     {
-      if (!gtk_css_parser_consume_number (parser, &dvalue))
+      if (!bobgui_css_parser_consume_number (parser, &dvalue))
         return FALSE;
 
       *value = CLAMP (dvalue, 0.0, 255.0) / 255.0;
@@ -469,7 +469,7 @@ parse_color_channel_value (GtkCssParser *parser,
 }
 
 static guint
-parse_color_channel (GtkCssParser *parser,
+parse_color_channel (BobguiCssParser *parser,
                      guint         arg,
                      gpointer      data)
 {
@@ -480,7 +480,7 @@ parse_color_channel (GtkCssParser *parser,
   {
     case 0:
       /* We abuse rgba->alpha to store if we use percentages or numbers */
-      if (gtk_css_token_is (gtk_css_parser_get_token (parser), GTK_CSS_TOKEN_PERCENTAGE))
+      if (bobgui_css_token_is (bobgui_css_parser_get_token (parser), BOBGUI_CSS_TOKEN_PERCENTAGE))
         rgba->alpha = 1.0;
       else
         rgba->alpha = 0.0;
@@ -500,7 +500,7 @@ parse_color_channel (GtkCssParser *parser,
       return 1;
 
     case 3:
-      if (!gtk_css_parser_consume_number (parser, &dvalue))
+      if (!bobgui_css_parser_consume_number (parser, &dvalue))
         return 0;
 
       rgba->alpha = CLAMP (dvalue, 0.0, 1.0);
@@ -513,7 +513,7 @@ parse_color_channel (GtkCssParser *parser,
 }
 
 static guint
-parse_hsla_color_channel (GtkCssParser *parser,
+parse_hsla_color_channel (BobguiCssParser *parser,
                           guint         arg,
                           gpointer      data)
 {
@@ -523,25 +523,25 @@ parse_hsla_color_channel (GtkCssParser *parser,
   switch (arg)
   {
     case 0:
-      if (!gtk_css_parser_consume_number (parser, &dvalue))
+      if (!bobgui_css_parser_consume_number (parser, &dvalue))
         return 0;
       hsla->hue = dvalue;
       return 1;
 
     case 1:
-      if (!gtk_css_parser_consume_percentage (parser, &dvalue))
+      if (!bobgui_css_parser_consume_percentage (parser, &dvalue))
         return 0;
       hsla->saturation = CLAMP (dvalue, 0.0, 100.0) / 100.0;
       return 1;
 
     case 2:
-      if (!gtk_css_parser_consume_percentage (parser, &dvalue))
+      if (!bobgui_css_parser_consume_percentage (parser, &dvalue))
         return 0;
       hsla->lightness = CLAMP (dvalue, 0.0, 100.0) / 100.0;
       return 1;
 
     case 3:
-      if (!gtk_css_parser_consume_number (parser, &dvalue))
+      if (!bobgui_css_parser_consume_number (parser, &dvalue))
         return 0;
 
       hsla->alpha = CLAMP (dvalue, 0.0, 1.0) / 1.0;
@@ -574,47 +574,47 @@ rgba_init_chars (GdkRGBA    *rgba,
 }
 
 gboolean
-gdk_rgba_parser_parse (GtkCssParser *parser,
+gdk_rgba_parser_parse (BobguiCssParser *parser,
                        GdkRGBA      *rgba)
 {
-  const GtkCssToken *token;
+  const BobguiCssToken *token;
 
-  token = gtk_css_parser_get_token (parser);
-  if (gtk_css_token_is_function (token, "rgb"))
+  token = bobgui_css_parser_get_token (parser);
+  if (bobgui_css_token_is_function (token, "rgb"))
     {
-      if (!gtk_css_parser_consume_function (parser, 3, 3, parse_color_channel, rgba))
+      if (!bobgui_css_parser_consume_function (parser, 3, 3, parse_color_channel, rgba))
         return FALSE;
 
       rgba->alpha = 1.0;
       return TRUE;
     }
-  else if (gtk_css_token_is_function (token, "rgba"))
+  else if (bobgui_css_token_is_function (token, "rgba"))
     {
-      return gtk_css_parser_consume_function (parser, 4, 4, parse_color_channel, rgba);
+      return bobgui_css_parser_consume_function (parser, 4, 4, parse_color_channel, rgba);
     }
-  else if (gtk_css_token_is_function (token, "hsl") || gtk_css_token_is_function (token, "hsla"))
+  else if (bobgui_css_token_is_function (token, "hsl") || bobgui_css_token_is_function (token, "hsla"))
     {
       GdkHSLA hsla;
 
       hsla.alpha = 1.0;
 
-      if (!gtk_css_parser_consume_function (parser, 3, 4, parse_hsla_color_channel, &hsla))
+      if (!bobgui_css_parser_consume_function (parser, 3, 4, parse_hsla_color_channel, &hsla))
         return FALSE;
 
       _gdk_rgba_init_from_hsla (rgba, &hsla);
       return TRUE;
     }
-  else if (gtk_css_token_is (token, GTK_CSS_TOKEN_HASH_ID) ||
-           gtk_css_token_is (token, GTK_CSS_TOKEN_HASH_UNRESTRICTED))
+  else if (bobgui_css_token_is (token, BOBGUI_CSS_TOKEN_HASH_ID) ||
+           bobgui_css_token_is (token, BOBGUI_CSS_TOKEN_HASH_UNRESTRICTED))
     {
-      const char *s = gtk_css_token_get_string (token);
+      const char *s = bobgui_css_token_get_string (token);
 
       switch (strlen (s))
         {
           case 3:
             if (!rgba_init_chars (rgba, (char[8]) {s[0], s[0], s[1], s[1], s[2], s[2], 'F', 'F' }))
               {
-                gtk_css_parser_error_value (parser, "Hash code is not a valid hex color.");
+                bobgui_css_parser_error_value (parser, "Hash code is not a valid hex color.");
                 return FALSE;
               }
             break;
@@ -622,7 +622,7 @@ gdk_rgba_parser_parse (GtkCssParser *parser,
           case 4:
             if (!rgba_init_chars (rgba, (char[8]) {s[0], s[0], s[1], s[1], s[2], s[2], s[3], s[3] }))
               {
-                gtk_css_parser_error_value (parser, "Hash code is not a valid hex color.");
+                bobgui_css_parser_error_value (parser, "Hash code is not a valid hex color.");
                 return FALSE;
               }
             break;
@@ -630,7 +630,7 @@ gdk_rgba_parser_parse (GtkCssParser *parser,
           case 6:
             if (!rgba_init_chars (rgba, (char[8]) {s[0], s[1], s[2], s[3], s[4], s[5], 'F', 'F' }))
               {
-                gtk_css_parser_error_value (parser, "Hash code is not a valid hex color.");
+                bobgui_css_parser_error_value (parser, "Hash code is not a valid hex color.");
                 return FALSE;
               }
             break;
@@ -638,42 +638,42 @@ gdk_rgba_parser_parse (GtkCssParser *parser,
           case 8:
             if (!rgba_init_chars (rgba, s))
               {
-                gtk_css_parser_error_value (parser, "Hash code is not a valid hex color.");
+                bobgui_css_parser_error_value (parser, "Hash code is not a valid hex color.");
                 return FALSE;
               }
             break;
 
           default:
-            gtk_css_parser_error_value (parser, "Hash code is not a valid hex color.");
+            bobgui_css_parser_error_value (parser, "Hash code is not a valid hex color.");
             return FALSE;
             break;
         }
 
-      gtk_css_parser_consume_token (parser);
+      bobgui_css_parser_consume_token (parser);
       return TRUE;
     }
-  else if (gtk_css_token_is (token, GTK_CSS_TOKEN_IDENT))
+  else if (bobgui_css_token_is (token, BOBGUI_CSS_TOKEN_IDENT))
     {
-      if (gtk_css_token_is_ident (token, "transparent"))
+      if (bobgui_css_token_is_ident (token, "transparent"))
         {
           *rgba = GDK_RGBA_TRANSPARENT;
         }
-      else if (gdk_rgba_parse (rgba, gtk_css_token_get_string (token)))
+      else if (gdk_rgba_parse (rgba, bobgui_css_token_get_string (token)))
         {
           /* everything's fine */
         }
       else
         {
-          gtk_css_parser_error_syntax (parser, "\"%s\" is not a valid color name.", gtk_css_token_get_string (token));
+          bobgui_css_parser_error_syntax (parser, "\"%s\" is not a valid color name.", bobgui_css_token_get_string (token));
           return FALSE;
         }
 
-      gtk_css_parser_consume_token (parser);
+      bobgui_css_parser_consume_token (parser);
       return TRUE;
     }
   else
     {
-      gtk_css_parser_error_syntax (parser, "Expected a valid color.");
+      bobgui_css_parser_error_syntax (parser, "Expected a valid color.");
       return FALSE;
     }
 }

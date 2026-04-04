@@ -2,7 +2,7 @@ clipboard_client = executable('clipboard-client',
   sources: ['clipboard-client.c'],
   include_directories: [confinc],
   c_args: common_cflags,
-  dependencies: [ libgtk_dep ],
+  dependencies: [ libbobgui_dep ],
   install: false,
 )
 
@@ -54,7 +54,7 @@ foreach t : tests
   test_exe = executable(test_name,
     sources: [ '@0@.c'.format(test_name) ] + t.get('sources', []),
     c_args: common_cflags,
-    dependencies: libgtk_dep,
+    dependencies: libbobgui_dep,
     install: false,
   )
 
@@ -98,8 +98,8 @@ foreach t : internal_tests
   test_name = t.get('name')
   test_exe = executable(test_name,
     sources: [ '@0@.c'.format(test_name) ] + t.get('sources', []),
-    c_args: common_cflags + ['-DGTK_COMPILATION'],
-    dependencies: libgtk_static_dep,
+    c_args: common_cflags + ['-DBOBGUI_COMPILATION'],
+    dependencies: libbobgui_static_dep,
     install: false,
   )
 
@@ -122,8 +122,8 @@ foreach t : internal_test_executables
   test_name = t.get('name')
   test_executable = executable(test_name,
     sources: [ '@0@.c'.format(test_name) ] + t.get('sources', []),
-    c_args: common_cflags + ['-DGTK_COMPILATION'],
-    dependencies: libgtk_static_dep,
+    c_args: common_cflags + ['-DBOBGUI_COMPILATION'],
+    dependencies: libbobgui_static_dep,
     install: false,
   )
   test_executables += {test_name: test_executable}

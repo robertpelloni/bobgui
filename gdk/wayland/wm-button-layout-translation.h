@@ -20,5 +20,5 @@
 
 #pragma once
 
-void translate_wm_button_layout_to_gtk (char *layout);
+void translate_wm_button_layout_to_bobgui (char *layout);
 

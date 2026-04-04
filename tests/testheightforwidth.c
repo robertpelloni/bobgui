@@ -18,13 +18,13 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 typedef struct {
   const char *name;
   const char *tooltip;
   const char *interface;
-  GtkWidget   *window;
+  BobguiWidget   *window;
 } TestInterface;
 
 
@@ -37,16 +37,16 @@ static TestInterface interfaces[] = {
     "Ellipsizing Labels",
     "Demonstrates how labels will request a natural size in a horizontal space",
     "<interface>"
-    "  <requires lib=\"gtk\" version=\"3.99\"/>"
+    "  <requires lib=\"bobgui\" version=\"3.99\"/>"
     "  <!-- interface-naming-policy project-wide -->"
-    "  <object class=\"GtkWindow\" id=\"window\">"
+    "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">450</property>"
     "    <property name=\"default_height\">50</property>"
     "    <child>"
-    "      <object class=\"GtkBox\" id=\"hbox5\">"
+    "      <object class=\"BobguiBox\" id=\"hbox5\">"
     "        <property name=\"orientation\">horizontal</property>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label9\">"
+    "          <object class=\"BobguiLabel\" id=\"label9\">"
     "            <property name=\"label\" translatable=\"yes\">Some labels do ellipsize</property>"
     "            <property name=\"ellipsize\">end</property>"
     "            <attributes>"
@@ -56,7 +56,7 @@ static TestInterface interfaces[] = {
     "          </object>"
     "        </child>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label10\">"
+    "          <object class=\"BobguiLabel\" id=\"label10\">"
     "            <property name=\"label\" translatable=\"yes\">but some</property>"
     "            <property name=\"ellipsize\">end</property>"
     "            <attributes>"
@@ -66,7 +66,7 @@ static TestInterface interfaces[] = {
     "          </object>"
     "        </child>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label11\">"
+    "          <object class=\"BobguiLabel\" id=\"label11\">"
     "            <property name=\"label\" translatable=\"yes\">do not at all</property>"
     "            <attributes>"
     "              <attribute name=\"style\" value=\"normal\"/>"
@@ -86,21 +86,21 @@ static TestInterface interfaces[] = {
     "Wrapping Label",
     "Demonstrates how a wrapping label can require a height contextual to its allocated width",
     "<interface>"
-    "  <requires lib=\"gtk\" version=\"3.99\"/>"
+    "  <requires lib=\"bobgui\" version=\"3.99\"/>"
     "  <!-- interface-naming-policy project-wide -->"
-    "  <object class=\"GtkWindow\" id=\"window\">"
+    "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">300</property>"
     "    <child>"
-    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"resize-child1\">False</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <child>"
-    "          <object class=\"GtkBox\" id=\"vbox2\">"
+    "          <object class=\"BobguiBox\" id=\"vbox2\">"
     "            <property name=\"orientation\">vertical</property>"
     "            <child>"
-    "              <object class=\"GtkLabel\" id=\"label3\">"
+    "              <object class=\"BobguiLabel\" id=\"label3\">"
     "                <property name=\"label\" translatable=\"yes\">A short static label.</property>"
     "                <attributes>"
     "                  <attribute name=\"weight\" value=\"bold\"/>"
@@ -108,11 +108,11 @@ static TestInterface interfaces[] = {
     "              </object>"
     "            </child>"
     "            <child>"
-    "              <object class=\"GtkFrame\" id=\"frame1\">"
+    "              <object class=\"BobguiFrame\" id=\"frame1\">"
     "                <property name=\"label\">Long label</property>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label1\">"
-    "                    <property name=\"label\" translatable=\"yes\">This is a really long label for the purpose of testing line wrapping is working correctly in conjunction with height-for-width support in GTK</property>"
+    "                  <object class=\"BobguiLabel\" id=\"label1\">"
+    "                    <property name=\"label\" translatable=\"yes\">This is a really long label for the purpose of testing line wrapping is working correctly in conjunction with height-for-width support in BOBGUI</property>"
     "                    <property name=\"wrap\">True</property>"
     "                    <property name=\"max_width_chars\">30</property>"
     "                    <attributes>"
@@ -123,11 +123,11 @@ static TestInterface interfaces[] = {
     "              </object>"
     "            </child>"
     "            <child>"
-    "              <object class=\"GtkButton\" id=\"button2\">"
+    "              <object class=\"BobguiButton\" id=\"button2\">"
     "                <property name=\"can_focus\">True</property>"
     "                <property name=\"receives_default\">True</property>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label2\">"
+    "                  <object class=\"BobguiLabel\" id=\"label2\">"
     "                    <property name=\"label\" translatable=\"yes\">A really really long label inside a button to demonstrate height for width working inside buttons</property>"
     "                    <property name=\"wrap\">True</property>"
     "                    <property name=\"max_width_chars\">25</property>"
@@ -141,7 +141,7 @@ static TestInterface interfaces[] = {
     "          </object>"
     "        </child>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label4\">"
+    "          <object class=\"BobguiLabel\" id=\"label4\">"
     "            <property name=\"label\" translatable=\"yes\">This static label\n"
     "can shrink.</property>"
     "            <property name=\"justify\">center</property>"
@@ -162,29 +162,29 @@ static TestInterface interfaces[] = {
     "Horizontal Box",
     "Demonstrates how a horizontal box can calculate the collective height for an allocated width",
     "<interface>"
-    "  <requires lib=\"gtk\" version=\"3.99\"/>"
+    "  <requires lib=\"bobgui\" version=\"3.99\"/>"
     "  <!-- interface-naming-policy project-wide -->"
-    "  <object class=\"GtkWindow\" id=\"window\">"
+    "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_height\">200</property>"
     "    <property name=\"default_width\">600</property>"
     "    <child>"
-    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"resize-child1\">False</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <child>"
-    "          <object class=\"GtkBox\" id=\"vbox1\">"
+    "          <object class=\"BobguiBox\" id=\"vbox1\">"
     "            <property name=\"orientation\">vertical</property>"
     "            <child>"
-    "              <object class=\"GtkBox\" id=\"hbox1\">"
+    "              <object class=\"BobguiBox\" id=\"hbox1\">"
     "                <property name=\"orientation\">horizontal</property>"
     "                <child>"
-    "                  <object class=\"GtkButton\" id=\"button1\">"
+    "                  <object class=\"BobguiButton\" id=\"button1\">"
     "                    <property name=\"can_focus\">True</property>"
     "                    <property name=\"receives_default\">True</property>"
     "                    <child>"
-    "                      <object class=\"GtkLabel\" id=\"label2\">"
+    "                      <object class=\"BobguiLabel\" id=\"label2\">"
     "                        <property name=\"label\" translatable=\"yes\">A button that wraps.</property>"
     "                        <property name=\"wrap\">True</property>"
     "                        <property name=\"width_chars\">10</property>"
@@ -196,7 +196,7 @@ static TestInterface interfaces[] = {
     "                  </object>"
     "                </child>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label1\">"
+    "                  <object class=\"BobguiLabel\" id=\"label1\">"
     "                    <property name=\"label\" translatable=\"yes\">Lets try setting up some long text to wrap up in this hbox and see if the height-for-width is gonna work !</property>"
     "                    <property name=\"wrap\">True</property>"
     "                    <property name=\"width_chars\">30</property>"
@@ -208,7 +208,7 @@ static TestInterface interfaces[] = {
     "              </object>"
     "            </child>"
     "            <child>"
-    "              <object class=\"GtkButton\" id=\"button2\">"
+    "              <object class=\"BobguiButton\" id=\"button2\">"
     "                <property name=\"label\" translatable=\"yes\">A button that expands in the vbox</property>"
     "                <property name=\"can_focus\">True</property>"
     "                <property name=\"receives_default\">True</property>"
@@ -217,7 +217,7 @@ static TestInterface interfaces[] = {
     "          </object>"
     "        </child>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label4\">"
+    "          <object class=\"BobguiLabel\" id=\"label4\">"
     "            <property name=\"label\" translatable=\"yes\">This label is\n"
     "set to shrink inside\n"
     "the paned window.</property>"
@@ -240,25 +240,25 @@ static TestInterface interfaces[] = {
     "This test demonstrates how \"width-chars\" and \"max-width-chars\" can be used "
     "to effect minimum and natural widths in wrapping labels.",
     "<interface>"
-    "  <requires lib=\"gtk\" version=\"3.99\"/>"
+    "  <requires lib=\"bobgui\" version=\"3.99\"/>"
     "  <!-- interface-naming-policy project-wide -->"
-    "  <object class=\"GtkWindow\" id=\"window\">"
+    "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">900</property>"
     "    <child>"
-    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"resize-child1\">False</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <child>"
-    "          <object class=\"GtkBox\" id=\"vbox1\">"
+    "          <object class=\"BobguiBox\" id=\"vbox1\">"
     "            <property name=\"orientation\">vertical</property>"
     "            <child>"
-    "              <object class=\"GtkBox\" id=\"hbox1\">"
+    "              <object class=\"BobguiBox\" id=\"hbox1\">"
     "                <property name=\"orientation\">horizontal</property>"
     "                <property name=\"spacing\">6</property>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label1\">"
+    "                  <object class=\"BobguiLabel\" id=\"label1\">"
     "                    <property name=\"label\" translatable=\"yes\">The first 2 labels require 10 characters.</property>"
     "                    <property name=\"wrap\">True</property>"
     "                    <property name=\"width_chars\">10</property>"
@@ -269,7 +269,7 @@ static TestInterface interfaces[] = {
     "                  </object>"
     "                </child>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label2\">"
+    "                  <object class=\"BobguiLabel\" id=\"label2\">"
     "                    <property name=\"label\" translatable=\"yes\">This label has a maximum natural width of 20 characters. The second two labels expand.</property>"
     "                    <property name=\"wrap\">True</property>"
     "                    <property name=\"width_chars\">10</property>"
@@ -281,7 +281,7 @@ static TestInterface interfaces[] = {
     "                  </object>"
     "                </child>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label3\">"
+    "                  <object class=\"BobguiLabel\" id=\"label3\">"
     "                    <property name=\"label\" translatable=\"yes\">This label requires a default minimum size.</property>"
     "                    <property name=\"wrap\">True</property>"
     "                    <attributes>"
@@ -293,7 +293,7 @@ static TestInterface interfaces[] = {
     "              </object>"
     "            </child>"
     "            <child>"
-    "              <object class=\"GtkLabel\" id=\"label4\">"
+    "              <object class=\"BobguiLabel\" id=\"label4\">"
     "                <property name=\"label\" translatable=\"yes\">This test demonstrates how the \"width-chars\" and \"max-width-chars\"\n"
     "properties can be used to specify the minimum requested wrap width\n"
     "and the maximum natural wrap width respectively.</property>"
@@ -308,7 +308,7 @@ static TestInterface interfaces[] = {
     "          </object>"
     "        </child>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label5\">"
+    "          <object class=\"BobguiLabel\" id=\"label5\">"
     "            <property name=\"label\" translatable=\"yes\">Some static\n"
     "text that shrinks.\n"
     "\n"
@@ -334,21 +334,21 @@ static TestInterface interfaces[] = {
     "and also trade height for width.",
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<interface>"
-    "  <requires lib=\"gtk\" version=\"3.99\"/>"
+    "  <requires lib=\"bobgui\" version=\"3.99\"/>"
     "  <!-- interface-naming-policy project-wide -->"
-    "  <object class=\"GtkWindow\" id=\"window\">"
+    "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">500</property>"
     "    <child>"
-    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"resize-child1\">False</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <child>"
-    "          <object class=\"GtkExpander\" id=\"expander1\">"
+    "          <object class=\"BobguiExpander\" id=\"expander1\">"
     "            <property name=\"can_focus\">True</property>"
     "            <child>"
-    "              <object class=\"GtkLabel\" id=\"label2\">"
+    "              <object class=\"BobguiLabel\" id=\"label2\">"
     "                <property name=\"label\" translatable=\"yes\">More wrapping text to fill the largish content area in the expander </property>"
     "                <property name=\"wrap\">True</property>"
     "                <property name=\"width_chars\">10</property>"
@@ -359,7 +359,7 @@ static TestInterface interfaces[] = {
     "              </object>"
     "            </child>"
     "            <child type=\"label\">"
-    "              <object class=\"GtkLabel\" id=\"label1\">"
+    "              <object class=\"BobguiLabel\" id=\"label1\">"
     "                <property name=\"label\" translatable=\"yes\">Here is some expander text that wraps</property>"
     "                <property name=\"wrap\">True</property>"
     "                <property name=\"width_chars\">10</property>"
@@ -372,7 +372,7 @@ static TestInterface interfaces[] = {
     "          </object>"
     "        </child>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label3\">"
+    "          <object class=\"BobguiLabel\" id=\"label3\">"
     "            <property name=\"label\" translatable=\"yes\">static\n"
     "text\n"
     "here</property>"
@@ -394,22 +394,22 @@ static TestInterface interfaces[] = {
     "and also trade height for width.",
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<interface>"
-    "  <requires lib=\"gtk\" version=\"3.99\"/>"
+    "  <requires lib=\"bobgui\" version=\"3.99\"/>"
     "  <!-- interface-naming-policy project-wide -->"
-    "  <object class=\"GtkWindow\" id=\"window\">"
+    "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">400</property>"
     "    <property name=\"default_height\">150</property>"
     "    <child>"
-    "      <object class=\"GtkFrame\" id=\"frame1\">"
+    "      <object class=\"BobguiFrame\" id=\"frame1\">"
     "        <property name=\"label_xalign\">0</property>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label2\">"
+    "          <object class=\"BobguiLabel\" id=\"label2\">"
     "            <property name=\"margin_start\">12</property>"
     "            <property name=\"label\" translatable=\"yes\">some content</property>"
     "          </object>"
     "        </child>"
     "        <child type=\"label\">"
-    "          <object class=\"GtkLabel\" id=\"label1\">"
+    "          <object class=\"BobguiLabel\" id=\"label1\">"
     "            <property name=\"label\" translatable=\"yes\">A frame label that's a little long and wraps</property>"
     "            <property name=\"use_markup\">True</property>"
     "            <property name=\"wrap\">True</property>"
@@ -427,26 +427,26 @@ static TestInterface interfaces[] = {
     "This test shows wrapping and ellipsizing text in combo boxes (and consequently in menu items).",
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<interface>"
-    "  <requires lib=\"gtk\" version=\"3.99\"/>"
+    "  <requires lib=\"bobgui\" version=\"3.99\"/>"
     "  <!-- interface-naming-policy project-wide -->"
-    "  <object class=\"GtkWindow\" id=\"window\">"
+    "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">600</property>"
     "    <child>"
-    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <property name=\"resize-child2\">False</property>"
     "        <child>"
-    "          <object class=\"GtkBox\" id=\"vbox1\">"
+    "          <object class=\"BobguiBox\" id=\"vbox1\">"
     "            <property name=\"orientation\">vertical</property>"
     "            <property name=\"spacing\">5</property>"
     "            <child>"
-    "              <object class=\"GtkBox\" id=\"hbox1\">"
+    "              <object class=\"BobguiBox\" id=\"hbox1\">"
     "                <property name=\"orientation\">horizontal</property>"
     "                <property name=\"spacing\">5</property>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label1\">"
+    "                  <object class=\"BobguiLabel\" id=\"label1\">"
     "                    <property name=\"label\" translatable=\"yes\">this combo box</property>"
     "                    <attributes>"
     "                      <attribute name=\"weight\" value=\"bold\"/>"
@@ -455,7 +455,7 @@ static TestInterface interfaces[] = {
     "                  </object>"
     "                </child>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label2\">"
+    "                  <object class=\"BobguiLabel\" id=\"label2\">"
     "                    <property name=\"label\" translatable=\"yes\">contains some wrapping locations</property>"
     "                    <property name=\"ellipsize\">end</property>"
     "                    <property name=\"width_chars\">10</property>"
@@ -466,17 +466,17 @@ static TestInterface interfaces[] = {
     "                  </object>"
     "                </child>"
     "                <child>"
-    "                  <object class=\"GtkComboBox\" id=\"combobox1\">"
+    "                  <object class=\"BobguiComboBox\" id=\"combobox1\">"
     "                    <property name=\"model\">liststore1</property>"
     "                    <property name=\"active\">0</property>"
     "                    <child>"
-    "                      <object class=\"GtkCellRendererPixbuf\" id=\"cellrenderertext1\"/>"
+    "                      <object class=\"BobguiCellRendererPixbuf\" id=\"cellrenderertext1\"/>"
     "                      <attributes>"
     "                        <attribute name=\"icon-name\">1</attribute>"
     "                      </attributes>"
     "                    </child>"
     "                    <child>"
-    "                      <object class=\"GtkCellRendererText\" id=\"cellrenderertext2\">"
+    "                      <object class=\"BobguiCellRendererText\" id=\"cellrenderertext2\">"
     "                        <property name=\"foreground\">purple</property>"
     "                        <property name=\"weight\">600</property>"
     "                        <property name=\"wrap_mode\">word</property>"
@@ -491,10 +491,10 @@ static TestInterface interfaces[] = {
     "              </object>"
     "            </child>"
     "            <child>"
-    "              <object class=\"GtkFrame\" id=\"frame1\">"
+    "              <object class=\"BobguiFrame\" id=\"frame1\">"
     "                <property name=\"label_xalign\">0</property>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label3\">"
+    "                  <object class=\"BobguiLabel\" id=\"label3\">"
     "                    <property name=\"label\" translatable=\"yes\">This test shows combo boxes\n"
     "requesting and allocating space\n"
     "for its backing content using\n"
@@ -513,11 +513,11 @@ static TestInterface interfaces[] = {
     "              </object>"
     "            </child>"
     "            <child>"
-    "              <object class=\"GtkBox\" id=\"hbox2\">"
+    "              <object class=\"BobguiBox\" id=\"hbox2\">"
     "                <property name=\"orientation\">horizontal</property>"
     "                <property name=\"spacing\">5</property>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label4\">"
+    "                  <object class=\"BobguiLabel\" id=\"label4\">"
     "                    <property name=\"label\" translatable=\"yes\">this combo box</property>"
     "                    <attributes>"
     "                      <attribute name=\"weight\" value=\"bold\"/>"
@@ -526,7 +526,7 @@ static TestInterface interfaces[] = {
     "                  </object>"
     "                </child>"
     "                <child>"
-    "                  <object class=\"GtkLabel\" id=\"label5\">"
+    "                  <object class=\"BobguiLabel\" id=\"label5\">"
     "                    <property name=\"label\" translatable=\"yes\">contains some ellipsizing locations</property>"
     "                    <property name=\"ellipsize\">end</property>"
     "                    <property name=\"width_chars\">10</property>"
@@ -537,17 +537,17 @@ static TestInterface interfaces[] = {
     "                  </object>"
     "                </child>"
     "                <child>"
-    "                  <object class=\"GtkComboBox\" id=\"combobox2\">"
+    "                  <object class=\"BobguiComboBox\" id=\"combobox2\">"
     "                    <property name=\"model\">liststore1</property>"
     "                    <property name=\"active\">0</property>"
     "                    <child>"
-    "                      <object class=\"GtkCellRendererPixbuf\" id=\"cellrenderertext3\"/>"
+    "                      <object class=\"BobguiCellRendererPixbuf\" id=\"cellrenderertext3\"/>"
     "                      <attributes>"
     "                        <attribute name=\"icon-name\">1</attribute>"
     "                      </attributes>"
     "                    </child>"
     "                    <child>"
-    "                      <object class=\"GtkCellRendererText\" id=\"cellrenderertext4\">"
+    "                      <object class=\"BobguiCellRendererText\" id=\"cellrenderertext4\">"
     "                        <property name=\"ellipsize\">end</property>"
     "                        <property name=\"foreground\">orange</property>"
     "                        <property name=\"weight\">600</property>"
@@ -564,7 +564,7 @@ static TestInterface interfaces[] = {
     "          </object>"
     "        </child>"
     "        <child>"
-    "          <object class=\"GtkLabel\" id=\"label6\">"
+    "          <object class=\"BobguiLabel\" id=\"label6\">"
     "            <property name=\"label\" translatable=\"yes\">Some static\n"
     "text here\n"
     "that shrinks.</property>"
@@ -577,7 +577,7 @@ static TestInterface interfaces[] = {
     "      </object>"
     "    </child>"
     "  </object>"
-    "  <object class=\"GtkListStore\" id=\"liststore1\">"
+    "  <object class=\"BobguiListStore\" id=\"liststore1\">"
     "    <columns>"
     "      <!-- column-name item-text -->"
     "      <column type=\"gchararray\"/>"
@@ -619,19 +619,19 @@ static TestInterface interfaces[] = {
 
 
 static void
-test_clicked (GtkWidget     *button, 
+test_clicked (BobguiWidget     *button, 
               TestInterface *interface)
 {
   if (!interface->window)
     {
-      GtkBuilder *builder = gtk_builder_new ();
+      BobguiBuilder *builder = bobgui_builder_new ();
       GError *error = NULL;
       
-      gtk_builder_add_from_string (builder, interface->interface, -1, &error);
+      bobgui_builder_add_from_string (builder, interface->interface, -1, &error);
 
       if (error)
         {
-          g_printerr ("GtkBuilder for interface \"%s\" returned error \"%s\"\n",
+          g_printerr ("BobguiBuilder for interface \"%s\" returned error \"%s\"\n",
                       interface->name, error->message);
 
           g_error_free (error);
@@ -640,50 +640,50 @@ test_clicked (GtkWidget     *button,
           return;
         }
 
-      interface->window = (GtkWidget *)gtk_builder_get_object (builder, "window");
+      interface->window = (BobguiWidget *)bobgui_builder_get_object (builder, "window");
 
-      gtk_window_set_hide_on_close (GTK_WINDOW (interface->window), TRUE);
+      bobgui_window_set_hide_on_close (BOBGUI_WINDOW (interface->window), TRUE);
 
       g_object_unref (builder);
     }
 
-  gtk_window_present (GTK_WINDOW (interface->window));
+  bobgui_window_present (BOBGUI_WINDOW (interface->window));
 }
 
 
-static GtkWidget *
+static BobguiWidget *
 create_window (void)
 {
-  GtkWidget *window, *vbox, *button;
+  BobguiWidget *window, *vbox, *button;
   int i;
 
-  window = gtk_window_new ();
-  vbox   = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
+  window = bobgui_window_new ();
+  vbox   = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 6);
 
-  gtk_widget_set_margin_start (vbox, 8);
-  gtk_widget_set_margin_end (vbox, 8);
-  gtk_widget_set_margin_top (vbox, 8);
-  gtk_widget_set_margin_bottom (vbox, 8);
+  bobgui_widget_set_margin_start (vbox, 8);
+  bobgui_widget_set_margin_end (vbox, 8);
+  bobgui_widget_set_margin_top (vbox, 8);
+  bobgui_widget_set_margin_bottom (vbox, 8);
 
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
   for (i = 0; i < G_N_ELEMENTS (interfaces); i++)
     {
-      button = gtk_button_new_with_label (interfaces[i].name);
+      button = bobgui_button_new_with_label (interfaces[i].name);
 
-      gtk_widget_set_tooltip_text (button, interfaces[i].tooltip);
+      bobgui_widget_set_tooltip_text (button, interfaces[i].tooltip);
 
       g_signal_connect (button, "clicked",
                         G_CALLBACK (test_clicked), &interfaces[i]);
 
-      gtk_box_append (GTK_BOX (vbox), button);
+      bobgui_box_append (BOBGUI_BOX (vbox), button);
     }
 
   return window;
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -696,16 +696,16 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
+  BobguiWidget *window;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
   window = create_window ();
 
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

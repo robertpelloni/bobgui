@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <property name="decorated">0</property>
     <property name="default-width">800</property>
     <property name="default-height">600</property>
     <child>
-      <object class="GtkInscription">
+      <object class="BobguiInscription">
         <property name="markup" translatable="yes">Text sizes: &lt;span size="xx-small"&gt;tiny &lt;/span&gt;&lt;span size="x-small"&gt;very small &lt;/span&gt;&lt;span size="small"&gt;small &lt;/span&gt;&lt;span size="medium"&gt;normal &lt;/span&gt;&lt;span size="large"&gt;large &lt;/span&gt;&lt;span size="x-large"&gt;very large &lt;/span&gt;&lt;span size="xx-large"&gt;huge&lt;/span&gt;
 Text styles: &lt;span style="normal"&gt;Normal&lt;/span&gt; &lt;span style="italic"&gt;Italic&lt;/span&gt; &lt;span style="oblique"&gt;Olique&lt;/span&gt;
 Text weights: &lt;span weight="thin"&gt;thin&lt;/span&gt; &lt;span weight="light"&gt;light&lt;/span&gt; &lt;span weight="normal"&gt;normal&lt;/span&gt; &lt;span weight="bold"&gt;bold&lt;/span&gt; &lt;span weight="ultraheavy"&gt;ultraheavy&lt;/span&gt;

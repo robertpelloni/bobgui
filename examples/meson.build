@@ -9,13 +9,13 @@ examples = [
 ]
 
 foreach ex : examples
-  # TODO: name clash with testsuite/gtk/builder, rename one of the two
+  # TODO: name clash with testsuite/bobgui/builder, rename one of the two
   example_name = ex == 'builder' ? 'builder_example' : ex
   executable(example_name, '@0@.c'.format(ex),
              c_args: [
-               '-DGTK_SRCDIR="@0@"'.format(meson.current_source_dir()),
+               '-DBOBGUI_SRCDIR="@0@"'.format(meson.current_source_dir()),
              ] + common_cflags,
-             dependencies: libgtk_dep)
+             dependencies: libbobgui_dep)
 endforeach
 
 subdir('bp')

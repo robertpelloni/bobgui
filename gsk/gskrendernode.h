@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2016  Endless
  *
@@ -18,13 +18,13 @@
 
 #pragma once
 
-#if !defined (__GSK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GSK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gsk/gsk.h> can be included directly."
 #endif
 
 #include <gsk/gskroundedrect.h>
 #include <gsk/gsktypes.h>
-#include <gtk/css/gtkcss.h>
+#include <bobgui/css/bobguicss.h>
 
 G_BEGIN_DECLS
 

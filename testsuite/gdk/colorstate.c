@@ -323,7 +323,7 @@ main (int argc, char *argv[])
 {
   guint i;
 
-  (gtk_test_init) (&argc, &argv, NULL);
+  (bobgui_test_init) (&argc, &argv, NULL);
 
   g_test_add_func ("/colorstate/equal", test_equal);
   g_test_add_func ("/colorstate/cicp", test_cicp);

@@ -24,7 +24,7 @@
 #include "gdkdmabuffourccprivate.h"
 #include "gdkcolorstateprivate.h"
 #include "gdkparalleltaskprivate.h"
-#include "gtk/gtkcolorutilsprivate.h"
+#include "bobgui/bobguicolorutilsprivate.h"
 #include "gdkprofilerprivate.h"
 
 #include "gsk/gl/fp16private.h"

@@ -21,10 +21,10 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
-G_DECLARE_FINAL_TYPE (AlphaEditor, alpha_editor, ALPHA, EDITOR, GtkWidget)
+G_DECLARE_FINAL_TYPE (AlphaEditor, alpha_editor, ALPHA, EDITOR, BobguiWidget)
 
 
 AlphaEditor *   alpha_editor_new (void);

@@ -1,4 +1,4 @@
-/* GTK - The GIMP Toolkit
+/* BOBGUI - The GIMP Toolkit
  * Copyright (C) 2023 Benjamin Otte
  *
  * This library is free software; you can redistribute it and/or

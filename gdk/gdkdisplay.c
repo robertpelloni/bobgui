@@ -1218,9 +1218,9 @@ _gdk_display_get_next_serial (GdkDisplay *display)
  * Indicates to the GUI environment that the application has
  * finished loading, using a given identifier.
  *
- * GTK will call this function automatically for [GtkWindow](../gtk4/class.Window.html)
+ * BOBGUI will call this function automatically for [BobguiWindow](../bobgui4/class.Window.html)
  * with custom startup-notification identifier unless
- * [gtk_window_set_auto_startup_notification()](../gtk4/method.Window.set_auto_startup_notification.html)
+ * [bobgui_window_set_auto_startup_notification()](../bobgui4/method.Window.set_auto_startup_notification.html)
  * is called to disable that feature.
  *
  * Deprecated: 4.10: Using [method@Gdk.Toplevel.set_startup_id] is sufficient
@@ -1328,7 +1328,7 @@ gdk_display_prepare_vulkan (GdkDisplay  *self,
   return self->vk_instance != NULL;
 #else
   g_set_error (error, GDK_VULKAN_ERROR, GDK_VULKAN_ERROR_UNSUPPORTED,
-               "GTK was built without Vulkan support");
+               "BOBGUI was built without Vulkan support");
   return FALSE;
 #endif
 }
@@ -1890,7 +1890,7 @@ gdk_display_init_egl (GdkDisplay  *self,
       g_clear_pointer (&priv->egl_display, eglTerminate);
       g_set_error (error, GDK_GL_ERROR,
                    GDK_GL_ERROR_NOT_AVAILABLE,
-                   _("EGL version %d.%d is too old. GTK requires %d.%d"),
+                   _("EGL version %d.%d is too old. BOBGUI requires %d.%d"),
                    major, minor, GDK_EGL_MIN_VERSION_MAJOR, GDK_EGL_MIN_VERSION_MINOR);
       return FALSE;
     }
@@ -2072,7 +2072,7 @@ gdk_display_init_dmabuf (GdkDisplay *self)
  *
  * Returns the dma-buf formats that are supported on this display.
  *
- * GTK may use OpenGL or Vulkan to support some formats.
+ * BOBGUI may use OpenGL or Vulkan to support some formats.
  * Calling this function will then initialize them if they aren't yet.
  *
  * The formats returned by this function can be used for negotiating

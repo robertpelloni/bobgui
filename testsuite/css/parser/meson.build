@@ -2,7 +2,7 @@ test_parser = executable('test-css-parser',
   sources: ['test-css-parser.c'],
   c_args: common_cflags,
   link_with: testutils_lib,
-  dependencies: libgtk_dep,
+  dependencies: libbobgui_dep,
 )
 
 test_data = [

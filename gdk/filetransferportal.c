@@ -548,7 +548,7 @@ finish_registration (void)
 
   /* FIXME: I missed up and used the wrong mime type here when
    * I implemented my own protocol. Keep these around for a while
-   * so we can interoperate with existing flatpaks using GTK 4.6
+   * so we can interoperate with existing flatpaks using BOBGUI 4.6
    */
   gdk_content_register_serializer (G_TYPE_FILE,
                                    "application/vnd.portal.files",

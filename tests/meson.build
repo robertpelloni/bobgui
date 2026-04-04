@@ -1,4 +1,4 @@
-gtk_tests = [
+bobgui_tests = [
   # testname, optional extra sources
   ['movingtext'],
   ['bigfont'],
@@ -22,7 +22,7 @@ gtk_tests = [
   ['animated-revealing', ['frame-stats.c', 'variable.c']],
   ['motion-compression'],
   ['scrolling-performance', ['frame-stats.c', 'variable.c']],
-  ['simple', [],[ libgtk_dep ]],
+  ['simple', [],[ libbobgui_dep ]],
   ['video-timer', ['variable.c']],
   ['testaccel'],
   ['testadjustsize'],
@@ -48,9 +48,9 @@ gtk_tests = [
   ['testframe'],
   ['testfullscreen'],
   ['testglarea'],
-  ['testglblending', ['gtkgears.c']],
+  ['testglblending', ['bobguigears.c']],
   ['testgrid'],
-  ['testgtk'],
+  ['testbobgui'],
   ['testheaderbar'],
   ['testheightforwidth'],
   ['testhover'],
@@ -132,9 +132,9 @@ gtk_tests = [
 ]
 
 if os_unix
-  gtk_tests += [
+  bobgui_tests += [
     ['testfontchooserdialog'],
-    ['parallel', [], [ libgtk_static_dep, libm ] ],
+    ['parallel', [], [ libbobgui_static_dep, libm ] ],
   ]
 endif
 
@@ -142,26 +142,26 @@ if os_linux
   rsvg_dep = dependency('librsvg-2.0', required: false)
 
   if rsvg_dep.found()
-    gtk_tests += [
-      ['svg-compare', ['svgpaintable.c' ],[ libgtk_dep, rsvg_dep ]],
+    bobgui_tests += [
+      ['svg-compare', ['svgpaintable.c' ],[ libbobgui_dep, rsvg_dep ]],
     ]
   endif
 endif
 
 if x11_enabled
-  gtk_tests += [['testerrors']]
+  bobgui_tests += [['testerrors']]
 endif
 
 # Pass the source dir here so programs can change into the source directory
 # and find .ui files and .png files and such that they load at runtime
-test_args = ['-DGTK_SRCDIR="@0@"'.format(meson.current_source_dir())]
+test_args = ['-DBOBGUI_SRCDIR="@0@"'.format(meson.current_source_dir())]
 
-foreach t: gtk_tests
+foreach t: bobgui_tests
   test_name = t.get(0)
   test_srcs = ['@0@.c'.format(test_name), t.get(1, [])]
   test_libs = t.get(2,[])
   if test_libs == []
-    test_libs = [ libgtk_dep, libm ]
+    test_libs = [ libbobgui_dep, libm ]
   endif
   executable(test_name,
     sources: test_srcs,

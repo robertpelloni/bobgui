@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2016  Endless
  *
@@ -212,7 +212,7 @@ static void
 gsk_render_node_init_content_serializers (void)
 {
   gdk_content_register_serializer (GSK_TYPE_RENDER_NODE,
-                                   "application/x-gtk-render-node",
+                                   "application/x-bobgui-render-node",
                                    gsk_render_node_content_serializer,
                                    NULL,
                                    NULL);
@@ -240,7 +240,7 @@ gsk_render_node_init_content_serializers (void)
                                    NULL,
                                    NULL);
 
-  gdk_content_register_deserializer ("application/x-gtk-render-node",
+  gdk_content_register_deserializer ("application/x-bobgui-render-node",
                                      GSK_TYPE_RENDER_NODE,
                                      gsk_render_node_content_deserializer,
                                      NULL,

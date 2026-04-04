@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 test_unset_display_subprocess1 (void)
@@ -9,7 +9,7 @@ test_unset_display_subprocess1 (void)
 
   g_unsetenv ("DISPLAY");
 
-  g_assert_false (gtk_init_check ());
+  g_assert_false (bobgui_init_check ());
   manager = gdk_display_manager_get ();
   g_assert_nonnull (manager);
   g_assert_null (gdk_display_manager_get_default_display (manager));
@@ -20,7 +20,7 @@ test_unset_display_subprocess2 (void)
 {
   g_unsetenv ("DISPLAY");
 
-  gtk_init ();
+  bobgui_init ();
 }
 
 static void
@@ -41,7 +41,7 @@ test_bad_display_subprocess1 (void)
 
   g_setenv ("DISPLAY", "poo", TRUE);
 
-  g_assert_false (gtk_init_check ());
+  g_assert_false (bobgui_init_check ());
   manager = gdk_display_manager_get ();
   g_assert_nonnull (manager);
   g_assert_null (gdk_display_manager_get_default_display (manager));
@@ -51,7 +51,7 @@ static void
 test_bad_display_subprocess2 (void)
 {
   g_setenv ("DISPLAY", "poo", TRUE);
-  gtk_init ();
+  bobgui_init ();
 }
 
 static void
@@ -72,7 +72,7 @@ test_debug_help (void)
     {
       g_setenv ("GDK_DEBUG", "help", TRUE);
 
-      gtk_init_check ();
+      bobgui_init_check ();
       return;
     }
 

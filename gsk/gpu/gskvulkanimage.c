@@ -1137,7 +1137,7 @@ gsk_vulkan_image_new_for_dmabuf (GskVulkanDevice *device,
     }
   else
     {
-      GDK_DEBUG (DMABUF, "GTK's Vulkan doesn't support fourcc %.4s", (char *) &dmabuf->fourcc);
+      GDK_DEBUG (DMABUF, "BOBGUI's Vulkan doesn't support fourcc %.4s", (char *) &dmabuf->fourcc);
       return NULL;
     }
 
@@ -1571,7 +1571,7 @@ gsk_vulkan_image_new_for_d3d12resource (GskVulkanDevice *device,
   vk_format = gdk_memory_format_vk_format (format, &vk_components, &needs_conversion);
   if (vk_format == VK_FORMAT_UNDEFINED)
     {
-      GDK_DEBUG (D3D12, "GTK's Vulkan doesn't support DXGI format %u", desc.Format);
+      GDK_DEBUG (D3D12, "BOBGUI's Vulkan doesn't support DXGI format %u", desc.Format);
       return NULL;
     }
 

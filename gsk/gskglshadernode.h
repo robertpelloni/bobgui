@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2016  Endless
  *
@@ -18,7 +18,7 @@
 
 #pragma once
 
-#if !defined (__GSK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GSK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gsk/gsk.h> can be included directly."
 #endif
 
@@ -30,26 +30,26 @@ G_BEGIN_DECLS
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
-typedef struct _GskGLShaderNode                 GskGLShaderNode GDK_DEPRECATED_TYPE_IN_4_16_FOR(GtkGLArea);
+typedef struct _GskGLShaderNode                 GskGLShaderNode GDK_DEPRECATED_TYPE_IN_4_16_FOR(BobguiGLArea);
 
 #define GSK_TYPE_GL_SHADER_NODE (gsk_gl_shader_node_get_type())
 
-GDK_DEPRECATED_IN_4_16_FOR(GtkGLArea)
+GDK_DEPRECATED_IN_4_16_FOR(BobguiGLArea)
 GType                   gsk_gl_shader_node_get_type             (void) G_GNUC_CONST;
-GDK_DEPRECATED_IN_4_16_FOR(GtkGLArea)
+GDK_DEPRECATED_IN_4_16_FOR(BobguiGLArea)
 GskRenderNode *         gsk_gl_shader_node_new                  (GskGLShader              *shader,
                                                                  const graphene_rect_t    *bounds,
                                                                  GBytes                   *args,
                                                                  GskRenderNode           **children,
                                                                  guint                     n_children);
-GDK_DEPRECATED_IN_4_16_FOR(GtkGLArea)
+GDK_DEPRECATED_IN_4_16_FOR(BobguiGLArea)
 guint                   gsk_gl_shader_node_get_n_children       (const GskRenderNode      *node) G_GNUC_PURE;
-GDK_DEPRECATED_IN_4_16_FOR(GtkGLArea)
+GDK_DEPRECATED_IN_4_16_FOR(BobguiGLArea)
 GskRenderNode *         gsk_gl_shader_node_get_child            (const GskRenderNode      *node,
                                                                  guint                     idx) G_GNUC_PURE;
-GDK_DEPRECATED_IN_4_16_FOR(GtkGLArea)
+GDK_DEPRECATED_IN_4_16_FOR(BobguiGLArea)
 GBytes *                gsk_gl_shader_node_get_args             (const GskRenderNode      *node) G_GNUC_PURE;
-GDK_DEPRECATED_IN_4_16_FOR(GtkGLArea)
+GDK_DEPRECATED_IN_4_16_FOR(BobguiGLArea)
 GskGLShader *           gsk_gl_shader_node_get_shader           (const GskRenderNode      *node) G_GNUC_PURE;
 
 G_GNUC_END_IGNORE_DEPRECATIONS

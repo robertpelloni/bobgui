@@ -9,7 +9,7 @@
   <image href="smiley.png" x='10' y='10' width='20' height='30'/>
   <switch>
     <g systemLanguage='en'/>
-    <path requiredExtensions='http://www.gtk.org/grappa'/>
+    <path requiredExtensions='http://www.bobgui.org/grappa'/>
   </switch>
   <a href="test">
     <circle r='10'/>

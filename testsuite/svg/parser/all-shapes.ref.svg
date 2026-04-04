@@ -49,7 +49,7 @@
             systemLanguage='en'>
     </g>
     <path
-            requiredExtensions='http://www.gtk.org/grappa'>
+            requiredExtensions='http://www.bobgui.org/grappa'>
     </path>
   </switch>
   <a

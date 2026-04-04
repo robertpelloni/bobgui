@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <child>
-      <object class="GtkBox" id="box1">
+      <object class="BobguiBox" id="box1">
         <property name="visible">True</property>
         <child>
-          <object class="GtkStackSwitcher" id="stackswitcher1">
+          <object class="BobguiStackSwitcher" id="stackswitcher1">
             <property name="visible">True</property>
             <property name="stack">stack1</property>
           </object>
         </child>
         <child>
-          <object class="GtkStack" id="stack1">
+          <object class="BobguiStack" id="stack1">
             <property name="visible">True</property>
             <property name="homogeneous">0</property>
             <child>
-              <object class="GtkButton" id="page1">
+              <object class="BobguiButton" id="page1">
                 <property name="label" translatable="yes">Yes</property>
                 <property name="visible">True</property>
               </object>
@@ -26,7 +26,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="page2">
+              <object class="BobguiButton" id="page2">
                 <property name="label" translatable="yes">No</property>
                 <property name="visible">True</property>
               </object>

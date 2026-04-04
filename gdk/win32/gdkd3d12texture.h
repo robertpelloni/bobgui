@@ -18,7 +18,7 @@
 
 #pragma once
 
-#if !defined (__GDKWIN32_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKWIN32_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdk.h> can be included directly."
 #endif
 
@@ -43,10 +43,10 @@ typedef struct _GdkD3D12TextureClass       GdkD3D12TextureClass;
  *   is not Windows, the Windows version is not recent enough, or it was explicitly
  *   disabled at compile- or runtime
  * @GDK_D3D12_ERROR_UNSUPPORTED_FORMAT: The requested format is not supported
- * @GDK_D3D12_ERROR_CREATION_FAILED: GTK failed to create the resource for other
+ * @GDK_D3D12_ERROR_CREATION_FAILED: BOBGUI failed to create the resource for other
  *   reasons
  *
- * Error enumeration for GTK's Direct3D 12 integration.
+ * Error enumeration for BOBGUI's Direct3D 12 integration.
  *
  * Since: 4.20
  */

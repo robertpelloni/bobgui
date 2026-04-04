@@ -1,20 +1,20 @@
 compare_render = executable('compare-render',
   ['compare-render.c', '../reftests/reftest-compare.c', 'replay-node.c', '../gdk/udmabuf.c'],
-  dependencies: libgtk_static_dep,
-  c_args: common_cflags + ['-DGTK_COMPILATION'],
+  dependencies: libbobgui_static_dep,
+  c_args: common_cflags + ['-DBOBGUI_COMPILATION'],
 )
 
 node_parser = executable('node-parser', 
   [ 'node-parser.c' ],
   link_with: testutils_lib,
-  dependencies: libgtk_dep,
+  dependencies: libbobgui_dep,
   c_args: common_cflags,
 )
 
 serialize = executable('serialize',
   [ 'serialize.c' ],
   link_with: testutils_lib,
-  dependencies: libgtk_dep,
+  dependencies: libbobgui_dep,
   c_args: common_cflags,
 )
 
@@ -388,7 +388,7 @@ foreach renderer : renderers
 
     test_env = [
       'GSK_RENDERER=' + renderer_name,
-      'GTK_A11Y=test',
+      'BOBGUI_A11Y=test',
       'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
       'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
       'TEST_FONT_DIR=@0@/fonts'.format(meson.current_source_dir())
@@ -615,7 +615,7 @@ foreach test : node_parser_tests
       ],
       env: [
         'GSK_RENDERER=opengl',
-        'GTK_A11Y=test',
+        'BOBGUI_A11Y=test',
         'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
         'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
         'FONTCONFIG_FILE=@0@/fonts/fonts.conf'.format(meson.current_source_dir()),
@@ -631,8 +631,8 @@ if os_linux
   offload = executable('offload',
     [ 'offload.c', 'gskrendernodeattach.c' ],
     link_with: testutils_lib,
-    dependencies : libgtk_static_dep,
-    c_args: common_cflags + [ '-DGTK_COMPILATION=1' ],
+    dependencies : libbobgui_static_dep,
+    c_args: common_cflags + [ '-DBOBGUI_COMPILATION=1' ],
   )
 
   offload_tests = [
@@ -663,7 +663,7 @@ if os_linux
           join_paths(meson.current_source_dir(), 'offload', test)
         ],
         env: [
-          'GTK_A11Y=test',
+          'BOBGUI_A11Y=test',
           'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
           'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
           'GDK_DEBUG=force-offload:default-settings:no-portals',
@@ -685,7 +685,7 @@ if os_linux
         join_paths(meson.current_source_dir(), 'offload', test)
       ],
       env: [
-        'GTK_A11Y=test',
+        'BOBGUI_A11Y=test',
         'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
         'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
         'GDK_DEBUG=force-offload:default-settings:no-portals',
@@ -706,7 +706,7 @@ if os_linux
         join_paths(meson.current_source_dir(), 'offload', test)
       ],
       env: [
-        'GTK_A11Y=test',
+        'BOBGUI_A11Y=test',
         'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
         'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
         'GDK_DEBUG=force-offload:color-mgmt:default-settings:no-portals',
@@ -736,7 +736,7 @@ foreach t : tests
   test_extra_suites = t.get(2, [])
 
   test_exe = executable(test_name, test_srcs,
-    dependencies : libgtk_dep,
+    dependencies : libbobgui_dep,
     c_args : test_cargs + common_cflags,
   )
 
@@ -745,7 +745,7 @@ foreach t : tests
     protocol: 'tap',
     env: [
       'GSK_RENDERER=cairo',
-      'GTK_A11Y=test',
+      'BOBGUI_A11Y=test',
       'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
       'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir())
     ],
@@ -776,8 +776,8 @@ foreach t : internal_tests
 
   test_exe = executable(test_name,
     sources: test_srcs,
-    dependencies : libgtk_static_dep,
-    c_args : test_cargs + common_cflags + ['-DGTK_COMPILATION'],
+    dependencies : libbobgui_static_dep,
+    c_args : test_cargs + common_cflags + ['-DBOBGUI_COMPILATION'],
   )
 
   test(test_name, test_exe,
@@ -785,7 +785,7 @@ foreach t : internal_tests
     protocol: 'tap',
     env: [
       'GSK_RENDERER=cairo',
-      'GTK_A11Y=test',
+      'BOBGUI_A11Y=test',
       'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
       'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir())
     ],

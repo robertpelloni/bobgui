@@ -15,7 +15,7 @@ git config --global --add safe.directory "$PWD"
 # If the branch was forked from origin/main before this horizon, it should
 # probably be rebased.
 if ! git ls-remote --exit-code upstream >/dev/null 2>&1 ; then
-    git remote add upstream https://gitlab.gnome.org/GNOME/gtk.git
+    git remote add upstream https://gitlab.gnome.org/GNOME/bobgui.git
 fi
 
 # Work out the newest common ancestor between the detached HEAD that this CI job
@@ -43,8 +43,8 @@ git diff -U0 --no-color "${newest_common_ancestor_sha}" | .gitlab-ci/clang-forma
 exit_status=$?
 
 # The style check is not infallible. The clang-format configuration cannot
-# perfectly describe GTK’s coding style: in particular, it cannot align
-# function arguments. The documented coding style for GTK takes priority over
+# perfectly describe BOBGUI’s coding style: in particular, it cannot align
+# function arguments. The documented coding style for BOBGUI takes priority over
 # clang-format suggestions. Hopefully we can eventually improve clang-format to
 # be configurable enough for our coding style. That’s why this CI check is OK
 # to fail: the idea is that people can look through the output and ignore it if
@@ -53,8 +53,8 @@ exit_status=$?
 # style with the changes they’re making.)
 echo ""
 echo "Note that clang-format output is advisory and cannot always match the"
-echo "GTK coding style, documented at:"
-echo "   https://gitlab.gnome.org/GNOME/gtk/blob/main/docs/CODING-STYLE.md"
+echo "BOBGUI coding style, documented at:"
+echo "   https://gitlab.gnome.org/GNOME/bobgui/blob/main/docs/CODING-STYLE.md"
 echo "Warnings from this tool can be ignored in favour of the documented "
 echo "coding style, or in favour of matching the style of existing"
 echo "surrounding code."

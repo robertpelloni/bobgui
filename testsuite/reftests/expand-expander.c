@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
-#include "gtk-reftest.h"
+#include "bobgui-reftest.h"
 
 static gboolean
 unblock (gpointer data)
@@ -32,9 +32,9 @@ unblock (gpointer data)
 }
 
 G_MODULE_EXPORT void
-expand_expander (GtkWidget *widget)
+expand_expander (BobguiWidget *widget)
 {
   reftest_inhibit_snapshot ();
-  gtk_expander_set_expanded (GTK_EXPANDER (widget), TRUE);
+  bobgui_expander_set_expanded (BOBGUI_EXPANDER (widget), TRUE);
   g_timeout_add (500, unblock, NULL);
 }

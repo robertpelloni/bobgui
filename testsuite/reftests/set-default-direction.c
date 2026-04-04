@@ -20,37 +20,37 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 G_MODULE_EXPORT void
 set_default_direction_ltr (void)
 {
   g_test_message ("Attention: globally setting default text direction to LTR");
-  gtk_widget_set_default_direction (GTK_TEXT_DIR_LTR);
+  bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_LTR);
 }
 
 G_MODULE_EXPORT void
 set_default_direction_rtl (void)
 {
   g_test_message ("Attention: globally setting default text direction to RTL");
-  gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+  bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
 }
 
 G_MODULE_EXPORT void
 switch_default_direction (void)
 {
-  switch (gtk_widget_get_default_direction ())
+  switch (bobgui_widget_get_default_direction ())
     {
-    case GTK_TEXT_DIR_LTR:
+    case BOBGUI_TEXT_DIR_LTR:
       g_test_message ("Attention: globally switching default text direction from LTR to RTL");
-      gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+      bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
       break;
-    case GTK_TEXT_DIR_RTL:
+    case BOBGUI_TEXT_DIR_RTL:
       g_test_message ("Attention: globally switching default text direction from RTL to LTR");
-      gtk_widget_set_default_direction (GTK_TEXT_DIR_LTR);
+      bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_LTR);
       break;
-    case GTK_TEXT_DIR_NONE:
+    case BOBGUI_TEXT_DIR_NONE:
     default:
       g_assert_not_reached ();
       break;
@@ -58,17 +58,17 @@ switch_default_direction (void)
 }
 
 G_MODULE_EXPORT void
-switch_direction (GtkWidget *widget)
+switch_direction (BobguiWidget *widget)
 {
-  switch (gtk_widget_get_direction (widget))
+  switch (bobgui_widget_get_direction (widget))
     {
-    case GTK_TEXT_DIR_LTR:
-      gtk_widget_set_direction (widget, GTK_TEXT_DIR_RTL);
+    case BOBGUI_TEXT_DIR_LTR:
+      bobgui_widget_set_direction (widget, BOBGUI_TEXT_DIR_RTL);
       break;
-    case GTK_TEXT_DIR_RTL:
-      gtk_widget_set_direction (widget, GTK_TEXT_DIR_LTR);
+    case BOBGUI_TEXT_DIR_RTL:
+      bobgui_widget_set_direction (widget, BOBGUI_TEXT_DIR_LTR);
       break;
-    case GTK_TEXT_DIR_NONE:
+    case BOBGUI_TEXT_DIR_NONE:
     default:
       g_assert_not_reached ();
       break;
@@ -76,10 +76,10 @@ switch_direction (GtkWidget *widget)
 }
 
 G_MODULE_EXPORT void
-swap_child (GtkWidget *window)
+swap_child (BobguiWidget *window)
 {
-  GtkWidget *image;
+  BobguiWidget *image;
 
-  image = gtk_image_new_from_icon_name ("go-next");
-  gtk_window_set_child (GTK_WINDOW (window), image);
+  image = bobgui_image_new_from_icon_name ("go-next");
+  bobgui_window_set_child (BOBGUI_WINDOW (window), image);
 }

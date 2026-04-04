@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined (__GDKMACOS_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKMACOS_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/macos/gdkmacos.h> can be included directly."
 #endif
 

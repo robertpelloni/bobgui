@@ -1,7 +1,7 @@
 <interface domain="nm-applet">
-  <object class="GtkAssistant">
+  <object class="BobguiAssistant">
     <child>
-      <object class="GtkBox" id="confirm_page">
+      <object class="BobguiBox" id="confirm_page">
       </object>
       <packing>
         <property name="page_type">confirm</property>

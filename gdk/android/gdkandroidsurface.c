@@ -344,7 +344,7 @@ gdk_android_surface_eventloop_idle (GdkAndroidSurfaceOnVisibilityData *data)
 
       self->delayed_map = FALSE;
       // There is still an issue where GdkSurface.set_is_mapped triggers
-      // Gtk.Widget.hide, which inturn cause a GtkWidget.unparent -> unrealize,
+      // Bobgui.Widget.hide, which inturn cause a BobguiWidget.unparent -> unrealize,
       // which then calls Gdk.Surface.destroy and fully removes the popup, even
       // tho it is only shortly gone during activity recreation. As the grab
       // doesn't get removed, no further inputs gets processed due to GDK

@@ -1,8 +1,8 @@
 <!-- default layout property gets stripped -->
 <interface>
-  <object class="GtkGrid">
+  <object class="BobguiGrid">
     <child>
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <layout>
           <property name="column-span">1</property>
           <property name="row-span">2</property>

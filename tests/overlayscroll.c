@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <string.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -34,15 +34,15 @@ get_content (void)
 }
 
 static void
-mode_changed (GtkComboBox *combo, GtkScrolledWindow *sw)
+mode_changed (BobguiComboBox *combo, BobguiScrolledWindow *sw)
 {
-  int active = gtk_combo_box_get_active (combo);
+  int active = bobgui_combo_box_get_active (combo);
 
-  gtk_scrolled_window_set_overlay_scrolling (sw, active == 1);
+  bobgui_scrolled_window_set_overlay_scrolling (sw, active == 1);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -55,57 +55,57 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
+  BobguiWidget *window;
   char *content;
-  GtkWidget *box;
-  GtkWidget *sw;
-  GtkWidget *tv;
-  GtkWidget *sb2;
-  GtkWidget *combo;
-  GtkAdjustment *adj;
+  BobguiWidget *box;
+  BobguiWidget *sw;
+  BobguiWidget *tv;
+  BobguiWidget *sb2;
+  BobguiWidget *combo;
+  BobguiAdjustment *adj;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 640, 480);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 640, 480);
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 20);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 20);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-                                  GTK_POLICY_NEVER,
-                                  GTK_POLICY_AUTOMATIC);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (sw),
+                                  BOBGUI_POLICY_NEVER,
+                                  BOBGUI_POLICY_AUTOMATIC);
 
-  gtk_widget_set_hexpand (sw, TRUE);
-  gtk_box_append (GTK_BOX (box), sw);
+  bobgui_widget_set_hexpand (sw, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), sw);
 
   content = get_content ();
 
-  tv = gtk_text_view_new ();
-  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (tv), GTK_WRAP_WORD);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), tv);
-  gtk_text_buffer_set_text (gtk_text_view_get_buffer (GTK_TEXT_VIEW (tv)),
+  tv = bobgui_text_view_new ();
+  bobgui_text_view_set_wrap_mode (BOBGUI_TEXT_VIEW (tv), BOBGUI_WRAP_WORD);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), tv);
+  bobgui_text_buffer_set_text (bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (tv)),
                             content, -1);
   g_free (content);
 
-  adj = gtk_scrollable_get_vadjustment (GTK_SCROLLABLE (tv));
+  adj = bobgui_scrollable_get_vadjustment (BOBGUI_SCROLLABLE (tv));
 
-  combo = gtk_combo_box_text_new ();
-  gtk_widget_set_valign (combo, GTK_ALIGN_START);
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Traditional");
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Overlay");
+  combo = bobgui_combo_box_text_new ();
+  bobgui_widget_set_valign (combo, BOBGUI_ALIGN_START);
+  bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Traditional");
+  bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Overlay");
   g_signal_connect (combo, "changed", G_CALLBACK (mode_changed), sw);
-  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 1);
+  bobgui_combo_box_set_active (BOBGUI_COMBO_BOX (combo), 1);
 
-  gtk_box_append (GTK_BOX (box), combo);
+  bobgui_box_append (BOBGUI_BOX (box), combo);
 
-  sb2 = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, adj);
-  gtk_box_append (GTK_BOX (box), sb2);
+  sb2 = bobgui_scrollbar_new (BOBGUI_ORIENTATION_VERTICAL, adj);
+  bobgui_box_append (BOBGUI_BOX (box), sb2);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

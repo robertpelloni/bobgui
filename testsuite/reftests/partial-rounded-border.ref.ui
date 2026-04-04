@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid">
+      <object class="BobguiGrid">
         <property name="name">reference</property>
         <child>
-          <object class="GtkButton">
+          <object class="BobguiButton">
             <property name="label">topleft</property>
             <layout>
               <property name="column">0</property>
@@ -15,7 +15,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="BobguiButton">
             <property name="label">topright</property>
             <layout>
               <property name="column">1</property>
@@ -24,7 +24,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="BobguiButton">
             <property name="label">bottomleft</property>
             <layout>
               <property name="column">0</property>
@@ -33,7 +33,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="BobguiButton">
             <property name="label">bottomright</property>
             <layout>
               <property name="column">1</property>

@@ -19,7 +19,7 @@
 
 #include <locale.h>
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 int_free_func (int data)

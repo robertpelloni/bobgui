@@ -1,14 +1,14 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "exampleapp.h"
 #include "exampleappwin.h"
 
 struct _ExampleAppWindow
 {
-  GtkApplicationWindow parent;
+  BobguiApplicationWindow parent;
 };
 
-G_DEFINE_TYPE(ExampleAppWindow, example_app_window, GTK_TYPE_APPLICATION_WINDOW);
+G_DEFINE_TYPE(ExampleAppWindow, example_app_window, BOBGUI_TYPE_APPLICATION_WINDOW);
 
 static void
 example_app_window_init (ExampleAppWindow *app)

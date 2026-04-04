@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2025  Benjamin Otte
  *
@@ -31,7 +31,7 @@
 #include "gsktransform.h"
 #include "gsktransformnode.h"
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 #include "gskrendernodeprivate.h"
 #endif
 

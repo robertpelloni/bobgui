@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/. 
  */
 
 #include "config.h"
@@ -44,7 +44,7 @@
  * Cursors by themselves are not very interesting: they must be bound to a
  * window for users to see them. This is done with [method@Gdk.Surface.set_cursor]
  * or [method@Gdk.Surface.set_device_cursor]. Applications will typically
- * use higher-level GTK functions such as [gtk_widget_set_cursor()](../gtk4/method.Widget.set_cursor.html)
+ * use higher-level BOBGUI functions such as [bobgui_widget_set_cursor()](../bobgui4/method.Widget.set_cursor.html)
  * instead.
  *
  * Cursors are not bound to a given [class@Gdk.Display], so they can be shared.

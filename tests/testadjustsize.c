@@ -18,9 +18,9 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
-static GtkWidget *test_window;
+static BobguiWidget *test_window;
 
 enum {
   TEST_WIDGET_LABEL,
@@ -31,35 +31,35 @@ enum {
 };
 
 static gboolean done = FALSE;
-static GtkWidget *test_widgets[TEST_WIDGET_LAST];
+static BobguiWidget *test_widgets[TEST_WIDGET_LAST];
 
-static GtkWidget*
+static BobguiWidget*
 create_image (void)
 {
-  return gtk_image_new_from_icon_name ("document-open");
+  return bobgui_image_new_from_icon_name ("document-open");
 }
 
-static GtkWidget*
+static BobguiWidget*
 create_label (gboolean wrap)
 {
-  GtkWidget *widget;
+  BobguiWidget *widget;
 
-  widget = gtk_label_new ("This is a label, label label label");
+  widget = bobgui_label_new ("This is a label, label label label");
 
   if (wrap)
-    gtk_label_set_wrap (GTK_LABEL (widget), TRUE);
+    bobgui_label_set_wrap (BOBGUI_LABEL (widget), TRUE);
 
   return widget;
 }
 
-static GtkWidget*
+static BobguiWidget*
 create_button (void)
 {
-  return gtk_button_new_with_label ("BUTTON!");
+  return bobgui_button_new_with_label ("BUTTON!");
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *is_done = data;
@@ -72,62 +72,62 @@ quit_cb (GtkWidget *widget,
 static void
 open_test_window (void)
 {
-  GtkWidget *grid;
+  BobguiWidget *grid;
   int i;
 
-  test_window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (test_window), "Tests");
+  test_window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (test_window), "Tests");
 
   g_signal_connect (test_window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  gtk_window_set_resizable (GTK_WINDOW (test_window), FALSE);
+  bobgui_window_set_resizable (BOBGUI_WINDOW (test_window), FALSE);
 
   test_widgets[TEST_WIDGET_IMAGE] = create_image ();
   test_widgets[TEST_WIDGET_LABEL] = create_label (FALSE);
   test_widgets[TEST_WIDGET_WRAP_LABEL] = create_label (TRUE);
   test_widgets[TEST_WIDGET_BUTTON] = create_button ();
 
-  grid = gtk_grid_new ();
+  grid = bobgui_grid_new ();
 
-  gtk_window_set_child (GTK_WINDOW (test_window), grid);
+  bobgui_window_set_child (BOBGUI_WINDOW (test_window), grid);
 
   for (i = 0; i < TEST_WIDGET_LAST; ++i)
     {
-      gtk_grid_attach (GTK_GRID (grid), test_widgets[i], i % 3, i / 3, 1, 1);
+      bobgui_grid_attach (BOBGUI_GRID (grid), test_widgets[i], i % 3, i / 3, 1, 1);
     }
 
-  gtk_window_present (GTK_WINDOW (test_window));
+  bobgui_window_present (BOBGUI_WINDOW (test_window));
 }
 
 static void
-on_set_small_size_requests (GtkToggleButton *button,
+on_set_small_size_requests (BobguiToggleButton *button,
                             void            *data)
 {
   gboolean has_small_size_requests;
   int i;
 
-  has_small_size_requests = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button));
+  has_small_size_requests = bobgui_toggle_button_get_active (BOBGUI_TOGGLE_BUTTON (button));
 
   for (i = 0; i < TEST_WIDGET_LAST; ++i)
     {
-      gtk_widget_set_size_request (test_widgets[i],
+      bobgui_widget_set_size_request (test_widgets[i],
                                    has_small_size_requests ? 5 : -1,
                                    has_small_size_requests ? 5 : -1);
     }
 }
 
 static void
-on_set_large_size_requests (GtkToggleButton *button,
+on_set_large_size_requests (BobguiToggleButton *button,
                             void            *data)
 {
   gboolean has_large_size_requests;
   int i;
 
-  has_large_size_requests = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button));
+  has_large_size_requests = bobgui_toggle_button_get_active (BOBGUI_TOGGLE_BUTTON (button));
 
   for (i = 0; i < TEST_WIDGET_LAST; ++i)
     {
-      gtk_widget_set_size_request (test_widgets[i],
+      bobgui_widget_set_size_request (test_widgets[i],
                                    has_large_size_requests ? 200 : -1,
                                    has_large_size_requests ? 200 : -1);
     }
@@ -136,62 +136,62 @@ on_set_large_size_requests (GtkToggleButton *button,
 static void
 open_control_window (void)
 {
-  GtkWidget *window;
-  GtkWidget *box;
-  GtkWidget *toggle;
+  BobguiWidget *window;
+  BobguiWidget *box;
+  BobguiWidget *toggle;
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "Controls");
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Controls");
 
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
   toggle =
-    gtk_toggle_button_new_with_label ("Set small size requests");
+    bobgui_toggle_button_new_with_label ("Set small size requests");
   g_signal_connect (G_OBJECT (toggle),
                     "toggled", G_CALLBACK (on_set_small_size_requests),
                     NULL);
-  gtk_box_append (GTK_BOX (box), toggle);
+  bobgui_box_append (BOBGUI_BOX (box), toggle);
 
   toggle =
-    gtk_toggle_button_new_with_label ("Set large size requests");
+    bobgui_toggle_button_new_with_label ("Set large size requests");
   g_signal_connect (G_OBJECT (toggle),
                     "toggled", G_CALLBACK (on_set_large_size_requests),
                     NULL);
-  gtk_box_append (GTK_BOX (box), toggle);
+  bobgui_box_append (BOBGUI_BOX (box), toggle);
 
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
-#define TEST_WIDGET(outer) (gtk_overlay_get_child (GTK_OVERLAY (gtk_overlay_get_child (GTK_OVERLAY (outer)))))
+#define TEST_WIDGET(outer) (bobgui_overlay_get_child (BOBGUI_OVERLAY (bobgui_overlay_get_child (BOBGUI_OVERLAY (outer)))))
 
-static GtkWidget*
+static BobguiWidget*
 create_widget_visible_border (const char *text)
 {
-  GtkWidget *outer_box;
-  GtkWidget *inner_box;
-  GtkWidget *test_widget;
-  GtkWidget *label;
+  BobguiWidget *outer_box;
+  BobguiWidget *inner_box;
+  BobguiWidget *test_widget;
+  BobguiWidget *label;
 
-  outer_box = gtk_overlay_new ();
-  gtk_widget_add_css_class (outer_box, "black-bg");
+  outer_box = bobgui_overlay_new ();
+  bobgui_widget_add_css_class (outer_box, "black-bg");
 
-  inner_box = gtk_overlay_new ();
-  gtk_widget_add_css_class (inner_box, "blue-bg");
+  inner_box = bobgui_overlay_new ();
+  bobgui_widget_add_css_class (inner_box, "blue-bg");
 
-  gtk_overlay_set_child (GTK_OVERLAY (outer_box), inner_box);
+  bobgui_overlay_set_child (BOBGUI_OVERLAY (outer_box), inner_box);
 
 
-  test_widget = gtk_overlay_new ();
-  gtk_widget_add_css_class (test_widget, "red-bg");
+  test_widget = bobgui_overlay_new ();
+  bobgui_widget_add_css_class (test_widget, "red-bg");
 
-  gtk_overlay_set_child (GTK_OVERLAY (inner_box), test_widget);
+  bobgui_overlay_set_child (BOBGUI_OVERLAY (inner_box), test_widget);
 
-  label = gtk_label_new (text);
-  gtk_overlay_set_child (GTK_OVERLAY (test_widget), label);
+  label = bobgui_label_new (text);
+  bobgui_overlay_set_child (BOBGUI_OVERLAY (test_widget), label);
 
   g_assert (TEST_WIDGET (outer_box) == test_widget);
 
@@ -209,16 +209,16 @@ enum_to_string (GType enum_type,
   return v->value_nick;
 }
 
-static GtkWidget*
-create_aligned (GtkAlign halign,
-                GtkAlign valign)
+static BobguiWidget*
+create_aligned (BobguiAlign halign,
+                BobguiAlign valign)
 {
-  GtkWidget *widget;
+  BobguiWidget *widget;
   char *label;
 
   label = g_strdup_printf ("h=%s v=%s",
-                           enum_to_string (GTK_TYPE_ALIGN, halign),
-                           enum_to_string (GTK_TYPE_ALIGN, valign));
+                           enum_to_string (BOBGUI_TYPE_ALIGN, halign),
+                           enum_to_string (BOBGUI_TYPE_ALIGN, valign));
 
   widget = create_widget_visible_border (label);
 
@@ -235,46 +235,46 @@ create_aligned (GtkAlign halign,
 static void
 open_alignment_window (void)
 {
-  GtkWidget *grid;
+  BobguiWidget *grid;
   int i;
   GEnumClass *align_class;
 
-  test_window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (test_window), "Alignment");
+  test_window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (test_window), "Alignment");
 
   g_signal_connect (test_window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  gtk_window_set_resizable (GTK_WINDOW (test_window), TRUE);
-  gtk_window_set_default_size (GTK_WINDOW (test_window), 500, 500);
+  bobgui_window_set_resizable (BOBGUI_WINDOW (test_window), TRUE);
+  bobgui_window_set_default_size (BOBGUI_WINDOW (test_window), 500, 500);
 
-  align_class = g_type_class_peek (GTK_TYPE_ALIGN);
+  align_class = g_type_class_peek (BOBGUI_TYPE_ALIGN);
 
-  grid = gtk_grid_new ();
-  gtk_grid_set_row_homogeneous (GTK_GRID (grid), TRUE);
-  gtk_grid_set_column_homogeneous (GTK_GRID (grid), TRUE);
+  grid = bobgui_grid_new ();
+  bobgui_grid_set_row_homogeneous (BOBGUI_GRID (grid), TRUE);
+  bobgui_grid_set_column_homogeneous (BOBGUI_GRID (grid), TRUE);
 
-  gtk_window_set_child (GTK_WINDOW (test_window), grid);
+  bobgui_window_set_child (BOBGUI_WINDOW (test_window), grid);
 
   for (i = 0; i < align_class->n_values; ++i)
     {
       int j;
       for (j = 0; j < align_class->n_values; ++j)
         {
-          GtkWidget *child =
+          BobguiWidget *child =
             create_aligned(align_class->values[i].value,
                            align_class->values[j].value);
 
-          gtk_grid_attach (GTK_GRID (grid), child, i, j, 1, 1);
+          bobgui_grid_attach (BOBGUI_GRID (grid), child, i, j, 1, 1);
         }
     }
 
-  gtk_window_present (GTK_WINDOW (test_window));
+  bobgui_window_present (BOBGUI_WINDOW (test_window));
 }
 
-static GtkWidget*
+static BobguiWidget*
 create_margined (const char *propname)
 {
-  GtkWidget *widget;
+  BobguiWidget *widget;
 
   widget = create_widget_visible_border (propname);
 
@@ -290,7 +290,7 @@ create_margined (const char *propname)
 static void
 open_margin_window (void)
 {
-  GtkWidget *box;
+  BobguiWidget *box;
   int i;
   const char *margins[] = {
     "margin-start",
@@ -299,78 +299,78 @@ open_margin_window (void)
     "margin-bottom"
   };
 
-  test_window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (test_window), "Margin");
+  test_window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (test_window), "Margin");
 
   g_signal_connect (test_window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  gtk_window_set_resizable (GTK_WINDOW (test_window), TRUE);
+  bobgui_window_set_resizable (BOBGUI_WINDOW (test_window), TRUE);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
 
-  gtk_window_set_child (GTK_WINDOW (test_window), box);
+  bobgui_window_set_child (BOBGUI_WINDOW (test_window), box);
 
   for (i = 0; i < (int) G_N_ELEMENTS (margins); ++i)
     {
-      GtkWidget *child =
+      BobguiWidget *child =
         create_margined(margins[i]);
 
-      gtk_box_append (GTK_BOX (box), child);
+      bobgui_box_append (BOBGUI_BOX (box), child);
     }
 
-  gtk_window_present (GTK_WINDOW (test_window));
+  bobgui_window_present (BOBGUI_WINDOW (test_window));
 }
 
 static void
 open_valigned_label_window (void)
 {
-  GtkWidget *window, *box, *label, *frame;
+  BobguiWidget *window, *box, *label, *frame;
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
 
   g_signal_connect (test_window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  label = gtk_label_new ("Both labels expand");
-  gtk_box_append (GTK_BOX (box), label);
+  label = bobgui_label_new ("Both labels expand");
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  label = gtk_label_new ("Some wrapping text with width-chars = 15 and max-width-chars = 35");
-  gtk_label_set_wrap  (GTK_LABEL (label), TRUE);
-  gtk_label_set_width_chars  (GTK_LABEL (label), 15);
-  gtk_label_set_max_width_chars  (GTK_LABEL (label), 35);
+  label = bobgui_label_new ("Some wrapping text with width-chars = 15 and max-width-chars = 35");
+  bobgui_label_set_wrap  (BOBGUI_LABEL (label), TRUE);
+  bobgui_label_set_width_chars  (BOBGUI_LABEL (label), 15);
+  bobgui_label_set_max_width_chars  (BOBGUI_LABEL (label), 35);
 
-  frame  = gtk_frame_new (NULL);
-  gtk_frame_set_child (GTK_FRAME (frame), label);
+  frame  = bobgui_frame_new (NULL);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), label);
 
-  gtk_widget_set_valign (frame, GTK_ALIGN_CENTER);
-  gtk_widget_set_halign (frame, GTK_ALIGN_CENTER);
+  bobgui_widget_set_valign (frame, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_halign (frame, BOBGUI_ALIGN_CENTER);
 
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkCssProvider *provider;
+  BobguiCssProvider *provider;
 
-  gtk_init ();
+  bobgui_init ();
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_string (provider,
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_string (provider,
     ".black-bg { background-color: black; }"
     ".red-bg { background-color: red; }"
     ".blue-bg { background-color: blue; }");
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
   g_object_unref (provider);
 
   if (g_getenv ("RTL"))
-    gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+    bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
 
   open_test_window ();
   open_control_window ();

@@ -1,11 +1,11 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #define DEMO_TYPE_WIDGET (demo_widget_get_type ())
-G_DECLARE_FINAL_TYPE (DemoWidget, demo_widget, DEMO, WIDGET, GtkWidget)
+G_DECLARE_FINAL_TYPE (DemoWidget, demo_widget, DEMO, WIDGET, BobguiWidget)
 
 struct _DemoWidget
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   guint tick_cb;
   guint64 start_time;
@@ -19,13 +19,13 @@ struct _DemoWidget
 
 struct _DemoWidgetClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (DemoWidget, demo_widget, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (DemoWidget, demo_widget, BOBGUI_TYPE_WIDGET)
 
 static gboolean
-tick_cb (GtkWidget     *widget,
+tick_cb (BobguiWidget     *widget,
          GdkFrameClock *frame_clock,
          gpointer       user_data)
 {
@@ -40,38 +40,38 @@ tick_cb (GtkWidget     *widget,
   self->angle = 360 * (now - self->start_time) / (double)(G_TIME_SPAN_SECOND * 10);
   self->scale = 0.5 + 20 * (1 + sin (2 * G_PI * (now - self->start_time) / (double)(G_TIME_SPAN_SECOND * 5)));
 
-  gtk_widget_queue_draw (widget);
+  bobgui_widget_queue_draw (widget);
 
   return G_SOURCE_CONTINUE;
 }
 
 static gboolean
-pressed_cb (GtkEventController *controller,
+pressed_cb (BobguiEventController *controller,
             guint               keyval,
             guint               keycode,
             GdkModifierType     state,
             gpointer            data)
 {
-  DemoWidget *self = (DemoWidget *)gtk_event_controller_get_widget (controller);
+  DemoWidget *self = (DemoWidget *)bobgui_event_controller_get_widget (controller);
 
   if (keyval == GDK_KEY_space)
     {
       GdkFrameClock *frame_clock;
       guint64 now;
 
-      frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
+      frame_clock = bobgui_widget_get_frame_clock (BOBGUI_WIDGET (self));
       now = gdk_frame_clock_get_frame_time (frame_clock);
 
       if (self->tick_cb)
         {
-          gtk_widget_remove_tick_callback (GTK_WIDGET (self), self->tick_cb);
+          bobgui_widget_remove_tick_callback (BOBGUI_WIDGET (self), self->tick_cb);
           self->tick_cb = 0;
           self->stop_time = now;
         }
       else
         {
           self->start_time += now - self->stop_time;
-          self->tick_cb = gtk_widget_add_tick_callback (GTK_WIDGET (self), tick_cb, NULL, NULL);
+          self->tick_cb = bobgui_widget_add_tick_callback (BOBGUI_WIDGET (self), tick_cb, NULL, NULL);
         }
       return TRUE;
     }
@@ -90,54 +90,54 @@ demo_widget_set_text (DemoWidget *self,
 static void
 demo_widget_init (DemoWidget *self)
 {
-  GtkEventController *controller;
+  BobguiEventController *controller;
   PangoFontDescription *desc;
 
   self->start_time = 0;
-  self->tick_cb = gtk_widget_add_tick_callback (GTK_WIDGET (self), tick_cb, NULL, NULL);
+  self->tick_cb = bobgui_widget_add_tick_callback (BOBGUI_WIDGET (self), tick_cb, NULL, NULL);
 
-  controller = gtk_event_controller_key_new ();
+  controller = bobgui_event_controller_key_new ();
   g_signal_connect (controller, "key-pressed", G_CALLBACK (pressed_cb), NULL);
-  gtk_widget_add_controller (GTK_WIDGET (self), controller);
-  gtk_widget_set_focusable (GTK_WIDGET (self), TRUE);
+  bobgui_widget_add_controller (BOBGUI_WIDGET (self), controller);
+  bobgui_widget_set_focusable (BOBGUI_WIDGET (self), TRUE);
 
   desc = pango_font_description_new ();
   pango_font_description_set_family (desc, "Cantarell");
   pango_font_description_set_weight (desc, 520);
   pango_font_description_set_size (desc, 11 * PANGO_SCALE);
 
-  self->layout = gtk_widget_create_pango_layout (GTK_WIDGET (self), "");
+  self->layout = bobgui_widget_create_pango_layout (BOBGUI_WIDGET (self), "");
   pango_layout_set_font_description (self->layout, desc);
 
   pango_font_description_free (desc);
 }
 
 static void
-demo_widget_snapshot (GtkWidget   *widget,
-                      GtkSnapshot *snapshot)
+demo_widget_snapshot (BobguiWidget   *widget,
+                      BobguiSnapshot *snapshot)
 {
   DemoWidget *self = DEMO_WIDGET (widget);
   int width, height;
   int pwidth, pheight;
   GdkRGBA color;
 
-  width = gtk_widget_get_width (widget);
-  height = gtk_widget_get_height (widget);
+  width = bobgui_widget_get_width (widget);
+  height = bobgui_widget_get_height (widget);
 
-  gtk_widget_get_color (widget, &color);
+  bobgui_widget_get_color (widget, &color);
 
   pango_layout_get_pixel_size (self->layout, &pwidth, &pheight);
 
-  gtk_snapshot_save (snapshot);
+  bobgui_snapshot_save (snapshot);
 
-  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0.5 * width, 0.5 * height));
-  gtk_snapshot_rotate (snapshot, self->angle);
-  gtk_snapshot_scale (snapshot, self->scale, self->scale);
-  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (- 0.5 * pwidth, - 0.5 * pheight));
+  bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0.5 * width, 0.5 * height));
+  bobgui_snapshot_rotate (snapshot, self->angle);
+  bobgui_snapshot_scale (snapshot, self->scale, self->scale);
+  bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (- 0.5 * pwidth, - 0.5 * pheight));
 
-  gtk_snapshot_append_layout (snapshot, self->layout, &color);
+  bobgui_snapshot_append_layout (snapshot, self->layout, &color);
 
-  gtk_snapshot_restore (snapshot);
+  bobgui_snapshot_restore (snapshot);
 }
 
 static void
@@ -154,35 +154,35 @@ static void
 demo_widget_class_init (DemoWidgetClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->dispose = demo_widget_dispose;
 
   widget_class->snapshot = demo_widget_snapshot;
 }
 
-static GtkWidget *
+static BobguiWidget *
 demo_widget_new (void)
 {
   DemoWidget *demo;
 
   demo = g_object_new (DEMO_TYPE_WIDGET, NULL);
 
-  return GTK_WIDGET (demo);
+  return BOBGUI_WIDGET (demo);
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *demo;
+  BobguiWidget *window;
+  BobguiWidget *demo;
   char *text = NULL;
   size_t length;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 1024, 768);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 1024, 768);
 
   if (argc > 1)
     {
@@ -204,15 +204,15 @@ main (int argc, char *argv[])
 
   demo = demo_widget_new ();
   demo_widget_set_text (DEMO_WIDGET (demo), text, length);
-  gtk_window_set_child (GTK_WINDOW (window), demo);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), demo);
 
   g_free (text);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  gtk_widget_grab_focus (demo);
+  bobgui_widget_grab_focus (demo);
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()) > 0)
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()) > 0)
     g_main_context_iteration (NULL, TRUE);
 
   return 0;

@@ -1,26 +1,26 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "exampleapp.h"
 #include "exampleappwin.h"
 
 struct _ExampleAppWindow
 {
-  GtkApplicationWindow parent;
+  BobguiApplicationWindow parent;
 };
 
-G_DEFINE_TYPE(ExampleAppWindow, example_app_window, GTK_TYPE_APPLICATION_WINDOW);
+G_DEFINE_TYPE(ExampleAppWindow, example_app_window, BOBGUI_TYPE_APPLICATION_WINDOW);
 
 static void
 example_app_window_init (ExampleAppWindow *win)
 {
-  gtk_widget_init_template (GTK_WIDGET (win));
+  bobgui_widget_init_template (BOBGUI_WIDGET (win));
 }
 
 static void
 example_app_window_class_init (ExampleAppWindowClass *class)
 {
-  gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (class),
-                                               "/org/gtk/exampleapp/window.ui");
+  bobgui_widget_class_set_template_from_resource (BOBGUI_WIDGET_CLASS (class),
+                                               "/org/bobgui/exampleapp/window.ui");
 }
 
 ExampleAppWindow *

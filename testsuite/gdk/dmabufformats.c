@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gdk/gdkdisplayprivate.h>
 #include <gdk/gdkglcontextprivate.h>
 #include <gdk/gdkdmabuffourccprivate.h>
@@ -92,7 +92,7 @@ test_dmabuf_formats_builder (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/dmabuf/formats/basic", test_dmabuf_formats_basic);
   g_test_add_func ("/dmabuf/formats/builder", test_dmabuf_formats_builder);

@@ -21,11 +21,11 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
-#include "gtk/svg/gtksvgprivate.h"
+#include <bobgui/bobgui.h>
+#include "bobgui/svg/bobguisvgprivate.h"
 
 
-G_DECLARE_FINAL_TYPE (TransformEditor, transform_editor, TRANSFORM, EDITOR, GtkWidget)
+G_DECLARE_FINAL_TYPE (TransformEditor, transform_editor, TRANSFORM, EDITOR, BobguiWidget)
 
 
 TransformEditor *       transform_editor_new (void);

@@ -1,8 +1,8 @@
-GTK Coding Style
+BOBGUI Coding Style
 -------------------------------------------------------------------------------
 
 This document is intended to be a short description of the preferred
-coding style to be used for the GTK source code. It was strongly
+coding style to be used for the BOBGUI source code. It was strongly
 inspired by Clutter's `CODING_STYLE`.
 
 Coding style is a matter of consistency, readability and maintenance;
@@ -12,7 +12,7 @@ and consistent answers to common questions regarding the coding style,
 and will also try to identify the allowed exceptions.
 
 The examples will show the preferred coding style; the negative examples
-will be clearly identified. Please, don't submit code to GTK that
+will be clearly identified. Please, don't submit code to BOBGUI that
 looks like any of these.
 
 Part of the rationales for these coding style rules are available either
@@ -40,10 +40,10 @@ using tab characters alone, or using a combination of spaces and tabs.
 
 Do not change the editor's configuration to change the meaning of a
 tab character (see below); code using tabs to indent will not be accepted
-into GTK.
+into BOBGUI.
 
 Even if two spaces for each indentation level allows deeper nesting than
-8 spaces, GTK favours self-documenting function names that can take
+8 spaces, BOBGUI favours self-documenting function names that can take
 quite some space. For this reason you should avoid deeply nested code.
 
 ### Tab characters
@@ -428,13 +428,13 @@ When declaring a structure type use newlines to separate logical sections
 of the structure:
 
 ```c
-  struct _GtkWrapBoxPrivate
+  struct _BobguiWrapBoxPrivate
   {
-    GtkOrientation        orientation;
-    GtkWrapAllocationMode mode;
+    BobguiOrientation        orientation;
+    BobguiWrapAllocationMode mode;
 
-    GtkWrapBoxSpreading   horizontal_spreading;
-    GtkWrapBoxSpreading   vertical_spreading;
+    BobguiWrapBoxSpreading   horizontal_spreading;
+    BobguiWrapBoxSpreading   vertical_spreading;
 
     guint16               vertical_spacing;
     guint16               horizontal_spacing;
@@ -459,7 +459,7 @@ patch or commit. Never use empty lines at the beginning or at the end of
 a file.
 
 Do enable the default git pre-commit hook that detect trailing
-whitespace for you and help you to avoid corrupting GTK's tree with
+whitespace for you and help you to avoid corrupting BOBGUI's tree with
 it. Do that as follows:
 
 ```
@@ -478,7 +478,7 @@ so an enum value named `GDK_2BUTTON_PRESS` is problematic.
 
 ### Headers
 
-Headers are special, for GTK, in that they don't have to obey the
+Headers are special, for BOBGUI, in that they don't have to obey the
 80 characters limit. The only major rule for headers is that the function
 definitions should be vertically aligned in three columns:
 
@@ -492,26 +492,26 @@ The maximum width of each column is given by the longest element in the
 column:
 
 ```c
-  void        gtk_type_set_property (GtkType      *type,
+  void        bobgui_type_set_property (BobguiType      *type,
                                      const char   *value,
                                      GError      **error);
-  const char *gtk_type_get_property (GtkType      *type);
+  const char *bobgui_type_get_property (BobguiType      *type);
 ```
 
 It is also possible to align the columns to the next tab:
 
 ```c
-  void          gtk_type_set_prop           (GtkType *type,
+  void          bobgui_type_set_prop           (BobguiType *type,
                                              float    value);
-  float         gtk_type_get_prop           (GtkType *type);
-  int           gtk_type_update_foobar      (GtkType *type);
+  float         bobgui_type_get_prop           (BobguiType *type);
+  int           bobgui_type_update_foobar      (BobguiType *type);
 ```
 
 Public headers should never be included directly:
 
 ```c
-  #if !defined (__GTK_H_INSIDE__) && !defined (GTK_COMPILATION)
-  #error "Only <gtk/gtk.h> can be included directly."
+  #if !defined (__BOBGUI_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
+  #error "Only <bobgui/bobgui.h> can be included directly."
   #endif
 ```
 
@@ -520,13 +520,13 @@ Private headers should include the public header first, if one exists:
 ```c
   #pragma once
 
-  /* gtkfooprivate.h */
+  /* bobguifooprivate.h */
 
-  #include "gtkfoo.h"
+  #include "bobguifoo.h"
 
   ...
 
-  #endif /* __GTK_FOO_PRIVATE_H__ */
+  #endif /* __BOBGUI_FOO_PRIVATE_H__ */
 ```
 
 All headers should use the `once` pragma to prevent multiple inclusion,
@@ -542,10 +542,10 @@ Additionally, public headers should use C++ guards around their declarations:
   G_BEGIN_DECLS
 
   GDK_AVAILABLE_IN_ALL
-  GType         gtk_foo_get_type        (void) G_GNUC_CONST;
+  GType         bobgui_foo_get_type        (void) G_GNUC_CONST;
 
   GDK_AVAILABLE_IN_ALL
-  GtkWidget *   gtk_foo_new             (void);
+  BobguiWidget *   bobgui_foo_new             (void);
 
   ...
 
@@ -554,7 +554,7 @@ Additionally, public headers should use C++ guards around their declarations:
 
 ### Includes
 
-GTK source files must never include the global gtk.h header; instead, it
+BOBGUI source files must never include the global bobgui.h header; instead, it
 should include the individual headers that are needed.
 
 Every source file must include config.h first, followed by the header matching
@@ -562,11 +562,11 @@ the source file, either the public installed header, or the private header, if
 it exists.
 
 ```c
-  /* gtkfoo.c */
+  /* bobguifoo.c */
 
   #include "config.h"
 
-  #include "gtkfoo.h"
+  #include "bobguifoo.h"
 ```
 
 Source files should then include project headers, in alphabetical order,
@@ -577,12 +577,12 @@ directory:
 ```c
   #include "config.h"
 
-  #include "gtkfooprivate.h"
+  #include "bobguifooprivate.h"
 
-  #include "gtkbutton.h"
-  #include "gtkwidget.h"
+  #include "bobguibutton.h"
+  #include "bobguiwidget.h"
 
-  #include "a11y/gtkwidgetaccessible.h"
+  #include "a11y/bobguiwidgetaccessible.h"
 
   #include "gdk/gdkwindowprivate.h"
 ```
@@ -592,12 +592,12 @@ Finally, source files should include the system headers last:
 ```c
   #include "config.h"
 
-  #include "gtkbarprivate.h"
+  #include "bobguibarprivate.h"
 
-  #include "gtkcontainerprivate.h"
+  #include "bobguicontainerprivate.h"
 
-  #include "a11y/gtkcontaineraccessible.h"
-  #include "a11y/gtkwidgetaccessible.h"
+  #include "a11y/bobguicontaineraccessible.h"
+  #include "a11y/bobguiwidgetaccessible.h"
 
   #include "gdk/gdkwindowprivate.h"
 
@@ -616,8 +616,8 @@ coding style notices.
 Typedef declarations should be placed at the beginning of the file:
 
 ```c
-  typedef struct _GtkFoo          GtkFoo;
-  typedef struct _GtkFooClass     GtkFooClass;
+  typedef struct _BobguiFoo          BobguiFoo;
+  typedef struct _BobguiFooClass     BobguiFooClass;
 ```
 
 This includes enumeration types:
@@ -625,30 +625,30 @@ This includes enumeration types:
 ```c
   typedef enum
   {
-    GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT,
-    GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH
-  } GtkSizeRequestMode;
+    BOBGUI_SIZE_REQUEST_WIDTH_FOR_HEIGHT,
+    BOBGUI_SIZE_REQUEST_HEIGHT_FOR_WIDTH
+  } BobguiSizeRequestMode;
 ```
 
 And callback types:
 
 ```c
-  typedef void (* GtkCallback) (GtkWidget *widget,
+  typedef void (* BobguiCallback) (BobguiWidget *widget,
                                 gpointer   user_data);
 ```
 
 Instance structures should only contain the parent type:
 
 ```c
-  struct _GtkFoo
+  struct _BobguiFoo
   {
-    GtkWidget parent_instance;
+    BobguiWidget parent_instance;
   };
 ```
 
 You should use the `G_DECLARE_DERIVABLE_TYPE()` and `G_DECLARE_FINAL_TYPE()`
 macros in newly written headers. There is also a `GDK_DECLARE_INTERNAL_TYPE()`
-for declaring types that can be derived inside GTK, but not in 3rd party code.
+for declaring types that can be derived inside BOBGUI, but not in 3rd party code.
 
 Inside your source file, always use the `G_DEFINE_TYPE()`,
 `G_DEFINE_TYPE_WITH_PRIVATE()`, and `G_DEFINE_TYPE_WITH_CODE()` macros, or their
@@ -670,23 +670,23 @@ function.
 Interface types should always have the dummy typedef for cast purposes:
 
 ```c
-        typedef struct _GtkFoo                  GtkFoo;
+        typedef struct _BobguiFoo                  BobguiFoo;
 ```
 
 The interface structure should have "Interface" postfixed to the dummy typedef:
 
 ```c
-        typedef struct _GtkFooInterface         GtkFooInterface;
+        typedef struct _BobguiFooInterface         BobguiFooInterface;
 ```
 
 Interfaces must have the following macros:
 
 | Macro                        | Expands to                      |
 |------------------------------|---------------------------------|
-| `GTK_TYPE_<iface_name>`      | `<iface_name>_get_type`         |
-| `GTK_<iface_name>`           | `G_TYPE_CHECK_INSTANCE_CAST`    |
-| `GTK_IS_<iface_name>`        | `G_TYPE_CHECK_INSTANCE_TYPE`    |
-| `GTK_<iface_name>_GET_IFACE` | `G_TYPE_INSTANCE_GET_INTERFACE` |
+| `BOBGUI_TYPE_<iface_name>`      | `<iface_name>_get_type`         |
+| `BOBGUI_<iface_name>`           | `G_TYPE_CHECK_INSTANCE_CAST`    |
+| `BOBGUI_IS_<iface_name>`        | `G_TYPE_CHECK_INSTANCE_TYPE`    |
+| `BOBGUI_<iface_name>_GET_IFACE` | `G_TYPE_INSTANCE_GET_INTERFACE` |
 
 The `G_DECLARE` macros define these as static inline functions instead.
 
@@ -738,8 +738,8 @@ be placed in the source file, directly above the function.
 ```c
   /* valid */
   /**
-   * gtk_get_flow:
-   * @widget: a `GtkWidget`
+   * bobgui_get_flow:
+   * @widget: a `BobguiWidget`
    *
    * Gets the flow of a widget.
    *
@@ -747,8 +747,8 @@ be placed in the source file, directly above the function.
    *
    * Returns: (transfer none): the flow of @widget
    */
-  GtkFlow *
-  gtk_get_flow (GtkWidget *widget)
+  BobguiFlow *
+  bobgui_get_flow (BobguiWidget *widget)
   {
 
     ...
@@ -763,7 +763,7 @@ The main content of the doc comments uses markdown, which can include
 inline formatting, sections, tables, images, links. For links to
 symbols/classes/etc, we use a markdown extension syntax like this:
 
-[class@Gtk.Widget], [method@Gtk.ListView.get_factory],...
+[class@Bobgui.Widget], [method@Bobgui.ListView.get_factory],...
 
 Every doc comment should start with a single-sentence paragraph that
 can serve as a summary of sorts (it will often be placed next to a
@@ -776,9 +776,9 @@ after the license header and includes:
 
 ```c
   /**
-   * GtkSizeRequest:
+   * BobguiSizeRequest:
    *
-   * The GtkSizeRequest interface is GTK's height-for-width geometry
+   * The BobguiSizeRequest interface is BOBGUI's height-for-width geometry
    * geometry management system.
    *
    * # Geometry management
@@ -792,8 +792,8 @@ please [follow the corresponding contribution guide](./reference/README.md).
 
 ### Old code
 
-New code that is being added to GTK should adhere to the style
-explained above. Existing GTK code does largely follow these
+New code that is being added to BOBGUI should adhere to the style
+explained above. Existing BOBGUI code does largely follow these
 conventions, but there are some differences, e.g. occurrences
 of tabs, etc.
 

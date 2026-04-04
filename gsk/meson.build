@@ -161,26 +161,26 @@ gsk_public_headers = files([
   'gsktransformnode.h',
   'gsktypes.h',
 ])
-install_headers(gsk_public_headers, 'gsk.h', subdir: 'gtk-4.0/gsk')
+install_headers(gsk_public_headers, 'gsk.h', subdir: 'bobgui-4.0/gsk')
 
 gsk_public_gl_headers = files([
   'gl/gskglrenderer.h',
 ])
-install_headers(gsk_public_gl_headers, subdir: 'gtk-4.0/gsk/gl')
+install_headers(gsk_public_gl_headers, subdir: 'bobgui-4.0/gsk/gl')
 gsk_public_headers += gsk_public_gl_headers
 
 gsk_public_gpu_headers = files([
   'gpu/gskvulkanrenderer.h',
   'gpu/gskglrenderer.h'
 ])
-install_headers(gsk_public_gpu_headers, subdir: 'gtk-4.0/gsk/gpu')
+install_headers(gsk_public_gpu_headers, subdir: 'bobgui-4.0/gsk/gpu')
 gsk_public_headers += gsk_public_gpu_headers
 
 if get_variable('broadway_enabled')
   gsk_public_broadway_headers = files([
     'broadway/gskbroadwayrenderer.h'
   ])
-  install_headers(gsk_public_broadway_headers, subdir: 'gtk-4.0/gsk/broadway')
+  install_headers(gsk_public_broadway_headers, subdir: 'bobgui-4.0/gsk/broadway')
   gsk_public_headers += gsk_public_broadway_headers
 endif
 
@@ -221,7 +221,7 @@ gsk_enums = gnome.mkenums('gskenumtypes',
   sources: gsk_public_headers,
   c_template: 'gskenumtypes.c.template',
   h_template: 'gskenumtypes.h.template',
-  install_dir: gtk_includedir / 'gtk-4.0/gsk',
+  install_dir: bobgui_includedir / 'bobgui-4.0/gsk',
   install_header: true,
 )
 
@@ -253,7 +253,7 @@ libgsk_f16c = static_library('gsk_f16c',
   dependencies: gsk_deps,
   include_directories: [ confinc, ],
   c_args: [
-    '-DGTK_COMPILATION',
+    '-DBOBGUI_COMPILATION',
     '-DG_LOG_DOMAIN="Gsk"',
     '-DG_LOG_STRUCTURED=1',
   ] + common_cflags + f16c_cflags,
@@ -272,7 +272,7 @@ libgsk = static_library('gsk',
   dependencies: gsk_deps,
   include_directories: [ confinc, include_directories ('gpu') ],
   c_args: [
-    '-DGTK_COMPILATION',
+    '-DBOBGUI_COMPILATION',
     '-DG_LOG_DOMAIN="Gsk"',
     '-DG_LOG_STRUCTURED=1',
   ] + common_cflags,
@@ -281,7 +281,7 @@ libgsk = static_library('gsk',
 
 # We don't have link_with: to internal static libs here on purpose, just
 # list the dependencies and generated headers and such, for use in the
-# "public" libgtk_dep used by internal executables.
+# "public" libbobgui_dep used by internal executables.
 libgsk_dep = declare_dependency(include_directories: [ confinc, ],
   sources: [ gskenum_h, ],
   dependencies: [libgdk_dep, cairo_csi_dep],

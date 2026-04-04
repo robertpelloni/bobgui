@@ -1,19 +1,19 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #define DEMO_TYPE_WIDGET (demo_widget_get_type ())
-G_DECLARE_FINAL_TYPE (DemoWidget, demo_widget, DEMO, WIDGET, GtkWidget)
+G_DECLARE_FINAL_TYPE (DemoWidget, demo_widget, DEMO, WIDGET, BobguiWidget)
 
 struct _DemoWidget
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 };
 
 struct _DemoWidgetClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (DemoWidget, demo_widget, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (DemoWidget, demo_widget, BOBGUI_TYPE_WIDGET)
 
 static void
 demo_widget_init (DemoWidget *self)
@@ -21,8 +21,8 @@ demo_widget_init (DemoWidget *self)
 }
 
 static void
-demo_widget_snapshot (GtkWidget   *widget,
-                      GtkSnapshot *snapshot)
+demo_widget_snapshot (BobguiWidget   *widget,
+                      BobguiSnapshot *snapshot)
 {
   DemoWidget *self = DEMO_WIDGET (widget);
   PangoLayout *layout;
@@ -34,12 +34,12 @@ demo_widget_snapshot (GtkWidget   *widget,
   int x, y;
   GdkRGBA color;
 
-  width = gtk_widget_get_width (widget);
-  height = gtk_widget_get_height (widget);
+  width = bobgui_widget_get_width (widget);
+  height = bobgui_widget_get_height (widget);
 
-  gtk_widget_get_color (widget, &color);
+  bobgui_widget_get_color (widget, &color);
 
-  layout = gtk_widget_create_pango_layout (GTK_WIDGET (self), "Best Aa");
+  layout = bobgui_widget_create_pango_layout (BOBGUI_WIDGET (self), "Best Aa");
 
   pango_layout_get_pixel_size (layout, &pwidth, &pheight);
   desc = pango_font_description_copy_static (pango_context_get_font_description (pango_layout_get_context (layout)));
@@ -56,13 +56,13 @@ demo_widget_snapshot (GtkWidget   *widget,
   x = floor ((width - pwidth) / 2);
   y = floor ((height - pheight) / 2);
 
-  gtk_snapshot_save (snapshot);
+  bobgui_snapshot_save (snapshot);
 
-  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (x, y));
+  bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (x, y));
 
-  gtk_snapshot_append_layout (snapshot, layout, &color);
+  bobgui_snapshot_append_layout (snapshot, layout, &color);
 
-  gtk_snapshot_restore (snapshot);
+  bobgui_snapshot_restore (snapshot);
 
   g_object_unref (layout);
 }
@@ -77,14 +77,14 @@ static void
 demo_widget_class_init (DemoWidgetClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->dispose = demo_widget_dispose;
 
   widget_class->snapshot = demo_widget_snapshot;
 }
 
-static GtkWidget *
+static BobguiWidget *
 demo_widget_new (void)
 {
   return g_object_new (DEMO_TYPE_WIDGET, NULL);
@@ -99,24 +99,24 @@ static const char css[] =
 int
 main (int argc, char *argv[])
 {
-  GtkCssProvider *style;
-  GtkWidget *window;
+  BobguiCssProvider *style;
+  BobguiWidget *window;
 
-  gtk_init ();
+  bobgui_init ();
 
-  style = gtk_css_provider_new ();
-  gtk_css_provider_load_from_string (style, css);
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (style),
+  style = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_string (style, css);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (style),
                                               800);
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
 
-  gtk_window_set_child (GTK_WINDOW (window), demo_widget_new ());
+  bobgui_window_set_child (BOBGUI_WINDOW (window), demo_widget_new ());
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()) > 0)
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()) > 0)
     g_main_context_iteration (NULL, TRUE);
 
   return 0;

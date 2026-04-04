@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="BobguiGrid" id="grid1">
         <property name="row_spacing">8</property>
         <property name="column_spacing">8</property>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="width_request">1</property>
             <property name="height_request">1</property>
             <layout>
@@ -19,7 +19,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="width_request">1</property>
             <property name="height_request">1</property>
             <layout>
@@ -31,7 +31,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="width_request">1</property>
             <property name="height_request">1</property>
             <layout>
@@ -43,7 +43,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="width_request">1</property>
             <property name="height_request">1</property>
             <layout>

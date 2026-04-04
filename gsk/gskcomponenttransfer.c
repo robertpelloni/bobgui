@@ -389,14 +389,14 @@ gsk_component_transfer_print (const GskComponentTransfer *self,
 }
 
 static guint
-gsk_component_transfer_parse_float (GtkCssParser *parser,
+gsk_component_transfer_parse_float (BobguiCssParser *parser,
                                     guint         n,
                                     gpointer      data)
 {
   float *f = data;
   double d;
 
-  if (!gtk_css_parser_consume_number (parser, &d))
+  if (!bobgui_css_parser_consume_number (parser, &d))
     return 0;
 
   f[n] = d;
@@ -404,7 +404,7 @@ gsk_component_transfer_parse_float (GtkCssParser *parser,
 }
 
 static guint
-gsk_component_transfer_parse_table_value (GtkCssParser *parser,
+gsk_component_transfer_parse_table_value (BobguiCssParser *parser,
                                           guint         n,
                                           gpointer      data)
 {
@@ -414,7 +414,7 @@ gsk_component_transfer_parse_table_value (GtkCssParser *parser,
   } *params = data;
   double d;
 
-  if (!gtk_css_parser_consume_number (parser, &d))
+  if (!bobgui_css_parser_consume_number (parser, &d))
     return 0;
 
   params->values[n] = d;
@@ -423,69 +423,69 @@ gsk_component_transfer_parse_table_value (GtkCssParser *parser,
 }
 
 gboolean
-gsk_component_transfer_parser_parse (GtkCssParser          *parser,
+gsk_component_transfer_parser_parse (BobguiCssParser          *parser,
                                      GskComponentTransfer **out)
 {
-  const GtkCssToken *token;
+  const BobguiCssToken *token;
 
-  token = gtk_css_parser_get_token (parser);
-  if (gtk_css_token_is_ident (token, "none"))
+  token = bobgui_css_parser_get_token (parser);
+  if (bobgui_css_token_is_ident (token, "none"))
     {
-      gtk_css_parser_consume_token (parser);
+      bobgui_css_parser_consume_token (parser);
       *out = NULL;
       return TRUE;
     }
-  else if (gtk_css_token_is_function (token, "levels"))
+  else if (bobgui_css_token_is_function (token, "levels"))
     {
       float param;
 
-      if (gtk_css_parser_consume_function (parser, 1, 1, gsk_component_transfer_parse_float, &param))
+      if (bobgui_css_parser_consume_function (parser, 1, 1, gsk_component_transfer_parse_float, &param))
         {
           *out = gsk_component_transfer_new_levels (param);
           return TRUE;
         }
     }
-  else if (gtk_css_token_is_function (token, "linear"))
+  else if (bobgui_css_token_is_function (token, "linear"))
     {
       float params[2];
 
-      if (gtk_css_parser_consume_function (parser, 2, 2, gsk_component_transfer_parse_float, &params))
+      if (bobgui_css_parser_consume_function (parser, 2, 2, gsk_component_transfer_parse_float, &params))
         {
           *out = gsk_component_transfer_new_linear (params[0], params[1]);
           return TRUE;
         }
     }
-  else if (gtk_css_token_is_function (token, "gamma"))
+  else if (bobgui_css_token_is_function (token, "gamma"))
     {
       float params[3];
 
-      if (gtk_css_parser_consume_function (parser, 3, 3, gsk_component_transfer_parse_float, &params))
+      if (bobgui_css_parser_consume_function (parser, 3, 3, gsk_component_transfer_parse_float, &params))
         {
           *out = gsk_component_transfer_new_gamma (params[0], params[1], params[2]);
           return TRUE;
         }
     }
-  else if (gtk_css_token_is_function (token, "discrete"))
+  else if (bobgui_css_token_is_function (token, "discrete"))
     {
       struct {
         guint n;
         float values[24];
       } params = { 0, { 0, } };
 
-      if (gtk_css_parser_consume_function (parser, 1, 24, gsk_component_transfer_parse_table_value, &params))
+      if (bobgui_css_parser_consume_function (parser, 1, 24, gsk_component_transfer_parse_table_value, &params))
         {
           *out = gsk_component_transfer_new_discrete (params.n, params.values);
           return TRUE;
         }
     }
-  else if (gtk_css_token_is_function (token, "table"))
+  else if (bobgui_css_token_is_function (token, "table"))
     {
       struct {
         guint n;
         float values[24];
       } params = { 0, { 0, } };
 
-      if (gtk_css_parser_consume_function (parser, 1, 24, gsk_component_transfer_parse_table_value, &params))
+      if (bobgui_css_parser_consume_function (parser, 1, 24, gsk_component_transfer_parse_table_value, &params))
         {
           *out = gsk_component_transfer_new_table (params.n, params.values);
           return TRUE;
@@ -493,7 +493,7 @@ gsk_component_transfer_parser_parse (GtkCssParser          *parser,
     }
   else
     {
-      gtk_css_parser_error_syntax (parser, "Expected a component transfer");
+      bobgui_css_parser_error_syntax (parser, "Expected a component transfer");
     }
 
   *out = NULL;

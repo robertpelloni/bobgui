@@ -1,8 +1,8 @@
 <!-- placeholders are preserved -->
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
           <placeholder/>
         </child>

@@ -17,7 +17,7 @@
  * Authors: Benjamin Otte <otte@gnome.org>
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #define GDK_ARRAY_NO_UNDEF
 

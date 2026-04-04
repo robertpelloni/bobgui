@@ -18,7 +18,7 @@ if get_option('documentation')
       gidocgen,
       'generate',
       gidocgen_common_args,
-      '--add-include-path=@0@'.format(meson.current_build_dir() / '../../../gtk'),
+      '--add-include-path=@0@'.format(meson.current_build_dir() / '../../../bobgui'),
       '--config=@INPUT0@',
       '--output-dir=@OUTPUT@',
       '--content-dir=@0@'.format(meson.current_source_dir()),
@@ -36,7 +36,7 @@ if get_option('documentation')
     args: [
       'check',
       '--config', gsk4_toml,
-      '--add-include-path=@0@'.format(meson.current_build_dir() / '../../../gtk'),
+      '--add-include-path=@0@'.format(meson.current_build_dir() / '../../../bobgui'),
       gsk_gir[0],
     ],
     depends: gsk_gir[0],

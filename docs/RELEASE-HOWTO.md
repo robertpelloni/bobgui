@@ -1,4 +1,4 @@
-How to do a GTK release?
+How to do a BOBGUI release?
 ========================
 
 ## Before we begin
@@ -33,7 +33,7 @@ $ meson compile -C _build
   3. Update the pot file and commit the changes:
 
 ```sh
-$ ninja -C _build gtk40-pot
+$ ninja -C _build bobgui40-pot
 ```
 
   4. If this is a major, stable, release, verify that the release notes
@@ -80,7 +80,7 @@ $ ninja -C _build gtk40-pot
   12. Tag the release. The git command for doing that looks like:
 
 ```sh
-$ git tag -m "GTK 4.2.0" 4.2.0
+$ git tag -m "BOBGUI 4.2.0" 4.2.0
 ```
 
   13. Bump the version number in `meson.build`, and add a section for the next
@@ -100,9 +100,9 @@ $ git push origin 4.2.0
     this looks like:
 
 ```sh
-$ scp gtk-4.2.0.tar.xz matthiasc@master.gnome.org:
+$ scp bobgui-4.2.0.tar.xz matthiasc@master.gnome.org:
 $ ssh matthiasc@master.gnome.org
-$ ftpadmin install gtk-4.2.0.tar.xz
+$ ftpadmin install bobgui-4.2.0.tar.xz
 ```
 
   16. Go to the gnome-announce list archives, find the last announce message,

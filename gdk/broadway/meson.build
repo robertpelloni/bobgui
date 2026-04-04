@@ -23,7 +23,7 @@ gdk_broadway_public_headers = [
   'gdkbroadwaymonitor.h',
 ]
 
-install_headers(gdk_broadway_public_headers, 'gdkbroadway.h', subdir: 'gtk-4.0/gdk/broadway/')
+install_headers(gdk_broadway_public_headers, 'gdkbroadway.h', subdir: 'bobgui-4.0/gdk/broadway/')
 
 gdk_broadway_deps = [shmlib]
 
@@ -55,17 +55,17 @@ libgdk_broadway = static_library('gdk-broadway',
   sources: [ clienthtml_h, broadwayjs_h, gdk_broadway_sources, gdk_gen_headers ],
   include_directories: [confinc, gdkinc],
   c_args: [
-    '-DGTK_COMPILATION',
+    '-DBOBGUI_COMPILATION',
     '-DG_LOG_DOMAIN="Gdk"',
   ] + common_cflags,
   dependencies: [gdk_deps, gdk_broadway_deps],
 )
 
-# gtk4-broadwayd
+# bobgui4-broadwayd
 
 broadwayd_syslib = os_win32 ? cc.find_library('ws2_32') : shmlib
 
-executable('gtk4-broadwayd',
+executable('bobgui4-broadwayd',
   sources: [
     clienthtml_h,
     broadwayjs_h,
@@ -76,7 +76,7 @@ executable('gtk4-broadwayd',
     'broadway-output.c',
   ],
   include_directories: [confinc, gdkinc, include_directories('.')],
-  c_args: ['-DGTK_COMPILATION', '-DG_LOG_DOMAIN="Gdk"', ],
+  c_args: ['-DBOBGUI_COMPILATION', '-DG_LOG_DOMAIN="Gdk"', ],
   dependencies: [ broadwayd_syslib, gdk_deps ],
   install: true,
 )

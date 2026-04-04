@@ -24,7 +24,7 @@ srcdir = sys.argv[1]
 
 xml = '''<?xml version='1.0' encoding='UTF-8'?>
 <gresources>
-  <gresource prefix='/org/gtk/libgdk'>
+  <gresource prefix='/org/bobgui/libgdk'>
     <file alias='cursor/alias'>cursors/alias_cursor.png</file>
     <file alias='cursor/all-resize'>cursors/all_resize_cursor.png</file>
     <file alias='cursor/all-scroll'>cursors/all_scroll_cursor.png</file>

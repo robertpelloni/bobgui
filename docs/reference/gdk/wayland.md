@@ -4,7 +4,7 @@ Title: Wayland Interaction
 
 The functions in this section are specific to the GDK Wayland backend.
 To use them, you need to include the `<gdk/wayland/gdkwayland.h>` header and
-use the Wayland-specific pkg-config `gtk4-wayland` file to build your
+use the Wayland-specific pkg-config `bobgui4-wayland` file to build your
 application.
 
 ## Checking for the Wayland backend

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <glib/gstdio.h>
 
 #ifdef HAVE_GIO_UNIX
@@ -16,66 +16,66 @@
 #endif
 
 
-/* This is the guts of gtk_text_buffer_insert_markup,
+/* This is the guts of bobgui_text_buffer_insert_markup,
  * copied here so we can make an incremental version.
  */
 static void
-insert_tags_for_attributes (GtkTextBuffer     *buffer,
+insert_tags_for_attributes (BobguiTextBuffer     *buffer,
                             PangoAttrIterator *iter,
-                            GtkTextIter       *start,
-                            GtkTextIter       *end)
+                            BobguiTextIter       *start,
+                            BobguiTextIter       *end)
 {
-  GtkTextTagTable *table;
+  BobguiTextTagTable *table;
   GSList *attrs, *l;
-  GtkTextTag *tag;
+  BobguiTextTag *tag;
   char name[256];
   float fg_alpha, bg_alpha;
 
-  table = gtk_text_buffer_get_tag_table (buffer);
+  table = bobgui_text_buffer_get_tag_table (buffer);
 
 #define LANGUAGE_ATTR(attr_name) \
     { \
       const char *language = pango_language_to_string (((PangoAttrLanguage*)attr)->value); \
       g_snprintf (name, 256, "language=%s", language); \
-      tag = gtk_text_tag_table_lookup (table, name); \
+      tag = bobgui_text_tag_table_lookup (table, name); \
       if (!tag) \
         { \
-          tag = gtk_text_tag_new (name); \
+          tag = bobgui_text_tag_new (name); \
           g_object_set (tag, #attr_name, language, NULL); \
-          gtk_text_tag_table_add (table, tag); \
+          bobgui_text_tag_table_add (table, tag); \
           g_object_unref (tag); \
         } \
-      gtk_text_buffer_apply_tag (buffer, tag, start, end); \
+      bobgui_text_buffer_apply_tag (buffer, tag, start, end); \
     }
 
 #define STRING_ATTR(attr_name) \
     { \
       const char *string = ((PangoAttrString*)attr)->value; \
       g_snprintf (name, 256, #attr_name "=%s", string); \
-      tag = gtk_text_tag_table_lookup (table, name); \
+      tag = bobgui_text_tag_table_lookup (table, name); \
       if (!tag) \
         { \
-          tag = gtk_text_tag_new (name); \
+          tag = bobgui_text_tag_new (name); \
           g_object_set (tag, #attr_name, string, NULL); \
-          gtk_text_tag_table_add (table, tag); \
+          bobgui_text_tag_table_add (table, tag); \
           g_object_unref (tag); \
         } \
-      gtk_text_buffer_apply_tag (buffer, tag, start, end); \
+      bobgui_text_buffer_apply_tag (buffer, tag, start, end); \
     }
 
 #define INT_ATTR(attr_name) \
     { \
       int value = ((PangoAttrInt*)attr)->value; \
       g_snprintf (name, 256, #attr_name "=%d", value); \
-      tag = gtk_text_tag_table_lookup (table, name); \
+      tag = bobgui_text_tag_table_lookup (table, name); \
       if (!tag) \
         { \
-          tag = gtk_text_tag_new (name); \
+          tag = bobgui_text_tag_new (name); \
           g_object_set (tag, #attr_name, value, NULL); \
-          gtk_text_tag_table_add (table, tag); \
+          bobgui_text_tag_table_add (table, tag); \
           g_object_unref (tag); \
         } \
-      gtk_text_buffer_apply_tag (buffer, tag, start, end); \
+      bobgui_text_buffer_apply_tag (buffer, tag, start, end); \
     }
 
 #define FONT_ATTR(attr_name) \
@@ -84,30 +84,30 @@ insert_tags_for_attributes (GtkTextBuffer     *buffer,
       char *str = pango_font_description_to_string (desc); \
       g_snprintf (name, 256, "font-desc=%s", str); \
       g_free (str); \
-      tag = gtk_text_tag_table_lookup (table, name); \
+      tag = bobgui_text_tag_table_lookup (table, name); \
       if (!tag) \
         { \
-          tag = gtk_text_tag_new (name); \
+          tag = bobgui_text_tag_new (name); \
           g_object_set (tag, #attr_name, desc, NULL); \
-          gtk_text_tag_table_add (table, tag); \
+          bobgui_text_tag_table_add (table, tag); \
           g_object_unref (tag); \
         } \
-      gtk_text_buffer_apply_tag (buffer, tag, start, end); \
+      bobgui_text_buffer_apply_tag (buffer, tag, start, end); \
     }
 
 #define FLOAT_ATTR(attr_name) \
     { \
       float value = ((PangoAttrFloat*)attr)->value; \
       g_snprintf (name, 256, #attr_name "=%g", value); \
-      tag = gtk_text_tag_table_lookup (table, name); \
+      tag = bobgui_text_tag_table_lookup (table, name); \
       if (!tag) \
         { \
-          tag = gtk_text_tag_new (name); \
+          tag = bobgui_text_tag_new (name); \
           g_object_set (tag, #attr_name, value, NULL); \
-          gtk_text_tag_table_add (table, tag); \
+          bobgui_text_tag_table_add (table, tag); \
           g_object_unref (tag); \
         } \
-      gtk_text_buffer_apply_tag (buffer, tag, start, end); \
+      bobgui_text_buffer_apply_tag (buffer, tag, start, end); \
     }
 
 #define RGBA_ATTR(attr_name, alpha_value) \
@@ -122,28 +122,28 @@ insert_tags_for_attributes (GtkTextBuffer     *buffer,
       char *str = gdk_rgba_to_string (&rgba); \
       g_snprintf (name, 256, #attr_name "=%s", str); \
       g_free (str); \
-      tag = gtk_text_tag_table_lookup (table, name); \
+      tag = bobgui_text_tag_table_lookup (table, name); \
       if (!tag) \
         { \
-          tag = gtk_text_tag_new (name); \
+          tag = bobgui_text_tag_new (name); \
           g_object_set (tag, #attr_name, &rgba, NULL); \
-          gtk_text_tag_table_add (table, tag); \
+          bobgui_text_tag_table_add (table, tag); \
           g_object_unref (tag); \
         } \
-      gtk_text_buffer_apply_tag (buffer, tag, start, end); \
+      bobgui_text_buffer_apply_tag (buffer, tag, start, end); \
     }
 
 #define VOID_ATTR(attr_name) \
     { \
-      tag = gtk_text_tag_table_lookup (table, #attr_name); \
+      tag = bobgui_text_tag_table_lookup (table, #attr_name); \
       if (!tag) \
         { \
-          tag = gtk_text_tag_new (#attr_name); \
+          tag = bobgui_text_tag_new (#attr_name); \
           g_object_set (tag, #attr_name, TRUE, NULL); \
-          gtk_text_tag_table_add (table, tag); \
+          bobgui_text_tag_table_add (table, tag); \
           g_object_unref (tag); \
         } \
-      gtk_text_buffer_apply_tag (buffer, tag, start, end); \
+      bobgui_text_buffer_apply_tag (buffer, tag, start, end); \
     }
 
   fg_alpha = bg_alpha = 1.;
@@ -328,9 +328,9 @@ typedef struct
   char *markup;
   size_t pos;
   size_t len;
-  GtkTextBuffer *buffer;
-  GtkTextIter iter;
-  GtkTextMark *mark;
+  BobguiTextBuffer *buffer;
+  BobguiTextIter iter;
+  BobguiTextMark *mark;
   PangoAttrList *attributes;
   char *text;
   PangoAttrIterator *attr;
@@ -341,7 +341,7 @@ free_markup_data (MarkupData *mdata)
 {
   g_free (mdata->markup);
   g_clear_pointer (&mdata->parser, g_markup_parse_context_free);
-  gtk_text_buffer_delete_mark (mdata->buffer, mdata->mark);
+  bobgui_text_buffer_delete_mark (mdata->buffer, mdata->mark);
   g_clear_pointer (&mdata->attr, pango_attr_iterator_destroy);
   g_clear_pointer (&mdata->attributes, pango_attr_list_unref);
   g_free (mdata->text);
@@ -361,13 +361,13 @@ insert_markup_idle (gpointer data)
     {
       int start, end;
       int start_offset;
-      GtkTextIter start_iter;
+      BobguiTextIter start_iter;
 
       if (g_get_monotonic_time () - begin > G_TIME_SPAN_MILLISECOND)
         {
           unsigned int id;
           id = g_idle_add (insert_markup_idle, data);
-          g_source_set_name_by_id (id, "[gtk-demo] insert_markup_idle");
+          g_source_set_name_by_id (id, "[bobgui-demo] insert_markup_idle");
           return G_SOURCE_REMOVE;
         }
 
@@ -376,13 +376,13 @@ insert_markup_idle (gpointer data)
       if (end == G_MAXINT) /* last chunk */
         end = start - 1; /* resulting in -1 to be passed to _insert */
 
-      start_offset = gtk_text_iter_get_offset (&mdata->iter);
-      gtk_text_buffer_insert (mdata->buffer, &mdata->iter, mdata->text + start, end - start);
-      gtk_text_buffer_get_iter_at_offset (mdata->buffer, &start_iter, start_offset);
+      start_offset = bobgui_text_iter_get_offset (&mdata->iter);
+      bobgui_text_buffer_insert (mdata->buffer, &mdata->iter, mdata->text + start, end - start);
+      bobgui_text_buffer_get_iter_at_offset (mdata->buffer, &start_iter, start_offset);
 
       insert_tags_for_attributes (mdata->buffer, mdata->attr, &start_iter, &mdata->iter);
 
-      gtk_text_buffer_get_iter_at_mark (mdata->buffer, &mdata->iter, mdata->mark);
+      bobgui_text_buffer_get_iter_at_mark (mdata->buffer, &mdata->iter, mdata->mark);
     }
   while (pango_attr_iterator_next (mdata->attr));
 
@@ -404,7 +404,7 @@ parse_markup_idle (gpointer data)
       {
         unsigned int id;
         id = g_idle_add (parse_markup_idle, data);
-        g_source_set_name_by_id (id, "[gtk-demo] parse_markup_idle");
+        g_source_set_name_by_id (id, "[bobgui-demo] parse_markup_idle");
         return G_SOURCE_REMOVE;
       }
 
@@ -436,7 +436,7 @@ parse_markup_idle (gpointer data)
 
   if (!mdata->attributes)
     {
-      gtk_text_buffer_insert (mdata->buffer, &mdata->iter, mdata->text, -1);
+      bobgui_text_buffer_insert (mdata->buffer, &mdata->iter, mdata->text, -1);
       free_markup_data (mdata);
       return G_SOURCE_REMOVE;
     }
@@ -451,14 +451,14 @@ parse_markup_idle (gpointer data)
  * and consumes @markup.
  */
 static void
-insert_markup (GtkTextBuffer *buffer,
-               GtkTextIter   *iter,
+insert_markup (BobguiTextBuffer *buffer,
+               BobguiTextIter   *iter,
                char          *markup,
                int            len)
 {
   MarkupData *data;
 
-  g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
+  g_return_if_fail (BOBGUI_IS_TEXT_BUFFER (buffer));
 
   data = g_new0 (MarkupData, 1);
 
@@ -471,7 +471,7 @@ insert_markup (GtkTextBuffer *buffer,
   data->pos = 0;
 
   /* create mark with right gravity */
-  data->mark = gtk_text_buffer_create_mark (buffer, NULL, iter, FALSE);
+  data->mark = bobgui_text_buffer_create_mark (buffer, NULL, iter, FALSE);
 
   parse_markup_idle (data);
 }
@@ -482,7 +482,7 @@ fontify_finish (GObject      *source,
                 gpointer      data)
 {
   GSubprocess *subprocess = G_SUBPROCESS (source);
-  GtkTextBuffer *buffer = data;
+  BobguiTextBuffer *buffer = data;
   GBytes *stdout_buf = NULL;
   GBytes *stderr_buf = NULL;
   GError *error = NULL;
@@ -520,9 +520,9 @@ fontify_finish (GObject      *source,
       char *markup;
       size_t len;
       char *p;
-      GtkTextIter start;
+      BobguiTextIter start;
 
-      gtk_text_buffer_set_text (buffer, "", 0);
+      bobgui_text_buffer_set_text (buffer, "", 0);
 
       /* highlight puts a span with font and size around its output,
        * which we don't want.
@@ -530,7 +530,7 @@ fontify_finish (GObject      *source,
       markup = g_bytes_unref_to_data (stdout_buf, &len);
       for (p = markup + strlen ("<span "); *p != '>'; p++) *p = ' ';
 
-      gtk_text_buffer_get_start_iter (buffer, &start);
+      bobgui_text_buffer_get_start_iter (buffer, &start);
       insert_markup (buffer, &start, markup, len);
    }
 
@@ -539,24 +539,24 @@ fontify_finish (GObject      *source,
 
 void
 fontify (const char    *format,
-         GtkTextBuffer *source_buffer)
+         BobguiTextBuffer *source_buffer)
 {
   GSubprocess *subprocess;
   char *format_arg;
-  GtkSettings *settings;
-  GtkInterfaceColorScheme color_scheme;
+  BobguiSettings *settings;
+  BobguiInterfaceColorScheme color_scheme;
   const char *style_arg;
   char *text;
-  GtkTextIter start, end;
+  BobguiTextIter start, end;
   GBytes *bytes;
   GError *error = NULL;
 
-  settings = gtk_settings_get_default ();
+  settings = bobgui_settings_get_default ();
   g_object_get (settings,
-                "gtk-interface-color-scheme", &color_scheme,
+                "bobgui-interface-color-scheme", &color_scheme,
                 NULL);
 
-  if (color_scheme == GTK_INTERFACE_COLOR_SCHEME_DARK)
+  if (color_scheme == BOBGUI_INTERFACE_COLOR_SCHEME_DARK)
     style_arg = "--style=edit-vim-dark";
   else
     style_arg = "--style=edit-kwrite";
@@ -596,8 +596,8 @@ fontify (const char    *format,
       return;
     }
 
-  gtk_text_buffer_get_bounds (source_buffer, &start, &end);
-  text = gtk_text_buffer_get_text (source_buffer, &start, &end, TRUE);
+  bobgui_text_buffer_get_bounds (source_buffer, &start, &end);
+  text = bobgui_text_buffer_get_text (source_buffer, &start, &end, TRUE);
   bytes = g_bytes_new_take (text, strlen (text));
 
 #ifdef HAVE_GIO_UNIX

@@ -18,10 +18,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -52,27 +52,27 @@
  * the surface.
  *
  * There's a mismatch between data types supported by W32 (W32 formats)
- * and by GTK (GDK contentformats).
+ * and by BOBGUI (GDK contentformats).
  * To account for it the data is transmuted back and forth. There are two
  * main points of transmutation:
- * * GdkWin32HDATAOutputStream: transmutes GTK data to W32 data
- * * GdkWin32Drop: transmutes W32 data to GTK data
+ * * GdkWin32HDATAOutputStream: transmutes BOBGUI data to W32 data
+ * * GdkWin32Drop: transmutes W32 data to BOBGUI data
  *
  * There are also two points where data formats are considered:
  * * When source drag context is created, it gets a list of GDK contentformats
  *   that it supports, these are matched to the W32 formats they
  *   correspond to (possibly with transmutation). New W32 formats for
- *   GTK-specific contentformats are also created here (see below).
+ *   BOBGUI-specific contentformats are also created here (see below).
  * * When target drop context is created, it queries the IDataObject
  *   for the list of W32 formats it supports and matches these to
  *   corresponding GDK contentformats that it will be able to provide
  *   (possibly with transmutation) later. Missing GDK contentformats for
  *   W32-specific formats are also created here (see below).
  *
- * W32 formats are integers (CLIPFORMAT), while GTK contentformats
+ * W32 formats are integers (CLIPFORMAT), while BOBGUI contentformats
  * are mime/type strings, and cannot be used interchangeably.
  *
- * To accommodate advanced GTK applications the code allows them to
+ * To accommodate advanced BOBGUI applications the code allows them to
  * register drop targets that accept W32 data formats, and to register
  * drag sources that provide W32 data formats. To do that they must
  * register with the mime/type "application/x.windows.ZZZ", where
@@ -83,36 +83,36 @@
  * If such contentformat is accepted/provided, GDK will not try to
  * transmute it to/from something else. Otherwise GDK will do the following
  * transmutation:
- * * If GTK application provides image/png, image/gif or image/jpeg,
+ * * If BOBGUI application provides image/png, image/gif or image/jpeg,
  *   GDK will claim to also provide "PNG", "GIF" or "JFIF" respectively,
  *   and will pass these along verbatim.
- * * If GTK application provides any GdkPixbuf-compatible contentformat,
+ * * If BOBGUI application provides any GdkPixbuf-compatible contentformat,
  *   GDK will also offer "PNG" and CF_DIB W32 formats.
- * * If GTK application provides text/plain;charset=utf8, GDK will also offer
+ * * If BOBGUI application provides text/plain;charset=utf8, GDK will also offer
  *   CF_UNICODETEXT (UTF-16-encoded) and CF_TEXT (encoded with thread-
  *   and locale-dependent codepage), and will do the conversion when such
  *   data is requested.
- * * If GTK application accepts image/png, image/gif or image/jpeg,
+ * * If BOBGUI application accepts image/png, image/gif or image/jpeg,
  *   GDK will claim to also accept "PNG", "GIF" or "JFIF" respectively,
  *   and will pass these along verbatim.
- * * If GTK application accepts image/bmp, GDK will
+ * * If BOBGUI application accepts image/bmp, GDK will
  *   claim to accept CF_DIB W32 format, and will convert
  *   it, changing the header, when such data is provided.
- * * If GTK application accepts text/plain;charset=utf8, GDK will
+ * * If BOBGUI application accepts text/plain;charset=utf8, GDK will
  *   claim to accept CF_UNICODETEXT and CF_TEXT, and will do
  *   the conversion when such data is provided.
- * * If GTK application accepts text/uri-list, GDK will
+ * * If BOBGUI application accepts text/uri-list, GDK will
  *   claim to accept "Shell IDList Array", and will do the
  *   conversion when such data is provided.
  *
  * Currently the conversion from text/uri-list to "Shell IDList Array" is not
- * implemented, so it's not possible to drag & drop files from GTK
- * applications to non-GTK applications the same way one can drag files
+ * implemented, so it's not possible to drag & drop files from BOBGUI
+ * applications to non-BOBGUI applications the same way one can drag files
  * from Windows Explorer.
  *
- * To increase inter-GTK compatibility, GDK will register GTK-specific
+ * To increase inter-BOBGUI compatibility, GDK will register BOBGUI-specific
  * formats by their mime/types, as-is (i.e "text/plain;charset=utf-8", for example).
- * That way two GTK applications can exchange data in their native formats
+ * That way two BOBGUI applications can exchange data in their native formats
  * (both well-known ones, such as text/plain;charset=utf8, and special,
  * known only to specific applications). This will work just
  * fine as long as both applications agree on what kind of data is stored
@@ -124,11 +124,11 @@
  * If more flexibility is needed, register one format that has some
  * internal indicators of the kind of data it contains, then write the application
  * in such a way that it requests the data and inspects its header before deciding
- * whether to accept it or not. For details see GTK drag & drop documentation
+ * whether to accept it or not. For details see BOBGUI drag & drop documentation
  * on the "drag-motion" and "drag-data-received" signals.
  *
  * How managed DnD works:
- * GTK widget detects a drag gesture and calls
+ * BOBGUI widget detects a drag gesture and calls
  * S: gdk_drag_begin_from_point() -> backend:drag_begin()
  * which creates the source drag context and the drag surface,
  * and grabs the pointing device. GDK layer adds the context
@@ -501,7 +501,7 @@ do_drag_drop_response (gpointer user_data)
       drag_win32->drop_failed = !(SUCCEEDED (hr) || hr == DRAGDROP_S_DROP);
 
       /* We used to delete the selection here,
-       * now GTK does that automatically in response to 
+       * now BOBGUI does that automatically in response to 
        * the "dnd-finished" signal,
        * if the operation was successful and was a move.
        */
@@ -1021,7 +1021,7 @@ idropsource_release (LPDROPSOURCE This)
  * It is OK to return a "safe" value (S_OK, to keep the drag
  * operation going) even if something notable happens, because
  * we will have another opportunity to return the "right" value
- * (once we know what it is, after GTK processes the events we
+ * (once we know what it is, after BOBGUI processes the events we
  *  send out) very soon.
  * Note that keyboard-related state in this function is nonsense,
  * as DoDragDrop doesn't get precise information about the keyboard,
@@ -1903,7 +1903,7 @@ gdk_win32_drag_drop_done (GdkDrag  *drag,
                           success ? "dropped successfully" : "dropped unsuccessfully"));
 
   /* FIXME: This is temporary, until the code is fixed to ensure that
-   * gdk_drag_finish () is called by GTK.
+   * gdk_drag_finish () is called by BOBGUI.
    */
   clipdrop = gdk_win32_display_get_clipdrop (gdk_surface_get_display (drag_win32->drag_surface));
   ddd = g_hash_table_lookup (clipdrop->active_source_drags, drag);
@@ -1937,7 +1937,7 @@ gdk_win32_drag_drop_done (GdkDrag  *drag,
   id = g_timeout_add_full (G_PRIORITY_DEFAULT, 17,
                            gdk_drag_anim_timeout, anim,
                            (GDestroyNotify) gdk_drag_anim_destroy);
-  gdk_source_set_static_name_by_id (id, "[gtk] gdk_drag_anim_timeout");
+  gdk_source_set_static_name_by_id (id, "[bobgui] gdk_drag_anim_timeout");
 }
 
 static gboolean
@@ -2202,7 +2202,7 @@ gdk_dnd_handle_button_event (GdkDrag  *drag,
   else
     gdk_drag_cancel (drag, GDK_DRAG_CANCEL_NO_TARGET);
 
-  /* Make sure GTK gets mouse release button event */
+  /* Make sure BOBGUI gets mouse release button event */
   return FALSE;
 }
 
@@ -2216,7 +2216,7 @@ gdk_win32_drag_handle_event (GdkDrag  *drag,
     return FALSE;
   if (!drag_win32->handle_events)
     {
-      /* FIXME: remove this functionality once gtk no longer calls DnD after drag_done() */
+      /* FIXME: remove this functionality once bobgui no longer calls DnD after drag_done() */
       g_warning ("Got an event %d for drag context %p, even though it's done!",
                  event->event_type, drag);
       return FALSE;

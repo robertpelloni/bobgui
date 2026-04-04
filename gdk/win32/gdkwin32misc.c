@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -309,54 +309,54 @@ gdk_win32_display_get_setting (GdkDisplay  *display,
   if (gdk_display_get_debug_flags (display) & GDK_DEBUG_DEFAULT_SETTINGS)
     return FALSE;
 
-  if (strcmp ("gtk-alternative-button-order", name) == 0)
+  if (strcmp ("bobgui-alternative-button-order", name) == 0)
     {
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : TRUE\n", name));
       g_value_set_boolean (value, TRUE);
       return TRUE;
     }
-  else if (strcmp ("gtk-alternative-sort-arrows", name) == 0)
+  else if (strcmp ("bobgui-alternative-sort-arrows", name) == 0)
     {
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : TRUE\n", name));
       g_value_set_boolean (value, TRUE);
       return TRUE;
     }
-  else if (strcmp ("gtk-cursor-blink", name) == 0)
+  else if (strcmp ("bobgui-cursor-blink", name) == 0)
     {
       gboolean blinks = (GetCaretBlinkTime () != INFINITE);
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : %s\n", name, blinks ? "TRUE" : "FALSE"));
       g_value_set_boolean (value, blinks);
       return TRUE;
     }
-  else if (strcmp ("gtk-cursor-theme-size", name) == 0)
+  else if (strcmp ("bobgui-cursor-theme-size", name) == 0)
     {
       int cursor_size = GetSystemMetrics (SM_CXCURSOR);
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : %d\n", name, cursor_size));
       g_value_set_int (value, cursor_size);
       return TRUE;
     }
-  else if (strcmp ("gtk-dnd-drag-threshold", name) == 0)
+  else if (strcmp ("bobgui-dnd-drag-threshold", name) == 0)
     {
       int i = MAX(GetSystemMetrics (SM_CXDRAG), GetSystemMetrics (SM_CYDRAG));
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : %d\n", name, i));
       g_value_set_int (value, i);
       return TRUE;
     }
-  else if (strcmp ("gtk-double-click-distance", name) == 0)
+  else if (strcmp ("bobgui-double-click-distance", name) == 0)
     {
       int i = MAX(GetSystemMetrics (SM_CXDOUBLECLK), GetSystemMetrics (SM_CYDOUBLECLK));
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : %d\n", name, i));
       g_value_set_int (value, i);
       return TRUE;
     }
-  else if (strcmp ("gtk-double-click-time", name) == 0)
+  else if (strcmp ("bobgui-double-click-time", name) == 0)
     {
       int i = GetDoubleClickTime ();
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : %d\n", name, i));
       g_value_set_int (value, i);
       return TRUE;
     }
-  else if (strcmp ("gtk-font-name", name) == 0)
+  else if (strcmp ("bobgui-font-name", name) == 0)
     {
       char *font_name = NULL;
       HDC hdc = NULL;
@@ -380,7 +380,7 @@ gdk_win32_display_get_setting (GdkDisplay  *display,
           return FALSE;
         }
     }
-  else if (strcmp ("gtk-hint-font-metrics", name) == 0)
+  else if (strcmp ("bobgui-hint-font-metrics", name) == 0)
     {
       gboolean hint_font_metrics = TRUE;
       GDK_NOTE(MISC, g_print("gdk_screen_get_setting(\"%s\") : %s\n", name,
@@ -388,14 +388,14 @@ gdk_win32_display_get_setting (GdkDisplay  *display,
       g_value_set_boolean (value, hint_font_metrics);
       return TRUE;
     }
-  else if (strcmp ("gtk-im-module", name) == 0)
+  else if (strcmp ("bobgui-im-module", name) == 0)
     {
       const char *im_module = GDK_WIN32_DISPLAY (display)->input_locale_items->notification_sink->input_locale_is_ime ? "ime" : "";
       GDK_NOTE(MISC, g_print("gdk_screen_get_setting(\"%s\") : %s\n", name, im_module));
       g_value_set_static_string (value, im_module);
       return TRUE;
     }
-  else if (strcmp ("gtk-overlay-scrolling", name) == 0)
+  else if (strcmp ("bobgui-overlay-scrolling", name) == 0)
     {
       DWORD val = 0;
       DWORD sz = sizeof (val);
@@ -411,19 +411,19 @@ gdk_win32_display_get_setting (GdkDisplay  *display,
           return TRUE;
         }
     }
-  else if (strcmp ("gtk-shell-shows-desktop", name) == 0)
+  else if (strcmp ("bobgui-shell-shows-desktop", name) == 0)
     {
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : TRUE\n", name));
       g_value_set_boolean (value, TRUE);
       return TRUE;
     }
-  else if (strcmp ("gtk-split-cursor", name) == 0)
+  else if (strcmp ("bobgui-split-cursor", name) == 0)
     {
       GDK_NOTE(MISC, g_print("gdk_display_get_setting(\"%s\") : FALSE\n", name));
       g_value_set_boolean (value, FALSE);
       return TRUE;
     }
-  else if (strcmp ("gtk-theme-name", name) == 0)
+  else if (strcmp ("bobgui-theme-name", name) == 0)
     {
       HIGHCONTRASTW hc;
       memset (&hc, 0, sizeof (hc));
@@ -440,13 +440,13 @@ gdk_win32_display_get_setting (GdkDisplay  *display,
             }
         }
     }
-  else if (strcmp ("gtk-xft-antialias", name) == 0)
+  else if (strcmp ("bobgui-xft-antialias", name) == 0)
     {
       GDK_NOTE(MISC, g_print ("gdk_screen_get_setting(\"%s\") : 1\n", name));
       g_value_set_int (value, 1);
       return TRUE;
     }
-  else if (strcmp ("gtk-xft-dpi", name) == 0)
+  else if (strcmp ("bobgui-xft-dpi", name) == 0)
     {
       GdkWin32Display *display_win32 = GDK_WIN32_DISPLAY (display);
 
@@ -469,19 +469,19 @@ gdk_win32_display_get_setting (GdkDisplay  *display,
             }
         }
     }
-  else if (strcmp ("gtk-xft-hinting", name) == 0)
+  else if (strcmp ("bobgui-xft-hinting", name) == 0)
     {
       GDK_NOTE(MISC, g_print ("gdk_screen_get_setting(\"%s\") : 1\n", name));
       g_value_set_int (value, 1);
       return TRUE;
     }
-  else if (strcmp ("gtk-xft-hintstyle", name) == 0)
+  else if (strcmp ("bobgui-xft-hintstyle", name) == 0)
     {
       g_value_set_static_string (value, "hintfull");
       GDK_NOTE(MISC, g_print ("gdk_screen_get_setting(\"%s\") : %s\n", name, g_value_get_string (value)));
       return TRUE;
     }
-  else if (strcmp ("gtk-xft-rgba", name) == 0)
+  else if (strcmp ("bobgui-xft-rgba", name) == 0)
     {
       unsigned int orientation = 0;
       if (SystemParametersInfoW (SPI_GETFONTSMOOTHINGORIENTATION, 0, &orientation, 0))
@@ -499,7 +499,7 @@ gdk_win32_display_get_setting (GdkDisplay  *display,
       GDK_NOTE(MISC, g_print ("gdk_screen_get_setting(\"%s\") : %s\n", name, g_value_get_string (value)));
       return TRUE;
     }
-  else if (strcmp ("gtk-interface-reduced-motion", name) == 0)
+  else if (strcmp ("bobgui-interface-reduced-motion", name) == 0)
     {
       BOOL val = TRUE;
       /* 0: no-preference

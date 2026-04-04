@@ -128,7 +128,7 @@
 #define SINGLE_PIXEL_BUFFER_VERSION     1
 #define SYSTEM_BELL_VERSION             1
 #define CURSOR_SHAPE_VERSION            2
-#define GTK_SHELL1_VERSION              7
+#define BOBGUI_SHELL1_VERSION              7
 #define XDG_WM_DIALOG_VERSION           1
 #define XDG_TOPLEVEL_ICON_VERSION       1
 #define XDG_WM_BASE_VERSION             7
@@ -365,11 +365,11 @@ postpone_on_globals_closure (GdkWaylandDisplay *display_wayland,
 }
 
 /* }}} */
-/* {{{ gtk_shell listener */
+/* {{{ bobgui_shell listener */
 
 static void
-gtk_shell_handle_capabilities (void              *data,
-                               struct gtk_shell1 *shell,
+bobgui_shell_handle_capabilities (void              *data,
+                               struct bobgui_shell1 *shell,
                                uint32_t           capabilities)
 {
   GdkDisplay *display = data;
@@ -377,13 +377,13 @@ gtk_shell_handle_capabilities (void              *data,
 
   display_wayland->shell_capabilities = capabilities;
 
-  gdk_display_setting_changed (display, "gtk-shell-shows-app-menu");
-  gdk_display_setting_changed (display, "gtk-shell-shows-menubar");
-  gdk_display_setting_changed (display, "gtk-shell-shows-desktop");
+  gdk_display_setting_changed (display, "bobgui-shell-shows-app-menu");
+  gdk_display_setting_changed (display, "bobgui-shell-shows-menubar");
+  gdk_display_setting_changed (display, "bobgui-shell-shows-desktop");
 }
 
-struct gtk_shell1_listener gdk_display_gtk_shell_listener = {
-  gtk_shell_handle_capabilities
+struct bobgui_shell1_listener gdk_display_bobgui_shell_listener = {
+  bobgui_shell_handle_capabilities
 };
 
 /* }}} */
@@ -572,13 +572,13 @@ gdk_registry_handle_global (void               *data,
                           &xx_session_manager_v1_interface,
                           version);
     }
-  else if (match_global (display_wayland, interface, version, gtk_shell1_interface.name, 0))
+  else if (match_global (display_wayland, interface, version, bobgui_shell1_interface.name, 0))
     {
-      display_wayland->gtk_shell =
+      display_wayland->bobgui_shell =
         wl_registry_bind (display_wayland->wl_registry, id,
-                          &gtk_shell1_interface,
-                          MIN (version, GTK_SHELL1_VERSION));
-      gtk_shell1_add_listener (display_wayland->gtk_shell, &gdk_display_gtk_shell_listener, display_wayland);
+                          &bobgui_shell1_interface,
+                          MIN (version, BOBGUI_SHELL1_VERSION));
+      bobgui_shell1_add_listener (display_wayland->bobgui_shell, &gdk_display_bobgui_shell_listener, display_wayland);
     }
   else if (match_global (display_wayland, interface, version, wl_output_interface.name, OUTPUT_MIN_VERSION))
     {
@@ -921,7 +921,7 @@ gdk_wayland_display_dispose (GObject *object)
   g_clear_pointer (&display_wayland->compositor, wl_compositor_destroy);
   g_clear_pointer (&display_wayland->xdg_wm_base, xdg_wm_base_destroy);
   g_clear_pointer (&display_wayland->zxdg_shell_v6, zxdg_shell_v6_destroy);
-  g_clear_pointer (&display_wayland->gtk_shell, gtk_shell1_destroy);
+  g_clear_pointer (&display_wayland->bobgui_shell, bobgui_shell1_destroy);
   g_clear_pointer (&display_wayland->data_device_manager, wl_data_device_manager_destroy);
   g_clear_pointer (&display_wayland->subcompositor, wl_subcompositor_destroy);
   g_clear_pointer (&display_wayland->pointer_gestures, zwp_pointer_gestures_v1_destroy);
@@ -1055,8 +1055,8 @@ gdk_wayland_display_notify_startup_complete (GdkDisplay  *display,
         return;
     }
 
-  if (!display_wayland->xdg_activation && display_wayland->gtk_shell)
-    gtk_shell1_set_startup_id (display_wayland->gtk_shell, startup_id);
+  if (!display_wayland->xdg_activation && display_wayland->bobgui_shell)
+    bobgui_shell1_set_startup_id (display_wayland->bobgui_shell, startup_id);
 
   g_free (free_this);
 }
@@ -1191,7 +1191,7 @@ gdk_wayland_display_system_bell (GdkDisplay *display,
                                  GdkSurface *surface)
 {
   GdkWaylandDisplay *display_wayland;
-  struct gtk_surface1 *gtk_surface = NULL;
+  struct bobgui_surface1 *bobgui_surface = NULL;
   struct wl_surface *wl_surface = NULL;
   gint64 now_ms;
 
@@ -1199,7 +1199,7 @@ gdk_wayland_display_system_bell (GdkDisplay *display,
 
   display_wayland = GDK_WAYLAND_DISPLAY (display);
 
-  if (!display_wayland->gtk_shell &&
+  if (!display_wayland->bobgui_shell &&
       !display_wayland->system_bell)
     return;
 
@@ -1209,7 +1209,7 @@ gdk_wayland_display_system_bell (GdkDisplay *display,
         {
           GdkWaylandToplevel *toplevel = GDK_WAYLAND_TOPLEVEL (surface);
 
-          gtk_surface = gdk_wayland_toplevel_get_gtk_surface (toplevel);
+          bobgui_surface = gdk_wayland_toplevel_get_bobgui_surface (toplevel);
         }
 
       wl_surface = gdk_wayland_surface_get_wl_surface (surface);
@@ -1224,7 +1224,7 @@ gdk_wayland_display_system_bell (GdkDisplay *display,
   if (display_wayland->system_bell)
     xdg_system_bell_v1_ring (display_wayland->system_bell, wl_surface);
   else
-    gtk_shell1_system_bell (display_wayland->gtk_shell, gtk_surface);
+    bobgui_shell1_system_bell (display_wayland->bobgui_shell, bobgui_surface);
 }
 
 void
@@ -1317,7 +1317,7 @@ gdk_wayland_display_set_startup_notification_id (GdkDisplay *display,
  * Sets the cursor theme for the given @display.
  *
  * Deprecated: 4.16: Use the cursor-related properties of
- *   [GtkSettings](../gtk4/class.Settings.html) to set the cursor theme
+ *   [BobguiSettings](../bobgui4/class.Settings.html) to set the cursor theme
  */
 void
 gdk_wayland_display_set_cursor_theme (GdkDisplay *display,

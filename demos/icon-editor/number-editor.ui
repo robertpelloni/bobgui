@@ -1,16 +1,16 @@
 <interface>
-  <template class="NumberEditor" parent="GtkWidget">
+  <template class="NumberEditor" parent="BobguiWidget">
     <style>
       <class name="number-editor"/>
       <class name="linked"/>
     </style>
     <child>
-      <object class="GtkSpinButton" id="value_spin">
+      <object class="BobguiSpinButton" id="value_spin">
         <property name="hexpand">1</property>
         <property name="numeric">1</property>
         <property name="digits">2</property>
         <property name="adjustment">
-          <object class="GtkAdjustment">
+          <object class="BobguiAdjustment">
             <property name="step-increment">0.1</property>
             <property name="page-increment">1</property>
             <property name="lower" bind-source="NumberEditor" bind-property="min" bind-flags="sync-create"/>
@@ -21,10 +21,10 @@
       </object>
     </child>
     <child>
-      <object class="GtkDropDown" id="unit_dropdown">
+      <object class="BobguiDropDown" id="unit_dropdown">
         <property name="show-arrow">0</property>
         <property name="model">
-          <object class="GtkStringList">
+          <object class="BobguiStringList">
             <items>
               <item> </item>
               <item>%</item>

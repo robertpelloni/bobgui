@@ -15,16 +15,16 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 G_MODULE_EXPORT void
-set_letter_spacing (GtkLabel *label)
+set_letter_spacing (BobguiLabel *label)
 {
   PangoAttrList *attrs;
 
   attrs = pango_attr_list_new ();
   pango_attr_list_insert (attrs, pango_attr_letter_spacing_new (10 * PANGO_SCALE));
-  gtk_label_set_attributes (label, attrs);
+  bobgui_label_set_attributes (label, attrs);
   pango_attr_list_unref (attrs);
 }

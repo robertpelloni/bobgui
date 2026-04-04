@@ -17,7 +17,7 @@
  * Authors: Benjamin Otte <otte@gnome.org>
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "path-utils.h"
 

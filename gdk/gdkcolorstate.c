@@ -35,7 +35,7 @@
  * They are also known as
  * [*color spaces*](https://en.wikipedia.org/wiki/Color_space).
  *
- * Crucially, GTK knows how to convert colors from one color
+ * Crucially, BOBGUI knows how to convert colors from one color
  * state to another.
  *
  * `GdkColorState` objects are immutable and therefore threadsafe.

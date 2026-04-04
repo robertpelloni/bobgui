@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -58,7 +58,7 @@ typedef enum {
   GDK_DRAG_STATUS_MOTION_WAIT,
   GDK_DRAG_STATUS_ACTION_WAIT,
   GDK_DRAG_STATUS_DROP
-} GtkDragStatus;
+} BobguiDragStatus;
 
 /*
  * GdkDragProtocol:
@@ -1375,13 +1375,13 @@ gdk_x11_drag_drag_motion (GdkDrag         *drag,
 
   if (protocol == GDK_DRAG_PROTO_XDND && drag_x11->version == 0)
     {
-      /* This ugly hack is necessary since GTK doesn't know about
+      /* This ugly hack is necessary since BOBGUI doesn't know about
        * the XDND protocol version, and in particular doesn't know
        * that gdk_drag_find_window() has the side-effect
        * of setting drag_x11->version, and therefore sometimes call
        * gdk_x11_drag_drag_motion() without a prior call to
        * gdk_drag_find_window(). This happens, e.g.
-       * when GTK is proxying DND events to embedded windows.
+       * when BOBGUI is proxying DND events to embedded windows.
        */
       if (proxy_xid)
         {
@@ -1470,7 +1470,7 @@ gdk_x11_drag_drag_motion (GdkDrag         *drag,
             case GDK_DRAG_PROTO_ROOTWIN:
               {
                 GdkContentFormats *formats = gdk_drag_get_formats (drag);
-                /* GTK traditionally has used application/x-rootwin-drop,
+                /* BOBGUI traditionally has used application/x-rootwin-drop,
                  * but the XDND spec specifies x-rootwindow-drop.
                  */
                 if (gdk_content_formats_contain_mime_type (formats, "application/x-rootwindow-drop") ||
@@ -1820,7 +1820,7 @@ gdk_x11_drag_drop_done (GdkDrag  *drag,
   id = g_timeout_add_full (G_PRIORITY_DEFAULT, 17,
                            gdk_drag_anim_timeout, anim,
                            (GDestroyNotify) gdk_drag_anim_destroy);
-  gdk_source_set_static_name_by_id (id, "[gtk] gdk_drag_anim_timeout");
+  gdk_source_set_static_name_by_id (id, "[bobgui] gdk_drag_anim_timeout");
   g_object_unref (drag);
 }
 

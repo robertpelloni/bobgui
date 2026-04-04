@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gdk/loaders/gdkpngprivate.h"
 #include "gdk/loaders/gdktiffprivate.h"
 #include "gdk/loaders/gdkjpegprivate.h"

@@ -20,28 +20,28 @@
  */
 
 #include "transform-editor.h"
-#include "gtk/svg/gtksvgvalueprivate.h"
-#include "gtk/svg/gtksvgtransformprivate.h"
+#include "bobgui/svg/bobguisvgvalueprivate.h"
+#include "bobgui/svg/bobguisvgtransformprivate.h"
 
 struct _TransformEditor
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   SvgValue *value;
 
-  GtkWidget *box;
-  GtkDropDown *primitive_transform;
-  GtkSpinButton *transform_angle;
-  GtkWidget *center_row;
-  GtkSpinButton *transform_x;
-  GtkSpinButton *transform_y;
-  GtkWidget *transform_params;
-  GtkSpinButton *transform_param0;
-  GtkSpinButton *transform_param1;
-  GtkSpinButton *transform_param2;
-  GtkSpinButton *transform_param3;
-  GtkSpinButton *transform_param4;
-  GtkSpinButton *transform_param5;
+  BobguiWidget *box;
+  BobguiDropDown *primitive_transform;
+  BobguiSpinButton *transform_angle;
+  BobguiWidget *center_row;
+  BobguiSpinButton *transform_x;
+  BobguiSpinButton *transform_y;
+  BobguiWidget *transform_params;
+  BobguiSpinButton *transform_param0;
+  BobguiSpinButton *transform_param1;
+  BobguiSpinButton *transform_param2;
+  BobguiSpinButton *transform_param3;
+  BobguiSpinButton *transform_param4;
+  BobguiSpinButton *transform_param5;
 };
 
 enum
@@ -69,26 +69,26 @@ transform_get_icon (GObject      *object,
     "transform-symbolic",
   };
 
-  if (position == GTK_INVALID_LIST_POSITION)
+  if (position == BOBGUI_INVALID_LIST_POSITION)
     return NULL;
 
-  path = g_strdup_printf ("/org/gtk/Shaper/%s.svg", names[position]);
+  path = g_strdup_printf ("/org/bobgui/Shaper/%s.svg", names[position]);
 
-  return g_object_new (GTK_TYPE_SVG,
+  return g_object_new (BOBGUI_TYPE_SVG,
                        "resource", path,
                        "playing", 1,
                        NULL);
 }
 
-static GtkText *
-get_text (GtkSpinButton *spin)
+static BobguiText *
+get_text (BobguiSpinButton *spin)
 {
-  for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (spin));
+  for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (spin));
        child != NULL;
-       child = gtk_widget_get_next_sibling (child))
+       child = bobgui_widget_get_next_sibling (child))
     {
-      if (GTK_IS_TEXT (child))
-        return GTK_TEXT (child);
+      if (BOBGUI_IS_TEXT (child))
+        return BOBGUI_TEXT (child);
     }
 
   return NULL;
@@ -97,57 +97,57 @@ get_text (GtkSpinButton *spin)
 static void
 transform_type_changed (TransformEditor *self)
 {
-  gtk_widget_set_visible (GTK_WIDGET (self->center_row), FALSE);
-  gtk_widget_set_visible (GTK_WIDGET (self->transform_angle), FALSE);
-  gtk_widget_set_visible (GTK_WIDGET (self->transform_params), FALSE);
-  gtk_spin_button_set_value (self->transform_x, 0);
-  gtk_spin_button_set_value (self->transform_y, 0);
-  gtk_spin_button_set_value (self->transform_angle, 0);
-  gtk_spin_button_set_value (self->transform_param0, 0);
-  gtk_spin_button_set_value (self->transform_param1, 1);
-  gtk_spin_button_set_value (self->transform_param2, 1);
-  gtk_spin_button_set_value (self->transform_param3, 0);
-  gtk_spin_button_set_value (self->transform_param4, 0);
-  gtk_spin_button_set_value (self->transform_param5, 0);
+  bobgui_widget_set_visible (BOBGUI_WIDGET (self->center_row), FALSE);
+  bobgui_widget_set_visible (BOBGUI_WIDGET (self->transform_angle), FALSE);
+  bobgui_widget_set_visible (BOBGUI_WIDGET (self->transform_params), FALSE);
+  bobgui_spin_button_set_value (self->transform_x, 0);
+  bobgui_spin_button_set_value (self->transform_y, 0);
+  bobgui_spin_button_set_value (self->transform_angle, 0);
+  bobgui_spin_button_set_value (self->transform_param0, 0);
+  bobgui_spin_button_set_value (self->transform_param1, 1);
+  bobgui_spin_button_set_value (self->transform_param2, 1);
+  bobgui_spin_button_set_value (self->transform_param3, 0);
+  bobgui_spin_button_set_value (self->transform_param4, 0);
+  bobgui_spin_button_set_value (self->transform_param5, 0);
 
-  switch (gtk_drop_down_get_selected (self->primitive_transform))
+  switch (bobgui_drop_down_get_selected (self->primitive_transform))
     {
     case TRANSFORM_NONE:
       break;
     case TRANSFORM_SKEW_X:
     case TRANSFORM_SKEW_Y:
-      gtk_widget_set_visible (GTK_WIDGET (self->transform_angle), TRUE);
-      gtk_text_set_placeholder_text (get_text (self->transform_angle), "Angle…");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->transform_angle), "Angle");
+      bobgui_widget_set_visible (BOBGUI_WIDGET (self->transform_angle), TRUE);
+      bobgui_text_set_placeholder_text (get_text (self->transform_angle), "Angle…");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->transform_angle), "Angle");
       break;
     case TRANSFORM_ROTATE:
-      gtk_widget_set_visible (GTK_WIDGET (self->transform_angle), TRUE);
-      gtk_widget_set_visible (GTK_WIDGET (self->center_row), TRUE);
-      gtk_text_set_placeholder_text (get_text (self->transform_angle), "Angle…");
-      gtk_text_set_placeholder_text (get_text (self->transform_x), "Center X…");
-      gtk_text_set_placeholder_text (get_text (self->transform_y), "Center Y‥");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->transform_angle), "Angle");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->transform_x), "Center X");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->transform_y), "Center X");
+      bobgui_widget_set_visible (BOBGUI_WIDGET (self->transform_angle), TRUE);
+      bobgui_widget_set_visible (BOBGUI_WIDGET (self->center_row), TRUE);
+      bobgui_text_set_placeholder_text (get_text (self->transform_angle), "Angle…");
+      bobgui_text_set_placeholder_text (get_text (self->transform_x), "Center X…");
+      bobgui_text_set_placeholder_text (get_text (self->transform_y), "Center Y‥");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->transform_angle), "Angle");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->transform_x), "Center X");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->transform_y), "Center X");
       break;
     case TRANSFORM_TRANSLATE:
-      gtk_widget_set_visible (GTK_WIDGET (self->center_row), TRUE);
-      gtk_text_set_placeholder_text (get_text (self->transform_x), "X Shift…");
-      gtk_text_set_placeholder_text (get_text (self->transform_y), "Y Shift‥");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->transform_x), "X Shift");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->transform_y), "Y Shift");
+      bobgui_widget_set_visible (BOBGUI_WIDGET (self->center_row), TRUE);
+      bobgui_text_set_placeholder_text (get_text (self->transform_x), "X Shift…");
+      bobgui_text_set_placeholder_text (get_text (self->transform_y), "Y Shift‥");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->transform_x), "X Shift");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->transform_y), "Y Shift");
       break;
     case TRANSFORM_SCALE:
-      gtk_spin_button_set_value (self->transform_x, 1);
-      gtk_spin_button_set_value (self->transform_y, 1);
-      gtk_widget_set_visible (GTK_WIDGET (self->center_row), TRUE);
-      gtk_text_set_placeholder_text (get_text (self->transform_x), "X Scale‥");
-      gtk_text_set_placeholder_text (get_text (self->transform_y), "Y Scale‥");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->transform_x), "X Scale");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->transform_y), "Y Scale");
+      bobgui_spin_button_set_value (self->transform_x, 1);
+      bobgui_spin_button_set_value (self->transform_y, 1);
+      bobgui_widget_set_visible (BOBGUI_WIDGET (self->center_row), TRUE);
+      bobgui_text_set_placeholder_text (get_text (self->transform_x), "X Scale‥");
+      bobgui_text_set_placeholder_text (get_text (self->transform_y), "Y Scale‥");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->transform_x), "X Scale");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->transform_y), "Y Scale");
       break;
     case TRANSFORM_MATRIX:
-      gtk_widget_set_visible (GTK_WIDGET (self->transform_params), TRUE);
+      bobgui_widget_set_visible (BOBGUI_WIDGET (self->transform_params), TRUE);
       break;
     default:
       g_assert_not_reached ();
@@ -161,17 +161,17 @@ transform_changed (TransformEditor *self)
   double angle, x, y;
   double params[6];
 
-  angle = gtk_spin_button_get_value (self->transform_angle);
-  x = gtk_spin_button_get_value (self->transform_x);
-  y = gtk_spin_button_get_value (self->transform_y);
-  params[0] = gtk_spin_button_get_value (self->transform_param0);
-  params[1] = gtk_spin_button_get_value (self->transform_param1);
-  params[2] = gtk_spin_button_get_value (self->transform_param2);
-  params[3] = gtk_spin_button_get_value (self->transform_param3);
-  params[4] = gtk_spin_button_get_value (self->transform_param4);
-  params[5] = gtk_spin_button_get_value (self->transform_param5);
+  angle = bobgui_spin_button_get_value (self->transform_angle);
+  x = bobgui_spin_button_get_value (self->transform_x);
+  y = bobgui_spin_button_get_value (self->transform_y);
+  params[0] = bobgui_spin_button_get_value (self->transform_param0);
+  params[1] = bobgui_spin_button_get_value (self->transform_param1);
+  params[2] = bobgui_spin_button_get_value (self->transform_param2);
+  params[3] = bobgui_spin_button_get_value (self->transform_param3);
+  params[4] = bobgui_spin_button_get_value (self->transform_param4);
+  params[5] = bobgui_spin_button_get_value (self->transform_param5);
 
-  switch (gtk_drop_down_get_selected (self->primitive_transform))
+  switch (bobgui_drop_down_get_selected (self->primitive_transform))
     {
     case TRANSFORM_NONE:
       value = svg_transform_new_none ();
@@ -208,20 +208,20 @@ transform_changed (TransformEditor *self)
 
 struct _TransformEditorClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (TransformEditor, transform_editor, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (TransformEditor, transform_editor, BOBGUI_TYPE_WIDGET)
 
 static void
-unbutton_spin (GtkSpinButton *spin)
+unbutton_spin (BobguiSpinButton *spin)
 {
-  for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (spin));
+  for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (spin));
        child != NULL;
-       child = gtk_widget_get_next_sibling (child))
+       child = bobgui_widget_get_next_sibling (child))
     {
-      if (GTK_IS_BUTTON (child))
-        gtk_widget_set_visible (child, FALSE);
+      if (BOBGUI_IS_BUTTON (child))
+        bobgui_widget_set_visible (child, FALSE);
     }
 }
 
@@ -230,7 +230,7 @@ transform_editor_init (TransformEditor *self)
 {
   self->value = svg_transform_parse ("none");
 
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 
   /* We want numeric entries, but there's no space
    * for buttons, so...
@@ -245,25 +245,25 @@ transform_editor_init (TransformEditor *self)
   unbutton_spin (self->transform_param4);
   unbutton_spin (self->transform_param5);
 
-  for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (self->primitive_transform));
+  for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->primitive_transform));
        child != NULL;
-       child = gtk_widget_get_next_sibling (child))
+       child = bobgui_widget_get_next_sibling (child))
     {
-      if (GTK_IS_TOGGLE_BUTTON (child))
+      if (BOBGUI_IS_TOGGLE_BUTTON (child))
         {
-          for (GtkWidget *grand_child = gtk_widget_get_first_child (child);
+          for (BobguiWidget *grand_child = bobgui_widget_get_first_child (child);
                grand_child != NULL;
-               grand_child = gtk_widget_get_next_sibling (grand_child))
+               grand_child = bobgui_widget_get_next_sibling (grand_child))
             {
-              if (GTK_IS_BOX (grand_child))
+              if (BOBGUI_IS_BOX (grand_child))
                 {
-                  for (GtkWidget *gg_child = gtk_widget_get_first_child (grand_child);
+                  for (BobguiWidget *gg_child = bobgui_widget_get_first_child (grand_child);
                        gg_child != NULL;
-                       gg_child = gtk_widget_get_next_sibling (gg_child))
+                       gg_child = bobgui_widget_get_next_sibling (gg_child))
                     {
-                      if (strcmp (G_OBJECT_TYPE_NAME (gg_child), "GtkBuiltinIcon") == 0)
+                      if (strcmp (G_OBJECT_TYPE_NAME (gg_child), "BobguiBuiltinIcon") == 0)
                         {
-                          gtk_widget_set_visible (gg_child, FALSE);
+                          bobgui_widget_set_visible (gg_child, FALSE);
                           break;
                         }
                     }
@@ -322,7 +322,7 @@ transform_editor_dispose (GObject *object)
 {
   //TransformEditor *self = TRANSFORM_EDITOR (object);
 
-  gtk_widget_dispose_template (GTK_WIDGET (object), transform_editor_get_type ());
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), transform_editor_get_type ());
 
   G_OBJECT_CLASS (transform_editor_parent_class)->dispose (object);
 }
@@ -341,7 +341,7 @@ static void
 transform_editor_class_init (TransformEditorClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->set_property = transform_editor_set_property;
   object_class->get_property = transform_editor_get_property;
@@ -355,28 +355,28 @@ transform_editor_class_init (TransformEditorClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gtk/Shaper/transform-editor.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class, "/org/bobgui/Shaper/transform-editor.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, box);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, primitive_transform);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, center_row);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_x);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_y);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_angle);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_params);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_param0);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_param1);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_param2);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_param3);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_param4);
-  gtk_widget_class_bind_template_child (widget_class, TransformEditor, transform_param5);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, box);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, primitive_transform);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, center_row);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_x);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_y);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_angle);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_params);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_param0);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_param1);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_param2);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_param3);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_param4);
+  bobgui_widget_class_bind_template_child (widget_class, TransformEditor, transform_param5);
 
-  gtk_widget_class_bind_template_callback (widget_class, transform_changed);
-  gtk_widget_class_bind_template_callback (widget_class, transform_type_changed);
-  gtk_widget_class_bind_template_callback (widget_class, transform_get_icon);
+  bobgui_widget_class_bind_template_callback (widget_class, transform_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, transform_type_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, transform_get_icon);
 
-  gtk_widget_class_set_css_name (widget_class, "TransformEditor");
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
+  bobgui_widget_class_set_css_name (widget_class, "TransformEditor");
+  bobgui_widget_class_set_layout_manager_type (widget_class, BOBGUI_TYPE_BIN_LAYOUT);
 }
 
 /*  }}} */
@@ -405,32 +405,32 @@ transform_editor_set_transform (TransformEditor *self,
 
   type = svg_transform_get_primitive (value, 0, params);
 
-  gtk_drop_down_set_selected (self->primitive_transform, type);
+  bobgui_drop_down_set_selected (self->primitive_transform, type);
   switch (type)
     {
     case TRANSFORM_NONE:
       break;
     case TRANSFORM_TRANSLATE:
     case TRANSFORM_SCALE:
-      gtk_spin_button_set_value (self->transform_x, params[0]);
-      gtk_spin_button_set_value (self->transform_y, params[1]);
+      bobgui_spin_button_set_value (self->transform_x, params[0]);
+      bobgui_spin_button_set_value (self->transform_y, params[1]);
       break;
     case TRANSFORM_ROTATE:
-      gtk_spin_button_set_value (self->transform_angle, params[0]);
-      gtk_spin_button_set_value (self->transform_x, params[1]);
-      gtk_spin_button_set_value (self->transform_y, params[2]);
+      bobgui_spin_button_set_value (self->transform_angle, params[0]);
+      bobgui_spin_button_set_value (self->transform_x, params[1]);
+      bobgui_spin_button_set_value (self->transform_y, params[2]);
       break;
     case TRANSFORM_SKEW_X:
     case TRANSFORM_SKEW_Y:
-      gtk_spin_button_set_value (self->transform_angle, params[0]);
+      bobgui_spin_button_set_value (self->transform_angle, params[0]);
       break;
     case TRANSFORM_MATRIX:
-      gtk_spin_button_set_value (self->transform_param0, params[0]);
-      gtk_spin_button_set_value (self->transform_param1, params[1]);
-      gtk_spin_button_set_value (self->transform_param2, params[2]);
-      gtk_spin_button_set_value (self->transform_param3, params[3]);
-      gtk_spin_button_set_value (self->transform_param4, params[4]);
-      gtk_spin_button_set_value (self->transform_param5, params[5]);
+      bobgui_spin_button_set_value (self->transform_param0, params[0]);
+      bobgui_spin_button_set_value (self->transform_param1, params[1]);
+      bobgui_spin_button_set_value (self->transform_param2, params[2]);
+      bobgui_spin_button_set_value (self->transform_param3, params[3]);
+      bobgui_spin_button_set_value (self->transform_param4, params[4]);
+      bobgui_spin_button_set_value (self->transform_param5, params[5]);
       break;
     default:
       g_assert_not_reached ();

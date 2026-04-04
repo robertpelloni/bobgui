@@ -236,78 +236,78 @@ update_xft_settings (GdkDisplay *display)
   if (display_wayland->xft_settings.antialias != xft_settings.antialias)
     {
       display_wayland->xft_settings.antialias = xft_settings.antialias;
-      gdk_display_setting_changed (display, "gtk-xft-antialias");
+      gdk_display_setting_changed (display, "bobgui-xft-antialias");
     }
 
   if (display_wayland->xft_settings.hinting != xft_settings.hinting)
     {
       display_wayland->xft_settings.hinting = xft_settings.hinting;
-      gdk_display_setting_changed (display, "gtk-xft-hinting");
+      gdk_display_setting_changed (display, "bobgui-xft-hinting");
     }
 
   if (display_wayland->xft_settings.hintstyle != xft_settings.hintstyle)
     {
       display_wayland->xft_settings.hintstyle = xft_settings.hintstyle;
-      gdk_display_setting_changed (display, "gtk-xft-hintstyle");
+      gdk_display_setting_changed (display, "bobgui-xft-hintstyle");
     }
 
   if (display_wayland->xft_settings.rgba != xft_settings.rgba)
     {
       display_wayland->xft_settings.rgba = xft_settings.rgba;
-      gdk_display_setting_changed (display, "gtk-xft-rgba");
+      gdk_display_setting_changed (display, "bobgui-xft-rgba");
     }
 
   if (display_wayland->xft_settings.dpi != xft_settings.dpi)
     {
       display_wayland->xft_settings.dpi = xft_settings.dpi;
-      gdk_display_setting_changed (display, "gtk-xft-dpi");
+      gdk_display_setting_changed (display, "bobgui-xft-dpi");
     }
 }
 
 static TranslationEntry translations[] = {
-  { FALSE, "org.gnome.desktop.interface", "gtk-theme", "gtk-theme-name" , G_TYPE_STRING, { .s = "Adwaita" } },
-  { FALSE, "org.gnome.desktop.interface", "icon-theme", "gtk-icon-theme-name", G_TYPE_STRING, { .s = "gnome" } },
-  { FALSE, "org.gnome.desktop.interface", "cursor-theme", "gtk-cursor-theme-name", G_TYPE_STRING, { .s = "Adwaita" } },
-  { FALSE, "org.gnome.desktop.interface", "cursor-size", "gtk-cursor-theme-size", G_TYPE_INT, { .i = 24 } },
-  { FALSE, "org.gnome.desktop.interface", "font-name", "gtk-font-name", G_TYPE_STRING, { .s = "Adwaita Sans 11" } },
-  { FALSE, "org.gnome.desktop.interface", "cursor-blink", "gtk-cursor-blink", G_TYPE_BOOLEAN,  { .b = TRUE } },
-  { FALSE, "org.gnome.desktop.interface", "cursor-blink-time", "gtk-cursor-blink-time", G_TYPE_INT, { .i = 1200 } },
-  { FALSE, "org.gnome.desktop.interface", "cursor-blink-timeout", "gtk-cursor-blink-timeout", G_TYPE_INT, { .i = 3600 } },
-  { FALSE, "org.gnome.desktop.interface", "gtk-im-module", "gtk-im-module", G_TYPE_STRING, { .s = "simple" } },
-  { FALSE, "org.gnome.desktop.interface", "enable-animations", "gtk-enable-animations", G_TYPE_BOOLEAN, { .b = TRUE } },
-  { FALSE, "org.gnome.desktop.interface", "gtk-enable-primary-paste", "gtk-enable-primary-paste", G_TYPE_BOOLEAN, { .b = TRUE } },
-  { FALSE, "org.gnome.desktop.interface", "overlay-scrolling", "gtk-overlay-scrolling", G_TYPE_BOOLEAN, { .b = TRUE } },
-  { FALSE, "org.gnome.desktop.peripherals.mouse", "double-click", "gtk-double-click-time", G_TYPE_INT, { .i = 400 } },
-  { FALSE, "org.gnome.desktop.peripherals.mouse", "drag-threshold", "gtk-dnd-drag-threshold", G_TYPE_INT, {.i = 8 } },
-  { FALSE, "org.gnome.settings-daemon.peripherals.mouse", "double-click", "gtk-double-click-time", G_TYPE_INT, { .i = 400 } },
-  { FALSE, "org.gnome.settings-daemon.peripherals.mouse", "drag-threshold", "gtk-dnd-drag-threshold", G_TYPE_INT, {.i = 8 } },
-  { FALSE, "org.gnome.desktop.sound", "theme-name", "gtk-sound-theme-name", G_TYPE_STRING, { .s = "freedesktop" } },
-  { FALSE, "org.gnome.desktop.sound", "event-sounds", "gtk-enable-event-sounds", G_TYPE_BOOLEAN, { .b = TRUE } },
-  { FALSE, "org.gnome.desktop.sound", "input-feedback-sounds", "gtk-enable-input-feedback-sounds", G_TYPE_BOOLEAN, { . b = FALSE } },
-  { FALSE, "org.gnome.desktop.privacy", "recent-files-max-age", "gtk-recent-files-max-age", G_TYPE_INT, { .i = 30 } },
-  { FALSE, "org.gnome.desktop.privacy", "remember-recent-files",    "gtk-recent-files-enabled", G_TYPE_BOOLEAN, { .b = TRUE } },
-  { FALSE, "org.gnome.desktop.wm.preferences", "button-layout",    "gtk-decoration-layout", G_TYPE_STRING, { .s = "menu:close" } },
-  { FALSE, "org.gnome.desktop.interface", "font-antialiasing", "gtk-xft-antialias", G_TYPE_NONE, { .i = 1 } },
-  { FALSE, "org.gnome.desktop.interface", "font-hinting", "gtk-xft-hinting", G_TYPE_NONE, { .i = 1 } },
-  { FALSE, "org.gnome.desktop.interface", "font-hinting", "gtk-xft-hintstyle", G_TYPE_NONE, { .i = 1 } },
-  { FALSE, "org.gnome.desktop.interface", "font-rgba-order", "gtk-xft-rgba", G_TYPE_NONE, { .i = 0 } },
-  { FALSE, "org.gnome.desktop.interface", "font-rendering", "gtk-font-rendering", G_TYPE_ENUM, { .i = 0 } },
-  { FALSE, "org.gnome.settings-daemon.plugins.xsettings", "antialiasing", "gtk-xft-antialias", G_TYPE_NONE, { .i = 1 } },
-  { FALSE, "org.gnome.settings-daemon.plugins.xsettings", "hinting", "gtk-xft-hinting", G_TYPE_NONE, { .i = 1 } },
-  { FALSE, "org.gnome.settings-daemon.plugins.xsettings", "hinting", "gtk-xft-hintstyle", G_TYPE_NONE, { .i = 1 } },
-  { FALSE, "org.gnome.settings-daemon.plugins.xsettings", "rgba-order", "gtk-xft-rgba", G_TYPE_NONE, { .i = 0 } },
-  { FALSE, "org.gnome.desktop.interface", "text-scaling-factor", "gtk-xft-dpi" , G_TYPE_NONE, { .i = 0 } }, /* We store the factor as 16.16 */
-  { FALSE, "org.gnome.desktop.wm.preferences", "action-double-click-titlebar", "gtk-titlebar-double-click", G_TYPE_STRING, { .s = "toggle-maximize" } },
-  { FALSE, "org.gnome.desktop.wm.preferences", "action-middle-click-titlebar", "gtk-titlebar-middle-click", G_TYPE_STRING, { .s = "none" } },
-  { FALSE, "org.gnome.desktop.wm.preferences", "action-right-click-titlebar", "gtk-titlebar-right-click", G_TYPE_STRING, { .s = "menu" } },
-  { FALSE, "org.gnome.desktop.a11y", "always-show-text-caret", "gtk-keynav-use-caret", G_TYPE_BOOLEAN, { .b = FALSE } },
+  { FALSE, "org.gnome.desktop.interface", "bobgui-theme", "bobgui-theme-name" , G_TYPE_STRING, { .s = "Adwaita" } },
+  { FALSE, "org.gnome.desktop.interface", "icon-theme", "bobgui-icon-theme-name", G_TYPE_STRING, { .s = "gnome" } },
+  { FALSE, "org.gnome.desktop.interface", "cursor-theme", "bobgui-cursor-theme-name", G_TYPE_STRING, { .s = "Adwaita" } },
+  { FALSE, "org.gnome.desktop.interface", "cursor-size", "bobgui-cursor-theme-size", G_TYPE_INT, { .i = 24 } },
+  { FALSE, "org.gnome.desktop.interface", "font-name", "bobgui-font-name", G_TYPE_STRING, { .s = "Adwaita Sans 11" } },
+  { FALSE, "org.gnome.desktop.interface", "cursor-blink", "bobgui-cursor-blink", G_TYPE_BOOLEAN,  { .b = TRUE } },
+  { FALSE, "org.gnome.desktop.interface", "cursor-blink-time", "bobgui-cursor-blink-time", G_TYPE_INT, { .i = 1200 } },
+  { FALSE, "org.gnome.desktop.interface", "cursor-blink-timeout", "bobgui-cursor-blink-timeout", G_TYPE_INT, { .i = 3600 } },
+  { FALSE, "org.gnome.desktop.interface", "bobgui-im-module", "bobgui-im-module", G_TYPE_STRING, { .s = "simple" } },
+  { FALSE, "org.gnome.desktop.interface", "enable-animations", "bobgui-enable-animations", G_TYPE_BOOLEAN, { .b = TRUE } },
+  { FALSE, "org.gnome.desktop.interface", "bobgui-enable-primary-paste", "bobgui-enable-primary-paste", G_TYPE_BOOLEAN, { .b = TRUE } },
+  { FALSE, "org.gnome.desktop.interface", "overlay-scrolling", "bobgui-overlay-scrolling", G_TYPE_BOOLEAN, { .b = TRUE } },
+  { FALSE, "org.gnome.desktop.peripherals.mouse", "double-click", "bobgui-double-click-time", G_TYPE_INT, { .i = 400 } },
+  { FALSE, "org.gnome.desktop.peripherals.mouse", "drag-threshold", "bobgui-dnd-drag-threshold", G_TYPE_INT, {.i = 8 } },
+  { FALSE, "org.gnome.settings-daemon.peripherals.mouse", "double-click", "bobgui-double-click-time", G_TYPE_INT, { .i = 400 } },
+  { FALSE, "org.gnome.settings-daemon.peripherals.mouse", "drag-threshold", "bobgui-dnd-drag-threshold", G_TYPE_INT, {.i = 8 } },
+  { FALSE, "org.gnome.desktop.sound", "theme-name", "bobgui-sound-theme-name", G_TYPE_STRING, { .s = "freedesktop" } },
+  { FALSE, "org.gnome.desktop.sound", "event-sounds", "bobgui-enable-event-sounds", G_TYPE_BOOLEAN, { .b = TRUE } },
+  { FALSE, "org.gnome.desktop.sound", "input-feedback-sounds", "bobgui-enable-input-feedback-sounds", G_TYPE_BOOLEAN, { . b = FALSE } },
+  { FALSE, "org.gnome.desktop.privacy", "recent-files-max-age", "bobgui-recent-files-max-age", G_TYPE_INT, { .i = 30 } },
+  { FALSE, "org.gnome.desktop.privacy", "remember-recent-files",    "bobgui-recent-files-enabled", G_TYPE_BOOLEAN, { .b = TRUE } },
+  { FALSE, "org.gnome.desktop.wm.preferences", "button-layout",    "bobgui-decoration-layout", G_TYPE_STRING, { .s = "menu:close" } },
+  { FALSE, "org.gnome.desktop.interface", "font-antialiasing", "bobgui-xft-antialias", G_TYPE_NONE, { .i = 1 } },
+  { FALSE, "org.gnome.desktop.interface", "font-hinting", "bobgui-xft-hinting", G_TYPE_NONE, { .i = 1 } },
+  { FALSE, "org.gnome.desktop.interface", "font-hinting", "bobgui-xft-hintstyle", G_TYPE_NONE, { .i = 1 } },
+  { FALSE, "org.gnome.desktop.interface", "font-rgba-order", "bobgui-xft-rgba", G_TYPE_NONE, { .i = 0 } },
+  { FALSE, "org.gnome.desktop.interface", "font-rendering", "bobgui-font-rendering", G_TYPE_ENUM, { .i = 0 } },
+  { FALSE, "org.gnome.settings-daemon.plugins.xsettings", "antialiasing", "bobgui-xft-antialias", G_TYPE_NONE, { .i = 1 } },
+  { FALSE, "org.gnome.settings-daemon.plugins.xsettings", "hinting", "bobgui-xft-hinting", G_TYPE_NONE, { .i = 1 } },
+  { FALSE, "org.gnome.settings-daemon.plugins.xsettings", "hinting", "bobgui-xft-hintstyle", G_TYPE_NONE, { .i = 1 } },
+  { FALSE, "org.gnome.settings-daemon.plugins.xsettings", "rgba-order", "bobgui-xft-rgba", G_TYPE_NONE, { .i = 0 } },
+  { FALSE, "org.gnome.desktop.interface", "text-scaling-factor", "bobgui-xft-dpi" , G_TYPE_NONE, { .i = 0 } }, /* We store the factor as 16.16 */
+  { FALSE, "org.gnome.desktop.wm.preferences", "action-double-click-titlebar", "bobgui-titlebar-double-click", G_TYPE_STRING, { .s = "toggle-maximize" } },
+  { FALSE, "org.gnome.desktop.wm.preferences", "action-middle-click-titlebar", "bobgui-titlebar-middle-click", G_TYPE_STRING, { .s = "none" } },
+  { FALSE, "org.gnome.desktop.wm.preferences", "action-right-click-titlebar", "bobgui-titlebar-right-click", G_TYPE_STRING, { .s = "menu" } },
+  { FALSE, "org.gnome.desktop.a11y", "always-show-text-caret", "bobgui-keynav-use-caret", G_TYPE_BOOLEAN, { .b = FALSE } },
   { FALSE, "org.gnome.desktop.a11y.interface", "high-contrast", "high-contrast", G_TYPE_NONE, { .b = FALSE } },
-  { FALSE, "org.gnome.desktop.a11y.interface", "show-status-shapes", "gtk-show-status-shapes", G_TYPE_BOOLEAN, { .b = FALSE } },
-  { FALSE, "org.freedesktop.appearance", "color-scheme", "gtk-interface-color-scheme", G_TYPE_ENUM, { .i = 0 } },
-  { FALSE, "org.freedesktop.appearance", "contrast", "gtk-interface-contrast", G_TYPE_ENUM, { .i = 0 } },
-  { FALSE, "org.freedesktop.appearance", "reduced-motion", "gtk-interface-reduced-motion", G_TYPE_ENUM, { .i = 0 } },
+  { FALSE, "org.gnome.desktop.a11y.interface", "show-status-shapes", "bobgui-show-status-shapes", G_TYPE_BOOLEAN, { .b = FALSE } },
+  { FALSE, "org.freedesktop.appearance", "color-scheme", "bobgui-interface-color-scheme", G_TYPE_ENUM, { .i = 0 } },
+  { FALSE, "org.freedesktop.appearance", "contrast", "bobgui-interface-contrast", G_TYPE_ENUM, { .i = 0 } },
+  { FALSE, "org.freedesktop.appearance", "reduced-motion", "bobgui-interface-reduced-motion", G_TYPE_ENUM, { .i = 0 } },
   /* Note, this setting doesn't exist, the portal and gsd fake it */
-  { FALSE, "org.gnome.fontconfig", "serial", "gtk-fontconfig-timestamp", G_TYPE_NONE, { .i = 0 } },
+  { FALSE, "org.gnome.fontconfig", "serial", "bobgui-fontconfig-timestamp", G_TYPE_NONE, { .i = 0 } },
 };
 
 
@@ -546,17 +546,17 @@ set_value_from_entry (GdkDisplay       *display,
           g_value_set_enum (value, entry->fallback.i);
           break;
         case G_TYPE_NONE:
-          if (g_str_equal (entry->setting, "gtk-fontconfig-timestamp"))
+          if (g_str_equal (entry->setting, "bobgui-fontconfig-timestamp"))
             g_value_set_uint (value, (guint)entry->fallback.i);
-          else if (g_str_equal (entry->setting, "gtk-xft-antialias"))
+          else if (g_str_equal (entry->setting, "bobgui-xft-antialias"))
             g_value_set_int (value, display_wayland->xft_settings.antialias);
-          else if (g_str_equal (entry->setting, "gtk-xft-hinting"))
+          else if (g_str_equal (entry->setting, "bobgui-xft-hinting"))
             g_value_set_int (value, display_wayland->xft_settings.hinting);
-          else if (g_str_equal (entry->setting, "gtk-xft-hintstyle"))
+          else if (g_str_equal (entry->setting, "bobgui-xft-hintstyle"))
             g_value_set_static_string (value, display_wayland->xft_settings.hintstyle);
-          else if (g_str_equal (entry->setting, "gtk-xft-rgba"))
+          else if (g_str_equal (entry->setting, "bobgui-xft-rgba"))
             g_value_set_static_string (value, display_wayland->xft_settings.rgba);
-          else if (g_str_equal (entry->setting, "gtk-xft-dpi"))
+          else if (g_str_equal (entry->setting, "bobgui-xft-dpi"))
             g_value_set_int (value, display_wayland->xft_settings.dpi);
           else
             g_assert_not_reached ();
@@ -571,7 +571,7 @@ set_value_from_entry (GdkDisplay       *display,
 static gboolean
 set_capability_setting (GdkDisplay                *display,
                         GValue                    *value,
-                        enum gtk_shell1_capability test)
+                        enum bobgui_shell1_capability test)
 {
   GdkWaylandDisplay *display_wayland = GDK_WAYLAND_DISPLAY (display);
   int testbit = 1 << (test - 1);
@@ -602,16 +602,16 @@ gdk_wayland_display_get_setting (GdkDisplay *display,
         }
     }
 
-  if (strcmp (name, "gtk-shell-shows-app-menu") == 0)
-    return set_capability_setting (display, value, GTK_SHELL1_CAPABILITY_GLOBAL_APP_MENU);
+  if (strcmp (name, "bobgui-shell-shows-app-menu") == 0)
+    return set_capability_setting (display, value, BOBGUI_SHELL1_CAPABILITY_GLOBAL_APP_MENU);
 
-  if (strcmp (name, "gtk-shell-shows-menubar") == 0)
-    return set_capability_setting (display, value, GTK_SHELL1_CAPABILITY_GLOBAL_MENU_BAR);
+  if (strcmp (name, "bobgui-shell-shows-menubar") == 0)
+    return set_capability_setting (display, value, BOBGUI_SHELL1_CAPABILITY_GLOBAL_MENU_BAR);
 
-  if (strcmp (name, "gtk-shell-shows-desktop") == 0)
-    return set_capability_setting (display, value, GTK_SHELL1_CAPABILITY_DESKTOP_ICONS);
+  if (strcmp (name, "bobgui-shell-shows-desktop") == 0)
+    return set_capability_setting (display, value, BOBGUI_SHELL1_CAPABILITY_DESKTOP_ICONS);
 
-  if (strcmp (name, "gtk-dialogs-use-header") == 0)
+  if (strcmp (name, "bobgui-dialogs-use-header") == 0)
     {
       g_value_set_boolean (value, TRUE);
       return TRUE;

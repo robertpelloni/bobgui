@@ -114,45 +114,45 @@ _gdk_macos_display_get_setting (GdkMacosDisplay *self,
     }
 
   if (FALSE) {}
-  else if (strcmp (setting, "gtk-interface-reduced-motion") == 0)
+  else if (strcmp (setting, "bobgui-interface-reduced-motion") == 0)
     {
-      /* 0: GTK_REDUCED_MOTION_NO_PREFERENCE
-       * 1: GTK_REDUCED_MOTION_REDUCE
+      /* 0: BOBGUI_REDUCED_MOTION_NO_PREFERENCE
+       * 1: BOBGUI_REDUCED_MOTION_REDUCE
        */
       g_value_set_enum (value, current_settings.reduced_motion ? 1 : 0);
       ret = TRUE;
     }
-  else if (strcmp (setting, "gtk-xft-dpi") == 0)
+  else if (strcmp (setting, "bobgui-xft-dpi") == 0)
     {
       g_value_set_int (value, current_settings.xft_dpi);
       ret = TRUE;
     }
-  else if (strcmp (setting, "gtk-cursor-blink-time") == 0)
+  else if (strcmp (setting, "bobgui-cursor-blink-time") == 0)
     {
       g_value_set_int (value, current_settings.cursor_blink_time);
       ret = TRUE;
     }
-  else if (strcmp (setting, "gtk-double-click-time") == 0)
+  else if (strcmp (setting, "bobgui-double-click-time") == 0)
     {
       g_value_set_int (value, current_settings.double_click_time);
       ret = TRUE;
     }
-  else if (strcmp (setting, "gtk-font-name") == 0)
+  else if (strcmp (setting, "bobgui-font-name") == 0)
     {
       g_value_set_static_string (value, current_settings.font_name);
       ret = TRUE;
     }
-  else if (strcmp (setting, "gtk-primary-button-warps-slider") == 0)
+  else if (strcmp (setting, "bobgui-primary-button-warps-slider") == 0)
     {
       g_value_set_boolean (value, current_settings.primary_button_warps_slider);
       ret = TRUE;
     }
-  else if (strcmp (setting, "gtk-shell-shows-desktop") == 0)
+  else if (strcmp (setting, "bobgui-shell-shows-desktop") == 0)
     {
       g_value_set_boolean (value, current_settings.shell_shows_desktop);
       ret = TRUE;
     }
-  else if (strcmp (setting, "gtk-shell-shows-menubar") == 0)
+  else if (strcmp (setting, "bobgui-shell-shows-menubar") == 0)
     {
       g_value_set_boolean (value, current_settings.shell_shows_menubar);
       ret = TRUE;
@@ -175,23 +175,23 @@ _gdk_macos_display_reload_settings (GdkMacosDisplay *self)
   current_settings_initialized = TRUE;
 
   if (old_settings.xft_dpi != current_settings.xft_dpi)
-    gdk_display_setting_changed (GDK_DISPLAY (self), "gtk-xft-dpi");
+    gdk_display_setting_changed (GDK_DISPLAY (self), "bobgui-xft-dpi");
 
   if (old_settings.double_click_time != current_settings.double_click_time)
-    gdk_display_setting_changed (GDK_DISPLAY (self), "gtk-double-click-time");
+    gdk_display_setting_changed (GDK_DISPLAY (self), "bobgui-double-click-time");
 
   if (old_settings.reduced_motion != current_settings.reduced_motion)
-    gdk_display_setting_changed (GDK_DISPLAY (self), "gtk-interface-reduced-motion");
+    gdk_display_setting_changed (GDK_DISPLAY (self), "bobgui-interface-reduced-motion");
 
   if (old_settings.font_name != current_settings.font_name)
-    gdk_display_setting_changed (GDK_DISPLAY (self), "gtk-font-name");
+    gdk_display_setting_changed (GDK_DISPLAY (self), "bobgui-font-name");
 
   if (old_settings.primary_button_warps_slider != current_settings.primary_button_warps_slider)
-    gdk_display_setting_changed (GDK_DISPLAY (self), "gtk-primary-button-warps-slider");
+    gdk_display_setting_changed (GDK_DISPLAY (self), "bobgui-primary-button-warps-slider");
 
   if (old_settings.shell_shows_menubar != current_settings.shell_shows_menubar)
-    gdk_display_setting_changed (GDK_DISPLAY (self), "gtk-shell-shows-menubar");
+    gdk_display_setting_changed (GDK_DISPLAY (self), "bobgui-shell-shows-menubar");
 
   if (old_settings.shell_shows_desktop != current_settings.shell_shows_desktop)
-    gdk_display_setting_changed (GDK_DISPLAY (self), "gtk-shell-shows-desktop");
+    gdk_display_setting_changed (GDK_DISPLAY (self), "bobgui-shell-shows-desktop");
 }

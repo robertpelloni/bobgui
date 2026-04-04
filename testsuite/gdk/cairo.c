@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 test_set_source_big_pixbuf (void)
@@ -34,7 +34,7 @@ int
 main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/drawing/set-source-big-pixbuf", test_set_source_big_pixbuf);
 

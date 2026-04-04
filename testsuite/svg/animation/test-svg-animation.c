@@ -20,8 +20,8 @@
 
 #include <string.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
-#include "gtk/svg/gtksvgprivate.h"
+#include <bobgui/bobgui.h>
+#include "bobgui/svg/bobguisvgprivate.h"
 #include "testsuite/testutils.h"
 
 static char *
@@ -242,7 +242,7 @@ parse_test_file (const char *filename)
 typedef struct
 {
   unsigned int step;
-  GtkSvg *svg;
+  BobguiSvg *svg;
   unsigned int state;
   char *output;
   int64_t load_time;
@@ -255,7 +255,7 @@ set_state (gpointer data)
   StepData *sd = data;
 
   g_print ("Step %u: Setting state to %u\n", sd->step, sd->state);
-  gtk_svg_set_state (sd->svg, sd->state);
+  bobgui_svg_set_state (sd->svg, sd->state);
   g_free (sd);
 
   return G_SOURCE_REMOVE;
@@ -267,7 +267,7 @@ advance (gpointer data)
   StepData *sd = data;
 
   g_print ("Step %u: Advance current time to %" G_GINT64_FORMAT "\n", sd->step, sd->time);
-  gtk_svg_advance (sd->svg, sd->load_time + sd->time * G_TIME_SPAN_MILLISECOND);
+  bobgui_svg_advance (sd->svg, sd->load_time + sd->time * G_TIME_SPAN_MILLISECOND);
   g_free (sd);
 
   return G_SOURCE_REMOVE;
@@ -287,7 +287,7 @@ snapshot_here (gpointer data)
 static gboolean
 end_it_all (gpointer data)
 {
-  gtk_window_close (GTK_WINDOW (data));
+  bobgui_window_close (BOBGUI_WINDOW (data));
   return G_SOURCE_REMOVE;
 }
 
@@ -299,10 +299,10 @@ play_svg_test (GFile *file)
   char *contents;
   size_t length;
   GBytes *bytes;
-  GtkSvg *svg = NULL;
+  BobguiSvg *svg = NULL;
   int64_t load_time = 0;
   GError *error = NULL;
-  GtkWidget *window, *picture;
+  BobguiWidget *window, *picture;
   int64_t time = 0;
   StepData *data;
 
@@ -324,11 +324,11 @@ play_svg_test (GFile *file)
             g_error ("%s", error->message);
 
           bytes = g_bytes_new_take (contents, length);
-          svg = gtk_svg_new_from_bytes (bytes);
+          svg = bobgui_svg_new_from_bytes (bytes);
           g_bytes_unref (bytes);
 
           load_time = g_get_monotonic_time ();
-          gtk_svg_set_load_time (svg, load_time);
+          bobgui_svg_set_load_time (svg, load_time);
           break;
 
         case TIME:
@@ -368,20 +368,20 @@ play_svg_test (GFile *file)
   if (!svg)
     g_error ("No input?!\n");
 
-  window = gtk_window_new ();
-  picture = gtk_picture_new_for_paintable (GDK_PAINTABLE (svg));
-  gtk_window_set_child (GTK_WINDOW (window), picture);
+  window = bobgui_window_new ();
+  picture = bobgui_picture_new_for_paintable (GDK_PAINTABLE (svg));
+  bobgui_window_set_child (BOBGUI_WINDOW (window), picture);
 
   g_timeout_add (time + 1000, end_it_all, window);
 
   g_print ("Starting replay\n");
-  gtk_svg_play (svg);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_svg_play (svg);
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()) > 0)
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()) > 0)
     g_main_context_iteration (NULL, TRUE);
 
-  gtk_svg_play (svg);
+  bobgui_svg_play (svg);
 
   g_array_unref (steps);
   g_object_unref (svg);
@@ -391,7 +391,7 @@ static void
 render_svg_file (GFile *file, gboolean generate)
 {
   const char *filename;
-  GtkSvg *svg = NULL;
+  BobguiSvg *svg = NULL;
   char *svg_file;
   char *contents;
   size_t length;
@@ -442,17 +442,17 @@ render_svg_file (GFile *file, gboolean generate)
           g_error ("%s", error->message);
 
           bytes = g_bytes_new_take (contents, length);
-          svg = gtk_svg_new_from_bytes (bytes);
+          svg = bobgui_svg_new_from_bytes (bytes);
           g_bytes_unref (bytes);
 
           load_time = g_get_monotonic_time ();
-          gtk_svg_set_load_time (svg, load_time);
+          bobgui_svg_set_load_time (svg, load_time);
           break;
         case TIME:
-          gtk_svg_advance (svg, load_time + step->time * G_TIME_SPAN_MILLISECOND);
+          bobgui_svg_advance (svg, load_time + step->time * G_TIME_SPAN_MILLISECOND);
           break;
         case STATE:
-          gtk_svg_set_state (svg, step->state);
+          bobgui_svg_set_state (svg, step->state);
           break;
         case COLORS:
           colors = step->colors;
@@ -462,11 +462,11 @@ render_svg_file (GFile *file, gboolean generate)
           {
             GBytes *output;
 
-            output = gtk_svg_serialize_full (svg,
+            output = bobgui_svg_serialize_full (svg,
                                              colors, n_colors,
-                                             GTK_SVG_SERIALIZE_AT_CURRENT_TIME |
-                                             GTK_SVG_SERIALIZE_INCLUDE_STATE |
-                                             GTK_SVG_SERIALIZE_EXPAND_GPA_ATTRS);
+                                             BOBGUI_SVG_SERIALIZE_AT_CURRENT_TIME |
+                                             BOBGUI_SVG_SERIALIZE_INCLUDE_STATE |
+                                             BOBGUI_SVG_SERIALIZE_EXPAND_GPA_ATTRS);
             if (generate)
               {
                 if (!g_file_set_contents (step->output,
@@ -601,7 +601,7 @@ main (int argc, char **argv)
     {
       GFile *file;
 
-      gtk_init ();
+      bobgui_init ();
 
       file = g_file_new_for_commandline_arg (argv[2]);
       render_svg_file (file, TRUE);
@@ -613,7 +613,7 @@ main (int argc, char **argv)
     {
       GFile *file;
 
-      gtk_init ();
+      bobgui_init ();
 
       file = g_file_new_for_commandline_arg (argv[2]);
       play_svg_test (file);
@@ -622,7 +622,7 @@ main (int argc, char **argv)
       return 0;
     }
 
-  gtk_test_init (&argc, &argv);
+  bobgui_test_init (&argc, &argv);
 
   context = g_option_context_new ("");
   g_option_context_add_main_entries (context, options, NULL);

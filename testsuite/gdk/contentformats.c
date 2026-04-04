@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static GType
 string_type (void)
@@ -205,7 +205,7 @@ static void
 test_parse_fail (void)
 {
   static const char *failures[] = {
-    "GtkNonexistingType",
+    "BobguiNonexistingType",
     "text/plain TypeAfterMime",
     "notamimetype",
     "image/png stillnotamimetype",
@@ -256,7 +256,7 @@ main (int argc, char *argv[])
 
   (g_test_init) (&argc, &argv, NULL);
 
-  gtk_init ();
+  bobgui_init ();
 
   /* Ensure all the types we care about to exist */
   for (i = 0; i < G_N_ELEMENTS(possible_types); i++)

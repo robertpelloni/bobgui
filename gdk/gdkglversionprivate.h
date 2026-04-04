@@ -31,7 +31,7 @@ G_BEGIN_DECLS
 #define GDK_EGL_MIN_VERSION_MAJOR (1)
 #define GDK_EGL_MIN_VERSION_MINOR (4)
 
-/* Minimum OpenGL versions supported by GTK.
+/* Minimum OpenGL versions supported by BOBGUI.
  * Backends should make sure to never create a context of a previous version.
  */
 #define GDK_GL_MIN_GL_VERSION GDK_GL_VERSION_INIT (3, 3)

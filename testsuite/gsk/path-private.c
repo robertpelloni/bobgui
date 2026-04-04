@@ -17,7 +17,7 @@
  * Authors: Matthias Clasen <mclasen@redhat.com>
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gsk/gskpathprivate.h"
 #include "gsk/gskcontourprivate.h"
 
@@ -308,7 +308,7 @@ test_zero_length (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/path/circle/roundtrip", test_circle_roundtrip);
   g_test_add_func ("/path/circle/winding", test_circle_winding);

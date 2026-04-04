@@ -1,6 +1,6 @@
 /* -*- mode: C; c-basic-offset: 2; indent-tabs-mode: nil; -*- */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <math.h>
 #include <string.h>
 
@@ -13,7 +13,7 @@
 #define WINDOW_SIZE_JITTER 200
 #define CYCLE_TIME 5.
 
-static GtkWidget *window;
+static BobguiWidget *window;
 static int window_width = WIDTH, window_height = HEIGHT;
 
 gint64 start_frame_time;
@@ -67,7 +67,7 @@ ensure_resources(cairo_surface_t *target)
 }
 
 static void
-on_draw (GtkDrawingArea *da,
+on_draw (BobguiDrawingArea *da,
          cairo_t        *cr,
          int             width,
          int             height,
@@ -123,10 +123,10 @@ on_frame (double progress)
       window_height = HEIGHT + jitter;
     }
 
-  gtk_window_set_default_size (GTK_WINDOW (window),
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window),
                                window_width, window_height);
 
-  gtk_widget_queue_draw (window);
+  bobgui_widget_queue_draw (window);
 }
 
 static gboolean
@@ -146,7 +146,7 @@ resize_idle (gpointer user_data)
 }
 
 static gboolean
-tick_callback (GtkWidget     *widget,
+tick_callback (BobguiWidget     *widget,
                GdkFrameClock *frame_clock,
                gpointer       user_data)
 {
@@ -156,9 +156,9 @@ tick_callback (GtkWidget     *widget,
 }
 
 static gboolean
-on_map (GtkWidget *widget)
+on_map (BobguiWidget *widget)
 {
-  gtk_widget_add_tick_callback (window, tick_callback, NULL, NULL);
+  bobgui_widget_add_tick_callback (window, tick_callback, NULL, NULL);
 
   return FALSE;
 }
@@ -170,7 +170,7 @@ static GOptionEntry options[] = {
 };
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -184,7 +184,7 @@ int
 main(int argc, char **argv)
 {
   GError *error = NULL;
-  GtkWidget *da;
+  BobguiWidget *da;
   gboolean done = FALSE;
 
   GOptionContext *context = g_option_context_new (NULL);
@@ -197,19 +197,19 @@ main(int argc, char **argv)
       return 1;
     }
 
-  gtk_init ();
+  bobgui_init ();
 
   g_print ("# Load factor: %g\n",
            load_factor);
   g_print ("# Resizing?: %s\n",
            cb_no_resize ? "no" : "yes");
 
-  window = gtk_window_new ();
-  frame_stats_ensure (GTK_WINDOW (window));
+  window = bobgui_window_new ();
+  frame_stats_ensure (BOBGUI_WINDOW (window));
 
-  da = gtk_drawing_area_new ();
-  gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (da), on_draw, NULL, NULL);
-  gtk_window_set_child (GTK_WINDOW (window), da);
+  da = bobgui_drawing_area_new ();
+  bobgui_drawing_area_set_draw_func (BOBGUI_DRAWING_AREA (da), on_draw, NULL, NULL);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), da);
 
   g_signal_connect (window, "destroy",
                     G_CALLBACK (quit_cb), NULL);
@@ -218,7 +218,7 @@ main(int argc, char **argv)
                     G_CALLBACK (on_map), NULL);
   on_frame (0.);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

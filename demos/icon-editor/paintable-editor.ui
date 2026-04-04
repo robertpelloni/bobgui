@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 <interface>
-  <template class="PaintableEditor" parent="GtkWidget">
+  <template class="PaintableEditor" parent="BobguiWidget">
     <child>
-      <object class="GtkOverlay">
+      <object class="BobguiOverlay">
         <child>
-          <object class="GtkStack" id="stack">
+          <object class="BobguiStack" id="stack">
             <property name="hhomogeneous">0</property>
             <child>
-              <object class="GtkStackPage">
+              <object class="BobguiStackPage">
                 <property name="name">controls</property>
                 <property name="child">
-                  <object class="GtkScrolledWindow" id="swin">
+                  <object class="BobguiScrolledWindow" id="swin">
                     <property name="hscrollbar-policy">never</property>
                     <child>
-                      <object class="GtkBox">
+                      <object class="BobguiBox">
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkGrid">
+                          <object class="BobguiGrid">
                             <child>
-                              <object class="GtkExpander" id="expander">
+                              <object class="BobguiExpander" id="expander">
                                 <property name="hexpand">0</property>
                                 <property name="valign">center</property>
                                 <property name="label-widget">
-                                  <object class="GtkLabel">
+                                  <object class="BobguiLabel">
                                     <property name="label" translatable="yes">_Author</property>
                                     <property name="hexpand">1</property>
                                     <property name="halign">fill</property>
@@ -38,7 +38,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="author">
+                              <object class="BobguiEntry" id="author">
                                 <signal name="activate" handler="author_changed" swapped="yes"/>
                                 <layout>
                                   <property name="row">0</property>
@@ -47,7 +47,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="BobguiLabel">
                                 <property name="visible" bind-source="expander" bind-property="expanded" bind-flags="sync-create"/>
                                 <property name="label" translatable="yes">_License</property>
                                 <property name="use-underline">1</property>
@@ -60,7 +60,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="license">
+                              <object class="BobguiEntry" id="license">
                                 <property name="visible" bind-source="expander" bind-property="expanded" bind-flags="sync-create"/>
                                 <signal name="activate" handler="license_changed" swapped="yes"/>
                                 <layout>
@@ -70,7 +70,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="BobguiLabel">
                                 <property name="visible" bind-source="expander" bind-property="expanded" bind-flags="sync-create"/>
                                 <property name="label" translatable="yes">_Description</property>
                                 <property name="use-underline">1</property>
@@ -83,7 +83,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="description">
+                              <object class="BobguiEntry" id="description">
                                 <property name="visible" bind-source="expander" bind-property="expanded" bind-flags="sync-create"/>
                                 <signal name="activate" handler="description_changed" swapped="yes"/>
                                 <layout>
@@ -93,7 +93,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="BobguiLabel">
                                 <property name="visible" bind-source="expander" bind-property="expanded" bind-flags="sync-create"/>
                                 <property name="label" translatable="yes">_Keywords</property>
                                 <property name="use-underline">1</property>
@@ -106,7 +106,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="keywords">
+                              <object class="BobguiEntry" id="keywords">
                                 <property name="visible" bind-source="expander" bind-property="expanded" bind-flags="sync-create"/>
                                 <signal name="activate" handler="keywords_changed" swapped="yes"/>
                                 <layout>
@@ -116,11 +116,11 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkExpander" id="size_expander">
+                              <object class="BobguiExpander" id="size_expander">
                                 <property name="hexpand">0</property>
                                 <property name="valign">center</property>
                                 <property name="label-widget">
-                                  <object class="GtkLabel">
+                                  <object class="BobguiLabel">
                                     <property name="label" translatable="yes">_Size</property>
                                     <property name="hexpand">1</property>
                                     <property name="halign">fill</property>
@@ -139,19 +139,19 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <child>
-                                  <object class="GtkEntry" id="width">
+                                  <object class="BobguiEntry" id="width">
                                     <signal name="activate" handler="size_changed" swapped="yes"/>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel">
+                                  <object class="BobguiLabel">
                                     <property name="label">&#x2715;</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="height">
+                                  <object class="BobguiEntry" id="height">
                                     <signal name="activate" handler="size_changed" swapped="yes"/>
                                     <accessibility>
                                       <property name="label" translatable="yes">Height</property>
@@ -165,7 +165,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="BobguiLabel">
                                 <property name="visible" bind-source="size_expander" bind-property="expanded" bind-flags="sync-create"/>
                                 <property name="label" translatable="yes">_View box</property>
                                 <property name="use-underline">1</property>
@@ -178,25 +178,25 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <property name="visible" bind-source="size_expander" bind-property="expanded" bind-flags="sync-create"/>
                                 <child>
-                                  <object class="GtkEntry" id="viewbox_x">
+                                  <object class="BobguiEntry" id="viewbox_x">
                                     <signal name="activate" handler="viewbox_changed" swapped="yes"/>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="viewbox_y">
+                                  <object class="BobguiEntry" id="viewbox_y">
                                     <signal name="activate" handler="viewbox_changed" swapped="yes"/>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="viewbox_w">
+                                  <object class="BobguiEntry" id="viewbox_w">
                                     <signal name="activate" handler="viewbox_changed" swapped="yes"/>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="viewbox_h">
+                                  <object class="BobguiEntry" id="viewbox_h">
                                     <signal name="activate" handler="viewbox_changed" swapped="yes"/>
                                   </object>
                                 </child>
@@ -207,7 +207,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="BobguiLabel">
                                 <property name="label" translatable="yes">_Compatibility</property>
                                 <property name="use-underline">1</property>
                                 <property name="mnemonic-widget">compat</property>
@@ -219,7 +219,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="compat">
+                              <object class="BobguiLabel" id="compat">
                                 <property name="xalign">0</property>
                                 <property name="selectable">1</property>
                                 <layout>
@@ -229,7 +229,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkCheckButton" id="compat_check">
+                              <object class="BobguiCheckButton" id="compat_check">
                                 <property name="label" translatable="yes">Include compat classes</property>
                                 <property name="active" bind-source="PaintableEditor" bind-property="compat-classes" bind-flags="bidirectional|sync-create"/>
                                 <layout>
@@ -239,7 +239,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="BobguiLabel">
                                 <property name="label" translatable="yes">Rendering</property>
                                 <property name="xalign">1</property>
                                 <layout>
@@ -249,20 +249,20 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <child>
-                                  <object class="GtkImage">
-                                    <property name="tooltip-text">GtkSvg</property>
+                                  <object class="BobguiImage">
+                                    <property name="tooltip-text">BobguiSvg</property>
                                     <property name="pixel-size">24</property>
                                     <property name="paintable" bind-source="PaintableEditor" bind-property="paintable"/>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkImage" id="icon_image">
+                                  <object class="BobguiImage" id="icon_image">
                                     <style>
                                       <class name="icon-paintable-preview"/>
                                     </style>
-                                    <property name="tooltip-text">GtkIconPaintable</property>
+                                    <property name="tooltip-text">BobguiIconPaintable</property>
                                     <property name="pixel-size">24</property>
                                   </object>
                                 </child>
@@ -275,16 +275,16 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkLabel" id="summary1">
+                              <object class="BobguiLabel" id="summary1">
                                 <property name="selectable">1</property>
                                 <property name="xalign">0</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="summary2">
+                              <object class="BobguiLabel" id="summary2">
                                 <property name="selectable">1</property>
                                 <property name="xalign">0</property>
                               </object>
@@ -292,22 +292,22 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox" id="path_elts">
+                          <object class="BobguiBox" id="path_elts">
                             <property name="orientation">vertical</property>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <property name="hexpand">0</property>
                             <child>
-                              <object class="GtkButton">
+                              <object class="BobguiButton">
                                 <property name="label" translatable="yes">Add path</property>
                                 <property name="hexpand">1</property>
                                 <property name="action-name">win.add-path</property>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkButton">
+                              <object class="BobguiButton">
                                 <property name="label" translatable="yes">States&#x2026;</property>
                                 <property name="action-name">win.edit-states</property>
                               </object>
@@ -321,34 +321,34 @@
               </object>
             </child>
             <child>
-              <object class="GtkStackPage">
+              <object class="BobguiStackPage">
                 <property name="name">xml</property>
                 <property name="child">
-                  <object class="GtkScrolledWindow">
+                  <object class="BobguiScrolledWindow">
                     <property name="min-content-width">400</property>
                     <child>
-                      <object class="GtkTextView" id="xml_view">
+                      <object class="BobguiTextView" id="xml_view">
                         <style><class name="editor"/></style>
                         <property name="buffer">
-                          <object class="GtkTextBuffer" id="xml_buffer">
+                          <object class="BobguiTextBuffer" id="xml_buffer">
                             <property name="tag-table">
-                              <object class="GtkTextTagTable">
+                              <object class="BobguiTextTagTable">
                                 <child type="tag">
-                                  <object class="GtkTextTag">
+                                  <object class="BobguiTextTag">
                                     <property name="name">unimplemented</property>
                                     <property name="underline">single</property>
                                     <property name="underline-rgba">darkorange</property>
                                   </object>
                                 </child>
                                 <child type="tag">
-                                  <object class="GtkTextTag">
+                                  <object class="BobguiTextTag">
                                     <property name="name">ignored</property>
                                     <property name="underline">single</property>
                                     <property name="underline-rgba">blue</property>
                                   </object>
                                 </child>
                                 <child type="tag">
-                                  <object class="GtkTextTag">
+                                  <object class="BobguiTextTag">
                                     <property name="name">error</property>
                                     <property name="underline">error</property>
                                   </object>
@@ -375,7 +375,7 @@
           </object>
         </child>
         <child type="overlay">
-          <object class="GtkToggleButton" id="xml_toggle">
+          <object class="BobguiToggleButton" id="xml_toggle">
             <style>
               <class name="circular"/>
               <class name="flat"/>

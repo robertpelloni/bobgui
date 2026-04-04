@@ -1233,7 +1233,7 @@ find_grab_input_seat (GdkSurface *surface,
   GdkWaylandPopup *tmp_popup;
 
   /* Use the device that was used for the grab as the device for
-   * the popup surface setup - so this relies on GTK taking the
+   * the popup surface setup - so this relies on BOBGUI taking the
    * grab before showing the popup surface.
    */
   if (popup->grab_input_seat)

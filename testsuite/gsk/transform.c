@@ -19,7 +19,7 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gsk/gsktransformprivate.h"
 
 #define EPSILON (1.f / 1024 / 32) /* 2^-15 */
@@ -1219,7 +1219,7 @@ int
 main (int   argc,
       char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
   g_test_set_nonfatal_assertions ();
 
   g_test_add_func ("/transform/conversions/simple", test_conversions_simple);

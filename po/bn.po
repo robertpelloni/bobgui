@@ -1,5 +1,5 @@
-# Bengali Translation of GTK+
-# This file is distributed under the same license as the GTK+ package.
+# Bengali Translation of BOBGUI+
+# This file is distributed under the same license as the BOBGUI+ package.
 # Copyright (C) 2003-2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 #
 # Sayamindu Dasgupta <unmadindu@Softhome.net>, 2004.
@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bn\n"
-"Report-Msgid-Bugs-To: \"https://gitlab.gnome.org/GNOME/gtk/-/issues/\"\n"
+"Report-Msgid-Bugs-To: \"https://gitlab.gnome.org/GNOME/bobgui/-/issues/\"\n"
 "POT-Creation-Date: 2023-10-19 12:21+0530\n"
 "PO-Revision-Date: 2023-10-24 16:06+0530\n"
 "Last-Translator: Israt Jahan <israt@ankur.org.bd>\n"
@@ -98,8 +98,8 @@ msgstr "EGL প্রদর্শন আরম্ভ করা যায়ন�
 
 #: gdk/gdkdisplay.c:1741
 #, c-format
-msgid "EGL version %d.%d is too old. GTK requires %d.%d"
-msgstr "EGL সংস্করণ %d. %d খুব পুরানো৷ GTK-এর প্রয়োজন %d.%d"
+msgid "EGL version %d.%d is too old. BOBGUI requires %d.%d"
+msgstr "EGL সংস্করণ %d. %d খুব পুরানো৷ BOBGUI-এর প্রয়োজন %d.%d"
 
 #: gdk/gdkdrop.c:130
 msgid "Drag’n’drop from other applications is not supported."
@@ -420,118 +420,118 @@ msgstr "অসমর্থিত এনকোডিং “%s”"
 msgid "This GLES %d.%d implementation does not support half-float vertex data"
 msgstr "এই GLES %d.%d বাস্তবায়ন হাফ-ফ্লোট ভার্টেক্স ডেটা সমর্থন করে না"
 
-#: gtk/css/gtkcssdataurl.c:69
+#: bobgui/css/bobguicssdataurl.c:69
 #, c-format
 msgid "Not a data: URL"
 msgstr "একটি ডেটা নয়: URL"
 
-#: gtk/css/gtkcssdataurl.c:82
+#: bobgui/css/bobguicssdataurl.c:82
 #, c-format
 msgid "Malformed data: URL"
 msgstr "বিকৃত তথ্য: URL"
 
-#: gtk/css/gtkcssdataurl.c:140
+#: bobgui/css/bobguicssdataurl.c:140
 #, c-format
 msgid "Could not unescape string"
 msgstr "স্ট্রিং মুক্ত করা যায়নি"
 
-#: gtk/deprecated/gtkappchooserbutton.c:323
+#: bobgui/deprecated/bobguiappchooserbutton.c:323
 msgid "Other app…"
 msgstr "অন্য অ্যাপ…"
 
-#: gtk/deprecated/gtkappchooserdialog.c:215 gtk/deprecated/gtkappchooserdialog.c:266
+#: bobgui/deprecated/bobguiappchooserdialog.c:215 bobgui/deprecated/bobguiappchooserdialog.c:266
 msgid "Select Application"
 msgstr "অ্যাপ্লিকেশন নির্বাচন করুন"
 
 #. Translators: %s is a filename
-#: gtk/deprecated/gtkappchooserdialog.c:222
+#: bobgui/deprecated/bobguiappchooserdialog.c:222
 #, c-format
 msgid "Opening “%s”."
 msgstr "\"%s\" খোলা হচ্ছে।"
 
-#: gtk/deprecated/gtkappchooserdialog.c:223
+#: bobgui/deprecated/bobguiappchooserdialog.c:223
 #, c-format
 msgid "No applications found for “%s”"
 msgstr "“%s”-এর জন্য কোনো অ্যাপ্লিকেশন পাওয়া যায়নি"
 
 #. Translators: %s is a file type description
-#: gtk/deprecated/gtkappchooserdialog.c:228
+#: bobgui/deprecated/bobguiappchooserdialog.c:228
 #, c-format
 msgid "Opening “%s” files."
 msgstr "\"%s\" ফাইল খোলা হচ্ছে।"
 
-#: gtk/deprecated/gtkappchooserdialog.c:230
+#: bobgui/deprecated/bobguiappchooserdialog.c:230
 #, c-format
 msgid "No applications found for “%s” files"
 msgstr "“%s” ফাইলের জন্য কোনো অ্যাপ্লিকেশন পাওয়া যায়নি"
 
-#: gtk/deprecated/gtkappchooserdialog.c:432
+#: bobgui/deprecated/bobguiappchooserdialog.c:432
 msgid "Failed to start GNOME Software"
 msgstr "GNOME সফ্টওয়্যার শুরু করতে ব্যর্থ হয়েছে৷"
 
-#: gtk/deprecated/gtkappchooserwidget.c:525
+#: bobgui/deprecated/bobguiappchooserwidget.c:525
 msgid "Default App"
 msgstr "ডিফল্ট অ্যাপ"
 
-#: gtk/deprecated/gtkappchooserwidget.c:575
+#: bobgui/deprecated/bobguiappchooserwidget.c:575
 #, c-format
 msgid "No apps found for “%s”."
 msgstr "“%s”-এর জন্য কোনো অ্যাপ পাওয়া যায়নি।"
 
-#: gtk/deprecated/gtkappchooserwidget.c:658
+#: bobgui/deprecated/bobguiappchooserwidget.c:658
 msgid "Recommended Apps"
 msgstr "প্রস্তাবিত অ্যাপস"
 
-#: gtk/deprecated/gtkappchooserwidget.c:673
+#: bobgui/deprecated/bobguiappchooserwidget.c:673
 msgid "Related Apps"
 msgstr "সম্পর্কিত অ্যাপস"
 
-#: gtk/deprecated/gtkappchooserwidget.c:687
+#: bobgui/deprecated/bobguiappchooserwidget.c:687
 msgid "Other Apps"
 msgstr "অন্যান্য অ্যাপস"
 
 #. This label is displayed in a treeview cell displaying an accelerator
 #. * when the cell is clicked to change the acelerator.
 #.
-#: gtk/deprecated/gtkcellrendereraccel.c:436 gtk/deprecated/gtkcellrendereraccel.c:729
+#: bobgui/deprecated/bobguicellrendereraccel.c:436 bobgui/deprecated/bobguicellrendereraccel.c:729
 msgid "New accelerator…"
 msgstr "নতুন এক্সিলারেটর…"
 
-#: gtk/deprecated/gtkcolorbutton.c:183 gtk/deprecated/gtkcolorbutton.c:314 gtk/gtkcolordialog.c:411
+#: bobgui/deprecated/bobguicolorbutton.c:183 bobgui/deprecated/bobguicolorbutton.c:314 bobgui/bobguicolordialog.c:411
 msgid "Pick a Color"
 msgstr "একটি রং নাও"
 
-#: gtk/deprecated/gtkcolorbutton.c:505 gtk/gtkcolorchooserwidget.c:313 gtk/gtkcolordialogbutton.c:335
+#: bobgui/deprecated/bobguicolorbutton.c:505 bobgui/bobguicolorchooserwidget.c:313 bobgui/bobguicolordialogbutton.c:335
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%, Alpha %d%%"
 msgstr "লাল %d%%, সবুজ %d%%, নীল %d%%, আলফা %d%%"
 
-#: gtk/deprecated/gtkcolorbutton.c:511 gtk/gtkcolorchooserwidget.c:319 gtk/gtkcolordialogbutton.c:341
+#: bobgui/deprecated/bobguicolorbutton.c:511 bobgui/bobguicolorchooserwidget.c:319 bobgui/bobguicolordialogbutton.c:341
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "লাল %d%%, সবুজ %d%%, নীল %d%%"
 
-#: gtk/deprecated/gtkfontbutton.c:396
+#: bobgui/deprecated/bobguifontbutton.c:396
 msgid "Sans 12"
 msgstr "ছাড়া 12"
 
-#: gtk/deprecated/gtkfontbutton.c:507 gtk/deprecated/gtkfontbutton.c:624 gtk/gtkfontdialog.c:596
+#: bobgui/deprecated/bobguifontbutton.c:507 bobgui/deprecated/bobguifontbutton.c:624 bobgui/bobguifontdialog.c:596
 msgid "Pick a Font"
 msgstr "একটি ফন্ট নির্বাচন করুন"
 
-#: gtk/deprecated/gtkfontbutton.c:600 gtk/gtkfontdialogbutton.c:126 gtk/inspector/visual.ui:169
+#: bobgui/deprecated/bobguifontbutton.c:600 bobgui/bobguifontdialogbutton.c:126 bobgui/inspector/visual.ui:169
 msgid "Font"
 msgstr "ফন্ট"
 
-#: gtk/deprecated/gtklockbutton.c:294 gtk/ui/gtklockbutton.ui:20
+#: bobgui/deprecated/bobguilockbutton.c:294 bobgui/ui/bobguilockbutton.ui:20
 msgid "Lock"
 msgstr "তালা"
 
-#: gtk/deprecated/gtklockbutton.c:308 gtk/ui/gtklockbutton.ui:26
+#: bobgui/deprecated/bobguilockbutton.c:308 bobgui/ui/bobguilockbutton.ui:26
 msgid "Unlock"
 msgstr "আনলক"
 
-#: gtk/deprecated/gtklockbutton.c:322
+#: bobgui/deprecated/bobguilockbutton.c:322
 msgid ""
 "Dialog is unlocked.\n"
 "Click to prevent further changes"
@@ -539,7 +539,7 @@ msgstr ""
 "ডায়ালগ আনলক করা আছে।\n"
 "আরও পরিবর্তন প্রতিরোধ করতে ক্লিক করুন"
 
-#: gtk/deprecated/gtklockbutton.c:336
+#: bobgui/deprecated/bobguilockbutton.c:336
 msgid ""
 "Dialog is locked.\n"
 "Click to make changes"
@@ -547,7 +547,7 @@ msgstr ""
 "ডায়ালগ লক করা আছে।\n"
 "পরিবর্তন করতে ক্লিক করুন"
 
-#: gtk/deprecated/gtklockbutton.c:350
+#: bobgui/deprecated/bobguilockbutton.c:350
 msgid ""
 "System policy prevents changes.\n"
 "Contact your system administrator"
@@ -555,47 +555,47 @@ msgstr ""
 "সিস্টেম নীতি পরিবর্তন প্রতিরোধ করে।\n"
 "আপনার সিস্টেম অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করুন"
 
-#: gtk/deprecated/gtkshow.c:183
+#: bobgui/deprecated/bobguishow.c:183
 msgid "Could not show link"
 msgstr "লিংক প্রদর্শন করা যায়নি"
 
-#: gtk/deprecated/gtkvolumebutton.c:236
+#: bobgui/deprecated/bobguivolumebutton.c:236
 msgid "Muted"
 msgstr "নিঃশব্দ"
 
-#: gtk/deprecated/gtkvolumebutton.c:240
+#: bobgui/deprecated/bobguivolumebutton.c:240
 msgid "Full Volume"
 msgstr "সর্বোচ্চ ভলিউম"
 
-#: gtk/gtkaboutdialog.c:963
+#: bobgui/bobguiaboutdialog.c:963
 msgid "Website"
 msgstr "ওয়েবসাইট"
 
-#: gtk/gtkaboutdialog.c:999 gtk/ui/gtkapplication-quartz.ui:6
+#: bobgui/bobguiaboutdialog.c:999 bobgui/ui/bobguiapplication-quartz.ui:6
 #, c-format
 msgid "About %s"
 msgstr "%s পরিচিতি"
 
-#: gtk/gtkaboutdialog.c:2089
+#: bobgui/bobguiaboutdialog.c:2089
 msgid "Created by"
 msgstr "তৈরি করেছে"
 
-#: gtk/gtkaboutdialog.c:2092
+#: bobgui/bobguiaboutdialog.c:2092
 msgid "Documented by"
 msgstr "নথি লিখেছেন"
 
-#: gtk/gtkaboutdialog.c:2102
+#: bobgui/bobguiaboutdialog.c:2102
 msgid "Translated by"
 msgstr "অনুবাদক"
 
-#: gtk/gtkaboutdialog.c:2107
+#: bobgui/bobguiaboutdialog.c:2107
 msgid "Design by"
 msgstr "দ্বারা অংকিত"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: gtk/gtkaboutdialog.c:2272
+#: bobgui/bobguiaboutdialog.c:2272
 #, c-format
 msgid ""
 "This program comes with absolutely no warranty.\n"
@@ -604,7 +604,7 @@ msgstr ""
 "এই প্রোগ্রাম একেবারে কোন ওয়ারেন্টি সঙ্গে আসে.\n"
 "বিস্তারিত জানার জন্য <a href=\"%s\">%s</a> দেখুন৷"
 
-#: gtk/gtkalertdialog.c:668 gtk/print/gtkcustompaperunixdialog.c:322 gtk/gtkmessagedialog.c:166 gtk/ui/gtkassistant.ui:40
+#: bobgui/bobguialertdialog.c:668 bobgui/print/bobguicustompaperunixdialog.c:322 bobgui/bobguimessagedialog.c:166 bobgui/ui/bobguiassistant.ui:40
 msgid "_Close"
 msgstr "_বন্ধ"
 
@@ -612,31 +612,31 @@ msgstr "_বন্ধ"
 #. * suspend or screen locking, and the caller hasn't specified
 #. * a reason.
 #.
-#: gtk/gtkapplication-dbus.c:721
+#: bobgui/bobguiapplication-dbus.c:721
 msgid "Reason not specified"
 msgstr "কারণ উল্লেখ করা হয়নি"
 
-#: gtk/gtkbookmarksmanager.c:53
+#: bobgui/bobguibookmarksmanager.c:53
 #, c-format
 msgid "%s does not exist in the bookmarks list"
 msgstr "বুকমার্ক তালিকায় %s বিদ্যমান নেই"
 
-#: gtk/gtkbookmarksmanager.c:414
+#: bobgui/bobguibookmarksmanager.c:414
 #, c-format
 msgid "%s already exists in the bookmarks list"
 msgstr "বুকমার্ক তালিকায় %s ইতিমধ্যেই বিদ্যমান"
 
-#: gtk/gtkbuilder-menus.c:224
+#: bobgui/bobguibuilder-menus.c:224
 #, c-format
 msgid "Element <%s> not allowed inside <%s>"
 msgstr "উপাদান <%s> <%s> এর ভিতরে অনুমোদিত নয়"
 
-#: gtk/gtkbuilder-menus.c:230
+#: bobgui/bobguibuilder-menus.c:230
 #, c-format
 msgid "Element <%s> not allowed at toplevel"
 msgstr "উপাদান <%s> শীর্ষ স্তরে অনুমোদিত নয়"
 
-#: gtk/gtkbuilder-menus.c:319
+#: bobgui/bobguibuilder-menus.c:319
 #, c-format
 msgid "Text may not appear inside <%s>"
 msgstr "পাঠ্য <%s> এর ভিতরে নাও দেখা যেতে পারে"
@@ -645,7 +645,7 @@ msgstr "পাঠ্য <%s> এর ভিতরে নাও দেখা য�
 #. * first day of the week to calendar:week_start:1 if you want Monday
 #. * to be the first day of the week, and so on.
 #.
-#: gtk/gtkcalendar.c:659
+#: bobgui/bobguicalendar.c:659
 msgid "calendar:week_start:0"
 msgstr "ক্যালেন্ডার:week_start:0"
 
@@ -659,31 +659,31 @@ msgstr "ক্যালেন্ডার:week_start:0"
 #. * text direction of RTL and specify "calendar:YM", then the year
 #. * will appear to the right of the month.
 #.
-#: gtk/gtkcalendar.c:810
+#: bobgui/bobguicalendar.c:810
 msgid "calendar:MY"
 msgstr "ক্যালেন্ডার: আমার"
 
-#: gtk/gtkcolorchooserwidget.c:376 gtk/gtkcoloreditor.c:171
+#: bobgui/bobguicolorchooserwidget.c:376 bobgui/bobguicoloreditor.c:171
 #, c-format
 msgid "Color: %s"
 msgstr "রং: %s"
 
 #. translators: label for the custom section in the color chooser
-#: gtk/gtkcolorchooserwidget.c:557
+#: bobgui/bobguicolorchooserwidget.c:557
 #, fuzzy
 msgid "Custom"
 msgstr "স্বনির্ধারিত আকার"
 
-#: gtk/gtkcolorchooserwidget.c:571
+#: bobgui/bobguicolorchooserwidget.c:571
 msgid "Add Color"
 msgstr "রঙ যোগ করুন"
 
-#: gtk/gtkcolorchooserwidget.c:593
+#: bobgui/bobguicolorchooserwidget.c:593
 #, c-format
 msgid "Custom color %d: %s"
 msgstr "কাস্টম রঙ %d: %s"
 
-#: gtk/gtkcolorswatch.c:230
+#: bobgui/bobguicolorswatch.c:230
 #, fuzzy
 msgid "Customize"
 msgstr "স্বনির্ধারিত আকার"
@@ -694,147 +694,147 @@ msgstr "স্বনির্ধারিত আকার"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: gtk/print/gtkcustompaperunixdialog.c:106
+#: bobgui/print/bobguicustompaperunixdialog.c:106
 msgid "default:mm"
 msgstr "ডিফল্ট: মিমি"
 
-#: gtk/print/gtkcustompaperunixdialog.c:291
+#: bobgui/print/bobguicustompaperunixdialog.c:291
 msgid "Margins from Printer…"
 msgstr "প্রিন্টার থেকে মার্জিন..."
 
 #. And show the custom paper dialog
-#: gtk/print/gtkcustompaperunixdialog.c:377 gtk/print/gtkprintunixdialog.c:2968
+#: bobgui/print/bobguicustompaperunixdialog.c:377 bobgui/print/bobguiprintunixdialog.c:2968
 msgid "Manage Custom Sizes"
 msgstr "স্বনির্ধারিত আকার পরিচালনা"
 
-#: gtk/print/gtkcustompaperunixdialog.c:440 gtk/print/gtkpagesetupunixdialog.c:720
+#: bobgui/print/bobguicustompaperunixdialog.c:440 bobgui/print/bobguipagesetupunixdialog.c:720
 msgid "inch"
 msgstr "inch"
 
-#: gtk/print/gtkcustompaperunixdialog.c:442 gtk/print/gtkpagesetupunixdialog.c:718
+#: bobgui/print/bobguicustompaperunixdialog.c:442 bobgui/print/bobguipagesetupunixdialog.c:718
 msgid "mm"
 msgstr "mm"
 
-#: gtk/print/gtkcustompaperunixdialog.c:598
+#: bobgui/print/bobguicustompaperunixdialog.c:598
 #, c-format
 msgid "Custom Size %d"
 msgstr "স্বনির্ধারিত আকার %d"
 
-#: gtk/print/gtkcustompaperunixdialog.c:908
+#: bobgui/print/bobguicustompaperunixdialog.c:908
 msgid "_Width:"
 msgstr "প্রস্থ: (_W)"
 
-#: gtk/print/gtkcustompaperunixdialog.c:917
+#: bobgui/print/bobguicustompaperunixdialog.c:917
 msgid "_Height:"
 msgstr "উচ্চতা: (_H)"
 
-#: gtk/print/gtkcustompaperunixdialog.c:926
+#: bobgui/print/bobguicustompaperunixdialog.c:926
 msgid "Paper Size"
 msgstr "কাগজের আকৃতি"
 
-#: gtk/print/gtkcustompaperunixdialog.c:933
+#: bobgui/print/bobguicustompaperunixdialog.c:933
 msgid "_Top:"
 msgstr "শীর্ষ: (_T)"
 
-#: gtk/print/gtkcustompaperunixdialog.c:942
+#: bobgui/print/bobguicustompaperunixdialog.c:942
 msgid "_Bottom:"
 msgstr "নিম্ন: (_B)"
 
-#: gtk/print/gtkcustompaperunixdialog.c:951
+#: bobgui/print/bobguicustompaperunixdialog.c:951
 msgid "_Left:"
 msgstr "বাম: (_L)"
 
-#: gtk/print/gtkcustompaperunixdialog.c:960
+#: bobgui/print/bobguicustompaperunixdialog.c:960
 msgid "_Right:"
 msgstr "ডান: (_R)"
 
-#: gtk/print/gtkcustompaperunixdialog.c:993
+#: bobgui/print/bobguicustompaperunixdialog.c:993
 msgid "Paper Margins"
 msgstr "কাগজের প্রান্ত"
 
-#: gtk/gtkentry.c:3685
+#: bobgui/bobguientry.c:3685
 msgid "Insert Emoji"
 msgstr "ইমোজি ঢোকান"
 
-#: gtk/gtkfilechooserdialog.c:557
+#: bobgui/bobguifilechooserdialog.c:557
 msgid "_Name"
 msgstr "_নাম"
 
-#: gtk/gtkfilechoosererrorstack.c:65
+#: bobgui/bobguifilechoosererrorstack.c:65
 msgid "A folder cannot be called “.”"
 msgstr "একটি ফোল্ডার \".\" বলা যাবে না।"
 
-#: gtk/gtkfilechoosererrorstack.c:69
+#: bobgui/bobguifilechoosererrorstack.c:69
 msgid "A file cannot be called “.”"
 msgstr "একটি ফাইল \".\" বলা যাবে না।"
 
-#: gtk/gtkfilechoosererrorstack.c:73
+#: bobgui/bobguifilechoosererrorstack.c:73
 msgid "A folder cannot be called “..”"
 msgstr "একটি ফোল্ডার \"..\" বলা যাবে না।"
 
-#: gtk/gtkfilechoosererrorstack.c:77
+#: bobgui/bobguifilechoosererrorstack.c:77
 msgid "A file cannot be called “..”"
 msgstr "একটি ফাইল \"..\" বলা যাবে না।"
 
-#: gtk/gtkfilechoosererrorstack.c:81
+#: bobgui/bobguifilechoosererrorstack.c:81
 msgid "Folder names cannot contain “/”"
 msgstr "ফোল্ডারের নামগুলিতে \"/\" থাকতে পারে না"
 
-#: gtk/gtkfilechoosererrorstack.c:85
+#: bobgui/bobguifilechoosererrorstack.c:85
 msgid "File names cannot contain “/”"
 msgstr "ফাইলের নামগুলিতে \"/\" থাকতে পারে না"
 
-#: gtk/gtkfilechoosererrorstack.c:89
+#: bobgui/bobguifilechoosererrorstack.c:89
 msgid "Folder names should not begin with a space"
 msgstr "ফোল্ডারের নাম স্পেস দিয়ে শুরু করা উচিত নয়"
 
-#: gtk/gtkfilechoosererrorstack.c:93
+#: bobgui/bobguifilechoosererrorstack.c:93
 msgid "File names should not begin with a space"
 msgstr "ফাইলের নাম স্পেস দিয়ে শুরু করা উচিত নয়"
 
-#: gtk/gtkfilechoosererrorstack.c:97
+#: bobgui/bobguifilechoosererrorstack.c:97
 msgid "Folder names should not end with a space"
 msgstr "ফোল্ডারের নাম স্পেস দিয়ে শেষ হওয়া উচিত নয়"
 
-#: gtk/gtkfilechoosererrorstack.c:101
+#: bobgui/bobguifilechoosererrorstack.c:101
 msgid "File names should not end with a space"
 msgstr "ফাইলের নাম স্পেস দিয়ে শেষ হওয়া উচিত নয়"
 
-#: gtk/gtkfilechoosererrorstack.c:105
+#: bobgui/bobguifilechoosererrorstack.c:105
 msgid "Folder names starting with a “.” are hidden"
 msgstr "ফোল্ডারের নাম \".\" দিয়ে শুরু লুকানো হয়"
 
-#: gtk/gtkfilechoosererrorstack.c:109
+#: bobgui/bobguifilechoosererrorstack.c:109
 msgid "File names starting with a “.” are hidden"
 msgstr "ফাইলের নাম \".\" দিয়ে শুরু লুকানো হয়"
 
-#: gtk/gtkfilechoosererrorstack.c:113
+#: bobgui/bobguifilechoosererrorstack.c:113
 msgid "A folder with that name already exists"
 msgstr "এই নামের একটি ফোল্ডার ইতিমধ্যেই বিদ্যমান"
 
-#: gtk/gtkfilechoosererrorstack.c:117
+#: bobgui/bobguifilechoosererrorstack.c:117
 msgid "A file with that name already exists"
 msgstr "এই নামের একটি ফাইল ইতিমধ্যেই বিদ্যমান"
 
-#: gtk/gtkfilechoosernative.c:520 gtk/gtkfilechoosernative.c:600 gtk/gtkfilechooserwidget.c:1183
-#: gtk/gtkfilechooserwidget.c:4964 gtk/gtkfiledialog.c:843 gtk/gtkmessagedialog.c:170 gtk/gtkmessagedialog.c:179
-#: gtk/gtkmountoperation.c:608 gtk/print/gtkpagesetupunixdialog.c:282 gtk/print/gtkprintbackend.c:638
-#: gtk/print/gtkprintunixdialog.c:682 gtk/print/gtkprintunixdialog.c:839 gtk/gtkwindow.c:6243
-#: gtk/ui/gtkappchooserdialog.ui:48 gtk/ui/gtkassistant.ui:52 gtk/ui/gtkcolorchooserdialog.ui:36
-#: gtk/ui/gtkfontchooserdialog.ui:27
+#: bobgui/bobguifilechoosernative.c:520 bobgui/bobguifilechoosernative.c:600 bobgui/bobguifilechooserwidget.c:1183
+#: bobgui/bobguifilechooserwidget.c:4964 bobgui/bobguifiledialog.c:843 bobgui/bobguimessagedialog.c:170 bobgui/bobguimessagedialog.c:179
+#: bobgui/bobguimountoperation.c:608 bobgui/print/bobguipagesetupunixdialog.c:282 bobgui/print/bobguiprintbackend.c:638
+#: bobgui/print/bobguiprintunixdialog.c:682 bobgui/print/bobguiprintunixdialog.c:839 bobgui/bobguiwindow.c:6243
+#: bobgui/ui/bobguiappchooserdialog.ui:48 bobgui/ui/bobguiassistant.ui:52 bobgui/ui/bobguicolorchooserdialog.ui:36
+#: bobgui/ui/bobguifontchooserdialog.ui:27
 msgid "_Cancel"
 msgstr "_বাতিল করুন"
 
-#: gtk/gtkfilechoosernative.c:521 gtk/gtkfilechoosernative.c:594 gtk/gtkfiledialog.c:815 gtk/gtkplacessidebar.c:3149
-#: gtk/gtkplacessidebar.c:3234 gtk/gtkplacesview.c:1645
+#: bobgui/bobguifilechoosernative.c:521 bobgui/bobguifilechoosernative.c:594 bobgui/bobguifiledialog.c:815 bobgui/bobguiplacessidebar.c:3149
+#: bobgui/bobguiplacessidebar.c:3234 bobgui/bobguiplacesview.c:1645
 msgid "_Open"
 msgstr "_খোলা"
 
-#: gtk/gtkfilechoosernative.c:594 gtk/gtkfiledialog.c:820
+#: bobgui/bobguifilechoosernative.c:594 bobgui/bobguifiledialog.c:820
 msgid "_Save"
 msgstr "_সংরক্ষণ"
 
-#: gtk/gtkfilechoosernativequartz.c:344 gtk/ui/gtkfilechooserwidget.ui:288
+#: bobgui/bobguifilechoosernativequartz.c:344 bobgui/ui/bobguifilechooserwidget.ui:288
 msgid "Select which types of files are shown"
 msgstr "কোন ধরনের ফাইল প্রদর্শন করা হবে নির্বাচন করুন"
 
@@ -842,510 +842,510 @@ msgstr "কোন ধরনের ফাইল প্রদর্শন কর�
 #. * is a hostname. Nautilus and the panel contain the same string
 #. * to translate.
 #.
-#: gtk/gtkfilechooserutils.c:364
+#: bobgui/bobguifilechooserutils.c:364
 #, c-format
 msgid "%1$s on %2$s"
 msgstr "%1$s, %2$s'র উপর"
 
-#: gtk/gtkfilechooserwidget.c:343
+#: bobgui/bobguifilechooserwidget.c:343
 msgid "Type name of new folder"
 msgstr "নতুন ফোল্ডারের নাম লিখুন"
 
-#: gtk/gtkfilechooserwidget.c:725
+#: bobgui/bobguifilechooserwidget.c:725
 msgid "The folder could not be created"
 msgstr "ফোল্ডার তৈরি করা যায়নি"
 
-#: gtk/gtkfilechooserwidget.c:738
+#: bobgui/bobguifilechooserwidget.c:738
 msgid "You need to choose a valid filename."
 msgstr "আপনাকে একটি কার্যকর ফাইলনাম বেছে নিতে হবে।"
 
-#: gtk/gtkfilechooserwidget.c:741
+#: bobgui/bobguifilechooserwidget.c:741
 #, c-format
 msgid "Cannot create a file under %s as it is not a folder"
 msgstr "%s এর অধীনে ফোল্ডার না হওয়ার কারনে একটি ফাইল তৈরি করা যায় না"
 
-#: gtk/gtkfilechooserwidget.c:751
+#: bobgui/bobguifilechooserwidget.c:751
 msgid "Cannot create file as the filename is too long"
 msgstr "ফাইলের নামটি অনেক বড় হওয়ায় ফাইল তৈরি করা যাবে না"
 
-#: gtk/gtkfilechooserwidget.c:752
+#: bobgui/bobguifilechooserwidget.c:752
 msgid "Try using a shorter name."
 msgstr "একটি ছোট নাম ব্যবহার করার চেষ্টা করুন."
 
-#: gtk/gtkfilechooserwidget.c:762
+#: bobgui/bobguifilechooserwidget.c:762
 msgid "You may only select folders"
 msgstr "আপনি শুধুমাত্র ফোল্ডার নির্বাচন করতে পারেন"
 
-#: gtk/gtkfilechooserwidget.c:763
+#: bobgui/bobguifilechooserwidget.c:763
 msgid "The item that you selected is not a folder try using a different item."
 msgstr "আপনার নির্বাচিত আইটেমটি একটি ফোল্ডার নয় একটি ভিন্ন আইটেম ব্যবহার করে দেখুন৷"
 
-#: gtk/gtkfilechooserwidget.c:771
+#: bobgui/bobguifilechooserwidget.c:771
 msgid "Invalid file name"
 msgstr "ফাইলের নাম বৈধ নয়"
 
-#: gtk/gtkfilechooserwidget.c:780
+#: bobgui/bobguifilechooserwidget.c:780
 msgid "The folder contents could not be displayed"
 msgstr "ফোল্ডারের বিষয়বস্তু প্রদর্শন করা যায়নি"
 
-#: gtk/gtkfilechooserwidget.c:788
+#: bobgui/bobguifilechooserwidget.c:788
 msgid "The file could not be deleted"
 msgstr "ফাইল মুছে ফেলা যাবে না"
 
-#: gtk/gtkfilechooserwidget.c:796
+#: bobgui/bobguifilechooserwidget.c:796
 msgid "The file could not be moved to the Trash"
 msgstr "ফাইলটি ট্র্যাশে সরানো যায়নি৷"
 
-#: gtk/gtkfilechooserwidget.c:1181
+#: bobgui/bobguifilechooserwidget.c:1181
 #, c-format
 msgid "Are you sure you want to permanently delete “%s”?"
 msgstr "আপনি কি স্থায়ীভাবে \"%s\" মুছে ফেলার বিষয়ে নিশ্চিত?"
 
-#: gtk/gtkfilechooserwidget.c:1182
+#: bobgui/bobguifilechooserwidget.c:1182
 msgid "If you delete an item, it will be permanently lost."
 msgstr "আপনি একটি আইটেম মুছে ফেললে, এটি স্থায়ীভাবে হারিয়ে যাবে."
 
-#: gtk/gtkfilechooserwidget.c:1183 gtk/gtkfilechooserwidget.c:1781 gtk/gtklabel.c:5695 gtk/gtktext.c:6147
-#: gtk/gtktextview.c:9018
+#: bobgui/bobguifilechooserwidget.c:1183 bobgui/bobguifilechooserwidget.c:1781 bobgui/bobguilabel.c:5695 bobgui/bobguitext.c:6147
+#: bobgui/bobguitextview.c:9018
 msgid "_Delete"
 msgstr "_মুছে ফেলা"
 
-#: gtk/gtkfilechooserwidget.c:1296
+#: bobgui/bobguifilechooserwidget.c:1296
 msgid "The file could not be renamed"
 msgstr "ফাইলটির নাম পরিবর্তন করা যায়নি"
 
-#: gtk/gtkfilechooserwidget.c:1472
+#: bobgui/bobguifilechooserwidget.c:1472
 msgid "Could not select file"
 msgstr "ফাইল নির্বাচন করা যায়নি"
 
-#: gtk/gtkfilechooserwidget.c:1692 gtk/ui/gtkfilechooserwidget.ui:66
+#: bobgui/bobguifilechooserwidget.c:1692 bobgui/ui/bobguifilechooserwidget.ui:66
 msgid "Grid View"
 msgstr "গ্রিড ভিউ"
 
-#: gtk/gtkfilechooserwidget.c:1698
+#: bobgui/bobguifilechooserwidget.c:1698
 msgid "List View"
 msgstr "তালিকা দেখুন"
 
-#: gtk/gtkfilechooserwidget.c:1761
+#: bobgui/bobguifilechooserwidget.c:1761
 msgid "_Visit File"
 msgstr "_ ফাইলে যান"
 
-#: gtk/gtkfilechooserwidget.c:1765
+#: bobgui/bobguifilechooserwidget.c:1765
 msgid "_Open With File Manager"
 msgstr "_ফাইল ম্যানেজার দিয়ে খুলুন"
 
-#: gtk/gtkfilechooserwidget.c:1769
+#: bobgui/bobguifilechooserwidget.c:1769
 msgid "_Copy Location"
 msgstr "_ফাইল ম্যানেজার দিয়ে খুলুন"
 
-#: gtk/gtkfilechooserwidget.c:1773
+#: bobgui/bobguifilechooserwidget.c:1773
 msgid "_Add to Bookmarks"
 msgstr "বুকমার্ক তালিকায় যোগ (_A)"
 
-#: gtk/gtkfilechooserwidget.c:1777 gtk/gtkplacessidebar.c:2312 gtk/gtkplacessidebar.c:3270 gtk/ui/gtkfilechooserwidget.ui:410
+#: bobgui/bobguifilechooserwidget.c:1777 bobgui/bobguiplacessidebar.c:2312 bobgui/bobguiplacessidebar.c:3270 bobgui/ui/bobguifilechooserwidget.ui:410
 msgid "_Rename"
 msgstr "পুনরায় নামকরণ করুন (_R)"
 
-#: gtk/gtkfilechooserwidget.c:1785
+#: bobgui/bobguifilechooserwidget.c:1785
 msgid "_Move to Trash"
 msgstr "আবর্জনা সরান"
 
-#: gtk/gtkfilechooserwidget.c:1794
+#: bobgui/bobguifilechooserwidget.c:1794
 msgid "Show _Hidden Files"
 msgstr "লুকানো ফাইল প্রদর্শন (_H)"
 
-#: gtk/gtkfilechooserwidget.c:1798
+#: bobgui/bobguifilechooserwidget.c:1798
 msgid "Sort _Folders Before Files"
 msgstr "ফাইলের আগে _ফোল্ডার সাজান"
 
-#: gtk/gtkfilechooserwidget.c:1921 gtk/gtkfilechooserwidget.c:1951 gtk/gtkfilechooserwidget.c:3849
+#: bobgui/bobguifilechooserwidget.c:1921 bobgui/bobguifilechooserwidget.c:1951 bobgui/bobguifilechooserwidget.c:3849
 msgid "Unknown"
 msgstr "অজানা"
 
-#: gtk/gtkfilechooserwidget.c:2006 gtk/gtkplacessidebar.c:1025
+#: bobgui/bobguifilechooserwidget.c:2006 bobgui/bobguiplacessidebar.c:1025
 msgid "Home"
 msgstr "বাড়ি"
 
 #. this is the header for the location column in the print dialog
-#: gtk/gtkfilechooserwidget.c:2161 gtk/gtkfilechooserwidget.c:7374 gtk/inspector/css-node-tree.ui:76
-#: gtk/print/ui/gtkprintunixdialog.ui:111
+#: bobgui/bobguifilechooserwidget.c:2161 bobgui/bobguifilechooserwidget.c:7374 bobgui/inspector/css-node-tree.ui:76
+#: bobgui/print/ui/bobguiprintunixdialog.ui:111
 msgid "Location"
 msgstr "অবস্থান"
 
 #. Label
-#: gtk/gtkfilechooserwidget.c:2268
+#: bobgui/bobguifilechooserwidget.c:2268
 msgid "_Name:"
 msgstr "_নাম:"
 
-#: gtk/gtkfilechooserwidget.c:2823 gtk/gtkfilechooserwidget.c:2837
+#: bobgui/bobguifilechooserwidget.c:2823 bobgui/bobguifilechooserwidget.c:2837
 #, c-format
 msgid "Searching in %s"
 msgstr "%s এ অনুসন্ধান করা হচ্ছে"
 
-#: gtk/gtkfilechooserwidget.c:2843
+#: bobgui/bobguifilechooserwidget.c:2843
 msgid "Searching"
 msgstr "অনুসন্ধান করা হচ্ছে"
 
-#: gtk/gtkfilechooserwidget.c:2849
+#: bobgui/bobguifilechooserwidget.c:2849
 msgid "Enter location or URL"
 msgstr "অবস্থান বা URL লিখুন"
 
-#: gtk/gtkfilechooserwidget.c:3408 gtk/gtkfilechooserwidget.c:5749 gtk/gtkfilechooserwidget.c:7396
+#: bobgui/bobguifilechooserwidget.c:3408 bobgui/bobguifilechooserwidget.c:5749 bobgui/bobguifilechooserwidget.c:7396
 msgid "Modified"
 msgstr "পরিবর্তিত"
 
-#: gtk/gtkfilechooserwidget.c:3593
+#: bobgui/bobguifilechooserwidget.c:3593
 #, c-format
 msgid "Could not read the contents of %s"
 msgstr "%s-এর বিষয়বস্তু পড়া যায়নি"
 
 # FIXME
-#: gtk/gtkfilechooserwidget.c:3597
+#: bobgui/bobguifilechooserwidget.c:3597
 msgid "Could not read the contents of the folder"
 msgstr "ফোল্ডারের বিষয়বস্তু পড়া যায়নি"
 
 #. Translators: see g_date_time_format() for details on the format
-#: gtk/gtkfilechooserwidget.c:3744 gtk/gtkfilechooserwidget.c:3787
+#: bobgui/bobguifilechooserwidget.c:3744 bobgui/bobguifilechooserwidget.c:3787
 msgid "%H:%M"
 msgstr "%H:%M"
 
-#: gtk/gtkfilechooserwidget.c:3746 gtk/gtkfilechooserwidget.c:3789
+#: bobgui/bobguifilechooserwidget.c:3746 bobgui/bobguifilechooserwidget.c:3789
 msgid "%l:%M %p"
 msgstr "%l:%M %p"
 
-#: gtk/gtkfilechooserwidget.c:3750
+#: bobgui/bobguifilechooserwidget.c:3750
 msgid "Yesterday"
 msgstr "গতকাল"
 
-#: gtk/gtkfilechooserwidget.c:3758
+#: bobgui/bobguifilechooserwidget.c:3758
 #, c-format
 msgid "%-e %b"
 msgstr "%-e %b"
 
-#: gtk/gtkfilechooserwidget.c:4956 gtk/print/gtkprintunixdialog.c:673
+#: bobgui/bobguifilechooserwidget.c:4956 bobgui/print/bobguiprintunixdialog.c:673
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "“%s” নামের একটি ফাইল ইতিমধ্যেই বিদ্যমান। তুমি কি এটা প্রতিস্থাপন করতে চাও?"
 
-#: gtk/gtkfilechooserwidget.c:4958 gtk/print/gtkprintunixdialog.c:677
+#: bobgui/bobguifilechooserwidget.c:4958 bobgui/print/bobguiprintunixdialog.c:677
 #, c-format
 msgid "The file already exists in “%s”.  Replacing it will overwrite its contents."
 msgstr "ফাইলটি আগে থেকেই “%s”-এ বিদ্যমান। এটি প্রতিস্থাপন করলে এর বিষয়বস্তু ওভাররাইট হবে।"
 
-#: gtk/gtkfilechooserwidget.c:4964 gtk/print/gtkprintunixdialog.c:685
+#: bobgui/bobguifilechooserwidget.c:4964 bobgui/print/bobguiprintunixdialog.c:685
 msgid "_Replace"
 msgstr "প্রতিস্থাপন (_R)"
 
 # FIXME
-#: gtk/gtkfilechooserwidget.c:5119
+#: bobgui/bobguifilechooserwidget.c:5119
 msgid "You do not have access to the specified folder."
 msgstr "নির্দিষ্ট ফোল্ডারে আপনার অ্যাক্সেস নেই।"
 
-#: gtk/gtkfilechooserwidget.c:5696
+#: bobgui/bobguifilechooserwidget.c:5696
 msgid "Could not send the search request"
 msgstr "অনুসন্ধানের অনুরোধ পাঠানো যায়নি"
 
-#: gtk/gtkfilechooserwidget.c:5977
+#: bobgui/bobguifilechooserwidget.c:5977
 msgid "Accessed"
 msgstr "অ্যাক্সেস করা হয়েছে"
 
-#: gtk/gtkfilechooserwidget.c:7352
+#: bobgui/bobguifilechooserwidget.c:7352
 msgid "_Size"
 msgstr "_আকার"
 
-#: gtk/gtkfilechooserwidget.c:7356
+#: bobgui/bobguifilechooserwidget.c:7356
 msgid "T_ype"
 msgstr "T_type"
 
-#: gtk/gtkfilechooserwidget.c:7360
+#: bobgui/bobguifilechooserwidget.c:7360
 msgid "_Time"
 msgstr "_সময়"
 
-#: gtk/gtkfilechooserwidget.c:7366 gtk/gtkplacessidebar.c:2306 gtk/inspector/a11y.ui:43 gtk/inspector/actions.ui:19
-#: gtk/inspector/css-node-tree.ui:22 gtk/inspector/prop-list.ui:24 gtk/ui/gtkfilechooserwidget.ui:385
-#: gtk/print/ui/gtkprintunixdialog.ui:80
+#: bobgui/bobguifilechooserwidget.c:7366 bobgui/bobguiplacessidebar.c:2306 bobgui/inspector/a11y.ui:43 bobgui/inspector/actions.ui:19
+#: bobgui/inspector/css-node-tree.ui:22 bobgui/inspector/prop-list.ui:24 bobgui/ui/bobguifilechooserwidget.ui:385
+#: bobgui/print/ui/bobguiprintunixdialog.ui:80
 msgid "Name"
 msgstr "নাম"
 
-#: gtk/gtkfilechooserwidget.c:7383 gtk/inspector/resource-list.ui:82 gtk/ui/gtkfontchooserwidget.ui:217
-#: gtk/ui/gtkfontchooserwidget.ui:386
+#: bobgui/bobguifilechooserwidget.c:7383 bobgui/inspector/resource-list.ui:82 bobgui/ui/bobguifontchooserwidget.ui:217
+#: bobgui/ui/bobguifontchooserwidget.ui:386
 msgid "Size"
 msgstr "আকার"
 
-#: gtk/gtkfilechooserwidget.c:7389 gtk/inspector/misc-info.ui:57 gtk/inspector/prop-list.ui:35 gtk/inspector/statistics.ui:36
+#: bobgui/bobguifilechooserwidget.c:7389 bobgui/inspector/misc-info.ui:57 bobgui/inspector/prop-list.ui:35 bobgui/inspector/statistics.ui:36
 msgid "Type"
 msgstr "টাইপ"
 
-#: gtk/gtkfiledialog.c:816
+#: bobgui/bobguifiledialog.c:816
 msgid "Pick Files"
 msgstr "ফাইল বাছাই করুন"
 
-#: gtk/gtkfiledialog.c:816
+#: bobgui/bobguifiledialog.c:816
 msgid "Pick a File"
 msgstr "একটি ফাইল বাছাই করুন"
 
-#: gtk/gtkfiledialog.c:821
+#: bobgui/bobguifiledialog.c:821
 msgid "Save a File"
 msgstr "একটি ফাইল সংরক্ষণ"
 
-#: gtk/gtkfiledialog.c:825 gtk/ui/gtkappchooserdialog.ui:53 gtk/ui/gtkcolorchooserdialog.ui:41
-#: gtk/ui/gtkfontchooserdialog.ui:32
+#: bobgui/bobguifiledialog.c:825 bobgui/ui/bobguiappchooserdialog.ui:53 bobgui/ui/bobguicolorchooserdialog.ui:41
+#: bobgui/ui/bobguifontchooserdialog.ui:32
 msgid "_Select"
 msgstr "নির্বাচন (_S)"
 
-#: gtk/gtkfiledialog.c:826
+#: bobgui/bobguifiledialog.c:826
 msgid "Select Folders"
 msgstr "ফোল্ডার নির্বাচন করুন"
 
-#: gtk/gtkfiledialog.c:826
+#: bobgui/bobguifiledialog.c:826
 msgid "Select a Folder"
 msgstr "একটি ফোল্ডার নির্বাচন করুন"
 
-#: gtk/gtkfilefilter.c:1032
+#: bobgui/bobguifilefilter.c:1032
 msgid "Image"
 msgstr "ছবি"
 
-#: gtk/gtkfilefilter.c:1045
+#: bobgui/bobguifilefilter.c:1045
 msgid "Unspecified"
 msgstr "অনির্দিষ্ট"
 
-#: gtk/gtkfontchooserdialog.c:192 gtk/gtkfontchooserdialog.c:195
+#: bobgui/bobguifontchooserdialog.c:192 bobgui/bobguifontchooserdialog.c:195
 msgid "Change Font Features"
 msgstr "ফন্ট বৈশিষ্ট্য পরিবর্তন"
 
-#: gtk/gtkfontchooserwidget.c:2457
+#: bobgui/bobguifontchooserwidget.c:2457
 msgid "Default"
 msgstr "ডিফল্ট"
 
-#: gtk/gtkfontchooserwidget.c:2519
+#: bobgui/bobguifontchooserwidget.c:2519
 msgid "Ligatures"
 msgstr "লিগাচার"
 
-#: gtk/gtkfontchooserwidget.c:2520
+#: bobgui/bobguifontchooserwidget.c:2520
 msgid "Letter Case"
 msgstr "চিঠির মামলা"
 
-#: gtk/gtkfontchooserwidget.c:2521
+#: bobgui/bobguifontchooserwidget.c:2521
 msgid "Number Case"
 msgstr "নম্বর মামলা"
 
-#: gtk/gtkfontchooserwidget.c:2522
+#: bobgui/bobguifontchooserwidget.c:2522
 msgid "Number Spacing"
 msgstr "সংখ্যা ব্যবধান"
 
-#: gtk/gtkfontchooserwidget.c:2523
+#: bobgui/bobguifontchooserwidget.c:2523
 msgid "Fractions"
 msgstr "ভগ্নাংশ"
 
-#: gtk/gtkfontchooserwidget.c:2524
+#: bobgui/bobguifontchooserwidget.c:2524
 msgid "Style Variations"
 msgstr "শৈলী বৈচিত্র"
 
-#: gtk/gtkfontchooserwidget.c:2526
+#: bobgui/bobguifontchooserwidget.c:2526
 msgid "Character Variations"
 msgstr "চরিত্রের বৈচিত্র"
 
-#: gtk/gtkglarea.c:305
+#: bobgui/bobguiglarea.c:305
 msgid "OpenGL context creation failed"
 msgstr "OpenGL প্রসঙ্গ তৈরি ব্যর্থ হয়েছে৷"
 
-#: gtk/deprecated/gtkinfobar.c:498 gtk/gtkwindowcontrols.c:357 gtk/gtkwindowhandle.c:250
+#: bobgui/deprecated/bobguiinfobar.c:498 bobgui/bobguiwindowcontrols.c:357 bobgui/bobguiwindowhandle.c:250
 msgid "Close"
 msgstr "বন্ধ"
 
-#: gtk/deprecated/gtkinfobar.c:499
+#: bobgui/deprecated/bobguiinfobar.c:499
 msgid "Close the infobar"
 msgstr "ইনফোবার বন্ধ করুন"
 
-#: gtk/gtklabel.c:5692 gtk/gtktext.c:6135 gtk/gtktextview.c:9006
+#: bobgui/bobguilabel.c:5692 bobgui/bobguitext.c:6135 bobgui/bobguitextview.c:9006
 #, fuzzy
 msgid "Cu_t"
 msgstr "কাটা (_t)"
 
-#: gtk/gtklabel.c:5693 gtk/gtktext.c:6139 gtk/gtktextview.c:9010
+#: bobgui/bobguilabel.c:5693 bobgui/bobguitext.c:6139 bobgui/bobguitextview.c:9010
 #, fuzzy
 msgid "_Copy"
 msgstr "অনুলিপি করুন (_C)"
 
-#: gtk/gtklabel.c:5694 gtk/gtktext.c:6143 gtk/gtktextview.c:9014
+#: bobgui/bobguilabel.c:5694 bobgui/bobguitext.c:6143 bobgui/bobguitextview.c:9014
 #, fuzzy
 msgid "_Paste"
 msgstr "প্রতিলেপন (_P)"
 
-#: gtk/gtklabel.c:5700 gtk/gtktext.c:6156 gtk/gtktextview.c:9039
+#: bobgui/bobguilabel.c:5700 bobgui/bobguitext.c:6156 bobgui/bobguitextview.c:9039
 #, fuzzy
 msgid "Select _All"
 msgstr "সব নির্বাচন করুন (_A)"
 
-#: gtk/gtklabel.c:5705
+#: bobgui/bobguilabel.c:5705
 msgid "_Open Link"
 msgstr "লিংক খুলুন (_O)"
 
-#: gtk/gtklabel.c:5709
+#: bobgui/bobguilabel.c:5709
 msgid "Copy _Link Address"
 msgstr "লিংকের ঠিকানা অনুলিপি করুন (_L)"
 
-#: gtk/gtklabel.c:5753 gtk/gtktext.c:2716 gtk/gtktextview.c:9088
+#: bobgui/bobguilabel.c:5753 bobgui/bobguitext.c:2716 bobgui/bobguitextview.c:9088
 msgid "Context menu"
 msgstr "কনটেক্সট মেনু"
 
-#: gtk/gtklinkbutton.c:260
+#: bobgui/bobguilinkbutton.c:260
 #, fuzzy
 msgid "_Copy URL"
 msgstr "URL অনুলিপি করুন"
 
-#: gtk/gtklinkbutton.c:567
+#: bobgui/bobguilinkbutton.c:567
 msgid "Invalid URI"
 msgstr "অকার্যকর URI"
 
-#: gtk/gtkmessagedialog.c:162 gtk/gtkmessagedialog.c:180 gtk/print/gtkprintbackend.c:639 gtk/gtkwindow.c:6244
+#: bobgui/bobguimessagedialog.c:162 bobgui/bobguimessagedialog.c:180 bobgui/print/bobguiprintbackend.c:639 bobgui/bobguiwindow.c:6244
 #, fuzzy
 msgid "_OK"
 msgstr "ঠিক আছে (_O)"
 
-#: gtk/gtkmessagedialog.c:174
+#: bobgui/bobguimessagedialog.c:174
 #, fuzzy
 msgid "_No"
 msgstr "না (_N)"
 
-#: gtk/gtkmessagedialog.c:175
+#: bobgui/bobguimessagedialog.c:175
 #, fuzzy
 msgid "_Yes"
 msgstr "হ্যাঁ (_Y)"
 
-#: gtk/gtkmountoperation.c:609
+#: bobgui/bobguimountoperation.c:609
 msgid "Co_nnect"
 msgstr "সংযোগ করুন (_n)"
 
-#: gtk/gtkmountoperation.c:676
+#: bobgui/bobguimountoperation.c:676
 #, fuzzy
 msgid "Connect As"
 msgstr "সংযোগ করুন (_n)"
 
-#: gtk/gtkmountoperation.c:685
+#: bobgui/bobguimountoperation.c:685
 #, fuzzy
 msgid "_Anonymous"
 msgstr "অজ্ঞাতভাবে সংযোগ করুন (_a)"
 
-#: gtk/gtkmountoperation.c:692
+#: bobgui/bobguimountoperation.c:692
 msgid "Registered U_ser"
 msgstr "নিবন্ধিত ব্যবহারকারী"
 
-#: gtk/gtkmountoperation.c:702
+#: bobgui/bobguimountoperation.c:702
 #, fuzzy
 msgid "_Username"
 msgstr "ব্যবহারকারীর নাম: (_U)"
 
-#: gtk/gtkmountoperation.c:707
+#: bobgui/bobguimountoperation.c:707
 #, fuzzy
 msgid "_Domain"
 msgstr "ডোমেইন: (_D)"
 
-#: gtk/gtkmountoperation.c:716
+#: bobgui/bobguimountoperation.c:716
 #, fuzzy
 msgid "Volume type"
 msgstr "ভলিউম বৃদ্ধি"
 
-#: gtk/gtkmountoperation.c:726
+#: bobgui/bobguimountoperation.c:726
 msgid "_Hidden"
 msgstr "_গোপন"
 
-#: gtk/gtkmountoperation.c:729
+#: bobgui/bobguimountoperation.c:729
 msgid "_Windows system"
 msgstr "_উইন্ডোজ সিস্টেম"
 
-#: gtk/gtkmountoperation.c:732
+#: bobgui/bobguimountoperation.c:732
 msgid "_PIM"
 msgstr "_পিআইএম"
 
-#: gtk/gtkmountoperation.c:738
+#: bobgui/bobguimountoperation.c:738
 #, fuzzy
 msgid "_Password"
 msgstr "পাসওয়ার্ড: (_P)"
 
-#: gtk/gtkmountoperation.c:760
+#: bobgui/bobguimountoperation.c:760
 msgid "Forget password _immediately"
 msgstr "পাসওয়ার্ড তৎক্ষণাত মুছে ফেলা হবে (_i)"
 
-#: gtk/gtkmountoperation.c:770
+#: bobgui/bobguimountoperation.c:770
 msgid "Remember password until you _logout"
 msgstr "লগ-আউট না করা অবধি পাসওয়ার্ড সংরক্ষণ করা হবে (_l)"
 
-#: gtk/gtkmountoperation.c:781
+#: bobgui/bobguimountoperation.c:781
 msgid "Remember _forever"
 msgstr "পাসওয়ার্ড স্থায়ীরূপে সংরক্ষণ করা হবে ( _f)"
 
-#: gtk/gtkmountoperation.c:1251
+#: bobgui/bobguimountoperation.c:1251
 #, c-format
 msgid "Unknown Application (PID %d)"
 msgstr "অজানা অ্যাপ্লিকেশন (PID %d)"
 
-#. Use GTK_DIALOG_DESTROY_WITH_PARENT here since the parent dialog can be
+#. Use BOBGUI_DIALOG_DESTROY_WITH_PARENT here since the parent dialog can be
 #. * indeed be destroyed via the GMountOperation::abort signal... for example,
 #. * this is triggered if the user yanks the device while we are showing
 #. * the dialog...
 #.
-#: gtk/gtkmountoperation.c:1396
+#: bobgui/bobguimountoperation.c:1396
 #, c-format
 msgid "Unable to end process"
 msgstr "প্রক্রিয়াটি সমাপ্ত করতে ব্যর্থ"
 
-#: gtk/gtkmountoperation.c:1546
+#: bobgui/bobguimountoperation.c:1546
 msgid "_End Process"
 msgstr "প্রক্রিয়া সমাপ্ত (_E)"
 
-#: gtk/gtkmountoperation-stub.c:61
+#: bobgui/bobguimountoperation-stub.c:61
 #, c-format
 msgid "Cannot kill process with PID %d. Operation is not implemented."
 msgstr "PID %d সহ প্রক্রিয়া বন্ধ করা যাচ্ছে না। অপারেশন বাস্তবায়ন করা হয়নি।"
 
-#: gtk/gtkmountoperation-x11.c:1090
+#: bobgui/bobguimountoperation-x11.c:1090
 #, c-format
 msgid "Cannot end process with PID %d: %s"
 msgstr "PID %d সহ প্রক্রিয়া বন্ধ করা যাচ্ছে না: %s"
 
-#: gtk/gtknomediafile.c:48
-msgid "GTK could not find a media module. Check your installation."
-msgstr "GTK একটি মিডিয়া মডিউল খুঁজে পায়নি। আপনার ইনস্টলেশন পরীক্ষা করুন."
+#: bobgui/bobguinomediafile.c:48
+msgid "BOBGUI could not find a media module. Check your installation."
+msgstr "BOBGUI একটি মিডিয়া মডিউল খুঁজে পায়নি। আপনার ইনস্টলেশন পরীক্ষা করুন."
 
-#: gtk/gtknotebook.c:3211
+#: bobgui/bobguinotebook.c:3211
 #, fuzzy
 msgid "Previous tab"
 msgstr "পূর্ববর্তী (_v)"
 
-#: gtk/gtknotebook.c:3215
+#: bobgui/bobguinotebook.c:3215
 #, fuzzy
 msgid "Next tab"
 msgstr "পরবর্তী (_N)"
 
-#: gtk/gtknotebook.c:4331 gtk/gtknotebook.c:6541
+#: bobgui/bobguinotebook.c:4331 bobgui/bobguinotebook.c:6541
 #, c-format
 msgid "Page %u"
 msgstr "পৃষ্ঠা %u"
 
-#: gtk/print/gtkpagesetup.c:611 gtk/print/gtkpapersize.c:942 gtk/print/gtkpapersize.c:982
+#: bobgui/print/bobguipagesetup.c:611 bobgui/print/bobguipapersize.c:942 bobgui/print/bobguipapersize.c:982
 msgid "Not a valid page setup file"
 msgstr "বৈধ পৃষ্ঠা সেটআপ ফাইল নয়"
 
-#: gtk/print/gtkpagesetupunixdialog.c:198 gtk/print/gtkprintunixdialog.c:768
+#: bobgui/print/bobguipagesetupunixdialog.c:198 bobgui/print/bobguiprintunixdialog.c:768
 #, fuzzy
 msgid "Manage Custom Sizes…"
 msgstr "স্বনির্ধারিত আকার পরিচালনা"
 
-#: gtk/print/gtkpagesetupunixdialog.c:283 gtk/ui/gtkassistant.ui:98
+#: bobgui/print/bobguipagesetupunixdialog.c:283 bobgui/ui/bobguiassistant.ui:98
 #, fuzzy
 msgid "_Apply"
 msgstr "প্রয়োগ করুন (_A)"
 
-#: gtk/print/gtkpagesetupunixdialog.c:318 gtk/print/gtkpagesetupunixdialog.c:570
+#: bobgui/print/bobguipagesetupunixdialog.c:318 bobgui/print/bobguipagesetupunixdialog.c:570
 msgid "Any Printer"
 msgstr "যেকোনো মুদ্রণযন্ত্র"
 
-#: gtk/print/gtkpagesetupunixdialog.c:319
+#: bobgui/print/bobguipagesetupunixdialog.c:319
 msgid "For portable documents"
 msgstr "পোর্টেবল নথিপত্রের জন্য"
 
-#: gtk/print/gtkpagesetupunixdialog.c:738
+#: bobgui/print/bobguipagesetupunixdialog.c:738
 #, c-format
 msgid ""
 "Margins:\n"
@@ -1360,111 +1360,111 @@ msgstr ""
 " শীর্ষ: %5$s %6$s\n"
 " নিম্ন: %7$s %8$s"
 
-#: gtk/print/gtkpagesetupunixdialog.c:784 gtk/print/ui/gtkpagesetupunixdialog.ui:5 gtk/print/ui/gtkprintunixdialog.ui:782
+#: bobgui/print/bobguipagesetupunixdialog.c:784 bobgui/print/ui/bobguipagesetupunixdialog.ui:5 bobgui/print/ui/bobguiprintunixdialog.ui:782
 msgid "Page Setup"
 msgstr "পৃষ্ঠার সেটআপ"
 
-#: gtk/gtkpasswordentry.c:168
+#: bobgui/bobguipasswordentry.c:168
 msgid "Hide Text"
 msgstr "টেক্সট লুকান"
 
-#: gtk/gtkpasswordentry.c:173 gtk/gtkpasswordentry.c:624
+#: bobgui/bobguipasswordentry.c:173 bobgui/bobguipasswordentry.c:624
 msgid "Show Text"
 msgstr "Show Text"
 
-#: gtk/gtkpasswordentry.c:215
+#: bobgui/bobguipasswordentry.c:215
 msgid "Caps Lock is on"
 msgstr "Caps Lock সক্রিয়"
 
-#: gtk/gtkpasswordentry.c:700
+#: bobgui/bobguipasswordentry.c:700
 msgid "_Show Text"
 msgstr "_পাঠ্য দেখান"
 
 #. translators: %s is the name of a cloud provider for files
-#: gtk/gtkplacessidebar.c:912
+#: bobgui/bobguiplacessidebar.c:912
 #, fuzzy, c-format
 msgid "Open %s"
 msgstr "'%s' খুলুন"
 
-#: gtk/gtkplacessidebar.c:1003
+#: bobgui/bobguiplacessidebar.c:1003
 #, fuzzy
 msgid "Recent"
 msgstr "সম্প্রতি ব্যবহৃত"
 
-#: gtk/gtkplacessidebar.c:1005
+#: bobgui/bobguiplacessidebar.c:1005
 #, fuzzy
 msgid "Recent files"
 msgstr "সম্প্রতি ব্যবহৃত"
 
-#: gtk/gtkplacessidebar.c:1014
+#: bobgui/bobguiplacessidebar.c:1014
 msgid "Starred"
 msgstr "তারকাচিহ্নিত"
 
-#: gtk/gtkplacessidebar.c:1016
+#: bobgui/bobguiplacessidebar.c:1016
 msgid "Starred files"
 msgstr "তারকাচিহ্নিত ফাইল"
 
-#: gtk/gtkplacessidebar.c:1027
+#: bobgui/bobguiplacessidebar.c:1027
 msgid "Open your personal folder"
 msgstr "আপনার ব্যক্তিগত ফোল্ডার খুলুন"
 
-#: gtk/gtkplacessidebar.c:1040
+#: bobgui/bobguiplacessidebar.c:1040
 msgid "Desktop"
 msgstr "ডেস্কটপ"
 
 # FIXME
-#: gtk/gtkplacessidebar.c:1042
+#: bobgui/bobguiplacessidebar.c:1042
 msgid "Open the contents of your desktop in a folder"
 msgstr "একটি ফোল্ডারে আপনার ডেস্কটপের বিষয়বস্তু খুলুন"
 
-#: gtk/gtkplacessidebar.c:1056
+#: bobgui/bobguiplacessidebar.c:1056
 #, fuzzy
 msgid "Enter Location"
 msgstr "অবস্থান"
 
-#: gtk/gtkplacessidebar.c:1058
+#: bobgui/bobguiplacessidebar.c:1058
 msgid "Manually enter a location"
 msgstr "ম্যানুয়ালি একটি অবস্থান লিখুন"
 
-#: gtk/gtkplacessidebar.c:1068
+#: bobgui/bobguiplacessidebar.c:1068
 msgid "Trash"
 msgstr "আবর্জনা"
 
-#: gtk/gtkplacessidebar.c:1070
+#: bobgui/bobguiplacessidebar.c:1070
 msgid "Open the trash"
 msgstr "ট্র্যাশ খুলুন"
 
-#: gtk/gtkplacessidebar.c:1181 gtk/gtkplacessidebar.c:1209 gtk/gtkplacessidebar.c:1409
+#: bobgui/bobguiplacessidebar.c:1181 bobgui/bobguiplacessidebar.c:1209 bobgui/bobguiplacessidebar.c:1409
 #, c-format
 msgid "Mount and open “%s”"
 msgstr "মাউন্ট এবং \"%s\" খুলুন"
 
 # FIXME
-#: gtk/gtkplacessidebar.c:1304
+#: bobgui/bobguiplacessidebar.c:1304
 #, fuzzy
 msgid "Open the contents of the file system"
 msgstr "ফোল্ডারের বিষয়বস্তু পড়া যায়নি"
 
-#: gtk/gtkplacessidebar.c:1387
+#: bobgui/bobguiplacessidebar.c:1387
 msgid "New bookmark"
 msgstr "নতুন বুকমার্ক"
 
-#: gtk/gtkplacessidebar.c:1389
+#: bobgui/bobguiplacessidebar.c:1389
 #, fuzzy
 msgid "Add a new bookmark"
 msgstr "বুকমার্ক তালিকায় যোগ (_A)"
 
-#: gtk/gtkplacessidebar.c:1454
+#: bobgui/bobguiplacessidebar.c:1454
 #, fuzzy
 msgid "Other Locations"
 msgstr "অন্যান্য অ্যাপ্লিকেশন"
 
-#: gtk/gtkplacessidebar.c:1455
+#: bobgui/bobguiplacessidebar.c:1455
 #, fuzzy
 msgid "Show other locations"
 msgstr "অন্যান্য অ্যাপ্লিকপশন প্রদর্শন"
 
-#: gtk/gtkplacessidebar.c:1964 gtk/gtkplacessidebar.c:2984
+#: bobgui/bobguiplacessidebar.c:1964 bobgui/bobguiplacessidebar.c:2984
 #, c-format
 msgid "Unable to start “%s”"
 msgstr "\"%s\" শুরু করতে অক্ষম"
@@ -1472,219 +1472,219 @@ msgstr "\"%s\" শুরু করতে অক্ষম"
 #. Translators: This means that unlocking an encrypted storage
 #. * device failed. %s is the name of the device.
 #.
-#: gtk/gtkplacessidebar.c:2000
+#: bobgui/bobguiplacessidebar.c:2000
 #, fuzzy, c-format
 msgid "Error unlocking “%s”"
 msgstr "আইকন লোড করতে ত্রুটি: %s"
 
-#: gtk/gtkplacessidebar.c:2002
+#: bobgui/bobguiplacessidebar.c:2002
 #, c-format
 msgid "Unable to access “%s”"
 msgstr "\"%s\" অ্যাক্সেস করতে অক্ষম"
 
-#: gtk/gtkplacessidebar.c:2233
+#: bobgui/bobguiplacessidebar.c:2233
 msgid "This name is already taken"
 msgstr "এই নাম ইতিমধ্যে নেওয়া হয়েছে"
 
-#: gtk/gtkplacessidebar.c:2525
+#: bobgui/bobguiplacessidebar.c:2525
 #, c-format
 msgid "Unable to unmount “%s”"
 msgstr "\"%s\" আনমাউন্ট করতে অক্ষম"
 
-#: gtk/gtkplacessidebar.c:2701
+#: bobgui/bobguiplacessidebar.c:2701
 #, c-format
 msgid "Unable to stop “%s”"
 msgstr "\"%s\" থামাতে অক্ষম"
 
-#: gtk/gtkplacessidebar.c:2730
+#: bobgui/bobguiplacessidebar.c:2730
 #, c-format
 msgid "Unable to eject “%s”"
 msgstr "\"%s\" বের করতে অক্ষম"
 
-#: gtk/gtkplacessidebar.c:2759 gtk/gtkplacessidebar.c:2788
+#: bobgui/bobguiplacessidebar.c:2759 bobgui/bobguiplacessidebar.c:2788
 #, c-format
 msgid "Unable to eject %s"
 msgstr "%s বের করতে অক্ষম"
 
-#: gtk/gtkplacessidebar.c:2936
+#: bobgui/bobguiplacessidebar.c:2936
 #, c-format
 msgid "Unable to poll “%s” for media changes"
 msgstr "মিডিয়া পরিবর্তনের জন্য \"%s\" পোল করতে অক্ষম৷"
 
-#: gtk/gtkplacessidebar.c:3155 gtk/gtkplacessidebar.c:3242 gtk/gtkplacesview.c:1649
+#: bobgui/bobguiplacessidebar.c:3155 bobgui/bobguiplacessidebar.c:3242 bobgui/bobguiplacesview.c:1649
 msgid "Open in New _Tab"
 msgstr "নতুন _ট্যাবে খুলুন"
 
-#: gtk/gtkplacessidebar.c:3161 gtk/gtkplacessidebar.c:3251 gtk/gtkplacesview.c:1654
+#: bobgui/bobguiplacessidebar.c:3161 bobgui/bobguiplacessidebar.c:3251 bobgui/bobguiplacesview.c:1654
 msgid "Open in New _Window"
 msgstr "নতুন _ট্যাবে খুলুন"
 
-#: gtk/gtkplacessidebar.c:3262
+#: bobgui/bobguiplacessidebar.c:3262
 #, fuzzy
 msgid "_Add Bookmark"
 msgstr "বুকমার্ক তালিকায় যোগ (_A)"
 
-#: gtk/gtkplacessidebar.c:3266
+#: bobgui/bobguiplacessidebar.c:3266
 msgid "_Remove"
 msgstr "অপসারণ (_R)"
 
-#: gtk/gtkplacessidebar.c:3282 gtk/gtkplacesview.c:1679
+#: bobgui/bobguiplacessidebar.c:3282 bobgui/bobguiplacesview.c:1679
 msgid "_Mount"
 msgstr "_মাউন্ট"
 
-#: gtk/gtkplacessidebar.c:3291 gtk/gtkplacesview.c:1668
+#: bobgui/bobguiplacessidebar.c:3291 bobgui/bobguiplacesview.c:1668
 msgid "_Unmount"
 msgstr "_আনমাউন্ট করুন"
 
-#: gtk/gtkplacessidebar.c:3298
+#: bobgui/bobguiplacessidebar.c:3298
 msgid "_Eject"
 msgstr "_ বের করে দাও"
 
-#: gtk/gtkplacessidebar.c:3308
+#: bobgui/bobguiplacessidebar.c:3308
 msgid "_Detect Media"
 msgstr "_মিডিয়া সনাক্ত করুন"
 
-#: gtk/gtkplacessidebar.c:3317
+#: bobgui/bobguiplacessidebar.c:3317
 msgid "_Start"
 msgstr "_শুরু কর"
 
-#: gtk/gtkplacessidebar.c:3319
+#: bobgui/bobguiplacessidebar.c:3319
 msgid "_Power On"
 msgstr "পাওয়ার অন"
 
-#: gtk/gtkplacessidebar.c:3320
+#: bobgui/bobguiplacessidebar.c:3320
 #, fuzzy
 msgid "_Connect Drive"
 msgstr "সংযোগ করুন (_n)"
 
-#: gtk/gtkplacessidebar.c:3321
+#: bobgui/bobguiplacessidebar.c:3321
 msgid "_Start Multi-disk Device"
 msgstr "_ মাল্টি-ডিস্ক ডিভাইস শুরু করুন"
 
-#: gtk/gtkplacessidebar.c:3322
+#: bobgui/bobguiplacessidebar.c:3322
 #, fuzzy
 msgid "_Unlock Device"
 msgstr "ডিভাইস: (_D)"
 
-#: gtk/gtkplacessidebar.c:3332
+#: bobgui/bobguiplacessidebar.c:3332
 #, fuzzy
 msgid "_Stop"
 msgstr "থামান (_S)"
 
-#: gtk/gtkplacessidebar.c:3334
+#: bobgui/bobguiplacessidebar.c:3334
 msgid "_Safely Remove Drive"
 msgstr "_নিরাপদভাবে ড্রাইভ সরান"
 
-#: gtk/gtkplacessidebar.c:3335
+#: bobgui/bobguiplacessidebar.c:3335
 #, fuzzy
 msgid "_Disconnect Drive"
 msgstr "সংযোগ বিচ্ছিন্ন করুন (_D)"
 
-#: gtk/gtkplacessidebar.c:3336
+#: bobgui/bobguiplacessidebar.c:3336
 msgid "_Stop Multi-disk Device"
 msgstr "_মাল্টি-ডিস্ক ডিভাইস বন্ধ করুন"
 
-#: gtk/gtkplacessidebar.c:3337
+#: bobgui/bobguiplacessidebar.c:3337
 #, fuzzy
 msgid "_Lock Device"
 msgstr "ডিভাইস: (_D)"
 
-#: gtk/gtkplacessidebar.c:3827 gtk/gtkplacesview.c:1089
+#: bobgui/bobguiplacessidebar.c:3827 bobgui/bobguiplacesview.c:1089
 msgid "Computer"
 msgstr "কম্পিউটার"
 
-#: gtk/gtkplacesview.c:875
+#: bobgui/bobguiplacesview.c:875
 msgid "Searching for network locations"
 msgstr "নেটওয়ার্ক অবস্থানের জন্য অনুসন্ধান করা হচ্ছে"
 
-#: gtk/gtkplacesview.c:882
+#: bobgui/bobguiplacesview.c:882
 msgid "No network locations found"
 msgstr "কোনো নেটওয়ার্ক অবস্থান খুঁজে পাওয়া যায়নি"
 
 #. if it wasn't cancelled show a dialog
-#: gtk/gtkplacesview.c:1196 gtk/gtkplacesview.c:1293
+#: bobgui/bobguiplacesview.c:1196 bobgui/bobguiplacesview.c:1293
 #, fuzzy
 msgid "Unable to access location"
 msgstr "প্রক্রিয়াটি সমাপ্ত করতে ব্যর্থ"
 
 #. Restore from Cancel to Connect
-#: gtk/gtkplacesview.c:1214 gtk/ui/gtkplacesview.ui:250
+#: bobgui/bobguiplacesview.c:1214 bobgui/ui/bobguiplacesview.ui:250
 #, fuzzy
 msgid "Con_nect"
 msgstr "সংযোগ করুন (_n)"
 
 #. if it wasn't cancelled show a dialog
-#: gtk/gtkplacesview.c:1353
+#: bobgui/bobguiplacesview.c:1353
 #, fuzzy
 msgid "Unable to unmount volume"
 msgstr "প্রক্রিয়াটি সমাপ্ত করতে ব্যর্থ"
 
 #. Allow to cancel the operation
-#: gtk/gtkplacesview.c:1445
+#: bobgui/bobguiplacesview.c:1445
 #, fuzzy
 msgid "Cance_l"
 msgstr "বাতিল (_C)"
 
-#: gtk/gtkplacesview.c:1592
+#: bobgui/bobguiplacesview.c:1592
 msgid "AppleTalk"
 msgstr "আপেলটক"
 
-#: gtk/gtkplacesview.c:1598
+#: bobgui/bobguiplacesview.c:1598
 msgid "File Transfer Protocol"
 msgstr "এফ টি পি"
 
 #. Translators: do not translate ftp:// and ftps://
-#: gtk/gtkplacesview.c:1600
+#: bobgui/bobguiplacesview.c:1600
 msgid "ftp:// or ftps://"
 msgstr "ftp:// অথবা ftps://"
 
-#: gtk/gtkplacesview.c:1606
+#: bobgui/bobguiplacesview.c:1606
 #, fuzzy
 msgid "Network File System"
 msgstr "ফাইল সিস্টেম"
 
-#: gtk/gtkplacesview.c:1612
+#: bobgui/bobguiplacesview.c:1612
 msgid "Samba"
 msgstr "সাম্বা"
 
-#: gtk/gtkplacesview.c:1618
+#: bobgui/bobguiplacesview.c:1618
 msgid "SSH File Transfer Protocol"
 msgstr "SSH ফাইল ট্রান্সফার প্রোটোকল"
 
 #. Translators: do not translate sftp:// and ssh://
-#: gtk/gtkplacesview.c:1620
+#: bobgui/bobguiplacesview.c:1620
 msgid "sftp:// or ssh://"
 msgstr "sftp:// অথবা ssh://"
 
-#: gtk/gtkplacesview.c:1626
+#: bobgui/bobguiplacesview.c:1626
 msgid "WebDAV"
 msgstr "ওয়েবডিএভি"
 
 #. Translators: do not translate dav:// and davs://
-#: gtk/gtkplacesview.c:1628
+#: bobgui/bobguiplacesview.c:1628
 msgid "dav:// or davs://"
 msgstr "dav:// বা davs://"
 
-#: gtk/gtkplacesview.c:1663
+#: bobgui/bobguiplacesview.c:1663
 #, fuzzy
 msgid "_Disconnect"
 msgstr "সংযোগ বিচ্ছিন্ন করুন (_D)"
 
-#: gtk/gtkplacesview.c:1674
+#: bobgui/bobguiplacesview.c:1674
 #, fuzzy
 msgid "_Connect"
 msgstr "সংযোগ করুন (_n)"
 
-#: gtk/gtkplacesview.c:1894
+#: bobgui/bobguiplacesview.c:1894
 msgid "Unable to get remote server location"
 msgstr "দূরবর্তী সার্ভার অবস্থান পেতে অক্ষম"
 
-#: gtk/gtkplacesview.c:2038 gtk/gtkplacesview.c:2047
+#: bobgui/bobguiplacesview.c:2038 bobgui/bobguiplacesview.c:2047
 #, fuzzy
 msgid "Networks"
 msgstr "নেটওয়ার্ক (_N)"
 
-#: gtk/gtkplacesview.c:2038 gtk/gtkplacesview.c:2047
+#: bobgui/bobguiplacesview.c:2038 bobgui/bobguiplacesview.c:2047
 msgid "On This Computer"
 msgstr "এই কম্পিউটারে"
 
@@ -1692,37 +1692,37 @@ msgstr "এই কম্পিউটারে"
 #. * should be based on the free space available.
 #. * i.e. 1 GB / 24 GB available.
 #.
-#: gtk/gtkplacesviewrow.c:135
+#: bobgui/bobguiplacesviewrow.c:135
 #, fuzzy, c-format
 msgid "%s / %s available"
 msgid_plural "%s / %s available"
 msgstr[0] "বিদ্যমান নেই"
 msgstr[1] "বিদ্যমান নেই"
 
-#: gtk/gtkplacesviewrow.c:471
+#: bobgui/bobguiplacesviewrow.c:471
 #, fuzzy
 msgid "Disconnect"
 msgstr "সংযোগ বিচ্ছিন্ন করুন (_D)"
 
-#: gtk/gtkplacesviewrow.c:471 gtk/ui/gtkplacesviewrow.ui:53 gtk/ui/gtksidebarrow.ui:54
+#: bobgui/bobguiplacesviewrow.c:471 bobgui/ui/bobguiplacesviewrow.ui:53 bobgui/ui/bobguisidebarrow.ui:54
 msgid "Unmount"
 msgstr "আনমাউন্ট করুন"
 
-#: gtk/print/gtkprintbackend.c:637
+#: bobgui/print/bobguiprintbackend.c:637
 msgid "Authentication"
 msgstr "প্রমাণীকরণ"
 
-#: gtk/print/gtkprintbackend.c:716
+#: bobgui/print/bobguiprintbackend.c:716
 #, fuzzy
 msgid "_Remember password"
 msgstr "লগ-আউট না করা অবধি পাসওয়ার্ড সংরক্ষণ করা হবে (_l)"
 
-#: gtk/print/gtkprinteroptionwidget.c:702
+#: bobgui/print/bobguiprinteroptionwidget.c:702
 #, fuzzy
 msgid "Select a filename"
 msgstr "একটি ফাইল নির্বাচন"
 
-#: gtk/print/gtkprinteroptionwidget.c:919
+#: bobgui/print/bobguiprinteroptionwidget.c:919
 msgid "Not available"
 msgstr "বিদ্যমান নেই"
 
@@ -1730,1403 +1730,1403 @@ msgstr "বিদ্যমান নেই"
 #. * jobs. %s gets replaced by the application name, %d gets replaced
 #. * by the job number.
 #.
-#: gtk/print/gtkprintoperation.c:252
+#: bobgui/print/bobguiprintoperation.c:252
 #, c-format
 msgid "%s job #%d"
 msgstr "%1$s job #%2$d"
 
-#: gtk/print/gtkprintoperation.c:2250
+#: bobgui/print/bobguiprintoperation.c:2250
 #, c-format
 msgid "Preparing %d"
 msgstr "%d প্রস্তুত করা হচ্ছে"
 
-#: gtk/print/gtkprintoperation.c:2252 gtk/print/gtkprintoperation.c:2871
+#: bobgui/print/bobguiprintoperation.c:2252 bobgui/print/bobguiprintoperation.c:2871
 #, c-format
 msgid "Preparing"
 msgstr "প্রস্তুতি"
 
-#: gtk/print/gtkprintoperation.c:2255
+#: bobgui/print/bobguiprintoperation.c:2255
 #, c-format
 msgid "Printing %d"
 msgstr "%d মুদ্রণ করা হচ্ছে"
 
-#: gtk/print/gtkprintoperation.c:2904
+#: bobgui/print/bobguiprintoperation.c:2904
 #, c-format
 msgid "Error creating print preview"
 msgstr "মুদ্রণ প্রাকদর্শন তৈরিতে ত্রুটি"
 
-#: gtk/print/gtkprintoperation.c:2907
+#: bobgui/print/bobguiprintoperation.c:2907
 #, c-format
 msgid "The most probable reason is that a temporary file could not be created."
 msgstr "সম্ভবত অস্থায়ী ফাইল তৈরি করা যায়নি বলে এমনটি হয়েছে।"
 
 #. window
-#: gtk/print/gtkprintoperation-portal.c:264 gtk/print/gtkprintoperation-portal.c:594 gtk/print/gtkprintoperation-portal.c:663
-#: gtk/print/gtkprintunixdialog.c:3008
+#: bobgui/print/bobguiprintoperation-portal.c:264 bobgui/print/bobguiprintoperation-portal.c:594 bobgui/print/bobguiprintoperation-portal.c:663
+#: bobgui/print/bobguiprintunixdialog.c:3008
 msgid "Print"
 msgstr "মুদ্রণ"
 
-#: gtk/print/gtkprintoperation-unix.c:481 gtk/print/gtkprintoperation-win32.c:1505
+#: bobgui/print/bobguiprintoperation-unix.c:481 bobgui/print/bobguiprintoperation-win32.c:1505
 msgid "Application"
 msgstr "অ্যাপ্লিকেশন"
 
-#: gtk/print/gtkprintoperation-win32.c:636
+#: bobgui/print/bobguiprintoperation-win32.c:636
 msgid "Printer offline"
 msgstr "মুদ্রণযন্ত্র অফলাইনে"
 
-#: gtk/print/gtkprintoperation-win32.c:638
+#: bobgui/print/bobguiprintoperation-win32.c:638
 msgid "Out of paper"
 msgstr "কাগজ ফুরিয়ে গেছে"
 
 #. Translators: this is a printer status.
-#: gtk/print/gtkprintoperation-win32.c:640 modules/printbackends/gtkprintbackendcpdb.c:1528
-#: modules/printbackends/gtkprintbackendcups.c:2639
+#: bobgui/print/bobguiprintoperation-win32.c:640 modules/printbackends/bobguiprintbackendcpdb.c:1528
+#: modules/printbackends/bobguiprintbackendcups.c:2639
 msgid "Paused"
 msgstr "স্থগিত"
 
-#: gtk/print/gtkprintoperation-win32.c:642
+#: bobgui/print/bobguiprintoperation-win32.c:642
 msgid "Need user intervention"
 msgstr "ব্যবহারকারীর সহায়তা প্রয়োজন"
 
-#: gtk/print/gtkprintoperation-win32.c:749
+#: bobgui/print/bobguiprintoperation-win32.c:749
 msgid "Custom size"
 msgstr "স্বনির্ধারিত আকার"
 
-#: gtk/print/gtkprintoperation-win32.c:1597
+#: bobgui/print/bobguiprintoperation-win32.c:1597
 msgid "No printer found"
 msgstr "কোনো মুদ্রণযন্ত্র পাওয়া যায়নি"
 
-#: gtk/print/gtkprintoperation-win32.c:1624
+#: bobgui/print/bobguiprintoperation-win32.c:1624
 msgid "Invalid argument to CreateDC"
 msgstr "CreateDC-তে অকার্যকর আর্গুমেন্ট প্রেরিত"
 
-#: gtk/print/gtkprintoperation-win32.c:1660 gtk/print/gtkprintoperation-win32.c:1906
+#: bobgui/print/bobguiprintoperation-win32.c:1660 bobgui/print/bobguiprintoperation-win32.c:1906
 msgid "Error from StartDoc"
 msgstr "StartDoc থেকে ত্রুটি"
 
-#: gtk/print/gtkprintoperation-win32.c:1761 gtk/print/gtkprintoperation-win32.c:1784 gtk/print/gtkprintoperation-win32.c:1832
+#: bobgui/print/bobguiprintoperation-win32.c:1761 bobgui/print/bobguiprintoperation-win32.c:1784 bobgui/print/bobguiprintoperation-win32.c:1832
 msgid "Not enough free memory"
 msgstr "পর্যাপ্ত মেমরি ফাঁকা নেই"
 
-#: gtk/print/gtkprintoperation-win32.c:1837
+#: bobgui/print/bobguiprintoperation-win32.c:1837
 msgid "Invalid argument to PrintDlgEx"
 msgstr "PrintDlgEx-তে অকার্যকর আর্গুমেন্ট প্রেরিত"
 
-#: gtk/print/gtkprintoperation-win32.c:1842
+#: bobgui/print/bobguiprintoperation-win32.c:1842
 msgid "Invalid pointer to PrintDlgEx"
 msgstr "PrintDlgEx-তে অকার্যকর পয়েন্টার"
 
-#: gtk/print/gtkprintoperation-win32.c:1847
+#: bobgui/print/bobguiprintoperation-win32.c:1847
 msgid "Invalid handle to PrintDlgEx"
 msgstr "PrintDlgEx-তে অকার্যকর পরিচালনা"
 
-#: gtk/print/gtkprintoperation-win32.c:1852
+#: bobgui/print/bobguiprintoperation-win32.c:1852
 msgid "Unspecified error"
 msgstr "অনির্ধারিত ত্রুটি"
 
-#: gtk/print/gtkprintunixdialog.c:838
+#: bobgui/print/bobguiprintunixdialog.c:838
 #, fuzzy
 msgid "Pre_view"
 msgstr "প্রাকদর্শন: (_P)"
 
-#: gtk/print/gtkprintunixdialog.c:840
+#: bobgui/print/bobguiprintunixdialog.c:840
 #, fuzzy
 msgid "_Print"
 msgstr "মুদ্রণ (_P)"
 
-#: gtk/print/gtkprintunixdialog.c:961
+#: bobgui/print/bobguiprintunixdialog.c:961
 msgid "Getting printer information failed"
 msgstr "মুদ্রণযন্ত্রের তথ্য পেতে ব্যর্থ"
 
-#: gtk/print/gtkprintunixdialog.c:1885
+#: bobgui/print/bobguiprintunixdialog.c:1885
 #, fuzzy
 msgid "Getting printer information…"
 msgstr "মুদ্রণযন্ত্রের তথ্য গ্রহণ করা হচ্ছে..."
 
-#: gtk/print/gtkprintunixdialog.c:2760 gtk/print/gtkprintunixdialog.c:2773
+#: bobgui/print/bobguiprintunixdialog.c:2760 bobgui/print/bobguiprintunixdialog.c:2773
 msgid "Page Ordering"
 msgstr "পৃষ্ঠার অনুক্রম"
 
-#: gtk/print/gtkprintunixdialog.c:2789
+#: bobgui/print/bobguiprintunixdialog.c:2789
 msgid "Left to right"
 msgstr "বাম থেকে ডানে"
 
-#: gtk/print/gtkprintunixdialog.c:2790
+#: bobgui/print/bobguiprintunixdialog.c:2790
 msgid "Right to left"
 msgstr "ডান থেকে বামে"
 
-#: gtk/print/gtkprintunixdialog.c:2802
+#: bobgui/print/bobguiprintunixdialog.c:2802
 msgid "Top to bottom"
 msgstr "উপর থেকে নীচে"
 
-#: gtk/print/gtkprintunixdialog.c:2803
+#: bobgui/print/bobguiprintunixdialog.c:2803
 msgid "Bottom to top"
 msgstr "নীচে থেকে উপরে"
 
-#: gtk/gtkrecentmanager.c:1023 gtk/gtkrecentmanager.c:1036 gtk/gtkrecentmanager.c:1174 gtk/gtkrecentmanager.c:1184
-#: gtk/gtkrecentmanager.c:1234 gtk/gtkrecentmanager.c:1243
+#: bobgui/bobguirecentmanager.c:1023 bobgui/bobguirecentmanager.c:1036 bobgui/bobguirecentmanager.c:1174 bobgui/bobguirecentmanager.c:1184
+#: bobgui/bobguirecentmanager.c:1234 bobgui/bobguirecentmanager.c:1243
 #, fuzzy, c-format
 msgid "Unable to find an item with URI “%s”"
 msgstr "URI '%s' সহ কোনো আইটেম খুঁজে পেতে অক্ষম"
 
-#: gtk/gtkrecentmanager.c:1258
+#: bobgui/bobguirecentmanager.c:1258
 #, fuzzy, c-format
 msgid "Unable to move the item with URI “%s” to “%s”"
 msgstr "URI '%s' সহ কোনো আইটেম খুঁজে পেতে অক্ষম"
 
-#: gtk/gtkrecentmanager.c:2323
+#: bobgui/bobguirecentmanager.c:2323
 #, fuzzy, c-format
 msgid "No registered application with name “%s” for item with URI “%s” found"
 msgstr "'%s' নামের URI '%s' সহ কোন নিবন্ধিত অ্যাপ্লিকপশন পাওয়া যায়নি"
 
-#: gtk/gtksearchentry.c:767
+#: bobgui/bobguisearchentry.c:767
 #, fuzzy
 msgid "Clear Entry"
 msgstr "তালিকা মুছে ফেলুন (_C)"
 
-#: gtk/gtkshortcutssection.c:414
+#: bobgui/bobguishortcutssection.c:414
 msgid "_Show All"
 msgstr "সব দেখাও"
 
-#: gtk/gtkshortcutsshortcut.c:143
+#: bobgui/bobguishortcutsshortcut.c:143
 msgid "Two finger pinch"
 msgstr "দুই আঙুল চিমটি"
 
-#: gtk/gtkshortcutsshortcut.c:147
+#: bobgui/bobguishortcutsshortcut.c:147
 msgid "Two finger stretch"
 msgstr "দুই আঙুল প্রসারিত"
 
-#: gtk/gtkshortcutsshortcut.c:151
+#: bobgui/bobguishortcutsshortcut.c:151
 msgid "Rotate clockwise"
 msgstr "ঘড়ির কাঁটার দিকে ঘোরান"
 
-#: gtk/gtkshortcutsshortcut.c:155
+#: bobgui/bobguishortcutsshortcut.c:155
 msgid "Rotate counterclockwise"
 msgstr "বামাবর্তে ঘোরাতে"
 
-#: gtk/gtkshortcutsshortcut.c:159
+#: bobgui/bobguishortcutsshortcut.c:159
 msgid "Two finger swipe left"
 msgstr "দুই আঙুল বাম দিকে সোয়াইপ করুন"
 
-#: gtk/gtkshortcutsshortcut.c:163
+#: bobgui/bobguishortcutsshortcut.c:163
 msgid "Two finger swipe right"
 msgstr "দুই আঙুল ডানদিকে সোয়াইপ করুন"
 
-#: gtk/gtkshortcutsshortcut.c:167
+#: bobgui/bobguishortcutsshortcut.c:167
 msgid "Swipe left"
 msgstr "বাম দিকে সোয়াইপ করুন"
 
-#: gtk/gtkshortcutsshortcut.c:171
+#: bobgui/bobguishortcutsshortcut.c:171
 msgid "Swipe right"
 msgstr "ডানদিকে সোয়াইপ করুন"
 
 #. Translators: This is placeholder text for the search entry in the shortcuts window
-#: gtk/gtkshortcutswindow.c:879 gtk/gtkshortcutswindow.c:946 gtk/gtkshortcutswindow.c:951
+#: bobgui/bobguishortcutswindow.c:879 bobgui/bobguishortcutswindow.c:946 bobgui/bobguishortcutswindow.c:951
 msgid "Search Shortcuts"
 msgstr "শর্টকাট অনুসন্ধান করুন"
 
 #. Translators: This is the window title for the shortcuts window in normal mode
-#: gtk/gtkshortcutswindow.c:911 gtk/inspector/window.ui:498
+#: bobgui/bobguishortcutswindow.c:911 bobgui/inspector/window.ui:498
 msgid "Shortcuts"
 msgstr "শর্টকাট"
 
 #. Translators: This is the window title for the shortcuts window in search mode
-#: gtk/gtkshortcutswindow.c:916
+#: bobgui/bobguishortcutswindow.c:916
 #, fuzzy
 msgid "Search Results"
 msgstr "অনুসন্ধান"
 
-#: gtk/gtkshortcutswindow.c:1013 gtk/ui/gtkemojichooser.ui:349 gtk/ui/gtkfilechooserwidget.ui:239
+#: bobgui/bobguishortcutswindow.c:1013 bobgui/ui/bobguiemojichooser.ui:349 bobgui/ui/bobguifilechooserwidget.ui:239
 #, fuzzy
 msgid "No Results Found"
 msgstr "কোনো আইটেম পাওয়া যায়নি"
 
-#: gtk/gtkshortcutswindow.c:1024 gtk/ui/gtkemojichooser.ui:362 gtk/ui/gtkfilechooserwidget.ui:252 gtk/ui/gtkplacesview.ui:218
+#: bobgui/bobguishortcutswindow.c:1024 bobgui/ui/bobguiemojichooser.ui:362 bobgui/ui/bobguifilechooserwidget.ui:252 bobgui/ui/bobguiplacesview.ui:218
 msgid "Try a different search"
 msgstr "একটি ভিন্ন অনুসন্ধান চেষ্টা করুন"
 
-#: gtk/gtktext.c:6161 gtk/gtktextview.c:9044
+#: bobgui/bobguitext.c:6161 bobgui/bobguitextview.c:9044
 #, fuzzy
 msgid "Insert _Emoji"
 msgstr "Insert"
 
-#: gtk/gtktextview.c:9026
+#: bobgui/bobguitextview.c:9026
 #, fuzzy
 msgid "_Undo"
 msgstr "পূর্বাবস্থা (_U)"
 
-#: gtk/gtktextview.c:9030
+#: bobgui/bobguitextview.c:9030
 #, fuzzy
 msgid "_Redo"
 msgstr "পুনরাবৃত্তি (_R)"
 
-#: gtk/gtkwindow.c:6232
+#: bobgui/bobguiwindow.c:6232
 #, c-format
-msgid "Do you want to use GTK Inspector?"
-msgstr "আপনি কি GTK ইন্সপেক্টর ব্যবহার করতে চান?"
+msgid "Do you want to use BOBGUI Inspector?"
+msgstr "আপনি কি BOBGUI ইন্সপেক্টর ব্যবহার করতে চান?"
 
-#: gtk/gtkwindow.c:6234
+#: bobgui/bobguiwindow.c:6234
 #, c-format
 msgid ""
-"GTK Inspector is an interactive debugger that lets you explore and modify the internals of any GTK application. Using it "
+"BOBGUI Inspector is an interactive debugger that lets you explore and modify the internals of any BOBGUI application. Using it "
 "may cause the application to break or crash."
 msgstr ""
-"GTK Inspector হল একটি ইন্টারেক্টিভ ডিবাগার যা আপনাকে যেকোন GTK অ্যাপ্লিকেশনের অভ্যন্তরীণ অন্বেষণ এবং পরিবর্তন করতে দেয়। এটি ব্যবহার "
+"BOBGUI Inspector হল একটি ইন্টারেক্টিভ ডিবাগার যা আপনাকে যেকোন BOBGUI অ্যাপ্লিকেশনের অভ্যন্তরীণ অন্বেষণ এবং পরিবর্তন করতে দেয়। এটি ব্যবহার "
 "করলে অ্যাপ্লিকেশনটি ভেঙে যেতে পারে বা ক্র্যাশ হতে পারে।"
 
-#: gtk/gtkwindow.c:6239
+#: bobgui/bobguiwindow.c:6239
 msgid "Don’t show this message again"
 msgstr "এই বার্তাটি আবার দেখাবেন না"
 
-#: gtk/gtkwindowcontrols.c:309 gtk/gtkwindowhandle.c:234
+#: bobgui/bobguiwindowcontrols.c:309 bobgui/bobguiwindowhandle.c:234
 msgid "Minimize"
 msgstr "ছোট করুন"
 
-#: gtk/gtkwindowcontrols.c:311
+#: bobgui/bobguiwindowcontrols.c:311
 msgid "Minimize the window"
 msgstr "জানালা ছোট করুন"
 
-#: gtk/gtkwindowcontrols.c:335 gtk/gtkwindowhandle.c:240
+#: bobgui/bobguiwindowcontrols.c:335 bobgui/bobguiwindowhandle.c:240
 msgid "Maximize"
 msgstr "সর্বাধিক করুন"
 
-#: gtk/gtkwindowcontrols.c:337
+#: bobgui/bobguiwindowcontrols.c:337
 msgid "Maximize the window"
 msgstr "উইন্ডোটি বড় করুন"
 
-#: gtk/gtkwindowcontrols.c:359
+#: bobgui/bobguiwindowcontrols.c:359
 msgid "Close the window"
 msgstr "Close the window"
 
-#: gtk/gtkwindowhandle.c:227
+#: bobgui/bobguiwindowhandle.c:227
 msgid "Restore"
 msgstr "পুনরুদ্ধার করুন"
 
-#: gtk/inspector/a11y.ui:17
+#: bobgui/inspector/a11y.ui:17
 msgid "Role"
 msgstr "ভূমিকা"
 
-#: gtk/inspector/a11y.ui:71
+#: bobgui/inspector/a11y.ui:71
 msgid "Description"
 msgstr "বর্ণনা"
 
-#: gtk/inspector/a11y.ui:99 gtk/inspector/misc-info.ui:296 tools/gtk-path-tool-info.c:132
+#: bobgui/inspector/a11y.ui:99 bobgui/inspector/misc-info.ui:296 tools/bobgui-path-tool-info.c:132
 msgid "Bounds"
 msgstr "সীমানা"
 
-#: gtk/inspector/a11y.ui:125
+#: bobgui/inspector/a11y.ui:125
 msgid "Object Path"
 msgstr "অবজেক্ট পাথ"
 
-#: gtk/inspector/a11y.ui:164
+#: bobgui/inspector/a11y.ui:164
 msgid "Attribute"
 msgstr "বৈশিষ্ট্য"
 
-#: gtk/inspector/a11y.ui:176 gtk/inspector/css-node-tree.ui:70 gtk/inspector/prop-list.ui:57 gtk/inspector/recorder.ui:149
-#: gtk/inspector/recorder.ui:192 gtk/inspector/strv-editor.c:73
+#: bobgui/inspector/a11y.ui:176 bobgui/inspector/css-node-tree.ui:70 bobgui/inspector/prop-list.ui:57 bobgui/inspector/recorder.ui:149
+#: bobgui/inspector/recorder.ui:192 bobgui/inspector/strv-editor.c:73
 #, fuzzy
 msgid "Value"
 msgstr "মান: (_V)"
 
-#: gtk/inspector/action-editor.c:133
+#: bobgui/inspector/action-editor.c:133
 msgid "Activate"
 msgstr "সক্রিয় করুন"
 
-#: gtk/inspector/action-editor.c:145
+#: bobgui/inspector/action-editor.c:145
 msgid "Set State"
 msgstr "রাজ্য সেট করুন"
 
-#: gtk/inspector/actions.ui:30
+#: bobgui/inspector/actions.ui:30
 #, fuzzy
 msgid "Enabled"
 msgstr "নিষ্ক্রিয়"
 
-#: gtk/inspector/actions.ui:42
+#: bobgui/inspector/actions.ui:42
 #, fuzzy
 msgid "Parameter Type"
 msgstr "কাগজের ধরন"
 
-#: gtk/inspector/actions.ui:53 gtk/inspector/css-node-tree.ui:41 gtk/inspector/misc-info.ui:108
+#: bobgui/inspector/actions.ui:53 bobgui/inspector/css-node-tree.ui:41 bobgui/inspector/misc-info.ui:108
 #, fuzzy
 msgid "State"
 msgstr "অবস্থা"
 
-#: gtk/inspector/clipboard.c:211 gtk/inspector/misc-info.ui:245
+#: bobgui/inspector/clipboard.c:211 bobgui/inspector/misc-info.ui:245
 msgid "Show"
 msgstr "দেখান"
 
-#: gtk/inspector/clipboard.c:228
+#: bobgui/inspector/clipboard.c:228
 msgid "Hover to load"
 msgstr "লোড করতে হোভার করুন"
 
-#: gtk/inspector/clipboard.ui:30
+#: bobgui/inspector/clipboard.ui:30
 msgid "Drag and hold here"
 msgstr "এখানে টেনে ধরে রাখুন"
 
-#: gtk/inspector/clipboard.ui:71 gtk/inspector/window.ui:574
+#: bobgui/inspector/clipboard.ui:71 bobgui/inspector/window.ui:574
 msgid "Clipboard"
 msgstr "ক্লিপবোর্ড"
 
-#: gtk/inspector/clipboard.ui:107
+#: bobgui/inspector/clipboard.ui:107
 msgid "Primary"
 msgstr "প্রাথমিক"
 
-#: gtk/inspector/css-editor.c:128
-msgid "You can type here any CSS rule recognized by GTK."
-msgstr "আপনি এখানে GTK দ্বারা স্বীকৃত যেকোনো CSS নিয়ম টাইপ করতে পারেন।"
+#: bobgui/inspector/css-editor.c:128
+msgid "You can type here any CSS rule recognized by BOBGUI."
+msgstr "আপনি এখানে BOBGUI দ্বারা স্বীকৃত যেকোনো CSS নিয়ম টাইপ করতে পারেন।"
 
-#: gtk/inspector/css-editor.c:129
+#: bobgui/inspector/css-editor.c:129
 msgid "You can temporarily disable this custom CSS by clicking on the “Pause” button above."
 msgstr "উপরের \"পজ\" বোতামে ক্লিক করে আপনি সাময়িকভাবে এই কাস্টম CSS অক্ষম করতে পারেন৷"
 
-#: gtk/inspector/css-editor.c:130
+#: bobgui/inspector/css-editor.c:130
 msgid "Changes are applied instantly and globally, for the whole application."
 msgstr "সম্পূর্ণ অ্যাপ্লিকেশনের জন্য পরিবর্তনগুলি তাত্ক্ষণিকভাবে এবং বিশ্বব্যাপী প্রয়োগ করা হয়।"
 
-#: gtk/inspector/css-editor.c:206
+#: bobgui/inspector/css-editor.c:206
 #, c-format
 msgid "Saving CSS failed"
 msgstr "CSS সংরক্ষণ করা ব্যর্থ হয়েছে৷"
 
-#: gtk/inspector/css-editor.ui:30
+#: bobgui/inspector/css-editor.ui:30
 msgid "Disable this custom CSS"
 msgstr "এই কাস্টম CSS নিষ্ক্রিয় করুন"
 
-#: gtk/inspector/css-editor.ui:37
+#: bobgui/inspector/css-editor.ui:37
 msgid "Save the current CSS"
 msgstr "বর্তমান CSS সংরক্ষণ করুন"
 
-#: gtk/inspector/css-node-tree.ui:28
+#: bobgui/inspector/css-node-tree.ui:28
 msgid "ID"
 msgstr "আইডি"
 
-#: gtk/inspector/css-node-tree.ui:34
+#: bobgui/inspector/css-node-tree.ui:34
 msgid "Style Classes"
 msgstr "শৈলী ক্লাস"
 
-#: gtk/inspector/css-node-tree.ui:64
+#: bobgui/inspector/css-node-tree.ui:64
 #, fuzzy
 msgid "CSS Property"
 msgstr "বৈশিষ্ট্যাবলী (_P)"
 
-#: gtk/inspector/general.c:857
-msgid "IM Context is hardcoded by GTK_IM_MODULE"
-msgstr "IM প্রসঙ্গ GTK_IM_MODULE দ্বারা হার্ডকোড করা হয়েছে৷"
+#: bobgui/inspector/general.c:857
+msgid "IM Context is hardcoded by BOBGUI_IM_MODULE"
+msgstr "IM প্রসঙ্গ BOBGUI_IM_MODULE দ্বারা হার্ডকোড করা হয়েছে৷"
 
-#: gtk/inspector/general.ui:31
-msgid "GTK Version"
-msgstr "GTK সংস্করণ"
+#: bobgui/inspector/general.ui:31
+msgid "BOBGUI Version"
+msgstr "BOBGUI সংস্করণ"
 
-#: gtk/inspector/general.ui:57
+#: bobgui/inspector/general.ui:57
 msgid "GDK Backend"
 msgstr "GDK ব্যাকএন্ড"
 
-#: gtk/inspector/general.ui:83
+#: bobgui/inspector/general.ui:83
 msgid "GSK Renderer"
 msgstr "জিএসকে রেন্ডারার"
 
-#: gtk/inspector/general.ui:109
+#: bobgui/inspector/general.ui:109
 msgid "Pango Fontmap"
 msgstr "প্যাঙ্গো ফন্টম্যাপ"
 
-#: gtk/inspector/general.ui:135
+#: bobgui/inspector/general.ui:135
 msgid "Media Backend"
 msgstr "মিডিয়া ব্যাকএন্ড"
 
-#: gtk/inspector/general.ui:161
+#: bobgui/inspector/general.ui:161
 msgid "Input Method"
 msgstr "ইনপুট পদ্ধতি"
 
-#: gtk/inspector/general.ui:198
+#: bobgui/inspector/general.ui:198
 #, fuzzy
 msgid "Application ID"
 msgstr "অ্যাপ্লিকেশন"
 
-#: gtk/inspector/general.ui:224
+#: bobgui/inspector/general.ui:224
 msgid "Resource Path"
 msgstr "সম্পদ পথ"
 
-#: gtk/inspector/general.ui:261 gtk/ui/gtkplacesview.ui:67
+#: bobgui/inspector/general.ui:261 bobgui/ui/bobguiplacesview.ui:67
 msgid "Prefix"
 msgstr "উপসর্গ"
 
-#: gtk/inspector/general.ui:460
+#: bobgui/inspector/general.ui:460
 #, fuzzy
 msgid "Display"
 msgstr "Display"
 
-#: gtk/inspector/general.ui:487
+#: bobgui/inspector/general.ui:487
 msgid "RGBA Visual"
 msgstr "আরজিবিএ ভিজ্যুয়াল"
 
-#: gtk/inspector/general.ui:513
+#: bobgui/inspector/general.ui:513
 msgid "Composited"
 msgstr "সংমিশ্রিত"
 
-#: gtk/inspector/general.ui:559
+#: bobgui/inspector/general.ui:559
 msgid "GL Version"
 msgstr "জিএল সংস্করণ"
 
-#: gtk/inspector/general.ui:609
+#: bobgui/inspector/general.ui:609
 msgid "GL Vendor"
 msgstr "জিএল বিক্রেতা"
 
-#: gtk/inspector/general.ui:646
+#: bobgui/inspector/general.ui:646
 msgid "Vulkan Device"
 msgstr "ভলকান ডিভাইস"
 
-#: gtk/inspector/general.ui:673
+#: bobgui/inspector/general.ui:673
 msgid "Vulkan API version"
 msgstr "Vulkan API সংস্করণ"
 
-#: gtk/inspector/general.ui:700
+#: bobgui/inspector/general.ui:700
 msgid "Vulkan driver version"
 msgstr "ভলকান এপিআই সংস্করণ"
 
-#: gtk/inspector/menu.c:264
+#: bobgui/inspector/menu.c:264
 msgid "Unnamed section"
 msgstr "নামহীন বিভাগ"
 
-#: gtk/inspector/menu.ui:26
+#: bobgui/inspector/menu.ui:26
 msgid "Label"
 msgstr "লেবেল"
 
-#: gtk/inspector/menu.ui:31 gtk/inspector/shortcuts.ui:23
+#: bobgui/inspector/menu.ui:31 bobgui/inspector/shortcuts.ui:23
 #, fuzzy
 msgid "Action"
 msgstr "অবস্থান"
 
-#: gtk/inspector/menu.ui:36
+#: bobgui/inspector/menu.ui:36
 msgid "Target"
 msgstr "টার্গেট"
 
-#: gtk/inspector/menu.ui:41
+#: bobgui/inspector/menu.ui:41
 msgid "Icon"
 msgstr "আইকন"
 
-#: gtk/inspector/misc-info.ui:31
+#: bobgui/inspector/misc-info.ui:31
 msgid "Address"
 msgstr "ঠিকানা"
 
-#: gtk/inspector/misc-info.ui:82
+#: bobgui/inspector/misc-info.ui:82
 msgid "Reference Count"
 msgstr "রেফারেন্স কাউন্ট"
 
-#: gtk/inspector/misc-info.ui:134
+#: bobgui/inspector/misc-info.ui:134
 #, fuzzy
 msgid "Direction"
 msgstr "নির্বাচন (_l)"
 
-#: gtk/inspector/misc-info.ui:160
+#: bobgui/inspector/misc-info.ui:160
 msgid "Buildable ID"
 msgstr "নির্মাণযোগ্য আইডি"
 
-#: gtk/inspector/misc-info.ui:186
+#: bobgui/inspector/misc-info.ui:186
 msgid "Mnemonic Label"
 msgstr "স্মৃতি সংক্রান্ত লেবেল"
 
-#: gtk/inspector/misc-info.ui:211
+#: bobgui/inspector/misc-info.ui:211
 msgid "Request Mode"
 msgstr "অনুরোধ মোড"
 
-#: gtk/inspector/misc-info.ui:236
+#: bobgui/inspector/misc-info.ui:236
 msgid "Measure map"
 msgstr "মানচিত্র পরিমাপ করুন"
 
-#: gtk/inspector/misc-info.ui:253
+#: bobgui/inspector/misc-info.ui:253
 msgid "Expand"
 msgstr "বিস্তৃত করা"
 
-#: gtk/inspector/misc-info.ui:321
+#: bobgui/inspector/misc-info.ui:321
 msgid "Baseline"
 msgstr "বেসলাইন"
 
-#: gtk/inspector/misc-info.ui:346
+#: bobgui/inspector/misc-info.ui:346
 msgid "Surface"
 msgstr "পৃষ্ঠতল"
 
-#: gtk/inspector/misc-info.ui:365 gtk/inspector/misc-info.ui:400 gtk/inspector/misc-info.ui:435
-#: gtk/inspector/prop-editor.c:1153 gtk/inspector/prop-editor.c:1536 gtk/inspector/window.ui:396
+#: bobgui/inspector/misc-info.ui:365 bobgui/inspector/misc-info.ui:400 bobgui/inspector/misc-info.ui:435
+#: bobgui/inspector/prop-editor.c:1153 bobgui/inspector/prop-editor.c:1536 bobgui/inspector/window.ui:396
 #, fuzzy
 msgid "Properties"
 msgstr "বৈশিষ্ট্যাবলী (_P)"
 
-#: gtk/inspector/misc-info.ui:381
+#: bobgui/inspector/misc-info.ui:381
 msgid "Renderer"
 msgstr "রেন্ডারার"
 
-#: gtk/inspector/misc-info.ui:416
+#: bobgui/inspector/misc-info.ui:416
 msgid "Frame Clock"
 msgstr "ফ্রেম ঘড়ি"
 
-#: gtk/inspector/misc-info.ui:451
+#: bobgui/inspector/misc-info.ui:451
 msgid "Tick Callback"
 msgstr "কলব্যাকে টিক দিন"
 
-#: gtk/inspector/misc-info.ui:477
+#: bobgui/inspector/misc-info.ui:477
 msgid "Frame Count"
 msgstr "ফ্রেম গণনা"
 
-#: gtk/inspector/misc-info.ui:502
+#: bobgui/inspector/misc-info.ui:502
 msgid "Frame Rate"
 msgstr "চক্রের হার"
 
-#: gtk/inspector/misc-info.ui:527
+#: bobgui/inspector/misc-info.ui:527
 msgid "Scale"
 msgstr "স্কেল"
 
-#: gtk/inspector/misc-info.ui:552
+#: bobgui/inspector/misc-info.ui:552
 msgid "Mapped"
 msgstr "ম্যাপ করা হয়েছে"
 
-#: gtk/inspector/misc-info.ui:578
+#: bobgui/inspector/misc-info.ui:578
 msgid "Realized"
 msgstr "বুঝতে পারলেন"
 
-#: gtk/inspector/misc-info.ui:604
+#: bobgui/inspector/misc-info.ui:604
 msgid "Is Toplevel"
 msgstr "টপলেভেল হয়"
 
-#: gtk/inspector/misc-info.ui:630
+#: bobgui/inspector/misc-info.ui:630
 msgid "Child Visible"
 msgstr "শিশু দৃশ্যমান"
 
-#: gtk/inspector/prop-editor.c:702
+#: bobgui/inspector/prop-editor.c:702
 #, c-format
 msgid "Pointer: %p"
 msgstr "পয়েন্টার: %p"
 
 #. Translators: %s is a type name, for example
-#. * GtkPropertyExpression with value \"2.5\"
+#. * BobguiPropertyExpression with value \"2.5\"
 #.
-#: gtk/inspector/prop-editor.c:827
+#: bobgui/inspector/prop-editor.c:827
 #, c-format
 msgid "%s with value \"%s\""
 msgstr "\"%s\" মান সহ %s"
 
 #. Translators: Both %s are type names, for example
-#. * GtkPropertyExpression with type GObject
+#. * BobguiPropertyExpression with type GObject
 #.
-#: gtk/inspector/prop-editor.c:838
+#: bobgui/inspector/prop-editor.c:838
 #, c-format
 msgid "%s with type %s"
 msgstr "%s টাইপ %s সহ"
 
 #. Translators: Both %s are type names, for example
-#. * GtkObjectExpression for GtkStringObject 0x23456789
+#. * BobguiObjectExpression for BobguiStringObject 0x23456789
 #.
-#: gtk/inspector/prop-editor.c:851
+#: bobgui/inspector/prop-editor.c:851
 #, c-format
 msgid "%s for %s %p"
 msgstr "%s হয় %s %p এর জন্য"
 
 #. Translators: Both %s are type names, for example
-#. * GtkPropertyExpression with value type: gchararray
+#. * BobguiPropertyExpression with value type: gchararray
 #.
-#: gtk/inspector/prop-editor.c:881
+#: bobgui/inspector/prop-editor.c:881
 #, c-format
 msgid "%s with value type %s"
 msgstr "মান টাইপ %s সহ %s"
 
-#: gtk/inspector/prop-editor.c:1230
+#: bobgui/inspector/prop-editor.c:1230
 #, c-format
 msgid "Uneditable property type: %s"
 msgstr "অসম্পাদনযোগ্য সম্পত্তির ধরন: %s"
 
-#: gtk/inspector/prop-editor.c:1425
+#: bobgui/inspector/prop-editor.c:1425
 msgid "Attribute:"
 msgstr "বৈশিষ্ট্য:"
 
-#: gtk/inspector/prop-editor.c:1428
+#: bobgui/inspector/prop-editor.c:1428
 msgid "Model"
 msgstr "মডেল: (_M)"
 
-#: gtk/inspector/prop-editor.c:1433
+#: bobgui/inspector/prop-editor.c:1433
 msgid "Column:"
 msgstr "কলাম:"
 
 #. Translators: %s is a type name, for example
-#. * Action from 0x2345678 (GtkApplicationWindow)
+#. * Action from 0x2345678 (BobguiApplicationWindow)
 #.
-#: gtk/inspector/prop-editor.c:1532
+#: bobgui/inspector/prop-editor.c:1532
 #, c-format
 msgid "Action from: %p (%s)"
 msgstr "এর থেকে কাজ: %p (%s)"
 
-#: gtk/inspector/prop-editor.c:1587
+#: bobgui/inspector/prop-editor.c:1587
 msgid "Reset"
 msgstr "রিসেট"
 
-#: gtk/inspector/prop-editor.c:1611
+#: bobgui/inspector/prop-editor.c:1611
 msgid "Source:"
 msgstr "উৎস:"
 
-#: gtk/inspector/prop-list.ui:46
+#: bobgui/inspector/prop-list.ui:46
 msgid "Defined At"
 msgstr "সংজ্ঞায়িত এ"
 
-#: gtk/inspector/recorder.c:1922
+#: bobgui/inspector/recorder.c:1922
 #, c-format
 msgid "Saving RenderNode failed"
 msgstr "RenderNode সংরক্ষণ ব্যর্থ হয়েছে"
 
-#: gtk/inspector/recorder.ui:20
+#: bobgui/inspector/recorder.ui:20
 msgid "Record frames"
 msgstr "রেকর্ড ফ্রেম"
 
-#: gtk/inspector/recorder.ui:27
+#: bobgui/inspector/recorder.ui:27
 msgid "Clear recorded frames"
 msgstr "রেকর্ড করা ফ্রেম সাফ করুন"
 
-#: gtk/inspector/recorder.ui:34
+#: bobgui/inspector/recorder.ui:34
 msgid "Add debug nodes"
 msgstr "ডিবাগ নোড যোগ করুন"
 
-#: gtk/inspector/recorder.ui:42
+#: bobgui/inspector/recorder.ui:42
 msgid "Highlight event sequences"
 msgstr "ইভেন্ট সিকোয়েন্স হাইলাইট করুন"
 
-#: gtk/inspector/recorder.ui:51
+#: bobgui/inspector/recorder.ui:51
 msgid "Use a dark background"
 msgstr "একটি অন্ধকার পটভূমি ব্যবহার করুন"
 
-#: gtk/inspector/recorder.ui:59
+#: bobgui/inspector/recorder.ui:59
 #, fuzzy
 msgid "Save selected node"
 msgstr "একটি ফোল্ডার নির্বাচন"
 
-#: gtk/inspector/recorder.ui:67
+#: bobgui/inspector/recorder.ui:67
 msgid "Copy to clipboard"
 msgstr "ক্লিপবোর্ডে কপি করুন"
 
-#: gtk/inspector/recorder.ui:144 gtk/inspector/recorder.ui:187
+#: bobgui/inspector/recorder.ui:144 bobgui/inspector/recorder.ui:187
 #, fuzzy
 msgid "Property"
 msgstr "বৈশিষ্ট্যাবলী (_P)"
 
-#: gtk/inspector/resource-list.ui:59
+#: bobgui/inspector/resource-list.ui:59
 #, fuzzy
 msgid "Path"
 msgstr "উপরের পাথ"
 
-#: gtk/inspector/resource-list.ui:71
+#: bobgui/inspector/resource-list.ui:71
 msgid "Count"
 msgstr "গণনা"
 
-#: gtk/inspector/resource-list.ui:121
+#: bobgui/inspector/resource-list.ui:121
 #, fuzzy
 msgid "Name:"
 msgstr "নাম: (_N)"
 
-#: gtk/inspector/resource-list.ui:143
+#: bobgui/inspector/resource-list.ui:143
 msgid "Type:"
 msgstr "প্রকার:"
 
-#: gtk/inspector/resource-list.ui:164
+#: bobgui/inspector/resource-list.ui:164
 #, fuzzy
 msgid "Size:"
 msgstr "আকার"
 
-#: gtk/inspector/shortcuts.ui:17
+#: bobgui/inspector/shortcuts.ui:17
 msgid "Trigger"
 msgstr "ট্রিগার"
 
-#: gtk/inspector/size-groups.c:240
+#: bobgui/inspector/size-groups.c:240
 #, fuzzy
 msgid "Mode"
 msgstr "মোড: (_M)"
 
-#: gtk/inspector/statistics.c:814
+#: bobgui/inspector/statistics.c:814
 msgid "GLib must be configured with -Dbuildtype=debug"
 msgstr "GLib -Dbuildtype=debug এর সাথে কনফিগার করা আবশ্যক"
 
-#: gtk/inspector/statistics.ui:41
+#: bobgui/inspector/statistics.ui:41
 msgid "Self 1"
 msgstr "স্বয়ং 1"
 
-#: gtk/inspector/statistics.ui:46
+#: bobgui/inspector/statistics.ui:46
 msgid "Cumulative 1"
 msgstr "Cumulative 1"
 
-#: gtk/inspector/statistics.ui:51
+#: bobgui/inspector/statistics.ui:51
 msgid "Self 2"
 msgstr "স্বয়ং 2"
 
-#: gtk/inspector/statistics.ui:56
+#: bobgui/inspector/statistics.ui:56
 msgid "Cumulative 2"
 msgstr "ক্রমবর্ধমান 2"
 
-#: gtk/inspector/statistics.ui:61
+#: bobgui/inspector/statistics.ui:61
 msgid "Self"
 msgstr "স্বয়ং"
 
-#: gtk/inspector/statistics.ui:66
+#: bobgui/inspector/statistics.ui:66
 msgid "Cumulative"
 msgstr "ক্রমবর্ধমান"
 
-#: gtk/inspector/statistics.ui:88
+#: bobgui/inspector/statistics.ui:88
 msgid "Enable statistics with GOBJECT_DEBUG=instance-count"
 msgstr "GOBJECT_DEBUG=ইনস্ট্যান্স-কাউন্ট দিয়ে পরিসংখ্যান সক্ষম করুন"
 
-#: gtk/inspector/strv-editor.c:83
+#: bobgui/inspector/strv-editor.c:83
 #, c-format
 msgid "Remove %s"
 msgstr "%s সরান"
 
-#: gtk/inspector/strv-editor.c:115
+#: bobgui/inspector/strv-editor.c:115
 #, fuzzy
 msgid "Add"
 msgstr "যোগ করুন (_A)"
 
-#: gtk/inspector/tree-data.ui:10
+#: bobgui/inspector/tree-data.ui:10
 msgid "Show data"
 msgstr "ডেটা দেখান"
 
-#: gtk/inspector/type-info.ui:14
+#: bobgui/inspector/type-info.ui:14
 #, fuzzy
 msgid "Hierarchy"
 msgstr "অনুসন্ধান"
 
-#: gtk/inspector/type-info.ui:35
+#: bobgui/inspector/type-info.ui:35
 msgid "Implements"
 msgstr "ইমপ্লিমেন্টস"
 
-#: gtk/inspector/visual.c:637 gtk/inspector/visual.c:656
-msgid "Theme is hardcoded by GTK_THEME"
-msgstr "থিম GTK_THEME দ্বারা হার্ডকোড করা হয়েছে৷"
+#: bobgui/inspector/visual.c:637 bobgui/inspector/visual.c:656
+msgid "Theme is hardcoded by BOBGUI_THEME"
+msgstr "থিম BOBGUI_THEME দ্বারা হার্ডকোড করা হয়েছে৷"
 
-#: gtk/inspector/visual.c:905
+#: bobgui/inspector/visual.c:905
 msgid "Backend does not support window scaling"
 msgstr "ব্যাকএন্ড উইন্ডো স্কেলিং সমর্থন করে না"
 
-#: gtk/inspector/visual.ui:34
-msgid "GTK Theme"
-msgstr "GTK থিম"
+#: bobgui/inspector/visual.ui:34
+msgid "BOBGUI Theme"
+msgstr "BOBGUI থিম"
 
-#: gtk/inspector/visual.ui:58
+#: bobgui/inspector/visual.ui:58
 msgid "Dark Variant"
 msgstr "গাঢ় বৈকল্পিক"
 
-#: gtk/inspector/visual.ui:83
+#: bobgui/inspector/visual.ui:83
 msgid "Cursor Theme"
 msgstr "কার্সার থিম"
 
-#: gtk/inspector/visual.ui:108
+#: bobgui/inspector/visual.ui:108
 msgid "Cursor Size"
 msgstr "কার্সার সাইজ"
 
-#: gtk/inspector/visual.ui:144
+#: bobgui/inspector/visual.ui:144
 msgid "Icon Theme"
 msgstr "আইকন থিম"
 
-#: gtk/inspector/visual.ui:194
+#: bobgui/inspector/visual.ui:194
 #, fuzzy
 msgid "Font Scale"
 msgstr "ফন্ট নির্বাচন"
 
-#: gtk/inspector/visual.ui:239
+#: bobgui/inspector/visual.ui:239
 msgid "Text Direction"
 msgstr "লেখার দিকবিন্যাস"
 
-#: gtk/inspector/visual.ui:254
+#: bobgui/inspector/visual.ui:254
 #, fuzzy
 msgid "Left-to-Right"
 msgstr "বাম থেকে ডানে"
 
-#: gtk/inspector/visual.ui:255
+#: bobgui/inspector/visual.ui:255
 #, fuzzy
 msgid "Right-to-Left"
 msgstr "ডান থেকে বামে"
 
-#: gtk/inspector/visual.ui:273
+#: bobgui/inspector/visual.ui:273
 #, fuzzy
 msgid "Window Scaling"
 msgstr "উইন্ডো"
 
-#: gtk/inspector/visual.ui:306
+#: bobgui/inspector/visual.ui:306
 #, fuzzy
 msgid "Animations"
 msgstr "প্রমাণীকরণ"
 
-#: gtk/inspector/visual.ui:331
+#: bobgui/inspector/visual.ui:331
 msgid "Slowdown"
 msgstr "আস্তে আস্তে"
 
-#: gtk/inspector/visual.ui:385
+#: bobgui/inspector/visual.ui:385
 msgid "Show Framerate"
 msgstr "আস্তে আস্তে"
 
-#: gtk/inspector/visual.ui:410
+#: bobgui/inspector/visual.ui:410
 #, fuzzy
 msgid "Show Graphic Updates"
 msgstr "অন্যান্য অ্যাপ্লিকপশন প্রদর্শন"
 
-#: gtk/inspector/visual.ui:435
+#: bobgui/inspector/visual.ui:435
 msgid "Show Fallback Rendering"
 msgstr "ফলব্যাক রেন্ডারিং দেখান"
 
-#: gtk/inspector/visual.ui:460
+#: bobgui/inspector/visual.ui:460
 msgid "Show Baselines"
 msgstr "বেসলাইন দেখান"
 
-#: gtk/inspector/visual.ui:488
+#: bobgui/inspector/visual.ui:488
 msgid "Show Layout Borders"
 msgstr "লেআউট সীমানা দেখান"
 
-#: gtk/inspector/visual.ui:545
+#: bobgui/inspector/visual.ui:545
 msgid "CSS Padding"
 msgstr "CSS প্যাডিং"
 
-#: gtk/inspector/visual.ui:555
+#: bobgui/inspector/visual.ui:555
 msgid "CSS Border"
 msgstr "CSS বর্ডার"
 
-#: gtk/inspector/visual.ui:565
+#: bobgui/inspector/visual.ui:565
 #, fuzzy
 msgid "CSS Margin"
 msgstr "কাগজের প্রান্ত"
 
-#: gtk/inspector/visual.ui:575
+#: bobgui/inspector/visual.ui:575
 #, fuzzy
 msgid "Widget Margin"
 msgstr "কাগজের প্রান্ত"
 
-#: gtk/inspector/visual.ui:610
+#: bobgui/inspector/visual.ui:610
 msgid "Show Focus"
 msgstr "ফোকাস দেখান"
 
-#: gtk/inspector/visual.ui:635
+#: bobgui/inspector/visual.ui:635
 msgid "Show Accessibility warnings"
 msgstr "অ্যাক্সেসিবিলিটি সতর্কতা দেখান"
 
-#: gtk/inspector/visual.ui:667
+#: bobgui/inspector/visual.ui:667
 msgid "Inspect Inspector"
 msgstr "পরিদর্শক পরিদর্শক"
 
-#: gtk/inspector/window.ui:27
+#: bobgui/inspector/window.ui:27
 #, fuzzy
 msgid "Select an Object"
 msgstr "একটি ফাইল নির্বাচন"
 
-#: gtk/inspector/window.ui:42 gtk/inspector/window.ui:107
+#: bobgui/inspector/window.ui:42 bobgui/inspector/window.ui:107
 #, fuzzy
 msgid "Show Details"
 msgstr "কাজ সংক্রান্ত বিবরণ"
 
-#: gtk/inspector/window.ui:57
+#: bobgui/inspector/window.ui:57
 msgid "Show all Objects"
 msgstr "সব অবজেক্ট দেখান"
 
-#: gtk/inspector/window.ui:121
+#: bobgui/inspector/window.ui:121
 #, fuzzy
 msgid "Show all Resources"
 msgstr "ব্যক্তিগত রিসোর্স প্রদর্শন করা হবে (_P)"
 
-#: gtk/inspector/window.ui:147
+#: bobgui/inspector/window.ui:147
 msgid "Collect Statistics"
 msgstr "পরিসংখ্যান সংগ্রহ করুন"
 
-#: gtk/inspector/window.ui:199
+#: bobgui/inspector/window.ui:199
 msgid "Objects"
 msgstr "বস্তু"
 
-#: gtk/inspector/window.ui:231
+#: bobgui/inspector/window.ui:231
 #, fuzzy
 msgid "Toggle Sidebar"
 msgstr "উভয়পৃষ্ঠ"
 
-#: gtk/inspector/window.ui:253
+#: bobgui/inspector/window.ui:253
 msgid "Refresh action state"
 msgstr "কর্মের অবস্থা রিফ্রেশ করুন"
 
-#: gtk/inspector/window.ui:327
+#: bobgui/inspector/window.ui:327
 #, fuzzy
 msgid "Previous object"
 msgstr "পূর্ববর্তী (_v)"
 
-#: gtk/inspector/window.ui:334
+#: bobgui/inspector/window.ui:334
 msgid "Child object"
 msgstr "শিশু বস্তু"
 
-#: gtk/inspector/window.ui:341
+#: bobgui/inspector/window.ui:341
 #, fuzzy
 msgid "Previous sibling"
 msgstr "পূর্ববর্তী (_v)"
 
-#: gtk/inspector/window.ui:347
+#: bobgui/inspector/window.ui:347
 msgid "List Position"
 msgstr "তালিকার অবস্থান"
 
-#: gtk/inspector/window.ui:356
+#: bobgui/inspector/window.ui:356
 msgid "Next sibling"
 msgstr "পরের ভাইবোন"
 
-#: gtk/inspector/window.ui:386
+#: bobgui/inspector/window.ui:386
 msgid "Miscellaneous"
 msgstr "বিবিধ বৈশিষ্ট্য"
 
-#: gtk/inspector/window.ui:407 gtk/print/ui/gtkprintunixdialog.ui:451
+#: bobgui/inspector/window.ui:407 bobgui/print/ui/bobguiprintunixdialog.ui:451
 msgid "Layout"
 msgstr "বহির্বিন্যাস"
 
-#: gtk/inspector/window.ui:418
+#: bobgui/inspector/window.ui:418
 msgid "CSS Nodes"
 msgstr "পরের ভাইবোন"
 
-#: gtk/inspector/window.ui:429
+#: bobgui/inspector/window.ui:429
 msgid "Size Groups"
 msgstr "আকার গ্রুপ"
 
-#: gtk/inspector/window.ui:438 gtk/inspector/window.ui:447
+#: bobgui/inspector/window.ui:438 bobgui/inspector/window.ui:447
 msgid "Data"
 msgstr "ডেটা"
 
-#: gtk/inspector/window.ui:457
+#: bobgui/inspector/window.ui:457
 #, fuzzy
 msgid "Actions"
 msgstr "অ্যাপ্লিকেশন"
 
-#: gtk/inspector/window.ui:468
+#: bobgui/inspector/window.ui:468
 msgid "Menu"
 msgstr "তালিকা"
 
-#: gtk/inspector/window.ui:477
+#: bobgui/inspector/window.ui:477
 msgid "Controllers"
 msgstr "কন্ট্রোলার"
 
-#: gtk/inspector/window.ui:487
+#: bobgui/inspector/window.ui:487
 msgid "Magnifier"
 msgstr "ম্যাগনিফায়ার"
 
-#: gtk/inspector/window.ui:508
+#: bobgui/inspector/window.ui:508
 msgid "Accessibility"
 msgstr "অ্যাক্সেসযোগ্যতা"
 
-#: gtk/inspector/window.ui:532
+#: bobgui/inspector/window.ui:532
 msgid "Global"
 msgstr "গ্লোবাল"
 
-#: gtk/inspector/window.ui:545
+#: bobgui/inspector/window.ui:545
 #, fuzzy
 msgid "Information"
 msgstr "তথ্য"
 
-#: gtk/inspector/window.ui:554
+#: bobgui/inspector/window.ui:554
 #, fuzzy
 msgid "Settings"
 msgstr "%s আরম্ভ করা হচ্ছে"
 
-#: gtk/inspector/window.ui:563
+#: bobgui/inspector/window.ui:563
 #, fuzzy
 msgid "Resources"
 msgstr "কাগজের উৎস: (_s)"
 
-#: gtk/inspector/window.ui:584
+#: bobgui/inspector/window.ui:584
 #, fuzzy
 msgid "Statistics"
 msgstr "অবস্থা"
 
-#: gtk/inspector/window.ui:595
+#: bobgui/inspector/window.ui:595
 msgid "Logging"
 msgstr "লগিং"
 
-#: gtk/inspector/window.ui:610
+#: bobgui/inspector/window.ui:610
 #, fuzzy
 msgid "CSS"
 msgstr "CLASS"
 
 # FIXME: Translating in the context of sound recording.
-#: gtk/inspector/window.ui:619
+#: bobgui/inspector/window.ui:619
 #, fuzzy
 msgid "Recorder"
 msgstr "রেকর্ড করা হবে (_R)"
 
-#: gtk/ui/gtkaboutdialog.ui:15
+#: bobgui/ui/bobguiaboutdialog.ui:15
 msgid "Pages"
 msgstr "পৃষ্ঠা"
 
-#: gtk/ui/gtkaboutdialog.ui:43
+#: bobgui/ui/bobguiaboutdialog.ui:43
 msgid "Logo"
 msgstr "লোগো"
 
-#: gtk/ui/gtkaboutdialog.ui:68
+#: bobgui/ui/bobguiaboutdialog.ui:68
 #, fuzzy
 msgid "About"
 msgstr "পরিচিতি (_A)"
 
-#: gtk/ui/gtkaboutdialog.ui:129 gtk/ui/gtkaboutdialog.ui:157
+#: bobgui/ui/bobguiaboutdialog.ui:129 bobgui/ui/bobguiaboutdialog.ui:157
 msgid "Credits"
 msgstr "স্বীকৃতি"
 
-#: gtk/ui/gtkaboutdialog.ui:173 gtk/ui/gtkaboutdialog.ui:190
+#: bobgui/ui/bobguiaboutdialog.ui:173 bobgui/ui/bobguiaboutdialog.ui:190
 msgid "License"
 msgstr "লাইসেন্স"
 
-#: gtk/ui/gtkaboutdialog.ui:219
+#: bobgui/ui/bobguiaboutdialog.ui:219
 #, fuzzy
 msgid "System"
 msgstr "সিস্টেম"
 
-#: gtk/ui/gtkaboutdialog.ui:238
+#: bobgui/ui/bobguiaboutdialog.ui:238
 #, fuzzy
 msgid "System Information"
 msgstr "তথ্য"
 
-#: gtk/ui/gtkappchooserdialog.ui:4
+#: bobgui/ui/bobguiappchooserdialog.ui:4
 #, fuzzy
 msgid "Select App"
 msgstr "সব নির্বাচন করুন (_A)"
 
-#: gtk/ui/gtkappchooserdialog.ui:63
+#: bobgui/ui/bobguiappchooserdialog.ui:63
 msgid "_View All Apps"
 msgstr "_সমস্ত অ্যাপ দেখুন"
 
-#: gtk/ui/gtkappchooserdialog.ui:69
+#: bobgui/ui/bobguiappchooserdialog.ui:69
 msgid "_Find New Apps"
 msgstr "_নতুন অ্যাপস খুঁজুন"
 
-#: gtk/ui/gtkappchooserwidget.ui:100
+#: bobgui/ui/bobguiappchooserwidget.ui:100
 msgid "No applications found."
 msgstr "কোন অ্যাপ্লিকেশন পাওয়া যায়নি."
 
-#: gtk/ui/gtkapplication-quartz.ui:13
+#: bobgui/ui/bobguiapplication-quartz.ui:13
 #, fuzzy
 msgid "Preferences"
 msgstr "পছন্দসমূহ (_P)"
 
-#: gtk/ui/gtkapplication-quartz.ui:19
+#: bobgui/ui/bobguiapplication-quartz.ui:19
 #, fuzzy
 msgid "Services"
 msgstr "ডিভাইস: (_D)"
 
-#: gtk/ui/gtkapplication-quartz.ui:25
+#: bobgui/ui/bobguiapplication-quartz.ui:25
 msgid "Hide %s"
 msgstr "%s লুকান"
 
-#: gtk/ui/gtkapplication-quartz.ui:30
+#: bobgui/ui/bobguiapplication-quartz.ui:30
 msgid "Hide Others"
 msgstr "অন্যদের লুকান"
 
-#: gtk/ui/gtkapplication-quartz.ui:35
+#: bobgui/ui/bobguiapplication-quartz.ui:35
 msgid "Show All"
 msgstr "সব দেখাও"
 
-#: gtk/ui/gtkapplication-quartz.ui:42
+#: bobgui/ui/bobguiapplication-quartz.ui:42
 #, fuzzy
 msgid "Quit %s"
 msgstr "%s পরিচিতি"
 
-#: gtk/ui/gtkassistant.ui:64
+#: bobgui/ui/bobguiassistant.ui:64
 #, fuzzy
 msgid "_Finish"
 msgstr "সমাপ্ত"
 
-#: gtk/ui/gtkassistant.ui:75
+#: bobgui/ui/bobguiassistant.ui:75
 #, fuzzy
 msgid "_Back"
 msgstr "পূর্ববর্তী (_B)"
 
-#: gtk/ui/gtkassistant.ui:86
+#: bobgui/ui/bobguiassistant.ui:86
 #, fuzzy
 msgid "_Next"
 msgstr "পরবর্তী (_N)"
 
-#: gtk/ui/gtkcolorchooserdialog.ui:4
+#: bobgui/ui/bobguicolorchooserdialog.ui:4
 #, fuzzy
 msgid "Select a Color"
 msgstr "একটি ফোল্ডার নির্বাচন"
 
-#: gtk/ui/gtkcoloreditor.ui:43 gtk/ui/gtkcoloreditor.ui:53
+#: bobgui/ui/bobguicoloreditor.ui:43 bobgui/ui/bobguicoloreditor.ui:53
 msgid "Pick a color from the screen"
 msgstr "পর্দা থেকে একটি রঙ চয়ন করুন"
 
-#: gtk/ui/gtkcoloreditor.ui:66
+#: bobgui/ui/bobguicoloreditor.ui:66
 msgid "The current color"
 msgstr "বর্তমান রঙ"
 
-#: gtk/ui/gtkcoloreditor.ui:84
+#: bobgui/ui/bobguicoloreditor.ui:84
 msgid "Hexadecimal color or color name"
 msgstr "হেক্সাডেসিমেল রঙ বা রঙের নাম"
 
-#: gtk/ui/gtkcoloreditor.ui:99
+#: bobgui/ui/bobguicoloreditor.ui:99
 #, fuzzy
 msgid "Hue"
 msgstr "হিউ: (_H)"
 
-#: gtk/ui/gtkcoloreditor.ui:115
+#: bobgui/ui/bobguicoloreditor.ui:115
 #, fuzzy
 msgid "Alpha value"
 msgstr "গামার মান (_G)"
 
-#: gtk/ui/gtkcoloreditor.ui:133
+#: bobgui/ui/bobguicoloreditor.ui:133
 #, fuzzy
 msgid "Saturation and value"
 msgstr "ঘনত্ব: (_S)"
 
-#: gtk/ui/gtkcoloreditor.ui:157
+#: bobgui/ui/bobguicoloreditor.ui:157
 #, fuzzy
 msgctxt "Color channel"
 msgid "A"
 msgstr "A0"
 
-#: gtk/ui/gtkcoloreditor.ui:193
+#: bobgui/ui/bobguicoloreditor.ui:193
 msgctxt "Color channel"
 msgid "H"
 msgstr ""
 
-#: gtk/ui/gtkcoloreditor.ui:230
+#: bobgui/ui/bobguicoloreditor.ui:230
 msgctxt "Color Channel"
 msgid "S"
 msgstr ""
 
-#: gtk/ui/gtkcoloreditor.ui:239
+#: bobgui/ui/bobguicoloreditor.ui:239
 msgctxt "Color Channel"
 msgid "V"
 msgstr ""
 
-#: gtk/ui/gtkdropdown.ui:25
+#: bobgui/ui/bobguidropdown.ui:25
 msgid "(None)"
 msgstr "(কোনটি না)"
 
-#: gtk/ui/gtkdropdown.ui:78
+#: bobgui/ui/bobguidropdown.ui:78
 msgid "Search…"
 msgstr "অনুসন্ধান..."
 
-#: gtk/ui/gtkemojichooser.ui:69 gtk/ui/gtkemojichooser.ui:239
+#: bobgui/ui/bobguiemojichooser.ui:69 bobgui/ui/bobguiemojichooser.ui:239
 msgctxt "emoji category"
 msgid "Smileys & People"
 msgstr "স্মাইলিস এবং মানুষ"
 
-#: gtk/ui/gtkemojichooser.ui:94 gtk/ui/gtkemojichooser.ui:248
+#: bobgui/ui/bobguiemojichooser.ui:94 bobgui/ui/bobguiemojichooser.ui:248
 msgctxt "emoji category"
 msgid "Body & Clothing"
 msgstr "শরীর ও পোশাক"
 
-#: gtk/ui/gtkemojichooser.ui:119 gtk/ui/gtkemojichooser.ui:257
+#: bobgui/ui/bobguiemojichooser.ui:119 bobgui/ui/bobguiemojichooser.ui:257
 msgctxt "emoji category"
 msgid "Animals & Nature"
 msgstr "প্রাণী ও প্রকৃতি"
 
-#: gtk/ui/gtkemojichooser.ui:133 gtk/ui/gtkemojichooser.ui:266
+#: bobgui/ui/bobguiemojichooser.ui:133 bobgui/ui/bobguiemojichooser.ui:266
 msgctxt "emoji category"
 msgid "Food & Drink"
 msgstr "খাদ্য পানীয়"
 
-#: gtk/ui/gtkemojichooser.ui:147 gtk/ui/gtkemojichooser.ui:275
+#: bobgui/ui/bobguiemojichooser.ui:147 bobgui/ui/bobguiemojichooser.ui:275
 msgctxt "emoji category"
 msgid "Travel & Places"
 msgstr "ভ্রমণ এবং স্থান"
 
-#: gtk/ui/gtkemojichooser.ui:161 gtk/ui/gtkemojichooser.ui:284
+#: bobgui/ui/bobguiemojichooser.ui:161 bobgui/ui/bobguiemojichooser.ui:284
 msgctxt "emoji category"
 msgid "Activities"
 msgstr "কার্যক্রম"
 
-#: gtk/ui/gtkemojichooser.ui:175 gtk/ui/gtkemojichooser.ui:293
+#: bobgui/ui/bobguiemojichooser.ui:175 bobgui/ui/bobguiemojichooser.ui:293
 msgctxt "emoji category"
 msgid "Objects"
 msgstr "বস্তু"
 
-#: gtk/ui/gtkemojichooser.ui:189 gtk/ui/gtkemojichooser.ui:302
+#: bobgui/ui/bobguiemojichooser.ui:189 bobgui/ui/bobguiemojichooser.ui:302
 msgctxt "emoji category"
 msgid "Symbols"
 msgstr "প্রতীক"
 
-#: gtk/ui/gtkemojichooser.ui:203 gtk/ui/gtkemojichooser.ui:311
+#: bobgui/ui/bobguiemojichooser.ui:203 bobgui/ui/bobguiemojichooser.ui:311
 msgctxt "emoji category"
 msgid "Flags"
 msgstr "পতাকা"
 
-#: gtk/ui/gtkemojichooser.ui:230
+#: bobgui/ui/bobguiemojichooser.ui:230
 #, fuzzy
 msgctxt "emoji category"
 msgid "Recent"
 msgstr "সম্প্রতি ব্যবহৃত"
 
-#: gtk/ui/gtkfilechooserwidget.ui:71
+#: bobgui/ui/bobguifilechooserwidget.ui:71
 #, fuzzy
 msgid "Create Folder"
 msgstr "ফোল্ডার তৈরি করুন (_l)"
 
-#: gtk/ui/gtkfilechooserwidget.ui:109
+#: bobgui/ui/bobguifilechooserwidget.ui:109
 msgid "Search"
 msgstr "অনুসন্ধান"
 
-#: gtk/ui/gtkfilechooserwidget.ui:191
+#: bobgui/ui/bobguifilechooserwidget.ui:191
 msgid "Remote location — only searching the current folder"
 msgstr "দূরবর্তী অবস্থান — শুধুমাত্র বর্তমান ফোল্ডার অনুসন্ধান"
 
-#: gtk/ui/gtkfilechooserwidget.ui:290
+#: bobgui/ui/bobguifilechooserwidget.ui:290
 msgid "Filter"
 msgstr "ছাঁকনি"
 
-#: gtk/ui/gtkfilechooserwidget.ui:323
+#: bobgui/ui/bobguifilechooserwidget.ui:323
 #, fuzzy
 msgid "Folder Name"
 msgstr "ফোল্ডারের নাম: (_F)"
 
-#: gtk/ui/gtkfilechooserwidget.ui:349
+#: bobgui/ui/bobguifilechooserwidget.ui:349
 #, fuzzy
 msgid "_Create"
 msgstr "তৈরি করেছে"
 
-#: gtk/ui/gtkfontchooserdialog.ui:4
+#: bobgui/ui/bobguifontchooserdialog.ui:4
 #, fuzzy
 msgid "Select Font"
 msgstr "নির্বাচন (_l)"
 
-#: gtk/ui/gtkfontchooserwidget.ui:64 gtk/ui/gtkfontchooserwidget.ui:67
+#: bobgui/ui/bobguifontchooserwidget.ui:64 bobgui/ui/bobguifontchooserwidget.ui:67
 msgid "Search font name"
 msgstr "ফন্টের নাম অনুসন্ধান করুন"
 
-#: gtk/ui/gtkfontchooserwidget.ui:74 gtk/ui/gtkfontchooserwidget.ui:77
+#: bobgui/ui/bobguifontchooserwidget.ui:74 bobgui/ui/bobguifontchooserwidget.ui:77
 msgid "Filters"
 msgstr "ফিল্টার"
 
-#: gtk/ui/gtkfontchooserwidget.ui:89
+#: bobgui/ui/bobguifontchooserwidget.ui:89
 msgid "Filter by"
 msgstr "দ্বারা ফিল্টার করুন"
 
-#: gtk/ui/gtkfontchooserwidget.ui:99
+#: bobgui/ui/bobguifontchooserwidget.ui:99
 msgid "Monospace"
 msgstr "মনোস্পেস"
 
-#: gtk/ui/gtkfontchooserwidget.ui:105
+#: bobgui/ui/bobguifontchooserwidget.ui:105
 msgid "Language"
 msgstr "ভাষা"
 
-#: gtk/ui/gtkfontchooserwidget.ui:198 gtk/ui/gtkfontchooserwidget.ui:200 gtk/ui/gtkfontchooserwidget.ui:353
-#: gtk/ui/gtkfontchooserwidget.ui:357
+#: bobgui/ui/bobguifontchooserwidget.ui:198 bobgui/ui/bobguifontchooserwidget.ui:200 bobgui/ui/bobguifontchooserwidget.ui:353
+#: bobgui/ui/bobguifontchooserwidget.ui:357
 #, fuzzy
 msgid "Preview Font"
 msgstr "প্রাকদর্শন: (_P)"
 
-#: gtk/ui/gtkfontchooserwidget.ui:296
+#: bobgui/ui/bobguifontchooserwidget.ui:296
 #, fuzzy
 msgid "No Fonts Found"
 msgstr "কোনো আইটেম পাওয়া যায়নি"
 
-#: gtk/ui/gtkfontchooserwidget.ui:337
+#: bobgui/ui/bobguifontchooserwidget.ui:337
 #, fuzzy
 msgid "Font Name"
 msgstr "নাম"
 
-#: gtk/ui/gtkfontchooserwidget.ui:382
+#: bobgui/ui/bobguifontchooserwidget.ui:382
 msgid "Font Variation Axes"
 msgstr "হরফ প্রকরণ অক্ষ"
 
-#: gtk/ui/gtkfontchooserwidget.ui:430
+#: bobgui/ui/bobguifontchooserwidget.ui:430
 msgid "Font Features"
 msgstr "ফন্ট বৈশিষ্ট্য"
 
-#: gtk/ui/gtkmediacontrols.ui:28
+#: bobgui/ui/bobguimediacontrols.ui:28
 #, fuzzy
 msgctxt "media controls tooltip"
 msgid "Play"
 msgstr "বাজানো হবে (_P)"
 
-#: gtk/ui/gtkmediacontrols.ui:47
+#: bobgui/ui/bobguimediacontrols.ui:47
 #, fuzzy
 msgctxt "media controls"
 msgid "Position"
 msgstr "অবস্থান"
 
-#: gtk/ui/gtkmediacontrols.ui:65
+#: bobgui/ui/bobguimediacontrols.ui:65
 #, fuzzy
 msgctxt "media controls"
 msgid "Volume"
 msgstr "ভলিউম"
 
-#: gtk/print/ui/gtkpagesetupunixdialog.ui:30
+#: bobgui/print/ui/bobguipagesetupunixdialog.ui:30
 msgid "_Format for:"
 msgstr "বিন্যাস করা হবে: (_F)"
 
-#: gtk/print/ui/gtkpagesetupunixdialog.ui:54 gtk/print/ui/gtkprintunixdialog.ui:704
+#: bobgui/print/ui/bobguipagesetupunixdialog.ui:54 bobgui/print/ui/bobguiprintunixdialog.ui:704
 msgid "_Paper size:"
 msgstr "পৃষ্ঠার আকার: (_P)"
 
-#: gtk/print/ui/gtkpagesetupunixdialog.ui:89
+#: bobgui/print/ui/bobguipagesetupunixdialog.ui:89
 msgid "_Orientation:"
 msgstr "স্থিতিবিন্যাস: (_O)"
 
-#: gtk/print/ui/gtkpagesetupunixdialog.ui:101 gtk/print/ui/gtkprintunixdialog.ui:744
+#: bobgui/print/ui/bobguipagesetupunixdialog.ui:101 bobgui/print/ui/bobguiprintunixdialog.ui:744
 msgid "Portrait"
 msgstr "লম্বালম্বি"
 
-#: gtk/print/ui/gtkpagesetupunixdialog.ui:112 gtk/print/ui/gtkprintunixdialog.ui:746
+#: bobgui/print/ui/bobguipagesetupunixdialog.ui:112 bobgui/print/ui/bobguiprintunixdialog.ui:746
 msgid "Reverse portrait"
 msgstr "বিপরীত লম্বালম্বি"
 
-#: gtk/print/ui/gtkpagesetupunixdialog.ui:124 gtk/print/ui/gtkprintunixdialog.ui:745
+#: bobgui/print/ui/bobguipagesetupunixdialog.ui:124 bobgui/print/ui/bobguiprintunixdialog.ui:745
 msgid "Landscape"
 msgstr "আড়াআড়ি"
 
-#: gtk/print/ui/gtkpagesetupunixdialog.ui:135 gtk/print/ui/gtkprintunixdialog.ui:747
+#: bobgui/print/ui/bobguipagesetupunixdialog.ui:135 bobgui/print/ui/bobguiprintunixdialog.ui:747
 msgid "Reverse landscape"
 msgstr "বিপরীত আড়াআড়ি"
 
-#: gtk/ui/gtkplacesview.ui:16
+#: bobgui/ui/bobguiplacesview.ui:16
 msgid "Server Addresses"
 msgstr "সার্ভার ঠিকানা"
 
-#: gtk/ui/gtkplacesview.ui:28
+#: bobgui/ui/bobguiplacesview.ui:28
 msgid "Server addresses are made up of a protocol prefix and an address. Examples:"
 msgstr "সার্ভার ঠিকানা একটি প্রোটোকল উপসর্গ এবং একটি ঠিকানা গঠিত হয়. উদাহরণ:"
 
-#: gtk/ui/gtkplacesview.ui:54
+#: bobgui/ui/bobguiplacesview.ui:54
 msgid "Available Protocols"
 msgstr "উপলব্ধ প্রোটোকল"
 
 #. Translators: Server as any successfully connected network address
-#: gtk/ui/gtkplacesview.ui:106
+#: bobgui/ui/bobguiplacesview.ui:106
 #, fuzzy
 msgid "No recent servers found"
 msgstr "কোনো মুদ্রণযন্ত্র পাওয়া যায়নি"
 
-#: gtk/ui/gtkplacesview.ui:129
+#: bobgui/ui/bobguiplacesview.ui:129
 msgid "Recent Servers"
 msgstr "সাম্প্রতিক সার্ভার"
 
-#: gtk/ui/gtkplacesview.ui:209
+#: bobgui/ui/bobguiplacesview.ui:209
 #, fuzzy
 msgid "No results found"
 msgstr "কোনো আইটেম পাওয়া যায়নি"
 
-#: gtk/ui/gtkplacesview.ui:240
+#: bobgui/ui/bobguiplacesview.ui:240
 #, fuzzy
 msgid "Connect to _Server"
 msgstr "ব্যবহারকারী হিসেবে সংযোগ করুন: (_s)"
 
-#: gtk/ui/gtkplacesview.ui:265
+#: bobgui/ui/bobguiplacesview.ui:265
 msgid "Enter server address…"
 msgstr "সার্ভার ঠিকানা লিখুন..."
 
 #. this is the header for the printer status column in the print dialog
-#: gtk/print/ui/gtkprintunixdialog.ui:142
+#: bobgui/print/ui/bobguiprintunixdialog.ui:142
 msgid "Status"
 msgstr "অবস্থা"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:196
+#: bobgui/print/ui/bobguiprintunixdialog.ui:196
 msgid "Range"
 msgstr "সুনির্দিষ্ট সীমা"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:214
+#: bobgui/print/ui/bobguiprintunixdialog.ui:214
 msgid "_All Pages"
 msgstr "সকল পৃষ্ঠা (_A)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:227
+#: bobgui/print/ui/bobguiprintunixdialog.ui:227
 msgid "C_urrent Page"
 msgstr "বর্তমান পৃষ্ঠা (_u)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:241
+#: bobgui/print/ui/bobguiprintunixdialog.ui:241
 msgid "Se_lection"
 msgstr "নির্বাচন (_l)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:256
+#: bobgui/print/ui/bobguiprintunixdialog.ui:256
 msgid "Pag_es:"
 msgstr "পৃষ্ঠা: (_e)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:260 gtk/print/ui/gtkprintunixdialog.ui:273
+#: bobgui/print/ui/bobguiprintunixdialog.ui:260 bobgui/print/ui/bobguiprintunixdialog.ui:273
 #, fuzzy
 msgid ""
 "Specify one or more page ranges,\n"
@@ -3135,124 +3135,124 @@ msgstr ""
 "এক অথবা একাধিক পৃষ্ঠার সীমা উল্লেখ করুন,\n"
 " উদাহরণস্বরূপ. 1-3,7,11"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:299
+#: bobgui/print/ui/bobguiprintunixdialog.ui:299
 msgid "Copies"
 msgstr "অনুলিপি"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:317
+#: bobgui/print/ui/bobguiprintunixdialog.ui:317
 msgid "Copie_s:"
 msgstr "অনুলিপি: (_s)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:340
+#: bobgui/print/ui/bobguiprintunixdialog.ui:340
 msgid "C_ollate"
 msgstr "একত্রিত করুন (_o)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:351
+#: bobgui/print/ui/bobguiprintunixdialog.ui:351
 msgid "_Reverse"
 msgstr "বিপরীত (_R)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:364
+#: bobgui/print/ui/bobguiprintunixdialog.ui:364
 #, fuzzy
 msgid "Page ordering preview"
 msgstr "পৃষ্ঠার অনুক্রম: (_d)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:365
+#: bobgui/print/ui/bobguiprintunixdialog.ui:365
 msgid "A visualization of the effect of the collate and reverse options on the page ordering"
 msgstr "পৃষ্ঠার ক্রমানুসারে কোলেট এবং বিপরীত বিকল্পগুলির প্রভাবের একটি ভিজ্যুয়ালাইজেশন"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:424
+#: bobgui/print/ui/bobguiprintunixdialog.ui:424
 msgid "General"
 msgstr "সাধারণ"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:470
+#: bobgui/print/ui/bobguiprintunixdialog.ui:470
 msgid "T_wo-sided:"
 msgstr "উভয় পার্শ্ব: (_w)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:492
+#: bobgui/print/ui/bobguiprintunixdialog.ui:492
 msgid "Pages per _side:"
 msgstr "প্রতি পার্শ্বে পৃষ্ঠার সংখ্যা: (_s)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:516
+#: bobgui/print/ui/bobguiprintunixdialog.ui:516
 msgid "Page or_dering:"
 msgstr "পৃষ্ঠার অনুক্রম: (_d)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:539
+#: bobgui/print/ui/bobguiprintunixdialog.ui:539
 msgid "_Only print:"
 msgstr "শুধুমাত্র মুদ্রণ করা হবে: (_O)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:555
+#: bobgui/print/ui/bobguiprintunixdialog.ui:555
 msgid "All sheets"
 msgstr "সকল পাতা"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:556
+#: bobgui/print/ui/bobguiprintunixdialog.ui:556
 msgid "Even sheets"
 msgstr "শুধুমাত্র জোড় সংখ্যক পাতায়"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:557
+#: bobgui/print/ui/bobguiprintunixdialog.ui:557
 msgid "Odd sheets"
 msgstr "শুধুমাত্র বেজোড় সংখ্যক পাতায়"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:571
+#: bobgui/print/ui/bobguiprintunixdialog.ui:571
 msgid "Sc_ale:"
 msgstr "আকার পরিবর্তন: (_a)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:587
+#: bobgui/print/ui/bobguiprintunixdialog.ui:587
 msgid "Scale in percent"
 msgstr "শতাংশে স্কেল"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:619
+#: bobgui/print/ui/bobguiprintunixdialog.ui:619
 msgid "Paper"
 msgstr "কাগজ"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:638
+#: bobgui/print/ui/bobguiprintunixdialog.ui:638
 msgid "Paper _type:"
 msgstr "কাগজের ধরন: (_t)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:660
+#: bobgui/print/ui/bobguiprintunixdialog.ui:660
 msgid "Paper _source:"
 msgstr "কাগজের উৎস: (_s)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:682
+#: bobgui/print/ui/bobguiprintunixdialog.ui:682
 msgid "Output t_ray:"
 msgstr "আউটপুট ট্রে: (_r)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:727
+#: bobgui/print/ui/bobguiprintunixdialog.ui:727
 msgid "Or_ientation:"
 msgstr "স্থিতিবিন্যাস: (_i)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:769
+#: bobgui/print/ui/bobguiprintunixdialog.ui:769
 msgid "Page layout preview"
 msgstr "পৃষ্ঠা বিন্যাস পূর্বরূপ"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:805
+#: bobgui/print/ui/bobguiprintunixdialog.ui:805
 msgid "Job Details"
 msgstr "কাজ সংক্রান্ত বিবরণ"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:820
+#: bobgui/print/ui/bobguiprintunixdialog.ui:820
 msgid "Pri_ority:"
 msgstr "অগ্রাধিকার: (_o)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:841
+#: bobgui/print/ui/bobguiprintunixdialog.ui:841
 msgid "_Billing info:"
 msgstr "বিল সংক্রান্ত তথ্য: (_B)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:874
+#: bobgui/print/ui/bobguiprintunixdialog.ui:874
 msgid "Print Document"
 msgstr "নথি মুদ্রণ"
 
 #. this is one of the choices for the print at option in the print dialog
-#: gtk/print/ui/gtkprintunixdialog.ui:887
+#: bobgui/print/ui/bobguiprintunixdialog.ui:887
 msgid "_Now"
 msgstr "এই মুহূর্তে (_N)"
 
 #. this is one of the choices for the print at option in the print dialog. It also serves as the label for an entry that allows the user to enter a time.
-#: gtk/print/ui/gtkprintunixdialog.ui:901
+#: bobgui/print/ui/bobguiprintunixdialog.ui:901
 msgid "A_t:"
 msgstr "চিহ্নিত সময়ে: (_t)"
 
 #. Ability to parse the am/pm format depends on actual locale. You can remove the am/pm values below for your locale if they are not supported.
-#: gtk/print/ui/gtkprintunixdialog.ui:903 gtk/print/ui/gtkprintunixdialog.ui:905 gtk/print/ui/gtkprintunixdialog.ui:921
-#: gtk/print/ui/gtkprintunixdialog.ui:923
+#: bobgui/print/ui/bobguiprintunixdialog.ui:903 bobgui/print/ui/bobguiprintunixdialog.ui:905 bobgui/print/ui/bobguiprintunixdialog.ui:921
+#: bobgui/print/ui/bobguiprintunixdialog.ui:923
 #, fuzzy
 msgid ""
 "Specify the time of print,\n"
@@ -3262,275 +3262,275 @@ msgstr ""
 " উদাহরণস্বরূপ ১৫:৩০, ২:৩৫ অপরাহ্ন, ১৪:১৫:২০, ১১:৪৬:৩০ পূর্বাহ্ন, ৪ অপরাহ্ন"
 
 #. this is one of the choices for the print at option in the print dialog. It means that the print job will not be printed until it explicitly gets 'released'.
-#: gtk/print/ui/gtkprintunixdialog.ui:935
+#: bobgui/print/ui/bobguiprintunixdialog.ui:935
 msgid "On _hold"
 msgstr "অপেক্ষারত (_h)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:937 gtk/print/ui/gtkprintunixdialog.ui:938
+#: bobgui/print/ui/bobguiprintunixdialog.ui:937 bobgui/print/ui/bobguiprintunixdialog.ui:938
 msgid "Hold the job until it is explicitly released"
 msgstr "আরম্ভের সুনির্দিষ্ট নির্দেশ না দেয়া পর্যন্ত কাজ স্থগিত রাখা হবে"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:965
+#: bobgui/print/ui/bobguiprintunixdialog.ui:965
 msgid "Add Cover Page"
 msgstr "প্রচ্ছদ পৃষ্ঠা যোগ"
 
 #. this is the label used for the option in the print dialog that controls the front cover page.
-#: gtk/print/ui/gtkprintunixdialog.ui:980
+#: bobgui/print/ui/bobguiprintunixdialog.ui:980
 msgid "Be_fore:"
 msgstr "পূর্বে: (_f)"
 
 #. this is the label used for the option in the print dialog that controls the back cover page.
-#: gtk/print/ui/gtkprintunixdialog.ui:1001
+#: bobgui/print/ui/bobguiprintunixdialog.ui:1001
 msgid "_After:"
 msgstr "পরে: (_A)"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:1030
+#: bobgui/print/ui/bobguiprintunixdialog.ui:1030
 msgid "Job"
 msgstr "কাজ"
 
 #. This will appear as a tab label in the print dialog.
-#: gtk/print/ui/gtkprintunixdialog.ui:1060
+#: bobgui/print/ui/bobguiprintunixdialog.ui:1060
 msgid "Image Quality"
 msgstr "ছবির গুণগত মান"
 
 #. This will appear as a tab label in the print dialog.
-#: gtk/print/ui/gtkprintunixdialog.ui:1089
+#: bobgui/print/ui/bobguiprintunixdialog.ui:1089
 msgid "Color"
 msgstr "রং"
 
 #. This will appear as a tab label in the print dialog. It's a typographical term, as in "Binding and finishing"
-#: gtk/print/ui/gtkprintunixdialog.ui:1118
+#: bobgui/print/ui/bobguiprintunixdialog.ui:1118
 msgid "Finishing"
 msgstr "শেষ করছে"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:1147
+#: bobgui/print/ui/bobguiprintunixdialog.ui:1147
 msgid "Advanced"
 msgstr "উন্নত বৈশিষ্ট্য"
 
-#: gtk/print/ui/gtkprintunixdialog.ui:1163
+#: bobgui/print/ui/bobguiprintunixdialog.ui:1163
 msgid "Some of the settings in the dialog conflict"
 msgstr "ডায়ালগের কিছু সেটিংস পরস্পরবিরোধী"
 
-#: modules/media/gtkffmediafile.c:253
+#: modules/media/bobguiffmediafile.c:253
 #, fuzzy, c-format
 msgid "Unspecified error decoding media"
 msgstr "অনির্ধারিত ত্রুটি"
 
-#: modules/media/gtkffmediafile.c:286
+#: modules/media/bobguiffmediafile.c:286
 #, fuzzy, c-format
 msgid "Cannot find decoder: %s"
 msgstr "প্রদর্শন খোলা যাচ্ছে না: %s"
 
-#: modules/media/gtkffmediafile.c:296 modules/media/gtkffmediafile.c:363
+#: modules/media/bobguiffmediafile.c:296 modules/media/bobguiffmediafile.c:363
 #, fuzzy
 msgid "Failed to allocate a codec context"
 msgstr "QTIF কনটেক্সট কাঠামো বরাদ্দ করতে ব্যর্থ।"
 
-#: modules/media/gtkffmediafile.c:341
+#: modules/media/bobguiffmediafile.c:341
 #, fuzzy, c-format
 msgid "Cannot find encoder: %s"
 msgstr "প্রদর্শন খোলা যাচ্ছে না: %s"
 
-#: modules/media/gtkffmediafile.c:352
+#: modules/media/bobguiffmediafile.c:352
 msgid "Cannot add new stream"
 msgstr "নতুন স্ট্রীম যোগ করা যাবে না"
 
-#: modules/media/gtkffmediafile.c:485 modules/media/gtkffmediafile.c:942
+#: modules/media/bobguiffmediafile.c:485 modules/media/bobguiffmediafile.c:942
 #, fuzzy
 msgid "Failed to allocate an audio frame"
 msgstr "read buffer ফাইলের জন্য %d বাইট বরাদ্দ করতে ব্যর্থ"
 
-#: modules/media/gtkffmediafile.c:650 modules/media/gtkffmediafile.c:898
+#: modules/media/bobguiffmediafile.c:650 modules/media/bobguiffmediafile.c:898
 #, fuzzy
 msgid "Not enough memory"
 msgstr "পর্যাপ্ত মেমরি ফাঁকা নেই"
 
-#: modules/media/gtkffmediafile.c:821
+#: modules/media/bobguiffmediafile.c:821
 #, fuzzy
 msgid "Could not allocate resampler context"
 msgstr "কনটেক্সট বাফারের জন্য মেমরি বরাদ্দ করা যায়নি"
 
-#: modules/media/gtkffmediafile.c:868
+#: modules/media/bobguiffmediafile.c:868
 #, fuzzy
 msgid "No audio output found"
 msgstr "কোনো আইটেম পাওয়া যায়নি"
 
-#: modules/printbackends/gtkprintbackendcpdb.c:592
+#: modules/printbackends/bobguiprintbackendcpdb.c:592
 msgid "Print at"
 msgstr "মুদ্রণ করা হবে"
 
-#: modules/printbackends/gtkprintbackendcpdb.c:602
+#: modules/printbackends/bobguiprintbackendcpdb.c:602
 msgid "Print at time"
 msgstr "চিহ্নিত সময়ে মুদ্রণ করা হবে"
 
 #. Translators: this is a printer status.
-#: modules/printbackends/gtkprintbackendcpdb.c:1525 modules/printbackends/gtkprintbackendcups.c:2636
+#: modules/printbackends/bobguiprintbackendcpdb.c:1525 modules/printbackends/bobguiprintbackendcups.c:2636
 msgid "Paused; Rejecting Jobs"
 msgstr "স্থগিত ; কাজ প্রত্যাখ্যান করা হচ্ছে"
 
 #. Translators: this is a printer status.
-#: modules/printbackends/gtkprintbackendcpdb.c:1531 modules/printbackends/gtkprintbackendcups.c:2642
+#: modules/printbackends/bobguiprintbackendcpdb.c:1531 modules/printbackends/bobguiprintbackendcups.c:2642
 msgid "Rejecting Jobs"
 msgstr "কাজ প্রত্যাখ্যান করা হচ্ছে"
 
-#: modules/printbackends/gtkprintbackendcups.c:1142 modules/printbackends/gtkprintbackendcups.c:1449
+#: modules/printbackends/bobguiprintbackendcups.c:1142 modules/printbackends/bobguiprintbackendcups.c:1449
 msgid "Username:"
 msgstr "ব্যবহারকারীর নাম:"
 
-#: modules/printbackends/gtkprintbackendcups.c:1143 modules/printbackends/gtkprintbackendcups.c:1458
+#: modules/printbackends/bobguiprintbackendcups.c:1143 modules/printbackends/bobguiprintbackendcups.c:1458
 msgid "Password:"
 msgstr "পাসওয়ার্ড:"
 
-#: modules/printbackends/gtkprintbackendcups.c:1181 modules/printbackends/gtkprintbackendcups.c:1471
+#: modules/printbackends/bobguiprintbackendcups.c:1181 modules/printbackends/bobguiprintbackendcups.c:1471
 #, fuzzy, c-format
 msgid "Authentication is required to print document “%s” on printer %s"
 msgstr "'%s' নথিটি %s মুদ্রণযন্ত্রে মুদ্রণের জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1183
+#: modules/printbackends/bobguiprintbackendcups.c:1183
 #, c-format
 msgid "Authentication is required to print a document on %s"
 msgstr "%s-এ কোন নথি মুদ্রণের জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1187
+#: modules/printbackends/bobguiprintbackendcups.c:1187
 #, fuzzy, c-format
 msgid "Authentication is required to get attributes of job “%s”"
 msgstr "'%s' কাজের বৈশিষ্ট্য পাওয়ার জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1189
+#: modules/printbackends/bobguiprintbackendcups.c:1189
 msgid "Authentication is required to get attributes of a job"
 msgstr "কাজের বৈশিষ্ট্য পাওয়ার জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1193
+#: modules/printbackends/bobguiprintbackendcups.c:1193
 #, c-format
 msgid "Authentication is required to get attributes of printer %s"
 msgstr "'%s' মুদ্রণযন্ত্রের বৈশিষ্ট্য পাওয়ার জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1195
+#: modules/printbackends/bobguiprintbackendcups.c:1195
 msgid "Authentication is required to get attributes of a printer"
 msgstr "মুদ্রণযন্ত্রের বৈশিষ্ট্য পাওয়ার জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1198
+#: modules/printbackends/bobguiprintbackendcups.c:1198
 #, c-format
 msgid "Authentication is required to get default printer of %s"
 msgstr "%s-এর পূর্বনির্ধারিত মুদ্রণযন্ত্র পাওয়ার জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1201
+#: modules/printbackends/bobguiprintbackendcups.c:1201
 #, c-format
 msgid "Authentication is required to get printers from %s"
 msgstr "%s থেকে মুদ্রণযন্ত্র পাওয়ার জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1206
+#: modules/printbackends/bobguiprintbackendcups.c:1206
 #, c-format
 msgid "Authentication is required to get a file from %s"
 msgstr "%s থেকে ফাইল পাওয়ার জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1208
+#: modules/printbackends/bobguiprintbackendcups.c:1208
 #, c-format
 msgid "Authentication is required on %s"
 msgstr "%s-এ প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1443
+#: modules/printbackends/bobguiprintbackendcups.c:1443
 msgid "Domain:"
 msgstr "ডোমেইন:"
 
-#: modules/printbackends/gtkprintbackendcups.c:1473
+#: modules/printbackends/bobguiprintbackendcups.c:1473
 #, fuzzy, c-format
 msgid "Authentication is required to print document “%s”"
 msgstr "'%s' নথি মুদ্রণে প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1478
+#: modules/printbackends/bobguiprintbackendcups.c:1478
 #, c-format
 msgid "Authentication is required to print this document on printer %s"
 msgstr "%s মুদ্রণযন্ত্রে এই নথিটি মুদ্রণের জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:1480
+#: modules/printbackends/bobguiprintbackendcups.c:1480
 msgid "Authentication is required to print this document"
 msgstr "এই নথিটি মুদ্রণের জন্য প্রমাণীকরণ আবশ্যক"
 
-#: modules/printbackends/gtkprintbackendcups.c:2568
+#: modules/printbackends/bobguiprintbackendcups.c:2568
 #, fuzzy, c-format
 msgid "Printer “%s” is low on toner."
 msgstr "মুদ্রণযন্ত্র '%s'-এ টোনারের মাত্রা কম।"
 
-#: modules/printbackends/gtkprintbackendcups.c:2572
+#: modules/printbackends/bobguiprintbackendcups.c:2572
 #, fuzzy, c-format
 msgid "Printer “%s” has no toner left."
 msgstr "'%s' মুদ্রণযন্ত্রে টোনার শেষ হয়ে গেছে।"
 
 #. Translators: "Developer" like on photo development context
-#: modules/printbackends/gtkprintbackendcups.c:2577
+#: modules/printbackends/bobguiprintbackendcups.c:2577
 #, fuzzy, c-format
 msgid "Printer “%s” is low on developer."
 msgstr "মুদ্রণযন্ত্র '%s'-এ ডেভেলপার সামগ্রীর মাত্রা কম।"
 
 #. Translators: "Developer" like on photo development context
-#: modules/printbackends/gtkprintbackendcups.c:2582
+#: modules/printbackends/bobguiprintbackendcups.c:2582
 #, fuzzy, c-format
 msgid "Printer “%s” is out of developer."
 msgstr "'%s' মুদ্রণযন্ত্রে ডেভেলপার সামগ্রী শেষ হয়ে গেছে।"
 
 #. Translators: "marker" is one color bin of the printer
-#: modules/printbackends/gtkprintbackendcups.c:2587
+#: modules/printbackends/bobguiprintbackendcups.c:2587
 #, fuzzy, c-format
 msgid "Printer “%s” is low on at least one marker supply."
 msgstr "মুদ্রণযন্ত্র '%s'-এ অন্তত একটি মার্কার ধারণস্থলের সামগ্রীর মাত্রা কমেছে।"
 
 #. Translators: "marker" is one color bin of the printer
-#: modules/printbackends/gtkprintbackendcups.c:2592
+#: modules/printbackends/bobguiprintbackendcups.c:2592
 #, fuzzy, c-format
 msgid "Printer “%s” is out of at least one marker supply."
 msgstr "'%s' মুদ্রণযন্ত্রে অন্তত একটি মার্কার ধারণস্থলের সামগ্রী শেষ হয়ে গেছে।"
 
-#: modules/printbackends/gtkprintbackendcups.c:2596
+#: modules/printbackends/bobguiprintbackendcups.c:2596
 #, fuzzy, c-format
 msgid "The cover is open on printer “%s”."
 msgstr "'%s' মুদ্রণযন্ত্রের ঢাকনা খোলা।"
 
-#: modules/printbackends/gtkprintbackendcups.c:2600
+#: modules/printbackends/bobguiprintbackendcups.c:2600
 #, fuzzy, c-format
 msgid "The door is open on printer “%s”."
 msgstr "'%s' মুদ্রণযন্ত্রের দরজা খোলা।"
 
-#: modules/printbackends/gtkprintbackendcups.c:2604
+#: modules/printbackends/bobguiprintbackendcups.c:2604
 #, fuzzy, c-format
 msgid "Printer “%s” is low on paper."
 msgstr "'%s' মুদ্রণযন্ত্রে কাগজের পরিমাণ হ্রাস পেয়েছে।"
 
-#: modules/printbackends/gtkprintbackendcups.c:2608
+#: modules/printbackends/bobguiprintbackendcups.c:2608
 #, fuzzy, c-format
 msgid "Printer “%s” is out of paper."
 msgstr "'%s' মুদ্রণযন্ত্রের কাগজ শেষ হয়ে গেছে।"
 
-#: modules/printbackends/gtkprintbackendcups.c:2612
+#: modules/printbackends/bobguiprintbackendcups.c:2612
 #, fuzzy, c-format
 msgid "Printer “%s” is currently offline."
 msgstr "মুদ্রণযন্ত্র '%s' বর্তমানে অফলাইনে রয়েছে।"
 
-#: modules/printbackends/gtkprintbackendcups.c:2616
+#: modules/printbackends/bobguiprintbackendcups.c:2616
 #, fuzzy, c-format
 msgid "There is a problem on printer “%s”."
 msgstr "'%s' মুদ্রণযন্ত্রে একটি সমস্যা দেখা দিয়েছে।"
 
 #. Translators: this string connects multiple printer states together.
-#: modules/printbackends/gtkprintbackendcups.c:2683
+#: modules/printbackends/bobguiprintbackendcups.c:2683
 msgid "; "
 msgstr ";"
 
-#: modules/printbackends/gtkprintbackendcups.c:5198
+#: modules/printbackends/bobguiprintbackendcups.c:5198
 msgid "Printer Default"
 msgstr "মুদ্রণযন্ত্রের পূর্বনির্ধারিত মান"
 
 #. Translators, this string is used to label the job priority option
 #. * in the print dialog
 #.
-#: modules/printbackends/gtkprintbackendcups.c:5672
+#: modules/printbackends/bobguiprintbackendcups.c:5672
 msgid "Job Priority"
 msgstr "কাজের অগ্রাধিকার"
 
 #. Translators, this string is used to label the billing info entry
 #. * in the print dialog
 #.
-#: modules/printbackends/gtkprintbackendcups.c:5683
+#: modules/printbackends/bobguiprintbackendcups.c:5683
 msgid "Billing Info"
 msgstr "বিল সংক্রান্ত তথ্য"
 
@@ -3539,46 +3539,46 @@ msgstr "বিল সংক্রান্ত তথ্য"
 #. * the width and height in points. E.g: "Custom
 #. * 230.4x142.9"
 #.
-#: modules/printbackends/gtkprintbackendcups.c:5877
+#: modules/printbackends/bobguiprintbackendcups.c:5877
 #, fuzzy, c-format
 msgid "Custom %s×%s"
 msgstr "স্বনির্ধারিত %1$sx%2$s"
 
-#: modules/printbackends/gtkprintbackendfile.c:238
+#: modules/printbackends/bobguiprintbackendfile.c:238
 #, fuzzy
 msgid "output"
 msgstr "output.%s"
 
-#: modules/printbackends/gtkprintbackendfile.c:510
+#: modules/printbackends/bobguiprintbackendfile.c:510
 msgid "Print to File"
 msgstr "ফাইলে মুদ্রণ করুন"
 
-#: modules/printbackends/gtkprintbackendfile.c:649
+#: modules/printbackends/bobguiprintbackendfile.c:649
 msgid "Pages per _sheet:"
 msgstr "প্রতি পাতায় পৃষ্ঠার সংখ্যা: (_s)"
 
-#: modules/printbackends/gtkprintbackendfile.c:709
+#: modules/printbackends/bobguiprintbackendfile.c:709
 msgid "File"
 msgstr "ফাইল"
 
-#: modules/printbackends/gtkprintbackendfile.c:719
+#: modules/printbackends/bobguiprintbackendfile.c:719
 msgid "_Output format"
 msgstr "আউটপুটের ফরম্যাট (_O)"
 
 #. TRANSLATORS: when we're running an old CUPS, and
 #. * it hasn't registered the device with colord
-#: modules/printbackends/gtkprintercups.c:272
+#: modules/printbackends/bobguiprintercups.c:272
 msgid "Color management unavailable"
 msgstr "রঙ ব্যবস্থাপনা অনুপলব্ধ"
 
 #. TRANSLATORS: when there is no color profile available
-#: modules/printbackends/gtkprintercups.c:284
+#: modules/printbackends/bobguiprintercups.c:284
 #, fuzzy
 msgid "No profile available"
 msgstr "বিদ্যমান নেই"
 
 #. TRANSLATORS: when the color profile has no title
-#: modules/printbackends/gtkprintercups.c:295
+#: modules/printbackends/bobguiprintercups.c:295
 #, fuzzy
 msgid "Unspecified profile"
 msgstr "অনির্ধারিত ত্রুটি"
@@ -3603,13 +3603,13 @@ msgstr "%1$s ফাইল খুলতে ব্যর্থ : %2$s\n"
 msgid "Can’t close stream"
 msgstr "স্ট্রিম বন্ধ করা যাবে না"
 
-#: tools/gtk-builder-tool.c:36
+#: tools/bobgui-builder-tool.c:36
 #, c-format
 msgid ""
 "Usage:\n"
-"  gtk4-builder-tool [COMMAND] [OPTION…] FILE\n"
+"  bobgui4-builder-tool [COMMAND] [OPTION…] FILE\n"
 "\n"
-"Perform various tasks on GtkBuilder .ui files.\n"
+"Perform various tasks on BobguiBuilder .ui files.\n"
 "\n"
 "Commands:\n"
 "  validate     Validate the file\n"
@@ -3621,9 +3621,9 @@ msgid ""
 "\n"
 msgstr ""
 "ব্যবহার:\n"
-"  gtk4-বিল্ডার-টুল [COMMAND] [বিকল্প...] ফাইল\n"
+"  bobgui4-বিল্ডার-টুল [COMMAND] [বিকল্প...] ফাইল\n"
 "\n"
-"GtkBuilder .ui ফাইলে বিভিন্ন কাজ সম্পাদন করুন।\n"
+"BobguiBuilder .ui ফাইলে বিভিন্ন কাজ সম্পাদন করুন।\n"
 "\n"
 "আদেশ:\n"
 "  validate ফাইলটি যাচাই করুন\n"
@@ -3633,62 +3633,62 @@ msgstr ""
 "  রেন্ডার ফাইলটির একটি স্ক্রিনশট নিন\n"
 "  স্ক্রিনশট ফাইলটির একটি স্ক্রিনশট নিন\n"
 
-#: tools/gtk-builder-tool-enumerate.c:64
+#: tools/bobgui-builder-tool-enumerate.c:64
 msgid "Print all named objects."
 msgstr "সমস্ত নামযুক্ত বস্তু মুদ্রণ করুন।"
 
-#: tools/gtk-builder-tool-preview.c:128 tools/gtk-builder-tool-screenshot.c:236
+#: tools/bobgui-builder-tool-preview.c:128 tools/bobgui-builder-tool-screenshot.c:236
 #, fuzzy, c-format
 msgid "No object with ID '%s' found\n"
 msgstr "URI '%s'-এর জন্য কোনো আইটেম পাওয়া যায়নি"
 
-#: tools/gtk-builder-tool-preview.c:130
+#: tools/bobgui-builder-tool-preview.c:130
 #, c-format
 msgid "No previewable object found\n"
 msgstr "কোন প্রিভিউ যোগ্য বস্তু পাওয়া যায়নি\n"
 
-#: tools/gtk-builder-tool-preview.c:136
+#: tools/bobgui-builder-tool-preview.c:136
 #, c-format
 msgid "Objects of type %s can't be previewed\n"
 msgstr "%s ধরনের অবজেক্টের পূর্বরূপ দেখা যাবে না\n"
 
-#: tools/gtk-builder-tool-preview.c:187 tools/gtk-builder-tool-screenshot.c:370 tools/gtk-builder-tool-validate.c:268
-#: tools/gtk-rendernode-tool-render.c:204 tools/gtk-rendernode-tool-show.c:109
+#: tools/bobgui-builder-tool-preview.c:187 tools/bobgui-builder-tool-screenshot.c:370 tools/bobgui-builder-tool-validate.c:268
+#: tools/bobgui-rendernode-tool-render.c:204 tools/bobgui-rendernode-tool-show.c:109
 #, c-format
 msgid "Could not initialize windowing system\n"
 msgstr "উইন্ডো সিস্টেম আরম্ভ করা যায়নি\n"
 
-#: tools/gtk-builder-tool-preview.c:195
+#: tools/bobgui-builder-tool-preview.c:195
 msgid "Preview the file."
 msgstr "ফাইলের পূর্বরূপ দেখুন।"
 
-#: tools/gtk-builder-tool-preview.c:208 tools/gtk-builder-tool-screenshot.c:391 tools/gtk-builder-tool-simplify.c:2552
-#: tools/gtk-builder-tool-validate.c:287
+#: tools/bobgui-builder-tool-preview.c:208 tools/bobgui-builder-tool-screenshot.c:391 tools/bobgui-builder-tool-simplify.c:2552
+#: tools/bobgui-builder-tool-validate.c:287
 #, c-format
 msgid "No .ui file specified\n"
 msgstr "কোন .ui ফাইল নির্দিষ্ট করা নেই\n"
 
-#: tools/gtk-builder-tool-preview.c:214
+#: tools/bobgui-builder-tool-preview.c:214
 #, c-format
 msgid "Can only preview a single .ui file\n"
 msgstr "শুধুমাত্র একটি একক .ui ফাইলের পূর্বরূপ দেখতে পারে\n"
 
-#: tools/gtk-builder-tool-screenshot.c:238
+#: tools/bobgui-builder-tool-screenshot.c:238
 #, fuzzy, c-format
 msgid "No object found\n"
 msgstr "কোনো আইটেম পাওয়া যায়নি"
 
-#: tools/gtk-builder-tool-screenshot.c:244
+#: tools/bobgui-builder-tool-screenshot.c:244
 #, c-format
 msgid "Objects of type %s can't be screenshot\n"
 msgstr "%s ধরনের অবজেক্টের স্ক্রিনশট করা যাবে না\n"
 
-#: tools/gtk-builder-tool-screenshot.c:298
+#: tools/bobgui-builder-tool-screenshot.c:298
 #, fuzzy, c-format
 msgid "Failed to take a screenshot\n"
 msgstr "হ্যাশ টেবিল লিখতে ব্যর্থ\n"
 
-#: tools/gtk-builder-tool-screenshot.c:309
+#: tools/bobgui-builder-tool-screenshot.c:309
 #, c-format
 msgid ""
 "File %s exists.\n"
@@ -3697,111 +3697,111 @@ msgstr ""
 "ফাইল %s বিদ্যমান।\n"
 "ওভাররাইট করতে --force ব্যবহার করুন।\n"
 
-#: tools/gtk-builder-tool-screenshot.c:332 tools/gtk-rendernode-tool-render.c:172
+#: tools/bobgui-builder-tool-screenshot.c:332 tools/bobgui-rendernode-tool-render.c:172
 #, c-format
 msgid "Output written to %s.\n"
 msgstr "আউটপুট %s এ লেখা হয়েছে।\n"
 
-#: tools/gtk-builder-tool-screenshot.c:336 tools/gtk-rendernode-tool-render.c:176
+#: tools/bobgui-builder-tool-screenshot.c:336 tools/bobgui-rendernode-tool-render.c:176
 #, fuzzy, c-format
 msgid "Failed to save %s: %s\n"
 msgstr "%1$s ফাইল খুলতে ব্যর্থ : %2$s\n"
 
-#: tools/gtk-builder-tool-screenshot.c:378
+#: tools/bobgui-builder-tool-screenshot.c:378
 msgid "Render a .ui file to an image."
 msgstr "একটি ছবিতে একটি .ui ফাইল রেন্ডার করুন।"
 
-#: tools/gtk-builder-tool-screenshot.c:397
+#: tools/bobgui-builder-tool-screenshot.c:397
 #, c-format
 msgid "Can only render a single .ui file to a single output file\n"
 msgstr "শুধুমাত্র একটি একক .ui ফাইল একটি একক আউটপুট ফাইলে রেন্ডার করতে পারে\n"
 
-#: tools/gtk-builder-tool-simplify.c:444
+#: tools/bobgui-builder-tool-simplify.c:444
 #, c-format
 msgid "%s:%d: Couldn’t parse value for property '%s': %s\n"
 msgstr "%s:%d: '%s' সম্পত্তির মান পার্স করা যায়নি: %s\n"
 
-#: tools/gtk-builder-tool-simplify.c:658
+#: tools/bobgui-builder-tool-simplify.c:658
 #, c-format
 msgid "Property %s not found"
 msgstr "সম্পত্তি %s পাওয়া যায়নি"
 
-#: tools/gtk-builder-tool-simplify.c:661
+#: tools/bobgui-builder-tool-simplify.c:661
 #, c-format
 msgid "Packing property %s not found"
 msgstr "প্যাকিং সম্পত্তি %s পাওয়া যায়নি"
 
-#: tools/gtk-builder-tool-simplify.c:664
+#: tools/bobgui-builder-tool-simplify.c:664
 #, c-format
 msgid "Cell property %s not found"
 msgstr "সেল সম্পত্তি %s পাওয়া যায়নি"
 
-#: tools/gtk-builder-tool-simplify.c:667
+#: tools/bobgui-builder-tool-simplify.c:667
 #, c-format
 msgid "Layout property %s not found"
 msgstr "লেআউট সম্পত্তি %s পাওয়া যায়নি"
 
-#: tools/gtk-builder-tool-simplify.c:1397
+#: tools/bobgui-builder-tool-simplify.c:1397
 #, c-format
 msgid "%s only accepts three children"
 msgstr "%s শুধুমাত্র তিনটি সন্তান গ্রহণ করে"
 
-#: tools/gtk-builder-tool-simplify.c:2455
+#: tools/bobgui-builder-tool-simplify.c:2455
 #, c-format
 msgid "Can’t load “%s”: %s\n"
 msgstr "\"%s\" লোড করা যাচ্ছে না: %s\n"
 
-#: tools/gtk-builder-tool-simplify.c:2466 tools/gtk-builder-tool-simplify.c:2472 tools/gtk-builder-tool-simplify.c:2478
+#: tools/bobgui-builder-tool-simplify.c:2466 tools/bobgui-builder-tool-simplify.c:2472 tools/bobgui-builder-tool-simplify.c:2478
 #, c-format
 msgid "Can’t parse “%s”: %s\n"
 msgstr "\"%s\" পার্স করা যাবে না: %s\n"
 
-#: tools/gtk-builder-tool-simplify.c:2504
+#: tools/bobgui-builder-tool-simplify.c:2504
 #, fuzzy, c-format
 msgid "Failed to read “%s”: %s\n"
 msgstr "%1$s ফাইল খুলতে ব্যর্থ : %2$s\n"
 
-#: tools/gtk-builder-tool-simplify.c:2510
+#: tools/bobgui-builder-tool-simplify.c:2510
 #, fuzzy, c-format
 msgid "Failed to write “%s”: “%s”\n"
 msgstr "ক্যাশে ফাইল লিখতে ব্যর্থ: %s\n"
 
-#: tools/gtk-builder-tool-simplify.c:2539
+#: tools/bobgui-builder-tool-simplify.c:2539
 msgid "Simplify the file."
 msgstr "ফাইলটি সরলীকরণ করুন।"
 
-#: tools/gtk-builder-tool-simplify.c:2558
+#: tools/bobgui-builder-tool-simplify.c:2558
 #, c-format
 msgid "Can only simplify a single .ui file without --replace\n"
 msgstr "--replace ছাড়া শুধুমাত্র একটি একক .ui ফাইলকে সহজ করতে পারে\n"
 
-#: tools/gtk-builder-tool-validate.c:45
+#: tools/bobgui-builder-tool-validate.c:45
 #, fuzzy, c-format
 msgid "Failed to lookup template parent type %s\n"
 msgstr "%1$s ফাইল খুলতে ব্যর্থ : %2$s\n"
 
-#: tools/gtk-builder-tool-validate.c:123
+#: tools/bobgui-builder-tool-validate.c:123
 msgid "Deprecated types:\n"
 msgstr "অবহেলিত প্রকার:\n"
 
-#: tools/gtk-builder-tool-validate.c:167
+#: tools/bobgui-builder-tool-validate.c:167
 #, c-format
 msgid "Failed to create an instance of the template type %s\n"
 msgstr "টেমপ্লেট টাইপ %s এর একটি উদাহরণ তৈরি করতে ব্যর্থ হয়েছে৷\n"
 
-#: tools/gtk-builder-tool-validate.c:276
+#: tools/bobgui-builder-tool-validate.c:276
 msgid "Validate the file."
 msgstr "ফাইলটি যাচাই করুন।"
 
 #. Translators: this message will appear immediately after the
 #. usage string - Usage: COMMAND [OPTION…] <THIS_MESSAGE>
-#: tools/gtk-launch.c:74
+#: tools/bobgui-launch.c:74
 msgid "APPLICATION [URI…] — launch an APPLICATION"
 msgstr "আবেদন [URI...] — একটি আবেদন চালু করুন"
 
 #. Translators: this message will appear after the usage string
 #. and before the list of options.
-#: tools/gtk-launch.c:78
+#: tools/bobgui-launch.c:78
 msgid ""
 "Launch an application (specified by its desktop file name),\n"
 "optionally passing one or more URIs as arguments."
@@ -3809,47 +3809,47 @@ msgstr ""
 "একটি অ্যাপ্লিকেশন চালু করুন (এর ডেস্কটপ ফাইলের নাম দ্বারা নির্দিষ্ট),\n"
 "ঐচ্ছিকভাবে আর্গুমেন্ট হিসাবে এক বা একাধিক URI পাস করা।"
 
-#: tools/gtk-launch.c:88
+#: tools/bobgui-launch.c:88
 #, fuzzy, c-format
 msgid "Error parsing commandline options: %s\n"
 msgstr "আইকন লোড করতে ত্রুটি: %s"
 
-#: tools/gtk-launch.c:90 tools/gtk-launch.c:111
+#: tools/bobgui-launch.c:90 tools/bobgui-launch.c:111
 #, c-format
 msgid "Try “%s --help” for more information."
 msgstr "আরও তথ্যের জন্য \"%s --help\" ব্যবহার করে দেখুন।"
 
 #. Translators: the %s is the program name. This error message
-#. means the user is calling gtk-launch without any argument.
-#: tools/gtk-launch.c:109
+#. means the user is calling bobgui-launch without any argument.
+#: tools/bobgui-launch.c:109
 #, fuzzy, c-format
 msgid "%s: missing application name"
 msgstr "অনলাইনে অ্যাপ্লিকেশন অনুসন্ধান"
 
-#: tools/gtk-launch.c:137
+#: tools/bobgui-launch.c:137
 #, c-format
 msgid "Creating AppInfo from id not supported on non unix operating systems"
 msgstr "আইডি থেকে অ্যাপইনফো তৈরি করা নন ইউনিক্স অপারেটিং সিস্টেমে সমর্থিত নয়"
 
 #. Translators: the first %s is the program name, the second one
 #. is the application name.
-#: tools/gtk-launch.c:145
+#: tools/bobgui-launch.c:145
 #, fuzzy, c-format
 msgid "%s: no such application %s"
 msgstr "অ্যাপ্লিকেশন চালাতে পারেনি"
 
 #. Translators: the first %s is the program name, the second one
 #. is the error message.
-#: tools/gtk-launch.c:163
+#: tools/bobgui-launch.c:163
 #, fuzzy, c-format
 msgid "%s: error launching application: %s\n"
 msgstr "আইকন লোড করতে ত্রুটি: %s"
 
-#: tools/gtk-path-tool.c:35
+#: tools/bobgui-path-tool.c:35
 #, c-format
 msgid ""
 "Usage:\n"
-"  gtk4-path-tool [COMMAND] [OPTION…] PATH\n"
+"  bobgui4-path-tool [COMMAND] [OPTION…] PATH\n"
 "\n"
 "Perform various tasks on paths.\n"
 "\n"
@@ -3863,7 +3863,7 @@ msgid ""
 "\n"
 msgstr ""
 "ব্যবহার:\n"
-"  gtk4-path-tool [COMMAND] [বিকল্প...] PATH\n"
+"  bobgui4-path-tool [COMMAND] [বিকল্প...] PATH\n"
 "\n"
 "পাথে বিভিন্ন কাজ সঞ্চালন.\n"
 "\n"
@@ -3875,182 +3875,182 @@ msgstr ""
 "  রেন্ডার একটি চিত্র হিসাবে পথ রেন্ডার\n"
 "  তথ্য পথ সম্পর্কে তথ্য মুদ্রণ করুন\n"
 
-#: tools/gtk-path-tool-decompose.c:99
+#: tools/bobgui-path-tool-decompose.c:99
 msgid "Decompose a path."
 msgstr "একটি পথ পচন."
 
-#: tools/gtk-path-tool-decompose.c:112 tools/gtk-path-tool-info.c:113 tools/gtk-path-tool-restrict.c:64
-#: tools/gtk-path-tool-reverse.c:58
+#: tools/bobgui-path-tool-decompose.c:112 tools/bobgui-path-tool-info.c:113 tools/bobgui-path-tool-restrict.c:64
+#: tools/bobgui-path-tool-reverse.c:58
 msgid "No paths given."
 msgstr "কোন পথ দেওয়া নেই."
 
-#: tools/gtk-path-tool-decompose.c:140 tools/gtk-path-tool-restrict.c:94 tools/gtk-path-tool-reverse.c:78
+#: tools/bobgui-path-tool-decompose.c:140 tools/bobgui-path-tool-restrict.c:94 tools/bobgui-path-tool-reverse.c:78
 msgid "That didn't work out."
 msgstr "যে কাজ আউট না."
 
-#: tools/gtk-path-tool-info.c:100
+#: tools/bobgui-path-tool-info.c:100
 #, fuzzy
 msgid "Print information about a path."
 msgstr "ফাইল সম্পর্কিত তথ্য উদ্ধার করা যায়নি"
 
-#: tools/gtk-path-tool-info.c:121
+#: tools/bobgui-path-tool-info.c:121
 msgid "Path is empty."
 msgstr "পথ ফাঁকা।"
 
-#: tools/gtk-path-tool-info.c:127
+#: tools/bobgui-path-tool-info.c:127
 msgid "Path is closed"
 msgstr "পথ বন্ধ"
 
-#: tools/gtk-path-tool-info.c:129
+#: tools/bobgui-path-tool-info.c:129
 msgid "Path length"
 msgstr "পথের দৈর্ঘ্য"
 
-#: tools/gtk-path-tool-info.c:138
+#: tools/bobgui-path-tool-info.c:138
 #, c-format
 msgid "%d contours"
 msgstr "%d কনট্যুর"
 
-#: tools/gtk-path-tool-info.c:140
+#: tools/bobgui-path-tool-info.c:140
 #, c-format
 msgid "%d operations"
 msgstr "%d অপারেশন"
 
-#: tools/gtk-path-tool-info.c:144
+#: tools/bobgui-path-tool-info.c:144
 #, c-format
 msgid "%d lines"
 msgstr "%d লাইন"
 
-#: tools/gtk-path-tool-info.c:149
+#: tools/bobgui-path-tool-info.c:149
 #, c-format
 msgid "%d quadratics"
 msgstr "%d চতুর্ভুজ"
 
-#: tools/gtk-path-tool-info.c:154
+#: tools/bobgui-path-tool-info.c:154
 #, c-format
 msgid "%d cubics"
 msgstr "%d ঘন"
 
-#: tools/gtk-path-tool-info.c:159
+#: tools/bobgui-path-tool-info.c:159
 #, c-format
 msgid "%d conics"
 msgstr "%d কনিক"
 
-#: tools/gtk-path-tool-render.c:161 tools/gtk-path-tool-show.c:172
+#: tools/bobgui-path-tool-render.c:161 tools/bobgui-path-tool-show.c:172
 msgid "Could not initialize windowing system"
 msgstr "উইন্ডো সিস্টেম আরম্ভ করা যায়নি"
 
-#: tools/gtk-path-tool-render.c:168
+#: tools/bobgui-path-tool-render.c:168
 msgid "Render the path to a png image."
 msgstr "একটি পিএনজি চিত্রের পথটি রেন্ডার করুন।"
 
-#: tools/gtk-path-tool-render.c:173 tools/gtk-path-tool-show.c:183
+#: tools/bobgui-path-tool-render.c:173 tools/bobgui-path-tool-show.c:183
 msgid "Options related to filling"
 msgstr "ভরাট সম্পর্কিত বিকল্প"
 
-#: tools/gtk-path-tool-render.c:174 tools/gtk-path-tool-show.c:184
+#: tools/bobgui-path-tool-render.c:174 tools/bobgui-path-tool-show.c:184
 #, fuzzy
 msgid "Show help for fill options"
 msgstr "অন্যান্য অ্যাপ্লিকপশন প্রদর্শন"
 
-#: tools/gtk-path-tool-render.c:181 tools/gtk-path-tool-show.c:191
+#: tools/bobgui-path-tool-render.c:181 tools/bobgui-path-tool-show.c:191
 msgid "Options related to stroking"
 msgstr "স্ট্রোকিং সম্পর্কিত বিকল্প"
 
-#: tools/gtk-path-tool-render.c:182 tools/gtk-path-tool-show.c:192
+#: tools/bobgui-path-tool-render.c:182 tools/bobgui-path-tool-show.c:192
 msgid "Show help for stroke options"
 msgstr "স্ট্রোক বিকল্পের জন্য সাহায্য দেখান"
 
-#: tools/gtk-path-tool-render.c:199 tools/gtk-path-tool-show.c:209
+#: tools/bobgui-path-tool-render.c:199 tools/bobgui-path-tool-show.c:209
 msgid "No path specified"
 msgstr "কোন পথ নির্দিষ্ট করা নেই"
 
-#: tools/gtk-path-tool-render.c:205
+#: tools/bobgui-path-tool-render.c:205
 msgid "Can only render a single path"
 msgstr "শুধুমাত্র একটি একক পথ রেন্ডার করতে পারে"
 
-#: tools/gtk-path-tool-render.c:250 tools/gtk-path-tool-show.c:221
+#: tools/bobgui-path-tool-render.c:250 tools/bobgui-path-tool-show.c:221
 msgid "fill rule"
 msgstr "নিয়ম পূরণ করুন"
 
-#: tools/gtk-path-tool-render.c:255 tools/gtk-path-tool-show.c:226
+#: tools/bobgui-path-tool-render.c:255 tools/bobgui-path-tool-show.c:226
 msgid "line cap"
 msgstr "লাইন ক্যাপ"
 
-#: tools/gtk-path-tool-render.c:256 tools/gtk-path-tool-show.c:227
+#: tools/bobgui-path-tool-render.c:256 tools/bobgui-path-tool-show.c:227
 msgid "line join"
 msgstr "লাইন যোগদান"
 
-#: tools/gtk-path-tool-render.c:310
+#: tools/bobgui-path-tool-render.c:310
 #, c-format
 msgid "Saving png to '%s' failed"
 msgstr "'%s' এ png সংরক্ষণ করা ব্যর্থ হয়েছে৷"
 
-#: tools/gtk-path-tool-render.c:317
+#: tools/bobgui-path-tool-render.c:317
 #, c-format
 msgid "Output written to '%s'."
 msgstr "আউটপুট '%s'-এ লেখা।"
 
-#: tools/gtk-path-tool-restrict.c:51
+#: tools/bobgui-path-tool-restrict.c:51
 msgid "Restrict a path to a segment."
 msgstr "একটি অংশ একটি পথ সীমাবদ্ধ."
 
-#: tools/gtk-path-tool-reverse.c:45
+#: tools/bobgui-path-tool-reverse.c:45
 msgid "Reverse a path."
 msgstr "একটি পথ বিপরীত."
 
-#: tools/gtk-path-tool-show.c:46 tools/gtk-path-tool-show.c:88
+#: tools/bobgui-path-tool-show.c:46 tools/bobgui-path-tool-show.c:88
 msgid "Path Preview"
 msgstr "পথের পূর্বরূপ"
 
-#: tools/gtk-path-tool-show.c:180
+#: tools/bobgui-path-tool-show.c:180
 msgid "Display the path."
 msgstr "পথ প্রদর্শন করুন।"
 
-#: tools/gtk-path-tool-show.c:215
+#: tools/bobgui-path-tool-show.c:215
 msgid "Can only show a single path"
 msgstr "একমাত্র পথ দেখাতে পারে"
 
-#: tools/gtk-path-tool-utils.c:58
+#: tools/bobgui-path-tool-utils.c:58
 #, c-format
 msgid "Failed to read from standard input: %s\n"
 msgstr "স্ট্যান্ডার্ড ইনপুট থেকে পড়তে ব্যর্থ হয়েছে: %s\n"
 
-#: tools/gtk-path-tool-utils.c:64
+#: tools/bobgui-path-tool-utils.c:64
 #, c-format
 msgid "Error reading from standard input: %s\n"
 msgstr "স্ট্যান্ডার্ড ইনপুট থেকে পড়ার ক্ষেত্রে ত্রুটি: %s\n"
 
-#: tools/gtk-path-tool-utils.c:83
+#: tools/bobgui-path-tool-utils.c:83
 #, c-format
 msgid "Failed to parse '%s' as path.\n"
 msgstr "পাথ হিসেবে '%s' পার্স করতে ব্যর্থ হয়েছে।\n"
 
-#: tools/gtk-path-tool-utils.c:109
+#: tools/bobgui-path-tool-utils.c:109
 #, c-format
 msgid "Failed to parse '%s' as %s."
 msgstr "'%s' কে %s হিসাবে পার্স করতে ব্যর্থ হয়েছে৷"
 
-#: tools/gtk-path-tool-utils.c:111
+#: tools/bobgui-path-tool-utils.c:111
 msgid "Possible values: "
 msgstr "সম্ভাব্য মান:"
 
-#: tools/gtk-path-tool-utils.c:135
+#: tools/bobgui-path-tool-utils.c:135
 #, c-format
 msgid "Could not parse '%s' as color"
 msgstr "রঙ হিসাবে '%s' পার্স করা যায়নি"
 
-#: tools/gtk-path-tool-utils.c:163
+#: tools/bobgui-path-tool-utils.c:163
 #, c-format
 msgid "Failed to parse '%s' as number"
 msgstr "সংখ্যা হিসাবে '%s' পার্স করতে ব্যর্থ হয়েছে৷"
 
-#: tools/gtk-rendernode-tool.c:35
+#: tools/bobgui-rendernode-tool.c:35
 #, c-format
 msgid ""
 "Usage:\n"
-"  gtk4-rendernode-tool [COMMAND] [OPTION…] FILE\n"
+"  bobgui4-rendernode-tool [COMMAND] [OPTION…] FILE\n"
 "\n"
-"Perform various tasks on GTK render nodes.\n"
+"Perform various tasks on BOBGUI render nodes.\n"
 "\n"
 "Commands:\n"
 "  info         Provide information about the node\n"
@@ -4059,50 +4059,50 @@ msgid ""
 "\n"
 msgstr ""
 "ব্যবহার:\n"
-"  gtk4-রেন্ডারনোড-টুল [COMMAND] [বিকল্প...] ফাইল\n"
+"  bobgui4-রেন্ডারনোড-টুল [COMMAND] [বিকল্প...] ফাইল\n"
 "\n"
-"GTK রেন্ডার নোডগুলিতে বিভিন্ন কাজ সম্পাদন করুন।\n"
+"BOBGUI রেন্ডার নোডগুলিতে বিভিন্ন কাজ সম্পাদন করুন।\n"
 "\n"
 "আদেশ:\n"
 "  info নোড সম্পর্কে তথ্য প্রদান করুন\n"
 "  নোড দেখান\n"
 "  রেন্ডার নোডের একটি স্ক্রিনশট নিন\n"
 
-#: tools/gtk-rendernode-tool-info.c:187
+#: tools/bobgui-rendernode-tool-info.c:187
 #, c-format
 msgid "Number of nodes: %u\n"
 msgstr "নোডের সংখ্যা: %u\n"
 
-#: tools/gtk-rendernode-tool-info.c:194
+#: tools/bobgui-rendernode-tool-info.c:194
 #, c-format
 msgid "Depth: %u\n"
 msgstr "গভীরতা: %u\n"
 
-#: tools/gtk-rendernode-tool-info.c:197
+#: tools/bobgui-rendernode-tool-info.c:197
 #, c-format
 msgid "Bounds: %g x %g\n"
 msgstr "সীমানা: %g x %g\n"
 
-#: tools/gtk-rendernode-tool-info.c:198
+#: tools/bobgui-rendernode-tool-info.c:198
 #, c-format
 msgid "Origin: %g %g\n"
 msgstr "মূল: %g %g\n"
 
-#: tools/gtk-rendernode-tool-info.c:219
+#: tools/bobgui-rendernode-tool-info.c:219
 msgid "Provide information about the render node."
 msgstr "রেন্ডার নোড সম্পর্কে তথ্য প্রদান করুন।"
 
-#: tools/gtk-rendernode-tool-info.c:232 tools/gtk-rendernode-tool-render.c:225 tools/gtk-rendernode-tool-show.c:130
+#: tools/bobgui-rendernode-tool-info.c:232 tools/bobgui-rendernode-tool-render.c:225 tools/bobgui-rendernode-tool-show.c:130
 #, c-format
 msgid "No .node file specified\n"
 msgstr "কোন .node ফাইল নির্দিষ্ট করা নেই\n"
 
-#: tools/gtk-rendernode-tool-info.c:238
+#: tools/bobgui-rendernode-tool-info.c:238
 #, c-format
 msgid "Can only accept a single .node file\n"
 msgstr "শুধুমাত্র একটি একক .node ফাইল গ্রহণ করতে পারে\n"
 
-#: tools/gtk-rendernode-tool-render.c:123
+#: tools/bobgui-rendernode-tool-render.c:123
 #, c-format
 msgid ""
 "File %s exists.\n"
@@ -4111,35 +4111,35 @@ msgstr ""
 "ফাইল %s বিদ্যমান।\n"
 "আপনি যদি ওভাররাইট করতে চান, ফাইলের নাম উল্লেখ করুন।\n"
 
-#: tools/gtk-rendernode-tool-render.c:137
+#: tools/bobgui-rendernode-tool-render.c:137
 #, c-format
 msgid "Failed to generate SVG: %s\n"
 msgstr "SVG তৈরি করতে ব্যর্থ হয়েছে: %s\n"
 
-#: tools/gtk-rendernode-tool-render.c:212
+#: tools/bobgui-rendernode-tool-render.c:212
 msgid "Render a .node file to an image."
 msgstr "একটি ছবিতে একটি .node ফাইল রেন্ডার করুন।"
 
-#: tools/gtk-rendernode-tool-render.c:231
+#: tools/bobgui-rendernode-tool-render.c:231
 #, c-format
 msgid "Can only render a single .node file to a single output file\n"
 msgstr "শুধুমাত্র একটি একক .node ফাইল একটি একক আউটপুট ফাইলে রেন্ডার করতে পারে৷\n"
 
-#: tools/gtk-rendernode-tool-show.c:117
+#: tools/bobgui-rendernode-tool-show.c:117
 msgid "Show the render node."
 msgstr "রেন্ডার নোড দেখান।"
 
-#: tools/gtk-rendernode-tool-show.c:136
+#: tools/bobgui-rendernode-tool-show.c:136
 #, c-format
 msgid "Can only preview a single .node file\n"
 msgstr "শুধুমাত্র একটি একক .node ফাইলের পূর্বরূপ দেখতে পারে৷\n"
 
-#: tools/gtk-rendernode-tool-utils.c:51
+#: tools/bobgui-rendernode-tool-utils.c:51
 #, c-format
 msgid "Error at %s: %s\n"
 msgstr "%s এ ত্রুটি: %s\n"
 
-#: tools/gtk-rendernode-tool-utils.c:69
+#: tools/bobgui-rendernode-tool-utils.c:69
 #, c-format
 msgid "Failed to load node file: %s\n"
 msgstr "নোড ফাইল লোড করতে ব্যর্থ হয়েছে: %s\n"
@@ -4907,8 +4907,8 @@ msgstr ""
 #~ msgid "System (%s)"
 #~ msgstr "সিস্টেম (%s)"
 
-#~ msgid "Load additional GTK+ modules"
-#~ msgstr "অতিরিক্ত GTK+ মডিউল লোড করুন"
+#~ msgid "Load additional BOBGUI+ modules"
+#~ msgstr "অতিরিক্ত BOBGUI+ মডিউল লোড করুন"
 
 #~ msgid "MODULES"
 #~ msgstr "MODULES"
@@ -4916,20 +4916,20 @@ msgstr ""
 #~ msgid "Make all warnings fatal"
 #~ msgstr "সকল সতর্কবার্তা গুরুতর হিসেবে চিহ্নিত করা হবে"
 
-#~ msgid "GTK+ debugging flags to set"
-#~ msgstr "মান নির্ধারণের উদ্দেশ্যে চিহ্নিত GTK+ ডিবাগিং ফ্ল্যাগ"
+#~ msgid "BOBGUI+ debugging flags to set"
+#~ msgstr "মান নির্ধারণের উদ্দেশ্যে চিহ্নিত BOBGUI+ ডিবাগিং ফ্ল্যাগ"
 
-#~ msgid "GTK+ debugging flags to unset"
-#~ msgstr "মান মুছে ফেলার উদ্দেশ্যে চিহ্নিত GTK+ ডিবাগিং ফ্ল্যাগ"
+#~ msgid "BOBGUI+ debugging flags to unset"
+#~ msgstr "মান মুছে ফেলার উদ্দেশ্যে চিহ্নিত BOBGUI+ ডিবাগিং ফ্ল্যাগ"
 
 #~ msgid "default:LTR"
 #~ msgstr "default:LTR"
 
-#~ msgid "GTK+ Options"
-#~ msgstr "GTK+ অপশন"
+#~ msgid "BOBGUI+ Options"
+#~ msgstr "BOBGUI+ অপশন"
 
-#~ msgid "Show GTK+ Options"
-#~ msgstr "GTK+ অপশন প্রদর্শন"
+#~ msgid "Show BOBGUI+ Options"
+#~ msgstr "BOBGUI+ অপশন প্রদর্শন"
 
 #~ msgid "Terminal Pager"
 #~ msgstr "টার্মিনাল পেজার"
@@ -5415,8 +5415,8 @@ msgstr ""
 #~ msgid "Serialized data is malformed"
 #~ msgstr "সিরিয়েলাইজ করা তথ্য সঠিকরূপে গঠিত হয়নি"
 
-#~ msgid "Serialized data is malformed. First section isn't GTKTEXTBUFFERCONTENTS-0001"
-#~ msgstr "সিরিয়েলাইজ করা তথ্য সঠিকরূপে গঠিত হয়নি। প্রথম অংশ GTKTEXTBUFFERCONTENTS-0001 নয়"
+#~ msgid "Serialized data is malformed. First section isn't BOBGUITEXTBUFFERCONTENTS-0001"
+#~ msgstr "সিরিয়েলাইজ করা তথ্য সঠিকরূপে গঠিত হয়নি। প্রথম অংশ BOBGUITEXTBUFFERCONTENTS-0001 নয়"
 
 #~ msgid "LRM _Left-to-right mark"
 #~ msgstr "LRM বাম-থেকে-ডানে চিহ্ন (_L)"
@@ -6338,8 +6338,8 @@ msgstr ""
 #~ msgid "Unable to load image-loading module: %s: %s"
 #~ msgstr "ছবি লোড করতে ব্যবহৃত মডিউল লোড করতে ব্যর্থ: %s: %s"
 
-#~ msgid "Image-loading module %s does not export the proper interface; perhaps it's from a different GTK version?"
-#~ msgstr "ছবি লোড করতে ব্যবহৃত %s নামক মডিউলটি সঠিক ইন্টারফেস এক্সপোর্ট করে না; সম্ভবত এটি ভিন্ন কোন GTK সংস্করণের অংশ?"
+#~ msgid "Image-loading module %s does not export the proper interface; perhaps it's from a different BOBGUI version?"
+#~ msgstr "ছবি লোড করতে ব্যবহৃত %s নামক মডিউলটি সঠিক ইন্টারফেস এক্সপোর্ট করে না; সম্ভবত এটি ভিন্ন কোন BOBGUI সংস্করণের অংশ?"
 
 #~ msgid "Couldn't recognize the image file format for file '%s'"
 #~ msgstr "'%s' ফাইলের জন্য ছবির ফাইল ফরম্যাট সনাক্ত করা যায়নি"

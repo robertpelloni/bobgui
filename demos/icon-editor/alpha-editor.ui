@@ -1,12 +1,12 @@
 <interface>
-  <template class="AlphaEditor" parent="GtkWidget">
+  <template class="AlphaEditor" parent="BobguiWidget">
     <property name="alpha" bind-source="alpha_adj" bind-property="value" bind-flags="bidirectional | sync-create"/>
     <style>
       <class name="alpha-editor"/>
       <class name="tight"/>
     </style>
     <child>
-      <object class="GtkSpinButton" id="alpha_spin">
+      <object class="BobguiSpinButton" id="alpha_spin">
         <property name="adjustment">alpha_adj</property>
         <property name="valign">baseline-center</property>
         <property name="numeric">1</property>
@@ -14,12 +14,12 @@
       </object>
     </child>
     <child>
-      <object class="GtkScale" id="alpha_scale">
+      <object class="BobguiScale" id="alpha_scale">
         <property name="valign">baseline-center</property>
         <property name="orientation">horizontal</property>
         <property name="hexpand">1</property>
         <property name="adjustment">
-          <object class="GtkAdjustment" id="alpha_adj">
+          <object class="BobguiAdjustment" id="alpha_adj">
             <property name="lower">0</property>
             <property name="upper">1</property>
             <property name="step-increment">0.01</property>

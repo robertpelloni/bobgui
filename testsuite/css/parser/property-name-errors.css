@@ -1,4 +1,4 @@
 * {
   nonexisting-property: something;
-  -gtk-nonexisting-property: "something else";
+  -bobgui-nonexisting-property: "something else";
 }

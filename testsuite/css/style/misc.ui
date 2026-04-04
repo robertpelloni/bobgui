@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="can_focus">False</property>
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="visible">True</property>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
           </object>
         </child>
         <child>
-          <object class="GtkImage">
+          <object class="BobguiImage">
           </object>
         </child>
         <child>
-          <object class="GtkPicture">
+          <object class="BobguiPicture">
           </object>
         </child>
       </object>

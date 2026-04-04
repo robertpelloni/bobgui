@@ -21,12 +21,12 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "path-paintable.h"
 
 
 #define SHAPE_EDITOR_TYPE (shape_editor_get_type ())
-G_DECLARE_FINAL_TYPE (ShapeEditor, shape_editor, SHAPE, EDITOR, GtkWidget)
+G_DECLARE_FINAL_TYPE (ShapeEditor, shape_editor, SHAPE, EDITOR, BobguiWidget)
 
 
 ShapeEditor *    shape_editor_new          (PathPaintable *paintable,

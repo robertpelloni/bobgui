@@ -16,42 +16,42 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 G_MODULE_EXPORT void
-apply_tags_blue (GtkTextView *text_view)
+apply_tags_blue (BobguiTextView *text_view)
 {
-  GtkTextBuffer *buffer;
-  GtkTextIter start, end;
-  GtkTextIter four, eight;
+  BobguiTextBuffer *buffer;
+  BobguiTextIter start, end;
+  BobguiTextIter four, eight;
 
-  buffer = gtk_text_view_get_buffer (text_view);
-  gtk_text_buffer_get_bounds (buffer, &start, &end);
-  gtk_text_buffer_apply_tag_by_name (buffer, "blue", &start, &end);
+  buffer = bobgui_text_view_get_buffer (text_view);
+  bobgui_text_buffer_get_bounds (buffer, &start, &end);
+  bobgui_text_buffer_apply_tag_by_name (buffer, "blue", &start, &end);
   four = start;
   eight = start;
-  gtk_text_iter_forward_chars (&four, 4);
-  gtk_text_iter_forward_chars (&eight, 8);
-  gtk_text_buffer_apply_tag_by_name (buffer, "black", &four, &end);
-  gtk_text_buffer_apply_tag_by_name (buffer, "white", &eight, &end);
+  bobgui_text_iter_forward_chars (&four, 4);
+  bobgui_text_iter_forward_chars (&eight, 8);
+  bobgui_text_buffer_apply_tag_by_name (buffer, "black", &four, &end);
+  bobgui_text_buffer_apply_tag_by_name (buffer, "white", &eight, &end);
 }
 
 G_MODULE_EXPORT void
-apply_tags_red_blue (GtkTextView *text_view)
+apply_tags_red_blue (BobguiTextView *text_view)
 {
-  GtkTextBuffer *buffer;
-  GtkTextIter start, end;
-  GtkTextIter four, eight;
+  BobguiTextBuffer *buffer;
+  BobguiTextIter start, end;
+  BobguiTextIter four, eight;
 
-  buffer = gtk_text_view_get_buffer (text_view);
-  gtk_text_buffer_get_bounds (buffer, &start, &end);
-  gtk_text_buffer_apply_tag_by_name (buffer, "red", &start, &end);
-  gtk_text_buffer_apply_tag_by_name (buffer, "blue", &start, &end);
+  buffer = bobgui_text_view_get_buffer (text_view);
+  bobgui_text_buffer_get_bounds (buffer, &start, &end);
+  bobgui_text_buffer_apply_tag_by_name (buffer, "red", &start, &end);
+  bobgui_text_buffer_apply_tag_by_name (buffer, "blue", &start, &end);
   four = start;
   eight = start;
-  gtk_text_iter_forward_chars (&four, 4);
-  gtk_text_iter_forward_chars (&eight, 8);
-  gtk_text_buffer_apply_tag_by_name (buffer, "black", &four, &eight);
-  gtk_text_buffer_apply_tag_by_name (buffer, "white", &eight, &end);
+  bobgui_text_iter_forward_chars (&four, 4);
+  bobgui_text_iter_forward_chars (&eight, 8);
+  bobgui_text_buffer_apply_tag_by_name (buffer, "black", &four, &eight);
+  bobgui_text_buffer_apply_tag_by_name (buffer, "white", &eight, &end);
 }

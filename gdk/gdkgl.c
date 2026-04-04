@@ -63,7 +63,7 @@
  *
  * Deprecated: 4.6: The function is overly complex and produces broken output
  *   in various combinations of arguments. If you want to draw with GL textures
- *   in GTK, use [ctor@Gdk.GLTexture.new]; if you want to use that texture in
+ *   in BOBGUI, use [ctor@Gdk.GLTexture.new]; if you want to use that texture in
  *   Cairo, use [method@Gdk.Texture.download] to download the data into a Cairo
  *   image surface.
  */

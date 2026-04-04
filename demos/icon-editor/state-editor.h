@@ -21,13 +21,13 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "path-paintable.h"
 
 
 #define STATE_EDITOR_TYPE (state_editor_get_type ())
-G_DECLARE_FINAL_TYPE (StateEditor, state_editor, STATE, EDITOR, GtkWindow)
+G_DECLARE_FINAL_TYPE (StateEditor, state_editor, STATE, EDITOR, BobguiWindow)
 
 
 StateEditor *   state_editor_new                (void);

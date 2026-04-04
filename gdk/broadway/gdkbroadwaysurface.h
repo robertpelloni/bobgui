@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/. 
  */
 
 #pragma once
@@ -35,7 +35,7 @@ G_BEGIN_DECLS
 #define GDK_IS_BROADWAY_SURFACE_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_BROADWAY_SURFACE))
 #define GDK_BROADWAY_SURFACE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_BROADWAY_SURFACE, GdkBroadwaySurfaceClass))
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkBroadwaySurface GdkBroadwaySurface;
 #else
 typedef GdkSurface GdkBroadwaySurface;

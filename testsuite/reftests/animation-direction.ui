@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="BobguiGrid" id="grid1">
         <property name="column_spacing">2</property>
         <child>
-          <object class="GtkLabel" id="label1">
+          <object class="BobguiLabel" id="label1">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-normal"/>
@@ -19,7 +19,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label2">
+          <object class="BobguiLabel" id="label2">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-reverse"/>
@@ -32,7 +32,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label3">
+          <object class="BobguiLabel" id="label3">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate"/>
@@ -45,7 +45,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label4">
+          <object class="BobguiLabel" id="label4">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate-reverse"/>
@@ -58,7 +58,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label5">
+          <object class="BobguiLabel" id="label5">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate-reverse"/>
@@ -71,7 +71,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label6">
+          <object class="BobguiLabel" id="label6">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate-reverse"/>
@@ -84,7 +84,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label7">
+          <object class="BobguiLabel" id="label7">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate-reverse"/>
@@ -97,7 +97,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label8">
+          <object class="BobguiLabel" id="label8">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate-reverse"/>
@@ -110,7 +110,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label9">
+          <object class="BobguiLabel" id="label9">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate-reverse"/>
@@ -123,7 +123,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label10">
+          <object class="BobguiLabel" id="label10">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate-reverse"/>
@@ -136,7 +136,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label11">
+          <object class="BobguiLabel" id="label11">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate-reverse"/>
@@ -149,7 +149,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label14">
+          <object class="BobguiLabel" id="label14">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate"/>
@@ -162,7 +162,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label15">
+          <object class="BobguiLabel" id="label15">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate"/>
@@ -175,7 +175,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label16">
+          <object class="BobguiLabel" id="label16">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate"/>
@@ -188,7 +188,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label17">
+          <object class="BobguiLabel" id="label17">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate"/>
@@ -201,7 +201,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label18">
+          <object class="BobguiLabel" id="label18">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate"/>
@@ -214,7 +214,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label19">
+          <object class="BobguiLabel" id="label19">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate"/>
@@ -227,7 +227,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label20">
+          <object class="BobguiLabel" id="label20">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-alternate"/>
@@ -240,7 +240,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label23">
+          <object class="BobguiLabel" id="label23">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-reverse"/>
@@ -253,7 +253,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label24">
+          <object class="BobguiLabel" id="label24">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-reverse"/>
@@ -266,7 +266,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label25">
+          <object class="BobguiLabel" id="label25">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-reverse"/>
@@ -279,7 +279,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label26">
+          <object class="BobguiLabel" id="label26">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-reverse"/>
@@ -292,7 +292,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label27">
+          <object class="BobguiLabel" id="label27">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-reverse"/>
@@ -305,7 +305,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label28">
+          <object class="BobguiLabel" id="label28">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-reverse"/>
@@ -318,7 +318,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label29">
+          <object class="BobguiLabel" id="label29">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-reverse"/>
@@ -331,7 +331,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label32">
+          <object class="BobguiLabel" id="label32">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-normal"/>
@@ -344,7 +344,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label33">
+          <object class="BobguiLabel" id="label33">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-normal"/>
@@ -357,7 +357,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label34">
+          <object class="BobguiLabel" id="label34">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-normal"/>
@@ -370,7 +370,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label35">
+          <object class="BobguiLabel" id="label35">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-normal"/>
@@ -383,7 +383,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label36">
+          <object class="BobguiLabel" id="label36">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-normal"/>
@@ -396,7 +396,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label37">
+          <object class="BobguiLabel" id="label37">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-normal"/>
@@ -409,7 +409,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label38">
+          <object class="BobguiLabel" id="label38">
             <property name="label" translatable="yes">XXX</property>
             <style>
               <class name="direction-normal"/>

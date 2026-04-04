@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<object class="GtkDialog">
-  <requires lib="gtk" version="4.0"/>
+<object class="BobguiDialog">
+  <requires lib="bobgui" version="4.0"/>
   <child internal-child="content_area">
-    <object class="GtkBox">
+    <object class="BobguiBox">
       <property name="visible">0</property>
       <property name="name">fancy</property>
     </object>
@@ -11,7 +11,7 @@
     </packing>
   </child>
   <child internal-child="action_area">
-    <object class="GtkButtonBox">
+    <object class="BobguiButtonBox">
       <property name="name">actions</property>
     </object>
   </child>

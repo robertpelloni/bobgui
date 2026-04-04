@@ -1,14 +1,14 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "exampleapp.h"
 #include "exampleappwin.h"
 
 struct _ExampleApp
 {
-  GtkApplication parent;
+  BobguiApplication parent;
 };
 
-G_DEFINE_TYPE(ExampleApp, example_app, GTK_TYPE_APPLICATION);
+G_DEFINE_TYPE(ExampleApp, example_app, BOBGUI_TYPE_APPLICATION);
 
 static void
 example_app_init (ExampleApp *app)
@@ -21,7 +21,7 @@ example_app_activate (GApplication *app)
   ExampleAppWindow *win;
 
   win = example_app_window_new (EXAMPLE_APP (app));
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 }
 
 static void
@@ -34,7 +34,7 @@ example_app_open (GApplication  *app,
   ExampleAppWindow *win;
   int i;
 
-  windows = gtk_application_get_windows (GTK_APPLICATION (app));
+  windows = bobgui_application_get_windows (BOBGUI_APPLICATION (app));
   if (windows)
     win = EXAMPLE_APP_WINDOW (windows->data);
   else
@@ -43,7 +43,7 @@ example_app_open (GApplication  *app,
   for (i = 0; i < n_files; i++)
     example_app_window_open (win, files[i]);
 
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 }
 
 static void
@@ -57,7 +57,7 @@ ExampleApp *
 example_app_new (void)
 {
   return g_object_new (EXAMPLE_APP_TYPE,
-                       "application-id", "org.gtk.exampleapp",
+                       "application-id", "org.bobgui.exampleapp",
                        "flags", G_APPLICATION_HANDLES_OPEN,
                        NULL);
 }

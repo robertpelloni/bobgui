@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 ended (GObject *object)
@@ -10,14 +10,14 @@ static void
 play (const char *name)
 {
   char *path;
-  GtkMediaStream *stream;
+  BobguiMediaStream *stream;
 
   path = g_build_filename ("tests", name, NULL);
 
-  stream = gtk_media_file_new_for_filename (path);
-  gtk_media_stream_set_volume (stream, 1.0);
+  stream = bobgui_media_file_new_for_filename (path);
+  bobgui_media_stream_set_volume (stream, 1.0);
 
-  gtk_media_stream_play (stream);
+  bobgui_media_stream_play (stream);
 
   g_signal_connect (stream, "notify::ended", G_CALLBACK (ended), NULL);
 
@@ -25,41 +25,41 @@ play (const char *name)
 }
 
 static void
-enter (GtkButton *button)
+enter (BobguiButton *button)
 {
   play ("service-login.oga");
 }
 
 static void
-leave (GtkButton *button)
+leave (BobguiButton *button)
 {
   play ("service-logout.oga");
 }
 
 int main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *box;
-  GtkWidget *button;
+  BobguiWidget *window;
+  BobguiWidget *box;
+  BobguiWidget *button;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_widget_set_halign (box, GTK_ALIGN_CENTER);
-  gtk_widget_set_valign (box, GTK_ALIGN_CENTER);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
+  bobgui_widget_set_halign (box, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_valign (box, BOBGUI_ALIGN_CENTER);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  button = gtk_button_new_with_label ("Α");
+  button = bobgui_button_new_with_label ("Α");
   g_signal_connect (button, "clicked", G_CALLBACK (enter), NULL);
-  gtk_box_append (GTK_BOX (box), button);
+  bobgui_box_append (BOBGUI_BOX (box), button);
 
-  button = gtk_button_new_with_label ("Ω");
+  button = bobgui_button_new_with_label ("Ω");
   g_signal_connect (button, "clicked", G_CALLBACK (leave), NULL);
-  gtk_box_append (GTK_BOX (box), button);
+  bobgui_box_append (BOBGUI_BOX (box), button);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (1)
     g_main_context_iteration (NULL, FALSE);

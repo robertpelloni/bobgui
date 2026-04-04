@@ -8,14 +8,14 @@ from pathlib import PurePath
 
 
 stylesheets = [
-    'gtk/theme/Default/Default-light.css',
-    'gtk/theme/Default/Default-dark.css',
-    'gtk/theme/Default/Default-hc.css',
-    'gtk/theme/Default/Default-hc-dark.css',
+    'bobgui/theme/Default/Default-light.css',
+    'bobgui/theme/Default/Default-dark.css',
+    'bobgui/theme/Default/Default-hc.css',
+    'bobgui/theme/Default/Default-hc-dark.css',
 ]
 
 references = [
-    'docs/reference/gtk/gtk4',
+    'docs/reference/bobgui/bobgui4',
     'docs/reference/gsk/gsk4',
     'docs/reference/gdk/gdk4',
     'docs/reference/gdk/gdk4-wayland',

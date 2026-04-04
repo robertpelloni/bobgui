@@ -39,7 +39,7 @@ gdk_wayland_public_headers = files([
   'gdkwaylandtoplevel.h',
 ])
 
-install_headers(gdk_wayland_public_headers, 'gdkwayland.h', subdir: 'gtk-4.0/gdk/wayland/')
+install_headers(gdk_wayland_public_headers, 'gdkwayland.h', subdir: 'bobgui-4.0/gdk/wayland/')
 
 gdk_wayland_deps = [
   shmlib,
@@ -56,7 +56,7 @@ gdk_wayland_deps = [
 #  - required: wayland_protocols version check
 proto_sources = [
   {
-    'name': 'gtk-shell',
+    'name': 'bobgui-shell',
     'stability': 'private',
   },
   {
@@ -218,7 +218,7 @@ libgdk_wayland = static_library('gdk-wayland',
   sources: [ gdk_wayland_sources, gdk_wayland_gen_headers, gdk_gen_headers ],
   include_directories: [ confinc, gdkinc, ],
   c_args: [
-    '-DGTK_COMPILATION',
+    '-DBOBGUI_COMPILATION',
     '-DG_LOG_DOMAIN="Gdk"',
   ] + common_cflags,
   dependencies: [ gdk_deps, gdk_wayland_deps ],

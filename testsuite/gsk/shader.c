@@ -17,7 +17,7 @@
  * Authors: Matthias Clasen <mclasen@redhat.com>
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
@@ -296,7 +296,7 @@ int
 main (int   argc,
       char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/shader/create/simple", test_create_simple);
   g_test_add_func ("/shader/create/data", test_create_data);

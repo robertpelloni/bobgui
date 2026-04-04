@@ -1,4 +1,4 @@
 <interface>
-  <template class="GtkEmojiChooser" parent="GtkPopover">
+  <template class="BobguiEmojiChooser" parent="BobguiPopover">
   </template>
 </interface>

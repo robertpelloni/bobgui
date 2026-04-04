@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 #define NODE_EDITOR_APPLICATION_TYPE (node_editor_application_get_type ())

@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gdk/gdksurfaceprivate.h"
 #include "gdk/gdksubsurfaceprivate.h"
 #include "gdk/gdkdebugprivate.h"
@@ -158,7 +158,7 @@ test_subsurface_stacking (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   gdk_display_set_debug_flags (gdk_display_get_default (), GDK_DEBUG_FORCE_OFFLOAD);
 

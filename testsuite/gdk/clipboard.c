@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 text_received (GObject *source,
@@ -328,16 +328,16 @@ buffer_received (GObject *source,
   gboolean *done = data;
   GError *error = NULL;
   const GValue *value;
-  GtkTextBuffer *buffer;
-  GtkTextIter start, end;
+  BobguiTextBuffer *buffer;
+  BobguiTextIter start, end;
   char *text;
 
   value = gdk_clipboard_read_value_finish (clipboard, res, &error);
 
   g_assert_no_error (error);
   buffer = g_value_get_object (value);
-  gtk_text_buffer_get_bounds (buffer, &start, &end);
-  text = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
+  bobgui_text_buffer_get_bounds (buffer, &start, &end);
+  text = bobgui_text_buffer_get_text (buffer, &start, &end, FALSE);
 
   g_assert_cmpstr (text, ==, "üäö");
 
@@ -354,9 +354,9 @@ test_clipboard_string_to_buffer (void)
   GdkDisplay *display;
   GdkClipboard *clipboard;
   gboolean done;
-  GtkTextBuffer *b;
+  BobguiTextBuffer *b;
 
-  b = gtk_text_buffer_new (NULL); // Just to register serializers
+  b = bobgui_text_buffer_new (NULL); // Just to register serializers
 
   display = gdk_display_get_default ();
   clipboard = gdk_display_get_clipboard (display);
@@ -369,7 +369,7 @@ test_clipboard_string_to_buffer (void)
 
   done = FALSE;
 
-  gdk_clipboard_read_value_async (clipboard, GTK_TYPE_TEXT_BUFFER,
+  gdk_clipboard_read_value_async (clipboard, BOBGUI_TYPE_TEXT_BUFFER,
                                   0, NULL, buffer_received, &done);
 
   while (!done)
@@ -406,23 +406,23 @@ test_clipboard_buffer_to_string (void)
   GdkDisplay *display;
   GdkClipboard *clipboard;
   gboolean done;
-  GtkTextBuffer *buffer;
-  GtkTextIter start, end;
+  BobguiTextBuffer *buffer;
+  BobguiTextIter start, end;
   GdkContentFormats *formats;
 
-  buffer = gtk_text_buffer_new (NULL);
+  buffer = bobgui_text_buffer_new (NULL);
 
-  gtk_text_buffer_set_text (buffer, "üäö", -1);
+  bobgui_text_buffer_set_text (buffer, "üäö", -1);
 
-  gtk_text_buffer_get_bounds (buffer, &start, &end);
-  gtk_text_buffer_select_range (buffer, &start, &end);
+  bobgui_text_buffer_get_bounds (buffer, &start, &end);
+  bobgui_text_buffer_select_range (buffer, &start, &end);
 
   display = gdk_display_get_default ();
   clipboard = gdk_display_get_clipboard (display);
 
   g_assert_true (gdk_clipboard_get_display (clipboard) == display);
 
-  gdk_clipboard_set (clipboard, GTK_TYPE_TEXT_BUFFER, buffer);
+  gdk_clipboard_set (clipboard, BOBGUI_TYPE_TEXT_BUFFER, buffer);
 
   g_assert_true (gdk_clipboard_is_local (clipboard));
 
@@ -444,7 +444,7 @@ main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
 
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/clipboard/basic", test_clipboard_basic);
   g_test_add_func ("/clipboard/string", test_clipboard_string);

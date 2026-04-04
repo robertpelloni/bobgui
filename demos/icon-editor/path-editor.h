@@ -21,12 +21,12 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "path-paintable.h"
 
 
 #define PATH_EDITOR_TYPE (path_editor_get_type ())
-G_DECLARE_FINAL_TYPE (PathEditor, path_editor, PATH, EDITOR, GtkWidget)
+G_DECLARE_FINAL_TYPE (PathEditor, path_editor, PATH, EDITOR, BobguiWidget)
 
 
 PathEditor *    path_editor_new         (GskPath    *path,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <child>
-      <object class="GtkImage">
+      <object class="BobguiImage">
         <property name="pixbuf">test.svg</property>
       </object>
     </child>

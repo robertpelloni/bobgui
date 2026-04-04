@@ -1456,7 +1456,7 @@ gdk_device_set_timestamp (GdkDevice *device,
  * Returns the timestamp of the last activity for this device.
  *
  * In practice, this means the timestamp of the last event that was
- * received from the OS for this device. (GTK may occasionally produce
+ * received from the OS for this device. (BOBGUI may occasionally produce
  * events for a device that are not received from the OS, and will not
  * update the timestamp).
  *

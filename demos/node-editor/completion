@@ -1,4 +1,4 @@
-_gtk4_node_editor()
+_bobgui4_node_editor()
 {
     local cur prev opts
     COMPREPLY=()
@@ -16,4 +16,4 @@ _gtk4_node_editor()
         return 0
     fi
 }
-complete -F _gtk4_node_editor gtk4-node-editor
+complete -F _bobgui4_node_editor bobgui4-node-editor

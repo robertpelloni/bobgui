@@ -52,4 +52,4 @@ unset CCACHE_DISABLE
 ninja -C _build
 ccache --show-stats
 
-tar zcf _build/gtkdll.tar.gz _build/gtk/libgtk*.dll
+tar zcf _build/bobguidll.tar.gz _build/bobgui/libbobgui*.dll

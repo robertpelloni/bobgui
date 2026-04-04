@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if !defined (__GDKWIN32_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKWIN32_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdkwin32.h> can be included directly."
 #endif
 
@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkWin32DisplayManager GdkWin32DisplayManager;
 #else
 typedef GdkDisplayManager GdkWin32DisplayManager;

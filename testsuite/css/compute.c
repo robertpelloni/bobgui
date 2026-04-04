@@ -20,15 +20,15 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
-#include "gtk/gtkcssvalueprivate.h"
-#include "gtk/gtkcssnumbervalueprivate.h"
-#include "gtk/gtkcsscolorvalueprivate.h"
-#include "gtk/css/gtkcssparserprivate.h"
-#include "gtk/gtkwidgetprivate.h"
-#include "gtk/gtkcssnodeprivate.h"
+#include <bobgui/bobgui.h>
+#include "bobgui/bobguicssvalueprivate.h"
+#include "bobgui/bobguicssnumbervalueprivate.h"
+#include "bobgui/bobguicsscolorvalueprivate.h"
+#include "bobgui/css/bobguicssparserprivate.h"
+#include "bobgui/bobguiwidgetprivate.h"
+#include "bobgui/bobguicssnodeprivate.h"
 
-static GtkWidget *dummy;
+static BobguiWidget *dummy;
 
 typedef struct {
   const char *input;
@@ -55,9 +55,9 @@ static CssNumberValueTest number_tests[] = {
 
 G_GNUC_NORETURN
 static void
-error_func (GtkCssParser         *parser,
-            const GtkCssLocation *start,
-            const GtkCssLocation *end,
+error_func (BobguiCssParser         *parser,
+            const BobguiCssLocation *start,
+            const BobguiCssLocation *end,
             const GError         *error,
             gpointer              user_data)
 {
@@ -68,61 +68,61 @@ static void
 test_number_value (gconstpointer data)
 {
   CssNumberValueTest *test = (CssNumberValueTest *) data;
-  GtkCssValue *value;
-  GtkCssComputeContext context;
-  GtkCssValue *res;
-  GtkCssParser *parser;
+  BobguiCssValue *value;
+  BobguiCssComputeContext context;
+  BobguiCssValue *res;
+  BobguiCssParser *parser;
   GBytes *bytes;
-  GtkCssNode *node;
+  BobguiCssNode *node;
 
   if (g_test_verbose ())
     g_test_message ("input: %s", test->input);
 
-  node = gtk_widget_get_css_node (dummy);
-  context.provider = gtk_css_node_get_style_provider (node);
-  context.style = gtk_css_node_get_style (node);
+  node = bobgui_widget_get_css_node (dummy);
+  context.provider = bobgui_css_node_get_style_provider (node);
+  context.style = bobgui_css_node_get_style (node);
   context.parent_style = NULL;
   context.variables = NULL;
   context.shorthands = NULL;
 
   bytes = g_bytes_new_static (test->input, strlen (test->input));
-  parser = gtk_css_parser_new_for_bytes (bytes, NULL, error_func, NULL, NULL);
+  parser = bobgui_css_parser_new_for_bytes (bytes, NULL, error_func, NULL, NULL);
 
-  value = gtk_css_number_value_parse (parser, GTK_CSS_PARSE_PERCENT |
-                                              GTK_CSS_PARSE_NUMBER |
-                                              GTK_CSS_PARSE_LENGTH |
-                                              GTK_CSS_PARSE_ANGLE |
-                                              GTK_CSS_PARSE_TIME);
+  value = bobgui_css_number_value_parse (parser, BOBGUI_CSS_PARSE_PERCENT |
+                                              BOBGUI_CSS_PARSE_NUMBER |
+                                              BOBGUI_CSS_PARSE_LENGTH |
+                                              BOBGUI_CSS_PARSE_ANGLE |
+                                              BOBGUI_CSS_PARSE_TIME);
 
-  g_assert_true (gtk_css_value_is_computed (value) == test->is_computed);
+  g_assert_true (bobgui_css_value_is_computed (value) == test->is_computed);
 
   if (test->specified)
     {
-      char *str = gtk_css_value_to_string (value);
+      char *str = bobgui_css_value_to_string (value);
       g_assert_cmpstr (str, ==, test->specified);
       g_free (str);
     }
 
-  res = gtk_css_value_compute (value, GTK_CSS_PROPERTY_LETTER_SPACING, &context);
+  res = bobgui_css_value_compute (value, BOBGUI_CSS_PROPERTY_LETTER_SPACING, &context);
 
   if (test->is_computed)
     g_assert_true (res == value);
 
-  g_assert_true (gtk_css_number_value_has_percent (res) || gtk_css_value_is_computed (res));
+  g_assert_true (bobgui_css_number_value_has_percent (res) || bobgui_css_value_is_computed (res));
 
   if (test->computed)
     {
-      char *str = gtk_css_value_to_string (res);
+      char *str = bobgui_css_value_to_string (res);
       g_assert_cmpstr (str, ==, test->computed);
       g_free (str);
     }
 
-  g_assert_cmpfloat_with_epsilon (gtk_css_number_value_get_canonical (res, 100), test->expected_value, FLT_EPSILON);
+  g_assert_cmpfloat_with_epsilon (bobgui_css_number_value_get_canonical (res, 100), test->expected_value, FLT_EPSILON);
 
-  gtk_css_value_unref (value);
-  gtk_css_value_unref (res);
+  bobgui_css_value_unref (value);
+  bobgui_css_value_unref (res);
 
-  gtk_css_parser_unref (parser);
+  bobgui_css_parser_unref (parser);
   g_bytes_unref (bytes);
 }
 
@@ -150,94 +150,94 @@ static void
 test_color_value (gconstpointer data)
 {
   CssColorValueTest *test = (CssColorValueTest *) data;
-  GtkCssValue *value;
-  GtkCssComputeContext context;
-  GtkCssValue *res;
-  GtkCssParser *parser;
+  BobguiCssValue *value;
+  BobguiCssComputeContext context;
+  BobguiCssValue *res;
+  BobguiCssParser *parser;
   GBytes *bytes;
-  GtkCssNode *node;
+  BobguiCssNode *node;
 
   if (g_test_verbose ())
     g_test_message ("input: %s", test->input);
 
-  node = gtk_widget_get_css_node (dummy);
-  context.provider = gtk_css_node_get_style_provider (node);
-  context.style = gtk_css_node_get_style (node);
+  node = bobgui_widget_get_css_node (dummy);
+  context.provider = bobgui_css_node_get_style_provider (node);
+  context.style = bobgui_css_node_get_style (node);
   context.parent_style = NULL;
   context.variables = NULL;
   context.shorthands = NULL;
 
   bytes = g_bytes_new_static (test->input, strlen (test->input));
-  parser = gtk_css_parser_new_for_bytes (bytes, NULL, error_func, NULL, NULL);
+  parser = bobgui_css_parser_new_for_bytes (bytes, NULL, error_func, NULL, NULL);
 
-  value = gtk_css_color_value_parse (parser);
+  value = bobgui_css_color_value_parse (parser);
 
-  g_assert_true (gtk_css_value_is_computed (value) == test->is_computed);
-  g_assert_true (gtk_css_value_contains_current_color (value) == test->contains_current_color);
+  g_assert_true (bobgui_css_value_is_computed (value) == test->is_computed);
+  g_assert_true (bobgui_css_value_contains_current_color (value) == test->contains_current_color);
 
   if (test->specified)
     {
-      char *str = gtk_css_value_to_string (value);
+      char *str = bobgui_css_value_to_string (value);
       g_assert_cmpstr (str, ==, test->specified);
       g_free (str);
     }
 
-  res = gtk_css_value_compute (value, GTK_CSS_PROPERTY_COLOR, &context);
+  res = bobgui_css_value_compute (value, BOBGUI_CSS_PROPERTY_COLOR, &context);
 
   if (test->is_computed)
     g_assert_true (res == value);
 
-  g_assert_true (gtk_css_value_is_computed (res));
-  g_assert_true (gtk_css_value_contains_current_color (res) == test->contains_current_color);
+  g_assert_true (bobgui_css_value_is_computed (res));
+  g_assert_true (bobgui_css_value_contains_current_color (res) == test->contains_current_color);
 
   if (test->computed)
     {
-      char *str = gtk_css_value_to_string (res);
+      char *str = bobgui_css_value_to_string (res);
       g_assert_cmpstr (str, ==, test->computed);
       g_free (str);
     }
 
-  gtk_css_parser_unref (parser);
+  bobgui_css_parser_unref (parser);
   g_bytes_unref (bytes);
 
-  if (gtk_css_value_contains_current_color (res))
+  if (bobgui_css_value_contains_current_color (res))
     {
-      GtkCssValue *current;
-      GtkCssValue *used;
+      BobguiCssValue *current;
+      BobguiCssValue *used;
 
       bytes = g_bytes_new_static (test->current, strlen (test->current));
-      parser = gtk_css_parser_new_for_bytes (bytes, NULL, error_func, NULL, NULL);
+      parser = bobgui_css_parser_new_for_bytes (bytes, NULL, error_func, NULL, NULL);
 
-      current = gtk_css_color_value_parse (parser);
+      current = bobgui_css_color_value_parse (parser);
 
-      used = gtk_css_value_resolve (res, &context, current);
+      used = bobgui_css_value_resolve (res, &context, current);
 
-      g_assert_true (gtk_css_value_is_computed (used));
-      g_assert_false (gtk_css_value_contains_current_color (used));
+      g_assert_true (bobgui_css_value_is_computed (used));
+      g_assert_false (bobgui_css_value_contains_current_color (used));
 
       if (test->used)
         {
-          char *str = gtk_css_value_to_string (used);
+          char *str = bobgui_css_value_to_string (used);
           g_assert_cmpstr (str, ==, test->used);
           g_free (str);
         }
 
-      gtk_css_parser_unref (parser);
+      bobgui_css_parser_unref (parser);
       g_bytes_unref (bytes);
     }
 
-  gtk_css_value_unref (value);
-  gtk_css_value_unref (res);
+  bobgui_css_value_unref (value);
+  bobgui_css_value_unref (res);
 
 }
 
 int
 main (int argc, char **argv)
 {
-  gtk_test_init (&argc, &argv);
+  bobgui_test_init (&argc, &argv);
 
-  dummy = gtk_window_new ();
-  gtk_widget_realize (dummy);
+  dummy = bobgui_window_new ();
+  bobgui_widget_realize (dummy);
 
   for (int i = 0; i < G_N_ELEMENTS (number_tests); i++)
     {

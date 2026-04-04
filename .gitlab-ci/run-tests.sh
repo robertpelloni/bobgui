@@ -53,7 +53,7 @@ case "${setup}" in
   broadway*)
     export XDG_RUNTIME_DIR="$(mktemp -p $(pwd) -d xdg-runtime-XXXXXX)"
 
-    ${builddir}/gdk/broadway/gtk4-broadwayd :5 &
+    ${builddir}/gdk/broadway/bobgui4-broadwayd :5 &
     server=$!
     export BROADWAY_DISPLAY=:5
 
@@ -80,7 +80,7 @@ esac
 cd ${builddir}
 
 $srcdir/.gitlab-ci/meson-html-report.py \
-            --project-name=gtk \
+            --project-name=bobgui \
             --backend="${setup}" \
             --job-id="${CI_JOB_NAME}" \
             --reftest-output-dir="testsuite/reftests/output/${setup}" \

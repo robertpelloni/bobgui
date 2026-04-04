@@ -1,5 +1,5 @@
 <interface>
-  <object class="GtkBox">
+  <object class="BobguiBox">
     <accessibility>
       <property name="text">Download</property>
     </accessibility>

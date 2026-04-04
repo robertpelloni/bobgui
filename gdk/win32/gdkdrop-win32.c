@@ -18,10 +18,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -75,7 +75,7 @@ struct _GdkWin32Drop
   /* The drag protocol being in use */
   GdkDragProtocol  protocol;
 
-  /* The actions supported at GTK level. Set in gdk_win32_drop_status(). */
+  /* The actions supported at BOBGUI level. Set in gdk_win32_drop_status(). */
   GdkDragAction    actions;
 
   guint            scale;          /* Temporarily caches the HiDPI scale */
@@ -327,7 +327,7 @@ get_user_action (DWORD grfKeyState)
    * Control + Alt or Shift + Alt or Control + Alt + Shift for Default action (see below).
    *
    * Default action is 'Copy' when dragging between drives, 'Move' otherwise.
-   * For GTK 'between drives' turns into 'between applications'.
+   * For BOBGUI 'between drives' turns into 'between applications'.
    */
   if (((grfKeyState & (MK_CONTROL | MK_ALT)) == (MK_CONTROL | MK_ALT)) ||
       ((grfKeyState & (MK_ALT | MK_SHIFT)) == (MK_ALT | MK_SHIFT)) ||
@@ -534,7 +534,7 @@ idroptarget_dragenter (LPDROPTARGET This,
  * to indicate that the drop is not possible here), when we
  * do not yet have any real information about acceptability of
  * the drag, because we will have another opportunity to return
- * the "right" value (once we know what it is, after GTK processes
+ * the "right" value (once we know what it is, after BOBGUI processes
  * the events we emit) very soon.
  */
 static HRESULT STDMETHODCALLTYPE

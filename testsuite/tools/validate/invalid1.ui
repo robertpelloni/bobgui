@@ -1,5 +1,5 @@
 <interface>
   <child>
-    <object class="GtkLabel"/>
+    <object class="BobguiLabel"/>
   </child>
 </interface>

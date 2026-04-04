@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  * Copyright 2016  Endless 
  *
  * This library is free software; you can redistribute it and/or
@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if !defined (__GSK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GSK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gsk/gsk.h> can be included directly."
 #endif
 

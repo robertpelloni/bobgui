@@ -22,14 +22,14 @@
 #include "state-editor.h"
 #include "shape-editor.h"
 #include "path-paintable.h"
-#include "gtk/svg/gtksvgelementprivate.h"
+#include "bobgui/svg/bobguisvgelementprivate.h"
 
 struct _StateEditor
 {
-  GtkWindow parent_instance;
+  BobguiWindow parent_instance;
 
-  GtkGrid *grid;
-  GtkSpinButton *initial_state;
+  BobguiGrid *grid;
+  BobguiSpinButton *initial_state;
   PathPaintable *paintable;
   unsigned int max_state;
 
@@ -38,7 +38,7 @@ struct _StateEditor
 
 struct _StateEditorClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
 enum
@@ -49,7 +49,7 @@ enum
 
 static GParamSpec *properties[NUM_PROPERTIES];
 
-G_DEFINE_TYPE (StateEditor, state_editor, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE (StateEditor, state_editor, BOBGUI_TYPE_WINDOW)
 
 /* {{{ Utilities, callbacks */ 
 
@@ -103,11 +103,11 @@ update_state_names (StateEditor *self)
 
   for (i = 0; i <= self->max_state; i++)
     {
-      GtkEditable *e;
+      BobguiEditable *e;
       const char *text;
 
-      e = GTK_EDITABLE (gtk_grid_get_child_at (self->grid, i, -1));
-      text = gtk_editable_get_text (e);
+      e = BOBGUI_EDITABLE (bobgui_grid_get_child_at (self->grid, i, -1));
+      text = bobgui_editable_get_text (e);
       if (text && valid_state_name (text))
         {
           names[i] = text;
@@ -123,7 +123,7 @@ update_state_names (StateEditor *self)
             }
           else
             {
-              gtk_editable_set_text (e, num);
+              bobgui_editable_set_text (e, num);
               return;
             }
         }
@@ -136,7 +136,7 @@ update_state_names (StateEditor *self)
 static void
 update_states (StateEditor *self)
 {
-  GtkLayoutManager *mgr = gtk_widget_get_layout_manager (GTK_WIDGET (self->grid));
+  BobguiLayoutManager *mgr = bobgui_widget_get_layout_manager (BOBGUI_WIDGET (self->grid));
   uint64_t *states;
   unsigned int n;
 
@@ -146,36 +146,36 @@ update_states (StateEditor *self)
 
   for (unsigned int i = 0; i < n; i++)
     {
-      GtkLayoutChild *layout_child;
+      BobguiLayoutChild *layout_child;
       int row;
 
-      GtkWidget *child = gtk_grid_get_child_at (self->grid, -2, i);
-      GtkWidget *toggle = gtk_grid_get_child_at (self->grid, -1, i);
+      BobguiWidget *child = bobgui_grid_get_child_at (self->grid, -2, i);
+      BobguiWidget *toggle = bobgui_grid_get_child_at (self->grid, -1, i);
 
-      if (!GTK_IS_LABEL (child))
+      if (!BOBGUI_IS_LABEL (child))
         break;
 
-      layout_child = gtk_layout_manager_get_layout_child (mgr, child);
-      row = gtk_grid_layout_child_get_row (GTK_GRID_LAYOUT_CHILD (layout_child));
+      layout_child = bobgui_layout_manager_get_layout_child (mgr, child);
+      row = bobgui_grid_layout_child_get_row (BOBGUI_GRID_LAYOUT_CHILD (layout_child));
 
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle)))
+      if (bobgui_toggle_button_get_active (BOBGUI_TOGGLE_BUTTON (toggle)))
         states[row] = G_MAXUINT64;
     }
 
-  for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (self->grid));
+  for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->grid));
        child != NULL;
-       child = gtk_widget_get_next_sibling (child))
+       child = bobgui_widget_get_next_sibling (child))
     {
-      GtkLayoutChild *layout_child;
+      BobguiLayoutChild *layout_child;
       int row, col;
 
-      layout_child = gtk_layout_manager_get_layout_child (mgr, child);
-      row = gtk_grid_layout_child_get_row (GTK_GRID_LAYOUT_CHILD (layout_child));
-      col = gtk_grid_layout_child_get_column (GTK_GRID_LAYOUT_CHILD (layout_child));
+      layout_child = bobgui_layout_manager_get_layout_child (mgr, child);
+      row = bobgui_grid_layout_child_get_row (BOBGUI_GRID_LAYOUT_CHILD (layout_child));
+      col = bobgui_grid_layout_child_get_column (BOBGUI_GRID_LAYOUT_CHILD (layout_child));
 
-      if (GTK_IS_CHECK_BUTTON (child))
+      if (BOBGUI_IS_CHECK_BUTTON (child))
         {
-          if (gtk_check_button_get_active (GTK_CHECK_BUTTON (child)))
+          if (bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (child)))
             states[row] |= G_GUINT64_CONSTANT (1) << (unsigned int) col;
           else
             states[row] &= ~(G_GUINT64_CONSTANT (1) << (unsigned int) col);
@@ -186,13 +186,13 @@ update_states (StateEditor *self)
 
   for (unsigned int i = 0; i < n; i++)
     {
-      GtkWidget *child = gtk_grid_get_child_at (self->grid, -2, i);
+      BobguiWidget *child = bobgui_grid_get_child_at (self->grid, -2, i);
       const char *id;
 
-      if (!GTK_IS_LABEL (child))
+      if (!BOBGUI_IS_LABEL (child))
         break;
 
-      id = gtk_label_get_label (GTK_LABEL (child));
+      id = bobgui_label_get_label (BOBGUI_LABEL (child));
       path_paintable_set_path_states_by_id (self->paintable, id, states[i]);
     }
 
@@ -202,31 +202,31 @@ update_states (StateEditor *self)
 }
 
 static void
-update_one (GtkWidget   *check,
+update_one (BobguiWidget   *check,
             GParamSpec  *pspec,
             StateEditor *self)
 {
-  GtkLayoutManager *mgr;
-  GtkLayoutChild *layout_child;
+  BobguiLayoutManager *mgr;
+  BobguiLayoutChild *layout_child;
   int row;
-  GtkWidget *label;
+  BobguiWidget *label;
   const char *id;
   uint64_t states;
 
-  mgr = gtk_widget_get_layout_manager (GTK_WIDGET (self->grid));
-  layout_child = gtk_layout_manager_get_layout_child (mgr, check);
-  row = gtk_grid_layout_child_get_row (GTK_GRID_LAYOUT_CHILD (layout_child));
+  mgr = bobgui_widget_get_layout_manager (BOBGUI_WIDGET (self->grid));
+  layout_child = bobgui_layout_manager_get_layout_child (mgr, check);
+  row = bobgui_grid_layout_child_get_row (BOBGUI_GRID_LAYOUT_CHILD (layout_child));
 
-  label = gtk_grid_get_child_at (self->grid, -2, row);
-  id = gtk_label_get_label (GTK_LABEL (label));
+  label = bobgui_grid_get_child_at (self->grid, -2, row);
+  id = bobgui_label_get_label (BOBGUI_LABEL (label));
 
   states = 0;
   for (unsigned int i = 0; i < self->max_state; i++)
     {
-      GtkWidget *child;
+      BobguiWidget *child;
 
-      child = gtk_grid_get_child_at (self->grid, i, row);
-      if (gtk_check_button_get_active (GTK_CHECK_BUTTON (child)))
+      child = bobgui_grid_get_child_at (self->grid, i, row);
+      if (bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (child)))
         states |= (G_GUINT64_CONSTANT (1) << (unsigned int) i);
     }
 
@@ -234,33 +234,33 @@ update_one (GtkWidget   *check,
   path_paintable_set_path_states_by_id (self->paintable, id, states);
   self->updating = FALSE;
 
-  if (!gtk_check_button_get_active (GTK_CHECK_BUTTON (check)))
+  if (!bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (check)))
     {
-      GtkWidget *toggle = gtk_grid_get_child_at (self->grid, -1, row);
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle), FALSE);
+      BobguiWidget *toggle = bobgui_grid_get_child_at (self->grid, -1, row);
+      bobgui_toggle_button_set_active (BOBGUI_TOGGLE_BUTTON (toggle), FALSE);
     }
 }
 
 static void
-update_all (GtkWidget   *toggle,
+update_all (BobguiWidget   *toggle,
             GParamSpec  *pspec,
             StateEditor *self)
 {
-  GtkLayoutManager *mgr;
-  GtkLayoutChild *layout_child;
+  BobguiLayoutManager *mgr;
+  BobguiLayoutChild *layout_child;
   int row;
-  GtkWidget *label;
+  BobguiWidget *label;
   const char *id;
 
-  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle)))
+  if (!bobgui_toggle_button_get_active (BOBGUI_TOGGLE_BUTTON (toggle)))
     return;
 
-  mgr = gtk_widget_get_layout_manager (GTK_WIDGET (self->grid));
-  layout_child = gtk_layout_manager_get_layout_child (mgr, toggle);
-  row = gtk_grid_layout_child_get_row (GTK_GRID_LAYOUT_CHILD (layout_child));
+  mgr = bobgui_widget_get_layout_manager (BOBGUI_WIDGET (self->grid));
+  layout_child = bobgui_layout_manager_get_layout_child (mgr, toggle);
+  row = bobgui_grid_layout_child_get_row (BOBGUI_GRID_LAYOUT_CHILD (layout_child));
 
-  label = gtk_grid_get_child_at (self->grid, -2, row);
-  id = gtk_label_get_label (GTK_LABEL (label));
+  label = bobgui_grid_get_child_at (self->grid, -2, row);
+  id = bobgui_label_get_label (BOBGUI_LABEL (label));
 
   self->updating = TRUE;
   path_paintable_set_path_states_by_id (self->paintable, id, G_MAXUINT64);
@@ -297,10 +297,10 @@ add_state (StateEditor *self)
 static void
 clear_paths (StateEditor *self)
 {
-  GtkWidget *child;
+  BobguiWidget *child;
 
-  while ((child = gtk_widget_get_first_child (GTK_WIDGET (self->grid))) != NULL)
-    gtk_widget_unparent (child);
+  while ((child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->grid))) != NULL)
+    bobgui_widget_unparent (child);
 }
 
 static void
@@ -322,31 +322,31 @@ create_paths_for_shape (StateEditor  *self,
           uint64_t states = svg_element_get_states (sh);
           const char *id = svg_element_get_id (sh);
           GdkPaintable *paintable = get_paintable_for_shape (self, sh);
-          GtkWidget *child;
+          BobguiWidget *child;
 
-          child = gtk_image_new_from_paintable (paintable);
-          gtk_image_set_pixel_size (GTK_IMAGE (child), 20);
+          child = bobgui_image_new_from_paintable (paintable);
+          bobgui_image_set_pixel_size (BOBGUI_IMAGE (child), 20);
           g_object_unref (paintable);
-          gtk_grid_attach (self->grid, child, -3, *row, 1, 1);
+          bobgui_grid_attach (self->grid, child, -3, *row, 1, 1);
 
-          child = gtk_label_new (id);
-          gtk_grid_attach (self->grid, child, -2, *row, 1, 1);
+          child = bobgui_label_new (id);
+          bobgui_grid_attach (self->grid, child, -2, *row, 1, 1);
 
-          child = gtk_toggle_button_new_with_label ("All");
-          gtk_grid_attach (self->grid, child, -1, *row, 1, 1);
+          child = bobgui_toggle_button_new_with_label ("All");
+          bobgui_grid_attach (self->grid, child, -1, *row, 1, 1);
 
-          gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (child), states == G_MAXUINT64);
+          bobgui_toggle_button_set_active (BOBGUI_TOGGLE_BUTTON (child), states == G_MAXUINT64);
 
           g_signal_connect (child, "notify::active", G_CALLBACK (update_all), self);
 
           for (unsigned int j = 0; j <= self->max_state; j++)
             {
-              child = gtk_check_button_new ();
-              gtk_widget_set_halign (child, GTK_ALIGN_CENTER);
-              gtk_check_button_set_active (GTK_CHECK_BUTTON (child),
+              child = bobgui_check_button_new ();
+              bobgui_widget_set_halign (child, BOBGUI_ALIGN_CENTER);
+              bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (child),
                                            (states & ((G_GUINT64_CONSTANT (1) << j))) != 0);
               g_signal_connect (child, "notify::active", G_CALLBACK (update_one), self);
-              gtk_grid_attach (self->grid, child, j, *row, 1, 1);
+              bobgui_grid_attach (self->grid, child, j, *row, 1, 1);
             }
 
           (*row)++;
@@ -355,7 +355,7 @@ create_paths_for_shape (StateEditor  *self,
 }
 
 static void
-state_name_changed (GtkEditable *editable,
+state_name_changed (BobguiEditable *editable,
                     GParamSpec  *pspec,
                     gpointer     data)
 {
@@ -364,7 +364,7 @@ state_name_changed (GtkEditable *editable,
   if (self->updating)
     return;
 
-  if (gtk_editable_label_get_editing (GTK_EDITABLE_LABEL (editable)))
+  if (bobgui_editable_label_get_editing (BOBGUI_EDITABLE_LABEL (editable)))
     return;
 
   update_state_names (self);
@@ -373,7 +373,7 @@ state_name_changed (GtkEditable *editable,
 static void
 create_paths (StateEditor *self)
 {
-  GtkWidget *child;
+  BobguiWidget *child;
   const char **names;
   unsigned int n_names;
   unsigned int row;
@@ -383,15 +383,15 @@ create_paths (StateEditor *self)
   for (unsigned int i = 0; i <= self->max_state; i++)
     {
       if (i < n_names)
-        child = gtk_editable_label_new (names[i]);
+        child = bobgui_editable_label_new (names[i]);
       else
         {
           char *s = g_strdup_printf ("%u", i);
-          child = gtk_editable_label_new (s);
+          child = bobgui_editable_label_new (s);
           g_free (s);
         }
-      gtk_editable_set_width_chars (GTK_EDITABLE (child), 6);
-      gtk_grid_attach (self->grid, child, i, -1, 1, 1);
+      bobgui_editable_set_width_chars (BOBGUI_EDITABLE (child), 6);
+      bobgui_grid_attach (self->grid, child, i, -1, 1, 1);
       g_signal_connect (child, "notify::editing", G_CALLBACK (state_name_changed), self);
     }
 
@@ -421,8 +421,8 @@ paths_changed (StateEditor *self)
 static void
 initial_state_changed (StateEditor *self)
 {
-  GtkSvg *svg = path_paintable_get_svg (self->paintable);
-  svg->initial_state = (unsigned int) gtk_spin_button_get_value_as_int (self->initial_state);
+  BobguiSvg *svg = path_paintable_get_svg (self->paintable);
+  svg->initial_state = (unsigned int) bobgui_spin_button_get_value_as_int (self->initial_state);
   path_paintable_changed (self->paintable);
 }
 
@@ -432,7 +432,7 @@ initial_state_changed (StateEditor *self)
 static void
 state_editor_init (StateEditor *self)
 {
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 }
 
 static void
@@ -485,7 +485,7 @@ state_editor_dispose (GObject *object)
 
   g_clear_object (&self->paintable);
 
-  gtk_widget_dispose_template (GTK_WIDGET (object), STATE_EDITOR_TYPE);
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), STATE_EDITOR_TYPE);
 
   G_OBJECT_CLASS (state_editor_parent_class)->dispose (object);
 }
@@ -500,7 +500,7 @@ static void
 state_editor_class_init (StateEditorClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   g_type_ensure (SHAPE_EDITOR_TYPE);
 
@@ -516,14 +516,14 @@ state_editor_class_init (StateEditorClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/org/gtk/Shaper/state-editor.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class,
+                                               "/org/bobgui/Shaper/state-editor.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, StateEditor, grid);
-  gtk_widget_class_bind_template_child (widget_class, StateEditor, initial_state);
-  gtk_widget_class_bind_template_callback (widget_class, drop_state);
-  gtk_widget_class_bind_template_callback (widget_class, add_state);
-  gtk_widget_class_bind_template_callback (widget_class, initial_state_changed);
+  bobgui_widget_class_bind_template_child (widget_class, StateEditor, grid);
+  bobgui_widget_class_bind_template_child (widget_class, StateEditor, initial_state);
+  bobgui_widget_class_bind_template_callback (widget_class, drop_state);
+  bobgui_widget_class_bind_template_callback (widget_class, add_state);
+  bobgui_widget_class_bind_template_callback (widget_class, initial_state_changed);
 }
 
 /* }}} */
@@ -564,7 +564,7 @@ state_editor_set_paintable (StateEditor *self,
       g_signal_connect_swapped (paintable, "paths-changed",
                                 G_CALLBACK (paths_changed), self);
       paths_changed (self);
-      gtk_spin_button_set_value (self->initial_state, path_paintable_get_svg (paintable)->initial_state);
+      bobgui_spin_button_set_value (self->initial_state, path_paintable_get_svg (paintable)->initial_state);
     }
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_PAINTABLE]);

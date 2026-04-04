@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 /* Surface to store current scribbles */
 static cairo_surface_t *surface = NULL;
@@ -18,7 +18,7 @@ clear_surface (void)
 
 /* Create a new surface of the appropriate size to store our scribbles */
 static void
-resize_cb (GtkWidget *widget,
+resize_cb (BobguiWidget *widget,
            int        width,
            int        height,
            gpointer   data)
@@ -29,11 +29,11 @@ resize_cb (GtkWidget *widget,
       surface = NULL;
     }
 
-  if (gtk_native_get_surface (gtk_widget_get_native (widget)))
+  if (bobgui_native_get_surface (bobgui_widget_get_native (widget)))
     {
       surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-                                            gtk_widget_get_width (widget),
-                                            gtk_widget_get_height (widget));
+                                            bobgui_widget_get_width (widget),
+                                            bobgui_widget_get_height (widget));
 
       /* Initialize the surface to white */
       clear_surface ();
@@ -45,7 +45,7 @@ resize_cb (GtkWidget *widget,
  * clipped to only draw the exposed areas of the widget
  */
 static void
-draw_cb (GtkDrawingArea *drawing_area,
+draw_cb (BobguiDrawingArea *drawing_area,
          cairo_t        *cr,
          int             width,
          int             height,
@@ -57,7 +57,7 @@ draw_cb (GtkDrawingArea *drawing_area,
 
 /* Draw a rectangle on the surface at the given position */
 static void
-draw_brush (GtkWidget *widget,
+draw_brush (BobguiWidget *widget,
             double     x,
             double     y)
 {
@@ -72,17 +72,17 @@ draw_brush (GtkWidget *widget,
   cairo_destroy (cr);
 
   /* Now invalidate the drawing area. */
-  gtk_widget_queue_draw (widget);
+  bobgui_widget_queue_draw (widget);
 }
 
 static double start_x;
 static double start_y;
 
 static void
-drag_begin (GtkGestureDrag *gesture,
+drag_begin (BobguiGestureDrag *gesture,
             double          x,
             double          y,
-            GtkWidget      *area)
+            BobguiWidget      *area)
 {
   start_x = x;
   start_y = y;
@@ -91,32 +91,32 @@ drag_begin (GtkGestureDrag *gesture,
 }
 
 static void
-drag_update (GtkGestureDrag *gesture,
+drag_update (BobguiGestureDrag *gesture,
              double          x,
              double          y,
-             GtkWidget      *area)
+             BobguiWidget      *area)
 {
   draw_brush (area, start_x + x, start_y + y);
 }
 
 static void
-drag_end (GtkGestureDrag *gesture,
+drag_end (BobguiGestureDrag *gesture,
           double          x,
           double          y,
-          GtkWidget      *area)
+          BobguiWidget      *area)
 {
   draw_brush (area, start_x + x, start_y + y);
 }
 
 static void
-pressed (GtkGestureClick *gesture,
+pressed (BobguiGestureClick *gesture,
          int              n_press,
          double           x,
          double           y,
-         GtkWidget       *area)
+         BobguiWidget       *area)
 {
   clear_surface ();
-  gtk_widget_queue_draw (area);
+  bobgui_widget_queue_draw (area);
 }
 
 static void
@@ -127,53 +127,53 @@ close_window (void)
 }
 
 static void
-activate (GtkApplication *app,
+activate (BobguiApplication *app,
           gpointer        user_data)
 {
-  GtkWidget *window;
-  GtkWidget *drawing_area;
-  GtkGesture *drag;
-  GtkGesture *press;
+  BobguiWidget *window;
+  BobguiWidget *drawing_area;
+  BobguiGesture *drag;
+  BobguiGesture *press;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Drawing Area");
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Drawing Area");
 
   g_signal_connect (window, "destroy", G_CALLBACK (close_window), NULL);
 
-  drawing_area = gtk_drawing_area_new ();
+  drawing_area = bobgui_drawing_area_new ();
   /* set a minimum size */
-  gtk_widget_set_size_request (drawing_area, 100, 100);
+  bobgui_widget_set_size_request (drawing_area, 100, 100);
 
-  gtk_window_set_child (GTK_WINDOW (window), drawing_area);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), drawing_area);
 
-  gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (drawing_area), draw_cb, NULL, NULL);
+  bobgui_drawing_area_set_draw_func (BOBGUI_DRAWING_AREA (drawing_area), draw_cb, NULL, NULL);
 
   g_signal_connect_after (drawing_area, "resize", G_CALLBACK (resize_cb), NULL);
 
-  drag = gtk_gesture_drag_new ();
-  gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (drag), GDK_BUTTON_PRIMARY);
-  gtk_widget_add_controller (drawing_area, GTK_EVENT_CONTROLLER (drag));
+  drag = bobgui_gesture_drag_new ();
+  bobgui_gesture_single_set_button (BOBGUI_GESTURE_SINGLE (drag), GDK_BUTTON_PRIMARY);
+  bobgui_widget_add_controller (drawing_area, BOBGUI_EVENT_CONTROLLER (drag));
   g_signal_connect (drag, "drag-begin", G_CALLBACK (drag_begin), drawing_area);
   g_signal_connect (drag, "drag-update", G_CALLBACK (drag_update), drawing_area);
   g_signal_connect (drag, "drag-end", G_CALLBACK (drag_end), drawing_area);
 
-  press = gtk_gesture_click_new ();
-  gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (press), GDK_BUTTON_SECONDARY);
-  gtk_widget_add_controller (drawing_area, GTK_EVENT_CONTROLLER (press));
+  press = bobgui_gesture_click_new ();
+  bobgui_gesture_single_set_button (BOBGUI_GESTURE_SINGLE (press), GDK_BUTTON_SECONDARY);
+  bobgui_widget_add_controller (drawing_area, BOBGUI_EVENT_CONTROLLER (press));
 
   g_signal_connect (press, "pressed", G_CALLBACK (pressed), drawing_area);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 int
 main (int    argc,
       char **argv)
 {
-  GtkApplication *app;
+  BobguiApplication *app;
   int status;
 
-  app = gtk_application_new ("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
+  app = bobgui_application_new ("org.bobgui.example", G_APPLICATION_DEFAULT_FLAGS);
   g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
   status = g_application_run (G_APPLICATION (app), argc, argv);
   g_object_unref (app);

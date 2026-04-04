@@ -1,32 +1,32 @@
 #include <stdlib.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 new_window (GApplication *app,
             GFile        *file)
 {
-  GtkWidget *window, *scrolled, *view, *overlay;
-  GtkWidget *header;
+  BobguiWidget *window, *scrolled, *view, *overlay;
+  BobguiWidget *header;
 
-  window = gtk_application_window_new (GTK_APPLICATION (app));
-  gtk_application_window_set_show_menubar (GTK_APPLICATION_WINDOW (window), TRUE);
-  gtk_window_set_default_size ((GtkWindow*)window, 640, 480);
-  gtk_window_set_title (GTK_WINDOW (window), "Sunny");
-  gtk_window_set_icon_name (GTK_WINDOW (window), "weather-clear-symbolic");
+  window = bobgui_application_window_new (BOBGUI_APPLICATION (app));
+  bobgui_application_window_set_show_menubar (BOBGUI_APPLICATION_WINDOW (window), TRUE);
+  bobgui_window_set_default_size ((BobguiWindow*)window, 640, 480);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Sunny");
+  bobgui_window_set_icon_name (BOBGUI_WINDOW (window), "weather-clear-symbolic");
 
-  header = gtk_header_bar_new ();
-  gtk_window_set_titlebar (GTK_WINDOW (window), header);
+  header = bobgui_header_bar_new ();
+  bobgui_window_set_titlebar (BOBGUI_WINDOW (window), header);
 
-  overlay = gtk_overlay_new ();
-  gtk_window_set_child (GTK_WINDOW (window), overlay);
+  overlay = bobgui_overlay_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), overlay);
 
-  scrolled = gtk_scrolled_window_new ();
-  gtk_widget_set_hexpand (scrolled, TRUE);
-  gtk_widget_set_vexpand (scrolled, TRUE);
-  view = gtk_text_view_new ();
+  scrolled = bobgui_scrolled_window_new ();
+  bobgui_widget_set_hexpand (scrolled, TRUE);
+  bobgui_widget_set_vexpand (scrolled, TRUE);
+  view = bobgui_text_view_new ();
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled), view);
-  gtk_overlay_set_child (GTK_OVERLAY (overlay), scrolled);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled), view);
+  bobgui_overlay_set_child (BOBGUI_OVERLAY (overlay), scrolled);
 
   if (file != NULL)
     {
@@ -35,15 +35,15 @@ new_window (GApplication *app,
 
       if (g_file_load_contents (file, NULL, &contents, &length, NULL, NULL))
         {
-          GtkTextBuffer *buffer;
+          BobguiTextBuffer *buffer;
 
-          buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
-          gtk_text_buffer_set_text (buffer, contents, length);
+          buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (view));
+          bobgui_text_buffer_set_text (buffer, contents, length);
           g_free (contents);
         }
     }
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 static void
@@ -64,18 +64,18 @@ open (GApplication  *application,
     new_window (application, files[i]);
 }
 
-typedef GtkApplication MenuButton;
-typedef GtkApplicationClass MenuButtonClass;
+typedef BobguiApplication MenuButton;
+typedef BobguiApplicationClass MenuButtonClass;
 
 static GType menu_button_get_type (void);
-G_DEFINE_TYPE (MenuButton, menu_button, GTK_TYPE_APPLICATION)
+G_DEFINE_TYPE (MenuButton, menu_button, BOBGUI_TYPE_APPLICATION)
 
 static void
 show_about (GSimpleAction *action,
             GVariant      *parameter,
             gpointer       user_data)
 {
-  gtk_show_about_dialog (NULL,
+  bobgui_show_about_dialog (NULL,
                          "program-name", "Sunny",
                          "title", "About Sunny",
                          "logo-icon-name", "weather-clear-symbolic",
@@ -90,17 +90,17 @@ quit_app (GSimpleAction *action,
           gpointer       user_data)
 {
   GList *list, *next;
-  GtkWindow *win;
+  BobguiWindow *win;
 
   g_print ("Going down...\n");
 
-  list = gtk_application_get_windows (GTK_APPLICATION (g_application_get_default ()));
+  list = bobgui_application_get_windows (BOBGUI_APPLICATION (g_application_get_default ()));
   while (list)
     {
       win = list->data;
       next = list->next;
 
-      gtk_window_destroy (GTK_WINDOW (win));
+      bobgui_window_destroy (BOBGUI_WINDOW (win));
 
       list = next;
     }
@@ -125,17 +125,17 @@ static GActionEntry app_entries[] = {
 static void
 startup (GApplication *application)
 {
-  GtkBuilder *builder;
+  BobguiBuilder *builder;
 
   G_APPLICATION_CLASS (menu_button_parent_class)->startup (application);
 
   g_action_map_add_action_entries (G_ACTION_MAP (application), app_entries, G_N_ELEMENTS (app_entries), application);
 
   if (g_getenv ("APP_MENU_FALLBACK"))
-    g_object_set (gtk_settings_get_default (), "gtk-shell-shows-app-menu", FALSE, NULL);
+    g_object_set (bobgui_settings_get_default (), "bobgui-shell-shows-app-menu", FALSE, NULL);
  
-  builder = gtk_builder_new ();
-  gtk_builder_add_from_string (builder,
+  builder = bobgui_builder_new ();
+  bobgui_builder_add_from_string (builder,
                                "<interface>"
                                "  <menu id='menubar'>"
                                "    <submenu>"
@@ -158,7 +158,7 @@ startup (GApplication *application)
                                "    </submenu>"
                                "  </menu>"
                                "</interface>", -1, NULL);
-  gtk_application_set_menubar (GTK_APPLICATION (application), G_MENU_MODEL (gtk_builder_get_object (builder, "menubar")));
+  bobgui_application_set_menubar (BOBGUI_APPLICATION (application), G_MENU_MODEL (bobgui_builder_get_object (builder, "menubar")));
   g_object_unref (builder);
 }
 
@@ -181,7 +181,7 @@ static MenuButton *
 menu_button_new (void)
 {
   return g_object_new (menu_button_get_type (),
-                       "application-id", "org.gtk.Test.Sunny",
+                       "application-id", "org.bobgui.Test.Sunny",
                        "flags", G_APPLICATION_HANDLES_OPEN,
                        NULL);
 }

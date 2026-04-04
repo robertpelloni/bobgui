@@ -11,5 +11,5 @@ executable('exampleapp8',
   'exampleappprefs.c',
   app8_resources,
   app8_schemas,
-  dependencies: libgtk_dep,
+  dependencies: libbobgui_dep,
   c_args: common_cflags)

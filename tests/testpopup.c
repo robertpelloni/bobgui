@@ -1,20 +1,20 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 update_offset (GObject    *object,
                GParamSpec *pspec,
-               GtkWidget  *widget)
+               BobguiWidget  *widget)
 {
-  if (gtk_check_button_get_active (GTK_CHECK_BUTTON (object)))
-    gtk_popover_set_offset (GTK_POPOVER (widget), 12, 12);
+  if (bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (object)))
+    bobgui_popover_set_offset (BOBGUI_POPOVER (widget), 12, 12);
   else
-    gtk_popover_set_offset (GTK_POPOVER (widget), 0, 0);
+    bobgui_popover_set_offset (BOBGUI_POPOVER (widget), 0, 0);
 }
 
 static void
 update_shadow (GObject    *object,
                GParamSpec *pspec,
-               GtkWidget  *widget)
+               BobguiWidget  *widget)
 {
   const char *classes[] = {
     "no-shadow",
@@ -25,13 +25,13 @@ update_shadow (GObject    *object,
   };
   guint selected;
 
-  selected = gtk_drop_down_get_selected (GTK_DROP_DOWN (object));
+  selected = bobgui_drop_down_get_selected (BOBGUI_DROP_DOWN (object));
   g_assert (selected < G_N_ELEMENTS (classes));
 
   for (int i = 0; i < G_N_ELEMENTS (classes); i++)
-    gtk_widget_remove_css_class (widget, classes[i]);
+    bobgui_widget_remove_css_class (widget, classes[i]);
 
-  gtk_widget_add_css_class (widget, classes[selected]);
+  bobgui_widget_add_css_class (widget, classes[selected]);
 }
 
 static const char css[] =
@@ -44,29 +44,29 @@ static const char css[] =
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *box;
-  GtkWidget *button;
-  GtkWidget *popover;
-  GtkWidget *box2;
-  GtkWidget *box3;
-  GtkWidget *checkbox;
-  GtkWidget *checkbox2;
-  GtkWidget *dropdown;
-  GtkWidget *dropdown2;
-  GtkCssProvider *provider;
+  BobguiWidget *window;
+  BobguiWidget *box;
+  BobguiWidget *button;
+  BobguiWidget *popover;
+  BobguiWidget *box2;
+  BobguiWidget *box3;
+  BobguiWidget *checkbox;
+  BobguiWidget *checkbox2;
+  BobguiWidget *dropdown;
+  BobguiWidget *dropdown2;
+  BobguiCssProvider *provider;
 
-  gtk_init ();
+  bobgui_init ();
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_string (provider, css);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_string (provider, css);
 
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (provider),
                                               800);
 
-  window = gtk_window_new ();
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+  window = bobgui_window_new ();
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
   g_object_set (box,
                 "margin-top", 20,
                 "margin-bottom", 20,
@@ -74,39 +74,39 @@ main (int argc, char *argv[])
                 "margin-end", 20,
                 NULL);
 
-  button = gtk_menu_button_new ();
+  button = bobgui_menu_button_new ();
 
-  gtk_widget_set_halign (button, GTK_ALIGN_CENTER);
-  gtk_widget_set_valign (button, GTK_ALIGN_CENTER);
+  bobgui_widget_set_halign (button, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_valign (button, BOBGUI_ALIGN_CENTER);
 
-  gtk_box_append (GTK_BOX (box), button);
+  bobgui_box_append (BOBGUI_BOX (box), button);
 
-  popover = gtk_popover_new ();
-  box2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
-  gtk_popover_set_child (GTK_POPOVER (popover), box2);
+  popover = bobgui_popover_new ();
+  box2 = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 10);
+  bobgui_popover_set_child (BOBGUI_POPOVER (popover), box2);
 
-  gtk_box_append (GTK_BOX (box2), gtk_label_new ("First item"));
-  gtk_box_append (GTK_BOX (box2), gtk_label_new ("Second item"));
-  gtk_box_append (GTK_BOX (box2), gtk_label_new ("Third item"));
+  bobgui_box_append (BOBGUI_BOX (box2), bobgui_label_new ("First item"));
+  bobgui_box_append (BOBGUI_BOX (box2), bobgui_label_new ("Second item"));
+  bobgui_box_append (BOBGUI_BOX (box2), bobgui_label_new ("Third item"));
 
-  gtk_menu_button_set_popover (GTK_MENU_BUTTON (button), popover);
+  bobgui_menu_button_set_popover (BOBGUI_MENU_BUTTON (button), popover);
 
-  box3 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
-  dropdown = gtk_drop_down_new_from_strings ((const char*[]){ "Left", "Right", "Top", "Bottom", NULL });
-  gtk_drop_down_set_selected (GTK_DROP_DOWN (dropdown), 3);
+  box3 = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 10);
+  dropdown = bobgui_drop_down_new_from_strings ((const char*[]){ "Left", "Right", "Top", "Bottom", NULL });
+  bobgui_drop_down_set_selected (BOBGUI_DROP_DOWN (dropdown), 3);
 
-  checkbox = gtk_check_button_new_with_label ("Arrow");
+  checkbox = bobgui_check_button_new_with_label ("Arrow");
 
-  checkbox2 = gtk_check_button_new_with_label ("Offset");
+  checkbox2 = bobgui_check_button_new_with_label ("Offset");
 
-  dropdown2 = gtk_drop_down_new_from_strings ((const char*[]){ "No Shadow", "Shadow 1", "Shadow 2", "Shadow 3", "Shadow 4", NULL });
+  dropdown2 = bobgui_drop_down_new_from_strings ((const char*[]){ "No Shadow", "Shadow 1", "Shadow 2", "Shadow 3", "Shadow 4", NULL });
 
-  gtk_box_append (GTK_BOX (box3), checkbox);
-  gtk_box_append (GTK_BOX (box3), checkbox2);
-  gtk_box_append (GTK_BOX (box3), dropdown);
-  gtk_box_append (GTK_BOX (box3), dropdown2);
+  bobgui_box_append (BOBGUI_BOX (box3), checkbox);
+  bobgui_box_append (BOBGUI_BOX (box3), checkbox2);
+  bobgui_box_append (BOBGUI_BOX (box3), dropdown);
+  bobgui_box_append (BOBGUI_BOX (box3), dropdown2);
 
-  gtk_box_append (GTK_BOX (box), box3);
+  bobgui_box_append (BOBGUI_BOX (box), box3);
 
   g_object_bind_property (checkbox, "active",
                           popover, "has-arrow",
@@ -120,11 +120,11 @@ main (int argc, char *argv[])
                     G_CALLBACK (update_shadow), popover);
   update_shadow (G_OBJECT (dropdown2), NULL, popover);
 
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()) > 0)
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()) > 0)
     g_main_context_iteration (NULL, TRUE);
 
   return 0;

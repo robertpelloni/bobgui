@@ -10,7 +10,7 @@ if meson.version().version_compare('>= 1.8.0')
   demo_kwargs += { 'android_exe_type': 'application' }
 endif
 
-subdir('gtk-demo')
+subdir('bobgui-demo')
 subdir('node-editor')
 subdir('widget-factory')
 subdir('print-editor')

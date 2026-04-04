@@ -29,7 +29,7 @@
  * site unless we can prove it's a local DND - then we will use only
  * this type
  */
-#define GDK_WAYLAND_LOCAL_DND_MIME_TYPE "application/x-gtk-local-dnd"
+#define GDK_WAYLAND_LOCAL_DND_MIME_TYPE "application/x-bobgui-local-dnd"
 
 GdkDrop *        gdk_wayland_drop_new                      (GdkDevice             *device,
                                                             GdkDrag               *drag,

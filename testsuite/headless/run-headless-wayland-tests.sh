@@ -7,7 +7,7 @@ outputdir=${builddir}/wayland
 mkdir -p ${outputdir}
 
 
-export GTK_A11Y=none
+export BOBGUI_A11Y=none
 
 echo launching dbus session
 dbus-run-session sh 2>${outputdir}/dbus-stderr.log <<EOF

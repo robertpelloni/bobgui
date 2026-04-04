@@ -1,97 +1,97 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
-#define INITIAL_HALIGN          GTK_ALIGN_START
-#define INITIAL_VALIGN          GTK_ALIGN_START
+#define INITIAL_HALIGN          BOBGUI_ALIGN_START
+#define INITIAL_VALIGN          BOBGUI_ALIGN_START
 
 static GList *menubuttons = NULL;
 
 static void
-horizontal_alignment_changed (GtkComboBox *box)
+horizontal_alignment_changed (BobguiComboBox *box)
 {
-	GtkAlign alignment = gtk_combo_box_get_active (box);
+	BobguiAlign alignment = bobgui_combo_box_get_active (box);
 	GList *l;
 
 	for (l = menubuttons; l != NULL; l = l->next) {
-		GtkPopover *popup = gtk_menu_button_get_popover (GTK_MENU_BUTTON (l->data));
+		BobguiPopover *popup = bobgui_menu_button_get_popover (BOBGUI_MENU_BUTTON (l->data));
 		if (popup != NULL)
-			gtk_widget_set_halign (GTK_WIDGET (popup), alignment);
+			bobgui_widget_set_halign (BOBGUI_WIDGET (popup), alignment);
 	}
 }
 
 static void
-vertical_alignment_changed (GtkComboBox *box)
+vertical_alignment_changed (BobguiComboBox *box)
 {
-	GtkAlign alignment = gtk_combo_box_get_active (box);
+	BobguiAlign alignment = bobgui_combo_box_get_active (box);
 	GList *l;
 
 	for (l = menubuttons; l != NULL; l = l->next) {
-		GtkPopover *popup = gtk_menu_button_get_popover (GTK_MENU_BUTTON (l->data));
+		BobguiPopover *popup = bobgui_menu_button_get_popover (BOBGUI_MENU_BUTTON (l->data));
 		if (popup != NULL)
-			gtk_widget_set_valign (GTK_WIDGET (popup), alignment);
+			bobgui_widget_set_valign (BOBGUI_WIDGET (popup), alignment);
 	}
 }
 
 int main (int argc, char **argv)
 {
-	GtkWidget *window;
-	GtkWidget *button;
-	GtkWidget *grid;
-	GtkWidget *entry;
-	GtkWidget *label;
-	GtkWidget *combo;
+	BobguiWidget *window;
+	BobguiWidget *button;
+	BobguiWidget *grid;
+	BobguiWidget *entry;
+	BobguiWidget *label;
+	BobguiWidget *combo;
 	guint i;
 	guint row = 0;
 	GMenu *menu;
 
-	gtk_init ();
+	bobgui_init ();
 
-	window = gtk_window_new ();
-	gtk_window_set_default_size (GTK_WINDOW (window), 400, 300);
+	window = bobgui_window_new ();
+	bobgui_window_set_default_size (BOBGUI_WINDOW (window), 400, 300);
 
-	grid = gtk_grid_new ();
-	gtk_grid_set_row_spacing (GTK_GRID (grid), 12);
-	gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
-	gtk_window_set_child (GTK_WINDOW (window), grid);
+	grid = bobgui_grid_new ();
+	bobgui_grid_set_row_spacing (BOBGUI_GRID (grid), 12);
+	bobgui_grid_set_column_spacing (BOBGUI_GRID (grid), 12);
+	bobgui_window_set_child (BOBGUI_WINDOW (window), grid);
 
 	/* horizontal alignment */
-	label = gtk_label_new ("Horizontal Alignment:");
-	gtk_grid_attach (GTK_GRID (grid), label, 0, row++, 1, 1);
+	label = bobgui_label_new ("Horizontal Alignment:");
+	bobgui_grid_attach (BOBGUI_GRID (grid), label, 0, row++, 1, 1);
 
-	combo = gtk_combo_box_text_new ();
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Fill");
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Start");
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "End");
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Center");
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Baseline");
-	gtk_combo_box_set_active (GTK_COMBO_BOX (combo), INITIAL_HALIGN);
-	gtk_grid_attach_next_to (GTK_GRID (grid), combo, label, GTK_POS_RIGHT, 1, 1);
+	combo = bobgui_combo_box_text_new ();
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Fill");
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Start");
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "End");
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Center");
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Baseline");
+	bobgui_combo_box_set_active (BOBGUI_COMBO_BOX (combo), INITIAL_HALIGN);
+	bobgui_grid_attach_next_to (BOBGUI_GRID (grid), combo, label, BOBGUI_POS_RIGHT, 1, 1);
 	g_signal_connect (G_OBJECT (combo), "changed",
 			  G_CALLBACK (horizontal_alignment_changed), menubuttons);
 
 	/* vertical alignment */
-	label = gtk_label_new ("Vertical Alignment:");
-	gtk_grid_attach (GTK_GRID (grid), label, 0, row++, 1, 1);
+	label = bobgui_label_new ("Vertical Alignment:");
+	bobgui_grid_attach (BOBGUI_GRID (grid), label, 0, row++, 1, 1);
 
-	combo = gtk_combo_box_text_new ();
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Fill");
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Start");
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "End");
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Center");
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "Baseline");
-	gtk_combo_box_set_active (GTK_COMBO_BOX (combo), INITIAL_HALIGN);
-	gtk_grid_attach_next_to (GTK_GRID (grid), combo, label, GTK_POS_RIGHT, 1, 1);
+	combo = bobgui_combo_box_text_new ();
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Fill");
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Start");
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "End");
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Center");
+	bobgui_combo_box_text_append_text (BOBGUI_COMBO_BOX_TEXT (combo), "Baseline");
+	bobgui_combo_box_set_active (BOBGUI_COMBO_BOX (combo), INITIAL_HALIGN);
+	bobgui_grid_attach_next_to (BOBGUI_GRID (grid), combo, label, BOBGUI_POS_RIGHT, 1, 1);
 	g_signal_connect (G_OBJECT (combo), "changed",
 			  G_CALLBACK (vertical_alignment_changed), menubuttons);
 
 	/* Button next to entry */
-	entry = gtk_entry_new ();
-	gtk_grid_attach (GTK_GRID (grid), entry, 0, row++, 1, 1);
-	button = gtk_menu_button_new ();
-	gtk_widget_set_halign (button, GTK_ALIGN_START);
+	entry = bobgui_entry_new ();
+	bobgui_grid_attach (BOBGUI_GRID (grid), entry, 0, row++, 1, 1);
+	button = bobgui_menu_button_new ();
+	bobgui_widget_set_halign (button, BOBGUI_ALIGN_START);
 
-	gtk_grid_attach_next_to (GTK_GRID (grid), button, entry, GTK_POS_RIGHT, 1, 1);
+	bobgui_grid_attach_next_to (BOBGUI_GRID (grid), button, entry, BOBGUI_POS_RIGHT, 1, 1);
 	menubuttons = g_list_prepend (menubuttons, button);
 
 	/* Button with GMenuModel */
@@ -108,14 +108,14 @@ int main (int argc, char **argv)
 		g_free (item_label);
 	}
 
-	button = gtk_menu_button_new ();
+	button = bobgui_menu_button_new ();
 
-	gtk_widget_set_halign (button, GTK_ALIGN_START);
+	bobgui_widget_set_halign (button, BOBGUI_ALIGN_START);
 	menubuttons = g_list_prepend (menubuttons, button);
-	gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (button), G_MENU_MODEL (menu));
-	gtk_grid_attach (GTK_GRID (grid), button, 1, row++, 1, 1);
+	bobgui_menu_button_set_menu_model (BOBGUI_MENU_BUTTON (button), G_MENU_MODEL (menu));
+	bobgui_grid_attach (BOBGUI_GRID (grid), button, 1, row++, 1, 1);
 
-	gtk_window_present (GTK_WINDOW (window));
+	bobgui_window_present (BOBGUI_WINDOW (window));
 
         while (TRUE)
                 g_main_context_iteration (NULL, TRUE);

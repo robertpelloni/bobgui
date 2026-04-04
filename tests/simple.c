@@ -16,7 +16,7 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 static void
@@ -26,7 +26,7 @@ hello (void)
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -39,27 +39,27 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *button;
+  BobguiWidget *window, *button;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "hello world");
-  gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "hello world");
+  bobgui_window_set_resizable (BOBGUI_WINDOW (window), FALSE);
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  button = gtk_button_new ();
-  gtk_button_set_label (GTK_BUTTON (button), "hello world");
-  gtk_widget_set_margin_top (button, 10);
-  gtk_widget_set_margin_bottom (button, 10);
-  gtk_widget_set_margin_start (button, 10);
-  gtk_widget_set_margin_end (button, 10);
+  button = bobgui_button_new ();
+  bobgui_button_set_label (BOBGUI_BUTTON (button), "hello world");
+  bobgui_widget_set_margin_top (button, 10);
+  bobgui_widget_set_margin_bottom (button, 10);
+  bobgui_widget_set_margin_start (button, 10);
+  bobgui_widget_set_margin_end (button, 10);
   g_signal_connect (button, "clicked", G_CALLBACK (hello), NULL);
 
-  gtk_window_set_child (GTK_WINDOW (window), button);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), button);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

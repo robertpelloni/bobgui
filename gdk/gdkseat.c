@@ -250,7 +250,7 @@ gdk_seat_get_capabilities (GdkSeat *seat)
  * commonly.
  *
  * Grabs are used for operations which need complete control over the
- * events corresponding to the given capabilities. For example in GTK this
+ * events corresponding to the given capabilities. For example in BOBGUI this
  * is used for Drag and Drop operations, popup menus and such.
  *
  * Note that if the event mask of a `GdkSurface` has selected both button press
@@ -318,7 +318,7 @@ gdk_seat_ungrab (GdkSeat *seat)
  *
  * Returns: (transfer container) (element-type GdkDevice): A list
  *   of `GdkDevices`. The list must be freed with g_list_free(),
- *   the elements are owned by GTK and must not be freed.
+ *   the elements are owned by BOBGUI and must not be freed.
  */
 GList *
 gdk_seat_get_devices (GdkSeat             *seat,
@@ -339,7 +339,7 @@ gdk_seat_get_devices (GdkSeat             *seat,
  * Returns the device that routes pointer events.
  *
  * Returns: (transfer none) (nullable): a `GdkDevice` with pointer
- *   capabilities. This object is owned by GTK and must not be freed.
+ *   capabilities. This object is owned by BOBGUI and must not be freed.
  */
 GdkDevice *
 gdk_seat_get_pointer (GdkSeat *seat)
@@ -359,7 +359,7 @@ gdk_seat_get_pointer (GdkSeat *seat)
  * Returns the device that routes keyboard events.
  *
  * Returns: (transfer none) (nullable): a `GdkDevice` with keyboard
- *   capabilities. This object is owned by GTK and must not be freed.
+ *   capabilities. This object is owned by BOBGUI and must not be freed.
  */
 GdkDevice *
 gdk_seat_get_keyboard (GdkSeat *seat)
@@ -395,7 +395,7 @@ gdk_seat_device_removed (GdkSeat   *seat,
  * Returns the `GdkDisplay` this seat belongs to.
  *
  * Returns: (transfer none): a `GdkDisplay`. This object
- *   is owned by GTK and must not be freed.
+ *   is owned by BOBGUI and must not be freed.
  */
 GdkDisplay *
 gdk_seat_get_display (GdkSeat *seat)

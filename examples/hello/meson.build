@@ -5,6 +5,6 @@ project('hello', 'c',
 
 executable('hello',
   [ 'hello-world.c' ],
-  dependencies: [ dependency('gtk4') ],
+  dependencies: [ dependency('bobgui4') ],
   install: false
 )

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label">1</property>
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label">2</property>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="BobguiButton">
             <property name="label">Center</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label">2</property>
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label">1</property>
               </object>
             </child>

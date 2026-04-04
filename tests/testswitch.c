@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static gboolean
 boolean_to_text (GBinding *binding,
@@ -15,23 +15,23 @@ boolean_to_text (GBinding *binding,
   return TRUE;
 }
 
-static GtkWidget *
+static BobguiWidget *
 make_switch (gboolean is_on,
              gboolean is_sensitive)
 {
-  GtkWidget *hbox;
-  GtkWidget *sw, *label;
+  BobguiWidget *hbox;
+  BobguiWidget *sw, *label;
 
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6);
 
-  sw = gtk_switch_new ();
-  gtk_switch_set_active (GTK_SWITCH (sw), is_on);
-  gtk_box_append (GTK_BOX (hbox), sw);
-  gtk_widget_set_sensitive (sw, is_sensitive);
+  sw = bobgui_switch_new ();
+  bobgui_switch_set_active (BOBGUI_SWITCH (sw), is_on);
+  bobgui_box_append (BOBGUI_BOX (hbox), sw);
+  bobgui_widget_set_sensitive (sw, is_sensitive);
 
-  label = gtk_label_new (is_on ? "Enabled" : "Disabled");
-  gtk_widget_set_hexpand (label, TRUE);
-  gtk_box_append (GTK_BOX (hbox), label);
+  label = bobgui_label_new (is_on ? "Enabled" : "Disabled");
+  bobgui_widget_set_hexpand (label, TRUE);
+  bobgui_box_append (BOBGUI_BOX (hbox), label);
 
   g_object_bind_property_full (sw, "active",
                                label, "label",
@@ -44,7 +44,7 @@ make_switch (gboolean is_on,
 }
 
 typedef struct {
-  GtkSwitch *sw;
+  BobguiSwitch *sw;
   gboolean state;
 } SetStateData;
 
@@ -53,7 +53,7 @@ set_state_delayed (gpointer data)
 {
   SetStateData *d = data;
 
-  gtk_switch_set_state (d->sw, d->state);
+  bobgui_switch_set_state (d->sw, d->state);
 
   g_object_set_data (G_OBJECT (d->sw), "timeout", NULL);
 
@@ -61,7 +61,7 @@ set_state_delayed (gpointer data)
 }
 
 static gboolean
-set_state (GtkSwitch *sw, gboolean state, gpointer data)
+set_state (BobguiSwitch *sw, gboolean state, gpointer data)
 {
   SetStateData *d;
   guint id;
@@ -84,7 +84,7 @@ set_state (GtkSwitch *sw, gboolean state, gpointer data)
 static void
 sw_delay_notify (GObject *obj, GParamSpec *pspec, gpointer data)
 {
-  GtkWidget *spinner = data;
+  BobguiWidget *spinner = data;
   gboolean active;
   gboolean state;
 
@@ -95,39 +95,39 @@ sw_delay_notify (GObject *obj, GParamSpec *pspec, gpointer data)
 
   if (active != state)
     {
-      gtk_spinner_start (GTK_SPINNER (spinner));
-      gtk_widget_set_opacity (spinner, 1.0);
+      bobgui_spinner_start (BOBGUI_SPINNER (spinner));
+      bobgui_widget_set_opacity (spinner, 1.0);
     }
   else
     {
-      gtk_widget_set_opacity (spinner, 0.0);
-      gtk_spinner_stop (GTK_SPINNER (spinner));
+      bobgui_widget_set_opacity (spinner, 0.0);
+      bobgui_spinner_stop (BOBGUI_SPINNER (spinner));
     }
 }
 
-static GtkWidget *
+static BobguiWidget *
 make_delayed_switch (gboolean is_on,
                      gboolean is_sensitive)
 {
-  GtkWidget *hbox;
-  GtkWidget *sw, *label, *spinner, *check;
+  BobguiWidget *hbox;
+  BobguiWidget *sw, *label, *spinner, *check;
 
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6);
 
-  sw = gtk_switch_new ();
-  gtk_switch_set_active (GTK_SWITCH (sw), is_on);
-  gtk_box_append (GTK_BOX (hbox), sw);
-  gtk_widget_set_sensitive (sw, is_sensitive);
+  sw = bobgui_switch_new ();
+  bobgui_switch_set_active (BOBGUI_SWITCH (sw), is_on);
+  bobgui_box_append (BOBGUI_BOX (hbox), sw);
+  bobgui_widget_set_sensitive (sw, is_sensitive);
 
   g_signal_connect (sw, "state-set", G_CALLBACK (set_state), NULL);
 
-  spinner = gtk_spinner_new ();
-  gtk_box_append (GTK_BOX (hbox), spinner);
-  gtk_widget_set_opacity (spinner, 0.0);
+  spinner = bobgui_spinner_new ();
+  bobgui_box_append (BOBGUI_BOX (hbox), spinner);
+  bobgui_widget_set_opacity (spinner, 0.0);
 
-  label = gtk_label_new (is_on ? "Enabled" : "Disabled");
-  gtk_widget_set_hexpand (label, TRUE);
-  gtk_box_append (GTK_BOX (hbox), label);
+  label = bobgui_label_new (is_on ? "Enabled" : "Disabled");
+  bobgui_widget_set_hexpand (label, TRUE);
+  bobgui_box_append (BOBGUI_BOX (hbox), label);
 
   g_object_bind_property_full (sw, "active",
                                label, "label",
@@ -136,8 +136,8 @@ make_delayed_switch (gboolean is_on,
                                NULL,
                                NULL, NULL);
 
-  check = gtk_check_button_new ();
-  gtk_box_append (GTK_BOX (hbox), check);
+  check = bobgui_check_button_new ();
+  bobgui_box_append (BOBGUI_BOX (hbox), check);
   g_object_bind_property (sw, "state",
                           check, "active",
                           G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
@@ -148,7 +148,7 @@ make_delayed_switch (gboolean is_on,
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -160,35 +160,35 @@ quit_cb (GtkWidget *widget,
 
 int main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *vbox, *hbox;
+  BobguiWidget *window;
+  BobguiWidget *vbox, *hbox;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "GtkSwitch");
-  gtk_window_set_default_size (GTK_WINDOW (window), 400, -1);
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "BobguiSwitch");
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 400, -1);
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 12);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
   hbox = make_switch (FALSE, TRUE);
-  gtk_box_append (GTK_BOX (vbox), hbox);
+  bobgui_box_append (BOBGUI_BOX (vbox), hbox);
 
   hbox = make_switch (TRUE, TRUE);
-  gtk_box_append (GTK_BOX (vbox), hbox);
+  bobgui_box_append (BOBGUI_BOX (vbox), hbox);
 
   hbox = make_switch (FALSE, FALSE);
-  gtk_box_append (GTK_BOX (vbox), hbox);
+  bobgui_box_append (BOBGUI_BOX (vbox), hbox);
 
   hbox = make_switch (TRUE, FALSE);
-  gtk_box_append (GTK_BOX (vbox), hbox);
+  bobgui_box_append (BOBGUI_BOX (vbox), hbox);
 
   hbox = make_delayed_switch (FALSE, TRUE);
-  gtk_box_append (GTK_BOX (vbox), hbox);
+  bobgui_box_append (BOBGUI_BOX (vbox), hbox);
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

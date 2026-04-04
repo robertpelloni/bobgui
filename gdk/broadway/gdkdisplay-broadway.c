@@ -338,7 +338,7 @@ gdk_broadway_display_hide_keyboard (GdkBroadwayDisplay *display)
  * response to later user configuration changes.
  *
  * Since: 4.4
- * Deprecated: 4.18: The Broadway backend will be removed in GTK 5
+ * Deprecated: 4.18: The Broadway backend will be removed in BOBGUI 5
  */
 void
 gdk_broadway_display_set_surface_scale (GdkDisplay *display,
@@ -366,7 +366,7 @@ gdk_broadway_display_set_surface_scale (GdkDisplay *display,
  * Returns: the scale for surfaces
  *
  * Since: 4.4
- * Deprecated: 4.18: The Broadway backend will be removed in GTK 5
+ * Deprecated: 4.18: The Broadway backend will be removed in BOBGUI 5
  */
 int
 gdk_broadway_display_get_surface_scale (GdkDisplay *display)
@@ -459,7 +459,7 @@ gdk_broadway_display_flush_in_idle (GdkDisplay *display)
   if (broadway_display->idle_flush_id == 0)
     {
       broadway_display->idle_flush_id = g_idle_add (flush_idle, g_object_ref (display));
-      gdk_source_set_static_name_by_id (broadway_display->idle_flush_id, "[gtk] flush_idle");
+      gdk_source_set_static_name_by_id (broadway_display->idle_flush_id, "[bobgui] flush_idle");
     }
 }
 

@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #define assert_path_point_equal(point,_contour,_idx,_t) \
   g_assert_cmpint ((point)->contour, ==, (_contour)); \

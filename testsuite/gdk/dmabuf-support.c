@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gdk/gdkdmabuffourccprivate.h"
 #include "udmabuf.h"
 
@@ -59,7 +59,7 @@ test_dmabuf_no_gpu (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/dmabuf/no-gpu", test_dmabuf_no_gpu);
 

@@ -15,7 +15,7 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <glib/gstdio.h>
 #include <sys/types.h>
 #include <string.h>
@@ -27,22 +27,22 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 #define MANY_ITEMS     10000
 
 static void
-fill_model (GtkTreeModel *model)
+fill_model (BobguiTreeModel *model)
 {
   GdkPixbuf *pixbuf;
   int i;
   char *str, *str2;
-  GtkTreeIter iter;
-  GtkListStore *store = GTK_LIST_STORE (model);
+  BobguiTreeIter iter;
+  BobguiListStore *store = BOBGUI_LIST_STORE (model);
   gint32 size;
   
   pixbuf = gdk_pixbuf_new_from_file ("gnome-textfile.png", NULL);
 
   i = 0;
   
-  gtk_list_store_prepend (store, &iter);
+  bobgui_list_store_prepend (store, &iter);
 
-  gtk_list_store_set (store, &iter,
+  bobgui_list_store_set (store, &iter,
 		      0, pixbuf,
 		      1, "Really really\nreally really loooooooooong item name",
 		      2, 0,
@@ -58,8 +58,8 @@ fill_model (GtkTreeModel *model)
 
       str = g_strdup_printf ("Icon %d", i);
       str2 = g_strdup_printf ("Icon <b>%d</b>", i);	
-      gtk_list_store_prepend (store, &iter);
-      gtk_list_store_set (store, &iter,
+      bobgui_list_store_prepend (store, &iter);
+      bobgui_list_store_set (store, &iter,
 			  0, pb,
 			  1, str,
 			  2, i,
@@ -71,39 +71,39 @@ fill_model (GtkTreeModel *model)
       i++;
     }
   
-  //  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store), 2, GTK_SORT_ASCENDING);
+  //  bobgui_tree_sortable_set_sort_column_id (BOBGUI_TREE_SORTABLE (store), 2, BOBGUI_SORT_ASCENDING);
 }
 
-static GtkTreeModel *
+static BobguiTreeModel *
 create_model (void)
 {
-  GtkListStore *store;
+  BobguiListStore *store;
   
-  store = gtk_list_store_new (5, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN);
+  store = bobgui_list_store_new (5, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN);
 
-  return GTK_TREE_MODEL (store);
+  return BOBGUI_TREE_MODEL (store);
 }
 
 
 static void
-foreach_selected_remove (GtkWidget *button, GtkIconView *icon_list)
+foreach_selected_remove (BobguiWidget *button, BobguiIconView *icon_list)
 {
-  GtkTreeIter iter;
-  GtkTreeModel *model;
+  BobguiTreeIter iter;
+  BobguiTreeModel *model;
 
   GList *list, *selected;
 
-  selected = gtk_icon_view_get_selected_items (icon_list);
-  model = gtk_icon_view_get_model (icon_list);
+  selected = bobgui_icon_view_get_selected_items (icon_list);
+  model = bobgui_icon_view_get_model (icon_list);
   
   for (list = selected; list; list = list->next)
     {
-      GtkTreePath *path = list->data;
+      BobguiTreePath *path = list->data;
 
-      gtk_tree_model_get_iter (model, &iter, path);
-      gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
+      bobgui_tree_model_get_iter (model, &iter, path);
+      bobgui_list_store_remove (BOBGUI_LIST_STORE (model), &iter);
       
-      gtk_tree_path_free (path);
+      bobgui_tree_path_free (path);
     } 
   
   g_list_free (selected);
@@ -111,32 +111,32 @@ foreach_selected_remove (GtkWidget *button, GtkIconView *icon_list)
 
 
 static void
-swap_rows (GtkWidget *button, GtkIconView *icon_list)
+swap_rows (BobguiWidget *button, BobguiIconView *icon_list)
 {
-  GtkTreeIter iter, iter2;
-  GtkTreeModel *model;
+  BobguiTreeIter iter, iter2;
+  BobguiTreeModel *model;
 
-  model = gtk_icon_view_get_model (icon_list);
-  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (model), -2, GTK_SORT_ASCENDING);
+  model = bobgui_icon_view_get_model (icon_list);
+  bobgui_tree_sortable_set_sort_column_id (BOBGUI_TREE_SORTABLE (model), -2, BOBGUI_SORT_ASCENDING);
 
-  gtk_tree_model_get_iter_first (model, &iter);
+  bobgui_tree_model_get_iter_first (model, &iter);
   iter2 = iter;
-  gtk_tree_model_iter_next (model, &iter2);
-  gtk_list_store_swap (GTK_LIST_STORE (model), &iter, &iter2);
+  bobgui_tree_model_iter_next (model, &iter2);
+  bobgui_list_store_swap (BOBGUI_LIST_STORE (model), &iter, &iter2);
 }
 
 static void
-add_n_items (GtkIconView *icon_list, int n)
+add_n_items (BobguiIconView *icon_list, int n)
 {
   static int count = NUMBER_OF_ITEMS;
 
-  GtkTreeIter iter;
-  GtkListStore *store;
+  BobguiTreeIter iter;
+  BobguiListStore *store;
   GdkPixbuf *pixbuf;
   char *str, *str2;
   int i;
 
-  store = GTK_LIST_STORE (gtk_icon_view_get_model (icon_list));
+  store = BOBGUI_LIST_STORE (bobgui_icon_view_get_model (icon_list));
   pixbuf = gdk_pixbuf_new_from_file ("gnome-textfile.png", NULL);
 
 
@@ -144,8 +144,8 @@ add_n_items (GtkIconView *icon_list, int n)
     {
       str = g_strdup_printf ("Icon %d", count);
       str2 = g_strdup_printf ("Icon <b>%d</b>", count);	
-      gtk_list_store_prepend (store, &iter);
-      gtk_list_store_set (store, &iter,
+      bobgui_list_store_prepend (store, &iter);
+      bobgui_list_store_set (store, &iter,
 			  0, pixbuf,
 			  1, str,
 			  2, i,
@@ -158,27 +158,27 @@ add_n_items (GtkIconView *icon_list, int n)
 }
 
 static void
-add_some (GtkWidget *button, GtkIconView *icon_list)
+add_some (BobguiWidget *button, BobguiIconView *icon_list)
 {
   add_n_items (icon_list, SOME_ITEMS);
 }
 
 static void
-add_many (GtkWidget *button, GtkIconView *icon_list)
+add_many (BobguiWidget *button, BobguiIconView *icon_list)
 {
   add_n_items (icon_list, MANY_ITEMS);
 }
 
 static void
-add_large (GtkWidget *button, GtkIconView *icon_list)
+add_large (BobguiWidget *button, BobguiIconView *icon_list)
 {
-  GtkListStore *store;
-  GtkTreeIter iter;
+  BobguiListStore *store;
+  BobguiTreeIter iter;
 
   GdkPixbuf *pixbuf, *pb;
   char *str;
 
-  store = GTK_LIST_STORE (gtk_icon_view_get_model (icon_list));
+  store = BOBGUI_LIST_STORE (bobgui_icon_view_get_model (icon_list));
   pixbuf = gdk_pixbuf_new_from_file ("gnome-textfile.png", NULL);
 
   pb = gdk_pixbuf_scale_simple (pixbuf, 
@@ -187,8 +187,8 @@ add_large (GtkWidget *button, GtkIconView *icon_list)
 				GDK_INTERP_BILINEAR);
 
   str = g_strdup_printf ("Some really long text");
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter,
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter,
 		      0, pb,
 		      1, str,
 		      2, 0,
@@ -204,8 +204,8 @@ add_large (GtkWidget *button, GtkIconView *icon_list)
 
   str = g_strdup ("see how long text behaves when placed underneath "
 		  "an oversized icon which would allow for long lines");
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter,
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter,
 		      0, pb,
 		      1, str,
 		      2, 1,
@@ -220,8 +220,8 @@ add_large (GtkWidget *button, GtkIconView *icon_list)
 				GDK_INTERP_BILINEAR);
 
   str = g_strdup ("short text");
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter,
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter,
 		      0, pb,
 		      1, str,
 		      2, 2,
@@ -234,158 +234,158 @@ add_large (GtkWidget *button, GtkIconView *icon_list)
 }
 
 static void
-select_all (GtkWidget *button, GtkIconView *icon_list)
+select_all (BobguiWidget *button, BobguiIconView *icon_list)
 {
-  gtk_icon_view_select_all (icon_list);
+  bobgui_icon_view_select_all (icon_list);
 }
 
 static void
-select_nonexisting (GtkWidget *button, GtkIconView *icon_list)
+select_nonexisting (BobguiWidget *button, BobguiIconView *icon_list)
 {  
-  GtkTreePath *path = gtk_tree_path_new_from_indices (999999, -1);
-  gtk_icon_view_select_path (icon_list, path);
-  gtk_tree_path_free (path);
+  BobguiTreePath *path = bobgui_tree_path_new_from_indices (999999, -1);
+  bobgui_icon_view_select_path (icon_list, path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-unselect_all (GtkWidget *button, GtkIconView *icon_list)
+unselect_all (BobguiWidget *button, BobguiIconView *icon_list)
 {
-  gtk_icon_view_unselect_all (icon_list);
+  bobgui_icon_view_unselect_all (icon_list);
 }
 
 static void
-selection_changed (GtkIconView *icon_list)
+selection_changed (BobguiIconView *icon_list)
 {
   g_print ("Selection changed!\n");
 }
 
 typedef struct {
-  GtkIconView     *icon_list;
-  GtkTreePath     *path;
+  BobguiIconView     *icon_list;
+  BobguiTreePath     *path;
 } ItemData;
 
 static void
 free_item_data (ItemData *data)
 {
-  gtk_tree_path_free (data->path);
+  bobgui_tree_path_free (data->path);
   g_free (data);
 }
 
 static void
-item_activated (GtkIconView *icon_view,
-		GtkTreePath *path)
+item_activated (BobguiIconView *icon_view,
+		BobguiTreePath *path)
 {
-  GtkTreeIter iter;
-  GtkTreeModel *model;
+  BobguiTreeIter iter;
+  BobguiTreeModel *model;
   char *text;
 
-  model = gtk_icon_view_get_model (icon_view);
-  gtk_tree_model_get_iter (model, &iter, path);
+  model = bobgui_icon_view_get_model (icon_view);
+  bobgui_tree_model_get_iter (model, &iter, path);
 
-  gtk_tree_model_get (model, &iter, 1, &text, -1);
+  bobgui_tree_model_get (model, &iter, 1, &text, -1);
   g_print ("Item activated, text is %s\n", text);
   g_free (text);
   
 }
 
 static void
-toggled (GtkCellRendererToggle *cell,
+toggled (BobguiCellRendererToggle *cell,
 	 char                  *path_string,
 	 gpointer               data)
 {
-  GtkTreeModel *model = GTK_TREE_MODEL (data);
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+  BobguiTreeModel *model = BOBGUI_TREE_MODEL (data);
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_string);
   gboolean value;
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, 4, &value, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, 4, &value, -1);
 
   value = !value;
-  gtk_list_store_set (GTK_LIST_STORE (model), &iter, 4, value, -1);
+  bobgui_list_store_set (BOBGUI_LIST_STORE (model), &iter, 4, value, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-edited (GtkCellRendererText *cell,
+edited (BobguiCellRendererText *cell,
 	char                *path_string,
 	char                *new_text,
 	gpointer             data)
 {
-  GtkTreeModel *model = GTK_TREE_MODEL (data);
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+  BobguiTreeModel *model = BOBGUI_TREE_MODEL (data);
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_string);
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_list_store_set (GTK_LIST_STORE (model), &iter, 1, new_text, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_list_store_set (BOBGUI_LIST_STORE (model), &iter, 1, new_text, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-item_cb (GtkWidget *menuitem,
+item_cb (BobguiWidget *menuitem,
 	 ItemData  *data)
 {
   item_activated (data->icon_list, data->path);
 }
 
 static void
-do_popup_menu (GtkWidget   *icon_list,
-               GtkTreePath *path)
+do_popup_menu (BobguiWidget   *icon_list,
+               BobguiTreePath *path)
 {
-  GtkIconView *icon_view = GTK_ICON_VIEW (icon_list);
-  GtkWidget *menu;
-  GtkWidget *item;
+  BobguiIconView *icon_view = BOBGUI_ICON_VIEW (icon_list);
+  BobguiWidget *menu;
+  BobguiWidget *item;
   ItemData *data;
 
   if (!path)
     return;
 
-  menu = gtk_popover_new ();
-  gtk_widget_set_parent (menu, icon_list);
+  menu = bobgui_popover_new ();
+  bobgui_widget_set_parent (menu, icon_list);
 
   data = g_new0 (ItemData, 1);
   data->icon_list = icon_view;
   data->path = path;
   g_object_set_data_full (G_OBJECT (menu), "item-path", data, (GDestroyNotify)free_item_data);
 
-  item = gtk_button_new_with_label ("Activate");
-  gtk_popover_set_child (GTK_POPOVER (menu), item);
+  item = bobgui_button_new_with_label ("Activate");
+  bobgui_popover_set_child (BOBGUI_POPOVER (menu), item);
   g_signal_connect (item, "clicked", G_CALLBACK (item_cb), data);
 
-  gtk_popover_popup (GTK_POPOVER (menu));
+  bobgui_popover_popup (BOBGUI_POPOVER (menu));
 }
 
 static void
-press_handler (GtkGestureClick *gesture,
+press_handler (BobguiGestureClick *gesture,
                guint            n_press,
                double           x,
                double           y,
-               GtkWidget       *widget)
+               BobguiWidget       *widget)
 {
-  GtkTreePath *path = NULL;
+  BobguiTreePath *path = NULL;
 
   /* Ignore double-clicks and triple-clicks */
   if (n_press > 1)
     return;
 
-  path = gtk_icon_view_get_path_at_pos (GTK_ICON_VIEW (widget), x, y);
+  path = bobgui_icon_view_get_path_at_pos (BOBGUI_ICON_VIEW (widget), x, y);
   do_popup_menu (widget, path);
 }
 
 static gboolean
-popup_menu_handler (GtkWidget *widget)
+popup_menu_handler (BobguiWidget *widget)
 {
-  GtkTreePath *path = NULL;
+  BobguiTreePath *path = NULL;
   GList *list;
 
-  list = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (widget));
+  list = bobgui_icon_view_get_selected_items (BOBGUI_ICON_VIEW (widget));
 
   if (list)
     {
-      path = (GtkTreePath*)list->data;
-      g_list_free_full (list, (GDestroyNotify) gtk_tree_path_free);
+      path = (BobguiTreePath*)list->data;
+      g_list_free_full (list, (GDestroyNotify) bobgui_tree_path_free);
     }
 
   do_popup_menu (widget, path);
@@ -395,49 +395,49 @@ popup_menu_handler (GtkWidget *widget)
 int
 main (int argc, char **argv)
 {
-  GtkWidget *paned, *tv;
-  GtkWidget *window, *icon_list, *scrolled_window;
-  GtkWidget *vbox, *bbox;
-  GtkWidget *button;
-  GtkTreeModel *model;
-  GtkCellRenderer *cell;
-  GtkTreeViewColumn *tvc;
+  BobguiWidget *paned, *tv;
+  BobguiWidget *window, *icon_list, *scrolled_window;
+  BobguiWidget *vbox, *bbox;
+  BobguiWidget *button;
+  BobguiTreeModel *model;
+  BobguiCellRenderer *cell;
+  BobguiTreeViewColumn *tvc;
   GdkContentFormats *targets;
-  GtkGesture *gesture;
+  BobguiGesture *gesture;
   
-#ifdef GTK_SRCDIR
-  g_chdir (GTK_SRCDIR);
+#ifdef BOBGUI_SRCDIR
+  g_chdir (BOBGUI_SRCDIR);
 #endif
 
-  gtk_init ();
+  bobgui_init ();
 
   /* to test rtl layout, set RTL=1 in the environment */
   if (g_getenv ("RTL"))
-    gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+    bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 700, 400);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 700, 400);
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
-  gtk_widget_set_vexpand (paned, TRUE);
-  gtk_box_append (GTK_BOX (vbox), paned);
+  paned = bobgui_paned_new (BOBGUI_ORIENTATION_HORIZONTAL);
+  bobgui_widget_set_vexpand (paned, TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), paned);
 
-  icon_list = gtk_icon_view_new ();
-  gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (icon_list), GTK_SELECTION_MULTIPLE);
+  icon_list = bobgui_icon_view_new ();
+  bobgui_icon_view_set_selection_mode (BOBGUI_ICON_VIEW (icon_list), BOBGUI_SELECTION_MULTIPLE);
 
-  tv = gtk_tree_view_new ();
-  tvc = gtk_tree_view_column_new ();
-  gtk_tree_view_append_column (GTK_TREE_VIEW (tv), tvc);
+  tv = bobgui_tree_view_new ();
+  tvc = bobgui_tree_view_column_new ();
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (tv), tvc);
 
-  gesture = gtk_gesture_click_new ();
-  gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (gesture),
+  gesture = bobgui_gesture_click_new ();
+  bobgui_gesture_single_set_button (BOBGUI_GESTURE_SINGLE (gesture),
                                  GDK_BUTTON_SECONDARY);
   g_signal_connect (gesture, "pressed",
                     G_CALLBACK (press_handler), icon_list);
-  gtk_widget_add_controller (icon_list, GTK_EVENT_CONTROLLER (gesture));
+  bobgui_widget_add_controller (icon_list, BOBGUI_EVENT_CONTROLLER (gesture));
 
   g_signal_connect (icon_list, "selection_changed",
 		    G_CALLBACK (selection_changed), NULL);
@@ -448,144 +448,144 @@ main (int argc, char **argv)
 		    G_CALLBACK (item_activated), NULL);
   
   model = create_model ();
-  gtk_icon_view_set_model (GTK_ICON_VIEW (icon_list), model);
-  gtk_tree_view_set_model (GTK_TREE_VIEW (tv), model);
+  bobgui_icon_view_set_model (BOBGUI_ICON_VIEW (icon_list), model);
+  bobgui_tree_view_set_model (BOBGUI_TREE_VIEW (tv), model);
   fill_model (model);
 
 #if 0
 
-  gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (icon_list), 0);
-  gtk_icon_view_set_text_column (GTK_ICON_VIEW (icon_list), 1);
+  bobgui_icon_view_set_pixbuf_column (BOBGUI_ICON_VIEW (icon_list), 0);
+  bobgui_icon_view_set_text_column (BOBGUI_ICON_VIEW (icon_list), 1);
 
 #else
 
-  cell = gtk_cell_renderer_toggle_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (icon_list), cell, FALSE);
+  cell = bobgui_cell_renderer_toggle_new ();
+  bobgui_cell_layout_pack_start (BOBGUI_CELL_LAYOUT (icon_list), cell, FALSE);
   g_object_set (cell, "activatable", TRUE, NULL);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (icon_list),
+  bobgui_cell_layout_set_attributes (BOBGUI_CELL_LAYOUT (icon_list),
 				  cell, "active", 4, NULL);
   g_signal_connect (cell, "toggled", G_CALLBACK (toggled), model);
 
-  cell = gtk_cell_renderer_pixbuf_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (icon_list), cell, FALSE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (icon_list),
+  cell = bobgui_cell_renderer_pixbuf_new ();
+  bobgui_cell_layout_pack_start (BOBGUI_CELL_LAYOUT (icon_list), cell, FALSE);
+  bobgui_cell_layout_set_attributes (BOBGUI_CELL_LAYOUT (icon_list),
 				  cell, "pixbuf", 0, NULL);
 
-  cell = gtk_cell_renderer_text_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (icon_list), cell, FALSE);
+  cell = bobgui_cell_renderer_text_new ();
+  bobgui_cell_layout_pack_start (BOBGUI_CELL_LAYOUT (icon_list), cell, FALSE);
   g_object_set (cell, 
 		"editable", TRUE, 
 		"xalign", 0.5,
 		"wrap-mode", PANGO_WRAP_WORD_CHAR,
 		"wrap-width", 100,
 		NULL);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (icon_list),
+  bobgui_cell_layout_set_attributes (BOBGUI_CELL_LAYOUT (icon_list),
 				  cell, "text", 1, NULL);
   g_signal_connect (cell, "edited", G_CALLBACK (edited), model);
 
   /* now the tree view... */
-  cell = gtk_cell_renderer_toggle_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (tvc), cell, FALSE);
+  cell = bobgui_cell_renderer_toggle_new ();
+  bobgui_cell_layout_pack_start (BOBGUI_CELL_LAYOUT (tvc), cell, FALSE);
   g_object_set (cell, "activatable", TRUE, NULL);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (tvc),
+  bobgui_cell_layout_set_attributes (BOBGUI_CELL_LAYOUT (tvc),
 				  cell, "active", 4, NULL);
   g_signal_connect (cell, "toggled", G_CALLBACK (toggled), model);
 
-  cell = gtk_cell_renderer_pixbuf_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (tvc), cell, FALSE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (tvc),
+  cell = bobgui_cell_renderer_pixbuf_new ();
+  bobgui_cell_layout_pack_start (BOBGUI_CELL_LAYOUT (tvc), cell, FALSE);
+  bobgui_cell_layout_set_attributes (BOBGUI_CELL_LAYOUT (tvc),
 				  cell, "pixbuf", 0, NULL);
 
-  cell = gtk_cell_renderer_text_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (tvc), cell, FALSE);
+  cell = bobgui_cell_renderer_text_new ();
+  bobgui_cell_layout_pack_start (BOBGUI_CELL_LAYOUT (tvc), cell, FALSE);
   g_object_set (cell, "editable", TRUE, NULL);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (tvc),
+  bobgui_cell_layout_set_attributes (BOBGUI_CELL_LAYOUT (tvc),
 				  cell, "text", 1, NULL);
   g_signal_connect (cell, "edited", G_CALLBACK (edited), model);
 #endif
   /* Allow DND between the icon view and the tree view */
   
-  targets = gdk_content_formats_new_for_gtype (GTK_TYPE_TREE_ROW_DATA);
-  gtk_icon_view_enable_model_drag_source (GTK_ICON_VIEW (icon_list),
+  targets = gdk_content_formats_new_for_gtype (BOBGUI_TYPE_TREE_ROW_DATA);
+  bobgui_icon_view_enable_model_drag_source (BOBGUI_ICON_VIEW (icon_list),
 					  GDK_BUTTON1_MASK,
                                           targets,
 					  GDK_ACTION_MOVE);
-  gtk_icon_view_enable_model_drag_dest (GTK_ICON_VIEW (icon_list),
+  bobgui_icon_view_enable_model_drag_dest (BOBGUI_ICON_VIEW (icon_list),
                                         targets,
 					GDK_ACTION_MOVE);
 
-  gtk_tree_view_enable_model_drag_source (GTK_TREE_VIEW (tv),
+  bobgui_tree_view_enable_model_drag_source (BOBGUI_TREE_VIEW (tv),
 					  GDK_BUTTON1_MASK,
                                           targets,
 					  GDK_ACTION_MOVE);
-  gtk_tree_view_enable_model_drag_dest (GTK_TREE_VIEW (tv),
+  bobgui_tree_view_enable_model_drag_dest (BOBGUI_TREE_VIEW (tv),
                                         targets,
 					GDK_ACTION_MOVE);
   gdk_content_formats_unref (targets);
 
-  scrolled_window = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), icon_list);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-  				  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  scrolled_window = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled_window), icon_list);
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (scrolled_window),
+  				  BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
 
-  gtk_paned_set_start_child (GTK_PANED (paned), scrolled_window);
+  bobgui_paned_set_start_child (BOBGUI_PANED (paned), scrolled_window);
 
-  scrolled_window = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), tv);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-  				  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  scrolled_window = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled_window), tv);
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (scrolled_window),
+  				  BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
 
-  gtk_paned_set_end_child (GTK_PANED (paned), scrolled_window);
+  bobgui_paned_set_end_child (BOBGUI_PANED (paned), scrolled_window);
 
-  bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_widget_set_halign (bbox, GTK_ALIGN_START);
-  gtk_box_append (GTK_BOX (vbox), bbox);
+  bbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  bobgui_widget_set_halign (bbox, BOBGUI_ALIGN_START);
+  bobgui_box_append (BOBGUI_BOX (vbox), bbox);
 
-  button = gtk_button_new_with_label ("Add some");
+  button = bobgui_button_new_with_label ("Add some");
   g_signal_connect (button, "clicked", G_CALLBACK (add_some), icon_list);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  button = gtk_button_new_with_label ("Add many");
+  button = bobgui_button_new_with_label ("Add many");
   g_signal_connect (button, "clicked", G_CALLBACK (add_many), icon_list);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  button = gtk_button_new_with_label ("Add large");
+  button = bobgui_button_new_with_label ("Add large");
   g_signal_connect (button, "clicked", G_CALLBACK (add_large), icon_list);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  button = gtk_button_new_with_label ("Remove selected");
+  button = bobgui_button_new_with_label ("Remove selected");
   g_signal_connect (button, "clicked", G_CALLBACK (foreach_selected_remove), icon_list);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  button = gtk_button_new_with_label ("Swap");
+  button = bobgui_button_new_with_label ("Swap");
   g_signal_connect (button, "clicked", G_CALLBACK (swap_rows), icon_list);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  bbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_widget_set_halign (bbox, GTK_ALIGN_START);
-  gtk_box_append (GTK_BOX (vbox), bbox);
+  bbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  bobgui_widget_set_halign (bbox, BOBGUI_ALIGN_START);
+  bobgui_box_append (BOBGUI_BOX (vbox), bbox);
 
-  button = gtk_button_new_with_label ("Select all");
+  button = bobgui_button_new_with_label ("Select all");
   g_signal_connect (button, "clicked", G_CALLBACK (select_all), icon_list);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  button = gtk_button_new_with_label ("Unselect all");
+  button = bobgui_button_new_with_label ("Unselect all");
   g_signal_connect (button, "clicked", G_CALLBACK (unselect_all), icon_list);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  button = gtk_button_new_with_label ("Select nonexisting");
+  button = bobgui_button_new_with_label ("Select nonexisting");
   g_signal_connect (button, "clicked", G_CALLBACK (select_nonexisting), icon_list);
-  gtk_box_append (GTK_BOX (bbox), button);
+  bobgui_box_append (BOBGUI_BOX (bbox), button);
 
-  icon_list = gtk_icon_view_new ();
+  icon_list = bobgui_icon_view_new ();
 
-  scrolled_window = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), icon_list);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_paned_set_end_child (GTK_PANED (paned), scrolled_window);
+  scrolled_window = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled_window), icon_list);
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (scrolled_window),
+                                  BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
+  bobgui_paned_set_end_child (BOBGUI_PANED (paned), scrolled_window);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

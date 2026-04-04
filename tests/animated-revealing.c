@@ -1,6 +1,6 @@
 /* -*- mode: C; c-basic-offset: 2; indent-tabs-mode: nil; -*- */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "frame-stats.h"
 
@@ -12,13 +12,13 @@ static GOptionEntry options[] = {
 };
 
 static void
-toggle_reveal (GtkRevealer *revealer)
+toggle_reveal (BobguiRevealer *revealer)
 {
-  gtk_revealer_set_reveal_child (revealer, !gtk_revealer_get_reveal_child (revealer));
+  bobgui_revealer_set_reveal_child (revealer, !bobgui_revealer_get_reveal_child (revealer));
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -31,8 +31,8 @@ quit_cb (GtkWidget *widget,
 int
 main(int argc, char **argv)
 {
-  GtkWidget *window, *revealer, *grid, *widget;
-  GtkCssProvider *cssprovider;
+  BobguiWidget *window, *revealer, *grid, *widget;
+  BobguiCssProvider *cssprovider;
   GError *error = NULL;
   guint x, y;
   gboolean done = FALSE;
@@ -47,40 +47,40 @@ main(int argc, char **argv)
       return 1;
     }
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  frame_stats_ensure (GTK_WINDOW (window));
+  frame_stats_ensure (BOBGUI_WINDOW (window));
 
-  revealer = gtk_revealer_new ();
-  gtk_widget_set_valign (revealer, GTK_ALIGN_START);
-  gtk_revealer_set_transition_type (GTK_REVEALER (revealer), GTK_REVEALER_TRANSITION_TYPE_SLIDE_DOWN);
-  gtk_revealer_set_transition_duration (GTK_REVEALER (revealer), reveal_time * 1000);
-  gtk_revealer_set_reveal_child (GTK_REVEALER (revealer), TRUE);
+  revealer = bobgui_revealer_new ();
+  bobgui_widget_set_valign (revealer, BOBGUI_ALIGN_START);
+  bobgui_revealer_set_transition_type (BOBGUI_REVEALER (revealer), BOBGUI_REVEALER_TRANSITION_TYPE_SLIDE_DOWN);
+  bobgui_revealer_set_transition_duration (BOBGUI_REVEALER (revealer), reveal_time * 1000);
+  bobgui_revealer_set_reveal_child (BOBGUI_REVEALER (revealer), TRUE);
   g_signal_connect_after (revealer, "map", G_CALLBACK (toggle_reveal), NULL);
   g_signal_connect_after (revealer, "notify::child-revealed", G_CALLBACK (toggle_reveal), NULL);
-  gtk_window_set_child (GTK_WINDOW (window), revealer);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), revealer);
 
-  grid = gtk_grid_new ();
-  gtk_revealer_set_child (GTK_REVEALER (revealer), grid);
+  grid = bobgui_grid_new ();
+  bobgui_revealer_set_child (BOBGUI_REVEALER (revealer), grid);
 
-  cssprovider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_string (cssprovider, "* { padding: 2px; text-shadow: 5px 5px 2px grey; }");
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (cssprovider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  cssprovider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_string (cssprovider, "* { padding: 2px; text-shadow: 5px 5px 2px grey; }");
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (cssprovider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
   for (x = 0; x < 10; x++)
     {
       for (y = 0; y < 20; y++)
         {
-          widget = gtk_label_new ("Hello World");
-          gtk_grid_attach (GTK_GRID (grid), widget, x, y, 1, 1);
+          widget = bobgui_label_new ("Hello World");
+          bobgui_grid_attach (BOBGUI_GRID (grid), widget, x, y, 1, 1);
         }
     }
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

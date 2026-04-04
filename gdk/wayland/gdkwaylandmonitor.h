@@ -21,7 +21,7 @@
 
 #pragma once
 
-#if !defined (__GDKWAYLAND_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKWAYLAND_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/wayland/gdkwayland.h> can be included directly."
 #endif
 

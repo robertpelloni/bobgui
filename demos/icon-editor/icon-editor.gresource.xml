@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/org/gtk/Shaper">
-    <file preprocess="xml-stripblanks">org.gtk.Shaper.svg</file>
-    <file preprocess="xml-stripblanks">org.gtk.Shaper.Devel.svg</file>
-    <file preprocess="xml-stripblanks">org.gtk.Shaper-symbolic.svg</file>
+  <gresource prefix="/org/bobgui/Shaper">
+    <file preprocess="xml-stripblanks">org.bobgui.Shaper.svg</file>
+    <file preprocess="xml-stripblanks">org.bobgui.Shaper.Devel.svg</file>
+    <file preprocess="xml-stripblanks">org.bobgui.Shaper-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icon-editor-window.ui</file>
     <file preprocess="xml-stripblanks">alpha-editor.ui</file>
     <file preprocess="xml-stripblanks">paintable-editor.ui</file>
@@ -23,7 +23,7 @@
     <file preprocess="xml-stripblanks">example4.gpa</file>
     <file preprocess="xml-stripblanks">example5.gpa</file>
     <file preprocess="xml-stripblanks">example6.gpa</file>
-    <file alias="icon-format.md">../../docs/reference/gtk/icon-format.md</file>
+    <file alias="icon-format.md">../../docs/reference/bobgui/icon-format.md</file>
     <file>icon-editor.css</file>
     <file preprocess="xml-stripblanks">identity-symbolic.svg</file>
     <file preprocess="xml-stripblanks">translate-symbolic.svg</file>

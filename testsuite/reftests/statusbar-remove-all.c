@@ -15,14 +15,14 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
 G_MODULE_EXPORT void
-statusbar_remove_all (GtkStatusbar *s)
+statusbar_remove_all (BobguiStatusbar *s)
 {
-  gtk_statusbar_push (s, 0, "One");
-  gtk_statusbar_push (s, 0, "Two");
-  gtk_statusbar_remove_all (s, 0);
+  bobgui_statusbar_push (s, 0, "One");
+  bobgui_statusbar_push (s, 0, "Two");
+  bobgui_statusbar_remove_all (s, 0);
 }

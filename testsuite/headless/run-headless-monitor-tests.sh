@@ -7,7 +7,7 @@ outputdir=${builddir}/monitor
 mkdir -p ${outputdir}
 
 
-export GTK_A11Y=none
+export BOBGUI_A11Y=none
 
 dbus-run-session sh 2>${outputdir}/dbus-stderr.log <<EOF
 
@@ -22,16 +22,16 @@ wireplumber_pid=\$!
 sleep 2
 
 # echo DBUS_SESSION_BUS_ADDRESS=\$DBUS_SESSION_BUS_ADDRESS
-# echo WAYLAND_DISPLAY=gtk-test
+# echo WAYLAND_DISPLAY=bobgui-test
 
 export MUTTER_DEBUG=screen-cast
 
-mutter --headless --no-x11 --wayland-display gtk-test >&${outputdir}/mutter.log &
+mutter --headless --no-x11 --wayland-display bobgui-test >&${outputdir}/mutter.log &
 mutter_pid=\$!
 
 sleep 2
 
-export WAYLAND_DISPLAY=gtk-test
+export WAYLAND_DISPLAY=bobgui-test
 export GDK_BACKEND=wayland
 
 python3 ${srcdir}/headless-monitor-tests.py

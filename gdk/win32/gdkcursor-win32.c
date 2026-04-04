@@ -476,7 +476,7 @@ win32_cursor_create_win32hcursor (GdkWin32Display *display,
                                                    cursor->load_flags),
                                         cursor->load_flags & LR_SHARED ? FALSE : TRUE);
         break;
-      case GDK_WIN32_CURSOR_LOAD_FROM_RESOURCE_GTK:
+      case GDK_WIN32_CURSOR_LOAD_FROM_RESOURCE_BOBGUI:
         result = gdk_win32_hcursor_new (display,
                                         LoadImage (this_module (),
                                                    cursor->resource_name,
@@ -1006,7 +1006,7 @@ _gdk_win32_display_update_cursors (GdkWin32Display *display)
 }
 
 GdkPixbuf *
-gdk_win32_icon_to_pixbuf_libgtk_only (HICON hicon,
+gdk_win32_icon_to_pixbuf_libbobgui_only (HICON hicon,
                                       double *x_hot,
                                       double *y_hot)
 {

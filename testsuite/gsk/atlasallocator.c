@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "gsk/gpu/gskatlasallocatorprivate.h"
 
@@ -206,7 +206,7 @@ test_atlas_allocator_full_run (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/atlasallocator/simple", test_atlas_allocator_simple);
   g_test_add_func ("/atlasallocator/allocate-all", test_atlas_allocator_allocate_all);

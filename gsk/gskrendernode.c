@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2016  Endless
  *
@@ -684,7 +684,7 @@ gsk_render_node_diff (GskRenderNode  *node1,
  * @self: a render node
  * @out_opaque: (out): return location for the opaque rect
  *
- * Gets an opaque rectangle inside the node that GTK can determine to
+ * Gets an opaque rectangle inside the node that BOBGUI can determine to
  * be fully opaque.
  *
  * There is no guarantee that this is indeed the largest opaque rectangle or

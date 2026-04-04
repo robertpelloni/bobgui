@@ -15,25 +15,25 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
-set_border_window_size (GtkTextView       *text_view,
-                        GtkTextWindowType  win,
+set_border_window_size (BobguiTextView       *text_view,
+                        BobguiTextWindowType  win,
                         int                size)
 {
-  GtkWidget *label;
+  BobguiWidget *label;
 
-  label = gtk_label_new (NULL);
-  gtk_widget_set_size_request (label, size, size);
-  gtk_text_view_set_gutter (text_view, win, label);
+  label = bobgui_label_new (NULL);
+  bobgui_widget_set_size_request (label, size, size);
+  bobgui_text_view_set_gutter (text_view, win, label);
 }
 
 G_MODULE_EXPORT void
-add_border_windows (GtkTextView *text_view)
+add_border_windows (BobguiTextView *text_view)
 {
-  set_border_window_size (text_view, GTK_TEXT_WINDOW_LEFT, 30);
-  set_border_window_size (text_view, GTK_TEXT_WINDOW_RIGHT, 30);
-  set_border_window_size (text_view, GTK_TEXT_WINDOW_TOP, 30);
-  set_border_window_size (text_view, GTK_TEXT_WINDOW_BOTTOM, 30);
+  set_border_window_size (text_view, BOBGUI_TEXT_WINDOW_LEFT, 30);
+  set_border_window_size (text_view, BOBGUI_TEXT_WINDOW_RIGHT, 30);
+  set_border_window_size (text_view, BOBGUI_TEXT_WINDOW_TOP, 30);
+  set_border_window_size (text_view, BOBGUI_TEXT_WINDOW_BOTTOM, 30);
 }

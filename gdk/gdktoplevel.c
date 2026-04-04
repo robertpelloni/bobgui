@@ -414,8 +414,8 @@ gdk_toplevel_lower (GdkToplevel *toplevel)
  *
  * Sets keyboard focus to @surface.
  *
- * In most cases, [gtk_window_present_with_time()](../gtk4/method.Window.present_with_time.html)
- * should be used on a [GtkWindow](../gtk4/class.Window.html), rather than
+ * In most cases, [bobgui_window_present_with_time()](../bobgui4/method.Window.present_with_time.html)
+ * should be used on a [BobguiWindow](../bobgui4/class.Window.html), rather than
  * calling this function.
  */
 void
@@ -474,8 +474,8 @@ gdk_toplevel_set_title (GdkToplevel *toplevel,
  *
  * Sets the startup notification ID.
  *
- * When using GTK, typically you should use
- * [gtk_window_set_startup_id()](../gtk4/method.Window.set_startup_id.html)
+ * When using BOBGUI, typically you should use
+ * [bobgui_window_set_startup_id()](../bobgui4/method.Window.set_startup_id.html)
  * instead of this low-level function.
  */
 void
@@ -499,8 +499,8 @@ gdk_toplevel_set_startup_id (GdkToplevel *toplevel,
  * allows the window manager to do things like center @surface
  * on @parent and keep @surface above @parent.
  *
- * See [gtk_window_set_transient_for()](../gtk4/method.Window.set_transient_for.html)
- * if you’re using [GtkWindow](../gtk4/class.Window.html).
+ * See [bobgui_window_set_transient_for()](../bobgui4/method.Window.set_transient_for.html)
+ * if you’re using [BobguiWindow](../bobgui4/class.Window.html).
  */
 void
 gdk_toplevel_set_transient_for (GdkToplevel *toplevel,

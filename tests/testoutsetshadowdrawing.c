@@ -1,5 +1,5 @@
 
-#include<gtk/gtk.h>
+#include<bobgui/bobgui.h>
 
 /*#define COLOR " #0f0;"*/
 #define COLOR " red;"
@@ -75,7 +75,7 @@ static const char *css =
 ;
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -88,84 +88,84 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char **argv)
 {
-  GtkWidget *window;
-  GtkWidget *box;
-  GtkWidget *top;
-  GtkWidget *bottom;
-  GtkWidget *w;
-  GtkCssProvider *provider;
+  BobguiWidget *window;
+  BobguiWidget *box;
+  BobguiWidget *top;
+  BobguiWidget *bottom;
+  BobguiWidget *w;
+  BobguiCssProvider *provider;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_string (provider, css);
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_string (provider, css);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-  window = gtk_window_new ();
-  gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 120);
-  top = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 120);
-  bottom = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 120);
-  gtk_widget_set_margin_start (box, 120);
-  gtk_widget_set_margin_end (box, 120);
-  gtk_widget_set_margin_top (box, 120);
-  gtk_widget_set_margin_bottom (box, 120);
+  window = bobgui_window_new ();
+  bobgui_window_set_decorated (BOBGUI_WINDOW (window), FALSE);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 120);
+  top = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 120);
+  bottom = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 120);
+  bobgui_widget_set_margin_start (box, 120);
+  bobgui_widget_set_margin_end (box, 120);
+  bobgui_widget_set_margin_top (box, 120);
+  bobgui_widget_set_margin_bottom (box, 120);
 
-  w = gtk_button_new ();
-  gtk_widget_set_valign (w, GTK_ALIGN_CENTER);
-  gtk_widget_add_css_class (w, "one");
-  gtk_box_append (GTK_BOX (top), w);
+  w = bobgui_button_new ();
+  bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_add_css_class (w, "one");
+  bobgui_box_append (BOBGUI_BOX (top), w);
 
-  w = gtk_button_new ();
-  gtk_widget_set_valign (w, GTK_ALIGN_CENTER);
-  gtk_widget_add_css_class (w, "two");
-  gtk_box_append (GTK_BOX (top), w);
+  w = bobgui_button_new ();
+  bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_add_css_class (w, "two");
+  bobgui_box_append (BOBGUI_BOX (top), w);
 
-  w = gtk_button_new ();
-  gtk_widget_set_valign (w, GTK_ALIGN_CENTER);
-  gtk_widget_add_css_class (w, "three");
-  gtk_widget_set_opacity (w, 0.7);
-  gtk_box_append (GTK_BOX (top), w);
+  w = bobgui_button_new ();
+  bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_add_css_class (w, "three");
+  bobgui_widget_set_opacity (w, 0.7);
+  bobgui_box_append (BOBGUI_BOX (top), w);
 
-  w = gtk_button_new ();
-  gtk_widget_set_valign (w, GTK_ALIGN_CENTER);
-  gtk_widget_add_css_class (w, "four");
-  gtk_box_append (GTK_BOX (top), w);
+  w = bobgui_button_new ();
+  bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_add_css_class (w, "four");
+  bobgui_box_append (BOBGUI_BOX (top), w);
 
-  w = gtk_button_new ();
-  gtk_widget_set_valign (w, GTK_ALIGN_CENTER);
-  gtk_widget_add_css_class (w, "five");
-  gtk_box_append (GTK_BOX (top), w);
+  w = bobgui_button_new ();
+  bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_add_css_class (w, "five");
+  bobgui_box_append (BOBGUI_BOX (top), w);
 
   /* Bottom */
-  w = gtk_button_new ();
-  gtk_widget_set_valign (w, GTK_ALIGN_CENTER);
-  gtk_widget_add_css_class (w, "b1");
-  gtk_box_append (GTK_BOX (bottom), w);
+  w = bobgui_button_new ();
+  bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_add_css_class (w, "b1");
+  bobgui_box_append (BOBGUI_BOX (bottom), w);
 
-  /*w = gtk_button_new ();*/
-  /*gtk_widget_set_valign (w, GTK_ALIGN_CENTER);*/
-  /*gtk_widget_add_css_class (w, "b2");*/
-  /*gtk_box_append (GTK_BOX (bottom), w);*/
+  /*w = bobgui_button_new ();*/
+  /*bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);*/
+  /*bobgui_widget_add_css_class (w, "b2");*/
+  /*bobgui_box_append (BOBGUI_BOX (bottom), w);*/
 
-  /*w = gtk_button_new ();*/
-  /*gtk_widget_set_valign (w, GTK_ALIGN_CENTER);*/
-  /*gtk_widget_add_css_class (w, "b3");*/
-  /*gtk_box_append (GTK_BOX (bottom), w);*/
+  /*w = bobgui_button_new ();*/
+  /*bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);*/
+  /*bobgui_widget_add_css_class (w, "b3");*/
+  /*bobgui_box_append (BOBGUI_BOX (bottom), w);*/
 
-  /*w = gtk_button_new ();*/
-  /*gtk_widget_set_valign (w, GTK_ALIGN_CENTER);*/
-  /*gtk_widget_add_css_class (w, "b4");*/
-  /*gtk_box_append (GTK_BOX (bottom), w);*/
+  /*w = bobgui_button_new ();*/
+  /*bobgui_widget_set_valign (w, BOBGUI_ALIGN_CENTER);*/
+  /*bobgui_widget_add_css_class (w, "b4");*/
+  /*bobgui_box_append (BOBGUI_BOX (bottom), w);*/
 
-  gtk_box_append (GTK_BOX (box), top);
-  gtk_box_append (GTK_BOX (box), bottom);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  bobgui_box_append (BOBGUI_BOX (box), top);
+  bobgui_box_append (BOBGUI_BOX (box), bottom);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

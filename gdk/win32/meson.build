@@ -52,7 +52,7 @@ gdk_win32_public_headers = files([
   'gdkwin32surface.h',
 ])
 
-install_headers(gdk_win32_public_headers, 'gdkwin32.h', subdir: 'gtk-4.0/gdk/win32/')
+install_headers(gdk_win32_public_headers, 'gdkwin32.h', subdir: 'bobgui-4.0/gdk/win32/')
 
 if have_egl
   gdk_win32_sources += ['gdkglcontext-win32-egl.c']
@@ -79,7 +79,7 @@ libgdk_win32 = static_library('gdk-win32',
   sources: [ gdk_win32_sources, gdk_gen_headers ],
   include_directories: [ confinc, gdkinc ],
   c_args: [
-    '-DGTK_COMPILATION',
+    '-DBOBGUI_COMPILATION',
     '-DG_LOG_DOMAIN="Gdk"',
     '-DINSIDE_GDK_WIN32',
   ],

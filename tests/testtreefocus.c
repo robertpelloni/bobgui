@@ -17,7 +17,7 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
@@ -168,14 +168,14 @@ enum
   NUM_COLUMNS
 };
 
-static GtkTreeModel *
+static BobguiTreeModel *
 make_model (void)
 {
-  GtkTreeStore *model;
+  BobguiTreeStore *model;
   TreeStruct *month = toplevel;
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
 
-  model = gtk_tree_store_new (NUM_COLUMNS,
+  model = bobgui_tree_store_new (NUM_COLUMNS,
 			      G_TYPE_STRING,
 			      G_TYPE_BOOLEAN,
 			      G_TYPE_BOOLEAN,
@@ -189,8 +189,8 @@ make_model (void)
     {
       TreeStruct *holiday = month->children;
 
-      gtk_tree_store_append (model, &iter, NULL);
-      gtk_tree_store_set (model, &iter,
+      bobgui_tree_store_append (model, &iter, NULL);
+      bobgui_tree_store_set (model, &iter,
 			  HOLIDAY_COLUMN, month->label,
 			  ALEX_COLUMN, FALSE,
 			  HAVOC_COLUMN, FALSE,
@@ -202,10 +202,10 @@ make_model (void)
 			  -1);
       while (holiday->label)
 	{
-	  GtkTreeIter child_iter;
+	  BobguiTreeIter child_iter;
 
-	  gtk_tree_store_append (model, &child_iter, &iter);
-	  gtk_tree_store_set (model, &child_iter,
+	  bobgui_tree_store_append (model, &child_iter, &iter);
+	  bobgui_tree_store_set (model, &child_iter,
 			      HOLIDAY_COLUMN, holiday->label,
 			      ALEX_COLUMN, holiday->alex,
 			      HAVOC_COLUMN, holiday->havoc,
@@ -221,123 +221,123 @@ make_model (void)
       month ++;
     }
 
-  return GTK_TREE_MODEL (model);
+  return BOBGUI_TREE_MODEL (model);
 }
 
 static void
-alex_toggled (GtkCellRendererToggle *cell,
+alex_toggled (BobguiCellRendererToggle *cell,
 	      char                  *path_str,
 	      gpointer               data)
 {
-  GtkTreeModel *model = (GtkTreeModel *) data;
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
+  BobguiTreeModel *model = (BobguiTreeModel *) data;
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_str);
   gboolean alex;
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, ALEX_COLUMN, &alex, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, ALEX_COLUMN, &alex, -1);
 
   alex = !alex;
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, ALEX_COLUMN, alex, -1);
+  bobgui_tree_store_set (BOBGUI_TREE_STORE (model), &iter, ALEX_COLUMN, alex, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-havoc_toggled (GtkCellRendererToggle *cell,
+havoc_toggled (BobguiCellRendererToggle *cell,
 	       char                  *path_str,
 	       gpointer               data)
 {
-  GtkTreeModel *model = (GtkTreeModel *) data;
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
+  BobguiTreeModel *model = (BobguiTreeModel *) data;
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_str);
   gboolean havoc;
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, HAVOC_COLUMN, &havoc, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, HAVOC_COLUMN, &havoc, -1);
 
   havoc = !havoc;
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, HAVOC_COLUMN, havoc, -1);
+  bobgui_tree_store_set (BOBGUI_TREE_STORE (model), &iter, HAVOC_COLUMN, havoc, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-owen_toggled (GtkCellRendererToggle *cell,
+owen_toggled (BobguiCellRendererToggle *cell,
 	      char                  *path_str,
 	      gpointer               data)
 {
-  GtkTreeModel *model = (GtkTreeModel *) data;
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
+  BobguiTreeModel *model = (BobguiTreeModel *) data;
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_str);
   gboolean owen;
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, OWEN_COLUMN, &owen, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, OWEN_COLUMN, &owen, -1);
 
   owen = !owen;
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, OWEN_COLUMN, owen, -1);
+  bobgui_tree_store_set (BOBGUI_TREE_STORE (model), &iter, OWEN_COLUMN, owen, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-tim_toggled (GtkCellRendererToggle *cell,
+tim_toggled (BobguiCellRendererToggle *cell,
 	     char                  *path_str,
 	     gpointer               data)
 {
-  GtkTreeModel *model = (GtkTreeModel *) data;
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
+  BobguiTreeModel *model = (BobguiTreeModel *) data;
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_str);
   gboolean tim;
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, TIM_COLUMN, &tim, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, TIM_COLUMN, &tim, -1);
 
   tim = !tim;
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, TIM_COLUMN, tim, -1);
+  bobgui_tree_store_set (BOBGUI_TREE_STORE (model), &iter, TIM_COLUMN, tim, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-dave_toggled (GtkCellRendererToggle *cell,
+dave_toggled (BobguiCellRendererToggle *cell,
 	      char                  *path_str,
 	      gpointer               data)
 {
-  GtkTreeModel *model = (GtkTreeModel *) data;
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
+  BobguiTreeModel *model = (BobguiTreeModel *) data;
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_str);
   gboolean dave;
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, DAVE_COLUMN, &dave, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, DAVE_COLUMN, &dave, -1);
 
   dave = !dave;
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, DAVE_COLUMN, dave, -1);
+  bobgui_tree_store_set (BOBGUI_TREE_STORE (model), &iter, DAVE_COLUMN, dave, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-set_indicator_size (GtkTreeViewColumn *column,
-		    GtkCellRenderer *cell,
-		    GtkTreeModel *model,
-		    GtkTreeIter *iter,
+set_indicator_size (BobguiTreeViewColumn *column,
+		    BobguiCellRenderer *cell,
+		    BobguiTreeModel *model,
+		    BobguiTreeIter *iter,
 		    gpointer data)
 {
   int size;
-  GtkTreePath *path;
+  BobguiTreePath *path;
 
-  path = gtk_tree_model_get_path (model, iter);
-  size = gtk_tree_path_get_indices (path)[0]  * 2 + 10;
-  gtk_tree_path_free (path);
+  path = bobgui_tree_model_get_path (model, iter);
+  size = bobgui_tree_path_get_indices (path)[0]  * 2 + 10;
+  bobgui_tree_path_free (path);
 
   g_object_set (cell, "indicator_size", size, NULL);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -350,200 +350,200 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *vbox;
-  GtkWidget *scrolled_window;
-  GtkWidget *tree_view;
-  GtkTreeModel *model;
-  GtkCellRenderer *renderer;
+  BobguiWidget *window;
+  BobguiWidget *vbox;
+  BobguiWidget *scrolled_window;
+  BobguiWidget *tree_view;
+  BobguiTreeModel *model;
+  BobguiCellRenderer *renderer;
   int col_offset;
-  GtkTreeViewColumn *column;
+  BobguiTreeViewColumn *column;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "Card planning sheet");
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Card planning sheet");
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_box_append (GTK_BOX (vbox), gtk_label_new ("Jonathan's Holiday Card Planning Sheet"));
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 8);
+  bobgui_box_append (BOBGUI_BOX (vbox), bobgui_label_new ("Jonathan's Holiday Card Planning Sheet"));
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  scrolled_window = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (scrolled_window), TRUE);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_widget_set_vexpand (scrolled_window, TRUE);
-  gtk_box_append (GTK_BOX (vbox), scrolled_window);
+  scrolled_window = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_has_frame (BOBGUI_SCROLLED_WINDOW (scrolled_window), TRUE);
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (scrolled_window), BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
+  bobgui_widget_set_vexpand (scrolled_window, TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), scrolled_window);
 
   model = make_model ();
-  tree_view = gtk_tree_view_new_with_model (model);
-  gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view)),
-			       GTK_SELECTION_MULTIPLE);
-  renderer = gtk_cell_renderer_text_new ();
-  col_offset = gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  tree_view = bobgui_tree_view_new_with_model (model);
+  bobgui_tree_selection_set_mode (bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (tree_view)),
+			       BOBGUI_SELECTION_MULTIPLE);
+  renderer = bobgui_cell_renderer_text_new ();
+  col_offset = bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 							    -1, "Holiday",
 							    renderer,
 							    "text", HOLIDAY_COLUMN, NULL);
-  column = gtk_tree_view_get_column (GTK_TREE_VIEW (tree_view), col_offset - 1);
-  gtk_tree_view_column_set_clickable (GTK_TREE_VIEW_COLUMN (column), TRUE);
+  column = bobgui_tree_view_get_column (BOBGUI_TREE_VIEW (tree_view), col_offset - 1);
+  bobgui_tree_view_column_set_clickable (BOBGUI_TREE_VIEW_COLUMN (column), TRUE);
 
   /* Alex Column */
-  renderer = gtk_cell_renderer_toggle_new ();
+  renderer = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (renderer, "toggled", G_CALLBACK (alex_toggled), model);
 
   g_object_set (renderer, "xalign", 0.0, NULL);
-  col_offset = gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  col_offset = bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 							    -1, "Alex",
 							    renderer,
 							    "active", ALEX_COLUMN,
 							    "visible", VISIBLE_COLUMN,
 							    "activatable", WORLD_COLUMN,
 							    NULL);
-  column = gtk_tree_view_get_column (GTK_TREE_VIEW (tree_view), col_offset - 1);
-  gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column), GTK_TREE_VIEW_COLUMN_FIXED);
-  gtk_tree_view_column_set_fixed_width (GTK_TREE_VIEW_COLUMN (column), 50);
-  gtk_tree_view_column_set_clickable (GTK_TREE_VIEW_COLUMN (column), TRUE);
+  column = bobgui_tree_view_get_column (BOBGUI_TREE_VIEW (tree_view), col_offset - 1);
+  bobgui_tree_view_column_set_sizing (BOBGUI_TREE_VIEW_COLUMN (column), BOBGUI_TREE_VIEW_COLUMN_FIXED);
+  bobgui_tree_view_column_set_fixed_width (BOBGUI_TREE_VIEW_COLUMN (column), 50);
+  bobgui_tree_view_column_set_clickable (BOBGUI_TREE_VIEW_COLUMN (column), TRUE);
 
   /* Havoc Column */
-  renderer = gtk_cell_renderer_toggle_new ();
+  renderer = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (renderer, "toggled", G_CALLBACK (havoc_toggled), model);
 
   g_object_set (renderer, "xalign", 0.0, NULL);
-  col_offset = gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  col_offset = bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 							    -1, "Havoc",
 							    renderer,
 							    "active", HAVOC_COLUMN,
 							    "visible", VISIBLE_COLUMN,
 							    NULL);
-  column = gtk_tree_view_get_column (GTK_TREE_VIEW (tree_view), col_offset - 1);
-  gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column), GTK_TREE_VIEW_COLUMN_FIXED);
-  gtk_tree_view_column_set_fixed_width (GTK_TREE_VIEW_COLUMN (column), 50);
-  gtk_tree_view_column_set_clickable (GTK_TREE_VIEW_COLUMN (column), TRUE);
+  column = bobgui_tree_view_get_column (BOBGUI_TREE_VIEW (tree_view), col_offset - 1);
+  bobgui_tree_view_column_set_sizing (BOBGUI_TREE_VIEW_COLUMN (column), BOBGUI_TREE_VIEW_COLUMN_FIXED);
+  bobgui_tree_view_column_set_fixed_width (BOBGUI_TREE_VIEW_COLUMN (column), 50);
+  bobgui_tree_view_column_set_clickable (BOBGUI_TREE_VIEW_COLUMN (column), TRUE);
 
   /* Tim Column */
-  renderer = gtk_cell_renderer_toggle_new ();
+  renderer = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (renderer, "toggled", G_CALLBACK (tim_toggled), model);
 
   g_object_set (renderer, "xalign", 0.0, NULL);
-  col_offset = gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  col_offset = bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Tim",
 					       renderer,
 					       "active", TIM_COLUMN,
 					       "visible", VISIBLE_COLUMN,
 					       "activatable", WORLD_COLUMN,
 					       NULL);
-  column = gtk_tree_view_get_column (GTK_TREE_VIEW (tree_view), col_offset - 1);
-  gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column), GTK_TREE_VIEW_COLUMN_FIXED);
-  gtk_tree_view_column_set_clickable (GTK_TREE_VIEW_COLUMN (column), TRUE);
-  gtk_tree_view_column_set_fixed_width (GTK_TREE_VIEW_COLUMN (column), 50);
+  column = bobgui_tree_view_get_column (BOBGUI_TREE_VIEW (tree_view), col_offset - 1);
+  bobgui_tree_view_column_set_sizing (BOBGUI_TREE_VIEW_COLUMN (column), BOBGUI_TREE_VIEW_COLUMN_FIXED);
+  bobgui_tree_view_column_set_clickable (BOBGUI_TREE_VIEW_COLUMN (column), TRUE);
+  bobgui_tree_view_column_set_fixed_width (BOBGUI_TREE_VIEW_COLUMN (column), 50);
 
   /* Owen Column */
-  renderer = gtk_cell_renderer_toggle_new ();
+  renderer = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (renderer, "toggled", G_CALLBACK (owen_toggled), model);
   g_object_set (renderer, "xalign", 0.0, NULL);
-  col_offset = gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  col_offset = bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Owen",
 					       renderer,
 					       "active", OWEN_COLUMN,
 					       "visible", VISIBLE_COLUMN,
 					       NULL);
-  column = gtk_tree_view_get_column (GTK_TREE_VIEW (tree_view), col_offset - 1);
-  gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column), GTK_TREE_VIEW_COLUMN_FIXED);
-  gtk_tree_view_column_set_clickable (GTK_TREE_VIEW_COLUMN (column), TRUE);
-  gtk_tree_view_column_set_fixed_width (GTK_TREE_VIEW_COLUMN (column), 50);
+  column = bobgui_tree_view_get_column (BOBGUI_TREE_VIEW (tree_view), col_offset - 1);
+  bobgui_tree_view_column_set_sizing (BOBGUI_TREE_VIEW_COLUMN (column), BOBGUI_TREE_VIEW_COLUMN_FIXED);
+  bobgui_tree_view_column_set_clickable (BOBGUI_TREE_VIEW_COLUMN (column), TRUE);
+  bobgui_tree_view_column_set_fixed_width (BOBGUI_TREE_VIEW_COLUMN (column), 50);
 
   /* Owen Column */
-  renderer = gtk_cell_renderer_toggle_new ();
+  renderer = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (renderer, "toggled", G_CALLBACK (dave_toggled), model);
   g_object_set (renderer, "xalign", 0.0, NULL);
-  col_offset = gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  col_offset = bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Dave",
 					       renderer,
 					       "active", DAVE_COLUMN,
 					       "visible", VISIBLE_COLUMN,
 					       NULL);
-  column = gtk_tree_view_get_column (GTK_TREE_VIEW (tree_view), col_offset - 1);
-  gtk_tree_view_column_set_cell_data_func (column, renderer, set_indicator_size, NULL, NULL);
-  gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column), GTK_TREE_VIEW_COLUMN_FIXED);
-  gtk_tree_view_column_set_fixed_width (GTK_TREE_VIEW_COLUMN (column), 50);
-  gtk_tree_view_column_set_clickable (GTK_TREE_VIEW_COLUMN (column), TRUE);
+  column = bobgui_tree_view_get_column (BOBGUI_TREE_VIEW (tree_view), col_offset - 1);
+  bobgui_tree_view_column_set_cell_data_func (column, renderer, set_indicator_size, NULL, NULL);
+  bobgui_tree_view_column_set_sizing (BOBGUI_TREE_VIEW_COLUMN (column), BOBGUI_TREE_VIEW_COLUMN_FIXED);
+  bobgui_tree_view_column_set_fixed_width (BOBGUI_TREE_VIEW_COLUMN (column), 50);
+  bobgui_tree_view_column_set_clickable (BOBGUI_TREE_VIEW_COLUMN (column), TRUE);
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), tree_view);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled_window), tree_view);
 
   g_signal_connect (tree_view, "realize",
-		    G_CALLBACK (gtk_tree_view_expand_all),
+		    G_CALLBACK (bobgui_tree_view_expand_all),
 		    NULL);
-  gtk_window_set_default_size (GTK_WINDOW (window),
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window),
 			       650, 400);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "Model");
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Model");
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_box_append (GTK_BOX (vbox), gtk_label_new ("The model revealed"));
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 8);
+  bobgui_box_append (BOBGUI_BOX (vbox), bobgui_label_new ("The model revealed"));
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  scrolled_window = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (scrolled_window), TRUE);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_widget_set_vexpand (scrolled_window, TRUE);
-  gtk_box_append (GTK_BOX (vbox), scrolled_window);
+  scrolled_window = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_has_frame (BOBGUI_SCROLLED_WINDOW (scrolled_window), TRUE);
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (scrolled_window), BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
+  bobgui_widget_set_vexpand (scrolled_window, TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), scrolled_window);
 
 
-  tree_view = gtk_tree_view_new_with_model (model);
+  tree_view = bobgui_tree_view_new_with_model (model);
   g_object_unref (model);
 
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Holiday Column",
-					       gtk_cell_renderer_text_new (),
+					       bobgui_cell_renderer_text_new (),
 					       "text", 0, NULL);
 
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Alex Column",
-					       gtk_cell_renderer_text_new (),
+					       bobgui_cell_renderer_text_new (),
 					       "text", 1, NULL);
 
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Havoc Column",
-					       gtk_cell_renderer_text_new (),
+					       bobgui_cell_renderer_text_new (),
 					       "text", 2, NULL);
 
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Tim Column",
-					       gtk_cell_renderer_text_new (),
+					       bobgui_cell_renderer_text_new (),
 					       "text", 3, NULL);
 
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Owen Column",
-					       gtk_cell_renderer_text_new (),
+					       bobgui_cell_renderer_text_new (),
 					       "text", 4, NULL);
 
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Dave Column",
-					       gtk_cell_renderer_text_new (),
+					       bobgui_cell_renderer_text_new (),
 					       "text", 5, NULL);
 
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Visible Column",
-					       gtk_cell_renderer_text_new (),
+					       bobgui_cell_renderer_text_new (),
 					       "text", 6, NULL);
 
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "World Holiday",
-					       gtk_cell_renderer_text_new (),
+					       bobgui_cell_renderer_text_new (),
 					       "text", 7, NULL);
 
   g_signal_connect (tree_view, "realize",
-		    G_CALLBACK (gtk_tree_view_expand_all),
+		    G_CALLBACK (bobgui_tree_view_expand_all),
 		    NULL);
 			   
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), tree_view);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled_window), tree_view);
 
-  gtk_window_set_default_size (GTK_WINDOW (window),
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window),
 			       650, 400);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
   while (!done)
     g_main_context_iteration (NULL, TRUE);
 

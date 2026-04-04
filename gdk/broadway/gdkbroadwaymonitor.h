@@ -21,7 +21,7 @@
 
 #pragma once
 
-#if !defined (__GDKBROADWAY_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKBROADWAY_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/broadway/gdkbroadway.h> can be included directly."
 #endif
 

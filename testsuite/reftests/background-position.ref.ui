@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <property name="name">ref</property>
     <child>
-      <object class="GtkFixed" id="fixed1">
+      <object class="BobguiFixed" id="fixed1">
         <property name="width_request">120</property>
         <property name="height_request">120</property>
         <child>
-          <object class="GtkButton" id="button1">
+          <object class="BobguiButton" id="button1">
             <property name="width_request">20</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>
@@ -19,7 +19,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button2">
+          <object class="BobguiButton" id="button2">
             <property name="width_request">20</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>
@@ -30,7 +30,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button3">
+          <object class="BobguiButton" id="button3">
             <property name="width_request">20</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>
@@ -41,7 +41,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button4">
+          <object class="BobguiButton" id="button4">
             <property name="width_request">20</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>
@@ -52,7 +52,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button5">
+          <object class="BobguiButton" id="button5">
             <property name="width_request">20</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>
@@ -63,7 +63,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button6">
+          <object class="BobguiButton" id="button6">
             <property name="width_request">20</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>
@@ -74,7 +74,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button7">
+          <object class="BobguiButton" id="button7">
             <property name="width_request">20</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>
@@ -85,7 +85,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button8">
+          <object class="BobguiButton" id="button8">
             <property name="width_request">10</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>
@@ -96,7 +96,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button9">
+          <object class="BobguiButton" id="button9">
             <property name="width_request">20</property>
             <property name="height_request">20</property>
             <property name="receives_default">1</property>

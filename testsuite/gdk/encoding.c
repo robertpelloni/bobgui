@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #ifdef GDK_WINDOWING_X11
 #include <gdk/x11/gdkx.h>
 #endif
@@ -42,7 +42,7 @@ int
 main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/encoding/to-text-list", test_to_text_list);
 

@@ -16,26 +16,26 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
 #define MIN_ROWS 50
 #define MAX_ROWS 150
 
-typedef void (* DoStuffFunc) (GtkTreeView *treeview);
+typedef void (* DoStuffFunc) (BobguiTreeView *treeview);
 
 static guint
-count_children (GtkTreeModel *model,
-                GtkTreeIter  *parent)
+count_children (BobguiTreeModel *model,
+                BobguiTreeIter  *parent)
 {
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
   guint count = 0;
   gboolean valid;
 
-  for (valid = gtk_tree_model_iter_children (model, &iter, parent);
+  for (valid = bobgui_tree_model_iter_children (model, &iter, parent);
        valid;
-       valid = gtk_tree_model_iter_next (model, &iter))
+       valid = bobgui_tree_model_iter_next (model, &iter))
     {
       count += count_children (model, &iter) + 1;
     }
@@ -44,25 +44,25 @@ count_children (GtkTreeModel *model,
 }
 
 static void
-set_rows (GtkTreeView *treeview, guint i)
+set_rows (BobguiTreeView *treeview, guint i)
 {
-  g_assert (i == count_children (gtk_tree_view_get_model (treeview), NULL));
+  g_assert (i == count_children (bobgui_tree_view_get_model (treeview), NULL));
   g_object_set_data (G_OBJECT (treeview), "rows", GUINT_TO_POINTER (i));
 }
 
 static guint
-get_rows (GtkTreeView *treeview)
+get_rows (BobguiTreeView *treeview)
 {
   return GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (treeview), "rows"));
 }
 
 static void
-log_operation_for_path (GtkTreePath *path,
+log_operation_for_path (BobguiTreePath *path,
                         const char  *operation_name)
 {
   char *path_string;
 
-  path_string = path ? gtk_tree_path_to_string (path) : g_strdup ("");
+  path_string = path ? bobgui_tree_path_to_string (path) : g_strdup ("");
 
   g_printerr ("%10s %s\n", operation_name, path_string);
 
@@ -70,29 +70,29 @@ log_operation_for_path (GtkTreePath *path,
 }
 
 static void
-log_operation (GtkTreeModel *model,
-               GtkTreeIter  *iter,
+log_operation (BobguiTreeModel *model,
+               BobguiTreeIter  *iter,
                const char   *operation_name)
 {
-  GtkTreePath *path;
+  BobguiTreePath *path;
 
-  path = gtk_tree_model_get_path (model, iter);
+  path = bobgui_tree_model_get_path (model, iter);
 
   log_operation_for_path (path, operation_name);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 /* moves iter to the next iter in the model in the display order
  * inside a treeview. Returns FALSE if no more rows exist.
  */
 static gboolean
-tree_model_iter_step (GtkTreeModel *model,
-                      GtkTreeIter *iter)
+tree_model_iter_step (BobguiTreeModel *model,
+                      BobguiTreeIter *iter)
 {
-  GtkTreeIter tmp;
+  BobguiTreeIter tmp;
   
-  if (gtk_tree_model_iter_children (model, &tmp, iter))
+  if (bobgui_tree_model_iter_children (model, &tmp, iter))
     {
       *iter = tmp;
       return TRUE;
@@ -101,26 +101,26 @@ tree_model_iter_step (GtkTreeModel *model,
   do {
     tmp = *iter;
 
-    if (gtk_tree_model_iter_next (model, iter))
+    if (bobgui_tree_model_iter_next (model, iter))
       return TRUE;
     }
-  while (gtk_tree_model_iter_parent (model, iter, &tmp));
+  while (bobgui_tree_model_iter_parent (model, iter, &tmp));
 
   return FALSE;
 }
 
 /* NB: may include invisible iters (because they are collapsed) */
 static void
-tree_view_random_iter (GtkTreeView *treeview,
-                       GtkTreeIter *iter)
+tree_view_random_iter (BobguiTreeView *treeview,
+                       BobguiTreeIter *iter)
 {
   guint n_rows = get_rows (treeview);
   guint i = g_random_int_range (0, n_rows);
-  GtkTreeModel *model;
+  BobguiTreeModel *model;
 
-  model = gtk_tree_view_get_model (treeview);
+  model = bobgui_tree_view_get_model (treeview);
   
-  if (!gtk_tree_model_get_iter_first (model, iter))
+  if (!bobgui_tree_model_get_iter_first (model, iter))
     return;
 
   while (i-- > 0)
@@ -136,39 +136,39 @@ tree_view_random_iter (GtkTreeView *treeview,
 }
 
 static void
-delete (GtkTreeView *treeview)
+delete (BobguiTreeView *treeview)
 {
   guint n_rows = get_rows (treeview);
-  GtkTreeModel *model;
-  GtkTreeIter iter;
+  BobguiTreeModel *model;
+  BobguiTreeIter iter;
 
-  model = gtk_tree_view_get_model (treeview);
+  model = bobgui_tree_view_get_model (treeview);
   
   tree_view_random_iter (treeview, &iter);
 
   n_rows -= count_children (model, &iter) + 1;
   log_operation (model, &iter, "remove");
-  gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
+  bobgui_tree_store_remove (BOBGUI_TREE_STORE (model), &iter);
   set_rows (treeview, n_rows);
 }
 
 static void
-add_one (GtkTreeModel *model,
-         GtkTreeIter *iter)
+add_one (BobguiTreeModel *model,
+         BobguiTreeIter *iter)
 {
-  guint n = gtk_tree_model_iter_n_children (model, iter);
-  GtkTreeIter new_iter;
+  guint n = bobgui_tree_model_iter_n_children (model, iter);
+  BobguiTreeIter new_iter;
   static guint counter = 0;
   
   if (n > 0 && g_random_boolean ())
     {
-      GtkTreeIter child;
-      gtk_tree_model_iter_nth_child (model, &child, iter, g_random_int_range (0, n));
+      BobguiTreeIter child;
+      bobgui_tree_model_iter_nth_child (model, &child, iter, g_random_int_range (0, n));
       add_one (model, &child);
       return;
     }
 
-  gtk_tree_store_insert_with_values (GTK_TREE_STORE (model),
+  bobgui_tree_store_insert_with_values (BOBGUI_TREE_STORE (model),
                                      &new_iter,
                                      iter,
                                      g_random_int_range (-1, n),
@@ -178,18 +178,18 @@ add_one (GtkTreeModel *model,
 }
 
 static void
-add (GtkTreeView *treeview)
+add (BobguiTreeView *treeview)
 {
-  GtkTreeModel *model;
+  BobguiTreeModel *model;
 
-  model = gtk_tree_view_get_model (treeview);
+  model = bobgui_tree_view_get_model (treeview);
   add_one (model, NULL);
 
   set_rows (treeview, get_rows (treeview) + 1);
 }
 
 static void
-add_or_delete (GtkTreeView *treeview)
+add_or_delete (BobguiTreeView *treeview)
 {
   guint n_rows = get_rows (treeview);
 
@@ -201,121 +201,121 @@ add_or_delete (GtkTreeView *treeview)
 
 /* XXX: We only expand/collapse from the top and not randomly */
 static void
-expand (GtkTreeView *treeview)
+expand (BobguiTreeView *treeview)
 {
-  GtkTreeModel *model;
-  GtkTreeIter iter;
-  GtkTreePath *path;
+  BobguiTreeModel *model;
+  BobguiTreeIter iter;
+  BobguiTreePath *path;
   gboolean valid;
 
-  model = gtk_tree_view_get_model (treeview);
+  model = bobgui_tree_view_get_model (treeview);
   
-  for (valid = gtk_tree_model_get_iter_first (model, &iter);
+  for (valid = bobgui_tree_model_get_iter_first (model, &iter);
        valid;
        valid = tree_model_iter_step (model, &iter))
     {
-      if (gtk_tree_model_iter_has_child (model, &iter))
+      if (bobgui_tree_model_iter_has_child (model, &iter))
         {
-          path = gtk_tree_model_get_path (model, &iter);
-          if (!gtk_tree_view_row_expanded (treeview, path))
+          path = bobgui_tree_model_get_path (model, &iter);
+          if (!bobgui_tree_view_row_expanded (treeview, path))
             {
               log_operation (model, &iter, "expand");
-              gtk_tree_view_expand_row (treeview, path, FALSE);
-              gtk_tree_path_free (path);
+              bobgui_tree_view_expand_row (treeview, path, FALSE);
+              bobgui_tree_path_free (path);
               return;
             }
-          gtk_tree_path_free (path);
+          bobgui_tree_path_free (path);
         }
     }
 }
 
 static void
-collapse (GtkTreeView *treeview)
+collapse (BobguiTreeView *treeview)
 {
-  GtkTreeModel *model;
-  GtkTreeIter iter;
-  GtkTreePath *last, *path;
+  BobguiTreeModel *model;
+  BobguiTreeIter iter;
+  BobguiTreePath *last, *path;
   gboolean valid;
 
-  model = gtk_tree_view_get_model (treeview);
+  model = bobgui_tree_view_get_model (treeview);
   last = NULL;
   
-  for (valid = gtk_tree_model_get_iter_first (model, &iter);
+  for (valid = bobgui_tree_model_get_iter_first (model, &iter);
        valid;
        valid = tree_model_iter_step (model, &iter))
     {
-      path = gtk_tree_model_get_path (model, &iter);
-      if (gtk_tree_view_row_expanded (treeview, path))
+      path = bobgui_tree_model_get_path (model, &iter);
+      if (bobgui_tree_view_row_expanded (treeview, path))
         {
           if (last)
-            gtk_tree_path_free (last);
+            bobgui_tree_path_free (last);
           last = path;
         }
       else
-        gtk_tree_path_free (path);
+        bobgui_tree_path_free (path);
     }
 
   if (last)
     {
       log_operation_for_path (last, "collapse");
-      gtk_tree_view_collapse_row (treeview, last);
-      gtk_tree_path_free (last);
+      bobgui_tree_view_collapse_row (treeview, last);
+      bobgui_tree_path_free (last);
     }
 }
 
 static void
-select_ (GtkTreeView *treeview)
+select_ (BobguiTreeView *treeview)
 {
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
 
   tree_view_random_iter (treeview, &iter);
 
-  log_operation (gtk_tree_view_get_model (treeview), &iter, "select");
-  gtk_tree_selection_select_iter (gtk_tree_view_get_selection (treeview),
+  log_operation (bobgui_tree_view_get_model (treeview), &iter, "select");
+  bobgui_tree_selection_select_iter (bobgui_tree_view_get_selection (treeview),
                                   &iter);
 }
 
 static void
-unselect (GtkTreeView *treeview)
+unselect (BobguiTreeView *treeview)
 {
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
 
   tree_view_random_iter (treeview, &iter);
 
-  log_operation (gtk_tree_view_get_model (treeview), &iter, "unselect");
-  gtk_tree_selection_unselect_iter (gtk_tree_view_get_selection (treeview),
+  log_operation (bobgui_tree_view_get_model (treeview), &iter, "unselect");
+  bobgui_tree_selection_unselect_iter (bobgui_tree_view_get_selection (treeview),
                                     &iter);
 }
 
 static void
-reset_model (GtkTreeView *treeview)
+reset_model (BobguiTreeView *treeview)
 {
-  GtkTreeSelection *selection;
-  GtkTreeModel *model;
+  BobguiTreeSelection *selection;
+  BobguiTreeModel *model;
   GList *list, *selected;
-  GtkTreePath *cursor;
+  BobguiTreePath *cursor;
   
-  selection = gtk_tree_view_get_selection (treeview);
-  model = g_object_ref (gtk_tree_view_get_model (treeview));
+  selection = bobgui_tree_view_get_selection (treeview);
+  model = g_object_ref (bobgui_tree_view_get_model (treeview));
 
   log_operation_for_path (NULL, "reset");
 
-  selected = gtk_tree_selection_get_selected_rows (selection, NULL);
-  gtk_tree_view_get_cursor (treeview, &cursor, NULL);
+  selected = bobgui_tree_selection_get_selected_rows (selection, NULL);
+  bobgui_tree_view_get_cursor (treeview, &cursor, NULL);
 
-  gtk_tree_view_set_model (treeview, NULL);
-  gtk_tree_view_set_model (treeview, model);
+  bobgui_tree_view_set_model (treeview, NULL);
+  bobgui_tree_view_set_model (treeview, model);
 
   if (cursor)
     {
-      gtk_tree_view_set_cursor (treeview, cursor, NULL, FALSE);
-      gtk_tree_path_free (cursor);
+      bobgui_tree_view_set_cursor (treeview, cursor, NULL, FALSE);
+      bobgui_tree_path_free (cursor);
     }
   for (list = selected; list; list = list->next)
     {
-      gtk_tree_selection_select_path (selection, list->data);
+      bobgui_tree_selection_select_path (selection, list->data);
     }
-  g_list_free_full (selected, (GDestroyNotify) gtk_tree_path_free);
+  g_list_free_full (selected, (GDestroyNotify) bobgui_tree_path_free);
 
   g_object_unref (model);
 }
@@ -323,10 +323,10 @@ reset_model (GtkTreeView *treeview)
 /* sanity checks */
 
 static void
-assert_row_reference_is_path (GtkTreeRowReference *ref,
-                              GtkTreePath *path)
+assert_row_reference_is_path (BobguiTreeRowReference *ref,
+                              BobguiTreePath *path)
 {
-  GtkTreePath *expected;
+  BobguiTreePath *expected;
 
   if (ref == NULL)
     {
@@ -335,31 +335,31 @@ assert_row_reference_is_path (GtkTreeRowReference *ref,
     }
 
   g_assert (path != NULL);
-  g_assert (gtk_tree_row_reference_valid (ref));
+  g_assert (bobgui_tree_row_reference_valid (ref));
 
-  expected = gtk_tree_row_reference_get_path (ref);
+  expected = bobgui_tree_row_reference_get_path (ref);
   g_assert (expected != NULL);
-  g_assert (gtk_tree_path_compare (expected, path) == 0);
-  gtk_tree_path_free (expected);
+  g_assert (bobgui_tree_path_compare (expected, path) == 0);
+  bobgui_tree_path_free (expected);
 }
 
 static void
-check_cursor (GtkTreeView *treeview)
+check_cursor (BobguiTreeView *treeview)
 {
-  GtkTreeRowReference *ref = g_object_get_data (G_OBJECT (treeview), "cursor");
-  GtkTreePath *cursor;
+  BobguiTreeRowReference *ref = g_object_get_data (G_OBJECT (treeview), "cursor");
+  BobguiTreePath *cursor;
 
-  gtk_tree_view_get_cursor (treeview, &cursor, NULL);
+  bobgui_tree_view_get_cursor (treeview, &cursor, NULL);
   assert_row_reference_is_path (ref, cursor);
 
   if (cursor)
-    gtk_tree_path_free (cursor);
+    bobgui_tree_path_free (cursor);
 }
 
 static void
-check_selection_item (GtkTreeModel *model,
-                      GtkTreePath  *path,
-                      GtkTreeIter  *iter,
+check_selection_item (BobguiTreeModel *model,
+                      BobguiTreePath  *path,
+                      BobguiTreeIter  *iter,
                       gpointer      listp)
 {
   GList **list = listp;
@@ -370,17 +370,17 @@ check_selection_item (GtkTreeModel *model,
 }
 
 static void
-check_selection (GtkTreeView *treeview)
+check_selection (BobguiTreeView *treeview)
 {
   GList *selection = g_object_get_data (G_OBJECT (treeview), "selection");
 
-  gtk_tree_selection_selected_foreach (gtk_tree_view_get_selection (treeview),
+  bobgui_tree_selection_selected_foreach (bobgui_tree_view_get_selection (treeview),
                                        check_selection_item,
                                        &selection);
 }
 
 static void
-check_sanity (GtkTreeView *treeview)
+check_sanity (BobguiTreeView *treeview)
 {
   check_cursor (treeview);
   check_selection (treeview);
@@ -410,64 +410,64 @@ dance (gpointer treeview)
 }
 
 static void
-cursor_changed_cb (GtkTreeView *treeview,
+cursor_changed_cb (BobguiTreeView *treeview,
                    gpointer     unused)
 {
-  GtkTreePath *path;
-  GtkTreeRowReference *ref;
+  BobguiTreePath *path;
+  BobguiTreeRowReference *ref;
 
-  gtk_tree_view_get_cursor (treeview, &path, NULL);
+  bobgui_tree_view_get_cursor (treeview, &path, NULL);
   if (path)
     {
-      ref = gtk_tree_row_reference_new (gtk_tree_view_get_model (treeview),
+      ref = bobgui_tree_row_reference_new (bobgui_tree_view_get_model (treeview),
                                         path);
-      gtk_tree_path_free (path);
+      bobgui_tree_path_free (path);
     }
   else
     ref = NULL;
-  g_object_set_data_full (G_OBJECT (treeview), "cursor", ref, (GDestroyNotify) gtk_tree_row_reference_free);
+  g_object_set_data_full (G_OBJECT (treeview), "cursor", ref, (GDestroyNotify) bobgui_tree_row_reference_free);
 }
 
 static void
 selection_list_free (gpointer list)
 {
-  g_list_free_full (list, (GDestroyNotify) gtk_tree_row_reference_free);
+  g_list_free_full (list, (GDestroyNotify) bobgui_tree_row_reference_free);
 }
 
 static void
-selection_changed_cb (GtkTreeSelection *tree_selection,
+selection_changed_cb (BobguiTreeSelection *tree_selection,
                       gpointer          unused)
 {
   GList *selected, *list;
-  GtkTreeModel *model;
+  BobguiTreeModel *model;
 
-  selected = gtk_tree_selection_get_selected_rows (tree_selection, &model);
+  selected = bobgui_tree_selection_get_selected_rows (tree_selection, &model);
 
   for (list = selected; list; list = list->next)
     {
-      GtkTreePath *path = list->data;
+      BobguiTreePath *path = list->data;
 
-      list->data = gtk_tree_row_reference_new (model, path);
-      gtk_tree_path_free (path);
+      list->data = bobgui_tree_row_reference_new (model, path);
+      bobgui_tree_path_free (path);
     }
 
-  g_object_set_data_full (G_OBJECT (gtk_tree_selection_get_tree_view (tree_selection)),
+  g_object_set_data_full (G_OBJECT (bobgui_tree_selection_get_tree_view (tree_selection)),
                           "selection",
                           selected,
                           selection_list_free);
 }
 
 static void
-setup_sanity_checks (GtkTreeView *treeview)
+setup_sanity_checks (BobguiTreeView *treeview)
 {
   g_signal_connect (treeview, "cursor-changed", G_CALLBACK (cursor_changed_cb), NULL);
   cursor_changed_cb (treeview, NULL);
-  g_signal_connect (gtk_tree_view_get_selection (treeview), "changed", G_CALLBACK (selection_changed_cb), NULL);
-  selection_changed_cb (gtk_tree_view_get_selection (treeview), NULL);
+  g_signal_connect (bobgui_tree_view_get_selection (treeview), "changed", G_CALLBACK (selection_changed_cb), NULL);
+  selection_changed_cb (bobgui_tree_view_get_selection (treeview), NULL);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -481,45 +481,45 @@ int
 main (int    argc,
       char **argv)
 {
-  GtkWidget *window;
-  GtkWidget *sw;
-  GtkWidget *treeview;
-  GtkTreeModel *model;
+  BobguiWidget *window;
+  BobguiWidget *sw;
+  BobguiWidget *treeview;
+  BobguiTreeModel *model;
   guint i;
   gboolean done = FALSE;
   
-  gtk_init ();
+  bobgui_init ();
 
   if (g_getenv ("RTL"))
-    gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+    bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  gtk_window_set_default_size (GTK_WINDOW (window), 430, 400);
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 430, 400);
 
-  sw = gtk_scrolled_window_new ();
-  gtk_widget_set_hexpand (sw, TRUE);
-  gtk_widget_set_vexpand (sw, TRUE);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-                                  GTK_POLICY_AUTOMATIC,
-                                  GTK_POLICY_AUTOMATIC);
-  gtk_window_set_child (GTK_WINDOW (window), sw);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_widget_set_hexpand (sw, TRUE);
+  bobgui_widget_set_vexpand (sw, TRUE);
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (sw),
+                                  BOBGUI_POLICY_AUTOMATIC,
+                                  BOBGUI_POLICY_AUTOMATIC);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), sw);
 
-  model = GTK_TREE_MODEL (gtk_tree_store_new (1, G_TYPE_UINT));
-  treeview = gtk_tree_view_new_with_model (model);
+  model = BOBGUI_TREE_MODEL (bobgui_tree_store_new (1, G_TYPE_UINT));
+  treeview = bobgui_tree_view_new_with_model (model);
   g_object_unref (model);
-  setup_sanity_checks (GTK_TREE_VIEW (treeview));
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (treeview),
+  setup_sanity_checks (BOBGUI_TREE_VIEW (treeview));
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (treeview),
                                                0,
                                                "Counter",
-                                               gtk_cell_renderer_text_new (),
+                                               bobgui_cell_renderer_text_new (),
                                                "text", 0,
                                                NULL);
   for (i = 0; i < (MIN_ROWS + MAX_ROWS) / 2; i++)
-    add (GTK_TREE_VIEW (treeview));
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), treeview);
+    add (BOBGUI_TREE_VIEW (treeview));
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), treeview);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   g_idle_add (dance, treeview);
   

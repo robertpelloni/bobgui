@@ -17,7 +17,7 @@
  * Authors: Benjamin Otte <otte@gnome.org>
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "path-utils.h"
 
@@ -787,7 +787,7 @@ int
 main (int   argc,
       char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/path/create", test_create);
   g_test_add_func ("/path/parse", test_parse);

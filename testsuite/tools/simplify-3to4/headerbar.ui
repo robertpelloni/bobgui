@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <child type="titlebar">
-      <object class="GtkHeaderBar" id="headerbar1">
+      <object class="BobguiHeaderBar" id="headerbar1">
         <property name="visible">True</property>
         <property name="show-close-button">True</property>
         <property name="custom-title">box1</property>
         <child>
-          <object class="GtkButton">
+          <object class="BobguiButton">
             <property name="visible">True</property>
             <property name="label">A!</property>
           </object>
@@ -18,7 +18,7 @@
       </object>
     </child>
   </object>
-  <object class="GtkBox" id="box1">
+  <object class="BobguiBox" id="box1">
     <property name="visible">True</property>
   </object>
 </interface>

@@ -58,7 +58,7 @@ gdk_x11_public_headers = files([
   'gdkx11surface.h',
 ])
 
-install_headers(gdk_x11_public_headers, 'gdkx.h', subdir: 'gtk-4.0/gdk/x11/')
+install_headers(gdk_x11_public_headers, 'gdkx.h', subdir: 'bobgui-4.0/gdk/x11/')
 
 gdk_x11_deps = [
   xrender_dep,
@@ -76,7 +76,7 @@ libgdk_x11 = static_library('gdk-x11',
   sources: [ gdk_gen_headers, gdk_x11_sources ],
   include_directories: [ confinc, gdkinc, ],
   c_args: [
-    '-DGTK_COMPILATION',
+    '-DBOBGUI_COMPILATION',
     '-DG_LOG_DOMAIN="Gdk"',
   ] + common_cflags,
   dependencies: [ gdk_deps, gdk_x11_deps, ],

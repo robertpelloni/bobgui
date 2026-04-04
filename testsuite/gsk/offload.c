@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gdk/gdksurfaceprivate.h>
 #include <gdk/gdksubsurfaceprivate.h>
 #include <gdk/gdkdebugprivate.h>
@@ -98,10 +98,10 @@ deserialize_error_func (const GskParseLocation *start,
   g_string_append_printf (errors, "%s: error: ", string->str);
   g_string_free (string, TRUE);
 
-  if (error->domain == GTK_CSS_PARSER_ERROR)
-    append_error_value (errors, GTK_TYPE_CSS_PARSER_ERROR, error->code);
-  else if (error->domain == GTK_CSS_PARSER_WARNING)
-    append_error_value (errors, GTK_TYPE_CSS_PARSER_WARNING, error->code);
+  if (error->domain == BOBGUI_CSS_PARSER_ERROR)
+    append_error_value (errors, BOBGUI_TYPE_CSS_PARSER_ERROR, error->code);
+  else if (error->domain == BOBGUI_CSS_PARSER_WARNING)
+    append_error_value (errors, BOBGUI_TYPE_CSS_PARSER_WARNING, error->code);
   else
     g_string_append_printf (errors,
                             "%s %u\n",
@@ -624,7 +624,7 @@ main (int argc, char **argv)
       const char *basedir;
       GFile *dir;
 
-      gtk_test_init (&argc, &argv);
+      bobgui_test_init (&argc, &argv);
 
       basedir = g_test_get_dir (G_TEST_DIST);
       dir = g_file_new_for_path (basedir);
@@ -643,7 +643,7 @@ main (int argc, char **argv)
           const char *generate = argv[1] + strlen ("--generate=");
           GFile *file = g_file_new_for_commandline_arg (argv[2]);
 
-          gtk_init ();
+          bobgui_init ();
 
           success = parse_node_file (file, generate);
 
@@ -656,7 +656,7 @@ main (int argc, char **argv)
     {
       guint i;
 
-      gtk_test_init (&argc, &argv);
+      bobgui_test_init (&argc, &argv);
 
       success = TRUE;
 

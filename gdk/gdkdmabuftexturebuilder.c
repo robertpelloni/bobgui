@@ -92,7 +92,7 @@ struct _GdkDmabufTextureBuilderClass
  *
  * For historical reasons, some producers of dma-bufs don't provide an explicit modifier, but
  * instead return `DMA_FORMAT_MOD_INVALID` to indicate that their modifier is **_implicit_**.
- * GTK tries to accommodate this situation by accepting `DMA_FORMAT_MOD_INVALID` as modifier.
+ * BOBGUI tries to accommodate this situation by accepting `DMA_FORMAT_MOD_INVALID` as modifier.
  *
  * The operation of `GdkDmabufTextureBuilder` is quite simple: Create a texture builder,
  * set all the necessary properties, and then call [method@Gdk.DmabufTextureBuilder.build]
@@ -907,7 +907,7 @@ gdk_dmabuf_texture_builder_get_color_state (GdkDmabufTextureBuilder *self)
  *
  * Sets the color state for the texture.
  *
- * By default, the colorstate is `NULL`. In that case, GTK will choose the
+ * By default, the colorstate is `NULL`. In that case, BOBGUI will choose the
  * correct colorstate based on the format.
  * If you don't know what colorstates are, this is probably the right thing.
  *
@@ -1004,7 +1004,7 @@ gdk_dmabuf_texture_builder_get_update_region (GdkDmabufTextureBuilder *self)
  * When rendering animations of large textures, it is possible that
  * consecutive textures are only updating contents in parts of the texture.
  * It is then possible to describe this update via these two properties,
- * so that GTK can avoid rerendering parts that did not change.
+ * so that BOBGUI can avoid rerendering parts that did not change.
  *
  * An example would be a screen recording where only the mouse pointer moves.
  *
@@ -1041,7 +1041,7 @@ gdk_dmabuf_texture_builder_set_update_region (GdkDmabufTextureBuilder *self,
  *
  * Not all formats defined in the `drm_fourcc.h` header are supported. You can use
  * [method@Gdk.Display.get_dmabuf_formats] to get a list of supported formats. If the
- * format is not supported by GTK, %NULL will be returned and @error will be set.
+ * format is not supported by BOBGUI, %NULL will be returned and @error will be set.
  *
  * The `destroy` function gets called when the returned texture gets released.
  *

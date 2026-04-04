@@ -1,4 +1,4 @@
-#include <gtk.h>
+#include <bobgui.h>
 
 gboolean done = FALSE;
 
@@ -7,11 +7,11 @@ open_done (GObject *source,
            GAsyncResult *result,
            gpointer data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GFile *file;
   GError *error = NULL;
 
-  file = gtk_file_dialog_open_finish (dialog, result, &error);
+  file = bobgui_file_dialog_open_finish (dialog, result, &error);
   if (!file)
     {
       g_print ("Error: %s %d %s\n", g_quark_to_string (error->domain), error->code, error->message);
@@ -31,12 +31,12 @@ open_text_done (GObject *source,
                 GAsyncResult *result,
                 gpointer data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GFile *file;
   const char *encoding;
   GError *error = NULL;
 
-  file = gtk_file_dialog_open_text_file_finish (dialog, result, &encoding, &error);
+  file = bobgui_file_dialog_open_text_file_finish (dialog, result, &encoding, &error);
   if (!file)
     {
       g_print ("Error: %s %d %s\n", g_quark_to_string (error->domain), error->code, error->message);
@@ -57,11 +57,11 @@ select_done (GObject *source,
              GAsyncResult *result,
              gpointer data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GFile *file;
   GError *error = NULL;
 
-  file = gtk_file_dialog_select_folder_finish (dialog, result, &error);
+  file = bobgui_file_dialog_select_folder_finish (dialog, result, &error);
   if (!file)
     {
       g_print ("Error: %s %d %s\n", g_quark_to_string (error->domain), error->code, error->message);
@@ -81,11 +81,11 @@ save_done (GObject *source,
            GAsyncResult *result,
            gpointer data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GFile *file;
   GError *error = NULL;
 
-  file = gtk_file_dialog_save_finish (dialog, result, &error);
+  file = bobgui_file_dialog_save_finish (dialog, result, &error);
   if (!file)
     {
       g_print ("Error: %s %d %s\n", g_quark_to_string (error->domain), error->code, error->message);
@@ -105,13 +105,13 @@ save_text_done (GObject *source,
                 GAsyncResult *result,
                 gpointer data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GFile *file;
   const char *encoding;
   const char *line_ending;
   GError *error = NULL;
 
-  file = gtk_file_dialog_save_text_file_finish (dialog, result, &encoding, &line_ending, &error);
+  file = bobgui_file_dialog_save_text_file_finish (dialog, result, &encoding, &line_ending, &error);
   if (!file)
     {
       g_print ("Error: %s %d %s\n", g_quark_to_string (error->domain), error->code, error->message);
@@ -140,11 +140,11 @@ open_multiple_done (GObject *source,
                     GAsyncResult *result,
                     gpointer data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GListModel *model;
   GError *error = NULL;
 
-  model = gtk_file_dialog_open_multiple_finish (dialog, result, &error);
+  model = bobgui_file_dialog_open_multiple_finish (dialog, result, &error);
   if (!model)
     {
       g_print ("Error: %s %d %s\n", g_quark_to_string (error->domain), error->code, error->message);
@@ -169,11 +169,11 @@ select_multiple_done (GObject *source,
                       GAsyncResult *result,
                       gpointer data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GListModel *model;
   GError *error = NULL;
 
-  model = gtk_file_dialog_select_multiple_folders_finish (dialog, result, &error);
+  model = bobgui_file_dialog_select_multiple_folders_finish (dialog, result, &error);
   if (!model)
     {
       g_print ("Error: %s %d %s\n", g_quark_to_string (error->domain), error->code, error->message);
@@ -204,26 +204,26 @@ cancel_dialog (gpointer data)
 }
 
 static void
-add_text_filters (GtkFileDialog *dialog)
+add_text_filters (BobguiFileDialog *dialog)
 {
   GListStore *filters;
-  GtkFileFilter *text_files;
-  GtkFileFilter *all_files;
+  BobguiFileFilter *text_files;
+  BobguiFileFilter *all_files;
 
-  filters = g_list_store_new (GTK_TYPE_FILTER);
+  filters = g_list_store_new (BOBGUI_TYPE_FILTER);
 
-  text_files = gtk_file_filter_new ();
-  gtk_file_filter_set_name (text_files, "Text files");
-  gtk_file_filter_add_mime_type (text_files, "text/*");
+  text_files = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (text_files, "Text files");
+  bobgui_file_filter_add_mime_type (text_files, "text/*");
   g_list_store_append (filters, text_files);
 
-  all_files = gtk_file_filter_new ();
-  gtk_file_filter_set_name (all_files, "All files");
-  gtk_file_filter_add_mime_type (all_files, "*");
+  all_files = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (all_files, "All files");
+  bobgui_file_filter_add_mime_type (all_files, "*");
   g_list_store_append (filters, all_files);
 
-  gtk_file_dialog_set_filters (dialog, G_LIST_MODEL (filters));
-  gtk_file_dialog_set_default_filter (dialog, text_files);
+  bobgui_file_dialog_set_filters (dialog, G_LIST_MODEL (filters));
+  bobgui_file_dialog_set_default_filter (dialog, text_files);
 
   g_object_unref (text_files);
   g_object_unref (all_files);
@@ -233,7 +233,7 @@ add_text_filters (GtkFileDialog *dialog)
 int
 main (int argc, char *argv[])
 {
-  GtkFileDialog *dialog;
+  BobguiFileDialog *dialog;
   GCancellable *cancellable;
   char *title = NULL;
   gboolean modal = TRUE;
@@ -266,29 +266,29 @@ main (int argc, char *argv[])
 
   action = argv[1];
 
-  gtk_init ();
+  bobgui_init ();
 
-  dialog = gtk_file_dialog_new ();
+  dialog = bobgui_file_dialog_new ();
 
   if (title)
-    gtk_file_dialog_set_title (dialog, title);
-  gtk_file_dialog_set_modal (dialog, modal);
+    bobgui_file_dialog_set_title (dialog, title);
+  bobgui_file_dialog_set_modal (dialog, modal);
   if (initial_folder)
     {
       GFile *file = g_file_new_for_commandline_arg (initial_folder);
-      gtk_file_dialog_set_initial_folder (dialog, file);
+      bobgui_file_dialog_set_initial_folder (dialog, file);
       g_object_unref (file);
     }
   if (initial_name)
-    gtk_file_dialog_set_initial_name (dialog, initial_name);
+    bobgui_file_dialog_set_initial_name (dialog, initial_name);
   if (initial_file)
     {
       GFile *file = g_file_new_for_commandline_arg (initial_file);
-      gtk_file_dialog_set_initial_file (dialog, file);
+      bobgui_file_dialog_set_initial_file (dialog, file);
       g_object_unref (file);
     }
   if (accept_label)
-    gtk_file_dialog_set_accept_label (dialog, accept_label);
+    bobgui_file_dialog_set_accept_label (dialog, accept_label);
 
   cancellable = g_cancellable_new ();
 
@@ -301,28 +301,28 @@ main (int argc, char *argv[])
       exit (1);
     }
   else if (strcmp (action, "open") == 0)
-    gtk_file_dialog_open (dialog, NULL, cancellable, open_done, NULL);
+    bobgui_file_dialog_open (dialog, NULL, cancellable, open_done, NULL);
   else if (strcmp (action, "open-text") == 0)
     {
       add_text_filters (dialog);
-      gtk_file_dialog_open_text_file (dialog, NULL, cancellable, open_text_done, NULL);
+      bobgui_file_dialog_open_text_file (dialog, NULL, cancellable, open_text_done, NULL);
     }
   else if (g_pattern_match_simple ("select?folder", action) &&
            strchr ("-_", action[strlen ("select")]))
-    gtk_file_dialog_select_folder (dialog, NULL, cancellable, select_done, NULL);
+    bobgui_file_dialog_select_folder (dialog, NULL, cancellable, select_done, NULL);
   else if (strcmp (action, "save") == 0)
-    gtk_file_dialog_save (dialog, NULL, cancellable, save_done, NULL);
+    bobgui_file_dialog_save (dialog, NULL, cancellable, save_done, NULL);
   else if (strcmp (action, "save-text") == 0)
     {
       add_text_filters (dialog);
-      gtk_file_dialog_save_text_file (dialog, NULL, cancellable, save_text_done, NULL);
+      bobgui_file_dialog_save_text_file (dialog, NULL, cancellable, save_text_done, NULL);
     }
   else if (g_pattern_match_simple ("open?multiple", action) &&
            strchr ("-_", action[strlen ("open")]))
-    gtk_file_dialog_open_multiple (dialog, NULL, cancellable, open_multiple_done, NULL);
+    bobgui_file_dialog_open_multiple (dialog, NULL, cancellable, open_multiple_done, NULL);
   else if (g_pattern_match_simple ("select?multiple", action) &&
            strchr ("-_", action[strlen ("select")]))
-    gtk_file_dialog_select_multiple_folders (dialog, NULL, cancellable, select_multiple_done, NULL);
+    bobgui_file_dialog_select_multiple_folders (dialog, NULL, cancellable, select_multiple_done, NULL);
   else
     {
       g_print ("invalid action: %s\n", action);

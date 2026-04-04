@@ -19,7 +19,7 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gsk/gskrectprivate.h>
 
 #if 0
@@ -171,7 +171,7 @@ int
 main (int   argc,
       char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/rect/subtract", test_subtract);
   g_test_add_func ("/rect/my_subtract", test_my_subtract);

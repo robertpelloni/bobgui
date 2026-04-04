@@ -21,18 +21,18 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 #define COLOR_PAINTABLE_TYPE (color_paintable_get_type ())
-G_DECLARE_FINAL_TYPE (ColorPaintable, color_paintable, COLOR, PAINTABLE, GtkWidget)
+G_DECLARE_FINAL_TYPE (ColorPaintable, color_paintable, COLOR, PAINTABLE, BobguiWidget)
 
 
 ColorPaintable *  color_paintable_new          (void);
 
 void              color_paintable_set_symbolic (ColorPaintable   *self,
-                                                GtkSymbolicColor  symbolic);
-GtkSymbolicColor  color_paintable_get_symbolic (ColorPaintable   *self);
+                                                BobguiSymbolicColor  symbolic);
+BobguiSymbolicColor  color_paintable_get_symbolic (ColorPaintable   *self);
 void              color_paintable_set_alpha    (ColorPaintable   *self,
                                                 float             alpha);
 float             color_paintable_get_alpha    (ColorPaintable   *self);

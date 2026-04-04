@@ -22,9 +22,9 @@
 #include "paintable-editor.h"
 #include "shape-editor.h"
 #include "path-paintable.h"
-#include "gtk/svg/gtksvgnumberprivate.h"
-#include "gtk/svg/gtksvgviewboxprivate.h"
-#include "gtk/svg/gtksvgelementprivate.h"
+#include "bobgui/svg/bobguisvgnumberprivate.h"
+#include "bobgui/svg/bobguisvgviewboxprivate.h"
+#include "bobgui/svg/bobguisvgelementprivate.h"
 
 
 static void size_changed (PaintableEditor *self);
@@ -33,42 +33,42 @@ static void paintable_editor_set_compat_classes (PaintableEditor *self,
 
 struct _PaintableEditor
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   PathPaintable *paintable;
   unsigned int state;
   gboolean compat_classes;
 
-  GtkScrolledWindow *swin;
-  GtkEntry *author;
-  GtkEntry *license;
-  GtkEntry *description;
-  GtkEntry *keywords;
-  GtkEntry *width;
-  GtkEntry *height;
-  GtkEntry *viewbox_x;
-  GtkEntry *viewbox_y;
-  GtkEntry *viewbox_w;
-  GtkEntry *viewbox_h;
-  GtkLabel *compat;
-  GtkLabel *summary1;
-  GtkLabel *summary2;
-  GtkImage *icon_image;
-  GtkCheckButton *compat_check;
-  GtkStack *stack;
-  GtkToggleButton *xml_toggle;
-  GtkTextView *xml_view;
-  GtkTextBuffer *xml_buffer;
+  BobguiScrolledWindow *swin;
+  BobguiEntry *author;
+  BobguiEntry *license;
+  BobguiEntry *description;
+  BobguiEntry *keywords;
+  BobguiEntry *width;
+  BobguiEntry *height;
+  BobguiEntry *viewbox_x;
+  BobguiEntry *viewbox_y;
+  BobguiEntry *viewbox_w;
+  BobguiEntry *viewbox_h;
+  BobguiLabel *compat;
+  BobguiLabel *summary1;
+  BobguiLabel *summary2;
+  BobguiImage *icon_image;
+  BobguiCheckButton *compat_check;
+  BobguiStack *stack;
+  BobguiToggleButton *xml_toggle;
+  BobguiTextView *xml_view;
+  BobguiTextBuffer *xml_buffer;
 
   guint timeout;
   GList *errors;
 
-  GtkBox *path_elts;
+  BobguiBox *path_elts;
 };
 
 struct _PaintableEditorClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
 enum
@@ -81,17 +81,17 @@ enum
 
 static GParamSpec *properties[NUM_PROPERTIES];
 
-G_DEFINE_TYPE (PaintableEditor, paintable_editor, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (PaintableEditor, paintable_editor, BOBGUI_TYPE_WIDGET)
 
 /* {{{ Utilities, callbacks */
 
 static void
 clear_shape_editors (PaintableEditor *self)
 {
-  GtkWidget *child;
+  BobguiWidget *child;
 
-  while ((child = gtk_widget_get_first_child (GTK_WIDGET (self->path_elts))) != NULL)
-    gtk_box_remove (self->path_elts, child);
+  while ((child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->path_elts))) != NULL)
+    bobgui_box_remove (self->path_elts, child);
 }
 
 static void
@@ -103,8 +103,8 @@ append_shape_editor (PaintableEditor *self,
   pe = shape_editor_new (self->paintable, shape);
   if (pe)
     {
-      gtk_box_append (self->path_elts, GTK_WIDGET (pe));
-      gtk_box_append (self->path_elts, gtk_separator_new (GTK_ORIENTATION_HORIZONTAL));
+      bobgui_box_append (self->path_elts, BOBGUI_WIDGET (pe));
+      bobgui_box_append (self->path_elts, bobgui_separator_new (BOBGUI_ORIENTATION_HORIZONTAL));
     }
 }
 
@@ -113,7 +113,7 @@ create_shape_editors (PaintableEditor *self)
 {
   SvgElement *content;
 
-  gtk_box_append (self->path_elts, gtk_separator_new (GTK_ORIENTATION_HORIZONTAL));
+  bobgui_box_append (self->path_elts, bobgui_separator_new (BOBGUI_ORIENTATION_HORIZONTAL));
 
   content = path_paintable_get_content (self->paintable);
   for (unsigned int i = 0; i < svg_element_get_n_children (content); i++)
@@ -126,19 +126,19 @@ create_shape_editors (PaintableEditor *self)
 static void
 update_size (PaintableEditor *self)
 {
-  GtkSvg *svg = path_paintable_get_svg (self->paintable);
+  BobguiSvg *svg = path_paintable_get_svg (self->paintable);
   g_autofree char *text = NULL;
 
   text = g_strdup_printf ("%g", svg->width);
-  gtk_editable_set_text (GTK_EDITABLE (self->width), text);
+  bobgui_editable_set_text (BOBGUI_EDITABLE (self->width), text);
   g_set_str (&text, g_strdup_printf ("%g", svg->height));
-  gtk_editable_set_text (GTK_EDITABLE (self->height), text);
+  bobgui_editable_set_text (BOBGUI_EDITABLE (self->height), text);
 }
 
 static void
 update_viewbox (PaintableEditor *self)
 {
-  GtkSvg *svg = path_paintable_get_svg (self->paintable);
+  BobguiSvg *svg = path_paintable_get_svg (self->paintable);
   SvgValue *value;
   graphene_rect_t rect;
 
@@ -146,20 +146,20 @@ update_viewbox (PaintableEditor *self)
   if (svg_view_box_get (value, &rect))
     {
       g_autofree char *text = g_strdup_printf ("%g", rect.origin.x);
-      gtk_editable_set_text (GTK_EDITABLE (self->viewbox_x), text);
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->viewbox_x), text);
       g_set_str (&text, g_strdup_printf ("%g", rect.origin.y));
-      gtk_editable_set_text (GTK_EDITABLE (self->viewbox_y), text);
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->viewbox_y), text);
       g_set_str (&text, g_strdup_printf ("%g", rect.size.width));
-      gtk_editable_set_text (GTK_EDITABLE (self->viewbox_w), text);
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->viewbox_w), text);
       g_set_str (&text, g_strdup_printf ("%g", rect.size.height));
-      gtk_editable_set_text (GTK_EDITABLE (self->viewbox_h), text);
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->viewbox_h), text);
     }
   else
     {
-      gtk_editable_set_text (GTK_EDITABLE (self->viewbox_x), "");
-      gtk_editable_set_text (GTK_EDITABLE (self->viewbox_y), "");
-      gtk_editable_set_text (GTK_EDITABLE (self->viewbox_w), "");
-      gtk_editable_set_text (GTK_EDITABLE (self->viewbox_h), "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->viewbox_x), "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->viewbox_y), "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->viewbox_w), "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->viewbox_h), "");
     }
 }
 
@@ -196,12 +196,12 @@ update_metadata (PaintableEditor *self)
 {
   if (self->paintable)
     {
-      GtkSvg *svg = path_paintable_get_svg (self->paintable);
+      BobguiSvg *svg = path_paintable_get_svg (self->paintable);
 
-      gtk_editable_set_text (GTK_EDITABLE (self->author), svg->author ? svg->author : "");
-      gtk_editable_set_text (GTK_EDITABLE (self->license), svg->license ? svg->license : "");
-      gtk_editable_set_text (GTK_EDITABLE (self->description), svg->description ? svg->description : "");
-      gtk_editable_set_text (GTK_EDITABLE (self->keywords), svg->keywords ? svg->keywords : "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->author), svg->author ? svg->author : "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->license), svg->license ? svg->license : "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->description), svg->description ? svg->description : "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->keywords), svg->keywords ? svg->keywords : "");
     }
 }
 
@@ -210,15 +210,15 @@ update_summary (PaintableEditor *self)
 {
   if (self->paintable)
     {
-      GtkSvg *svg = path_paintable_get_svg (self->paintable);
+      BobguiSvg *svg = path_paintable_get_svg (self->paintable);
       unsigned int state, n_names;
       const char **names;
       g_autofree char *summary1 = NULL;
       g_autofree char *summary2 = NULL;
       ShapeCountData counts;
 
-      state = gtk_svg_get_state (svg);
-      names = gtk_svg_get_state_names (svg, &n_names);
+      state = bobgui_svg_get_state (svg);
+      names = bobgui_svg_get_state_names (svg, &n_names);
 
       counts.state = state;
       counts.all = counts.graphical = counts.current = 0;
@@ -231,13 +231,13 @@ update_summary (PaintableEditor *self)
 
       summary2 = g_strdup_printf ("%u graphical shapes, %u in current state", counts.graphical, counts.current);
 
-      gtk_label_set_label (self->summary1, summary1);
-      gtk_label_set_label (self->summary2, summary2);
+      bobgui_label_set_label (self->summary1, summary1);
+      bobgui_label_set_label (self->summary2, summary2);
     }
   else
     {
-      gtk_label_set_label (self->summary1, "");
-      gtk_label_set_label (self->summary2, "");
+      bobgui_label_set_label (self->summary1, "");
+      bobgui_label_set_label (self->summary2, "");
     }
 }
 
@@ -246,14 +246,14 @@ update_compat (PaintableEditor *self)
 {
   switch (path_paintable_get_compatibility (self->paintable))
     {
-    case GTK_4_0:
-      gtk_label_set_label (self->compat, "GTK 4.0");
+    case BOBGUI_4_0:
+      bobgui_label_set_label (self->compat, "BOBGUI 4.0");
       break;
-    case GTK_4_20:
-      gtk_label_set_label (self->compat, "GTK 4.20");
+    case BOBGUI_4_20:
+      bobgui_label_set_label (self->compat, "BOBGUI 4.20");
       break;
-    case GTK_4_22:
-      gtk_label_set_label (self->compat, "GTK 4.22");
+    case BOBGUI_4_22:
+      bobgui_label_set_label (self->compat, "BOBGUI 4.22");
       break;
     default:
       g_assert_not_reached ();
@@ -265,7 +265,7 @@ update_icon_paintable (PaintableEditor *self)
 {
   GdkPaintable *paintable = GDK_PAINTABLE (path_paintable_get_icon_paintable (self->paintable));
 
-  gtk_image_set_from_paintable (self->icon_image, paintable);
+  bobgui_image_set_from_paintable (self->icon_image, paintable);
 
   g_object_unref (paintable);
 }
@@ -273,8 +273,8 @@ update_icon_paintable (PaintableEditor *self)
 typedef struct
 {
   GError *error;
-  GtkTextIter start;
-  GtkTextIter end;
+  BobguiTextIter start;
+  BobguiTextIter end;
 } SvgError;
 
 static void
@@ -293,7 +293,7 @@ typedef struct
 } ErrorData;
 
 static void
-error_cb (GtkSvg   *svg,
+error_cb (BobguiSvg   *svg,
           GError   *error,
           gpointer  data)
 {
@@ -306,36 +306,36 @@ error_cb (GtkSvg   *svg,
   PaintableEditor *self = d->self;
   SvgError *svg_error;
   size_t offset;
-  const GtkSvgLocation *start, *end;
+  const BobguiSvgLocation *start, *end;
   const char *tag;
 
-  if (error->domain != GTK_SVG_ERROR)
+  if (error->domain != BOBGUI_SVG_ERROR)
     return;
 
-  start = gtk_svg_error_get_start (error);
-  end = gtk_svg_error_get_end (error);
+  start = bobgui_svg_error_get_start (error);
+  end = bobgui_svg_error_get_end (error);
 
   svg_error = g_new (SvgError, 1);
   svg_error->error = g_error_copy (error);
 
   offset = g_utf8_pointer_to_offset (d->text, d->text + start->bytes);
-  gtk_text_buffer_get_iter_at_offset (self->xml_buffer, &svg_error->start, offset);
+  bobgui_text_buffer_get_iter_at_offset (self->xml_buffer, &svg_error->start, offset);
   offset = g_utf8_pointer_to_offset (d->text, d->text + end->bytes);
-  gtk_text_buffer_get_iter_at_offset (self->xml_buffer, &svg_error->end, offset);
+  bobgui_text_buffer_get_iter_at_offset (self->xml_buffer, &svg_error->end, offset);
 
   self->errors = g_list_append (self->errors, svg_error);
 
-  if (gtk_text_iter_equal (&svg_error->start, &svg_error->end))
-    gtk_text_iter_forward_chars (&svg_error->end, 1);
+  if (bobgui_text_iter_equal (&svg_error->start, &svg_error->end))
+    bobgui_text_iter_forward_chars (&svg_error->end, 1);
 
-  if (error->code == GTK_SVG_ERROR_IGNORED_ELEMENT)
+  if (error->code == BOBGUI_SVG_ERROR_IGNORED_ELEMENT)
     tag = "ignored";
-  else if (error->code == GTK_SVG_ERROR_NOT_IMPLEMENTED)
+  else if (error->code == BOBGUI_SVG_ERROR_NOT_IMPLEMENTED)
     tag = "unimplemented";
   else
     tag = "error";
 
-  gtk_text_buffer_apply_tag_by_name (self->xml_buffer,
+  bobgui_text_buffer_apply_tag_by_name (self->xml_buffer,
                                      tag,
                                      &svg_error->start,
                                      &svg_error->end);
@@ -346,20 +346,20 @@ static void
 update_timeout (gpointer data)
 {
   PaintableEditor *self = data;
-  GtkTextIter start, end;
+  BobguiTextIter start, end;
   char *text;
   g_autoptr (GBytes) bytes = NULL;
-  g_autoptr (GtkSvg) svg = NULL;
+  g_autoptr (BobguiSvg) svg = NULL;
   gulong handler;
   ErrorData d;
 
-  gtk_text_buffer_get_bounds (self->xml_buffer, &start, &end);
-  gtk_text_buffer_remove_all_tags (self->xml_buffer, &start, &end);
+  bobgui_text_buffer_get_bounds (self->xml_buffer, &start, &end);
+  bobgui_text_buffer_remove_all_tags (self->xml_buffer, &start, &end);
 
-  text = gtk_text_buffer_get_text (self->xml_buffer, &start, &end, FALSE);
+  text = bobgui_text_buffer_get_text (self->xml_buffer, &start, &end, FALSE);
   bytes = g_bytes_new_take (text, strlen (text));
 
-  svg = gtk_svg_new ();
+  svg = bobgui_svg_new ();
 
   g_list_free_full (self->errors, svg_error_free);
   self->errors = NULL;
@@ -368,7 +368,7 @@ update_timeout (gpointer data)
   d.text = text;
 
   handler = g_signal_connect (svg, "error", G_CALLBACK (error_cb), &d);
-  gtk_svg_load_from_bytes (svg, bytes);
+  bobgui_svg_load_from_bytes (svg, bytes);
   g_signal_handler_disconnect (svg, handler);
 
   path_paintable_set_svg (self->paintable, svg);
@@ -389,11 +389,11 @@ xml_changed (PaintableEditor *self)
 static void
 update_xml (PaintableEditor *self)
 {
-  GtkSvg *svg = path_paintable_get_svg (self->paintable);
-  g_autoptr (GBytes) xml = gtk_svg_serialize (svg);
+  BobguiSvg *svg = path_paintable_get_svg (self->paintable);
+  g_autoptr (GBytes) xml = bobgui_svg_serialize (svg);
 
   g_signal_handlers_block_by_func (self->xml_buffer, xml_changed, self);
-  gtk_text_buffer_set_text (self->xml_buffer, g_bytes_get_data (xml, NULL), g_bytes_get_size (xml));
+  bobgui_text_buffer_set_text (self->xml_buffer, g_bytes_get_data (xml, NULL), g_bytes_get_size (xml));
   update_timeout (self);
   g_signal_handlers_unblock_by_func (self->xml_buffer, xml_changed, self);
 }
@@ -423,7 +423,7 @@ set_size (PaintableEditor *self,
           double           width,
           double           height)
 {
-  GtkSvg *svg = path_paintable_get_svg (self->paintable);
+  BobguiSvg *svg = path_paintable_get_svg (self->paintable);
   SvgValue *value;
   graphene_rect_t rect;
 
@@ -450,9 +450,9 @@ size_changed (PaintableEditor *self)
   double width, height;
   int res;
 
-  text = gtk_editable_get_text (GTK_EDITABLE (self->width));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->width));
   res = sscanf (text, "%lf", &width);
-  text = gtk_editable_get_text (GTK_EDITABLE (self->height));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->height));
   res += sscanf (text, "%lf", &height);
   if (res == 2 && width > 0 && height > 0)
     set_size (self, width, height);
@@ -461,18 +461,18 @@ size_changed (PaintableEditor *self)
 static void
 viewbox_changed (PaintableEditor *self)
 {
-  GtkSvg *svg = path_paintable_get_svg (self->paintable);
+  BobguiSvg *svg = path_paintable_get_svg (self->paintable);
   const char *text;
   double x, y, w, h;
   int res;
 
-  text = gtk_editable_get_text (GTK_EDITABLE (self->viewbox_x));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->viewbox_x));
   res = sscanf (text, "%lf", &x);
-  text = gtk_editable_get_text (GTK_EDITABLE (self->viewbox_y));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->viewbox_y));
   res += sscanf (text, "%lf", &y);
-  text = gtk_editable_get_text (GTK_EDITABLE (self->viewbox_w));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->viewbox_w));
   res += sscanf (text, "%lf", &w);
-  text = gtk_editable_get_text (GTK_EDITABLE (self->viewbox_h));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->viewbox_h));
   res += sscanf (text, "%lf", &h);
   if (res == 4 && w > 0 && h > 0)
     {
@@ -487,58 +487,58 @@ viewbox_changed (PaintableEditor *self)
 static void
 author_changed (PaintableEditor *self)
 {
-  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->author));
+  const char *text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->author));
   path_paintable_set_author (self->paintable, text);
 }
 
 static void
 license_changed (PaintableEditor *self)
 {
-  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->license));
+  const char *text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->license));
   path_paintable_set_license (self->paintable, text);
 }
 
 static void
 description_changed (PaintableEditor *self)
 {
-  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->description));
+  const char *text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->description));
   path_paintable_set_description (self->paintable, text);
 }
 
 static void
 keywords_changed (PaintableEditor *self)
 {
-  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->keywords));
+  const char *text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->keywords));
   path_paintable_set_keywords (self->paintable, text);
 }
 
 static void
 xml_toggled (PaintableEditor *self)
 {
-  if (gtk_toggle_button_get_active (self->xml_toggle))
+  if (bobgui_toggle_button_get_active (self->xml_toggle))
     {
       update_xml (self);
-      gtk_stack_set_visible_child_name (self->stack, "xml");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->xml_toggle), "View Controls");
+      bobgui_stack_set_visible_child_name (self->stack, "xml");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->xml_toggle), "View Controls");
     }
   else
     {
-      gtk_stack_set_visible_child_name (self->stack, "controls");
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->xml_toggle), "View XML");
+      bobgui_stack_set_visible_child_name (self->stack, "controls");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->xml_toggle), "View XML");
     }
 }
 
 static gboolean
-query_tooltip_cb (GtkWidget       *widget,
+query_tooltip_cb (BobguiWidget       *widget,
                   int              x,
                   int              y,
                   gboolean         keyboard_tip,
-                  GtkTooltip      *tooltip,
+                  BobguiTooltip      *tooltip,
                   PaintableEditor *self)
 {
-  GtkTextIter iter;
+  BobguiTextIter iter;
 
-  if (!gtk_toggle_button_get_active (self->xml_toggle))
+  if (!bobgui_toggle_button_get_active (self->xml_toggle))
     return FALSE;
 
   if (keyboard_tip)
@@ -546,25 +546,25 @@ query_tooltip_cb (GtkWidget       *widget,
       int offset;
 
       g_object_get (self->xml_view, "cursor-position", &offset, NULL);
-      gtk_text_buffer_get_iter_at_offset (self->xml_buffer, &iter, offset);
+      bobgui_text_buffer_get_iter_at_offset (self->xml_buffer, &iter, offset);
     }
   else
     {
       int bx, by, trailing;
 
-      gtk_text_view_window_to_buffer_coords (self->xml_view,
-                                             GTK_TEXT_WINDOW_TEXT,
+      bobgui_text_view_window_to_buffer_coords (self->xml_view,
+                                             BOBGUI_TEXT_WINDOW_TEXT,
                                              x, y, &bx, &by);
-      gtk_text_view_get_iter_at_position (self->xml_view, &iter, &trailing, bx, by);
+      bobgui_text_view_get_iter_at_position (self->xml_view, &iter, &trailing, bx, by);
     }
 
   for (GList *l = self->errors; l; l = l->next)
     {
       SvgError *error = l->data;
 
-      if (gtk_text_iter_in_range (&iter, &error->start, &error->end))
+      if (bobgui_text_iter_in_range (&iter, &error->start, &error->end))
         {
-          gtk_tooltip_set_text (tooltip, error->error->message);
+          bobgui_tooltip_set_text (tooltip, error->error->message);
           return TRUE;
         }
     }
@@ -578,7 +578,7 @@ static void
 paintable_editor_init (PaintableEditor *self)
 {
   self->compat_classes = TRUE;
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 }
 
 static void
@@ -654,7 +654,7 @@ paintable_editor_dispose (GObject *object)
 
   clear_shape_editors (self);
 
-  gtk_widget_dispose_template (GTK_WIDGET (object), PAINTABLE_EDITOR_TYPE);
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), PAINTABLE_EDITOR_TYPE);
 
   G_OBJECT_CLASS (paintable_editor_parent_class)->dispose (object);
 }
@@ -669,7 +669,7 @@ static void
 paintable_editor_class_init (PaintableEditorClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   g_type_ensure (SHAPE_EDITOR_TYPE);
 
@@ -695,43 +695,43 @@ paintable_editor_class_init (PaintableEditorClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/org/gtk/Shaper/paintable-editor.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class,
+                                               "/org/bobgui/Shaper/paintable-editor.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, swin);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, author);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, license);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, description);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, keywords);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, width);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, height);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, viewbox_x);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, viewbox_y);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, viewbox_w);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, viewbox_h);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, compat);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, summary1);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, summary2);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, icon_image);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, path_elts);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, compat_check);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, stack);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, xml_toggle);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, xml_view);
-  gtk_widget_class_bind_template_child (widget_class, PaintableEditor, xml_buffer);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, swin);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, author);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, license);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, description);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, keywords);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, width);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, height);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, viewbox_x);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, viewbox_y);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, viewbox_w);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, viewbox_h);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, compat);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, summary1);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, summary2);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, icon_image);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, path_elts);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, compat_check);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, stack);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, xml_toggle);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, xml_view);
+  bobgui_widget_class_bind_template_child (widget_class, PaintableEditor, xml_buffer);
 
-  gtk_widget_class_bind_template_callback (widget_class, size_changed);
-  gtk_widget_class_bind_template_callback (widget_class, viewbox_changed);
-  gtk_widget_class_bind_template_callback (widget_class, author_changed);
-  gtk_widget_class_bind_template_callback (widget_class, license_changed);
-  gtk_widget_class_bind_template_callback (widget_class, description_changed);
-  gtk_widget_class_bind_template_callback (widget_class, keywords_changed);
-  gtk_widget_class_bind_template_callback (widget_class, xml_toggled);
-  gtk_widget_class_bind_template_callback (widget_class, xml_changed);
-  gtk_widget_class_bind_template_callback (widget_class, query_tooltip_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, size_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, viewbox_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, author_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, license_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, description_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, keywords_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, xml_toggled);
+  bobgui_widget_class_bind_template_callback (widget_class, xml_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, query_tooltip_cb);
 
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
-  gtk_widget_class_set_css_name (widget_class, "PaintableEditor");
+  bobgui_widget_class_set_layout_manager_type (widget_class, BOBGUI_TYPE_BIN_LAYOUT);
+  bobgui_widget_class_set_css_name (widget_class, "PaintableEditor");
 }
 
 /* }}} */
@@ -810,7 +810,7 @@ paintable_editor_set_compat_classes (PaintableEditor *self,
 void
 paintable_editor_add_path (PaintableEditor *self)
 {
-  GtkSvg *svg = path_paintable_get_svg (self->paintable);
+  BobguiSvg *svg = path_paintable_get_svg (self->paintable);
   GskPathBuilder *builder;
   g_autoptr (GskPath) path = NULL;
   SvgElement *content;

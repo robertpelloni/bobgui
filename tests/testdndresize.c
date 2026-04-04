@@ -1,26 +1,26 @@
-#include "gtkcssprovider.h"
-#include <gtk/gtk.h>
+#include "bobguicssprovider.h"
+#include <bobgui/bobgui.h>
 
-static GtkRequisition size;
+static BobguiRequisition size;
 static gint64 start_time;
 static gboolean stop_update_size;
 
 // Animated paintable for testing content-invalidating drag surfaces.
-#define GTK_TYPE_ANIMATED_ICON (gtk_animated_icon_get_type ())
-G_DECLARE_FINAL_TYPE (GtkAnimatedIcon, gtk_animated_icon, GTK, ANIMATED_ICON, GObject)
+#define BOBGUI_TYPE_ANIMATED_ICON (bobgui_animated_icon_get_type ())
+G_DECLARE_FINAL_TYPE (BobguiAnimatedIcon, bobgui_animated_icon, BOBGUI, ANIMATED_ICON, GObject)
 
-struct _GtkAnimatedIcon
+struct _BobguiAnimatedIcon
 {
   GObject parent_instance;
 };
 
-struct _GtkAnimatedIconClass
+struct _BobguiAnimatedIconClass
 {
   GObjectClass parent_class;
 };
 
 static void
-gtk_animated_icon_snapshot (GdkPaintable *paintable,
+bobgui_animated_icon_snapshot (GdkPaintable *paintable,
                             GdkSnapshot  *snapshot,
                             double        width,
                             double        height)
@@ -32,33 +32,33 @@ gtk_animated_icon_snapshot (GdkPaintable *paintable,
   if (t >= 0.5)
     t = 1 - t;
 
-  gtk_snapshot_append_color (snapshot,
+  bobgui_snapshot_append_color (snapshot,
                              &(GdkRGBA) { 0, t + 0.5, 0, 1 },
                              &GRAPHENE_RECT_INIT (0, 0, width, height));
 }
 
 static void
-gtk_animated_icon_paintable_init (GdkPaintableInterface *iface)
+bobgui_animated_icon_paintable_init (GdkPaintableInterface *iface)
 {
-  iface->snapshot = gtk_animated_icon_snapshot;
+  iface->snapshot = bobgui_animated_icon_snapshot;
 }
 
-G_DEFINE_TYPE_WITH_CODE (GtkAnimatedIcon, gtk_animated_icon, G_TYPE_OBJECT,
+G_DEFINE_TYPE_WITH_CODE (BobguiAnimatedIcon, bobgui_animated_icon, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GDK_TYPE_PAINTABLE,
-                                                gtk_animated_icon_paintable_init))
+                                                bobgui_animated_icon_paintable_init))
 
 static void
-gtk_animated_icon_class_init (GtkAnimatedIconClass *klass)
+bobgui_animated_icon_class_init (BobguiAnimatedIconClass *klass)
 {
 }
 
 static void
-gtk_animated_icon_init (GtkAnimatedIcon *nuclear)
+bobgui_animated_icon_init (BobguiAnimatedIcon *nuclear)
 {
 }
 
 static gboolean
-update_size (GtkWidget *widget, GdkFrameClock *clock, gpointer data)
+update_size (BobguiWidget *widget, GdkFrameClock *clock, gpointer data)
 {
   GdkDrag *drag = data;
   gint64 now = g_get_monotonic_time ();
@@ -75,36 +75,36 @@ update_size (GtkWidget *widget, GdkFrameClock *clock, gpointer data)
   width = size.width + t * 300;
   height = size.height + t * 150;
 
-  gtk_widget_set_size_request (widget, width, height);
+  bobgui_widget_set_size_request (widget, width, height);
   gdk_drag_set_hotspot (drag, width / 2, height / 2);
 
   return G_SOURCE_CONTINUE;
 }
 
 static void
-drag_begin (GtkDragSource *source,
+drag_begin (BobguiDragSource *source,
             GdkDrag       *drag)
 {
-  GtkWidget *widget;
-  GtkWidget *icon;
+  BobguiWidget *widget;
+  BobguiWidget *icon;
 
-  icon = gtk_drag_icon_get_for_drag (drag);
+  icon = bobgui_drag_icon_get_for_drag (drag);
 
-  widget = gtk_label_new ("This Should Resize\n\nAnd Stay Centered");
-  gtk_widget_add_css_class (widget, "dnd");
-  gtk_widget_get_preferred_size (widget, NULL, &size);
+  widget = bobgui_label_new ("This Should Resize\n\nAnd Stay Centered");
+  bobgui_widget_add_css_class (widget, "dnd");
+  bobgui_widget_get_preferred_size (widget, NULL, &size);
 
-  gtk_drag_icon_set_child (GTK_DRAG_ICON (icon), widget);
-  gtk_widget_set_size_request (widget, size.width, size.height);
+  bobgui_drag_icon_set_child (BOBGUI_DRAG_ICON (icon), widget);
+  bobgui_widget_set_size_request (widget, size.width, size.height);
   gdk_drag_set_hotspot (drag, size.width / 2, size.height / 2);
 
   start_time = g_get_monotonic_time ();
   stop_update_size = FALSE;
-  gtk_widget_add_tick_callback (widget, update_size, drag, NULL);
+  bobgui_widget_add_tick_callback (widget, update_size, drag, NULL);
 }
 
 static void
-drag_end (GtkDragSource *source,
+drag_end (BobguiDragSource *source,
           GdkDrag       *drag,
           gboolean       delete_data,
           gboolean       data)
@@ -113,7 +113,7 @@ drag_end (GtkDragSource *source,
 }
 
 static gboolean
-invalidate_contents (GtkWidget *widget, GdkFrameClock *clock, gpointer data)
+invalidate_contents (BobguiWidget *widget, GdkFrameClock *clock, gpointer data)
 {
   GdkPaintable *paintable = data;
   gdk_paintable_invalidate_contents (paintable);
@@ -121,23 +121,23 @@ invalidate_contents (GtkWidget *widget, GdkFrameClock *clock, gpointer data)
 }
 
 static void
-drag_begin_non_resizing (GtkDragSource *source,
+drag_begin_non_resizing (BobguiDragSource *source,
                          GdkDrag       *drag)
 {
   GdkPaintable *paintable;
-  GtkWidget *widget;
+  BobguiWidget *widget;
   int width = 64, height = 32;
 
-  paintable = GDK_PAINTABLE (g_object_new (GTK_TYPE_ANIMATED_ICON, NULL));
-  gtk_drag_icon_set_from_paintable (drag, paintable, width / 2, height / 2);
+  paintable = GDK_PAINTABLE (g_object_new (BOBGUI_TYPE_ANIMATED_ICON, NULL));
+  bobgui_drag_icon_set_from_paintable (drag, paintable, width / 2, height / 2);
 
-  widget = gtk_drag_icon_get_child (GTK_DRAG_ICON (gtk_drag_icon_get_for_drag (drag)));
-  gtk_widget_set_size_request (widget, width, height);
-  gtk_widget_add_tick_callback (widget, invalidate_contents, paintable, NULL);
+  widget = bobgui_drag_icon_get_child (BOBGUI_DRAG_ICON (bobgui_drag_icon_get_for_drag (drag)));
+  bobgui_widget_set_size_request (widget, width, height);
+  bobgui_widget_add_tick_callback (widget, invalidate_contents, paintable, NULL);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -150,33 +150,33 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char *argv[])
 {
-  GtkCssProvider *provider;
-  GtkWidget *window;
-  GtkWidget *box;
-  GtkWidget *label;
-  GtkDragSource *source;
+  BobguiCssProvider *provider;
+  BobguiWidget *window;
+  BobguiWidget *box;
+  BobguiWidget *label;
+  BobguiDragSource *source;
   GdkContentProvider *content;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_string (provider,
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_string (provider,
                                      ".dnd {"
                                      "background-color: red;"
                                      "border-top: 10px solid rebeccapurple;"
                                      "}");
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER(provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER(provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
 
   // The resizing icon label.
-  label = gtk_label_new ("Drag Me (Resizing)");
+  label = bobgui_label_new ("Drag Me (Resizing)");
   g_object_set (label,
                 "margin-start", 64,
                 "margin-end", 64,
@@ -184,17 +184,17 @@ main (int argc, char *argv[])
                 "margin-bottom", 64,
                 NULL);
 
-  source = gtk_drag_source_new ();
+  source = bobgui_drag_source_new ();
   content = gdk_content_provider_new_typed (G_TYPE_STRING, "I'm data!");
-  gtk_drag_source_set_content (source, content);
+  bobgui_drag_source_set_content (source, content);
   g_signal_connect (source, "drag-begin", G_CALLBACK (drag_begin), NULL);
   g_signal_connect (source, "drag-end", G_CALLBACK (drag_end), NULL);
-  gtk_widget_add_controller (label, GTK_EVENT_CONTROLLER (source));
+  bobgui_widget_add_controller (label, BOBGUI_EVENT_CONTROLLER (source));
 
-  gtk_box_append (GTK_BOX (box), label);
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
   // The non-resizing icon label.
-  label = gtk_label_new ("Drag Me (Non-Resizing)");
+  label = bobgui_label_new ("Drag Me (Non-Resizing)");
   g_object_set (label,
                 "margin-start", 64,
                 "margin-end", 64,
@@ -202,17 +202,17 @@ main (int argc, char *argv[])
                 "margin-bottom", 64,
                 NULL);
 
-  source = gtk_drag_source_new ();
+  source = bobgui_drag_source_new ();
   content = gdk_content_provider_new_typed (G_TYPE_STRING, "I'm data!");
-  gtk_drag_source_set_content (source, content);
+  bobgui_drag_source_set_content (source, content);
   g_signal_connect (source, "drag-begin", G_CALLBACK (drag_begin_non_resizing), NULL);
-  gtk_widget_add_controller (label, GTK_EVENT_CONTROLLER (source));
+  bobgui_widget_add_controller (label, BOBGUI_EVENT_CONTROLLER (source));
 
-  gtk_box_append (GTK_BOX (box), label);
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

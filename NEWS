@@ -1,7 +1,7 @@
 Overview of Changes in 4.23.0, xx-xx-xxxx
 =========================================
 
-* The gtk4-encode-symbolic tool for producing symbolic
+* The bobgui4-encode-symbolic tool for producing symbolic
   png icons has been dropped. If you were using it,
   ust ship the symbolic svg icons instead
 
@@ -12,8 +12,8 @@ Overview of Changes in 4.22.0, 06-03-2026
 * Bugs fixed:
   - #8037 Regression: DropTarget's ::leave signal is no longer emitted when a
     drop is finished (Matthias Clasen)
-  - #8079 Issues in the dnd demo in gtk4-demo (Matthias Clasen)
-  - #8080 Gtk program writes a "foo.png" file to current folder (Marco Trevisan
+  - #8079 Issues in the dnd demo in bobgui4-demo (Matthias Clasen)
+  - #8080 Bobgui program writes a "foo.png" file to current folder (Marco Trevisan
     (Treviño))
   - !9428 demos: Avoid main() from returning due to GApplication.quit (Florian
     "sp1rit"​)
@@ -37,7 +37,7 @@ Overview of Changes in 4.22.0, 06-03-2026
   - !9571 testsuite: Skip gestures if running with no seat (Alessandro Astone)
   - !9572 droptarget: Fix unconditional leave on cross out (Niklas Wimmer)
   - !9574 Update Bulgarian translation (Alexander Shopov)
-  - !9575 gtkcheckbutton: Don't use raw label for a11y purposes (Lukáš Tyrychtr)
+  - !9575 bobguicheckbutton: Don't use raw label for a11y purposes (Lukáš Tyrychtr)
   - !9576 icons: Update from devkit (Jakub Steiner)
   - !9577 wayland: Reset pending offset in Vulkan path (Matthias Clasen)
 
@@ -53,9 +53,9 @@ Overview of Changes in 4.22.0, 06-03-2026
 Overview of Changes in 4.21.6, 27-02-2026
 =========================================
 
-* GtkTryExpression is a new type of expression that allows for fallback
+* BobguiTryExpression is a new type of expression that allows for fallback
 
-* GtkSvg:
+* BobguiSvg:
  - Setting states will have immediate effect when paused
  - Various optimizations and crash fixes
 
@@ -67,20 +67,20 @@ Overview of Changes in 4.21.6, 27-02-2026
 
 * Debugging:
  - The inspector can show GSK profiling information with GSK_DEBUG=profile
- - gtk4-rendernode-tool has gained a new filter command for node manipulation
+ - bobgui4-rendernode-tool has gained a new filter command for node manipulation
 
 * Bugs fixed:
   - #5794 Click gesture doesn't reset properly (Carlos Garnacho)
-  - #6054 GtkSwitch ignores one click after dragging the handle (Carlos
+  - #6054 BobguiSwitch ignores one click after dragging the handle (Carlos
     Garnacho)
   - #7432 unexpected enter event before popover close event (Alessandro Astone)
   - #7605 Printing two copies prints four copies (Lucas Baudin)
   - #7844 Debugging weird gesture behaviour (Carlos Garnacho)
-  - #7901 Add `key-capture-widget` property to `GtkSearchEntry` (Zoey Ahmed)
+  - #7901 Add `key-capture-widget` property to `BobguiSearchEntry` (Zoey Ahmed)
   - #7930 "Broken accounting of active state for widget" (Carlos Garnacho)
-  - #7959 `GtkFilterListModel:watch-items` causes `GtkFilterListModel:n-items`
+  - #7959 `BobguiFilterListModel:watch-items` causes `BobguiFilterListModel:n-items`
     to not notify (Georges Basile Stavracas Neto)
-  - #7994 `Gtk.Expression.bind` fallback expression
+  - #7994 `Bobgui.Expression.bind` fallback expression
   - #8017 Icon Shaper crash when opening a file (Matthias Clasen)
   - #8023 Icon editor crash when using a `rect` shape (Matthias Clasen)
   - #8025 Shaper crashes when opening an icon with a line (Matthias Clasen)
@@ -88,37 +88,37 @@ Overview of Changes in 4.21.6, 27-02-2026
     Clasen)
   - #8038 GNOME Tour window is incorrectly sized/placed in GNOME 50 (Sebastian
     Keller)
-  - #8040 Mismatches between GtkSvg and GtkIconPaintable for symbolic icons
+  - #8040 Mismatches between BobguiSvg and BobguiIconPaintable for symbolic icons
     (Matthias Clasen)
-  - #8041 Legacy icons from gtk4-demo aren't recolored in GtkSvg (Matthias
+  - #8041 Legacy icons from bobgui4-demo aren't recolored in BobguiSvg (Matthias
     Clasen)
   - #8042 4.21: Application Class demo doesn't work (Matthias Clasen)
-  - #8043 Instantaneously setting state for GtkSvg (Matthias Clasen)
-  - #8045 GtkFileFilter batch formats function (for glycin)
+  - #8043 Instantaneously setting state for BobguiSvg (Matthias Clasen)
+  - #8045 BobguiFileFilter batch formats function (for glycin)
   - #8051 Shaper: crash when opening the states popover (Matthias Clasen)
   - #8053 gradient rendering bug (Benjamin Otte)
-  - #8055 Switching GtkSvg states doesn't work correctly
+  - #8055 Switching BobguiSvg states doesn't work correctly
   - #8064 Shaper: stroke width defaults changed (Matthias Clasen)
   - !7541 gdk/wayland/dmabuf: Some cleanups (Marco Trevisan (Treviño))
   - !8532 macos: fix deprecation messages (Arjan Molenaar)
   - !8748 surface: Ignore events for unmapped surface (Alessandro Astone)
-  - !9289 gtkgstmediafile: Use gapless looping (Adrien Plazas)
+  - !9289 bobguigstmediafile: Use gapless looping (Adrien Plazas)
   - !9366 Plug GTask leaks (Sergey Bugaev)
   - !9385 popoverbin: Take into account gesture coordinates and
     triggers_context_menu (Maximiliano Sandoval)
-  - !9412 gtkwidget: Improve cancellation/denial of gestures on active input
+  - !9412 bobguiwidget: Improve cancellation/denial of gestures on active input
     (Carlos Garnacho)
   - !9413 node editor: Stop using support-save (Matthias Clasen)
   - !9414 android: Init cleanup & Add deprecation checker utility (Florian
     "sp1rit"​)
   - !9415 Add some more profiling information (Benjamin Otte)
-  - !9416 gtkapplication: Only keep window state if enabled (Adrian Vovk)
+  - !9416 bobguiapplication: Only keep window state if enabled (Adrian Vovk)
   - !9417 ci: Use EXTRA_MESON_FLAGS in the gnomeos job (Jordan Petridis)
   - !9420 snapshot: Avoid scaling textures (Matthias Clasen)
   - !9421 application: Fix private comments (Maximiliano Sandoval)
   - !9422 Update Lithuanian translation
   - !9424 Add even more profiling and heatmap stuff (Benjamin Otte)
-  - !9425 Add gtk4-rendernode-tool filter (Benjamin Otte)
+  - !9425 Add bobgui4-rendernode-tool filter (Benjamin Otte)
   - !9427 icons: Apply stroking consistently (Matthias Clasen)
   - !9429 svg: Fix a crash (Matthias Clasen)
   - !9430 icon editor: Make it work again (Matthias Clasen)
@@ -131,7 +131,7 @@ Overview of Changes in 4.21.6, 27-02-2026
   - !9436 Tweak the icon paintable parser again (Matthias Clasen)
   - !9438 node-editor: Improve zoom levels (Benjamin Otte)
   - !9439 node editor: UI perfectionism (Matthias Clasen)
-  - !9440 Add GtkTryExpression (Jamie Gravendeel)
+  - !9440 Add BobguiTryExpression (Jamie Gravendeel)
   - !9442 icon paintable: Fix up visibility handling (Matthias Clasen)
   - !9443 Revert "directory list: Fix directory changes" (Matthias Clasen)
   - !9445 Add G_GNUC_WARN_UNUSED_RESULT to gsk_rect_intersection() (Benjamin
@@ -153,7 +153,7 @@ Overview of Changes in 4.21.6, 27-02-2026
   - !9466 Update Romanian translation
   - !9467 Update Russian translation
   - !9468 Update Bulgarian translation
-  - !9469 iconhelper: Respect pixel-size and -gtk-icon-size for icons (Alice
+  - !9469 iconhelper: Respect pixel-size and -bobgui-icon-size for icons (Alice
     Mikhaylenko)
   - !9470 inspector: Make data copyable (Matthias Clasen)
   - !9471 vulkan: Use g_get_monotonic_time_ns() in debug code
@@ -178,7 +178,7 @@ Overview of Changes in 4.21.6, 27-02-2026
   - !9492 svg: Fix a corner case (Matthias Clasen)
   - !9493 svg: Fix a corner case (Matthias Clasen)
   - !9494 svg: Implement some conditional processing (Matthias Clasen)
-  - !9495 Pass D-Bus a11y details through gtk-shell protocol (Carlos Garnacho)
+  - !9495 Pass D-Bus a11y details through bobgui-shell protocol (Carlos Garnacho)
   - !9497 rendernode tool: Allow matching nodes (Matthias Clasen)
   - !9498 svg: Support a description (Matthias Clasen)
   - !9499 icon editor: Some robustness for the state dialog (Matthias Clasen)
@@ -213,12 +213,12 @@ Overview of Changes in 4.21.6, 27-02-2026
   - !9534 printing: do not do manual copies/number up when the printing portal
     is used (Lucas Baudin)
   - !9535 Small android improvements for 4.22 (Florian "sp1rit"​)
-  - !9536 gtkwindow: Also update resize cursor on
-    GtkEventControllerMotion::enter (Carlos Garnacho)
+  - !9536 bobguiwindow: Also update resize cursor on
+    BobguiEventControllerMotion::enter (Carlos Garnacho)
   - !9537 Update Brazilian Portuguese translation
   - !9539 Update Turkish translation
   - !9540 Update Czech translation (AsciiWolf)
-  - !9541 docs: Clarify CSS custom properties support across GTK releases
+  - !9541 docs: Clarify CSS custom properties support across BOBGUI releases
     (Leonid Zaburunov)
   - !9543 svg crash fixes (Matthias Clasen)
   - !9544 Update French translation
@@ -263,38 +263,38 @@ Overview of Changes in 4.21.5, 30-01-2026
 * svg:
  - Filters operate in linear RGB (unless overwritten)
  - Many correctness fixes
- - The librsvg dependency has been dropped, since GTK can now
+ - The librsvg dependency has been dropped, since BOBGUI can now
    render svg images natively
 
 * css:
  - SVG filters can be used via data urls
 
 * Bugs fixed:
-  - #6870 Feature Request: Add an "accessible ID" property to GtkAccessible
+  - #6870 Feature Request: Add an "accessible ID" property to BobguiAccessible
     (Michael Weghorn)
   - #7078 Memory leak with cairo renderer + wayland GDK backend (Matthias
     Clasen)
   - #7703 `g_file_copy` crashes if one of src/dest is `GdkAndroidContentFile`
     and the other is not (Florian "sp1rit"​)
-  - #7957 Gtk.NeverTrigger() throws assertion error
-  - #7964 MacOS: closing a GtkWindow with native window controls does not
+  - #7957 Bobgui.NeverTrigger() throws assertion error
+  - #7964 MacOS: closing a BobguiWindow with native window controls does not
     restore mouse events to other windows
   - #7968 Crash in Drag Controller on a Finalizing Widget (Sergey Bugaev)
-  - #7970 File descriptors overflow in gtk4 applications, causing application
+  - #7970 File descriptors overflow in bobgui4 applications, causing application
     crash (Matthias Clasen)
   - #7972 gsk_transform_invert doesn't do as advertised (Matthias Clasen)
   - #7979 gsk_path_builder_add_circle segmentation fault (stackoverflow ?)
     (Matthias Clasen)
   - !7890 openuriportal: Use get_startup_notify_id directly (Maximiliano
     Sandoval)
-  - !9264 Redo GtkAspectFrame (Sergey Bugaev)
+  - !9264 Redo BobguiAspectFrame (Sergey Bugaev)
   - !9273 application: Support application inhibition and session-end detection
     on win32 (g.willems)
   - !9284 gdk/wayland: Map stylus buttons for BTN_BACK and BTN_FORWARD (Peter
     Hutterer)
   - !9321 Redo vertex attribute handling / draw call autogeneration (Benjamin
     Otte)
-  - !9332 docs: Clarify gtk_widget_get_template_child widget_type parameter
+  - !9332 docs: Clarify bobgui_widget_get_template_child widget_type parameter
     (badcel)
   - !9333 Drop the librsvg dependency (Matthias Clasen)
   - !9338 ci: Cleanups (Matthias Clasen)
@@ -318,7 +318,7 @@ Overview of Changes in 4.21.5, 30-01-2026
   - !9363 svg fixes (Matthias Clasen)
   - !9367 gsk: Add unpremultiplied gradient interpolation (Matthias Clasen)
   - !9368 gdk: Fix compile error due to macro ordering (Benjamin Otte)
-  - !9369 textview: Mark return value of gtk_text_view_get_extra_menu() as
+  - !9369 textview: Mark return value of bobgui_text_view_get_extra_menu() as
     nullable (Sebastian Dröge)
   - !9370 css: Support filter urls (Matthias Clasen)
   - !9372 rendernodeparser: Escape debug message strings properly (Benjamin
@@ -338,12 +338,12 @@ Overview of Changes in 4.21.5, 30-01-2026
   - !9392 Misc memleak fixes (Matthias Clasen)
   - !9393 Test node serialization (Matthias Clasen)
   - !9395 application: Drop public save/restore API (Adrian Vovk)
-  - !9396 gtkcalendar: Add tooltips to the control buttons (Lukáš Tyrychtr)
+  - !9396 bobguicalendar: Add tooltips to the control buttons (Lukáš Tyrychtr)
   - !9398 testsuite: Try to fix testutils build (Matthias Clasen)
-  - !9399 shortcuttrigger: Make GtkNeverTrigger a GObject singleton (Sergey
+  - !9399 shortcuttrigger: Make BobguiNeverTrigger a GObject singleton (Sergey
     Bugaev)
   - !9401 gsk: Set flags on nodes (Matthias Clasen)
-  - !9404 gtkatspicontext: Make sure that the ATs do not have a cached expanded
+  - !9404 bobguiatspicontext: Make sure that the ATs do not have a cached expanded
     state (Lukáš Tyrychtr)
   - !9405 svg: Try harder to resolve attributeName (Matthias Clasen)
   - !9406 gsk: Do not include GSK_PREAMBLE in final shader (Florian "sp1rit"​)
@@ -357,39 +357,39 @@ Overview of Changes in 4.21.5, 30-01-2026
 Overview of Changes in 4.21.4, 05-01-2026
 =========================================
 
-* GtkPopoverBin is a new widget to help with
+* BobguiPopoverBin is a new widget to help with
   adding context menus (and other popovers) to
   widgets that don't have them
 
-* GtkSvg is a much more complete SVG renderer now
+* BobguiSvg is a much more complete SVG renderer now
 
 * Gsk supports displacement maps (no public api yet)
 
-* GtkScrolledWindow scrollbar allocation has been fixed
+* BobguiScrolledWindow scrollbar allocation has been fixed
 
 * A11y overlays are now properly positioned on MacOS
 
 * Bugs fixed:
   - #7675 Convert included symbolics from fills to strokes (Jakub Steiner)
   - #7774 macOS: Accesskit overlay rectangles misplaced when scale factor > 1
-  - #7793 Wacom tablet pressure stopped working on Wayland after GTK4 4.20.1
+  - #7793 Wacom tablet pressure stopped working on Wayland after BOBGUI4 4.20.1
     upgrade (Peter Hutterer)
   - #7817 In testsuite/gdk/colorstate.c include of udmabuf.h seems errrorneous
     (Matthias Clasen)
-  - #7818 GTK 4.21.0 compilation failure on RedHat 8.10 (Matthias Clasen)
-  - #7860 GtkLevelBar doesn't correctly update when value set when unmapped
+  - #7818 BOBGUI 4.21.0 compilation failure on RedHat 8.10 (Matthias Clasen)
+  - #7860 BobguiLevelBar doesn't correctly update when value set when unmapped
     (Ignacy Kuchciński)
   - #7881 Backdrop blur leaves a transparent area along the edges (Benjamin
     Otte)
   - #7892 Shaper: canvas size not respected (Matthias Clasen)
-  - #7893 GtkGLArea + backdrop filter leak (Benjamin Otte)
+  - #7893 BobguiGLArea + backdrop filter leak (Benjamin Otte)
   - #7894 GL shader compilation error on Android/Mali (Benjamin Otte)
-  - #7906 Gtk.Svg: Investigate proper viewbox handling
+  - #7906 Bobgui.Svg: Investigate proper viewbox handling
   - #7914 svg: ellipses w. cx ≠ cy render incorrectly (Matthias Clasen)
   - #7922 Offloading broken for Showtime on main: "Only textures supported
     (found GskOpacityNode)" (Benjamin Otte)
-  - #7928 Incorrect CSS crashes Gtk (Matthias Clasen)
-  - #7932 ICON in title bar has no margin (GTK4 aplications) (Matthias Clasen)
+  - #7928 Incorrect CSS crashes Bobgui (Matthias Clasen)
+  - #7932 ICON in title bar has no margin (BOBGUI4 aplications) (Matthias Clasen)
   - #7934 svg use problem (Matthias Clasen)
   - #7941 svg: Support viewBox on <marker> (Matthias Clasen)
   - #7951 document-save-as-symbolic looks wrong in main (Matthias Clasen)
@@ -398,12 +398,12 @@ Overview of Changes in 4.21.4, 05-01-2026
     Abu Shawarib)
   - !8990 Scale access kit node bounding box for retina displays (Arjan
     Molenaar)
-  - !9047 revealer: Push opacity through GtkSnapshot (Hari Rana)
-  - !9123 Add GtkPopoverBin
+  - !9047 revealer: Push opacity through BobguiSnapshot (Hari Rana)
+  - !9123 Add BobguiPopoverBin
   - !9148 CODING-STYLE: Tiny braces examples improvements (Adrien Plazas)
   - !9189 gdk: clipboard: fix internal paste mime type resolution order
     (Dominique Martinet)
-  - !9190 Gtk 4 21 3 (Matthias Clasen)
+  - !9190 Bobgui 4 21 3 (Matthias Clasen)
   - !9191 icon editor: Allow grouping (Matthias Clasen)
   - !9192 Fix typo in README.md: "cmompose" → "compose" (Azibom)
   - !9193 svg: Cosmetics (Matthias Clasen)
@@ -411,12 +411,12 @@ Overview of Changes in 4.21.4, 05-01-2026
   - !9195 gdkevents: Fix relative_direction annotations (Maximiliano Sandoval)
   - !9197 docs: Fixes for RenderReplay and CompositeNode docstrings (Maximiliano
     Sandoval)
-  - !9198 gtk: Fix target widget lookup for scroll events from "puck" devices
+  - !9198 bobgui: Fix target widget lookup for scroll events from "puck" devices
     (Carlos Garnacho)
   - !9200 Add GskRepeatNode::repeat and use it for CSS backdrop blur (Benjamin
     Otte)
   - !9201 icon editor: Fix path duplication (Matthias Clasen)
-  - !9202 Revert "Merge branch 'wip/jimmac/gtk4-stroke-symbolics' into 'main'"
+  - !9202 Revert "Merge branch 'wip/jimmac/bobgui4-stroke-symbolics' into 'main'"
   - !9203 icon editor: Fix fill and stroke opacity (Matthias Clasen)
   - !9204 rendernodeparser: Don't clamp values (Benjamin Otte)
   - !9205 main: Allow avoiding only certain portals (Peter Eisenmann)
@@ -491,7 +491,7 @@ Overview of Changes in 4.21.4, 05-01-2026
   - !9293 svg: Map Gsk.Repeat onto the correct spread method value (Florian
     "sp1rit"​)
   - !9294 gsk: Handle zero-length paths without crashing (Matthias Clasen)
-  - !9295 gtk-demo: Use stroking in the drawing area demo (Benjamin Otte,
+  - !9295 bobgui-demo: Use stroking in the drawing area demo (Benjamin Otte,
     Matthias Clasen)
   - !9296 svg: Fix handling of empty filters (Matthias Clasen)
   - !9297 svg-compare: Add some comfort (Matthias Clasen)
@@ -509,7 +509,7 @@ Overview of Changes in 4.21.4, 05-01-2026
   - !9310 svg: limit rendering up to an upper bound (Florian "sp1rit"​)
   - !9311 macos: Fix crash due to drag-n-drop on macOS 26 (Arjan Molenaar)
   - !9312 svg: Support symbols (Matthias Clasen)
-  - !9313 gtk: Fix since annotation (Bilal Elmoussaoui)
+  - !9313 bobgui: Fix since annotation (Bilal Elmoussaoui)
   - !9316 columnview: Fix configuring an adjustment (Sergey Bugaev)
   - !9317 droptarget: Implement reset (Sergey Bugaev)
   - !9318 icon editor: Make it work again (Matthias Clasen)
@@ -541,7 +541,7 @@ other issues with the new backdrop-filter functionality.
   - #7880 Backdrop filter does not correctly interact with opacity (Benjamin
     Otte)
   - #7882 Backdrop filter does not correctly behave with scale (Benjamin Otte)
-  - #7883 gtk 4.20.3 fails to build on 32-bit architectures (Benjamin Otte)
+  - #7883 bobgui 4.20.3 fails to build on 32-bit architectures (Benjamin Otte)
   - #7885 Backdrop filter does not work with offloaded content (Benjamin Otte)
   - #7888 Dynamic cursors are incorrectly sized in mixed-DPI environment
     (Matthias Clasen)
@@ -554,9 +554,9 @@ other issues with the new backdrop-filter functionality.
     (Benjamin Otte)
   - !9172 rendernodeparser: Remove outdated warning (Benjamin Otte)
   - !9173 filechooser: Drop unused defines (Guido Günther)
-  - !9174 icon editor: Use GtkSvg for storage (Matthias Clasen)
+  - !9174 icon editor: Use BobguiSvg for storage (Matthias Clasen)
   - !9175 Split nodes on 'b' (Matthias Clasen)
-  - !9176 gtk-demo: Use blur-overlay in a demo (Matthias Clasen)
+  - !9176 bobgui-demo: Use blur-overlay in a demo (Matthias Clasen)
   - !9177 gsk: Avoid a double-free (Matthias Clasen)
   - !9179 icon editor: Drop a property (Matthias Clasen)
   - !9181 icon editor: Allow setting opacity (Matthias Clasen)
@@ -583,7 +583,7 @@ Overview of Changes in 4.21.2, 20-11-2025
    'background' in more interesting ways than just rendering it on top
  - Radial gradients can be defined with non-concentric circles
 
-* GtkSvg
+* BobguiSvg
  - <line>, <polyline> and <polygon> are now supported
  - Gradients are fully supported, including non-concentric radial
    gradients and reflecting as a spread method
@@ -593,18 +593,18 @@ Overview of Changes in 4.21.2, 20-11-2025
    via media queries
  - the backdrop-filter property is supported
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - The Emoji chooser has been updated for CLDR 48
 
-* GtkFontDialog:
+* BobguiFontDialog:
  - The language filtering has been improved
 
 * Bugs fixed:
   - GNOME/libadwaita#892 Adw.PreferencesDialog focus move (Alice Mikhaylenko)
-  - #4062 gtk_media_file_set_input_stream assertion failure when using GStreamer
+  - #4062 bobgui_media_file_set_input_stream assertion failure when using GStreamer
     backend
   - #7820 Follow-up on loose ends in the state saving support
-  - #7857 Feature: Add Win32 impl for gtk_file_launcher_open_containing_folder()
+  - #7857 Feature: Add Win32 impl for bobgui_file_launcher_open_containing_folder()
     (Sergey Bugaev)
   - #7862 icon-editor: SVG not viewable in firefox (Matthias Clasen)
   - #7866 Vulkan: Validation: vkQueuePresentKHR(): PRESENT_AFTER_WRITE hazard
@@ -629,7 +629,7 @@ Overview of Changes in 4.21.2, 20-11-2025
   - !9107 inspector: css-editor: Replace disable button with a switch (Jules
     Maselbas)
   - !9108 svg: fix printf format for size_t variables (g.willems)
-  - !9109 gtkfilechoosercell: Actually add long pressure gesture (Marco Trevisan
+  - !9109 bobguifilechoosercell: Actually add long pressure gesture (Marco Trevisan
     (Treviño))
   - !9110 pathbar: Plug a memory leak (Matthias Clasen)
   - !9111 Fix touch dropdown selection (!8041) properly (Florian "sp1rit"​)
@@ -647,7 +647,7 @@ Overview of Changes in 4.21.2, 20-11-2025
   - !9126 Add copy and paste rendernodes (Benjamin Otte)
   - !9127 ci: use system meson for android
   - !9128 vulkan: Rework swapchain present implementation (Benjamin Otte)
-  - !9129 doc: Fix GTK_ACCESSIBLE_PROPERTY_HAS_POPUP (Adrien Plazas)
+  - !9129 doc: Fix BOBGUI_ACCESSIBLE_PROPERTY_HAS_POPUP (Adrien Plazas)
   - !9130 gsk: Add gdk_color_is_srgb() (Benjamin Otte)
   - !9131 svg: Collect test output (Matthias Clasen)
   - !9132 svg: Fix animate transitions with delay (Matthias Clasen)
@@ -660,7 +660,7 @@ Overview of Changes in 4.21.2, 20-11-2025
   - !9140 Fix repeating conic gradients (Matthias Clasen)
   - !9143 icon editor: Get rid of AnimationType (Matthias Clasen)
   - !9144 Revert "gsk: Fix the conic gradient implementation" (Benjamin Otte)
-  - !9145 gtk: Document GTK_DEBUG_SESSION (Maximiliano Sandoval)
+  - !9145 bobgui: Document BOBGUI_DEBUG_SESSION (Maximiliano Sandoval)
   - !9146 modelbutton: Use accessible keyshortcuts labels (Adrien Plazas)
   - !9149 svg: Turn simple NULL returns on errors into return_if_fail()
     (Benjamin Otte)
@@ -672,7 +672,7 @@ Overview of Changes in 4.21.2, 20-11-2025
   - !9158 icon-editor: fix msys2 linker failure (g.willems)
   - !9159 API: Add GskCompositeNode (Benjamin Otte)
   - !9160 testsuite: Add an "opaque" run to compare-render (Benjamin Otte)
-  - !9161 node editor: Unset GtkApplication:save-state (Matthias Clasen)
+  - !9161 node editor: Unset BobguiApplication:save-state (Matthias Clasen)
   - !9162 cssprovider: Actually reload when prefers-reduced-motion changes
     (Alice Mikhaylenko)
 
@@ -684,7 +684,7 @@ Overview of Changes in 4.21.2, 20-11-2025
 Overview of Changes in 4.21.1, 29-10-2025
 =========================================
 
-* GtkSvg is a new paintable implementation that parses
+* BobguiSvg is a new paintable implementation that parses
   a subset of SVG, including animations.
 
 * Bugs fixed:
@@ -694,27 +694,27 @@ Overview of Changes in 4.21.1, 29-10-2025
   - #7676 `GSK_RENDERER=ngl` makes MacBook Pro's with Dual GPU's use the most
     power-hungry one by default
   - #7761 MacOS: \<Control\> is mapped differently based on
-    gtk_application_set_accels_for_action call location
+    bobgui_application_set_accels_for_action call location
   - #7795 Change in scrolling behavior (Carlos Garnacho, lbaudin)
   - #7801 Unaligned access in gdk/gdkmemoryformat.c causes testsuite crashes on
     SPARC (Gregor Riepl)
-  - #7802 [4.21] CSS-defined icons like GtkSpinner are only shown when present
-    in the gtk icon theme (Jakub Steiner)
+  - #7802 [4.21] CSS-defined icons like BobguiSpinner are only shown when present
+    in the bobgui icon theme (Jakub Steiner)
   - #7813 Shaper: Cannot parse SVG (Matthias Clasen)
   - #7823 svg not scaled with display scale since switch to librsvg (Matthias
     Clasen)
   - #7831 Crash with "CSS Blend Modes" demo (Urtsi Santsi)
-  - #7841 Suspected typo "symbolc" in docs/reference/gtk/icon-format.md
+  - #7841 Suspected typo "symbolc" in docs/reference/bobgui/icon-format.md
     (Matthias Clasen)
-  - #7848 GTK 4.18: Default GdkDisplay gets unreferenced when offscreen
+  - #7848 BOBGUI 4.18: Default GdkDisplay gets unreferenced when offscreen
     rendering via secondary display, causing crash (Benjamin Otte)
 
 * Changes:
   - !8041 dropdown: Allow selecting items via touchscreen? (Florian "sp1rit"​)
   - !9006 path paintable: Be more relaxed about attaching (Matthias Clasen)
-  - !9007 gtk-demo: Fix loading of gpa files (Matthias Clasen)
+  - !9007 bobgui-demo: Fix loading of gpa files (Matthias Clasen)
   - !9009 icon editor: examples (Jakub Steiner)
-  - !9010 gtk/symbolicpaintable: Fix a leak (Khalid Abu Shawarib)
+  - !9010 bobgui/symbolicpaintable: Fix a leak (Khalid Abu Shawarib)
   - !9011 macos(docs): update documentation on graphics switching and keyboard
     shortcuts (Arjan Molenaar)
   - !9013 path paintable: Add repeat count (Matthias Clasen)
@@ -722,7 +722,7 @@ Overview of Changes in 4.21.1, 29-10-2025
   - !9018 icon editor: Preserve shape information better (Matthias Clasen)
   - !9019 icon editor: Preserve shape information better (René de Hesselle,
     Matthias Clasen)
-  - !9023 dnd: Mark gtk_drop_target_async_get_formats() return value as
+  - !9023 dnd: Mark bobgui_drop_target_async_get_formats() return value as
     `transfer none`
   - !9026 revealer: Add fade-slide values (Hari Rana)
   - !9027 revealer: Minor refactor (Hari Rana)
@@ -735,12 +735,12 @@ Overview of Changes in 4.21.1, 29-10-2025
   - !9035 path paintable: Fix an oversight (Matthias Clasen)
   - !9038 path paintable: Drop general animations (Matthias Clasen)
   - !9039 icon editor: Drop the state check (Matthias Clasen)
-  - !9041 docs: Update GtkSettings docs (Matthias Clasen)
-  - !9048 gtkapplication-wayland: Iterate inhibitors safely while freeing
+  - !9041 docs: Update BobguiSettings docs (Matthias Clasen)
+  - !9048 bobguiapplication-wayland: Iterate inhibitors safely while freeing
     (Alessandro Astone)
   - !9049 icon editor: Some UI tweaks (Matthias Clasen)
   - !9051 Make gdk_rgba_print public (Matthias Clasen)
-  - !9053 gtk: docs: Fix docs for session restore signals (Maximiliano Sandoval)
+  - !9053 bobgui: docs: Fix docs for session restore signals (Maximiliano Sandoval)
   - !9054 gsk: Plug a memory leak (Matthias Clasen)
   - !9056 Fix various Vulkan YUV handling issues (Benjamin Otte)
   - !9057 Add an SVG renderer (Matthias Clasen)
@@ -766,7 +766,7 @@ Overview of Changes in 4.21.1, 29-10-2025
   - !9080 tools: Cosmetics (Matthias Clasen)
   - !9081 svg: Small cleanup (Matthias Clasen)
   - !9082 Make it possible to test rendering errors (Matthias Clasen)
-  - !9084 docs: Remove gtk4-icon-browser from Tools and Demos (Chris Mayo)
+  - !9084 docs: Remove bobgui4-icon-browser from Tools and Demos (Chris Mayo)
   - !9088 Rename GradientUnits to CoordUnits
   - !9089 Only build CUPS backend when enabled (Dan Yeaw)
   - !9090 node-editor: syntax-hilight comments
@@ -783,12 +783,12 @@ Overview of Changes in 4.21.0, 29-09-2025
 =========================================
 
 * Symbolic icons can now be stateful and animated. A new CSS
-  property, -gtk-icon-weight, can be used to modify the weight
+  property, -bobgui-icon-weight, can be used to modify the weight
   of strokes. The extensions to the icon format are described here:
 
-  https://docs.gtk.org/gtk4/icon-format.html
+  https://docs.bobgui.org/bobgui4/icon-format.html
 
-* GTK includes a new org.gtk.Shaper demo that serves as an
+* BOBGUI includes a new org.bobgui.Shaper demo that serves as an
   editor for the new symbolic icon format.
 
 * All included icons have been converted to use strokes
@@ -800,24 +800,24 @@ Overview of Changes in 4.21.0, 29-09-2025
 
   GDK_DEBUG=session-mgmt
 
-* GtkApplication has gained support for state saving.
+* BobguiApplication has gained support for state saving.
   To try this out you need to use gnome-session main
   and enable the session management protocol
 
-* A GtkAccessibleHypertext interface lets accessibles provide
+* A BobguiAccessibleHypertext interface lets accessibles provide
   information about embedded links
 
-* GtkAccessibleText can set caret and selection positions
+* BobguiAccessibleText can set caret and selection positions
 
 * Accessibility for dropdowns, list widgets, switches and entries
   has been improved
 
-* GtkFileLauncher can provide writable access to files when used
+* BobguiFileLauncher can provide writable access to files when used
   in a flatpak
 
 * Some enumerations have had their introspected value names corrected:
   GdkPaintableFlags, GdkFullscreenMode, GskPathForeachFlags,
-  GtkConstraintVflParserError
+  BobguiConstraintVflParserError
   This is an API change for language bindings
 
 * GLib 2.84 is required now
@@ -825,16 +825,16 @@ Overview of Changes in 4.21.0, 29-09-2025
 * Bugs fixed:
   - #5712 Context menus in KGX and g-t-e fail to activate actions on X11
   - #7309 Use the new accessible "switch" role instead of toggle button /
-    checkbox for Gtk switches (Matthias Clasen)
-  - #7602 Problems with GtkBuilder releasing references (Matthias Clasen)
+    checkbox for Bobgui switches (Matthias Clasen)
+  - #7602 Problems with BobguiBuilder releasing references (Matthias Clasen)
   - #7727 Stop using gsettings as fallback in the wayland settings code
     (Matthias Clasen)
-  - #7739 a11y: Add caret and selection setters to GtkAccessibleText (Matthias
+  - #7739 a11y: Add caret and selection setters to BobguiAccessibleText (Matthias
     Clasen)
   - #7755 Only the first text-shadow value gets applied when there are multiple
     (regression) (Matthias Clasen)
   - #7757 Make sense of AtkHyperlink (Matthias Clasen)
-  - #7766 gtk4-icon-editor does not seem to run with lang that set another
+  - #7766 bobgui4-icon-editor does not seem to run with lang that set another
     decimal symbol
   - #7767 macOS: Main menu items with "action" and "target" set do not work
     (Thomas Holder)
@@ -845,11 +845,11 @@ Overview of Changes in 4.21.0, 29-09-2025
     (gldrk)
   - !8502 State saving support (Matthias Clasen, Carlos Garnacho, Adrian Vovk)
   - !8687 builder: Come clean about floating references (Matthias Clasen)
-  - !8892 Add GtkPathPaintable (Matthias Clasen)
+  - !8892 Add BobguiPathPaintable (Matthias Clasen)
   - !8914 accessibletext: Add setters (Matthias Clasen)
   - !8925 Add threading documentation (Matthias Clasen)
   - !8928 surface: Mark region as nullable in set_input_region (João Pereira)
-  - !8930 settings: Call g_value_unset() after _gtk_settings_parse_convert()
+  - !8930 settings: Call g_value_unset() after _bobgui_settings_parse_convert()
     (Takao Fujiwara)
   - !8931 wayland: Invert flipped transforms (Robert Mader)
   - !8933 Fix upright text carets (Matthias Clasen)
@@ -863,7 +863,7 @@ Overview of Changes in 4.21.0, 29-09-2025
   - !8949 ci: Remove "allow_failure" in MacOS build (sid)
   - !8950 a11y atspi: No more report error for AT-SPI Text SetSelection (Michael
     Weghorn)
-  - !8952 Fix memory leak with GtkPathBar (evan-razzaque)
+  - !8952 Fix memory leak with BobguiPathBar (evan-razzaque)
   - !8953 Some follow-up things for animated icons (Matthias Clasen)
   - !8954 path paintable: Respect origin for attachments (Matthias Clasen)
   - !8955 docs: Typo fix (tytan652)
@@ -872,8 +872,8 @@ Overview of Changes in 4.21.0, 29-09-2025
   - !8958 Add prefix g-i annotation for some enums (VBB)
   - !8959 icon-editor: Ensure dot decimal point for float format (tytan652)
   - !8960 path paintable: Be more careful (Matthias Clasen)
-  - !8961 gtk-demo: Refresh the images demo (Matthias Clasen)
-  - !8962 Set the GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT in GtkDropDown (Matthias
+  - !8961 bobgui-demo: Refresh the images demo (Matthias Clasen)
+  - !8962 Set the BOBGUI_ACCESSIBLE_PROPERTY_VALUE_TEXT in BobguiDropDown (Matthias
     Clasen)
   - !8963 entry: Improve accessiblity (Matthias Clasen)
   - !8964 Listview accessibility
@@ -881,7 +881,7 @@ Overview of Changes in 4.21.0, 29-09-2025
   - !8968 application: Document state vfuncs (Maximiliano Sandoval)
   - !8969 application: Fix Since tags (Matthias Clasen)
   - !8971 path paintable: Reduce weight variation (Matthias Clasen)
-  - !8972 gtkapplication-wayland: simplify chainup (Georges Basile Stavracas
+  - !8972 bobguiapplication-wayland: simplify chainup (Georges Basile Stavracas
     Neto)
   - !8973 Tweak stroke width range again (Matthias Clasen)
   - !8974 gdk: Fix a string leak (Alice Mikhaylenko)
@@ -922,15 +922,15 @@ Overview of Changes in 4.20.1, 08-09-2025
 =========================================
 
 * Bugs fixed:
-  - #6666 Second Drag-and-Drop operation causes Gtk-CRITICAL messages at every
+  - #6666 Second Drag-and-Drop operation causes Bobgui-CRITICAL messages at every
     event (Matthias Clasen)
   - #7345 columnview focus problem with menus
-  - #7717 GtkTextView with css padding shows offscreen widgets in upper left
+  - #7717 BobguiTextView with css padding shows offscreen widgets in upper left
     corner (Matthias Clasen)
   - #7724 Occasional crashes in gsk_gl_device_setup_samplers() (Benjamin Otte)
-  - #7729 Gtk.Entry: Cursor disappears when reaching right border (Matthias
+  - #7729 Bobgui.Entry: Cursor disappears when reaching right border (Matthias
     Clasen)
-  - #7731 GTK_THEME environment variable not working properly with GTK4-4.20
+  - #7731 BOBGUI_THEME environment variable not working properly with BOBGUI4-4.20
     (Matthias Clasen)
   - #7734 MacOS: dyld: file does not start with MH_MAGIC[_64]: 0x00000000
     0x00000000 (sid)
@@ -942,7 +942,7 @@ Overview of Changes in 4.20.1, 08-09-2025
   - !8891 macos: do not explicitly disable window controls (Arjan Molenaar)
   - !8893 text: Only clip the text drawing (Matthias Clasen)
   - !8894 Improve DND interoperability with kwin (Matthias Clasen)
-  - !8896 Make GTK_THEME work as before (Matthias Clasen)
+  - !8896 Make BOBGUI_THEME work as before (Matthias Clasen)
   - !8897 columnview: Fix arrow navigation in a nested widget inside a cell
     (Lukáš Tyrychtr)
   - !8898 docs: Fix invalid picture elements (Chris Mayo)
@@ -958,9 +958,9 @@ Overview of Changes in 4.20.1, 08-09-2025
   - !8911 fontchooser: Make lists more keynav-friendly (Matthias Clasen)
   - !8912 textview: Connect to detailed can-undo/can-redo notify signals (Julian
     Sparber)
-  - !8913 gtk-demo: Support svg without width/height (Matthias Clasen)
+  - !8913 bobgui-demo: Support svg without width/height (Matthias Clasen)
   - !8916 docs: Add illustrations for component transfer (Matthias Clasen)
-  - !8917 gtk-demo: Add a demo for sections (Matthias Clasen)
+  - !8917 bobgui-demo: Add a demo for sections (Matthias Clasen)
   - !8918 gsk: Tweak the formula for component transfer (Matthias Clasen)
   - !8919 Fix MacOS build failure (sid)
   - !8920 demos: Improve the image filtering demo (Matthias Clasen)
@@ -992,13 +992,13 @@ Overview of Changes in 4.20.0, 29-08-2025
 
 * Bugs fixed:
   - #7695 gdk-win32: unmaximize doesn't restore the original size
-  - #7702 Should GTK_ACCESSIBLE_ROLE_STATUS really be NAME_PROHIBITED?
+  - #7702 Should BOBGUI_ACCESSIBLE_ROLE_STATUS really be NAME_PROHIBITED?
 
 * Changes:
   - !8851 gstreamer: Stop GstPlay before dropping the ref (Robert Mader)
-  - !8871 gtk/filterlistmodel: Emit items-changed for item watches (Georges
+  - !8871 bobgui/filterlistmodel: Emit items-changed for item watches (Georges
     Basile Stavracas Neto)
-  - !8872 Gtk 4.19.4
+  - !8872 Bobgui 4.19.4
   - !8873 docs: Some more details about dialogs (Matthias Clasen)
   - !8874 gsk: Add docs / gi annotations to new component transfer API
     (Sebastian Dröge)
@@ -1007,11 +1007,11 @@ Overview of Changes in 4.20.0, 29-08-2025
   - !8880 gsk: Add missing Since marker to GskComponentTransferNode (Sebastian
     Dröge)
   - !8881 symbolic: Fix stroke defaults (Matthias Clasen)
-  - !8883 Ignore gtk namespace attributes (Matthias Clasen)
-  - !8884 gtk-demo: Fix markup in dark (Matthias Clasen)
+  - !8883 Ignore bobgui namespace attributes (Matthias Clasen)
+  - !8884 bobgui-demo: Fix markup in dark (Matthias Clasen)
   - !8885 entry: Clean up coding style (Sergio Costas Rodriguez)
-  - !8886 gtk-demo: Avoid some criticals (Matthias Clasen)
-  - !8887 gtkatcontext: Fix name generation flags for the banner role (Lukáš
+  - !8886 bobgui-demo: Avoid some criticals (Matthias Clasen)
+  - !8887 bobguiatcontext: Fix name generation flags for the banner role (Lukáš
     Tyrychtr, Matthias Clasen)
 
 * Translation updates:
@@ -1040,14 +1040,14 @@ Overview of Changes in 4.19.4, 18-08-2025
     Garnacho)
   - #6660 Numpad "home" and "end" keys behave differently than "home" and "end"
     keys when combined with shift (Brian Kress)
-  - #7672 Gtk.FileDialog.open_finish() is wrongfully marked as nullable
+  - #7672 Bobgui.FileDialog.open_finish() is wrongfully marked as nullable
     (Matthias Clasen)
   - #7691 4.19.3: Missing borders in g-c-c wifi page (Matthias Clasen)
   - #7693 Crash due to use after free in unset_fullscreen_monitor (deltragon)
   - #7694 4.19.3 regression: vte apps cant decode utf8 on copy-paste (Matthias
     Clasen)
   - #7708 Holding down keys no longer works (Carlos Garnacho)
-  - #7712 GtkTextView gives encoded UTF-8 characters on paste sometimes
+  - #7712 BobguiTextView gives encoded UTF-8 characters on paste sometimes
     (Matthias Clasen)
   - #7715 inconsistent y of text underline (Matthias Clasen)
 
@@ -1056,7 +1056,7 @@ Overview of Changes in 4.19.4, 18-08-2025
     shift (Matthias Clasen, Brian Kress)
   - !8277 atcontext: Fix a11y value leaks (Khalid Abu Shawarib)
   - !8812 4.19.3 (Matthias Clasen)
-  - !8813 gtktext: Remove a duplicate text added notification for a11y (Lukáš
+  - !8813 bobguitext: Remove a duplicate text added notification for a11y (Lukáš
     Tyrychtr)
   - !8815 print portal memory cleanups (lbaudin)
   - !8818 widget-factory: Fix style selectors (Matthias Clasen)
@@ -1073,11 +1073,11 @@ Overview of Changes in 4.19.4, 18-08-2025
   - !8833 Check for non-standard backtrace() instead of assuming it (Haelwenn
     (lanodan) Monnier)
   - !8834 textview: Don't cast root to window without checking type (Ben Mather)
-  - !8836 GtkRange/GtkScale scroll improvements (Carlos Garnacho)
+  - !8836 BobguiRange/BobguiScale scroll improvements (Carlos Garnacho)
   - !8837 node editor: Fix the dark bg button (Matthias Clasen)
-  - !8841 widget: Fix leak when disposing GtkLabel (Maximiliano Sandoval)
+  - !8841 widget: Fix leak when disposing BobguiLabel (Maximiliano Sandoval)
   - !8843 gsk: Don't crash on failed image creation (Matthias Clasen)
-  - !8844 Fix license of GtkFileThumbnail files (Michael Catanzaro)
+  - !8844 Fix license of BobguiFileThumbnail files (Michael Catanzaro)
   - !8846 gdk/wayland: Support wl_seat version 10 (Carlos Garnacho)
   - !8847 gdk: Fix mixed-up axis names (Titouan Real)
   - !8848 Delete Kikongo and Turkmen translations (Michael Catanzaro)
@@ -1086,7 +1086,7 @@ Overview of Changes in 4.19.4, 18-08-2025
   - !8856 entry: Plug leak in update_extra_menu (Maximiliano Sandoval)
   - !8858 build: pass output file as argument to docutils rst2man/html (Eli
     Schwartz)
-  - !8860 gtk: docs: Remove () at the end of method links (Maximiliano Sandoval)
+  - !8860 bobgui: docs: Remove () at the end of method links (Maximiliano Sandoval)
   - !8861 gdk/wayland: Flush all tablet events after wp_tablet_tool.frame
     (Carlos Garnacho)
   - !8862 stroke: Really allow a line width of 0 (Matthias Clasen)
@@ -1114,14 +1114,14 @@ Overview of Changes in 4.19.4, 18-08-2025
 Overview of Changes in 4.19.3, 03-08-2025
 =========================================
 
-* GtkVideo:
+* BobguiVideo:
   - Support fo 10/12/16bit software decoder formats has been added
   - Avoid extra copies in more cases
 
-* GtkApplication:
+* BobguiApplication:
  - Rely on the portal instead of talking to session managers
 
-* GtkEntry:
+* BobguiEntry:
  - Entry icons now have an easy way to add an equivalent
    context menu item
 
@@ -1130,7 +1130,7 @@ Overview of Changes in 4.19.3, 03-08-2025
  - The symbolic png format is being phased out
 
 * List models:
- - GtkFilterListModel can now watch its items and refilter
+ - BobguiFilterListModel can now watch its items and refilter
 
 * CSS:
  - Media queries for color scheme and contrast are supported
@@ -1157,10 +1157,10 @@ Overview of Changes in 4.19.3, 03-08-2025
  - The CSS editor has controls for color scheme and contrast
 
 * Tools and demos:
- - gtk4-path-tool can show path intersections
- - gtk4-demo gained a "Path Explorer" demo
- - gtk4-demo gained a "Sweep" (path intersection) demo
- - gtk4-demo gained a "Image Filtering" demo
+ - bobgui4-path-tool can show path intersections
+ - bobgui4-demo gained a "Path Explorer" demo
+ - bobgui4-demo gained a "Sweep" (path intersection) demo
+ - bobgui4-demo gained a "Image Filtering" demo
 
 * macOS:
  - Register sessions by default
@@ -1175,20 +1175,20 @@ Overview of Changes in 4.19.3, 03-08-2025
 
 * Deprecations:
  - the Broadway renderer
- - the GtkApplication:register-session property
- - the gtk-application-prefer-dark setting
+ - the BobguiApplication:register-session property
+ - the bobgui-application-prefer-dark setting
 
 * Bugs fixed:
-  - #2613 GtkTextView jumps on enter if a big enough top-margin is set (Manuel
+  - #2613 BobguiTextView jumps on enter if a big enough top-margin is set (Manuel
     Genovés)
-  - #4134 GtkTextView:top-margin breaks resize Y placement when wrap-text is set
+  - #4134 BobguiTextView:top-margin breaks resize Y placement when wrap-text is set
     (Manuel Genovés)
-  - #5273 Broken links in GTK4 documentation question index
+  - #5273 Broken links in BOBGUI4 documentation question index
   - #7531 Blank screen with Adreno GPU driver on Android (Florian "sp1rit"​)
   - #7554 Win32: opening a popover un-maximizes the toplevel (Doublonmousse)
   - #7581 Proposal: Make compose sequence visuals configurable in compose files:
     would make something like BÉPO visuals and similar layouts like Neo  future
-    proof, i.e. avoid code changes to Gtk in future. (Mike FABIAN)
+    proof, i.e. avoid code changes to Bobgui in future. (Mike FABIAN)
   - #7622 Typo (Brian Yurko)
   - #7628 wayland: window notify::suspended is only triggered after window
     becomes visible again (Matthias Clasen)
@@ -1196,20 +1196,20 @@ Overview of Changes in 4.19.3, 03-08-2025
     behaviour with popups extending outside window boundary (Matthias Clasen)
   - #7644 Multi-plane YCbCr fallback breaks external-only dmabuf import
     (Benjamin Otte)
-  - #7650 Regression in GtkBitsetIter (Matthias Clasen)
-  - #7654 Gtk.Entry icons aren't accessible when they are sensitive/activatable
+  - #7650 Regression in BobguiBitsetIter (Matthias Clasen)
+  - #7654 Bobgui.Entry icons aren't accessible when they are sensitive/activatable
   - #7663 Button losing focus/hover because of transition (Matthias Clasen)
-  - #7670 gtk_enumerate_printers() fails to return a printed named
-    "GtkPrintBackendFile" (Matthias Clasen)
+  - #7670 bobgui_enumerate_printers() fails to return a printed named
+    "BobguiPrintBackendFile" (Matthias Clasen)
   - #7683 SpinButton (spin scales) can't show negative values on some macOS LANG
     locales (Oona Räisänen)
   - #7686 Leak when starting a libadwaita's demo
-  - https://gitlab.gnome.org/Teams/Websites/www.gtk.org/-/issues/
+  - https://gitlab.gnome.org/Teams/Websites/www.bobgui.org/-/issues/
 
 * Changes:
   - !8330 memoryformat: Add 10/12/16bit SW decoder formats (Robert Mader)
   - !8723 android: Fix IME preventing from closing Activity
-  - !8728 gtkatspicontext: Fix returning null parent ref for the root (Lukáš
+  - !8728 bobguiatspicontext: Fix returning null parent ref for the root (Lukáš
     Tyrychtr)
   - !8729 The 4.19.2 release (Matthias Clasen)
   - !8730 vulkan: NULL is not compatible with VkFence (Zander Brown)
@@ -1224,9 +1224,9 @@ Overview of Changes in 4.19.3, 03-08-2025
   - !8738 wayland: Split up some debug spew (Robert Mader)
   - !8742 shortcutwindow: Differentiate keypad better (Matthias Clasen)
   - !8744 gstreamer: Add video meta support for sysmem buffers (Robert Mader)
-  - !8746 Add new "watch-items" property & plumbing to GtkFilterListModel
+  - !8746 Add new "watch-items" property & plumbing to BobguiFilterListModel
     (Georges Basile Stavracas Neto)
-  - !8747 gtkstack: Fix hiding the invisible GtkStackPages on the a11y layer
+  - !8747 bobguistack: Fix hiding the invisible BobguiStackPages on the a11y layer
     (Lukáš Tyrychtr)
   - !8749 Sync with current CRoaring (Matthias Clasen)
   - !8750 testlistview: Waste less time (Matthias Clasen)
@@ -1236,12 +1236,12 @@ Overview of Changes in 4.19.3, 03-08-2025
   - !8754 tools: Fix help output details (Matthias Clasen)
   - !8756 pathbuilder: Don't split cubics
   - !8757 path: Fix closest point for circles (Matthias Clasen)
-  - !8759 gtk4-demo: Cosmetics (Matthias Clasen)
+  - !8759 bobgui4-demo: Cosmetics (Matthias Clasen)
   - !8761 bumped gdk-pixbuf to 2.43.3 (Florian "sp1rit"​, Matthias Clasen)
   - !8762 Fix EGL dmabuf format handling (Benjamin Otte)
   - !8763 Make compose sequence visuals configurable in compose files (Mike
     FABIAN, Matthias Clasen)
-  - !8764 docs: Fix non-working links within gtk4 API static generated docs
+  - !8764 docs: Fix non-working links within bobgui4 API static generated docs
     (Brian Yurko)
   - !8765 Add a demo of raw image dnd
   - !8766 image dnd: Use GdkDropTargetAsync (Matthias Clasen)
@@ -1251,7 +1251,7 @@ Overview of Changes in 4.19.3, 03-08-2025
   - !8773 inspector: Change the shortcut for 'save a frame' (Matthias Clasen)
   - !8774 entry: Add accessibility to primary and secondary icons (Sergio Costas
     Rodriguez)
-  - !8775 gtk4-demo: Rename the path explorer demo (Matthias Clasen)
+  - !8775 bobgui4-demo: Rename the path explorer demo (Matthias Clasen)
   - !8777 symbolics: Support <circle> and <rect> (Matthias Clasen)
   - !8778 macos: By default register the session (Arjan Molenaar)
   - !8779 gsk: Added gsk_transform_matrix_2d (Florian "sp1rit"​)
@@ -1264,19 +1264,19 @@ Overview of Changes in 4.19.3, 03-08-2025
     "sp1rit"​)
   - !8791 fix: special case for maximized and fullscreened window in
     `compute_toplevel_size` (Doublonmousse)
-  - !8794 gi/gtkfilter: Fix since annotations of new enum fields (Bilal
+  - !8794 gi/bobguifilter: Fix since annotations of new enum fields (Bilal
     Elmoussaoui)
   - !8796 print: Small refactoring (Matthias Clasen)
   - !8799 password input purpose a11y (Lukáš Tyrychtr)
-  - !8800 gtk-demo: Update paintable demos (Matthias Clasen)
-  - !8801 gtk/application-dbus: Plug GVariant leak (Maximiliano Sandoval)
+  - !8800 bobgui-demo: Update paintable demos (Matthias Clasen)
+  - !8801 bobgui/application-dbus: Plug GVariant leak (Maximiliano Sandoval)
   - !8803 Support media queries (Matthias Clasen)
   - !8805 printoperation: Plug cairo surface leak (Maximiliano Sandoval)
   - !8806 Plug some leaks in node editor (Maximiliano Sandoval)
   - !8807 android: Build GdkAndroid-4.0.gir if introspection is enabled (Florian
     "sp1rit"​)
   - !8808 textureutils: Plug leak on start_element_cb (Maximiliano Sandoval)
-  - !8809 gtk/applicaiion-dbus: Call env variable unset in constructor when
+  - !8809 bobgui/applicaiion-dbus: Call env variable unset in constructor when
     available (Khalid Abu Shawarib)
   - !8810 Plug a memory leak in svg parsing (Matthias Clasen)
   - !8811 filechoosernative: Plug leak when setting mimetype (Maximiliano
@@ -1295,29 +1295,29 @@ Overview of Changes in 4.19.3, 03-08-2025
 Overview of Changes in 4.19.2, 27-06-2025
 =========================================
 
-Note: This release makes GTK rely on the Wayland text protocol
+Note: This release makes BOBGUI rely on the Wayland text protocol
 for input method support. For compositors without that protocol,
-you can manually set GTK_IM_MODULE=simple to get back support for
+you can manually set BOBGUI_IM_MODULE=simple to get back support for
 X11-style compose sequences and dead keys.
 
-* GtkImage:
+* BobguiImage:
  - Change the sizing behavior for paintables. Stop scaling them up
 
 * Add g_uri_launcher_can_launch to check if a given uri has a handler
 
-* GtkTextView:
+* BobguiTextView:
  - Don't use keyboard layout for text direction
 
-* GtkIconTheme:
+* BobguiIconTheme:
  - Allow strokes in symbolic icons
  - Document the symbolic icon format
  - Add a small parser for symbolic svg files
  - Convert symbolic svgs to render nodes and rasterize them later
  - Require librsvg and always support svg
- - Make it possible to create GtkIconPaintable objects in ui files
+ - Make it possible to create BobguiIconPaintable objects in ui files
  - Fix search path order to prefer ~/.local/share over /usr/share
 
-* GtkVideo:
+* BobguiVideo:
  - Port the gstreamer backend to use GskPlay
 
 * Resources:
@@ -1345,7 +1345,7 @@ X11-style compose sequences and dead keys.
  - Deprecate the remaining pixbuf APIs
 
 * Tools:
- - Add some interactive controls to gtk4-path-tool
+ - Add some interactive controls to bobgui4-path-tool
  - Add a command to convert symbolic svgs to nodes
  - The inspector UI has been improved in some places
 
@@ -1357,7 +1357,7 @@ X11-style compose sequences and dead keys.
  - Use paintables instead of themed icons in many places
 
 * Build:
- - Include modules in libgtk
+ - Include modules in libbobgui
  - Build with libcups 3
  - Use meson 1.8.2
  - Require librsvg
@@ -1400,7 +1400,7 @@ X11-style compose sequences and dead keys.
   - #7427 CSS @keyframes should support multiple animation selectors (Matthias
     Clasen)
   - #7450 Wrong behavior of GdkKeymap on macOS (Elisa Pau)
-  - #7524 `Gtk.MapListModel` becomes desynchronized when the original list model
+  - #7524 `Bobgui.MapListModel` becomes desynchronized when the original list model
     is modified (Matthias Clasen)
   - #7541 Win32: window resize issues (not repainted or wrong direction) with
     cairo renderer (Benjamin Otte)
@@ -1410,34 +1410,34 @@ X11-style compose sequences and dead keys.
   - #7587 Dynamic cursors are incorrectly scaled (PBS, Matthias Clasen)
   - #7589 Windows vulkan renderer: DestroyWindow failed with code 1400: Invalid
     window handle. (Benjamin Otte)
-  - #7592 `gtk_accelerator_parse_with_keycode` returns a false positive for
+  - #7592 `bobgui_accelerator_parse_with_keycode` returns a false positive for
     parsing (Rubén Muñoz--Bertrand)
   - #7593 Wayland: The tablet cursor shape does not always changes shape when
-    hovering into a GTK4 application (Matthias Clasen)
+    hovering into a BOBGUI4 application (Matthias Clasen)
   - #7606 Giant mouse cursor (Matthias Clasen)
-  - #7609 GTK4 symbolic icon display no longer prioritises ~/.local/share/icons
+  - #7609 BOBGUI4 symbolic icon display no longer prioritises ~/.local/share/icons
     over /usr/share/icons (Matthias Clasen)
   - #7611 Texture.save_to_png does not consider the color state (Matthias
     Clasen)
-  - #7613 Regression with gtk_snapshot_append_radial_gradient() (Matthias
+  - #7613 Regression with bobgui_snapshot_append_radial_gradient() (Matthias
     Clasen)
   - #7617 (atspi): `Parent` property and cache's `GetItems` methods disagree
     about root's parent.
-  - #7620 Cannot build GTK4 without `memfd_create` (Matthias Clasen)
+  - #7620 Cannot build BOBGUI4 without `memfd_create` (Matthias Clasen)
   - !7883 Add GdkD3d12Texture (Benjamin Otte)
   - !8061 Deprecate the last few undeprecated GdkPixbuf apis (Matthias Clasen)
   - !8080 macos: Add (experimental) Vulkan support (Arjan Molenaar)
   - !8481 Color representation protocol support (Matthias Clasen)
   - !8498 macos: Add Window menu as a special case (Arjan Molenaar)
   - !8501 macos: Fix native window snapping (Arjan Molenaar)
-  - !8522 modules: Let modules be statically linked into libgtk (Florian
+  - !8522 modules: Let modules be statically linked into libbobgui (Florian
     "sp1rit"​)
   - !8525 4.19.1 (Matthias Clasen)
   - !8530 Some more pixbuf work (Matthias Clasen)
   - !8533 Drop unnecessary includes (Matthias Clasen)
   - !8534 css: Use different api (Matthias Clasen)
   - !8535 icons: Fix the fg-only optimization (Matthias Clasen)
-  - !8537 Add gtk_uri_launcher_can_launch
+  - !8537 Add bobgui_uri_launcher_can_launch
   - !8538 Bump the openuri portal api (Matthias Clasen)
   - !8539 gpu: Move function (Benjamin Otte)
   - !8540 Revert "file filer: Replace an api" (Matthias Clasen)
@@ -1454,20 +1454,20 @@ X11-style compose sequences and dead keys.
   - !8552 docs: Some updates (Matthias Clasen)
   - !8553 demos: Simplify the app icons (Matthias Clasen)
   - !8555 icontheme: Cosmetics (Matthias Clasen)
-  - !8556 wayland: Stop deriving from GtkIMContextSimple (Matthias Clasen)
+  - !8556 wayland: Stop deriving from BobguiIMContextSimple (Matthias Clasen)
   - !8557 path tool: Add some interactive control (Matthias Clasen)
   - !8558 some win32 fixes (Benjamin Otte)
   - !8559 win32: Use DirectComposition (Benjamin Otte)
   - !8560 Document the atspi socket (Matthias Clasen)
   - !8561 win32 fixes (Benjamin Otte)
   - !8564 ci: fix the android build ci (Florian "sp1rit"​)
-  - !8565 gtk-demo: Fix the ucd demo (Matthias Clasen)
+  - !8565 bobgui-demo: Fix the ucd demo (Matthias Clasen)
   - !8566 android: fix cairo renderer framebuffer format conversion (Florian
     "sp1rit"​)
   - !8567 image-tool: Use shared infrastructure (Matthias Clasen)
-  - !8569 gtk-demo: Add a symbolic paintable (Matthias Clasen)
-  - !8570 gtk-demo: Rename a class (Matthias Clasen)
-  - !8571 Split off gtkiconpaintable.h (Matthias Clasen)
+  - !8569 bobgui-demo: Add a symbolic paintable (Matthias Clasen)
+  - !8570 bobgui-demo: Rename a class (Matthias Clasen)
+  - !8571 Split off bobguiiconpaintable.h (Matthias Clasen)
   - !8572 menubutton: Annotate popover type (Sergey Bugaev)
   - !8573 Allow strokes in symbolic icons
   - !8575 docs: Document a pitfall of nested ui files (Matthias Clasen)
@@ -1516,20 +1516,20 @@ X11-style compose sequences and dead keys.
   - !8629 cssrefvalue: free the value itself (Zander Brown)
   - !8632 image: Expand docs (Matthias Clasen)
   - !8633 docs: Use proper admonitions (Matthias Clasen)
-  - !8634 gtk-demo: Drop an accidentally snuck in icon (Matthias Clasen)
+  - !8634 bobgui-demo: Drop an accidentally snuck in icon (Matthias Clasen)
   - !8635 gstreamer: Promote set_caps caps print to info (Robert Mader)
   - !8636 icons: Apply matrix transforms (Jakub Steiner, Matthias Clasen)
   - !8637 Clean up and fix rotate gesture icons (Matthias Clasen)
   - !8638 Guard against window being NULL (Sebastian Wiesner)
   - !8639 Always allow symbolic svgs (Matthias Clasen)
-  - !8640 Fix supercritical issue in gtk4-demo (Benjamin Otte)
+  - !8640 Fix supercritical issue in bobgui4-demo (Benjamin Otte)
   - !8641 snapshot: Move a helper (Matthias Clasen)
   - !8642 More svg rendering and path work (Matthias Clasen)
   - !8643 Improve symbolic icon handling (Matthias Clasen)
   - !8644 surface: Add the concept of an "attached context" (Benjamin Otte)
   - !8645 wayland: More debug spew for color (Matthias Clasen)
   - !8646 rendernode tool: Tweak the convert command (Matthias Clasen)
-  - !8647 icontheme: Split off gtkiconpaintable.c (Matthias Clasen)
+  - !8647 icontheme: Split off bobguiiconpaintable.c (Matthias Clasen)
   - !8648 Try meson 1.8.1 (Matthias Clasen)
   - !8649 wayland: Add a way to get the text protocol proxy (Matthias Clasen)
   - !8650 Rename many of the private color apis
@@ -1567,7 +1567,7 @@ X11-style compose sequences and dead keys.
   - !8694 Revert "wayland: Fix callback cursor scaling" (Matthias Clasen)
   - !8695 textview: Use widget direction instead of keyboard direction for
     neutral text
-  - !8696 gtkmaplistmodel: Make 'model' property writable (Georges Basile
+  - !8696 bobguimaplistmodel: Make 'model' property writable (Georges Basile
     Stavracas Neto)
   - !8697 meson: Disable x11 feature on macos
   - !8698 gstreamer: Handle non-contiguous sysmem buffers (Robert Mader)
@@ -1576,7 +1576,7 @@ X11-style compose sequences and dead keys.
   - !8702 docs: Add more details (Matthias Clasen)
   - !8704 widget-factory: Add some a11y error handling (Matthias Clasen)
   - !8705 When saving textures, preserve color state (Matthias Clasen)
-  - !8707 gtkgstsink.c: Drop g_autoptr() usage (Chun-wei Fan)
+  - !8707 bobguigstsink.c: Drop g_autoptr() usage (Chun-wei Fan)
   - !8709 widget-factory: Add some icons (Matthias Clasen)
   - !8710 inspector: Mark image buttons in ui files (Matthias Clasen)
   - !8712 button: Try harder to manage style classes (Matthias Clasen)
@@ -1585,7 +1585,7 @@ X11-style compose sequences and dead keys.
   - !8715 window: Update set_startup_id documentation to include Wayland
     (Sebastian Keller)
   - !8716 Add missing array annotation to GskPathForeachFunc
-  - !8719 Fix gtk_init_check() crash on android (PBS)
+  - !8719 Fix bobgui_init_check() crash on android (PBS)
   - !8720 atspiroot: Return proper parent reference (Lukáš Tyrychtr)
   - !8721 testsuite: Run ttfautohint over our Inter subsets (Matthias Clasen)
   - !8722 A bunch of general fixes (Benjamin Otte, Matthias Clasen)
@@ -1609,26 +1609,26 @@ X11-style compose sequences and dead keys.
 Overview of Changes in 4.19.1, 02-05-2025
 =========================================
 
-* GtkText:
+* BobguiText:
  - Add bindings for the "Clear" key
 
-* GtkTextView:
+* BobguiTextView:
  - Make overlaid child widgets scroll again
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Fix a crash with inaccessible locations
  - Add a forgotten accessible label
 
-* GtkVideo:
+* BobguiVideo:
  - Improve support for subsampled formats
 
-* GtkApplicationWindow:
+* BobguiApplicationWindow:
  - Improve layout
 
-* GtkWindow:
+* BobguiWindow:
  - Add gravity for resizing
 
-* GtkWidget:
+* BobguiWidget:
  - Fix invalidating cached request modes
 
 * Gdk:
@@ -1662,10 +1662,10 @@ Overview of Changes in 4.19.1, 02-05-2025
 
 * Tools:
  - Add bash completion support
- - Add an --offload flag to gtk4-rendernode-tool
+ - Add an --offload flag to bobgui4-rendernode-tool
 
 * Debugging:
- - Reintroduce GTK_DEBUG=touch-ui to test touchscreen UI
+ - Reintroduce BOBGUI_DEBUG=touch-ui to test touchscreen UI
  - Avoid a crash when natives get unrealized
 
 * Build:
@@ -1681,18 +1681,18 @@ Overview of Changes in 4.19.1, 02-05-2025
     in cairo blur (Sebastian Keller)
   - #7458 Random crashes
   - #7476 4.19.0: gnome-control-center missing animations (Benjamin Otte)
-  - #7479 gtkmm programs fail to start on Windows with AccessKit support enabled
+  - #7479 bobguimm programs fail to start on Windows with AccessKit support enabled
     (Matthias Clasen)
   - #7480 testsuite needs a run with GDK_VULKAN_DISABLE=all GDK_GL_DISABLE=all
     (Matthias Clasen)
-  - #7482 Epiphany Crash in GTK file chooser when last used directory has
+  - #7482 Epiphany Crash in BOBGUI file chooser when last used directory has
     insufficient filesystem permissions: "GFileInfo created without
     standard::type" (Philip Withnall)
   - #7495 Failed to link with the mold linker (Matthias Clasen)
   - #7498 TextView overlay does not scroll with content (Matthias Clasen)
   - #7510 macos: app crashes if unfullscreening window
   - #7513 Broken boxed-list ListBox (Sergey Bugaev)
-  - #7520 XCompose preventing GTK4 applications from launching (again) (Matthias
+  - #7520 XCompose preventing BOBGUI4 applications from launching (again) (Matthias
     Clasen)
   - #7522 critical when selecting label with use-underline but mnemonic with
     screenreader enabled (Markus Göllnitz)
@@ -1700,19 +1700,19 @@ Overview of Changes in 4.19.1, 02-05-2025
     Hesselle)
   - !8307 gsk: Go back to using subpixel y for text
   - !8391 android: Advanced "dumb" IME implementation
-  - !8416 gtk: Reintroduce touchscreen simulation
-  - !8424 [gtk4] fix gdk_x11_surface_get_frame_extents with window borders.
-  - !8433 GtkGLArea: add note to docs regarding the output framebuffer
+  - !8416 bobgui: Reintroduce touchscreen simulation
+  - !8424 [bobgui4] fix gdk_x11_surface_get_frame_extents with window borders.
+  - !8433 BobguiGLArea: add note to docs regarding the output framebuffer
   - !8434 build: Add bash completion support
-  - !8435 gtk-demo: Remove the "Search Entry" demo (Benjamin Otte)
-  - !8436 gtk-demo: Remove the "Search Entry" demo (Benjamin Otte)
+  - !8435 bobgui-demo: Remove the "Search Entry" demo (Benjamin Otte)
+  - !8436 bobgui-demo: Remove the "Search Entry" demo (Benjamin Otte)
   - !8438 wayland: Don't set the selected cursor in init (Matthias Clasen)
   - !8439 More commandline completion (Matthias Clasen)
   - !8440 Keep renaming renderers (Matthias Clasen)
   - !8441 Add Clear keybindings (Matthias Clasen)
   - !8442 ci: Make fedora-clang run tests (Matthias Clasen)
   - !8443 wayland: Add missing wp-color flag (Benjamin Otte)
-  - !8444 gtkfilechooserwidget: Handle the case of a saved location being
+  - !8444 bobguifilechooserwidget: Handle the case of a saved location being
     inaccessible (Matthias Clasen, Philip Withnall)
   - !8445 wayland: Add support for xdg-toplevel edge constraints (Matthias
     Clasen, Jonas Ådahl)
@@ -1729,13 +1729,13 @@ Overview of Changes in 4.19.1, 02-05-2025
     (Sebastian Dröge)
   - !8463 android: Rework initialization procedure (Florian "sp1rit"​)
   - !8467 fix: Remove redundant assignment in _gdk_win32_surface_procedure
-  - !8468 gtkapplicationwindow: Improve measuring menubar (Sergey Bugaev)
+  - !8468 bobguiapplicationwindow: Improve measuring menubar (Sergey Bugaev)
   - !8469 css: Error if the background color is invalid (Benjamin Otte)
   - !8471 early exit  if the clipped bound rectangle's area is zero after
     snapping (Doublonmousse, DoublonMousse)
   - !8472 Various fixes and cleanups (Benjamin Otte)
   - !8473 listbase: Fix row visibility (Vladimir Vaskov)
-  - !8474 GtkBuilder docs - fix XML tag syntax
+  - !8474 BobguiBuilder docs - fix XML tag syntax
   - !8475 docs: recommend using properties instead of child (g.willems)
   - !8476 rendernodeparser: Avoid an extra Cairo surface (Benjamin Otte)
   - !8478 Add toplevel gravity
@@ -1790,17 +1790,17 @@ Overview of Changes in 4.19.1, 02-05-2025
 Overview of Changes in 4.19.0, 06-04-2025
 =========================================
 
-* GtkBuilder
+* BobguiBuilder
  - Allow translating constant expressions
  - Fix a problem with translated menu attributes
 
-* GtkWindow no longer force-unmaximizes windows on initial map
+* BobguiWindow no longer force-unmaximizes windows on initial map
 
-* GtkCalendar has gained a date property
+* BobguiCalendar has gained a date property
 
-* GtkSearch entry no longer captures the enter key
+* BobguiSearch entry no longer captures the enter key
 
-* GtkVideo supports YUV formats
+* BobguiVideo supports YUV formats
 
 * Wayland
  - Don't load themed cursors anymore, since we rely on the cursor-shape
@@ -1829,19 +1829,19 @@ Overview of Changes in 4.19.0, 06-04-2025
  - image-tool: Allow convert to write out .node files
 
 * Demos:
- - gtk4-demo: Make the paint demo work with touch
- - gtk4-demo: Improve the zoom demo with touch
- - gtk4-demo: Improve the dnd demo with touch
- - gtk4-demo: Make the GLArea demo work on Android
+ - bobgui4-demo: Make the paint demo work with touch
+ - bobgui4-demo: Improve the zoom demo with touch
+ - bobgui4-demo: Improve the dnd demo with touch
+ - bobgui4-demo: Make the GLArea demo work on Android
 
 * Bugs fixed:
-  - #583 GtkHeaderBar: Close button's mouse-over area doesn't extend to top-
+  - #583 BobguiHeaderBar: Close button's mouse-over area doesn't extend to top-
     right pixel when maximized (fitts' law)
-  - #6874 GtkListBox keyboard activation
+  - #6874 BobguiListBox keyboard activation
   - #7397 [feature] implement `xdg-toplevel-icon-v1` (Matthias Clasen)
   - #7447 4.18.3 regression: cursor doesn't update state when crossing window
     boundaries (Matthias Clasen)
-  - #7459 Gtk.Video causes segfault inside VM with wayland backend (Matthias
+  - #7459 Bobgui.Video causes segfault inside VM with wayland backend (Matthias
     Clasen)
   - #7466 Win32: can't resize or move windows anymore (Matthias Clasen)
   - #7469 inspector: event recording is buggy for multi-surface situations
@@ -1849,7 +1849,7 @@ Overview of Changes in 4.19.0, 06-04-2025
   - #7471 inspector: show bounds of widgets in event propagation traces
   - !7914 Add new Memoryformats and CICP matrix coefficients
   - !8320 builder: Translatable constant expressions
-  - !8343 GtkCalendar: Introduce a date property
+  - !8343 BobguiCalendar: Introduce a date property
   - !8345 dnd: Move drag cursor selection to backends
   - !8352 wayland: Drop themed client-side cursors
   - !8364 wayland: Add GDK_WAYLAND_DISABLE
@@ -1870,16 +1870,16 @@ Overview of Changes in 4.19.0, 06-04-2025
   - !8406 builder: Fix a menu parsing issue
   - !8407 window: Document handling of initial states
   - !8411 A bunch of refactorings
-  - !8412 gtk/texthandle: Don't set any anchor hints
+  - !8412 bobgui/texthandle: Don't set any anchor hints
   - !8414 inspector: Show the OS
   - !8415 wayland: Refactor some code
   - !8418 wayland: Fix titlebar gesture availability
   - !8419 win32: Fix initial window state
-  - !8420 gtk-demo: Improve the paint demo
+  - !8420 bobgui-demo: Improve the paint demo
   - !8425 demo: Make GL Area work as properly on Android
-  - !8426 ci: Unbreak GTK Demo apk build
-  - !8428 GtkGLArea: fix typo in docs
-  - !8430 wayland: Fix gtk_surface handling more
+  - !8426 ci: Unbreak BOBGUI Demo apk build
+  - !8428 BobguiGLArea: fix typo in docs
+  - !8430 wayland: Fix bobgui_surface handling more
 
 * Translation updates:
   - Bulgarian (Alexander Shopov)
@@ -1898,19 +1898,19 @@ Overview of Changes in 4.18.3, 29-03-2025
 =========================================
 
 * Bugs fixed:
-  - #4186 GtkTextView left and right margins (Matthias Clasen)
-  - #7386 Deadkeys using UFDD modifiers do not work under gtk4 apps (Matthias
+  - #4186 BobguiTextView left and right margins (Matthias Clasen)
+  - #7386 Deadkeys using UFDD modifiers do not work under bobgui4 apps (Matthias
     Clasen)
   - #7398 Wrong position for input method when line number is enabled.
   - #7399 uninitialized variable being used at _gdk_win32_surface_compute_size
     (Matthias Clasen)
   - #7410 Vulkan renderer : `vkCreateSwapchainKHR` errors on windows when
     opening a popover for the first time (Luca Bacci)
-  - #7419 GtkTextView double click select then drag not working (Matthias
+  - #7419 BobguiTextView double click select then drag not working (Matthias
     Clasen)
   - #7423 menu is does not open on mobile since translation is too long
     (Matthias Clasen)
-  - #7425 a11y:  remove_from_accessible_relation: assertion 'GTK_IS_AT_CONTEXT
+  - #7425 a11y:  remove_from_accessible_relation: assertion 'BOBGUI_IS_AT_CONTEXT
     (self)' failed
   - !8316 window: Allow window resizing to always work
   - !8318 columnview: Measure header for get_border
@@ -1923,7 +1923,7 @@ Overview of Changes in 4.18.3, 29-03-2025
   - !8333 Windows: Fix #warning not defined with MSVC
   - !8335 Add more deprecations
   - !8336 Emit inclusion warning only in normal use
-  - !8339 Fix Double-Free Issue in GTK Print Backend CPDB
+  - !8339 Fix Double-Free Issue in BOBGUI Print Backend CPDB
   - !8341 wayland: Avoid a warning without posix_fallocate
   - !8344 print: Add more docs
   - !8346 listbox: Don't explicitly show headers and model rows
@@ -1933,7 +1933,7 @@ Overview of Changes in 4.18.3, 29-03-2025
   - !8357 build: Improve libintl function check
   - !8358 gdkglcontext-win32-wgl.c: Apply scale for glAddSwapHintRectWIN() (fix
     use on HiDPI)
-  - !8359 gtklistbase: Do not select invalid positions
+  - !8359 bobguilistbase: Do not select invalid positions
   - !8360 inspector: Persist some UI state
   - !8361 gstsink: Set the actual buffer size
   - !8362 menus: prefer standard shortcuts over action keys
@@ -1949,7 +1949,7 @@ Overview of Changes in 4.18.3, 29-03-2025
 Overview of Changes in 4.18.2, 16-03-2025
 =========================================
 
-* GtkPopoverMenu:
+* BobguiPopoverMenu:
  - Fix a sporatic crash that affected Showtime
 
 * X11:
@@ -1966,7 +1966,7 @@ Overview of Changes in 4.18.2, 16-03-2025
 * Bugs fixed:
   - #7407 Segfault on setting popover child of a MenuButton (Matthias Clasen)
   - #7408 Transparent/bugged close button on titlebar in 48.rc (Benjamin Otte)
-  - #7409 Gtk 4.18 erroneously defaults to vulkan on windows (Matthias Clasen)
+  - #7409 Bobgui 4.18 erroneously defaults to vulkan on windows (Matthias Clasen)
   - #7411 `AdwTabOverview` only works with the vulkan renderer (on windows)
     (Matthias Clasen)
   - !8306 android: Implement fullscreen for AndroidToplevel
@@ -1991,18 +1991,18 @@ To enable the color management protocol, use GDK_DEBUG=color-mgmt.
 * Android: Provide a GL renderer
 
 * Bugs fixed:
-  - #7386 Deadkeys using UFDD modifiers do not work under gtk4 apps (Matthias
+  - #7386 Deadkeys using UFDD modifiers do not work under bobgui4 apps (Matthias
     Clasen)
   - #7390 recorder.ui's action items made available for translation (Matthias
     Clasen)
-  - #7402 Trying to measure GtkPopover 0x42761b0 for height of 277, but it needs
+  - #7402 Trying to measure BobguiPopover 0x42761b0 for height of 277, but it needs
     at least 313 (Sergey Bugaev)
   - #7406 Nautilus crashes when try to pin any folder as a new bookmark on the
     side panel. (Matthias Clasen)
   - !8191 treeview: Drop cell-only states when rendering the empty bottom area
   - !8237 paned: Fix handle jump on drag start
   - !8258 Revamp the portal check
-  - !8260 fix: Fix the type conversion (gtk demo) in the gtkgear example
+  - !8260 fix: Fix the type conversion (bobgui demo) in the bobguigear example
   - !8262 bitset: Fix annotations
   - !8268 Add another font testcase
   - !8269 inspector: Make editing attributes work
@@ -2021,7 +2021,7 @@ To enable the color management protocol, use GDK_DEBUG=color-mgmt.
   - !8287 Improve key event logging
   - !8288 Tweak font rendering more
   - !8289 API: Deprecate gdk_surface_create_cairo_context()
-  - !8291 Use gtk_shell version to announce wl_surface.offset support for cursors
+  - !8291 Use bobgui_shell version to announce wl_surface.offset support for cursors
   - !8292 gsk: Fix multiple clipping of partial pixels
   - !8294 vulkan: Prepare for Vulkan using wp-color-v1
   - !8296 gsk: Pad text node bounds
@@ -2065,7 +2065,7 @@ be fixed soon. In the meantime, you can use the cairo renderer.
 
 * Buffer sizing issues with fractional scaling are fixed
 
-* GtkFontChooser scrolls to the initially selected font
+* BobguiFontChooser scrolls to the initially selected font
 
 * Font rendering with the new default GNOME font is improved
 
@@ -2076,7 +2076,7 @@ be fixed soon. In the meantime, you can use the cairo renderer.
 * Bugs fixed:
   - #3184 Application crashes when presenting popover menus (Matthias Clasen)
   - #4019 Crash on ListBoxRow.get_index (Matthias Clasen)
-  - #6455 GtkFlowBox aligns incorrectly with GTK_ALIGN_END and
+  - #6455 BobguiFlowBox aligns incorrectly with BOBGUI_ALIGN_END and
     min/max_children_per_line (Gergo Koteles)
   - #6817 Null pointer dereference in gdk_surface_request_motion (Matthias
     Clasen)
@@ -2085,12 +2085,12 @@ be fixed soon. In the meantime, you can use the cairo renderer.
   - #7282 memorytexture testsuite fails the float tests (Benjamin Otte)
   - #7314 Incorrect height calculations with fractional scaling under vulkan
     renderer (violates vulkan validation layers) (Benjamin Otte)
-  - #7369 GtkTextView does not claim all click gestures (Maximiliano Sandoval)
+  - #7369 BobguiTextView does not claim all click gestures (Maximiliano Sandoval)
   - #7370 activating `GDK_DEBUG=EVENTS` crashes the application if a touch event
     occurs (Matthias Clasen)
   - #7384 Comment required for search string (Matthias Clasen)
   - !6617 Fix measuring label min wfh with wrap+ellipsize+lines
-  - !6635 gtkmodelbutton: Always close submenus when changing parent item
+  - !6635 bobguimodelbutton: Always close submenus when changing parent item
   - !7746 ci: Regenerate Fedora image from F41
   - !8028 fontchooser: scroll to selected font
   - !8111 macos: Re-enable macOS GIR generation
@@ -2104,7 +2104,7 @@ be fixed soon. In the meantime, you can use the cairo renderer.
   - !8241 macos: Do not occupy space for window buttons when full screen
   - !8242 android: Update focus state on motion events for autohide surfaces
   - !8243 gdk: Deprecate gdk_cairo_context_cairo_create()
-  - !8246 cpdb: Update gtk_print_backend_cpdb_init for latest CPDB version
+  - !8246 cpdb: Update bobgui_print_backend_cpdb_init for latest CPDB version
   - !8247 wayland: Support the cursor-shape protocol
   - !8248 docs: Fix an image name
   - !8250 macos: Track number of button widgets realized on a window
@@ -2140,7 +2140,7 @@ be fixed soon. In the meantime, you can use the cairo renderer.
 Overview of Changes in 4.17.5, 23-02-2025
 =========================================
 
-* Numeric mode in GtkSpinButtons works again
+* Numeric mode in BobguiSpinButtons works again
 
 * Client-side dialogs can be made fully modal
 
@@ -2148,7 +2148,7 @@ Overview of Changes in 4.17.5, 23-02-2025
 
 * Editable labels have a context menu
 
-* GtkListBox size allocation has been improved
+* BobguiListBox size allocation has been improved
 
 * We require wayland 1.23 and wayland-protocols 1.41
 
@@ -2156,7 +2156,7 @@ Overview of Changes in 4.17.5, 23-02-2025
 
 * Most screenshots in the documentation have a dark variant
 
-* GtkBuilder allows inline definition for GMenu-valued properties
+* BobguiBuilder allows inline definition for GMenu-valued properties
 
 * Headerbars can use native window controls on macOS
 
@@ -2166,31 +2166,31 @@ Overview of Changes in 4.17.5, 23-02-2025
   - #5125 Demo / Menu: Popup at wrong position, hangs on Wayland (Matthias
     Clasen)
   - #5815 builder: integrate menus more properly (Matthias Clasen)
-  - #6010 gtk4-demo > Lists > Selections emits CRITICALS (Matthias Clasen)
-  - #6272 a11y: API for updating platform state for custom GtkAccessible
+  - #6010 bobgui4-demo > Lists > Selections emits CRITICALS (Matthias Clasen)
+  - #6272 a11y: API for updating platform state for custom BobguiAccessible
     implementations is missing (Emmanuele Bassi)
-  - #6355 gtk_widget_compute_transform() not working correctly with GtkPopover
+  - #6355 bobgui_widget_compute_transform() not working correctly with BobguiPopover
     (Alessandro Astone)
-  - #6379 GtkListBox crashes if the placeholder is focused and then TAB is
+  - #6379 BobguiListBox crashes if the placeholder is focused and then TAB is
     pressed
   - #7191 Have a way to block parent shortcuts in AdwDialog (Matthias Clasen)
-  - #7215 Changing the click behavior of Gtk.EditableLabel (Matthias Clasen)
+  - #7215 Changing the click behavior of Bobgui.EditableLabel (Matthias Clasen)
   - #7229 GSK/vulkan uses mipmaps without checking the formats/tiling
     `VkImageFormatProperties.maxMipLevels` (Janne Grunau)
   - #7249 Cursor hotspot and cursor image are not updated atomically on Wayland
     (Carlos Garnacho)
   - #7257 Unexpected spacing at the end of a textview when using child widgets.
     (Sergey Bugaev)
-  - #7286 GtkApplicationWindow show-menubar documentation inconsistent
-  - #7307 GtkAppChooserWidget doesn't fit in a mobile screen (Automeris naranja)
+  - #7286 BobguiApplicationWindow show-menubar documentation inconsistent
+  - #7307 BobguiAppChooserWidget doesn't fit in a mobile screen (Automeris naranja)
   - #7310 Inspector showing child widgets & controllers twice (Florian
     "sp1rit"​)
-  - #7311 GtkSpinButton:numeric=True doesn't work (Matthias Clasen)
+  - #7311 BobguiSpinButton:numeric=True doesn't work (Matthias Clasen)
   - #7312 Dead link in common questions
   - #7321 mem leak in emoji chooser (Matthias Clasen)
   - #7322 invalid array index use
   - #7324 Missing support for F17, F18, F19 and F20 keys on MacOS (Elisa Pau)
-  - #7334 Gtk password inputs should expose the displayed text (e.g. black
+  - #7334 Bobgui password inputs should expose the displayed text (e.g. black
     circles) via AT-SPI; not the underlying value (Emmanuele Bassi)
   - #7340 Job Failed #4757144: Meson error
   - !7951 ListBox hacking
@@ -2203,13 +2203,13 @@ Overview of Changes in 4.17.5, 23-02-2025
   - !8180 docs: fix some typos, mainly closing ticks
   - !8184 android: Provide Gdk.FOCUS_CHANGE events
   - !8187 demos: Fix gettext domain in metainfo
-  - !8195 gtk-demo: Tweak the fixed demo
+  - !8195 bobgui-demo: Tweak the fixed demo
   - !8196 settings: Fix GdkDisplay values ignored at init
   - !8197 popovermenubar: Do not steal the focus on hover
   - !8198 gi: Add missing annotation to WaylandSurface.force_next_commit
   - !8200 rendernode: Add fixed-size annotations
   - !8201 fontdialogbutton: Gracefully handle unknown font
-  - !8205 Update getting_started.md - point to Gtk.Widget.present instead of
+  - !8205 Update getting_started.md - point to Bobgui.Widget.present instead of
     show
   - !8206 docs: Fix 'Title overline too short' error
   - !8207 Update getting_started for gdk_surface_create_similar_surface
@@ -2219,7 +2219,7 @@ Overview of Changes in 4.17.5, 23-02-2025
   - !8211 wayland: Use the wp_color_manager_v1 protocol
   - !8217 macos: Disable animations if setting "Reduce Motion" is active
   - !8219 application: Clean up dangling inhibitor surface
-  - !8221 gtk-demo: Improve colors of triangle in GLArea demo
+  - !8221 bobgui-demo: Improve colors of triangle in GLArea demo
   - !8222 vulkan: Fix max amount of modifiers per format
   - !8223 docs: Add dark variants to widget gallery
   - !8224 docs: Fix gallery images for menus
@@ -2241,26 +2241,26 @@ Overview of Changes in 4.17.4, 01-02-2025
 =========================================
 
 This release introduces a new backend, which allows running
-GTK applications on Android phones. It is still considered
+BOBGUI applications on Android phones. It is still considered
 experimental. Feedback and improvements are welcome!
 
-We have a ci job that produces signed apks for gtk4-demo,
+We have a ci job that produces signed apks for bobgui4-demo,
 to make it easy to try this out.
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Stop replacing : (colon) with U+2236 (ratio)
 
-* GtkSpinButton:
+* BobguiSpinButton:
  - Avoid out-of-bounds values in some cases
 
-* GtkWindow:
+* BobguiWindow:
  - Send expected a11y events when a window is closed
- - Change accessible role back to GTK_ACCESSIBLE_ROLE_WINDOW
+ - Change accessible role back to BOBGUI_ACCESSIBLE_ROLE_WINDOW
 
-* GtkLabel:
+* BobguiLabel:
  - Make context menus keyboard-navigatable
 
-* GtkVideo:
+* BobguiVideo:
  - Support rotated videos
 
 * GDK:
@@ -2285,15 +2285,15 @@ to make it easy to try this out.
  - Require cairo 1.18.2
 
 * Bugs fixed:
-  - #6755 Accessible `window:activate` events missing for Gtk4 (Matthias Clasen)
+  - #6755 Accessible `window:activate` events missing for Bobgui4 (Matthias Clasen)
   - #6823 Enumeration values starting with numbers (Matthias Clasen)
   - #7210 ci: Build with -Daccesskit=enabled on macOS
-  - #7228 gtk4-demo settings demo does not actually write settings (Matthias
+  - #7228 bobgui4-demo settings demo does not actually write settings (Matthias
     Clasen)
-  - #7246 Cannot navigate context menu of GtkLabel with keyboard
+  - #7246 Cannot navigate context menu of BobguiLabel with keyboard
   - #7268 RFC: API to query the current keyboard layout ?
   - #7271 Test failures with libpng-1.6.45 (Alessandro Astone)
-  - #7279 GTKFileChooserWidget incorrectly displays "Modified" time of file when
+  - #7279 BOBGUIFileChooserWidget incorrectly displays "Modified" time of file when
     format should be "%H:%M" (Matthias Clasen)
   - #7294 Hovering buttons causes "g_object_unref: assertion 'G_IS_OBJECT
     (object)' failed" (Matthias Clasen)
@@ -2305,29 +2305,29 @@ to make it easy to try this out.
   - !8119 Post-release version bump
   - !8121 vulkan: Handle VK_PRESENT_MODE_FIFO_LATEST_READY_EXT
   - !8124 Fix the archive URL for Boost
-  - !8126 docs: Mark GtkShortcutsWindow as deprecated
+  - !8126 docs: Mark BobguiShortcutsWindow as deprecated
   - !8127 tools: Drop support for the gl renderer
   - !8128 spinbutton: Consider adjustment value sanitization
   - !8129 Drop test exclusions for the gl renderer
   - !8133 ci: Move subproject download and update over to a separate job
   - !8134 Keep installing gsk/gl/gskglrenderer.h
-  - !8137 gtktextattributes and gtkaccessible copy-paste errors
-  - !8138 gtk-demo: Plug a memory leak
+  - !8137 bobguitextattributes and bobguiaccessible copy-paste errors
+  - !8138 bobgui-demo: Plug a memory leak
   - !8139 window: Hide accessible earlier
   - !8140 Keep installing gsk/gl/gskglrenderer.h
-  - !8142 gtk4-builder-tool: Plug a few memory leaks
+  - !8142 bobgui4-builder-tool: Plug a few memory leaks
   - !8144 macos: fix broken accounting messages and click after moving the
     window
   - !8147 Docs: Small fixes
   - !8148 text: Correct the documentation
-  - !8150 Avoid using deprecated GtkWindow::keys-changed internally
+  - !8150 Avoid using deprecated BobguiWindow::keys-changed internally
   - !8151 gstreamer: Implement rotation tag support
   - !8157 gstreamer: Improve rotation tag support
   - !8160 docs: Don't recommend usage of deprecated ToggleButton method
   - !8163 gdk/contentserializer: Force specific URI schemes to serialize as URI
   - !8164 gdk/wayland: Ensure to generate grab broken events before crossings
   - !8166 filedialog: fix typo in docs
-  - !8167 macos: Gtk4: Fix inverted pen Y tilt on macOS
+  - !8167 macos: Bobgui4: Fix inverted pen Y tilt on macOS
 
 * Translation updates:
   - Slovenian (Martin)
@@ -2337,51 +2337,51 @@ to make it easy to try this out.
 Overview of Changes in 4.17.3, 16-01-2025
 =========================================
 
-* GtkText:
+* BobguiText:
  - Consume Ctrl-A
  - Handle Cut', Copy, Paste, Undo, and Redo keys
  - Improve a11y representation
 
-* GtkLabel:
+* BobguiLabel:
  - Consume Ctrl-A when we handle it
  - Pass mnemonics to a11y
 
-* GtkTextView:
+* BobguiTextView:
  - Handle Cut, Copy, Paste, Undo, and Redo keys
  - Fix disappearing carets after focus changes
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Handle Find keys
  - Set a11y label on Search button
  - Set a11y labels on pathbar buttons
  - Pass key-shortcuts for the "New folder" button
 
-* GtkAppChooser:
+* BobguiAppChooser:
  - Fix sorting
 
-* GtkListBox:
+* BobguiListBox:
  - Improve a11y representation
 
-* GtkColumnView:
+* BobguiColumnView:
  - Fix column dnd in right-to-left context
 
-* GtkWindow:
+* BobguiWindow:
  - Make resize corners gapless with rounded corners
 
-* GtkPopoverMenu:
+* BobguiPopoverMenu:
  - Show mnemonics on Alt press
 
-* GtkMenuButton:
+* BobguiMenuButton:
  - Improve a11y representation
 
-* GtkFileDialog:
+* BobguiFileDialog:
  - Fix a crash
  - Add more text file api variants
 
-* GtkSizeGroup:
+* BobguiSizeGroup:
  - Improve consistency measurements and allocations
 
-* GtkBuilder:
+* BobguiBuilder:
  - Parse tab arrays and font descriptions in Pango syntax
 
 * Wayland:
@@ -2402,10 +2402,10 @@ Overview of Changes in 4.17.3, 16-01-2025
 
 * Demos:
  - widget-factory: Set alternative text on pictures
- - gtk-demo: Allow to run as a service
+ - bobgui-demo: Allow to run as a service
 
 * Deprecations:
- - GtkShortcutsWindow
+ - BobguiShortcutsWindow
  - Loading themes from ~/.themes
  - <child> in ui files where child properties exist
 
@@ -2418,52 +2418,52 @@ Overview of Changes in 4.17.3, 16-01-2025
 Overview of Changes in 4.17.2, 26-12-2024
 =========================================
 
-* GtkWindow:
+* BobguiWindow:
  - Rework computing the minimum size
 
-* GtkPicture:
+* BobguiPicture:
  - Fix measuring with content-fit = scale-down
 
-* GtkStack:
+* BobguiStack:
  - Report constant size request mode in more cases
  - Avoid measuring children aginst preferred request mode
  - Fix measuring during size interpolation
 
-* GtkFlowBox:
+* BobguiFlowBox:
  - Improve size request mode reporting
  - Fix measuring minimum height
  - Fix measuring natural width
  - Implement hfw vai binary search
 
-* GtkScrolledWindow:
+* BobguiScrolledWindow:
  - Report constant size request mode in more cases
  - Skip measuring children if we can
 
-* GtkBox:
+* BobguiBox:
  - Don't always reserve height for baseline alignment
  - Rework natural opposite size-for-size computation
  - Add fast paths for some cases of measurement and allocation
 
-* GtkLayoutManager:
+* BobguiLayoutManager:
  - Skip invisible children for request mode determination
  - Prefer hfw, all things being equal
 
-* GtkColorPicker:
+* BobguiColorPicker:
  - Respect GDK_DEBUG=no-portals
 
-* GtkEntry:
+* BobguiEntry:
  - Stop guessing text direction from keyboard layout
  - Add a shortcut and context menu item to change text direction
 
-* GtkSpinButton:
+* BobguiSpinButton:
  - Make numeric spin buttons always LTR
 
-* GtkAboutDialog:
+* BobguiAboutDialog:
  - Small UI improvements
 
 * Accessibility:
  - Add an AccessKit backend. Use -Daccesskit=enabled to build it
-   and GTK_A11Y=accesskit to use it
+   and BOBGUI_A11Y=accesskit to use it
 
 * Windows:
  - Drop the AeroSnap emulation
@@ -2495,16 +2495,16 @@ And we will *always* use portals in flatpaks.
 * Text rendering:
  - Make error underlines smaller
 
-* GtkText:
+* BobguiText:
  - Avoid selecting inserted Emoji
 
-* GtkPlacesView:
+* BobguiPlacesView:
  - Improve accessibility
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Fix a case where search was stealing focus
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Update to CLDR 46 / Unicode 16
 
 * Accessibility:
@@ -2547,35 +2547,35 @@ And we will *always* use portals in flatpaks.
 Overview of Changes in 4.17.0, 06-11-2024
 =========================================
 
-* GtkScrolledWindow
+* BobguiScrolledWindow
  - Fix criticals in size allocation code
 
-* GtkFileChooser
+* BobguiFileChooser
  - Fix a crash in the portal code
 
-* GtkFontChoser
+* BobguiFontChoser
  - Make the dialog more shrinkable
 
-* GtkPicture
+* BobguiPicture
  - Avoid unnecessary resizes
 
-* GtkVideo
+* BobguiVideo
  - Make dmabufs work without GL
 
-* GtkListBox:
+* BobguiListBox:
  - Add a tab-behavior property to influence keynav
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Fix problems with insertion and selection
 
-* GtkStringList:
- - Add gtk_string_list_find
+* BobguiStringList:
+ - Add bobgui_string_list_find
 
-* GtkApplication:
+* BobguiApplication:
  - Respect GDK_DEBUG=no-portals
  - Set default window icon from app ID
 
-* GtkTextView:
+* BobguiTextView:
  - Vertical and horizontal positioning of the textview is now quantized
    to the nearest device pixel. This should improve the perceived smoothness
    of scrolling with fractional scaling and font hinting.
@@ -2601,7 +2601,7 @@ Overview of Changes in 4.17.0, 06-11-2024
  - GL: Use the ngl dmabuf downloader instead of the GL downloader
  - Vulkan: Drop the GDK_VULKAN_DEVICE env var. Use MESA_VK_DEVICE_SELECT instead
  - Vulkan: Use the swapchain maintenance extension to release swap images
- - Forbid opening displays before gtk_init()
+ - Forbid opening displays before bobgui_init()
 
 * Gsk:
  - Many improvements to the dmabuf downloaders
@@ -2635,11 +2635,11 @@ Overview of Changes in 4.17.0, 06-11-2024
  - Require macOS 10.15
 
 * Tools and demos
- - gtk4-demo: Make demos standalone
- - gtk4-demo: Drop GL shader demos
- - gtk4-demo: Improve scrolling benchmarks
- - gtk4-builder-tool: Improve separator handling
- - gtk4-image-tool: Better color state support
+ - bobgui4-demo: Make demos standalone
+ - bobgui4-demo: Drop GL shader demos
+ - bobgui4-demo: Improve scrolling benchmarks
+ - bobgui4-builder-tool: Improve separator handling
+ - bobgui4-image-tool: Better color state support
 
 * Build:
  - Don't set GSK_RENDERER in our flatpaks
@@ -2659,7 +2659,7 @@ Overview of Changes in 4.17.0, 06-11-2024
 Overview of Changes in 4.16.2, 09-25-2024
 =========================================
 
-* GtkLabel:
+* BobguiLabel:
  - Fix centered text in RTL
 
 * Gsk:
@@ -2700,10 +2700,10 @@ Overview of Changes in 4.16.2, 09-25-2024
 Overview of Changes in 4.16.1, 09-16-2024
 =========================================
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Plug a memory leak
 
-* GtkCalendar:
+* BobguiCalendar:
  - Avoid ending up with invalid dates
 
 * Printing:
@@ -2754,19 +2754,19 @@ in different ways than the old gl renderer, and trigger new driver bugs.
 Therefore, it is recommended to use the latest mesa release (24.2)
 with the new renderers.
 
-* GtkScale:
+* BobguiScale:
  - Fix positioning of scale values
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Make Control-clicks work for the recent section
 
-* GtkPopover:
+* BobguiPopover:
  - Make sure focus lands on the right widget when cascading
 
-* GtkSpinButton:
+* BobguiSpinButton:
  - Disable Emoji input for numeric spin buttons
 
-* GtkSingleSelection:
+* BobguiSingleSelection:
  - Implement unselect_all
 
 * Accssibility:
@@ -2839,10 +2839,10 @@ with the new renderers.
 Overview of Changes in 4.15.6, 08-26-2024
 =========================================
 
-* GtkCheckButton:
+* BobguiCheckButton:
  - Add a grouped style class for radio buttons
 
-* GtkScale:
+* BobguiScale:
  - Fix alignment and positioning problems
 
 * Css:
@@ -2866,7 +2866,7 @@ Overview of Changes in 4.15.6, 08-26-2024
  - Work with the kwin implementation of xx-color-management-v4
 
 * Windows:
- - Make gtk_show_uri use SHOpenWithDialog()
+ - Make bobgui_show_uri use SHOpenWithDialog()
  - Enable incremental rendering with WGL
 
 * Macos:
@@ -2881,7 +2881,7 @@ Overview of Changes in 4.15.6, 08-26-2024
  - Add GDK_DISABLE=color-mgmt and GDK_DISABLE=offload
 
 * Tools:
- - Add a 'Paste as node' action in gtk4-node-editor
+ - Add a 'Paste as node' action in bobgui4-node-editor
 
 * Translations updates
  Basque
@@ -2900,8 +2900,8 @@ Overview of Changes in 4.15.6, 08-26-2024
 Overview of Changes in 4.15.5, 11-08-2024
 =========================================
 
-* GtkTextView:
- - ADd GtkTextBufferCommitNotify
+* BobguiTextView:
+ - ADd BobguiTextBufferCommitNotify
 
 * CSS:
  - Propagate color state information to GSK for many features:
@@ -2938,10 +2938,10 @@ Overview of Changes in 4.15.5, 11-08-2024
 Overview of Changes in 4.15.4, 30-07-2024
 =========================================
 
-* GtkPopover:
+* BobguiPopover:
  - Fix size allocation with wrapping labels
 
-* GtkColumnView:
+* BobguiColumnView:
  - Check column visibility when measuring
 
 * CSS:
@@ -2989,7 +2989,7 @@ Overview of Changes in 4.15.4, 30-07-2024
  - Add an image tool that is about manipulating textures
 
 * Build:
- - GTK now requires a C11 compiler
+ - BOBGUI now requires a C11 compiler
 
 * Translation updates
  Georgian
@@ -3003,7 +3003,7 @@ Overview of Changes in 4.15.3, 29-06-2024
 =========================================
 
 * Accessibility:
- - Only emit notifications when cursor positions change in GtkText
+ - Only emit notifications when cursor positions change in BobguiText
  - Fix handling of help text properties
 
 * CSS:
@@ -3022,11 +3022,11 @@ Overview of Changes in 4.15.3, 29-06-2024
 Overview of Changes in 4.15.2, 28-06-2024
 =========================================
 
-* GtkFileChooserWidget:
+* BobguiFileChooserWidget:
  - Plug some memory leaks
  - Make Ctrl-Shift-N create a new folder
 
-* GtkPopover:
+* BobguiPopover:
  - Handle resizing and position changes better
 
 * CSS:
@@ -3057,7 +3057,7 @@ Overview of Changes in 4.15.2, 28-06-2024
  - Widget shortcuts and actions are now described in the docs
 
 * Debugging:
- - Add GTK_DEBUG=css for warning about deprecated css syntax
+ - Add BOBGUI_DEBUG=css for warning about deprecated css syntax
 
 * Tools:
  - rendernode-tool: Add an extract command for data urls
@@ -3074,10 +3074,10 @@ Overview of Changes in 4.15.2, 28-06-2024
 Overview of Changes in 4.15.1, 21-05-2024
 =========================================
 
-* GtkGraphicsOffload:
+* BobguiGraphicsOffload:
  - Don't crash without a child
 
-* GtkSpinner:
+* BobguiSpinner:
  - Don't animate when unmapped
 
 * CSS:
@@ -3091,7 +3091,7 @@ Overview of Changes in 4.15.1, 21-05-2024
  - Handle color-free symbolics more efficiently
 
 * Accessibility:
- - Make the gtk-demo sidebar search more accessible
+ - Make the bobgui-demo sidebar search more accessible
  - Stop emitting focus events
  - Realize child contexts when necessary
 
@@ -3121,7 +3121,7 @@ Overview of Changes in 4.15.1, 21-05-2024
 
 * Debugging:
  - Show more texture details in the recorder
- - Use GTK_DEBUG=css to see CSS deprecations
+ - Use BOBGUI_DEBUG=css to see CSS deprecations
 
 * macOS:
  - Fix problems with events handed back to the OS
@@ -3156,7 +3156,7 @@ environment variable.
 ---
 
 This release also changes font rendering settings by introducing
-a new high-level gtk-font-rendering settings which gives GTK more
+a new high-level bobgui-font-rendering settings which gives BOBGUI more
 freedom to decide on font rendering.
 
 You can still use the low-level font-related settings by changing
@@ -3164,30 +3164,30 @@ the new property to 'manual'.
 
 ---
 
-* GtkColumnView:
+* BobguiColumnView:
  - Fix infinite loops in dispose
- - Fix problems with weak ref cycles in GtkExpression
+ - Fix problems with weak ref cycles in BobguiExpression
 
-* GtkListView:
-* GtkShortcutManager:
+* BobguiListView:
+* BobguiShortcutManager:
  - Track the propagation phase of added controllers
 
-* GtkGLArea:
+* BobguiGLArea:
  - Produce dmabuf textures, so graphics offload is possible
 
-* GtkTextView:
+* BobguiTextView:
  - Support text shadows
 
-* GtkGraphicsOffload:
+* BobguiGraphicsOffload:
  - Add a black-background property
 
 * Settings:
- - Add a new gtk-font-rendering setting
+ - Add a new bobgui-font-rendering setting
 
 * Accessibility:
- - Add support for GetRangeExtents to GtkAccessibleText
- - Add support for GetOffsetAtPoint to GtkAccessibleText
- - Implement GtkAccessibleRange for scrollbars
+ - Add support for GetRangeExtents to BobguiAccessibleText
+ - Add support for GetOffsetAtPoint to BobguiAccessibleText
+ - Implement BobguiAccessibleRange for scrollbars
 
 * GDK:
  - Add a callback-based cursor API
@@ -3214,14 +3214,14 @@ the new property to 'manual'.
  - Show more reliable fps numbers in the fishbowl demo
 
 * Tools:
- - Support generating pdf in gtk4-rendernode-tool
+ - Support generating pdf in bobgui4-rendernode-tool
 
 * Build:
  - Require pango 1.52
  - Require cairo 1.18
  - Add a missing dependency that was causing build failures
  - Drop deprecated build options:
-   gtk_doc -> documentation
+   bobgui_doc -> documentation
    update_screenshots -> screenshots
    demo-profile -> profile
    demos -> build-demos
@@ -3248,7 +3248,7 @@ the new property to 'manual'.
 Overview of Changes in 4.14.2, 03-04-2024
 =========================================
 
-* GtkScale:
+* BobguiScale:
  - Improve positioning of values in some cases
 
 * Theme:
@@ -3300,7 +3300,7 @@ Overview of Changes in 4.14.2, 03-04-2024
 Overview of Changes in 4.14.1, 16-03-2024
 =========================================
 
-* GtkTextView:
+* BobguiTextView:
  - Fix a mixup of cursor and anchor when retrieving surrounding text
    in input methods
 
@@ -3342,26 +3342,26 @@ Overview of Changes in 4.14.0, 12-03-2024
 
 Note: The new renderers and dmabuf support are using graphics drivers
 in different ways than the old gl renderer, and trigger new driver bugs,
-(see for example https://gitlab.gnome.org/GNOME/gtk/-/issues/6418 and
-https://gitlab.gnome.org/GNOME/gtk/-/issues/6388). Therefore, it is
+(see for example https://gitlab.gnome.org/GNOME/bobgui/-/issues/6418 and
+https://gitlab.gnome.org/GNOME/bobgui/-/issues/6388). Therefore, it is
 recommended to use the latest mesa release (24.x) with the new renderers.
 
-* GtkTextView:
+* BobguiTextView:
  - Don't snapshot children twice
  - Don't blink the cursor when hidden
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Fix presentation selector handling
 
-* GtkSnapshot:
+* BobguiSnapshot:
  - Fix wrong nodes with transformed shadows
 
-* GtkIMContext:
- - Make gtk_im_context_activate_osk public
+* BobguiIMContext:
+ - Make bobgui_im_context_activate_osk public
 
 * Accessibility:
  - Implement get_contents_at for all our text widgets
- - Add GtkAccessibleText.get_default_attributes
+ - Add BobguiAccessibleText.get_default_attributes
 
 * GSK:
  - Don't fall back to cairo for software rendering. gl+llvmpipe is better
@@ -3391,23 +3391,23 @@ recommended to use the latest mesa release (24.x) with the new renderers.
 Overview of Changes in 4.13.9, 02-03-2024
 =========================================
 
-* GtkEditable:
+* BobguiEditable:
  - Fix preconditions to be not too strict
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Support search in the locale as well as in English
 
-* GtkIconTheme:
- - Make gtk_icon_paintable_new_for_file support symbolics
+* BobguiIconTheme:
+ - Make bobgui_icon_paintable_new_for_file support symbolics
 
-* GtkVideo:
+* BobguiVideo:
  - Fix a problem with cursor handling that could lead to crashes
 
 * Accessibility:
  - Fix GetCharacterAtOffset implementation
  - Add a Terminal role
- - Make TextCaretMoved match gtk3
- - Support multiple levels of GtkEditable delegates
+ - Make TextCaretMoved match bobgui3
+ - Support multiple levels of BobguiEditable delegates
 
 * GSK:
  - Make the node parser more flexible for text nodes
@@ -3421,7 +3421,7 @@ Overview of Changes in 4.13.9, 02-03-2024
  - Fix handling of output scales
 
 * Tools:
- - Add a compare command to gtk4-rendernode-tool
+ - Add a compare command to bobgui4-rendernode-tool
 
 * Build:
  - Fix some ubsan complaints
@@ -3451,7 +3451,7 @@ Overview of Changes in 4.13.8, 20-02-2024
 =========================================
 
 * Accessibility:
- - Add a GtkAccessibleText interface for allowing 3rd party
+ - Add a BobguiAccessibleText interface for allowing 3rd party
    text widgets (notably vte) to be accessible
  - Avoid duplicate accessible descriptions
  - Fix GetAccessibleAtPoint
@@ -3489,15 +3489,15 @@ Overview of Changes in 4.13.8, 20-02-2024
 Overview of Changes in 4.13.7, 11-02-2024
 =========================================
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Speed up opening
 
-* GtkCalendar:
+* BobguiCalendar:
  - Add some missing setters and getters
 
 * Accessibility:
  - Add socket support for webkit accessibility
- - Implement AT-SPI text for GtkText
+ - Implement AT-SPI text for BobguiText
  - Implement AT-SPI component generically
  - Add an announce API
 
@@ -3529,7 +3529,7 @@ Overview of Changes in 4.13.7, 11-02-2024
  - Propagate unhandled input events back to the OS
 
 * Tools:
- - Make the crash handling in gtk4-node-editor more robust
+ - Make the crash handling in bobgui4-node-editor more robust
 
 * Translation updates
  Galician
@@ -3556,16 +3556,16 @@ are using the old gl renderer (e.g. because your system is limited to
 GLES2), you can disable fractional scaling by setting the GDK_DEBUG
 environment variable to include the gl-no-fractional key.
 
-* GtkColumnView:
+* BobguiColumnView:
  - Fix infinite loops in dispose
- - Fix problems with weak ref cycles in GtkExpression
+ - Fix problems with weak ref cycles in BobguiExpression
 
-* GtkListView:
+* BobguiListView:
  - Fix some corner cases with sections during insertions and deletions
  - Don't double-recycle widgets
 
-* GtkStack:
- - Add automatic cleanup for GtkStackPage
+* BobguiStack:
+ - Add automatic cleanup for BobguiStackPage
 
 * GDK:
  - Use standard cursor names for drag cursors
@@ -3603,8 +3603,8 @@ environment variable to include the gl-no-fractional key.
  - Show the git commit in devel builds
 
 * Tools:
- - Make gtk4-node-editor autosave its contents
- - Add a benchmark command to gtk4-rendernode-tool
+ - Make bobgui4-node-editor autosave its contents
+ - Add a benchmark command to bobgui4-rendernode-tool
 
 * Translation updates:
  French
@@ -3625,7 +3625,7 @@ handle many corner cases correctly that the current gl renderer
 does not handle, and they offer advantages such as antialiasing
 and supersampled gradients.
 
-The new renderers are still considered experimental, and GTK
+The new renderers are still considered experimental, and BOBGUI
 will only use them if they are explicitly selected using the
 GSK_RENDERER environment variable.
 
@@ -3638,18 +3638,18 @@ The previously available experimental GdkVulkanContext APIs and
 the old Vulkan renderer have been removed.
 
 Vulkan is now enabled by default, and Linux distributions should
-build GTK with Vulkan support. This requires the glslc shader
+build BOBGUI with Vulkan support. This requires the glslc shader
 compiler as a new dependency.
 
 Vulkan is now also used for dmabuf support.
 
-* GtkDropdown:
+* BobguiDropdown:
  - Fix display of initial selection
 
-* GtkShortcutsWindow:
+* BobguiShortcutsWindow:
  - Make the window adapt to smaller screen widths
 
-* GtkTextView:
+* BobguiTextView:
  - Fix a possible NULL dereference in history
 
 * GDK:
@@ -3662,23 +3662,23 @@ Vulkan is now also used for dmabuf support.
 Overview of Changes in 4.13.4, 30-12-2023
 =========================================
 
-* GtkFileDialog:
+* BobguiFileDialog:
  - Return an error if no file is selected
 
-* GtkFileLauncher:
+* BobguiFileLauncher:
  - Add a writable property
 
-* GtkFileChooserNative:
+* BobguiFileChooserNative:
  - Make closing portal file dialogs work
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Update Emoji data to CLDR v43
 
-* GtkStringList:
+* BobguiStringList:
  - Add item-type and n-itmes properties
 
 * Input:
- - Respect GTK grabs on DND events
+ - Respect BOBGUI grabs on DND events
  - Fix crossing event generation for enter/leave
 
 * Wayland:
@@ -3725,13 +3725,13 @@ Overview of Changes in 4.13.4, 30-12-2023
 Overview of Changes in 4.13.3, 15-11-2023
 =========================================
 
-* GtkGraphicsOffload: A new widget to support passthrough
+* BobguiGraphicsOffload: A new widget to support passthrough
   of dmabuf textures with subsurfaces on Wayland
 
-* GtkListView:
+* BobguiListView:
  - reduce tree indentation
 
-* GtkInspector:
+* BobguiInspector:
  - Show more GL information
  - Add a subsurface overlay
  - Improve the fps overlay
@@ -3749,7 +3749,7 @@ Overview of Changes in 4.13.3, 15-11-2023
 * Accessibility:
  - Tweak the accessible name computation for corner cases
 
-* The GTK/GDK/GSK_DEBUG environment variables now
+* The BOBGUI/GDK/GSK_DEBUG environment variables now
   work in productions as well as in debug builds
 
 * Translation updates
@@ -3761,10 +3761,10 @@ Overview of Changes in 4.13.3, 15-11-2023
 Overview of Changes in 4.13.2, 22-10-2023
 =========================================
 
-* GtkPrintdialog:
- - New async-style api to replace GtkPrintOperation
+* BobguiPrintdialog:
+ - New async-style api to replace BobguiPrintOperation
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Add more languages: Bengali, Hindi, Japanese, Finnish,
    Thai and Norwegian bokmål
 
@@ -3789,27 +3789,27 @@ Overview of Changes in 4.13.2, 22-10-2023
 Overview of Changes in 4.13.1, 28-09-2023
 =========================================
 
-* GtkTooltip:
+* BobguiTooltip:
  - Don't cross native boundaries when looking for tooltips
 
-* GtkCenterLayout, GtkEntry, GtkSearchEntry:
+* BobguiCenterLayout, BobguiEntry, BobguiSearchEntry:
  - Fix some issues with baseline handling
 
-* GtkColorButton, GtkFontButton:
+* BobguiColorButton, BobguiFontButton:
  - Propagate focus-on-click
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Make "Visit file" scroll to the file
 
-* GtkSwitch:
+* BobguiSwitch:
  - Respect text direction
 
-* GtkWindow:
- - Don't assume titlebars are GtkHeaderBars
+* BobguiWindow:
+ - Don't assume titlebars are BobguiHeaderBars
 
 * Printing:
  - Fix some problems with the portal implementation
- - Add a new simple print API: GtkPrintDialog
+ - Add a new simple print API: BobguiPrintDialog
 
 * Paths:
  - GskPathMeasure performance has been improved
@@ -3841,8 +3841,8 @@ Overview of Changes in 4.13.1, 28-09-2023
  - Clamp damage regions to the surface size
 
 * Tools:
- - gtk4-path-tool gained restrict and reverse commands
- - gtk4-path-tool show and render can show control points
+ - bobgui4-path-tool gained restrict and reverse commands
+ - bobgui4-path-tool show and render can show control points
 
 * Demos:
  - Add a demo for hit testing with paths
@@ -3851,7 +3851,7 @@ Overview of Changes in 4.13.1, 28-09-2023
  - Fix build problems with C++ compilers
 
 * Deprecations:
- - gtk_window_present_with_time
+ - bobgui_window_present_with_time
 
 * Translation updates
  Brazilian Portuguese
@@ -3882,32 +3882,32 @@ Overview of Changes in 4.13.0, 25-08-2023
   Data types and APIs for path rendering. These APIs are still
   considered experimental, and may change until 4.14. Please try
   them out and give us feedback. Documentation can be found
-  here: https://docs.gtk.org/gsk4/paths.html
+  here: https://docs.bobgui.org/gsk4/paths.html
 
-* GtkGridView:
+* BobguiGridView:
  - Fix a crash when scrolling
 
-* GtkColumnView:
+* BobguiColumnView:
  - Fix a refcounting issue in the new scroll_to api
 
-* GtkTreeView
+* BobguiTreeView
  - Fix style classes for sort arrows
 
-* GtkEntry:
+* BobguiEntry:
  - Improve tracking of user changes (for undo)
 
-* GtkNotebook:
+* BobguiNotebook:
  - Fix a critical when switching pages
 
-* GtkColor/FontDialogButton:
+* BobguiColor/FontDialogButton:
  - Make these widgets activatable
 
-* GtkMenuButton:
+* BobguiMenuButton:
  - Fix problems with focus handling
  - Fix problems with DND
  - Make flags a settable property
 
-* GtkShortcutsWindow:
+* BobguiShortcutsWindow:
  - Add API to build shortcuts windows programmatically
 
 * Printing
@@ -3923,13 +3923,13 @@ Overview of Changes in 4.13.0, 25-08-2023
  - Fix a crash with compositors other than gnome-shell
 
 * Deprecations:
- - Remaining GtkTreeModel-related types
+ - Remaining BobguiTreeModel-related types
 
 * Demos:
- - Add a few path demos to gtk4-demo
+ - Add a few path demos to bobgui4-demo
 
 * Tools:
- - gtk4-path-tool provides a commandline interface for paths
+ - bobgui4-path-tool provides a commandline interface for paths
 
 * Translation updates:
  Basque
@@ -3956,17 +3956,17 @@ Overview of Changes in 4.12.0, 05-08-2023
 * List widgets:
  - Add scroll_to APIs
 
-* GtkFileLauncher:
+* BobguiFileLauncher:
  - Add an always-ask property
 
-* GtkTextView:
- - Make backspace behavior match GtkEntry
+* BobguiTextView:
+ - Make backspace behavior match BobguiEntry
 
 * gsk:
  - Fix handling of luminance in mask nodes
 
 * Text rendering:
- - Automate the setting of gtk-hint-font-metrics from the
+ - Automate the setting of bobgui-hint-font-metrics from the
    scale factor. This improves font rendering in flatpaks
 
 * Wayland:
@@ -3977,14 +3977,14 @@ Overview of Changes in 4.12.0, 05-08-2023
  - Many improvements
 
 * Tools:
- - Add gtk4-rendernode-tool
+ - Add bobgui4-rendernode-tool
 
 * Debugging:
- - Drop the GTK_DEBUG_TOUCHSCREEN flag
+ - Drop the BOBGUI_DEBUG_TOUCHSCREEN flag
 
 * Build:
  - Some build options have been renamed:
-     gtk_doc -> documentation
+     bobgui_doc -> documentation
      update_screenshots -> screenshots
    The old names still work
 
@@ -4085,47 +4085,47 @@ Overview of Changes in 4.12.0, 05-08-2023
 Overview of Changes in 4.11.4, 03-07-2023
 =========================================
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Default to sorting folders first
  - Fix a crash when visiting recent files
 
-* GtkTextView:
+* BobguiTextView:
  - Fix corner cases in word navigation
 
-* GtkMenuButton:
+* BobguiMenuButton:
  - Normalize label layout
 
-* GtkDropDown:
+* BobguiDropDown:
  - Add support for sections
 
-* GtkVideo:
+* BobguiVideo:
  - Make the overlay icon clickable
 
-* GtkWindow:
+* BobguiWindow:
  - Clear the resize cursors to avoid artifacts
 
-* GtkFileDialog:
+* BobguiFileDialog:
  - Always set initial-folder
 
-* GtkDropDown:
+* BobguiDropDown:
  - Update on expression changes
 
-* GtkMapListModel:
- - Implement GtkSectionModel
+* BobguiMapListModel:
+ - Implement BobguiSectionModel
 
 * Accessibility:
- - Improvements all over the place: GtkButton, GtkPasswordEntry,
-   GtkFontChooserDialog, GtkColorChooserDialog, GtkShortcutsWindow,
-   GtkMenuButton, GtkAboutDialog, GtkFileChooserDialog, GtkStackSidebar,
-   GtkStackSwitcher, GtkMediaControls, GtkColorDialogButton, GtkDropDown,
-   GtkInfoBar, GtkNotebook, GtkPrintUnixDialog, GtkModelButton
+ - Improvements all over the place: BobguiButton, BobguiPasswordEntry,
+   BobguiFontChooserDialog, BobguiColorChooserDialog, BobguiShortcutsWindow,
+   BobguiMenuButton, BobguiAboutDialog, BobguiFileChooserDialog, BobguiStackSidebar,
+   BobguiStackSwitcher, BobguiMediaControls, BobguiColorDialogButton, BobguiDropDown,
+   BobguiInfoBar, BobguiNotebook, BobguiPrintUnixDialog, BobguiModelButton
  - Make name computation follow the ARIA spec more closely
  - Adapt name computation for the common 'nested button' scenario
  - Change many containers to use `generic` instead of `group`
  - Use `generic` as the default role
  - Use `application` instead of `window` for windows
  - Add properties for accessible names of not directly exposed
-   widgets in GtkListView, GtkGridView and GtkColumnView
+   widgets in BobguiListView, BobguiGridView and BobguiColumnView
 
 * DND:
  - Fix criticals when drops are rejected
@@ -4144,12 +4144,12 @@ Overview of Changes in 4.11.4, 03-07-2023
  - Add a pipeline cache
 
 * Demos:
- - gtk4-demo: Improve window sizing
- - gtk4-demo: Improve focus behavior
- - gtk4-demo: Add many missing a11y properties
+ - bobgui4-demo: Improve window sizing
+ - bobgui4-demo: Improve focus behavior
+ - bobgui4-demo: Add many missing a11y properties
 
 * Tools:
- - gtk4-builder-tool: Make render an alias screenshot
+ - bobgui4-builder-tool: Make render an alias screenshot
 
 * Inspector:
  - Show more information in the a11y tab
@@ -4171,29 +4171,29 @@ Overview of Changes in 4.11.4, 03-07-2023
 Overview of Changes in 4.11.3, 05-06-2023
 =========================================
 
-* GtkGridView:
+* BobguiGridView:
  - Respect css border-spacing
  - Don't leak the factories
 
-* GtkListView:
+* BobguiListView:
  - Don't leak the factories
 
-* GtkColumnView:
+* BobguiColumnView:
  - Support displaying sections
 
-* GtkNotebook:
- - Make the pages model implement GtkSelectionModel
+* BobguiNotebook:
+ - Make the pages model implement BobguiSelectionModel
 
-* GtkScrolledWindow:
+* BobguiScrolledWindow:
  - Propagate child measure size whenever possible
 
-* GtkPopoverMenu:
+* BobguiPopoverMenu:
  - Avoid unnecessary left padding
 
-* GtkSearchEntry:
+* BobguiSearchEntry:
  - Improve size allocation for the clear icon
 
-* GtkBoxLayout:
+* BobguiBoxLayout:
  - Fix a regression from recent baseline work
 
 * CSS:
@@ -4232,14 +4232,14 @@ Overview of Changes in 4.11.3, 05-06-2023
    The old names still work
 
 * Deprecations:
- - gtk_css_provider_load_from_data
+ - bobgui_css_provider_load_from_data
  - gdk_wayland_toplevel_unexport_handle
  - gdk_pixbuf_get_from_surface
  - gdk_pixbuf_get_from_texture
- - gtk_image_new_from_pixbuf
- - gtk_image_set_from_pixbuf
- - gtk_picture_new_for_pixbuf
- - gtk_picture_set_pixbuf
+ - bobgui_image_new_from_pixbuf
+ - bobgui_image_set_from_pixbuf
+ - bobgui_picture_new_for_pixbuf
+ - bobgui_picture_set_pixbuf
 
 * Translation updates:
  Basque
@@ -4252,36 +4252,36 @@ Overview of Changes in 4.11.3, 05-06-2023
 Overview of Changes in 4.11.2, 09-05-2023
 =========================================
 
-* GtkGLArea:
+* BobguiGLArea:
  - Add an allowed-apis property
 
-* GtkListBox:
- - Fix a problem with gtk_list_box_remove_all
+* BobguiListBox:
+ - Fix a problem with bobgui_list_box_remove_all
 
-* Add the GtkSectionModel interface, and implement it in most
+* Add the BobguiSectionModel interface, and implement it in most
   of our list models
 
-* GtkListView:
+* BobguiListView:
  - Support displaying sections
 
-* GtkCenterBox:
+* BobguiCenterBox:
  - Add a shrink-center-last property
 
-* GtkButton, GtkMenuButton:
+* BobguiButton, BobguiMenuButton:
  - Add a can-shrink property
 
-* GtkPopover:
+* BobguiPopover:
  - Fix problems with grabs
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Fix a problem with removing files
  - Make the date, time and location columns work
  - Fix filtering in the save entry popup
  - A few memory leak fixes
  - Handle webdav in the pathbar
 
-* GtkBox:
- - Support baselines in vertical orientation with GtkBox:baseline-child
+* BobguiBox:
+ - Support baselines in vertical orientation with BobguiBox:baseline-child
 
 * Dialogs:
  - Destroy windows promptly when the async callback finishes
@@ -4293,11 +4293,11 @@ Overview of Changes in 4.11.2, 09-05-2023
 
 * Accessibility:
  - Fix alert dialogs in the a11y tree
- - Improve accessibility of GtkShortcutsWindow
+ - Improve accessibility of BobguiShortcutsWindow
 
 * Layout:
  - Some fixes to baseline alignment
- - Separate GTK_ALIGN_BASELINE_CENTER and _FILL
+ - Separate BOBGUI_ALIGN_BASELINE_CENTER and _FILL
 
 * CSS:
  - Fix a crash with color transitions
@@ -4331,14 +4331,14 @@ Overview of Changes in 4.11.2, 09-05-2023
  - Fix a crash
 
 * Tools:
- - gtk4-node-editor: Improve scaling
- - gtk4-node-editor: Preserve aspect ratio of textures
- - gtk4-node-editor: Add some smarter editing
- - gtk4-demo: Make the stylus demo work with mice
+ - bobgui4-node-editor: Improve scaling
+ - bobgui4-node-editor: Preserve aspect ratio of textures
+ - bobgui4-node-editor: Add some smarter editing
+ - bobgui4-demo: Make the stylus demo work with mice
 
 * Deprecations:
- - gtk_widget_get_allocated_width/height/baseline
- - GTK_ALIGN_BASELINE
+ - bobgui_widget_get_allocated_width/height/baseline
+ - BOBGUI_ALIGN_BASELINE
 
 * Translation updates
  Bulgarian
@@ -4356,16 +4356,16 @@ Overview of Changes in 4.11.2, 09-05-2023
 Overview of Changes in 4.11.1, 03-04-2023
 =========================================
 
-* GtkLabel, GtkLinkButton:
+* BobguiLabel, BobguiLinkButton:
  - Make file:// uris work again
 
-* GtkListView/GtkColumnView/GtkGridView:
+* BobguiListView/BobguiColumnView/BobguiGridView:
  - Fix clipping issues
  - Handle focus movement better
  - Introduce ::tab-behavior properties
- - Introduce GtkListItem::focusable
- - Introduce GtkColumnViewCell
- - Introduce row factories in GtkColumnView
+ - Introduce BobguiListItem::focusable
+ - Introduce BobguiColumnViewCell
+ - Introduce row factories in BobguiColumnView
  - Make list grid and column views inert when not rendering
 
 * Drag-and-Drop:
@@ -4411,7 +4411,7 @@ Overview of Changes in 4.11.1, 03-04-2023
  - Show more Wayland-specific information in the inspector
 
 * Deprecations:
- - gtk_widget_translate_coordinates
+ - bobgui_widget_translate_coordinates
  - gdk_surface_create_similar_surface
 
 * Documentation:
@@ -4433,7 +4433,7 @@ Overview of Changes in 4.11.1, 03-04-2023
 Overview of Changes in 4.10.1, 14-03-2023
 =========================================
 
-* GtkFileChooser
+* BobguiFileChooser
  - Improve search performance
  - Be safe against pathless files
  - Fix memory leaks
@@ -4441,14 +4441,14 @@ Overview of Changes in 4.10.1, 14-03-2023
  - Show most recent files first
  - Make files non-selectable in selet_folder mode
 
-* GtkListView / GtkColumnView / GtkGridView
+* BobguiListView / BobguiColumnView / BobguiGridView
  - Fix scrolling problems
  - Support CSS border-spacing
 
-* GtkComboBox
+* BobguiComboBox
  - Fix a size allocation problem
 
-* gtk
+* bobgui
  - Size allocation fixes
 
 * Accessibility
@@ -4482,17 +4482,17 @@ Overview of Changes in 4.10.1, 14-03-2023
 Overview of Changes in 4.10.0, 04-03-2023
 =========================================
 
-* GtkTextView
+* BobguiTextView
  - Document hanging indentation
 
-* GtkListView
+* BobguiListView
  - Fix a size allocation problem
 
-* GtkFileChooser
+* BobguiFileChooser
  - Fix paned behavior
  - Fix a crash
 
-* GtkText
+* BobguiText
  - Fix various problems with undo
 
 * Accessibility
@@ -4501,7 +4501,7 @@ Overview of Changes in 4.10.0, 04-03-2023
  - Add a role for toggle buttons
  - Miscellaneous property fixes and improvements
 
-* gtk
+* bobgui
  - Improve the handling resize-during-size-allocate
 
 * gdk
@@ -4516,8 +4516,8 @@ Overview of Changes in 4.10.0, 04-03-2023
  - Fix key handling during DND
 
 * Tools
- - gtk-builder-tool: Try harder to handle templates
- - gtk-builder-tool: Prefer properties over <child>
+ - bobgui-builder-tool: Try harder to handle templates
+ - bobgui-builder-tool: Prefer properties over <child>
 
 * Translation updates
  Basque
@@ -4543,16 +4543,16 @@ Overview of Changes in 4.9.4, 12-02-2023
  - Add a CPDB backend
  - Drop the lpr backend
 
-* GtkFileDialog:
+* BobguiFileDialog:
  - Robustness fixes
 
-* GtkScaleButton:
+* BobguiScaleButton:
  - Add an 'active' property
 
-* GtkSearchEntry:
+* BobguiSearchEntry:
  - Add placeholder text
 
-* Fix conflicting type names between gtk and gio
+* Fix conflicting type names between bobgui and gio
 
 * Gsk:
  - Settable filtering for scaled textures
@@ -4563,7 +4563,7 @@ Overview of Changes in 4.9.4, 12-02-2023
  - Handle dispatch failing in more places
 
 * Deprecations:
- - GtkVolumeButton
+ - BobguiVolumeButton
 
 * Translation updates:
  Belarusian
@@ -4576,37 +4576,37 @@ Overview of Changes in 4.9.4, 12-02-2023
 Overview of Changes in 4.9.3, 04-02-2023
 ========================================
 
-* Add GtkUriLauncher, as replacement for gtk_show_uri
+* Add BobguiUriLauncher, as replacement for bobgui_show_uri
 
 * Add GdkMonitor::description
 
 * Fix problems with tooltip sizing
 
 * Deprecations:
- - GtkStatusbar
- - GtkAssistant
- - GtkLockButton
- - gtk_gesture_set_sequence_state
+ - BobguiStatusbar
+ - BobguiAssistant
+ - BobguiLockButton
+ - bobgui_gesture_set_sequence_state
 
-* GtkColumnView:
+* BobguiColumnView:
  - Only create widgets for visible columns
 
-* GtkFileDialog:
+* BobguiFileDialog:
  - Drop shortcut folders API
 
-* GtkCalendar:
+* BobguiCalendar:
  - Make marked days work again
 
-* GtkSwitch:
+* BobguiSwitch:
  - Make state and active independently settable
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Fix a crash with DND
  - Fix excessively wide sidebar
  - Make context menus work again
 
 * Accessibility:
- - Make GtkAccessible public, so it can be implemented outside GTK
+ - Make BobguiAccessible public, so it can be implemented outside BOBGUI
  - Support accessible implementation for editables
 
 * CSS:
@@ -4646,33 +4646,33 @@ Overview of Changes in 4.9.3, 04-02-2023
 Overview of Changes in 4.9.2, 26-12-2022
 ========================================
 
-* GtkFileChooserWidget:
+* BobguiFileChooserWidget:
  - Add a grid view
 
-* GtkText, GtkTextView:
+* BobguiText, BobguiTextView:
  - Fix activation of the on-screen keyboard
  - Prevent unexpected text direction changes
 
-* GtkCenterBox:
+* BobguiCenterBox:
  - Add properties for children
 
-* GtkTreeExpander:
+* BobguiTreeExpander:
  - Add a hide-expander property
 
-* GtkStringList:
+* BobguiStringList:
  - Add a construct-only strings property
 
-* GtkBuilder:
+* BobguiBuilder:
  - Support parsing Pango attributes in string form
 
-* GtkGestureStylus:
+* BobguiGestureStylus:
  - Add a stylus-only property
 
-* GtkFileLauncher:
- - New async-style api to replace gtk_show_uri
+* BobguiFileLauncher:
+ - New async-style api to replace bobgui_show_uri
 
-* GtkColorDialog, GtkFontDialog, GtkFileDialog,
-  GtkAlertDialog:
+* BobguiColorDialog, BobguiFontDialog, BobguiFileDialog,
+  BobguiAlertDialog:
  - APIs have seen some tweaks
  - Prefer portals when available
  - Fixes for cancellation
@@ -4681,11 +4681,11 @@ Overview of Changes in 4.9.2, 26-12-2022
 
 * Improve file DND with remote files
 
-* GtkInfoBar has been deprecated
+* BobguiInfoBar has been deprecated
 
-* gtk_widget_show/hide have been deprecated
+* bobgui_widget_show/hide have been deprecated
 
-* gtk_show_uri has been deprecated
+* bobgui_show_uri has been deprecated
 
 * Wayland:
  - Fix button mask handling
@@ -4715,46 +4715,46 @@ Overview of Changes in 4.9.1, 31-10-2022
 ========================================
 
 Note that deprecations are an early outlook at changes
-that will appear in an eventual GTK 5 release, which is
+that will appear in an eventual BOBGUI 5 release, which is
 still far away. We are introducing deprecations in 4.10
 as a way to give users time to adapt, and to provide
 feedback on our plans.
 
-* GtkTreeView, GtkIconView, GtkComboBox and
+* BobguiTreeView, BobguiIconView, BobguiComboBox and
   auxiliary classes have been deprecated
 
-* GtkEntryCompletion has been deprecated
+* BobguiEntryCompletion has been deprecated
 
-* GtkStyleContext has been deprecated
+* BobguiStyleContext has been deprecated
 
-* gtk_render_ and gtk_snapshot_render_ APIs
+* bobgui_render_ and bobgui_snapshot_render_ APIs
   have been deprecated
 
-* GtkAppChooser widgets have been deprecated
+* BobguiAppChooser widgets have been deprecated
 
-* GtkMessageDialog has been deprecated and
+* BobguiMessageDialog has been deprecated and
   replaced by a new async dialog API
 
-* GtkDialog has been deprecated
+* BobguiDialog has been deprecated
 
-* GtkColorChooser, GtkFontChooser, GtkFileChooser
+* BobguiColorChooser, BobguiFontChooser, BobguiFileChooser
   interfaces and their implementations have been
   deprecated. A new family of async dialog APIs
   has been introduced to replace them
 
-* GtkColorDialog, GtkFontDialog, GtkFileDialog
-  and GtkAlertDialog are new dialog classes with
+* BobguiColorDialog, BobguiFontDialog, BobguiFileDialog
+  and BobguiAlertDialog are new dialog classes with
   a consistent and well-bindable API
 
-* GtkMountOperation:
+* BobguiMountOperation:
  - Fix the dialog to look reasonable
  - Make it work under non-X11
 
-* GtkStringSorter:
+* BobguiStringSorter:
  - Support different collation methods
 
 * Accessibility:
- - Introduce GtkAccessibleRange and implement it
+ - Introduce BobguiAccessibleRange and implement it
 
 * Debugging:
  - Unify formatting for debug output
@@ -4785,13 +4785,13 @@ Overview of Changes in 4.8.1, 16-09-2022
  - Accept single-key compose sequences (these are used with
    some keyboard layouts)
 
-* GtkColumnView:
+* BobguiColumnView:
  - Flip column order in right-to-left context
 
-* GtkGridView:
+* BobguiGridView:
  - Fix problems with rubberbanding
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Fix positioning of popovers in the places view
  - Make ~ and . keyboard shortcuts work again
 
@@ -4811,24 +4811,24 @@ Overview of Changes in 4.8.1, 16-09-2022
 Overview of Changes in 4.8.0, 06-09-2022
 ========================================
 
-* GtkTreeView:
+* BobguiTreeView:
  - Fix a problem with scrolling animations
  - Fix some event handling problems
  - Drop unreachable code
 
-* GtkText:
+* BobguiText:
  - Respect the no-emoji input hint fully
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Fix arrow key navigation
 
-* GtkFontChooser:
+* BobguiFontChooser:
  - Improve the handling of OpenType font features
 
-* GtkTreeListModel:
+* BobguiTreeListModel:
  - Fix handling of collapsed child nodes
 
-* GtkInscription:
+* BobguiInscription:
  - Fix accessible name
 
 * Theme:
@@ -4880,40 +4880,40 @@ Overview of Changes in 4.8.0, 06-09-2022
 Overview of Changes in 4.7.2, 10-08-2022
 ========================================
 
-* GtkTextView:
+* BobguiTextView:
  - Fix child positioning with gutters
 
-* GtkText:
+* BobguiText:
  - Update placeholder visibility when necessary
 
-* GtkPicture:
+* BobguiPicture:
  - Add a content-fit property
 
-* GtkPopover:
+* BobguiPopover:
  - Fix a size allocation problem with the arrow
 
-* GtkTreeView:
+* BobguiTreeView:
  - Fix a problem with DND
 
-* GtkTreePopover:
+* BobguiTreePopover:
  - Support scrolling
 
-* GtkGridView:
+* BobguiGridView:
  - Fix issues with rubberband selection
 
-* GtkLabel:
+* BobguiLabel:
  - Add a tabs property
 
-* GtkSnapshot:
- - Make GtkSnapshot work from bindings
+* BobguiSnapshot:
+ - Make BobguiSnapshot work from bindings
 
-* GtkScrolledWindow:
+* BobguiScrolledWindow:
  - Scroll at a reasonable speed
 
-* GtkPaned:
+* BobguiPaned:
  - Avoid an infinite loop
 
-* GtkWindow:
+* BobguiWindow:
  - Improve generation and handling of crossing events
 
 * CSS:
@@ -4959,25 +4959,25 @@ Overview of Changes in 4.7.2, 10-08-2022
 Overview of Changes in 4.7.1, 12-07-2022
 ========================================
 
-* GtkInscription:
+* BobguiInscription:
  - A new label-like widget for use in list views
 
-* GtkColorChooser:
+* BobguiColorChooser:
  - Style improvements
 
-* GtkFontChooser:
+* BobguiFontChooser:
  - Improve support for OpenType features a bit
 
-* GtkLabel:
+* BobguiLabel:
  - Allow selectable labels to be activated via mnemonic
 
-* GtkTextView:
+* BobguiTextView:
  - Implement GetCharacterExtents for accessibility
 
-* GtkStack:
+* BobguiStack:
  - Fix a poblem with stack page accessibility
 
-* GtkListView:
+* BobguiListView:
  - Cull listitems that are out of view
  - Make all our list models implement ::n-items and
    ::item-type properties
@@ -4987,9 +4987,9 @@ Overview of Changes in 4.7.1, 12-07-2022
  - Fix extracting translations from ui files
 
 * Debugging:
- - Support GTK_DEBUG=invert-text-dir
+ - Support BOBGUI_DEBUG=invert-text-dir
  - Allow inspecting inspectors
- - Replace GTK_USE_PORTAL with GDK_DEBUG=portals
+ - Replace BOBGUI_USE_PORTAL with GDK_DEBUG=portals
  - Improve responsiveness of the inspector
 
 * CSS:
@@ -5000,7 +5000,7 @@ Overview of Changes in 4.7.1, 12-07-2022
 
 * Demos:
  - Improve the font features demo
- - Add demos for GtkInscription
+ - Add demos for BobguiInscription
 
 * Wayland:
  - Freeze popups when hidden
@@ -5040,42 +5040,42 @@ Overview of Changes in 4.7.1, 12-07-2022
 Overview of Changes in 4.7.0, 07-05-2022
 ========================================
 
-* GtkTextView:
+* BobguiTextView:
  - Reduce overdraws
 
-* GtkViewport:
+* BobguiViewport:
  - Default scroll-to-focus to TRUE
 
-* GtkText:
+* BobguiText:
  - Stop blinking when we lose focus
 
-* GtkSearchEntry:
+* BobguiSearchEntry:
  - Make search delay configurable
 
-* GtkPopoverMenu:
+* BobguiPopoverMenu:
  - Fix RTL positioning of buttons
 
-* GtkLabel:
+* BobguiLabel:
  - Fix focus keynav with links
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Prevent undesirable completion popups
  - Fix a corner case in save mode
  - Keep the portal filechooser alive long enough
 
-* GtkCheckButton:
+* BobguiCheckButton:
  - Allow setting a custom child
 
-* GtkEditableLabel:
+* BobguiEditableLabel:
  - Make the :editing property writable
 
-* GtkColumnView:
+* BobguiColumnView:
  - Various optimizations to improve scrolling performance
 
-* GtkTreeStore:
+* BobguiTreeStore:
  - Allow populating tree stores from ui files
 
-* GtkBoxLayout:
+* BobguiBoxLayout:
  - Avoid infinite loops
 
 * CSS:
@@ -5087,7 +5087,7 @@ Overview of Changes in 4.7.0, 07-05-2022
 
 * Input:
  - Add scroll unit handling
- - Handle display changes in GtkIMMultiContext
+ - Handle display changes in BobguiIMMultiContext
  - Always populate GDK_AXIS_X/Y in event history
  - Don't crash for large compose tables
 
@@ -5135,16 +5135,16 @@ Overview of Changes in 4.7.0, 07-05-2022
  - Fix preedit window placement on HiDPI
 
 * Tools:
- - gtk4-builder-tool: Don't require a display for all commands
- - gtk4-builder-tool: Add a screenshot command
- - gtk4-node-editor: Install this utility
+ - bobgui4-builder-tool: Don't require a display for all commands
+ - bobgui4-builder-tool: Add a screenshot command
+ - bobgui4-node-editor: Install this utility
 
 * Debugging:
  - inspector: Show more application data
  - inspector: Allow viewing PangoAttrList properties
 
 * Documentation:
- - Use the gtk-builder-tool to generate screenshots
+ - Use the bobgui-builder-tool to generate screenshots
 
 * Build:
  - Fix cross-compilation
@@ -5190,15 +5190,15 @@ Overview of Changes in 4.7.0, 07-05-2022
 Overview of Changes in 4.6.1, 11-02-2022
 ========================================
 
-* GtkFontChooser:
+* BobguiFontChooser:
  - Stop using PangoFc api
  - Fix a crash
  - Use new HarfBuzz api
 
-* GtkMenuButton:
+* BobguiMenuButton:
  - Update accessible description
 
-* GtkTextView:
+* BobguiTextView:
  - Fix intra-widget dnd
 
 * Printing:
@@ -5257,14 +5257,14 @@ Overview of Changes in 4.6.1, 11-02-2022
 Overview of Changes in 4.6.0, 30-12-2021
 ========================================
 
-* GtkProgressBar:
+* BobguiProgressBar:
  - Fix handling of "inverted"
 
-* GtkLabel:
+* BobguiLabel:
  - Add a "natural wrap mode" property to influence how
    natural width is determined
 
-* GtkTextView
+* BobguiTextView
  - Scroll insertion on-screen after undo / redo
 
 * gsk:
@@ -5293,12 +5293,12 @@ Overview of Changes in 4.6.0, 30-12-2021
 Overview of Changes in 4.5.1, 16-12-2021
 ========================================
 
-* GtkWidget sizing has been rewritten to implement
+* BobguiWidget sizing has been rewritten to implement
   width-for-height more properly. This had some fallout,
   and some widgets may still not react kindly to the
   new way of doing things.
 
-  See https://blog.gtk.org/2021/12/03/sizable-news/
+  See https://blog.bobgui.org/2021/12/03/sizable-news/
   for details, and please file issues if you notice fallout.
 
 * Rename git `master` branch to `main`
@@ -5308,13 +5308,13 @@ Overview of Changes in 4.5.1, 16-12-2021
  - Fix a crash with gradients
 
 * Make various widgets activatable:
- - GtkComboBox
- - GtkDropDown
+ - BobguiComboBox
+ - BobguiDropDown
 
-* GtkPopover:
+* BobguiPopover:
  - Make focus indicators not disappear
 
-* GtkTextView:
+* BobguiTextView:
  - Don't leave embedded children stranded when scrolling
  - Don't insert Emoji into non-editable textviews
  - Fix Emoji chooser positioning
@@ -5324,10 +5324,10 @@ Overview of Changes in 4.5.1, 16-12-2021
  - Make child anchor replacement character settable
  - Provide more context to input methods
 
-* GtkDragIcon:
+* BobguiDragIcon:
  - Provide default icons for paintables and files
 
-* GtkBuilder:
+* BobguiBuilder:
  - Speed up template precompilation
 
 * Actions:
@@ -5338,7 +5338,7 @@ Overview of Changes in 4.5.1, 16-12-2021
  - Show the selected im-module in the General tab
  - Add a clipboard viewer
  - Make the recorder record events too
- - Add a graph visualizing gtk_widget_measure()
+ - Add a graph visualizing bobgui_widget_measure()
 
 * Gsk:
  - Fix hexbox rendering
@@ -5422,42 +5422,42 @@ Overview of Changes in 4.5.0
 
 * text:
  - Implement sloped caret drawing
- - Add a gtk-hint-font-metrics setting to switch
-   font rendering to be more similar to GTK3
+ - Add a bobgui-hint-font-metrics setting to switch
+   font rendering to be more similar to BOBGUI3
 
-* GtkTextView:
+* BobguiTextView:
  - Add support for line height
  - Add support for text transforms
  - Misc fixes for css->pango attribute translations
  - Invalidate pango contexts when font settings change
  - Improve undo grouping when overwriting
 
-* GtkListView:
+* BobguiListView:
  - Make tree indentation more flexible with
-   GtkTreeExpander:indent-for-icon
+   BobguiTreeExpander:indent-for-icon
 
-* GtkMenuButton:
+* BobguiMenuButton:
  - Support custom children
 
-* GtkFlowBox:
+* BobguiFlowBox:
  - Add prepend and append
 
-* GtkCalendar:
+* BobguiCalendar:
  - Fix handling of weeks starting on Monday
 
-* GtkWindow:
+* BobguiWindow:
  - Add a titlebar property
 
-* GtkDropDown:
+* BobguiDropDown:
  - Add a show-arrow property
 
-* GtkPopoverMenu:
+* BobguiPopoverMenu:
  - Support a use-markup attribute in menu models
 
-* Add GtkSymbolicPaintable
+* Add BobguiSymbolicPaintable
 
 * Tools:
- - Support DND in gtk4-node-editor and the inspector's recorder
+ - Support DND in bobgui4-node-editor and the inspector's recorder
 
 * Demos:
  - Improve the font rendering demo
@@ -5514,16 +5514,16 @@ Overview of Changes in 4.4.0
  - Allow multiple dead keys
  - Support 32bit keysyms
 
-* GtkCheckButton:
+* BobguiCheckButton:
  - Activate when moving focus
 
-* GtkLabel:
+* BobguiLabel:
  - Properly ignore double underscores for mnemonics
 
-* GtkPopoverMenu:
+* BobguiPopoverMenu:
  - Fix focus cycling
 
-* GtkTextView:
+* BobguiTextView:
  - Improve word selection
  - Fix block cursors on empty lines
 
@@ -5540,12 +5540,12 @@ Overview of Changes in 4.4.0
  - Shrink shadow extents
 
 * Settings:
- - Change the default for gtk-split-cursor to FALSE
+ - Change the default for bobgui-split-cursor to FALSE
 
 * Demos:
  - Small improvements to widget-factory
- - gtk-demo: Improve the hypertext demo
- - gtk-dem: Improve the clipboard demo
+ - bobgui-demo: Improve the hypertext demo
+ - bobgui-dem: Improve the clipboard demo
 
 * X11:
  - Set WM_CLASS on toplevels
@@ -5570,58 +5570,58 @@ Overview of Changes in 4.4.0
 Overview of Changes in 4.3.2
 ============================
 
-* GtkToggleButton:
+* BobguiToggleButton:
  - Fix the actionable implementation
 
-* GtkCheckButton:
+* BobguiCheckButton:
  - Fix the actionable implementation
  - Cancel activation on when the pointer leaves
 
-* GtkMenuButton:
+* BobguiMenuButton:
  - Make activatable again
  - Add a way to have an icon + arrow
 
-* GtkColorButton:
+* BobguiColorButton:
  - Make activatable again
 
-* GtkFontButton:
+* BobguiFontButton:
  - Make activatable again
 
-* GtkAppChooserButton:
+* BobguiAppChooserButton:
  - Make activatable again
 
-* GtkColumnView:
+* BobguiColumnView:
  - Fix double activation
 
-* GtkLabel:
+* BobguiLabel:
  - Fix mnemonics without markup
 
-* GtkTreeView:
+* BobguiTreeView:
  - Clip header buttons
 
-* GtkTextView:
+* BobguiTextView:
  - Add api to get the RTL and LTR contexts
  - Fix some errors in text history grouping
 
-* GtkText:
+* BobguiText:
  - Don't show placeholder text on top of entry text
  - Add api to compute the cursor extents
  - Fix y coordinates for text selection
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Don't show Trash in the side bar
 
-* GtkPopoverMenu:
+* BobguiPopoverMenu:
  - Add scrollbars to long menus
 
-* GtkActionMuxer:
+* BobguiActionMuxer:
  - Fix propagation of accel changes
 
 * Introspection:
  - Annotate all filename arguments
- - Rename GtkMediaStream apis to avoid name collisions
- - Rename GtkDropTarget properties to avoid name collisions
- - Make GtkPasswordEntryBuffer introspectable
+ - Rename BobguiMediaStream apis to avoid name collisions
+ - Rename BobguiDropTarget properties to avoid name collisions
+ - Make BobguiPasswordEntryBuffer introspectable
 
 * Printing:
  - Remove the Google Cloud Print backend
@@ -5677,47 +5677,47 @@ Overview of Changes in 4.3.2
 Overview of Changes in 4.3.1
 ============================
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Update data from CLDR 39
  - Load Emoji data for both language and territory
 
-* GtkCalendar:
+* BobguiCalendar:
  - Fix an off-by-one error in day numbers
 
-* GtkListView:
+* BobguiListView:
  - Add .activatable style class to activatable items
 
-* GtkCheckButton:
+* BobguiCheckButton:
  - Don't allow unchecking grouped radio buttons
 
-*GtkToggleButton:
+*BobguiToggleButton:
  - Fix mnemonic activation propagation
 
-* GtkLabel:
+* BobguiLabel:
  - Make mnemonics work even when invisible
  - Fix mnemonic activation propagation
 
-* GtkMenuButton:
+* BobguiMenuButton:
  - Add a property to mark primary menus and make F10 work
 
-* GtkApplication:
+* BobguiApplication:
  - Fix initial screensaver state async
 
-* GtkEntry:
- - Apply xalign to placeholder text (as it was in GTK 3)
+* BobguiEntry:
+ - Apply xalign to placeholder text (as it was in BOBGUI 3)
 
-* GtkSpinButton:
+* BobguiSpinButton:
  - Fix swipe gestures
 
-* GtkStackSwitcher:
- - Implement GtkOrientable (as it was in GTK 3)
+* BobguiStackSwitcher:
+ - Implement BobguiOrientable (as it was in BOBGUI 3)
  - Fix a use-after-free problem with drag timeouts
 
-* GtkFileChooser:
- - Add support for (case-insensitive) suffix matches in GtkFileFilter
+* BobguiFileChooser:
+ - Add support for (case-insensitive) suffix matches in BobguiFileFilter
 
-* GtkPasswordEntry:
- - Make GtkPasswordEntryBuffer public, to make it easier
+* BobguiPasswordEntry:
+ - Make BobguiPasswordEntryBuffer public, to make it easier
    to write your own password entry widget
 
 * Input:
@@ -5729,7 +5729,7 @@ Overview of Changes in 4.3.1
 
 * Theme:
  - Update icons from the Adwaita icon theme
- - Fix icon names for GtkSwitch
+ - Fix icon names for BobguiSwitch
  - Fix switch-off icon
 
 * GSK:
@@ -5757,10 +5757,10 @@ Overview of Changes in 4.3.1
  - Fix menubar appearance
 
 * Tools:
- - gtk4-builder-tool: Replace can-focus with focusable in 3-to-4 conversion
+ - bobgui4-builder-tool: Replace can-focus with focusable in 3-to-4 conversion
 
 * Introspection:
- - Add missing annotations in a few places (e.g. gtk_free_view_row_activated)
+ - Add missing annotations in a few places (e.g. bobgui_free_view_row_activated)
 
 * Build:
  - Only build one source file with -mf16c
@@ -5780,38 +5780,38 @@ Overview of Changes in 4.3.1
 Overview of Changes in 4.3.0
 ============================
 
-* GtkVideo:
+* BobguiVideo:
  - Detect stream metadata when using gstreamer
 
-* GtkFileChooser:
+* BobguiFileChooser:
  - Fix a crash
 
-* GtkButton:
+* BobguiButton:
  - Add back visual feedback for keynav activation
 
-* GtkFontChooser:
+* BobguiFontChooser:
  - Fix initial font selection
 
 * Text widgets:
  - Replace squiggly error underlines by dotted lines
  - Support translucent selections
 
-* GtkTextView:
+* BobguiTextView:
  - Various improvements to rendering performance
 
-* GtkScrolledWindow:
+* BobguiScrolledWindow:
  - Stop using scroll cursors
 
-* GtkMenuButton:
+* BobguiMenuButton:
  - Make focus-on-click work
 
-* GtkToggleButton:
+* BobguiToggleButton:
  - Make grouped buttons mutually exclusive
 
-* GtkPasswordEntry:
+* BobguiPasswordEntry:
  - Use MADV_DONTDUMP for secure memory
 
-* GtkListBox:
+* BobguiListBox:
  - Allow repeated selection extension for MULTIPLE
 
 * Themes:
@@ -5864,8 +5864,8 @@ Overview of Changes in 4.3.0
  - Fix using GL rendering with Mesa drivers
 
 * Tools:
- - Add support for copy/paste in gtk4-node-editor
- - Make syntax highlighting work in the gtk4-demo flatpak
+ - Add support for copy/paste in bobgui4-node-editor
+ - Make syntax highlighting work in the bobgui4-demo flatpak
 
 * Inspector:
  - Enable the inspector by default, in all cases
@@ -5885,11 +5885,11 @@ Overview of Changes in 4.3.0
 Overview of Changes in 4.2.0
 ============================
 
-* GtkFileChooser: Make the location entry work again
+* BobguiFileChooser: Make the location entry work again
 
 * GtlLabel: Fix tooltips on links
 
-* GtkTextView: Make scrolling work better with renderers
+* BobguiTextView: Make scrolling work better with renderers
 
 * X11:
  - Fix damage handling
@@ -5971,7 +5971,7 @@ Overview of Changes in 4.1.2
  - Switch to building docs from gir files with gi-docgen
 
 * build:
- - Allow GTK to be used as meson subproject
+ - Allow BOBGUI to be used as meson subproject
 
 * Translation updates
  Catalan
@@ -6030,7 +6030,7 @@ Overview of Changes in 4.1.1
 
 * Windows:
  - Fix window resizing
- - Avoid UAC for gtk-update-icon-cache
+ - Avoid UAC for bobgui-update-icon-cache
 
 * MacOs:
  - Use correct module file extension
@@ -6049,16 +6049,16 @@ Overview of Changes in 4.1.1
 Overview of Changes in 4.1.0
 ============================
 
-* GtkCheckButton:
+* BobguiCheckButton:
  - Add back an activate signal
 
-* GtkSearchBar, GtkSearchEntry:
+* BobguiSearchBar, BobguiSearchEntry:
  - Capture events in the bubble phase
 
-* GtkEmojiChooser:
+* BobguiEmojiChooser:
  - Adapt to small screen sizes
 
-* GtkVideo:
+* BobguiVideo:
  - Fix issues with GL support
 
 * Themes:
@@ -6104,11 +6104,11 @@ Overview of Changes in 4.1.0
 Overview of Changes in 4.0.2
 ============================
 
-* GtkAboutDialog:
+* BobguiAboutDialog:
  - Set icon size for the logo
- - Fix initial focus to be the same as in GTK 3
+ - Fix initial focus to be the same as in BOBGUI 3
 
-* GtkImage:
+* BobguiImage:
  - Update icons on scale change
 
 * Wayland: Fix crashes with touch and tablet events
@@ -6126,7 +6126,7 @@ Overview of Changes in 4.0.2
  - Make HighContrastInverse the dark variant of HighContrast
 
 * Docs:
- - Complete GtkAspectFrame docs
+ - Complete BobguiAspectFrame docs
  - Clarify migration docs for widget signals
 
 * Inspector:
@@ -6153,23 +6153,23 @@ Overview of Changes in 4.0.2
 Overview of Changes in 4.0.1
 ============================
 
-* GtkPopover
+* BobguiPopover
  - Center titles
  - Fix menu item alignment with submenus
 
-* GtkVideo
+* BobguiVideo
  - Fix up autoplay semantics
  - Respect pixel aspect ratio
  - Get GL textures from gstreamer
 
-* GtkCenterLayout
+* BobguiCenterLayout
  - Fix handling of expanding center child
 
-* GtkSettings
- - Change gtk-cursor-aspect-ratio to double
- - Fix the default value of gtk-print-backends
+* BobguiSettings
+ - Change bobgui-cursor-aspect-ratio to double
+ - Fix the default value of bobgui-print-backends
 
-* GtkGestureStylus
+* BobguiGestureStylus
  - Convert motion history to surface coordinates
 
 * GL renderer
@@ -6185,15 +6185,15 @@ Overview of Changes in 4.0.1
  - Add various missing types
  - Add DND examples
  - Correct css docs for several widgets
- - Improve GtkVideo docs
- - Update migration docs for GtkClipboard
+ - Improve BobguiVideo docs
+ - Update migration docs for BobguiClipboard
  - Improve migration docs for event controllers
- - Add migration docs for GtkBuilder
+ - Add migration docs for BobguiBuilder
 
-* gtk4-builder-tool
- - Remove GtkCheckButton::draw-indicator
+* bobgui4-builder-tool
+ - Remove BobguiCheckButton::draw-indicator
  - Fix a buffer overrun
- - Remove GtkToolbar::toolbar-style
+ - Remove BobguiToolbar::toolbar-style
 
 * Demos
  - Don't put the search bar in the scroll area

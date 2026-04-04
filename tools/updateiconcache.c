@@ -39,7 +39,7 @@
 #include <glib/gstdio.h>
 #include <gdk-pixbuf/gdk-pixdata.h>
 #include <glib/gi18n.h>
-#include "gtkiconcachevalidatorprivate.h"
+#include "bobguiiconcachevalidatorprivate.h"
 
 static gboolean force_update = FALSE;
 static gboolean ignore_theme_index = FALSE;
@@ -346,7 +346,7 @@ load_icon_data (const char *path)
 }
 
 /*
- * This function was copied from gtkfilesystemunix.c, it should
+ * This function was copied from bobguifilesystemunix.c, it should
  * probably go to GLib
  */
 static void
@@ -1441,7 +1441,7 @@ validate_file (const char *file)
   info.n_directories = 0;
   info.flags = CHECK_OFFSETS|CHECK_STRINGS|CHECK_PIXBUFS;
 
-  if (!gtk_icon_cache_validate (&info))
+  if (!bobgui_icon_cache_validate (&info))
     {
       g_mapped_file_unref (map);
       return FALSE;
@@ -1710,7 +1710,7 @@ main (int argc, char **argv)
 
   setlocale (LC_ALL, "");
 
-  bindtextdomain (GETTEXT_PACKAGE, GTK_LOCALEDIR);
+  bindtextdomain (GETTEXT_PACKAGE, BOBGUI_LOCALEDIR);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 #endif

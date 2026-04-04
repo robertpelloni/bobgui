@@ -24,7 +24,7 @@
 
 #include <glib/gi18n.h>
 #include <gmodule.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "profile_conf.h"
 
@@ -33,16 +33,16 @@ change_dark_state (GSimpleAction *action,
                     GVariant      *state,
                     gpointer       user_data)
 {
-  GtkSettings *settings = gtk_settings_get_default ();
-  GtkInterfaceColorScheme color_scheme;
+  BobguiSettings *settings = bobgui_settings_get_default ();
+  BobguiInterfaceColorScheme color_scheme;
 
   if (g_variant_get_boolean (state))
-    color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
+    color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_DARK;
   else
-    color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
+    color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_LIGHT;
 
   g_object_set (G_OBJECT (settings),
-                "gtk-interface-color-scheme", color_scheme,
+                "bobgui-interface-color-scheme", color_scheme,
                 NULL);
 
   g_simple_action_set_state (action, state);
@@ -53,9 +53,9 @@ change_theme_state (GSimpleAction *action,
                     GVariant      *state,
                     gpointer       user_data)
 {
-  GtkSettings *settings = gtk_settings_get_default ();
-  GtkInterfaceColorScheme color_scheme;
-  GtkInterfaceContrast contrast;
+  BobguiSettings *settings = bobgui_settings_get_default ();
+  BobguiInterfaceColorScheme color_scheme;
+  BobguiInterfaceContrast contrast;
   const char *s;
 
   s = g_variant_get_string (state, NULL);
@@ -64,30 +64,30 @@ change_theme_state (GSimpleAction *action,
 
   if (strcmp (s, "default") == 0)
     {
-      color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
-      contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
+      color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_LIGHT;
+      contrast = BOBGUI_INTERFACE_CONTRAST_NO_PREFERENCE;
     }
   else if (strcmp (s, "dark") == 0)
     {
-      color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
-      contrast = GTK_INTERFACE_CONTRAST_NO_PREFERENCE;
+      color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_DARK;
+      contrast = BOBGUI_INTERFACE_CONTRAST_NO_PREFERENCE;
     }
   else if (strcmp (s, "hc") == 0)
     {
-      color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
-      contrast = GTK_INTERFACE_CONTRAST_MORE;
+      color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_LIGHT;
+      contrast = BOBGUI_INTERFACE_CONTRAST_MORE;
     }
   else if (strcmp (s, "hc-dark") == 0)
     {
-      color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
-      contrast = GTK_INTERFACE_CONTRAST_MORE;
+      color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_DARK;
+      contrast = BOBGUI_INTERFACE_CONTRAST_MORE;
     }
   else
     return;
 
   g_object_set (settings,
-                "gtk-interface-color-scheme", color_scheme,
-                "gtk-interface-contrast", contrast,
+                "bobgui-interface-color-scheme", color_scheme,
+                "bobgui-interface-contrast", contrast,
                 NULL);
 }
 
@@ -96,26 +96,26 @@ change_fullscreen (GSimpleAction *action,
                    GVariant      *state,
                    gpointer       user_data)
 {
-  GtkWindow *window = user_data;
+  BobguiWindow *window = user_data;
 
   if (g_variant_get_boolean (state))
-    gtk_window_fullscreen (window);
+    bobgui_window_fullscreen (window);
   else
-    gtk_window_unfullscreen (window);
+    bobgui_window_unfullscreen (window);
 
   g_simple_action_set_state (action, state);
 }
 
-static GtkWidget *page_stack;
+static BobguiWidget *page_stack;
 
 static void
-transition_speed_changed (GtkRange *range,
+transition_speed_changed (BobguiRange *range,
                           gpointer  data)
 {
   double value;
 
-  value = gtk_range_get_value (range);
-  gtk_stack_set_transition_duration (GTK_STACK (page_stack), (int)value);
+  value = bobgui_range_get_value (range);
+  bobgui_stack_set_transition_duration (BOBGUI_STACK (page_stack), (int)value);
 }
 
 static void
@@ -123,14 +123,14 @@ change_transition_state (GSimpleAction *action,
                          GVariant      *state,
                          gpointer       user_data)
 {
-  GtkStackTransitionType transition;
+  BobguiStackTransitionType transition;
 
   if (g_variant_get_boolean (state))
-    transition = GTK_STACK_TRANSITION_TYPE_CROSSFADE;
+    transition = BOBGUI_STACK_TRANSITION_TYPE_CROSSFADE;
   else
-    transition = GTK_STACK_TRANSITION_TYPE_NONE;
+    transition = BOBGUI_STACK_TRANSITION_TYPE_NONE;
 
-  gtk_stack_set_transition_type (GTK_STACK (page_stack), transition);
+  bobgui_stack_set_transition_type (BOBGUI_STACK (page_stack), transition);
 
   g_simple_action_set_state (action, state);
 }
@@ -138,11 +138,11 @@ change_transition_state (GSimpleAction *action,
 static gboolean
 get_idle (gpointer data)
 {
-  GtkWidget *window = data;
-  GtkApplication *app = gtk_window_get_application (GTK_WINDOW (window));
+  BobguiWidget *window = data;
+  BobguiApplication *app = bobgui_window_get_application (BOBGUI_WINDOW (window));
 
-  gtk_widget_set_sensitive (window, TRUE);
-  gdk_surface_set_cursor (gtk_native_get_surface (GTK_NATIVE (window)), NULL);
+  bobgui_widget_set_sensitive (window, TRUE);
+  gdk_surface_set_cursor (bobgui_native_get_surface (BOBGUI_NATIVE (window)), NULL);
   g_application_unmark_busy (G_APPLICATION (app));
 
   return G_SOURCE_REMOVE;
@@ -153,17 +153,17 @@ get_busy (GSimpleAction *action,
           GVariant      *parameter,
           gpointer       user_data)
 {
-  GtkWidget *window = user_data;
+  BobguiWidget *window = user_data;
   GdkCursor *cursor;
-  GtkApplication *app = gtk_window_get_application (GTK_WINDOW (window));
+  BobguiApplication *app = bobgui_window_get_application (BOBGUI_WINDOW (window));
 
   g_application_mark_busy (G_APPLICATION (app));
   cursor = gdk_cursor_new_from_name ("wait", NULL);
-  gdk_surface_set_cursor (gtk_native_get_surface (GTK_NATIVE (window)), cursor);
+  gdk_surface_set_cursor (bobgui_native_get_surface (BOBGUI_NATIVE (window)), cursor);
   g_object_unref (cursor);
   g_timeout_add (5000, get_idle, window);
 
-  gtk_widget_set_sensitive (window, FALSE);
+  bobgui_widget_set_sensitive (window, FALSE);
 }
 
 static int current_page = 0;
@@ -178,14 +178,14 @@ activate_search (GSimpleAction *action,
                  GVariant      *parameter,
                  gpointer       user_data)
 {
-  GtkWidget *window = user_data;
-  GtkWidget *searchbar;
+  BobguiWidget *window = user_data;
+  BobguiWidget *searchbar;
 
   if (!on_page (2))
     return;
 
-  searchbar = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "searchbar"));
-  gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (searchbar), TRUE);
+  searchbar = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "searchbar"));
+  bobgui_search_bar_set_search_mode (BOBGUI_SEARCH_BAR (searchbar), TRUE);
 }
 
 static void
@@ -193,36 +193,36 @@ activate_delete (GSimpleAction *action,
                  GVariant      *parameter,
                  gpointer       user_data)
 {
-  GtkWidget *window = user_data;
-  GtkWidget *infobar;
+  BobguiWidget *window = user_data;
+  BobguiWidget *infobar;
 
   g_print ("Activate action delete\n");
 
   if (!on_page (2))
     return;
 
-  infobar = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "infobar"));
-  gtk_widget_set_visible (infobar, TRUE);
+  infobar = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "infobar"));
+  bobgui_widget_set_visible (infobar, TRUE);
 }
 
-static void populate_flowbox (GtkWidget *flowbox);
+static void populate_flowbox (BobguiWidget *flowbox);
 
 static void
 activate_background (GSimpleAction *action,
                      GVariant      *parameter,
                      gpointer       user_data)
 {
-  GtkWidget *window = user_data;
-  GtkWidget *dialog;
-  GtkWidget *flowbox;
+  BobguiWidget *window = user_data;
+  BobguiWidget *dialog;
+  BobguiWidget *flowbox;
 
   if (!on_page (2))
     return;
 
-  dialog = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "selection_dialog"));
-  flowbox = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "selection_flowbox"));
+  dialog = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "selection_dialog"));
+  flowbox = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "selection_flowbox"));
 
-  gtk_widget_set_visible (dialog, TRUE);
+  bobgui_widget_set_visible (dialog, TRUE);
   populate_flowbox (flowbox);
 }
 
@@ -231,10 +231,10 @@ file_chooser_response (GObject *source,
                        GAsyncResult *result,
                        void *user_data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GFile *file;
 
-  file = gtk_file_dialog_open_finish (dialog, result, NULL);
+  file = bobgui_file_dialog_open_finish (dialog, result, NULL);
   if (file)
     {
       g_print ("File selected: %s", g_file_peek_path (file));
@@ -247,10 +247,10 @@ activate_open_file (GSimpleAction *action,
                     GVariant      *parameter,
                     gpointer       user_data)
 {
-  GtkFileDialog *dialog;
+  BobguiFileDialog *dialog;
 
-  dialog = gtk_file_dialog_new ();
-  gtk_file_dialog_open (dialog, NULL, NULL, file_chooser_response, NULL);
+  dialog = bobgui_file_dialog_new ();
+  bobgui_file_dialog_open (dialog, NULL, NULL, file_chooser_response, NULL);
   g_object_unref (dialog);
 }
 
@@ -259,13 +259,13 @@ activate_open (GSimpleAction *action,
                GVariant      *parameter,
                gpointer       user_data)
 {
-  GtkWidget *window = user_data;
-  GtkWidget *button;
+  BobguiWidget *window = user_data;
+  BobguiWidget *button;
 
   if (!on_page (3))
     return;
 
-  button = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "open_menubutton"));
+  button = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "open_menubutton"));
   g_signal_emit_by_name (button, "clicked");
 }
 
@@ -274,13 +274,13 @@ activate_record (GSimpleAction *action,
                  GVariant      *parameter,
                  gpointer       user_data)
 {
-  GtkWidget *window = user_data;
-  GtkWidget *button;
+  BobguiWidget *window = user_data;
+  BobguiWidget *button;
 
   if (!on_page (3))
     return;
 
-  button = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "record_button"));
+  button = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "record_button"));
   g_signal_emit_by_name (button, "clicked");
 }
 
@@ -289,13 +289,13 @@ activate_lock (GSimpleAction *action,
                GVariant      *parameter,
                gpointer       user_data)
 {
-  GtkWidget *window = user_data;
-  GtkWidget *button;
+  BobguiWidget *window = user_data;
+  BobguiWidget *button;
 
   if (!on_page (3))
     return;
 
-  button = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "lockbutton"));
+  button = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "lockbutton"));
   g_signal_emit_by_name (button, "clicked");
 }
 
@@ -304,22 +304,22 @@ activate_about (GSimpleAction *action,
                 GVariant      *parameter,
                 gpointer       user_data)
 {
-  GtkApplication *app = user_data;
-  GtkWindow *window;
-  GtkWidget *button;
+  BobguiApplication *app = user_data;
+  BobguiWindow *window;
+  BobguiWidget *button;
   char *version;
   char *os_name;
   char *os_version;
   GString *s;
-  GtkWidget *dialog;
+  BobguiWidget *dialog;
   GFile *logo_file;
-  GtkIconPaintable *logo;
+  BobguiIconPaintable *logo;
 
   s = g_string_new ("");
 
-  window = gtk_application_get_active_window (app);
-  button = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "open_menubutton"));
-  gtk_menu_button_popdown (GTK_MENU_BUTTON (button));
+  window = bobgui_application_get_active_window (app);
+  button = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "open_menubutton"));
+  bobgui_menu_button_popdown (BOBGUI_MENU_BUTTON (button));
 
   os_name = g_get_os_info (G_OS_INFO_KEY_NAME);
   os_version = g_get_os_info (G_OS_INFO_KEY_VERSION_ID);
@@ -332,45 +332,45 @@ activate_about (GSimpleAction *action,
                           glib_micro_version);
   g_string_append_printf (s, "\tPango\t%s\n",
                           pango_version_string ());
-  g_string_append_printf (s, "\tGTK \t%d.%d.%d\n",
-                          gtk_get_major_version (),
-                          gtk_get_minor_version (),
-                          gtk_get_micro_version ());
-  g_string_append_printf (s, "\nA link can appear here: <http://www.gtk.org>");
+  g_string_append_printf (s, "\tBOBGUI \t%d.%d.%d\n",
+                          bobgui_get_major_version (),
+                          bobgui_get_minor_version (),
+                          bobgui_get_micro_version ());
+  g_string_append_printf (s, "\nA link can appear here: <http://www.bobgui.org>");
 
-  version = g_strdup_printf ("%s%s%s\nRunning against GTK %d.%d.%d",
+  version = g_strdup_printf ("%s%s%s\nRunning against BOBGUI %d.%d.%d",
                              PACKAGE_VERSION,
                              g_strcmp0 (PROFILE, "devel") == 0 ? "-" : "",
                              g_strcmp0 (PROFILE, "devel") == 0 ? VCS_TAG : "",
-                             gtk_get_major_version (),
-                             gtk_get_minor_version (),
-                             gtk_get_micro_version ());
+                             bobgui_get_major_version (),
+                             bobgui_get_minor_version (),
+                             bobgui_get_micro_version ());
 
-  logo_file = g_file_new_for_uri ("resource:///org/gtk/WidgetFactory4/icons/scalable/apps/org.gtk.WidgetFactory4.svg");
-  logo = gtk_icon_paintable_new_for_file (logo_file, 64, 1);
-  dialog = g_object_new (GTK_TYPE_ABOUT_DIALOG,
-                         "transient-for", gtk_application_get_active_window (app),
+  logo_file = g_file_new_for_uri ("resource:///org/bobgui/WidgetFactory4/icons/scalable/apps/org.bobgui.WidgetFactory4.svg");
+  logo = bobgui_icon_paintable_new_for_file (logo_file, 64, 1);
+  dialog = g_object_new (BOBGUI_TYPE_ABOUT_DIALOG,
+                         "transient-for", bobgui_application_get_active_window (app),
                          "modal", TRUE,
                          "program-name", g_strcmp0 (PROFILE, "devel") == 0
-                                         ? "GTK Widget Factory (Development)"
-                                         : "GTK Widget Factory",
+                                         ? "BOBGUI Widget Factory (Development)"
+                                         : "BOBGUI Widget Factory",
                          "version", version,
-                         "copyright", "© 1997—2024 The GTK Team",
-                         "license-type", GTK_LICENSE_LGPL_2_1,
-                         "website", "http://www.gtk.org",
-                         "comments", "Program to demonstrate GTK themes and widgets",
+                         "copyright", "© 1997—2024 The BOBGUI Team",
+                         "license-type", BOBGUI_LICENSE_LGPL_2_1,
+                         "website", "http://www.bobgui.org",
+                         "comments", "Program to demonstrate BOBGUI themes and widgets",
                          "authors", (const char *[]) { "Andrea Cimitan", "Cosimo Cecchi", NULL },
                          "logo", logo,
-                         "title", "About GTK Widget Factory",
+                         "title", "About BOBGUI Widget Factory",
                          "system-information", s->str,
                          NULL);
   g_object_unref (logo);
   g_object_unref (logo_file);
 
-  gtk_about_dialog_add_credit_section (GTK_ABOUT_DIALOG (dialog),
-                                       _("Maintained by"), (const char *[]) { "The GTK Team", NULL });
+  bobgui_about_dialog_add_credit_section (BOBGUI_ABOUT_DIALOG (dialog),
+                                       _("Maintained by"), (const char *[]) { "The BOBGUI Team", NULL });
 
-  gtk_window_present (GTK_WINDOW (dialog));
+  bobgui_window_present (BOBGUI_WINDOW (dialog));
 
   g_string_free (s, TRUE);
   g_free (version);
@@ -383,14 +383,14 @@ activate_shortcuts_window (GSimpleAction *action,
                            GVariant      *parameter,
                            gpointer       user_data)
 {
-  GtkApplication *app = user_data;
-  GtkWindow *window;
-  GtkWidget *button;
+  BobguiApplication *app = user_data;
+  BobguiWindow *window;
+  BobguiWidget *button;
 
-  window = gtk_application_get_active_window (app);
-  button = GTK_WIDGET (g_object_get_data (G_OBJECT (window), "open_menubutton"));
-  gtk_menu_button_popdown (GTK_MENU_BUTTON (button));
-  gtk_widget_activate_action (GTK_WIDGET (window), "win.show-help-overlay", NULL);
+  window = bobgui_application_get_active_window (app);
+  button = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (window), "open_menubutton"));
+  bobgui_menu_button_popdown (BOBGUI_MENU_BUTTON (button));
+  bobgui_widget_activate_action (BOBGUI_WIDGET (window), "win.show-help-overlay", NULL);
 }
 
 static void
@@ -398,17 +398,17 @@ activate_quit (GSimpleAction *action,
                GVariant      *parameter,
                gpointer       user_data)
 {
-  GtkApplication *app = user_data;
-  GtkWidget *win;
+  BobguiApplication *app = user_data;
+  BobguiWidget *win;
   GList *list, *next;
 
-  list = gtk_application_get_windows (app);
+  list = bobgui_application_get_windows (app);
   while (list)
     {
       win = list->data;
       next = list->next;
 
-      gtk_window_destroy (GTK_WINDOW (win));
+      bobgui_window_destroy (BOBGUI_WINDOW (win));
 
       list = next;
     }
@@ -419,29 +419,29 @@ activate_inspector (GSimpleAction *action,
                     GVariant      *parameter,
                     gpointer       user_data)
 {
-  gtk_window_set_interactive_debugging (TRUE);
+  bobgui_window_set_interactive_debugging (TRUE);
 }
 
 static void
-print_operation_done (GtkPrintOperation       *op,
-                      GtkPrintOperationResult  res,
+print_operation_done (BobguiPrintOperation       *op,
+                      BobguiPrintOperationResult  res,
                       gpointer                 data)
 {
   GError *error = NULL;
 
   switch (res)
     {
-    case GTK_PRINT_OPERATION_RESULT_ERROR:
-      gtk_print_operation_get_error (op, &error);
+    case BOBGUI_PRINT_OPERATION_RESULT_ERROR:
+      bobgui_print_operation_get_error (op, &error);
       g_print ("Printing failed: %s\n", error->message);
       g_clear_error (&error);
       break;
-    case GTK_PRINT_OPERATION_RESULT_APPLY:
+    case BOBGUI_PRINT_OPERATION_RESULT_APPLY:
       break;
-    case GTK_PRINT_OPERATION_RESULT_CANCEL:
+    case BOBGUI_PRINT_OPERATION_RESULT_CANCEL:
       g_print ("Printing was canceled\n");
       break;
-    case GTK_PRINT_OPERATION_RESULT_IN_PROGRESS:
+    case BOBGUI_PRINT_OPERATION_RESULT_IN_PROGRESS:
       return;
     default:
       g_assert_not_reached ();
@@ -452,16 +452,16 @@ print_operation_done (GtkPrintOperation       *op,
 }
 
 static void
-print_operation_begin (GtkPrintOperation *op,
-                       GtkPrintContext   *context,
+print_operation_begin (BobguiPrintOperation *op,
+                       BobguiPrintContext   *context,
                        gpointer           data)
 {
-  gtk_print_operation_set_n_pages (op, 1);
+  bobgui_print_operation_set_n_pages (op, 1);
 }
 
 static void
-print_operation_page (GtkPrintOperation *op,
-                      GtkPrintContext   *context,
+print_operation_page (BobguiPrintOperation *op,
+                      BobguiPrintContext   *context,
                       int                page,
                       gpointer           data)
 {
@@ -474,14 +474,14 @@ print_operation_page (GtkPrintOperation *op,
 
   g_print ("Save the trees!\n");
 
-  cr = gtk_print_context_get_cairo_context (context);
-  width = gtk_print_context_get_width (context);
+  cr = bobgui_print_context_get_cairo_context (context);
+  width = bobgui_print_context_get_width (context);
 
-  snapshot = gtk_snapshot_new ();
-  paintable = gtk_widget_paintable_new (GTK_WIDGET (data));
+  snapshot = bobgui_snapshot_new ();
+  paintable = bobgui_widget_paintable_new (BOBGUI_WIDGET (data));
   aspect_ratio = gdk_paintable_get_intrinsic_aspect_ratio (paintable);
   gdk_paintable_snapshot (paintable, snapshot, width, width / aspect_ratio);
-  node = gtk_snapshot_free_to_node (snapshot);
+  node = bobgui_snapshot_free_to_node (snapshot);
 
   gsk_render_node_draw (node, cr);
 
@@ -495,59 +495,59 @@ activate_print (GSimpleAction *action,
                 GVariant      *parameter,
                 gpointer       user_data)
 {
-  GtkWindow *window = GTK_WINDOW (user_data);
-  GtkPrintOperation *op;
-  GtkPrintOperationResult res;
+  BobguiWindow *window = BOBGUI_WINDOW (user_data);
+  BobguiPrintOperation *op;
+  BobguiPrintOperationResult res;
 
-  op = gtk_print_operation_new ();
-  gtk_print_operation_set_allow_async (op, TRUE);
+  op = bobgui_print_operation_new ();
+  bobgui_print_operation_set_allow_async (op, TRUE);
   g_signal_connect (op, "begin-print", G_CALLBACK (print_operation_begin), NULL);
   g_signal_connect (op, "draw-page", G_CALLBACK (print_operation_page), window);
   g_signal_connect (op, "done", G_CALLBACK (print_operation_done), NULL);
 
-  gtk_print_operation_set_embed_page_setup (op, TRUE);
+  bobgui_print_operation_set_embed_page_setup (op, TRUE);
 
-  res = gtk_print_operation_run (op, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG, window, NULL);
+  res = bobgui_print_operation_run (op, BOBGUI_PRINT_OPERATION_ACTION_PRINT_DIALOG, window, NULL);
 
-  if (res == GTK_PRINT_OPERATION_RESULT_IN_PROGRESS)
+  if (res == BOBGUI_PRINT_OPERATION_RESULT_IN_PROGRESS)
     return;
 
   print_operation_done (op, res, NULL);
 }
 
 static void
-spin_value_changed (GtkAdjustment *adjustment, GtkWidget *label)
+spin_value_changed (BobguiAdjustment *adjustment, BobguiWidget *label)
 {
-  GtkWidget *w;
+  BobguiWidget *w;
   int v;
   char *text;
 
-  v = (int)gtk_adjustment_get_value (adjustment);
+  v = (int)bobgui_adjustment_get_value (adjustment);
 
   if ((v % 3) == 0)
     {
       text = g_strdup_printf ("%d is a multiple of 3", v);
-      gtk_label_set_label (GTK_LABEL (label), text);
+      bobgui_label_set_label (BOBGUI_LABEL (label), text);
       g_free (text);
     }
 
-  w = gtk_widget_get_ancestor (label, GTK_TYPE_REVEALER);
-  gtk_revealer_set_reveal_child (GTK_REVEALER (w), (v % 3) == 0);
+  w = bobgui_widget_get_ancestor (label, BOBGUI_TYPE_REVEALER);
+  bobgui_revealer_set_reveal_child (BOBGUI_REVEALER (w), (v % 3) == 0);
 }
 
 static void
-dismiss (GtkWidget *button)
+dismiss (BobguiWidget *button)
 {
-  GtkWidget *w;
+  BobguiWidget *w;
 
-  w = gtk_widget_get_ancestor (button, GTK_TYPE_REVEALER);
-  gtk_revealer_set_reveal_child (GTK_REVEALER (w), FALSE);
+  w = bobgui_widget_get_ancestor (button, BOBGUI_TYPE_REVEALER);
+  bobgui_revealer_set_reveal_child (BOBGUI_REVEALER (w), FALSE);
 }
 
 static void
-spin_value_reset (GtkWidget *button, GtkAdjustment *adjustment)
+spin_value_reset (BobguiWidget *button, BobguiAdjustment *adjustment)
 {
-  gtk_adjustment_set_value (adjustment, 50.0);
+  bobgui_adjustment_set_value (adjustment, 50.0);
   dismiss (button);
 }
 
@@ -561,14 +561,14 @@ remove_pulse (gpointer pulse_id)
 }
 
 static gboolean
-pulse_it (GtkWidget *widget)
+pulse_it (BobguiWidget *widget)
 {
   guint pulse_id;
 
-  if (GTK_IS_ENTRY (widget))
-    gtk_entry_progress_pulse (GTK_ENTRY (widget));
+  if (BOBGUI_IS_ENTRY (widget))
+    bobgui_entry_progress_pulse (BOBGUI_ENTRY (widget));
   else
-    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (widget));
+    bobgui_progress_bar_pulse (BOBGUI_PROGRESS_BAR (widget));
 
   pulse_id = g_timeout_add (pulse_time, (GSourceFunc)pulse_it, widget);
   g_object_set_data_full (G_OBJECT (widget), "pulse_id", GUINT_TO_POINTER (pulse_id), remove_pulse);
@@ -577,12 +577,12 @@ pulse_it (GtkWidget *widget)
 }
 
 static void
-update_pulse_time (GtkAdjustment *adjustment, GtkWidget *widget)
+update_pulse_time (BobguiAdjustment *adjustment, BobguiWidget *widget)
 {
   double value;
   guint pulse_id;
 
-  value = gtk_adjustment_get_value (adjustment);
+  value = bobgui_adjustment_get_value (adjustment);
 
   pulse_id = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (widget), "pulse_id"));
 
@@ -595,7 +595,7 @@ update_pulse_time (GtkAdjustment *adjustment, GtkWidget *widget)
     }
   else if (value < 100)
     {
-      if (pulse_id == 0 && (GTK_IS_PROGRESS_BAR (widget) || pulse_entry_mode % 3 == 2))
+      if (pulse_id == 0 && (BOBGUI_IS_PROGRESS_BAR (widget) || pulse_entry_mode % 3 == 2))
         {
           pulse_id = g_timeout_add (pulse_time, (GSourceFunc)pulse_it, widget);
           g_object_set_data_full (G_OBJECT (widget), "pulse_id", GUINT_TO_POINTER (pulse_id), remove_pulse);
@@ -604,13 +604,13 @@ update_pulse_time (GtkAdjustment *adjustment, GtkWidget *widget)
 }
 
 static void
-on_entry_icon_release (GtkEntry            *entry,
-                       GtkEntryIconPosition icon_pos,
+on_entry_icon_release (BobguiEntry            *entry,
+                       BobguiEntryIconPosition icon_pos,
                        gpointer             user_data)
 {
-  GtkSvg *paintable;
+  BobguiSvg *paintable;
 
-  if (icon_pos != GTK_ENTRY_ICON_SECONDARY)
+  if (icon_pos != BOBGUI_ENTRY_ICON_SECONDARY)
     return;
 
   pulse_entry_mode++;
@@ -618,45 +618,45 @@ on_entry_icon_release (GtkEntry            *entry,
   if (pulse_entry_mode % 3 == 0)
     {
       g_object_set_data (G_OBJECT (entry), "pulse_id", NULL);
-      gtk_entry_set_progress_fraction (entry, 0);
+      bobgui_entry_set_progress_fraction (entry, 0);
     }
   else if (pulse_entry_mode % 3 == 1)
     {
-      gtk_entry_set_progress_fraction (entry, 0.25);
+      bobgui_entry_set_progress_fraction (entry, 0.25);
     }
   else if (pulse_entry_mode % 3 == 2)
     {
       if (pulse_time - 50 < 400)
         {
-          gtk_entry_set_progress_pulse_step (entry, 0.1);
-          pulse_it (GTK_WIDGET (entry));
+          bobgui_entry_set_progress_pulse_step (entry, 0.1);
+          pulse_it (BOBGUI_WIDGET (entry));
         }
     }
 
   g_object_get (entry, "secondary-icon-paintable", &paintable, NULL);
-  gtk_svg_set_state (paintable, pulse_entry_mode % 3);
+  bobgui_svg_set_state (paintable, pulse_entry_mode % 3);
   g_object_unref (paintable);
 }
 
 #define EPSILON (1e-10)
 
 static void
-on_scale_button_value_changed (GtkScaleButton *button,
+on_scale_button_value_changed (BobguiScaleButton *button,
                                double          value,
                                gpointer        user_data)
 {
-  GtkAdjustment *adjustment;
+  BobguiAdjustment *adjustment;
   double val;
   char *str;
 
-  adjustment = gtk_scale_button_get_adjustment (button);
-  val = gtk_scale_button_get_value (button);
+  adjustment = bobgui_scale_button_get_adjustment (button);
+  val = bobgui_scale_button_get_value (button);
 
-  if (val < (gtk_adjustment_get_lower (adjustment) + EPSILON))
+  if (val < (bobgui_adjustment_get_lower (adjustment) + EPSILON))
     {
       str = g_strdup (_("Muted"));
     }
-  else if (val >= (gtk_adjustment_get_upper (adjustment) - EPSILON))
+  else if (val >= (bobgui_adjustment_get_upper (adjustment) - EPSILON))
     {
       str = g_strdup (_("Full Volume"));
     }
@@ -664,65 +664,65 @@ on_scale_button_value_changed (GtkScaleButton *button,
     {
       int percent;
 
-      percent = (int) (100. * val / (gtk_adjustment_get_upper (adjustment) - gtk_adjustment_get_lower (adjustment)) + .5);
+      percent = (int) (100. * val / (bobgui_adjustment_get_upper (adjustment) - bobgui_adjustment_get_lower (adjustment)) + .5);
 
       str = g_strdup_printf (C_("volume percentage", "%d %%"), percent);
     }
 
-  gtk_widget_set_tooltip_text (GTK_WIDGET (button), str);
+  bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (button), str);
 
   g_free (str);
 }
 
 static void
-on_record_button_toggled (GtkToggleButton *button,
+on_record_button_toggled (BobguiToggleButton *button,
                           gpointer         user_data)
 {
 
-  if (gtk_toggle_button_get_active (button))
-    gtk_widget_remove_css_class (GTK_WIDGET (button), "destructive-action");
+  if (bobgui_toggle_button_get_active (button))
+    bobgui_widget_remove_css_class (BOBGUI_WIDGET (button), "destructive-action");
   else
-    gtk_widget_add_css_class (GTK_WIDGET (button), "destructive-action");
+    bobgui_widget_add_css_class (BOBGUI_WIDGET (button), "destructive-action");
 }
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 static void
-on_page_combo_changed (GtkComboBox *combo,
+on_page_combo_changed (BobguiComboBox *combo,
                        gpointer     user_data)
 {
-  GtkWidget *from;
-  GtkWidget *to;
-  GtkWidget *print;
+  BobguiWidget *from;
+  BobguiWidget *to;
+  BobguiWidget *print;
 
-  from = GTK_WIDGET (g_object_get_data (G_OBJECT (combo), "range_from_spin"));
-  to = GTK_WIDGET (g_object_get_data (G_OBJECT (combo), "range_to_spin"));
-  print = GTK_WIDGET (g_object_get_data (G_OBJECT (combo), "print_button"));
+  from = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (combo), "range_from_spin"));
+  to = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (combo), "range_to_spin"));
+  print = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (combo), "print_button"));
 
-  switch (gtk_combo_box_get_active (combo))
+  switch (bobgui_combo_box_get_active (combo))
     {
     case 0: /* Range */
-      gtk_widget_set_sensitive (from, TRUE);
-      gtk_widget_set_sensitive (to, TRUE);
-      gtk_widget_set_sensitive (print, TRUE);
+      bobgui_widget_set_sensitive (from, TRUE);
+      bobgui_widget_set_sensitive (to, TRUE);
+      bobgui_widget_set_sensitive (print, TRUE);
       break;
     case 1: /* All */
-      gtk_widget_set_sensitive (from, FALSE);
-      gtk_widget_set_sensitive (to, FALSE);
-      gtk_spin_button_set_value (GTK_SPIN_BUTTON (from), 1);
-      gtk_spin_button_set_value (GTK_SPIN_BUTTON (to), 99);
-      gtk_widget_set_sensitive (print, TRUE);
+      bobgui_widget_set_sensitive (from, FALSE);
+      bobgui_widget_set_sensitive (to, FALSE);
+      bobgui_spin_button_set_value (BOBGUI_SPIN_BUTTON (from), 1);
+      bobgui_spin_button_set_value (BOBGUI_SPIN_BUTTON (to), 99);
+      bobgui_widget_set_sensitive (print, TRUE);
       break;
     case 2: /* Current */
-      gtk_widget_set_sensitive (from, FALSE);
-      gtk_widget_set_sensitive (to, FALSE);
-      gtk_spin_button_set_value (GTK_SPIN_BUTTON (from), 7);
-      gtk_spin_button_set_value (GTK_SPIN_BUTTON (to), 7);
-      gtk_widget_set_sensitive (print, TRUE);
+      bobgui_widget_set_sensitive (from, FALSE);
+      bobgui_widget_set_sensitive (to, FALSE);
+      bobgui_spin_button_set_value (BOBGUI_SPIN_BUTTON (from), 7);
+      bobgui_spin_button_set_value (BOBGUI_SPIN_BUTTON (to), 7);
+      bobgui_widget_set_sensitive (print, TRUE);
       break;
     case 4:
-      gtk_widget_set_sensitive (from, FALSE);
-      gtk_widget_set_sensitive (to, FALSE);
-      gtk_widget_set_sensitive (print, FALSE);
+      bobgui_widget_set_sensitive (from, FALSE);
+      bobgui_widget_set_sensitive (to, FALSE);
+      bobgui_widget_set_sensitive (print, FALSE);
       break;
     default:;
     }
@@ -730,92 +730,92 @@ on_page_combo_changed (GtkComboBox *combo,
 G_GNUC_END_IGNORE_DEPRECATIONS
 
 static void
-on_range_from_changed (GtkSpinButton *from)
+on_range_from_changed (BobguiSpinButton *from)
 {
-  GtkSpinButton *to;
+  BobguiSpinButton *to;
   int v1, v2;
 
-  to = GTK_SPIN_BUTTON (g_object_get_data (G_OBJECT (from), "range_to_spin"));
+  to = BOBGUI_SPIN_BUTTON (g_object_get_data (G_OBJECT (from), "range_to_spin"));
 
-  v1 = gtk_spin_button_get_value_as_int (from);
-  v2 = gtk_spin_button_get_value_as_int (to);
+  v1 = bobgui_spin_button_get_value_as_int (from);
+  v2 = bobgui_spin_button_get_value_as_int (to);
 
   if (v1 > v2)
-    gtk_spin_button_set_value (to, v1);
+    bobgui_spin_button_set_value (to, v1);
 }
 
 static void
-on_range_to_changed (GtkSpinButton *to)
+on_range_to_changed (BobguiSpinButton *to)
 {
-  GtkSpinButton *from;
+  BobguiSpinButton *from;
   int v1, v2;
 
-  from = GTK_SPIN_BUTTON (g_object_get_data (G_OBJECT (to), "range_from_spin"));
+  from = BOBGUI_SPIN_BUTTON (g_object_get_data (G_OBJECT (to), "range_from_spin"));
 
-  v1 = gtk_spin_button_get_value_as_int (from);
-  v2 = gtk_spin_button_get_value_as_int (to);
+  v1 = bobgui_spin_button_get_value_as_int (from);
+  v2 = bobgui_spin_button_get_value_as_int (to);
 
   if (v1 > v2)
-    gtk_spin_button_set_value (from, v2);
+    bobgui_spin_button_set_value (from, v2);
 }
 
 static GdkContentProvider *
-on_picture_drag_prepare (GtkDragSource *source,
+on_picture_drag_prepare (BobguiDragSource *source,
                          double         x,
                          double         y,
                          gpointer       unused)
 {
-  GtkWidget *picture;
+  BobguiWidget *picture;
 
-  picture = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (source));
+  picture = bobgui_event_controller_get_widget (BOBGUI_EVENT_CONTROLLER (source));
 
-  return gdk_content_provider_new_typed (GDK_TYPE_TEXTURE, gtk_picture_get_paintable (GTK_PICTURE (picture)));
+  return gdk_content_provider_new_typed (GDK_TYPE_TEXTURE, bobgui_picture_get_paintable (BOBGUI_PICTURE (picture)));
 }
 
 static gboolean
-on_picture_drop (GtkDropTarget *dest,
+on_picture_drop (BobguiDropTarget *dest,
                  const GValue  *value,
                  double         x,
                  double         y,
                  gpointer       unused)
 {
-  GtkWidget *picture;
+  BobguiWidget *picture;
   GdkPaintable *paintable;
 
-  picture = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (dest));
+  picture = bobgui_event_controller_get_widget (BOBGUI_EVENT_CONTROLLER (dest));
   paintable = g_value_get_object (value);
 
-  gtk_picture_set_paintable (GTK_PICTURE (picture), paintable);
+  bobgui_picture_set_paintable (BOBGUI_PICTURE (picture), paintable);
 
   return TRUE;
 }
 
 static void
-info_bar_response (GtkWidget *infobar, int response_id)
+info_bar_response (BobguiWidget *infobar, int response_id)
 {
-  if (response_id == GTK_RESPONSE_CLOSE)
-    gtk_widget_set_visible (infobar, FALSE);
+  if (response_id == BOBGUI_RESPONSE_CLOSE)
+    bobgui_widget_set_visible (infobar, FALSE);
 }
 
 static void
-show_dialog (GtkWidget *button, GtkWidget *dialog)
+show_dialog (BobguiWidget *button, BobguiWidget *dialog)
 {
-  gtk_widget_set_visible (dialog, TRUE);
+  bobgui_widget_set_visible (dialog, TRUE);
 }
 
 static void
-close_dialog (GtkWidget *dialog)
+close_dialog (BobguiWidget *dialog)
 {
-  gtk_widget_set_visible (dialog, FALSE);
+  bobgui_widget_set_visible (dialog, FALSE);
 }
 
 static void
-set_needs_attention (GtkWidget *page, gboolean needs_attention)
+set_needs_attention (BobguiWidget *page, gboolean needs_attention)
 {
-  GtkWidget *stack;
+  BobguiWidget *stack;
 
-  stack = gtk_widget_get_parent (page);
-  g_object_set (gtk_stack_get_page (GTK_STACK (stack), page),
+  stack = bobgui_widget_get_parent (page);
+  g_object_set (bobgui_stack_get_page (BOBGUI_STACK (stack), page),
                            "needs-attention", needs_attention,
                            NULL);
 }
@@ -823,35 +823,35 @@ set_needs_attention (GtkWidget *page, gboolean needs_attention)
 static gboolean
 demand_attention (gpointer stack)
 {
-  GtkWidget *page;
+  BobguiWidget *page;
 
-  page = gtk_stack_get_child_by_name (GTK_STACK (stack), "page3");
+  page = bobgui_stack_get_child_by_name (BOBGUI_STACK (stack), "page3");
   set_needs_attention (page, TRUE);
 
   return G_SOURCE_REMOVE;
 }
 
 static void
-action_dialog_button_clicked (GtkButton *button, GtkWidget *page)
+action_dialog_button_clicked (BobguiButton *button, BobguiWidget *page)
 {
   g_timeout_add (1000, demand_attention, page);
 }
 
 static void
-page_changed_cb (GtkWidget *stack, GParamSpec *pspec, gpointer data)
+page_changed_cb (BobguiWidget *stack, GParamSpec *pspec, gpointer data)
 {
   const char *name;
-  GtkWidget *window;
-  GtkWidget *page;
+  BobguiWidget *window;
+  BobguiWidget *page;
 
-  if (gtk_widget_in_destruction (stack))
+  if (bobgui_widget_in_destruction (stack))
     return;
 
-  name = gtk_stack_get_visible_child_name (GTK_STACK (stack));
+  name = bobgui_stack_get_visible_child_name (BOBGUI_STACK (stack));
 
-  window = gtk_widget_get_ancestor (stack, GTK_TYPE_APPLICATION_WINDOW);
+  window = bobgui_widget_get_ancestor (stack, BOBGUI_TYPE_APPLICATION_WINDOW);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  g_object_set (gtk_application_window_get_help_overlay (GTK_APPLICATION_WINDOW (window)),
+  g_object_set (bobgui_application_window_get_help_overlay (BOBGUI_APPLICATION_WINDOW (window)),
                 "view-name", name,
                 NULL);
 G_GNUC_END_IGNORE_DEPRECATIONS
@@ -863,114 +863,114 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   if (g_str_equal (name, "page3"))
     {
       current_page = 3;
-      page = gtk_stack_get_visible_child (GTK_STACK (stack));
-      set_needs_attention (GTK_WIDGET (page), FALSE);
+      page = bobgui_stack_get_visible_child (BOBGUI_STACK (stack));
+      set_needs_attention (BOBGUI_WIDGET (page), FALSE);
     }
 }
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 static void
-populate_model (GtkTreeStore *store)
+populate_model (BobguiTreeStore *store)
 {
-  GtkTreeIter iter, parent0, parent1, parent2, parent3;
+  BobguiTreeIter iter, parent0, parent1, parent2, parent3;
 
-  gtk_tree_store_append (store, &iter, NULL);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, NULL);
+  bobgui_tree_store_set (store, &iter,
                       0, "Charlemagne",
                       1, "742",
                       2, "814",
                       -1);
   parent0 = iter;
-  gtk_tree_store_append (store, &iter, &parent0);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent0);
+  bobgui_tree_store_set (store, &iter,
                       0, "Pepin the Short",
                       1, "714",
                       2, "768",
                       -1);
   parent1 = iter;
-  gtk_tree_store_append (store, &iter, &parent1);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent1);
+  bobgui_tree_store_set (store, &iter,
                       0, "Charles Martel",
                       1, "688",
                       2, "741",
                       -1);
   parent2 = iter;
-  gtk_tree_store_append (store, &iter, &parent2);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent2);
+  bobgui_tree_store_set (store, &iter,
                       0, "Pepin of Herstal",
                       1, "635",
                       2, "714",
                       -1);
   parent3 = iter;
-  gtk_tree_store_append (store, &iter, &parent3);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent3);
+  bobgui_tree_store_set (store, &iter,
                       0, "Ansegisel",
                       1, "602 or 610",
                       2, "murdered before 679",
                       -1);
-  gtk_tree_store_append (store, &iter, &parent3);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent3);
+  bobgui_tree_store_set (store, &iter,
                       0, "Begga",
                       1, "615",
                       2, "693",
                       -1);
-  gtk_tree_store_append (store, &iter, &parent2);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent2);
+  bobgui_tree_store_set (store, &iter,
                       0, "Alpaida",
                       -1);
-  gtk_tree_store_append (store, &iter, &parent1);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent1);
+  bobgui_tree_store_set (store, &iter,
                       0, "Rotrude",
                       -1);
   parent2 = iter;
-  gtk_tree_store_append (store, &iter, &parent2);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent2);
+  bobgui_tree_store_set (store, &iter,
                       0, "Liévin de Trèves",
                       -1);
   parent3 = iter;
-  gtk_tree_store_append (store, &iter, &parent3);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent3);
+  bobgui_tree_store_set (store, &iter,
                       0, "Guérin",
                       -1);
-  gtk_tree_store_append (store, &iter, &parent3);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent3);
+  bobgui_tree_store_set (store, &iter,
                       0, "Gunza",
                       -1);
-  gtk_tree_store_append (store, &iter, &parent2);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent2);
+  bobgui_tree_store_set (store, &iter,
                       0, "Willigarde de Bavière",
                       -1);
-  gtk_tree_store_append (store, &iter, &parent0);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent0);
+  bobgui_tree_store_set (store, &iter,
                       0, "Bertrada of Laon",
                       1, "710",
                       2, "783",
                       -1);
   parent1 = iter;
-  gtk_tree_store_append (store, &iter, &parent1);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent1);
+  bobgui_tree_store_set (store, &iter,
                       0, "Caribert of Laon",
                       2, "before 762",
                       -1);
   parent2 = iter;
-  gtk_tree_store_append (store, &iter, &parent2);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent2);
+  bobgui_tree_store_set (store, &iter,
                       0, "Unknown",
                       -1);
-  gtk_tree_store_append (store, &iter, &parent2);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent2);
+  bobgui_tree_store_set (store, &iter,
                       0, "Bertrada of Prüm",
                       1, "ca. 670",
                       2, "after 721",
                       -1);
-  gtk_tree_store_append (store, &iter, &parent1);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, &parent1);
+  bobgui_tree_store_set (store, &iter,
                       0, "Gisele of Aquitaine",
                       -1);
-  gtk_tree_store_append (store, &iter, NULL);
-  gtk_tree_store_set (store, &iter, 3, TRUE, -1);
-  gtk_tree_store_append (store, &iter, NULL);
-  gtk_tree_store_set (store, &iter,
+  bobgui_tree_store_append (store, &iter, NULL);
+  bobgui_tree_store_set (store, &iter, 3, TRUE, -1);
+  bobgui_tree_store_append (store, &iter, NULL);
+  bobgui_tree_store_set (store, &iter,
                       0, "Attila the Hun",
                       1, "ca. 390",
                       2, "453",
@@ -978,68 +978,68 @@ populate_model (GtkTreeStore *store)
 }
 
 static gboolean
-row_separator_func (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
+row_separator_func (BobguiTreeModel *model, BobguiTreeIter *iter, gpointer data)
 {
   gboolean is_sep;
 
-  gtk_tree_model_get (model, iter, 3, &is_sep, -1);
+  bobgui_tree_model_get (model, iter, 3, &is_sep, -1);
 
   return is_sep;
 }
 G_GNUC_END_IGNORE_DEPRECATIONS
 
 static void
-update_title_header (GtkListBoxRow *row,
-                     GtkListBoxRow *before,
+update_title_header (BobguiListBoxRow *row,
+                     BobguiListBoxRow *before,
                      gpointer       data)
 {
-  GtkWidget *header;
+  BobguiWidget *header;
   char *title;
 
-  header = gtk_list_box_row_get_header (row);
+  header = bobgui_list_box_row_get_header (row);
   title = (char *)g_object_get_data (G_OBJECT (row), "title");
   if (!header && title)
     {
       title = g_strdup_printf ("<b>%s</b>", title);
 
-      header = gtk_label_new (title);
-      gtk_label_set_use_markup (GTK_LABEL (header), TRUE);
-      gtk_widget_set_halign (header, GTK_ALIGN_START);
-      gtk_widget_set_margin_top (header, 12);
-      gtk_widget_set_margin_start (header, 6);
-      gtk_widget_set_margin_end (header, 6);
-      gtk_widget_set_margin_bottom (header, 6);
-      gtk_widget_set_visible (header, TRUE);
+      header = bobgui_label_new (title);
+      bobgui_label_set_use_markup (BOBGUI_LABEL (header), TRUE);
+      bobgui_widget_set_halign (header, BOBGUI_ALIGN_START);
+      bobgui_widget_set_margin_top (header, 12);
+      bobgui_widget_set_margin_start (header, 6);
+      bobgui_widget_set_margin_end (header, 6);
+      bobgui_widget_set_margin_bottom (header, 6);
+      bobgui_widget_set_visible (header, TRUE);
 
-      gtk_list_box_row_set_header (row, header);
+      bobgui_list_box_row_set_header (row, header);
 
       g_free (title);
     }
 }
 
 static void
-overshot (GtkScrolledWindow *sw, GtkPositionType pos, GtkWidget *widget)
+overshot (BobguiScrolledWindow *sw, BobguiPositionType pos, BobguiWidget *widget)
 {
-  GtkWidget *box, *row, *label, *swatch;
+  BobguiWidget *box, *row, *label, *swatch;
   GdkRGBA rgba;
   const char *color;
   char *text;
-  GtkWidget *silver;
-  GtkWidget *gold;
+  BobguiWidget *silver;
+  BobguiWidget *gold;
 
-  silver = GTK_WIDGET (g_object_get_data (G_OBJECT (widget), "Silver"));
-  gold = GTK_WIDGET (g_object_get_data (G_OBJECT (widget), "Gold"));
+  silver = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (widget), "Silver"));
+  gold = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (widget), "Gold"));
 
-  if (pos == GTK_POS_TOP)
+  if (pos == BOBGUI_POS_TOP)
     {
       if (silver)
         {
-          gtk_list_box_remove (GTK_LIST_BOX (widget), silver);
+          bobgui_list_box_remove (BOBGUI_LIST_BOX (widget), silver);
           g_object_set_data (G_OBJECT (widget), "Silver", NULL);
         }
       if (gold)
         {
-          gtk_list_box_remove (GTK_LIST_BOX (widget), gold);
+          bobgui_list_box_remove (BOBGUI_LIST_BOX (widget), gold);
           g_object_set_data (G_OBJECT (widget), "Gold", NULL);
         }
 
@@ -1054,14 +1054,14 @@ overshot (GtkScrolledWindow *sw, GtkPositionType pos, GtkWidget *widget)
   else
     color = "Silver";
 
-  row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 20);
+  row = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 20);
   text = g_strconcat ("<b>", color, "</b>", NULL);
-  label = gtk_label_new (text);
+  label = bobgui_label_new (text);
   g_free (text);
   g_object_set (label,
                 "use-markup", TRUE,
-                "halign", GTK_ALIGN_START,
-                "valign", GTK_ALIGN_CENTER,
+                "halign", BOBGUI_ALIGN_START,
+                "valign", BOBGUI_ALIGN_CENTER,
                 "hexpand", TRUE,
                 "margin-start", 6,
                 "margin-end", 6,
@@ -1069,38 +1069,38 @@ overshot (GtkScrolledWindow *sw, GtkPositionType pos, GtkWidget *widget)
                 "margin-bottom", 6,
                 "xalign", 0.0,
                 NULL);
-  gtk_box_append (GTK_BOX (row), label);
+  bobgui_box_append (BOBGUI_BOX (row), label);
   gdk_rgba_parse (&rgba, color);
-  swatch = g_object_new (g_type_from_name ("GtkColorSwatch"),
+  swatch = g_object_new (g_type_from_name ("BobguiColorSwatch"),
                          "rgba", &rgba,
                          "can-focus", FALSE,
                          "selectable", FALSE,
-                         "halign", GTK_ALIGN_END,
-                         "valign", GTK_ALIGN_CENTER,
+                         "halign", BOBGUI_ALIGN_END,
+                         "valign", BOBGUI_ALIGN_CENTER,
                          "margin-start", 6,
                          "margin-end", 6,
                          "margin-top", 6,
                          "margin-bottom", 6,
                          "height-request", 24,
                          NULL);
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_box_append (GTK_BOX (box), swatch);
-  gtk_box_append (GTK_BOX (row), box);
-  gtk_list_box_insert (GTK_LIST_BOX (widget), row, -1);
-  row = gtk_widget_get_parent (row);
-  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), FALSE);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  bobgui_box_append (BOBGUI_BOX (box), swatch);
+  bobgui_box_append (BOBGUI_BOX (row), box);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (widget), row, -1);
+  row = bobgui_widget_get_parent (row);
+  bobgui_list_box_row_set_activatable (BOBGUI_LIST_BOX_ROW (row), FALSE);
   g_object_set_data (G_OBJECT (widget), color, row);
   g_object_set_data (G_OBJECT (row), "color", (gpointer)color);
 }
 
 static void
-rgba_changed (GtkColorChooser *chooser, GParamSpec *pspec, GtkListBox *box)
+rgba_changed (BobguiColorChooser *chooser, GParamSpec *pspec, BobguiListBox *box)
 {
-  gtk_list_box_select_row (box, NULL);
+  bobgui_list_box_select_row (box, NULL);
 }
 
 static void
-set_color (GtkListBox *box, GtkListBoxRow *row, GtkColorChooser *chooser)
+set_color (BobguiListBox *box, BobguiListBoxRow *row, BobguiColorChooser *chooser)
 {
   const char *color;
   GdkRGBA rgba;
@@ -1117,14 +1117,14 @@ set_color (GtkListBox *box, GtkListBoxRow *row, GtkColorChooser *chooser)
     {
       g_signal_handlers_block_by_func (chooser, rgba_changed, box);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-      gtk_color_chooser_set_rgba (chooser, &rgba);
+      bobgui_color_chooser_set_rgba (chooser, &rgba);
 G_GNUC_END_IGNORE_DEPRECATIONS
       g_signal_handlers_unblock_by_func (chooser, rgba_changed, box);
     }
 }
 
 static void
-populate_colors (GtkWidget *widget, GtkWidget *chooser)
+populate_colors (BobguiWidget *widget, BobguiWidget *chooser)
 {
   struct { const char *name; const char *color; const char *title; } colors[] = {
     { "2.5", "#C8828C", "Red" },
@@ -1169,19 +1169,19 @@ populate_colors (GtkWidget *widget, GtkWidget *chooser)
     { "10", "#C68292", NULL }
   };
   int i;
-  GtkWidget *row, *box, *label, *swatch;
-  GtkWidget *sw;
+  BobguiWidget *row, *box, *label, *swatch;
+  BobguiWidget *sw;
   GdkRGBA rgba;
 
-  gtk_list_box_set_header_func (GTK_LIST_BOX (widget), update_title_header, NULL, NULL);
+  bobgui_list_box_set_header_func (BOBGUI_LIST_BOX (widget), update_title_header, NULL, NULL);
 
   for (i = 0; i < G_N_ELEMENTS (colors); i++)
     {
-      row = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 20);
-      label = gtk_label_new (colors[i].name);
+      row = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 20);
+      label = bobgui_label_new (colors[i].name);
       g_object_set (label,
-                    "halign", GTK_ALIGN_START,
-                    "valign", GTK_ALIGN_CENTER,
+                    "halign", BOBGUI_ALIGN_START,
+                    "valign", BOBGUI_ALIGN_CENTER,
                     "margin-start", 6,
                     "margin-end", 6,
                     "margin-top", 6,
@@ -1189,26 +1189,26 @@ populate_colors (GtkWidget *widget, GtkWidget *chooser)
                     "hexpand", TRUE,
                     "xalign", 0.0,
                     NULL);
-      gtk_box_append (GTK_BOX (row), label);
+      bobgui_box_append (BOBGUI_BOX (row), label);
       gdk_rgba_parse (&rgba, colors[i].color);
-      swatch = g_object_new (g_type_from_name ("GtkColorSwatch"),
+      swatch = g_object_new (g_type_from_name ("BobguiColorSwatch"),
                              "rgba", &rgba,
                              "selectable", FALSE,
                              "can-focus", FALSE,
-                             "halign", GTK_ALIGN_END,
-                             "valign", GTK_ALIGN_CENTER,
+                             "halign", BOBGUI_ALIGN_END,
+                             "valign", BOBGUI_ALIGN_CENTER,
                              "margin-start", 6,
                              "margin-end", 6,
                              "margin-top", 6,
                              "margin-bottom", 6,
                              "height-request", 24,
                              NULL);
-      box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-      gtk_box_append (GTK_BOX (box), swatch);
-      gtk_box_append (GTK_BOX (row), box);
-      gtk_list_box_insert (GTK_LIST_BOX (widget), row, -1);
-      row = gtk_widget_get_parent (row);
-      gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), FALSE);
+      box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+      bobgui_box_append (BOBGUI_BOX (box), swatch);
+      bobgui_box_append (BOBGUI_BOX (row), box);
+      bobgui_list_box_insert (BOBGUI_LIST_BOX (widget), row, -1);
+      row = bobgui_widget_get_parent (row);
+      bobgui_list_box_row_set_activatable (BOBGUI_LIST_BOX_ROW (row), FALSE);
       g_object_set_data (G_OBJECT (row), "color", (gpointer)colors[i].color);
       if (colors[i].title)
         g_object_set_data (G_OBJECT (row), "title", (gpointer)colors[i].title);
@@ -1216,29 +1216,29 @@ populate_colors (GtkWidget *widget, GtkWidget *chooser)
 
   g_signal_connect (widget, "row-selected", G_CALLBACK (set_color), chooser);
 
-  gtk_list_box_invalidate_headers (GTK_LIST_BOX (widget));
+  bobgui_list_box_invalidate_headers (BOBGUI_LIST_BOX (widget));
 
-  sw = gtk_widget_get_ancestor (widget, GTK_TYPE_SCROLLED_WINDOW);
+  sw = bobgui_widget_get_ancestor (widget, BOBGUI_TYPE_SCROLLED_WINDOW);
   g_signal_connect (sw, "edge-overshot", G_CALLBACK (overshot), widget);
 }
 
 typedef struct {
-  GtkWidget *flowbox;
+  BobguiWidget *flowbox;
   char *filename;
 } BackgroundData;
 
 static void
-add_background (GtkWidget  *flowbox,
+add_background (BobguiWidget  *flowbox,
                 const char *filename,
                 GdkTexture *texture,
                 gboolean    is_resource)
 {
-  GtkWidget *child;
+  BobguiWidget *child;
 
-  child = gtk_picture_new_for_paintable (GDK_PAINTABLE (texture));
-  gtk_widget_set_size_request (child, 110, 70);
-  gtk_flow_box_insert (GTK_FLOW_BOX (flowbox), child, -1);
-  child = gtk_widget_get_parent (child);
+  child = bobgui_picture_new_for_paintable (GDK_PAINTABLE (texture));
+  bobgui_widget_set_size_request (child, 110, 70);
+  bobgui_flow_box_insert (BOBGUI_FLOW_BOX (flowbox), child, -1);
+  child = bobgui_widget_get_parent (child);
   g_object_set_data_full (G_OBJECT (child), "filename", g_strdup (filename), g_free);
   if (is_resource)
     g_object_set_data (G_OBJECT (child), "is-resource", GINT_TO_POINTER (1));
@@ -1274,7 +1274,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 static void
-populate_flowbox (GtkWidget *flowbox)
+populate_flowbox (BobguiWidget *flowbox)
 {
   const char *location;
   GDir *dir;
@@ -1286,7 +1286,7 @@ populate_flowbox (GtkWidget *flowbox)
   BackgroundData *bd;
   GdkPixbuf *pixbuf;
   GdkTexture *texture;
-  GtkWidget *child;
+  BobguiWidget *child;
   guchar *data;
   GBytes *bytes;
   int i;
@@ -1303,16 +1303,16 @@ populate_flowbox (GtkWidget *flowbox)
   memset (data, 0xff, 4 * 110  * 70);
   bytes = g_bytes_new_take (data, 4 * 110 * 70);
   texture = gdk_memory_texture_new (110, 70, GDK_MEMORY_DEFAULT, bytes, 4 * 110);
-  child = gtk_picture_new_for_paintable (GDK_PAINTABLE (texture));
+  child = bobgui_picture_new_for_paintable (GDK_PAINTABLE (texture));
   g_object_unref (texture);
   g_bytes_unref (bytes);
 
-  gtk_widget_add_css_class (child, "frame");
-  gtk_flow_box_insert (GTK_FLOW_BOX (flowbox), child, -1);
+  bobgui_widget_add_css_class (child, "frame");
+  bobgui_flow_box_insert (BOBGUI_FLOW_BOX (flowbox), child, -1);
 
   for (i = 0; i < G_N_ELEMENTS (resources); i++)
     {
-      filename = g_strconcat ("/org/gtk/WidgetFactory4/", resources[i], NULL);
+      filename = g_strconcat ("/org/bobgui/WidgetFactory4/", resources[i], NULL);
       pixbuf = gdk_pixbuf_new_from_resource_at_scale (filename, 110, 110, TRUE, NULL);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
       texture = gdk_texture_new_for_pixbuf (pixbuf);
@@ -1363,41 +1363,41 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 static void
-row_activated (GtkListBox *box, GtkListBoxRow *row)
+row_activated (BobguiListBox *box, BobguiListBoxRow *row)
 {
-  GtkImage *image;
-  GtkWidget *dialog;
+  BobguiImage *image;
+  BobguiWidget *dialog;
 
-  image = (GtkImage *) g_object_get_data (G_OBJECT (row), "image");
-  dialog = (GtkWidget *) g_object_get_data (G_OBJECT (row), "dialog");
+  image = (BobguiImage *) g_object_get_data (G_OBJECT (row), "image");
+  dialog = (BobguiWidget *) g_object_get_data (G_OBJECT (row), "dialog");
 
   if (image)
     {
-      GtkSvg *paintable;
+      BobguiSvg *paintable;
 
-      paintable = GTK_SVG (gtk_image_get_paintable (image));
-      if (gtk_svg_get_state (paintable) == 0)
-        gtk_svg_set_state (paintable, 63);
+      paintable = BOBGUI_SVG (bobgui_image_get_paintable (image));
+      if (bobgui_svg_get_state (paintable) == 0)
+        bobgui_svg_set_state (paintable, 63);
       else
-        gtk_svg_set_state (paintable, 0);
+        bobgui_svg_set_state (paintable, 0);
     }
   else if (dialog)
     {
-      gtk_window_present (GTK_WINDOW (dialog));
+      bobgui_window_present (BOBGUI_WINDOW (dialog));
     }
 }
 
 typedef struct
 {
-  GtkTextView tv;
+  BobguiTextView tv;
   GdkTexture *texture;
-  GtkAdjustment *adjustment;
+  BobguiAdjustment *adjustment;
 } MyTextView;
 
-typedef GtkTextViewClass MyTextViewClass;
+typedef BobguiTextViewClass MyTextViewClass;
 
 static GType my_text_view_get_type (void);
-G_DEFINE_TYPE (MyTextView, my_text_view, GTK_TYPE_TEXT_VIEW)
+G_DEFINE_TYPE (MyTextView, my_text_view, BOBGUI_TYPE_TEXT_VIEW)
 
 static void
 my_text_view_init (MyTextView *tv)
@@ -1405,30 +1405,30 @@ my_text_view_init (MyTextView *tv)
 }
 
 static void
-my_tv_snapshot_layer (GtkTextView      *widget,
-                      GtkTextViewLayer  layer,
-                      GtkSnapshot      *snapshot)
+my_tv_snapshot_layer (BobguiTextView      *widget,
+                      BobguiTextViewLayer  layer,
+                      BobguiSnapshot      *snapshot)
 {
   MyTextView *tv = (MyTextView *)widget;
   double opacity;
   double scale;
 
-  opacity = gtk_adjustment_get_value (tv->adjustment) / 100.0;
+  opacity = bobgui_adjustment_get_value (tv->adjustment) / 100.0;
 
-  if (layer == GTK_TEXT_VIEW_LAYER_BELOW_TEXT && tv->texture)
+  if (layer == BOBGUI_TEXT_VIEW_LAYER_BELOW_TEXT && tv->texture)
     {
-      scale = gtk_widget_get_width (GTK_WIDGET (widget)) / (double)gdk_texture_get_width (tv->texture);
-      gtk_snapshot_push_opacity (snapshot, opacity);
-      gtk_snapshot_scale (snapshot, scale, scale);
-      gtk_snapshot_append_texture (snapshot,
+      scale = bobgui_widget_get_width (BOBGUI_WIDGET (widget)) / (double)gdk_texture_get_width (tv->texture);
+      bobgui_snapshot_push_opacity (snapshot, opacity);
+      bobgui_snapshot_scale (snapshot, scale, scale);
+      bobgui_snapshot_append_texture (snapshot,
                                    tv->texture,
                                    &GRAPHENE_RECT_INIT(
                                      0, 0,
                                      gdk_texture_get_width (tv->texture),
                                      gdk_texture_get_height (tv->texture)
                                    ));
-      gtk_snapshot_scale (snapshot, 1/scale, 1/scale);
-      gtk_snapshot_pop (snapshot);
+      bobgui_snapshot_scale (snapshot, 1/scale, 1/scale);
+      bobgui_snapshot_pop (snapshot);
     }
 }
 
@@ -1445,7 +1445,7 @@ my_tv_finalize (GObject *object)
 static void
 my_text_view_class_init (MyTextViewClass *class)
 {
-  GtkTextViewClass *tv_class = GTK_TEXT_VIEW_CLASS (class);
+  BobguiTextViewClass *tv_class = BOBGUI_TEXT_VIEW_CLASS (class);
   GObjectClass *o_class = G_OBJECT_CLASS (class);
 
   o_class->finalize = my_tv_finalize;
@@ -1479,41 +1479,41 @@ my_text_view_set_background (MyTextView *tv, const char *filename, gboolean is_r
       return;
     }
 
-  gtk_widget_queue_draw (GTK_WIDGET (tv));
+  bobgui_widget_queue_draw (BOBGUI_WIDGET (tv));
 }
 
 static void
-value_changed (GtkAdjustment *adjustment, MyTextView *tv)
+value_changed (BobguiAdjustment *adjustment, MyTextView *tv)
 {
-  gtk_widget_queue_draw (GTK_WIDGET (tv));
+  bobgui_widget_queue_draw (BOBGUI_WIDGET (tv));
 }
 
 static void
-my_text_view_set_adjustment (MyTextView *tv, GtkAdjustment *adjustment)
+my_text_view_set_adjustment (MyTextView *tv, BobguiAdjustment *adjustment)
 {
   g_set_object (&tv->adjustment, adjustment);
   g_signal_connect (tv->adjustment, "value-changed", G_CALLBACK (value_changed), tv);
 }
 
 static void
-close_selection_dialog (GtkWidget *dialog, int response, GtkWidget *tv)
+close_selection_dialog (BobguiWidget *dialog, int response, BobguiWidget *tv)
 {
-  GtkWidget *box;
-  GtkWidget *child;
+  BobguiWidget *box;
+  BobguiWidget *child;
   GList *children;
   const char *filename;
   gboolean is_resource;
 
-  gtk_widget_set_visible (dialog, FALSE);
+  bobgui_widget_set_visible (dialog, FALSE);
 
-  if (response == GTK_RESPONSE_CANCEL)
+  if (response == BOBGUI_RESPONSE_CANCEL)
     return;
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  box = gtk_widget_get_first_child (gtk_dialog_get_content_area (GTK_DIALOG (dialog)));
+  box = bobgui_widget_get_first_child (bobgui_dialog_get_content_area (BOBGUI_DIALOG (dialog)));
 G_GNUC_END_IGNORE_DEPRECATIONS
-  g_assert (GTK_IS_FLOW_BOX (box));
-  children = gtk_flow_box_get_selected_children (GTK_FLOW_BOX (box));
+  g_assert (BOBGUI_IS_FLOW_BOX (box));
+  children = bobgui_flow_box_get_selected_children (BOBGUI_FLOW_BOX (box));
 
   if (!children)
     return;
@@ -1528,26 +1528,26 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 static void
-toggle_selection_mode (GtkSwitch  *sw,
+toggle_selection_mode (BobguiSwitch  *sw,
                        GParamSpec *pspec,
-                       GtkListBox *listbox)
+                       BobguiListBox *listbox)
 {
-  if (gtk_switch_get_active (sw))
-    gtk_list_box_set_selection_mode (listbox, GTK_SELECTION_SINGLE);
+  if (bobgui_switch_get_active (sw))
+    bobgui_list_box_set_selection_mode (listbox, BOBGUI_SELECTION_SINGLE);
   else
-    gtk_list_box_set_selection_mode (listbox, GTK_SELECTION_NONE);
+    bobgui_list_box_set_selection_mode (listbox, BOBGUI_SELECTION_NONE);
 
-  gtk_list_box_set_activate_on_single_click (listbox, !gtk_switch_get_active (sw));
+  bobgui_list_box_set_activate_on_single_click (listbox, !bobgui_switch_get_active (sw));
 }
 
 static void
-handle_insert (GtkWidget *button, GtkWidget *textview)
+handle_insert (BobguiWidget *button, BobguiWidget *textview)
 {
-  GtkTextBuffer *buffer;
+  BobguiTextBuffer *buffer;
   const char *id;
   const char *text;
 
-  id = gtk_buildable_get_buildable_id (GTK_BUILDABLE (button));
+  id = bobgui_buildable_get_buildable_id (BOBGUI_BUILDABLE (button));
 
   if (strcmp (id, "toolbutton1") == 0)
     text = "⌘";
@@ -1560,87 +1560,87 @@ handle_insert (GtkWidget *button, GtkWidget *textview)
   else
     text = "";
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
-  gtk_text_buffer_insert_at_cursor (buffer, text, -1);
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (textview));
+  bobgui_text_buffer_insert_at_cursor (buffer, text, -1);
 }
 
 static void
-handle_cutcopypaste (GtkWidget *button, GtkWidget *textview)
+handle_cutcopypaste (BobguiWidget *button, BobguiWidget *textview)
 {
-  GtkTextBuffer *buffer;
+  BobguiTextBuffer *buffer;
   GdkClipboard *clipboard;
   const char *id;
 
-  clipboard = gtk_widget_get_clipboard (textview);
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
-  id = gtk_buildable_get_buildable_id (GTK_BUILDABLE (button));
+  clipboard = bobgui_widget_get_clipboard (textview);
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (textview));
+  id = bobgui_buildable_get_buildable_id (BOBGUI_BUILDABLE (button));
 
   if (strcmp (id, "cutbutton") == 0)
-    gtk_text_buffer_cut_clipboard (buffer, clipboard, TRUE);
+    bobgui_text_buffer_cut_clipboard (buffer, clipboard, TRUE);
   else if (strcmp (id, "copybutton") == 0)
-    gtk_text_buffer_copy_clipboard (buffer, clipboard);
+    bobgui_text_buffer_copy_clipboard (buffer, clipboard);
   else if (strcmp (id, "pastebutton") == 0)
-    gtk_text_buffer_paste_clipboard (buffer, clipboard, NULL, TRUE);
+    bobgui_text_buffer_paste_clipboard (buffer, clipboard, NULL, TRUE);
   else if (strcmp (id, "deletebutton") == 0)
-    gtk_text_buffer_delete_selection (buffer, TRUE, TRUE);
+    bobgui_text_buffer_delete_selection (buffer, TRUE, TRUE);
 }
 
 static void
-clipboard_formats_notify (GdkClipboard *clipboard, GdkEvent *event, GtkWidget *button)
+clipboard_formats_notify (GdkClipboard *clipboard, GdkEvent *event, BobguiWidget *button)
 {
   const char *id;
   gboolean has_text;
 
-  id = gtk_buildable_get_buildable_id (GTK_BUILDABLE (button));
-  has_text = gdk_content_formats_contain_gtype (gdk_clipboard_get_formats (clipboard), GTK_TYPE_TEXT_BUFFER);
+  id = bobgui_buildable_get_buildable_id (BOBGUI_BUILDABLE (button));
+  has_text = gdk_content_formats_contain_gtype (gdk_clipboard_get_formats (clipboard), BOBGUI_TYPE_TEXT_BUFFER);
 
   if (strcmp (id, "pastebutton") == 0)
-    gtk_widget_set_sensitive (button, has_text);
+    bobgui_widget_set_sensitive (button, has_text);
 }
 
 static void
-textbuffer_notify_selection (GObject *object, GParamSpec *pspec, GtkWidget *button)
+textbuffer_notify_selection (GObject *object, GParamSpec *pspec, BobguiWidget *button)
 {
   const char *id;
   gboolean has_selection;
 
-  id = gtk_buildable_get_buildable_id (GTK_BUILDABLE (button));
-  has_selection = gtk_text_buffer_get_has_selection (GTK_TEXT_BUFFER (object));
+  id = bobgui_buildable_get_buildable_id (BOBGUI_BUILDABLE (button));
+  has_selection = bobgui_text_buffer_get_has_selection (BOBGUI_TEXT_BUFFER (object));
 
   if (strcmp (id, "cutbutton") == 0 ||
       strcmp (id, "copybutton") == 0 ||
       strcmp (id, "deletebutton") == 0)
-    gtk_widget_set_sensitive (button, has_selection);
+    bobgui_widget_set_sensitive (button, has_selection);
 }
 
 static gboolean
-osd_frame_pressed (GtkGestureClick *gesture,
+osd_frame_pressed (BobguiGestureClick *gesture,
                    int              press,
                    double           x,
                    double           y,
                    gpointer         data)
 {
-  GtkWidget *frame = data;
-  GtkWidget *osd;
+  BobguiWidget *frame = data;
+  BobguiWidget *osd;
   gboolean visible;
 
   osd = g_object_get_data (G_OBJECT (frame), "osd");
-  visible = gtk_widget_get_visible (osd);
-  gtk_widget_set_visible (osd, !visible);
+  visible = bobgui_widget_get_visible (osd);
+  bobgui_widget_set_visible (osd, !visible);
 
   return GDK_EVENT_STOP;
 }
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 static gboolean
-page_combo_separator_func (GtkTreeModel *model,
-                           GtkTreeIter  *iter,
+page_combo_separator_func (BobguiTreeModel *model,
+                           BobguiTreeIter  *iter,
                            gpointer      data)
 {
   char *text;
   gboolean res;
 
-  gtk_tree_model_get (model, iter, 0, &text, -1);
+  bobgui_tree_model_get (model, iter, 0, &text, -1);
   res = g_strcmp0 (text, "-") == 0;
   g_free (text);
 
@@ -1653,61 +1653,61 @@ toggle_format (GSimpleAction *action,
                GVariant      *value,
                gpointer       user_data)
 {
-  GtkTextView *text_view = user_data;
-  GtkTextIter start, end;
+  BobguiTextView *text_view = user_data;
+  BobguiTextIter start, end;
   const char *name;
 
   name = g_action_get_name (G_ACTION (action));
 
   g_simple_action_set_state (action, value);
 
-  gtk_text_buffer_get_selection_bounds (gtk_text_view_get_buffer (text_view), &start, &end);
+  bobgui_text_buffer_get_selection_bounds (bobgui_text_view_get_buffer (text_view), &start, &end);
   if (g_variant_get_boolean (value))
-    gtk_text_buffer_apply_tag_by_name (gtk_text_view_get_buffer (text_view), name, &start, &end);
+    bobgui_text_buffer_apply_tag_by_name (bobgui_text_view_get_buffer (text_view), name, &start, &end);
   else
-    gtk_text_buffer_remove_tag_by_name (gtk_text_view_get_buffer (text_view), name, &start, &end);
+    bobgui_text_buffer_remove_tag_by_name (bobgui_text_view_get_buffer (text_view), name, &start, &end);
 }
 
 static GActionGroup *actions;
 
 static void
-text_changed (GtkTextBuffer *buffer)
+text_changed (BobguiTextBuffer *buffer)
 {
   GAction *bold;
   GAction *italic;
   GAction *underline;
-  GtkTextIter iter;
-  GtkTextTagTable *tags;
-  GtkTextTag *bold_tag, *italic_tag, *underline_tag;
+  BobguiTextIter iter;
+  BobguiTextTagTable *tags;
+  BobguiTextTag *bold_tag, *italic_tag, *underline_tag;
   gboolean all_bold, all_italic, all_underline;
-  GtkTextIter start, end;
+  BobguiTextIter start, end;
   gboolean has_selection;
 
   bold = g_action_map_lookup_action (G_ACTION_MAP (actions), "bold");
   italic = g_action_map_lookup_action (G_ACTION_MAP (actions), "italic");
   underline = g_action_map_lookup_action (G_ACTION_MAP (actions), "underline");
 
-  has_selection = gtk_text_buffer_get_selection_bounds (buffer, &start, &end);
+  has_selection = bobgui_text_buffer_get_selection_bounds (buffer, &start, &end);
   g_simple_action_set_enabled (G_SIMPLE_ACTION (bold), has_selection);
   g_simple_action_set_enabled (G_SIMPLE_ACTION (italic), has_selection);
   g_simple_action_set_enabled (G_SIMPLE_ACTION (underline), has_selection);
   if (!has_selection)
     return;
 
-  tags = gtk_text_buffer_get_tag_table (buffer);
-  bold_tag = gtk_text_tag_table_lookup (tags, "bold");
-  italic_tag = gtk_text_tag_table_lookup (tags, "italic");
-  underline_tag = gtk_text_tag_table_lookup (tags, "underline");
+  tags = bobgui_text_buffer_get_tag_table (buffer);
+  bold_tag = bobgui_text_tag_table_lookup (tags, "bold");
+  italic_tag = bobgui_text_tag_table_lookup (tags, "italic");
+  underline_tag = bobgui_text_tag_table_lookup (tags, "underline");
   all_bold = TRUE;
   all_italic = TRUE;
   all_underline = TRUE;
-  gtk_text_iter_assign (&iter, &start);
-  while (!gtk_text_iter_equal (&iter, &end))
+  bobgui_text_iter_assign (&iter, &start);
+  while (!bobgui_text_iter_equal (&iter, &end))
     {
-      all_bold &= gtk_text_iter_has_tag (&iter, bold_tag);
-      all_italic &= gtk_text_iter_has_tag (&iter, italic_tag);
-      all_underline &= gtk_text_iter_has_tag (&iter, underline_tag);
-      gtk_text_iter_forward_char (&iter);
+      all_bold &= bobgui_text_iter_has_tag (&iter, bold_tag);
+      all_italic &= bobgui_text_iter_has_tag (&iter, italic_tag);
+      all_underline &= bobgui_text_iter_has_tag (&iter, underline_tag);
+      bobgui_text_iter_forward_char (&iter);
     }
 
   g_simple_action_set_state (G_SIMPLE_ACTION (bold), g_variant_new_boolean (all_bold));
@@ -1716,7 +1716,7 @@ text_changed (GtkTextBuffer *buffer)
 }
 
 static void
-text_view_add_to_context_menu (GtkTextView *text_view)
+text_view_add_to_context_menu (BobguiTextView *text_view)
 {
   GMenu *menu;
   GActionEntry entries[] = {
@@ -1737,7 +1737,7 @@ text_view_add_to_context_menu (GtkTextView *text_view)
   action = g_action_map_lookup_action (G_ACTION_MAP (actions), "underline");
   g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 
-  gtk_widget_insert_action_group (GTK_WIDGET (text_view), "format", G_ACTION_GROUP (actions));
+  bobgui_widget_insert_action_group (BOBGUI_WIDGET (text_view), "format", G_ACTION_GROUP (actions));
 
   menu = g_menu_new ();
   item = g_menu_item_new (_("Bold"), "format.bold");
@@ -1753,33 +1753,33 @@ text_view_add_to_context_menu (GtkTextView *text_view)
   g_menu_append_item (G_MENU (menu), item);
   g_object_unref (item);
 
-  gtk_text_view_set_extra_menu (text_view, G_MENU_MODEL (menu));
+  bobgui_text_view_set_extra_menu (text_view, G_MENU_MODEL (menu));
   g_object_unref (menu);
 
-  g_signal_connect (gtk_text_view_get_buffer (text_view), "changed", G_CALLBACK (text_changed), NULL);
-  g_signal_connect (gtk_text_view_get_buffer (text_view), "mark-set", G_CALLBACK (text_changed), NULL);
+  g_signal_connect (bobgui_text_view_get_buffer (text_view), "changed", G_CALLBACK (text_changed), NULL);
+  g_signal_connect (bobgui_text_view_get_buffer (text_view), "mark-set", G_CALLBACK (text_changed), NULL);
 }
 
 static void
-open_popover_text_changed (GtkEntry *entry, GParamSpec *pspec, GtkWidget *button)
+open_popover_text_changed (BobguiEntry *entry, GParamSpec *pspec, BobguiWidget *button)
 {
   const char *text;
 
-  text = gtk_editable_get_text (GTK_EDITABLE (entry));
-  gtk_widget_set_sensitive (button, strlen (text) > 0);
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (entry));
+  bobgui_widget_set_sensitive (button, strlen (text) > 0);
 }
 
 static gboolean
 show_page_again (gpointer data)
 {
-  gtk_widget_set_visible (GTK_WIDGET (data), TRUE);
+  bobgui_widget_set_visible (BOBGUI_WIDGET (data), TRUE);
   return G_SOURCE_REMOVE;
 }
 
 static void
-tab_close_cb (GtkWidget *page)
+tab_close_cb (BobguiWidget *page)
 {
-  gtk_widget_set_visible (page, FALSE);
+  bobgui_widget_set_visible (page, FALSE);
   g_timeout_add (2500, show_page_again, page);
 }
 
@@ -1887,99 +1887,99 @@ g_test_permission_class_init (GTestPermissionClass *class)
 }
 
 static void
-update_buttons (GtkWidget *iv, GtkIconSize size)
+update_buttons (BobguiWidget *iv, BobguiIconSize size)
 {
-  GtkWidget *button;
+  BobguiWidget *button;
 
-  button = GTK_WIDGET (g_object_get_data (G_OBJECT (iv), "increase_button"));
-  gtk_widget_set_sensitive (button, size != GTK_ICON_SIZE_LARGE);
-  button = GTK_WIDGET (g_object_get_data (G_OBJECT (iv), "decrease_button"));
-  gtk_widget_set_sensitive (button, size != GTK_ICON_SIZE_NORMAL);
-  button = GTK_WIDGET (g_object_get_data (G_OBJECT (iv), "reset_button"));
-  gtk_widget_set_sensitive (button, size != GTK_ICON_SIZE_INHERIT);
+  button = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (iv), "increase_button"));
+  bobgui_widget_set_sensitive (button, size != BOBGUI_ICON_SIZE_LARGE);
+  button = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (iv), "decrease_button"));
+  bobgui_widget_set_sensitive (button, size != BOBGUI_ICON_SIZE_NORMAL);
+  button = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (iv), "reset_button"));
+  bobgui_widget_set_sensitive (button, size != BOBGUI_ICON_SIZE_INHERIT);
 }
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 static void
-increase_icon_size (GtkWidget *iv)
+increase_icon_size (BobguiWidget *iv)
 {
   GList *cells;
-  GtkCellRendererPixbuf *cell;
+  BobguiCellRendererPixbuf *cell;
 
-  cells = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (iv));
+  cells = bobgui_cell_layout_get_cells (BOBGUI_CELL_LAYOUT (iv));
   cell = cells->data;
   g_list_free (cells);
 
-  g_object_set (cell, "icon-size", GTK_ICON_SIZE_LARGE, NULL);
+  g_object_set (cell, "icon-size", BOBGUI_ICON_SIZE_LARGE, NULL);
 
-  update_buttons (iv, GTK_ICON_SIZE_LARGE);
+  update_buttons (iv, BOBGUI_ICON_SIZE_LARGE);
 
-  gtk_widget_queue_resize (iv);
+  bobgui_widget_queue_resize (iv);
 }
 
 static void
-decrease_icon_size (GtkWidget *iv)
+decrease_icon_size (BobguiWidget *iv)
 {
   GList *cells;
-  GtkCellRendererPixbuf *cell;
+  BobguiCellRendererPixbuf *cell;
 
-  cells = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (iv));
+  cells = bobgui_cell_layout_get_cells (BOBGUI_CELL_LAYOUT (iv));
   cell = cells->data;
   g_list_free (cells);
 
-  g_object_set (cell, "icon-size", GTK_ICON_SIZE_NORMAL, NULL);
+  g_object_set (cell, "icon-size", BOBGUI_ICON_SIZE_NORMAL, NULL);
 
-  update_buttons (iv, GTK_ICON_SIZE_NORMAL);
+  update_buttons (iv, BOBGUI_ICON_SIZE_NORMAL);
 
-  gtk_widget_queue_resize (iv);
+  bobgui_widget_queue_resize (iv);
 }
 
 static void
-reset_icon_size (GtkWidget *iv)
+reset_icon_size (BobguiWidget *iv)
 {
   GList *cells;
-  GtkCellRendererPixbuf *cell;
+  BobguiCellRendererPixbuf *cell;
 
-  cells = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (iv));
+  cells = bobgui_cell_layout_get_cells (BOBGUI_CELL_LAYOUT (iv));
   cell = cells->data;
   g_list_free (cells);
 
-  g_object_set (cell, "icon-size", GTK_ICON_SIZE_INHERIT, NULL);
+  g_object_set (cell, "icon-size", BOBGUI_ICON_SIZE_INHERIT, NULL);
 
-  update_buttons (iv, GTK_ICON_SIZE_INHERIT);
+  update_buttons (iv, BOBGUI_ICON_SIZE_INHERIT);
 
-  gtk_widget_queue_resize (iv);
+  bobgui_widget_queue_resize (iv);
 }
 G_GNUC_END_IGNORE_DEPRECATIONS
 
 static char *
-scale_format_value_blank (GtkScale *scale, double value, gpointer user_data)
+scale_format_value_blank (BobguiScale *scale, double value, gpointer user_data)
 {
   return g_strdup (" ");
 }
 
 static char *
-scale_format_value (GtkScale *scale, double value, gpointer user_data)
+scale_format_value (BobguiScale *scale, double value, gpointer user_data)
 {
   return g_strdup_printf ("%0.*f", 1, value);
 }
 
 static void
-adjustment3_value_changed (GtkAdjustment *adj, GtkProgressBar *pbar)
+adjustment3_value_changed (BobguiAdjustment *adj, BobguiProgressBar *pbar)
 {
   double fraction;
 
-  fraction = gtk_adjustment_get_value (adj) / (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_lower (adj));
+  fraction = bobgui_adjustment_get_value (adj) / (bobgui_adjustment_get_upper (adj) - bobgui_adjustment_get_lower (adj));
 
-  gtk_progress_bar_set_fraction (pbar, fraction);
+  bobgui_progress_bar_set_fraction (pbar, fraction);
 }
 
 static void
-clicked_cb (GtkGesture *gesture,
+clicked_cb (BobguiGesture *gesture,
             int         n_press,
             double      x,
             double      y,
-            GtkPopover *popover)
+            BobguiPopover *popover)
 {
   GdkRectangle rect;
 
@@ -1987,28 +1987,28 @@ clicked_cb (GtkGesture *gesture,
   rect.y = y;
   rect.width = 1;
   rect.height = 1;
-  gtk_popover_set_pointing_to (popover, &rect);
-  gtk_popover_popup (popover);
+  bobgui_popover_set_pointing_to (popover, &rect);
+  bobgui_popover_popup (popover);
 }
 
 static void
-set_up_context_popover (GtkWidget *widget,
+set_up_context_popover (BobguiWidget *widget,
                         GMenuModel *model)
 {
-  GtkWidget *popover = gtk_popover_menu_new_from_model (model);
-  GtkGesture *gesture;
+  BobguiWidget *popover = bobgui_popover_menu_new_from_model (model);
+  BobguiGesture *gesture;
 
-  gtk_widget_set_parent (popover, widget);
-  gtk_popover_set_has_arrow (GTK_POPOVER (popover), FALSE);
-  gesture = gtk_gesture_click_new ();
-  gtk_event_controller_set_name (GTK_EVENT_CONTROLLER (gesture), "widget-factory-context-click");
-  gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (gesture), GDK_BUTTON_SECONDARY);
+  bobgui_widget_set_parent (popover, widget);
+  bobgui_popover_set_has_arrow (BOBGUI_POPOVER (popover), FALSE);
+  gesture = bobgui_gesture_click_new ();
+  bobgui_event_controller_set_name (BOBGUI_EVENT_CONTROLLER (gesture), "widget-factory-context-click");
+  bobgui_gesture_single_set_button (BOBGUI_GESTURE_SINGLE (gesture), GDK_BUTTON_SECONDARY);
   g_signal_connect (gesture, "pressed", G_CALLBACK (clicked_cb), popover);
-  gtk_widget_add_controller (widget, GTK_EVENT_CONTROLLER (gesture));
+  bobgui_widget_add_controller (widget, BOBGUI_EVENT_CONTROLLER (gesture));
 }
 
 static void
-age_entry_changed (GtkEntry   *entry,
+age_entry_changed (BobguiEntry   *entry,
                    GParamSpec *pspec,
                    gpointer    data)
 {
@@ -2016,70 +2016,70 @@ age_entry_changed (GtkEntry   *entry,
   guint64 age;
   GError *error = NULL;
 
-  text = gtk_editable_get_text (GTK_EDITABLE (entry));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (entry));
 
   if (strlen (text) > 0 &&
       !g_ascii_string_to_unsigned (text, 10, 16, 666, &age, &error))
     {
-      gtk_widget_set_tooltip_text (GTK_WIDGET (entry), error->message);
-      gtk_widget_add_css_class (GTK_WIDGET (entry), "error");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (entry), error->message);
+      bobgui_widget_add_css_class (BOBGUI_WIDGET (entry), "error");
       g_error_free (error);
     }
   else
     {
-      gtk_widget_set_tooltip_text (GTK_WIDGET (entry), "");
-      gtk_widget_remove_css_class (GTK_WIDGET (entry), "error");
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (entry), "");
+      bobgui_widget_remove_css_class (BOBGUI_WIDGET (entry), "error");
     }
 }
 
 static void
-validate_more_details (GtkEntry   *entry,
+validate_more_details (BobguiEntry   *entry,
                        GParamSpec *pspec,
-                       GtkEntry   *details)
+                       BobguiEntry   *details)
 {
-  if (strlen (gtk_editable_get_text (GTK_EDITABLE (entry))) > 0 &&
-      strlen (gtk_editable_get_text (GTK_EDITABLE (details))) == 0)
+  if (strlen (bobgui_editable_get_text (BOBGUI_EDITABLE (entry))) > 0 &&
+      strlen (bobgui_editable_get_text (BOBGUI_EDITABLE (details))) == 0)
     {
-      gtk_widget_set_tooltip_text (GTK_WIDGET (entry), "Must have details first");
-      gtk_widget_add_css_class (GTK_WIDGET (entry), "error");
-      gtk_accessible_update_state (GTK_ACCESSIBLE (entry),
-                                   GTK_ACCESSIBLE_STATE_INVALID, GTK_ACCESSIBLE_INVALID_TRUE,
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (entry), "Must have details first");
+      bobgui_widget_add_css_class (BOBGUI_WIDGET (entry), "error");
+      bobgui_accessible_update_state (BOBGUI_ACCESSIBLE (entry),
+                                   BOBGUI_ACCESSIBLE_STATE_INVALID, BOBGUI_ACCESSIBLE_INVALID_TRUE,
                                    -1);
     }
   else
     {
-      gtk_widget_set_tooltip_text (GTK_WIDGET (entry), "");
-      gtk_widget_remove_css_class (GTK_WIDGET (entry), "error");
-      gtk_accessible_reset_state (GTK_ACCESSIBLE (entry),
-                                  GTK_ACCESSIBLE_STATE_INVALID);
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (entry), "");
+      bobgui_widget_remove_css_class (BOBGUI_WIDGET (entry), "error");
+      bobgui_accessible_reset_state (BOBGUI_ACCESSIBLE (entry),
+                                  BOBGUI_ACCESSIBLE_STATE_INVALID);
     }
 }
 
 static gboolean
-mode_switch_state_set (GtkSwitch *sw, gboolean state)
+mode_switch_state_set (BobguiSwitch *sw, gboolean state)
 {
-  GtkWidget *dialog = gtk_widget_get_ancestor (GTK_WIDGET (sw), GTK_TYPE_DIALOG);
-  GtkWidget *scale = GTK_WIDGET (g_object_get_data (G_OBJECT (dialog), "level_scale"));
-  GtkWidget *label = GTK_WIDGET (g_object_get_data (G_OBJECT (dialog), "error_label"));
+  BobguiWidget *dialog = bobgui_widget_get_ancestor (BOBGUI_WIDGET (sw), BOBGUI_TYPE_DIALOG);
+  BobguiWidget *scale = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (dialog), "level_scale"));
+  BobguiWidget *label = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (dialog), "error_label"));
 
   if (!state ||
-      (gtk_range_get_value (GTK_RANGE (scale)) > 50))
+      (bobgui_range_get_value (BOBGUI_RANGE (scale)) > 50))
     {
-      gtk_widget_set_visible (label, FALSE);
-      gtk_switch_set_state (sw, state);
-      gtk_accessible_reset_state (GTK_ACCESSIBLE (sw),
-                                  GTK_ACCESSIBLE_STATE_INVALID);
-      gtk_accessible_reset_relation (GTK_ACCESSIBLE (sw),
-                                     GTK_ACCESSIBLE_RELATION_ERROR_MESSAGE);
+      bobgui_widget_set_visible (label, FALSE);
+      bobgui_switch_set_state (sw, state);
+      bobgui_accessible_reset_state (BOBGUI_ACCESSIBLE (sw),
+                                  BOBGUI_ACCESSIBLE_STATE_INVALID);
+      bobgui_accessible_reset_relation (BOBGUI_ACCESSIBLE (sw),
+                                     BOBGUI_ACCESSIBLE_RELATION_ERROR_MESSAGE);
     }
   else
     {
-      gtk_widget_set_visible (label, TRUE);
-      gtk_accessible_update_state (GTK_ACCESSIBLE (sw),
-                                   GTK_ACCESSIBLE_STATE_INVALID, GTK_ACCESSIBLE_INVALID_TRUE,
+      bobgui_widget_set_visible (label, TRUE);
+      bobgui_accessible_update_state (BOBGUI_ACCESSIBLE (sw),
+                                   BOBGUI_ACCESSIBLE_STATE_INVALID, BOBGUI_ACCESSIBLE_INVALID_TRUE,
                                    -1);
-      gtk_accessible_update_relation (GTK_ACCESSIBLE (sw),
-                                      GTK_ACCESSIBLE_RELATION_ERROR_MESSAGE, label, NULL,
+      bobgui_accessible_update_relation (BOBGUI_ACCESSIBLE (sw),
+                                      BOBGUI_ACCESSIBLE_RELATION_ERROR_MESSAGE, label, NULL,
                                       -1);
     }
 
@@ -2087,34 +2087,34 @@ mode_switch_state_set (GtkSwitch *sw, gboolean state)
 }
 
 static void
-level_scale_value_changed (GtkRange *range)
+level_scale_value_changed (BobguiRange *range)
 {
-  GtkWidget *dialog = gtk_widget_get_ancestor (GTK_WIDGET (range), GTK_TYPE_DIALOG);
-  GtkWidget *sw = GTK_WIDGET (g_object_get_data (G_OBJECT (dialog), "mode_switch"));
-  GtkWidget *label = GTK_WIDGET (g_object_get_data (G_OBJECT (dialog), "error_label"));
+  BobguiWidget *dialog = bobgui_widget_get_ancestor (BOBGUI_WIDGET (range), BOBGUI_TYPE_DIALOG);
+  BobguiWidget *sw = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (dialog), "mode_switch"));
+  BobguiWidget *label = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (dialog), "error_label"));
 
-  if (gtk_switch_get_active (GTK_SWITCH (sw)) &&
-      !gtk_switch_get_state (GTK_SWITCH (sw)) &&
-      (gtk_range_get_value (range) > 50))
+  if (bobgui_switch_get_active (BOBGUI_SWITCH (sw)) &&
+      !bobgui_switch_get_state (BOBGUI_SWITCH (sw)) &&
+      (bobgui_range_get_value (range) > 50))
     {
-      gtk_widget_set_visible (label, FALSE);
-      gtk_switch_set_state (GTK_SWITCH (sw), TRUE);
-      gtk_accessible_reset_state (GTK_ACCESSIBLE (sw),
-                                  GTK_ACCESSIBLE_STATE_INVALID);
-      gtk_accessible_reset_relation (GTK_ACCESSIBLE (sw),
-                                     GTK_ACCESSIBLE_RELATION_ERROR_MESSAGE);
+      bobgui_widget_set_visible (label, FALSE);
+      bobgui_switch_set_state (BOBGUI_SWITCH (sw), TRUE);
+      bobgui_accessible_reset_state (BOBGUI_ACCESSIBLE (sw),
+                                  BOBGUI_ACCESSIBLE_STATE_INVALID);
+      bobgui_accessible_reset_relation (BOBGUI_ACCESSIBLE (sw),
+                                     BOBGUI_ACCESSIBLE_RELATION_ERROR_MESSAGE);
     }
-  else if (gtk_switch_get_state (GTK_SWITCH (sw)) &&
-          (gtk_range_get_value (range) <= 50))
+  else if (bobgui_switch_get_state (BOBGUI_SWITCH (sw)) &&
+          (bobgui_range_get_value (range) <= 50))
     {
-      gtk_switch_set_state (GTK_SWITCH (sw), FALSE);
+      bobgui_switch_set_state (BOBGUI_SWITCH (sw), FALSE);
     }
 }
 
 static void
-hide_widget (GtkWidget *widget)
+hide_widget (BobguiWidget *widget)
 {
-  gtk_widget_set_visible (widget, FALSE);
+  bobgui_widget_set_visible (widget, FALSE);
 }
 
 static void
@@ -2152,7 +2152,7 @@ load_texture_done (GObject *source,
                    GAsyncResult *result,
                    gpointer data)
 {
-  GtkWidget *picture = GTK_WIDGET (source);
+  BobguiWidget *picture = BOBGUI_WIDGET (source);
   GdkTexture *texture;
   GError *error = NULL;
 
@@ -2164,12 +2164,12 @@ load_texture_done (GObject *source,
       return;
     }
 
-  gtk_picture_set_paintable (GTK_PICTURE (picture), GDK_PAINTABLE (texture));
+  bobgui_picture_set_paintable (BOBGUI_PICTURE (picture), GDK_PAINTABLE (texture));
   g_object_unref (texture);
 }
 
 static void
-load_texture_in_thread (GtkWidget  *picture,
+load_texture_in_thread (BobguiWidget  *picture,
                         const char *resource_path)
 {
   GTask *task = g_task_new (picture, NULL, load_texture_done, NULL);
@@ -2192,17 +2192,17 @@ resource_file_new (const char *resource_path)
 }
 
 static void
-builder_add_symbolic (GtkBuilder *builder,
+builder_add_symbolic (BobguiBuilder *builder,
                       const char *icon_name,
                       const char *resource_path)
 {
   GFile *file;
-  GtkIconPaintable *paintable;
+  BobguiIconPaintable *paintable;
 
   file = resource_file_new (resource_path);
-  paintable = gtk_icon_paintable_new_for_file (file, 16, 1);
+  paintable = bobgui_icon_paintable_new_for_file (file, 16, 1);
 
-  gtk_builder_expose_object (builder, icon_name, G_OBJECT (paintable));
+  bobgui_builder_expose_object (builder, icon_name, G_OBJECT (paintable));
 
   g_object_unref (paintable);
   g_object_unref (file);
@@ -2212,17 +2212,17 @@ static void
 activate (GApplication *app)
 {
   GList *list;
-  GtkBuilder *builder;
-  GtkBuilderScope *scope;
-  GtkWindow *window;
-  GtkWidget *widget;
-  GtkWidget *widget2;
-  GtkWidget *widget3;
-  GtkWidget *widget4;
-  GtkWidget *stack;
-  GtkWidget *dialog;
-  GtkAdjustment *adj;
-  GtkCssProvider *provider;
+  BobguiBuilder *builder;
+  BobguiBuilderScope *scope;
+  BobguiWindow *window;
+  BobguiWidget *widget;
+  BobguiWidget *widget2;
+  BobguiWidget *widget3;
+  BobguiWidget *widget4;
+  BobguiWidget *stack;
+  BobguiWidget *dialog;
+  BobguiAdjustment *adj;
+  BobguiCssProvider *provider;
   GMenuModel *model;
   static GActionEntry win_entries[] = {
     { "dark", NULL, NULL, "false", change_dark_state },
@@ -2267,248 +2267,248 @@ activate (GApplication *app)
   GPermission *permission;
   GAction *action;
   GError *error = NULL;
-  GtkEventController *controller;
+  BobguiEventController *controller;
 
   g_type_ensure (my_text_view_get_type ());
 
-  if ((list = gtk_application_get_windows (GTK_APPLICATION (app))) != NULL)
+  if ((list = bobgui_application_get_windows (BOBGUI_APPLICATION (app))) != NULL)
     {
-      gtk_window_present (GTK_WINDOW (list->data));
+      bobgui_window_present (BOBGUI_WINDOW (list->data));
       return;
     }
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_resource (provider, "/org/gtk/WidgetFactory4/widget-factory.css");
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_resource (provider, "/org/bobgui/WidgetFactory4/widget-factory.css");
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
   g_object_unref (provider);
 
-  builder = gtk_builder_new ();
-  scope = gtk_builder_cscope_new ();
-  gtk_builder_cscope_add_callback (scope, on_entry_icon_release);
-  gtk_builder_cscope_add_callback (scope, on_scale_button_value_changed);
-  gtk_builder_cscope_add_callback (scope, on_record_button_toggled);
-  gtk_builder_cscope_add_callback (scope, on_page_combo_changed);
-  gtk_builder_cscope_add_callback (scope, on_range_from_changed);
-  gtk_builder_cscope_add_callback (scope, on_range_to_changed);
-  gtk_builder_cscope_add_callback (scope, on_picture_drag_prepare);
-  gtk_builder_cscope_add_callback (scope, on_picture_drop);
-  gtk_builder_cscope_add_callback (scope, tab_close_cb);
-  gtk_builder_cscope_add_callback (scope, increase_icon_size);
-  gtk_builder_cscope_add_callback (scope, decrease_icon_size);
-  gtk_builder_cscope_add_callback (scope, osd_frame_pressed);
-  gtk_builder_cscope_add_callback (scope, age_entry_changed);
-  gtk_builder_cscope_add_callback (scope, validate_more_details);
-  gtk_builder_cscope_add_callback (scope, mode_switch_state_set);
-  gtk_builder_cscope_add_callback (scope, level_scale_value_changed);
-  gtk_builder_cscope_add_callback (scope, transition_speed_changed);
-  gtk_builder_cscope_add_callback (scope, reset_icon_size);
-  gtk_builder_set_scope (builder, scope);
+  builder = bobgui_builder_new ();
+  scope = bobgui_builder_cscope_new ();
+  bobgui_builder_cscope_add_callback (scope, on_entry_icon_release);
+  bobgui_builder_cscope_add_callback (scope, on_scale_button_value_changed);
+  bobgui_builder_cscope_add_callback (scope, on_record_button_toggled);
+  bobgui_builder_cscope_add_callback (scope, on_page_combo_changed);
+  bobgui_builder_cscope_add_callback (scope, on_range_from_changed);
+  bobgui_builder_cscope_add_callback (scope, on_range_to_changed);
+  bobgui_builder_cscope_add_callback (scope, on_picture_drag_prepare);
+  bobgui_builder_cscope_add_callback (scope, on_picture_drop);
+  bobgui_builder_cscope_add_callback (scope, tab_close_cb);
+  bobgui_builder_cscope_add_callback (scope, increase_icon_size);
+  bobgui_builder_cscope_add_callback (scope, decrease_icon_size);
+  bobgui_builder_cscope_add_callback (scope, osd_frame_pressed);
+  bobgui_builder_cscope_add_callback (scope, age_entry_changed);
+  bobgui_builder_cscope_add_callback (scope, validate_more_details);
+  bobgui_builder_cscope_add_callback (scope, mode_switch_state_set);
+  bobgui_builder_cscope_add_callback (scope, level_scale_value_changed);
+  bobgui_builder_cscope_add_callback (scope, transition_speed_changed);
+  bobgui_builder_cscope_add_callback (scope, reset_icon_size);
+  bobgui_builder_set_scope (builder, scope);
 
-  builder_add_symbolic (builder, "open-menu-symbolic", "/org/gtk/libgtk/icons/open-menu-symbolic.svg");
-  builder_add_symbolic (builder, "view-refresh-symbolic", "/org/gtk/libgtk/icons/view-refresh-symbolic.svg");
-  builder_add_symbolic (builder, "window-close-symbolic", "/org/gtk/libgtk/icons/window-close-symbolic.svg");
-  builder_add_symbolic (builder, "emblem-system-symbolic", "/org/gtk/libgtk/icons/emblem-system-symbolic.svg");
-  builder_add_symbolic (builder, "object-select-symbolic", "/org/gtk/libgtk/icons/object-select-symbolic.svg");
-  builder_add_symbolic (builder, "appointment-soon-symbolic", "/org/gtk/WidgetFactory4/icons/scalable/status/appointment-soon-symbolic.svg");
-  builder_add_symbolic (builder, "document-new-symbolic", "/org/gtk/WidgetFactory4/icons/scalable/actions/document-new-symbolic.svg");
-  builder_add_symbolic (builder, "document-save-symbolic", "/org/gtk/libgtk/icons/document-save-symbolic.svg");
-  builder_add_symbolic (builder, "edit-find-symbolic", "/org/gtk/libgtk/icons/edit-find-symbolic.svg");
-  builder_add_symbolic (builder, "insert-image-symbolic", "/org/gtk/libgtk/icons/insert-image-symbolic.svg");
-  builder_add_symbolic (builder, "zoom-out-symbolic", "/org/gtk/WidgetFactory4/icons/scalable/actions/zoom-out-symbolic.svg");
-  builder_add_symbolic (builder, "zoom-in-symbolic", "/org/gtk/WidgetFactory4/icons/scalable/actions/zoom-in-symbolic.svg");
-  builder_add_symbolic (builder, "zoom-original-symbolic", "/org/gtk/WidgetFactory4/icons/scalable/actions/zoom-original-symbolic.svg");
-  builder_add_symbolic (builder, "media-record-symbolic", "/org/gtk/libgtk/icons/media-record-symbolic.svg");
-  builder_add_symbolic (builder, "view-grid-symbolic", "/org/gtk/libgtk/icons/view-grid-symbolic.svg");
-  builder_add_symbolic (builder, "view-list-symbolic", "/org/gtk/libgtk/icons/view-list-symbolic.svg");
-  builder_add_symbolic (builder, "view-more-symbolic", "/org/gtk/libgtk/icons/view-more-symbolic.svg");
-  builder_add_symbolic (builder, "document-open-symbolic", "/org/gtk/libgtk/icons/document-open-symbolic.svg");
-  builder_add_symbolic (builder, "send-to-symbolic", "/org/gtk/WidgetFactory4/icons/scalable/actions/send-to-symbolic.svg");
-  builder_add_symbolic (builder, "view-fullscreen-symbolic", "/org/gtk/WidgetFactory4/icons/scalable/actions/view-fullscreen-symbolic.svg");
-  builder_add_symbolic (builder, "start-new-symbolic", "/org/gtk/WidgetFactory4/icons/scalable/actions/star-new-symbolic.svg");
-  builder_add_symbolic (builder, "edit-cut-symbolic", "/org/gtk/libgtk/icons/edit-cut-symbolic.svg");
-  builder_add_symbolic (builder, "edit-copy-symbolic", "/org/gtk/libgtk/icons/edit-copy-symbolic.svg");
-  builder_add_symbolic (builder, "edit-paste-symbolic", "/org/gtk/libgtk/icons/edit-paste-symbolic.svg");
-  builder_add_symbolic (builder, "edit-delete-symbolic", "/org/gtk/libgtk/icons/edit-delete-symbolic.svg");
-  builder_add_symbolic (builder, "go-previous-symbolic", "/org/gtk/libgtk/icons/go-previous-symbolic.svg");
-  builder_add_symbolic (builder, "go-next-symbolic", "/org/gtk/libgtk/icons/go-next-symbolic.svg");
-  builder_add_symbolic (builder, "emblem-important-symbolic", "/org/gtk/libgtk/icons/emblem-important-symbolic.svg");
+  builder_add_symbolic (builder, "open-menu-symbolic", "/org/bobgui/libbobgui/icons/open-menu-symbolic.svg");
+  builder_add_symbolic (builder, "view-refresh-symbolic", "/org/bobgui/libbobgui/icons/view-refresh-symbolic.svg");
+  builder_add_symbolic (builder, "window-close-symbolic", "/org/bobgui/libbobgui/icons/window-close-symbolic.svg");
+  builder_add_symbolic (builder, "emblem-system-symbolic", "/org/bobgui/libbobgui/icons/emblem-system-symbolic.svg");
+  builder_add_symbolic (builder, "object-select-symbolic", "/org/bobgui/libbobgui/icons/object-select-symbolic.svg");
+  builder_add_symbolic (builder, "appointment-soon-symbolic", "/org/bobgui/WidgetFactory4/icons/scalable/status/appointment-soon-symbolic.svg");
+  builder_add_symbolic (builder, "document-new-symbolic", "/org/bobgui/WidgetFactory4/icons/scalable/actions/document-new-symbolic.svg");
+  builder_add_symbolic (builder, "document-save-symbolic", "/org/bobgui/libbobgui/icons/document-save-symbolic.svg");
+  builder_add_symbolic (builder, "edit-find-symbolic", "/org/bobgui/libbobgui/icons/edit-find-symbolic.svg");
+  builder_add_symbolic (builder, "insert-image-symbolic", "/org/bobgui/libbobgui/icons/insert-image-symbolic.svg");
+  builder_add_symbolic (builder, "zoom-out-symbolic", "/org/bobgui/WidgetFactory4/icons/scalable/actions/zoom-out-symbolic.svg");
+  builder_add_symbolic (builder, "zoom-in-symbolic", "/org/bobgui/WidgetFactory4/icons/scalable/actions/zoom-in-symbolic.svg");
+  builder_add_symbolic (builder, "zoom-original-symbolic", "/org/bobgui/WidgetFactory4/icons/scalable/actions/zoom-original-symbolic.svg");
+  builder_add_symbolic (builder, "media-record-symbolic", "/org/bobgui/libbobgui/icons/media-record-symbolic.svg");
+  builder_add_symbolic (builder, "view-grid-symbolic", "/org/bobgui/libbobgui/icons/view-grid-symbolic.svg");
+  builder_add_symbolic (builder, "view-list-symbolic", "/org/bobgui/libbobgui/icons/view-list-symbolic.svg");
+  builder_add_symbolic (builder, "view-more-symbolic", "/org/bobgui/libbobgui/icons/view-more-symbolic.svg");
+  builder_add_symbolic (builder, "document-open-symbolic", "/org/bobgui/libbobgui/icons/document-open-symbolic.svg");
+  builder_add_symbolic (builder, "send-to-symbolic", "/org/bobgui/WidgetFactory4/icons/scalable/actions/send-to-symbolic.svg");
+  builder_add_symbolic (builder, "view-fullscreen-symbolic", "/org/bobgui/WidgetFactory4/icons/scalable/actions/view-fullscreen-symbolic.svg");
+  builder_add_symbolic (builder, "start-new-symbolic", "/org/bobgui/WidgetFactory4/icons/scalable/actions/star-new-symbolic.svg");
+  builder_add_symbolic (builder, "edit-cut-symbolic", "/org/bobgui/libbobgui/icons/edit-cut-symbolic.svg");
+  builder_add_symbolic (builder, "edit-copy-symbolic", "/org/bobgui/libbobgui/icons/edit-copy-symbolic.svg");
+  builder_add_symbolic (builder, "edit-paste-symbolic", "/org/bobgui/libbobgui/icons/edit-paste-symbolic.svg");
+  builder_add_symbolic (builder, "edit-delete-symbolic", "/org/bobgui/libbobgui/icons/edit-delete-symbolic.svg");
+  builder_add_symbolic (builder, "go-previous-symbolic", "/org/bobgui/libbobgui/icons/go-previous-symbolic.svg");
+  builder_add_symbolic (builder, "go-next-symbolic", "/org/bobgui/libbobgui/icons/go-next-symbolic.svg");
+  builder_add_symbolic (builder, "emblem-important-symbolic", "/org/bobgui/libbobgui/icons/emblem-important-symbolic.svg");
 
   g_object_unref (scope);
-  if (!gtk_builder_add_from_resource (builder, "/org/gtk/WidgetFactory4/widget-factory.ui", &error))
+  if (!bobgui_builder_add_from_resource (builder, "/org/bobgui/WidgetFactory4/widget-factory.ui", &error))
     {
       g_critical ("%s", error->message);
       g_clear_error (&error);
     }
 
-  window = (GtkWindow *)gtk_builder_get_object (builder, "window");
+  window = (BobguiWindow *)bobgui_builder_get_object (builder, "window");
 
-  load_texture_in_thread ((GtkWidget *)gtk_builder_get_object (builder, "notebook_sunset"),
-                          "/org/gtk/WidgetFactory4/sunset.jpg");
-  load_texture_in_thread ((GtkWidget *)gtk_builder_get_object (builder, "notebook_nyc"),
-                          "/org/gtk/WidgetFactory4/nyc.jpg");
-  load_texture_in_thread ((GtkWidget *)gtk_builder_get_object (builder, "notebook_beach"),
-                          "/org/gtk/WidgetFactory4/beach.jpg");
+  load_texture_in_thread ((BobguiWidget *)bobgui_builder_get_object (builder, "notebook_sunset"),
+                          "/org/bobgui/WidgetFactory4/sunset.jpg");
+  load_texture_in_thread ((BobguiWidget *)bobgui_builder_get_object (builder, "notebook_nyc"),
+                          "/org/bobgui/WidgetFactory4/nyc.jpg");
+  load_texture_in_thread ((BobguiWidget *)bobgui_builder_get_object (builder, "notebook_beach"),
+                          "/org/bobgui/WidgetFactory4/beach.jpg");
 
   if (g_strcmp0 (PROFILE, "devel") == 0)
-    gtk_widget_add_css_class (GTK_WIDGET (window), "devel");
+    bobgui_widget_add_css_class (BOBGUI_WIDGET (window), "devel");
 
-  gtk_application_add_window (GTK_APPLICATION (app), window);
+  bobgui_application_add_window (BOBGUI_APPLICATION (app), window);
   g_action_map_add_action_entries (G_ACTION_MAP (window),
                                    win_entries, G_N_ELEMENTS (win_entries),
                                    window);
 
-  controller = gtk_shortcut_controller_new ();
-  gtk_event_controller_set_static_name (controller, "widget-factory-late-accels");
-  gtk_event_controller_set_propagation_phase (controller, GTK_PHASE_BUBBLE);
+  controller = bobgui_shortcut_controller_new ();
+  bobgui_event_controller_set_static_name (controller, "widget-factory-late-accels");
+  bobgui_event_controller_set_propagation_phase (controller, BOBGUI_PHASE_BUBBLE);
 
   for (i = 0; i < G_N_ELEMENTS (late_accels); i++)
     {
       guint key;
       GdkModifierType mods;
-      GtkShortcutTrigger *trigger;
-      GtkShortcutAction *ac;
+      BobguiShortcutTrigger *trigger;
+      BobguiShortcutAction *ac;
 
-      gtk_accelerator_parse (late_accels[i].accelerators[0], &key, &mods);
-      trigger = gtk_keyval_trigger_new (key, mods);
-      ac = gtk_named_action_new (late_accels[i].action_and_target);
-      gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (controller),
-                                            gtk_shortcut_new (trigger, ac));
+      bobgui_accelerator_parse (late_accels[i].accelerators[0], &key, &mods);
+      trigger = bobgui_keyval_trigger_new (key, mods);
+      ac = bobgui_named_action_new (late_accels[i].action_and_target);
+      bobgui_shortcut_controller_add_shortcut (BOBGUI_SHORTCUT_CONTROLLER (controller),
+                                            bobgui_shortcut_new (trigger, ac));
     }
-  gtk_widget_add_controller (GTK_WIDGET (window), controller);
+  bobgui_widget_add_controller (BOBGUI_WIDGET (window), controller);
 
   for (i = 0; i < G_N_ELEMENTS (accels); i++)
-    gtk_application_set_accels_for_action (GTK_APPLICATION (app), accels[i].action_and_target, accels[i].accelerators);
+    bobgui_application_set_accels_for_action (BOBGUI_APPLICATION (app), accels[i].action_and_target, accels[i].accelerators);
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "statusbar");
-  gtk_statusbar_push (GTK_STATUSBAR (widget), 0, "All systems are operating normally.");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "statusbar");
+  bobgui_statusbar_push (BOBGUI_STATUSBAR (widget), 0, "All systems are operating normally.");
   action = G_ACTION (g_property_action_new ("statusbar", widget, "visible"));
   g_action_map_add_action (G_ACTION_MAP (window), action);
   g_object_unref (G_OBJECT (action));
 G_GNUC_END_IGNORE_DEPRECATIONS
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "toolbar");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "toolbar");
   action = G_ACTION (g_property_action_new ("toolbar", widget, "visible"));
   g_action_map_add_action (G_ACTION_MAP (window), action);
   g_object_unref (G_OBJECT (action));
 
-  adj = (GtkAdjustment *)gtk_builder_get_object (builder, "adjustment1");
+  adj = (BobguiAdjustment *)bobgui_builder_get_object (builder, "adjustment1");
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "progressbar3");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "progressbar3");
   g_signal_connect (adj, "value-changed", G_CALLBACK (update_pulse_time), widget);
   update_pulse_time (adj, widget);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "entry1");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "entry1");
   g_signal_connect (adj, "value-changed", G_CALLBACK (update_pulse_time), widget);
   update_pulse_time (adj, widget);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "page2reset");
-  adj = (GtkAdjustment *) gtk_builder_get_object (builder, "adjustment2");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "page2reset");
+  adj = (BobguiAdjustment *) bobgui_builder_get_object (builder, "adjustment2");
   g_signal_connect (widget, "clicked", G_CALLBACK (spin_value_reset), adj);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "page2dismiss");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "page2dismiss");
   g_signal_connect (widget, "clicked", G_CALLBACK (dismiss), NULL);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "page2note");
-  adj = (GtkAdjustment *) gtk_builder_get_object (builder, "adjustment2");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "page2note");
+  adj = (BobguiAdjustment *) bobgui_builder_get_object (builder, "adjustment2");
   g_signal_connect (adj, "value-changed", G_CALLBACK (spin_value_changed), widget);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "listbox");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "listbox");
   g_signal_connect (widget, "row-activated", G_CALLBACK (row_activated), NULL);
 
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "listboxrow1switch");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "listboxrow1switch");
   g_signal_connect (widget2, "notify::active", G_CALLBACK (toggle_selection_mode), widget);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "listboxrow3");
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "listboxrow3image");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "listboxrow3");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "listboxrow3image");
   g_object_set_data (G_OBJECT (widget), "image", widget2);
 
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "info_dialog");
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "listboxrow7");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "info_dialog");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "listboxrow7");
   g_object_set_data (G_OBJECT (widget), "dialog", widget2);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "listboxrow8");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "listboxrow8");
   g_object_set_data (G_OBJECT (widget), "dialog", widget2);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "listboxrow5button");
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "action_dialog");
-  g_signal_connect_swapped (widget, "clicked", G_CALLBACK (gtk_window_present), widget2);
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "listboxrow5button");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "action_dialog");
+  g_signal_connect_swapped (widget, "clicked", G_CALLBACK (bobgui_window_present), widget2);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "toolbar");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "toolbar");
   g_object_set_data (G_OBJECT (window), "toolbar", widget);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "searchbar");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "searchbar");
   g_object_set_data (G_OBJECT (window), "searchbar", widget);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "infobar");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "infobar");
   g_signal_connect (widget, "response", G_CALLBACK (info_bar_response), NULL);
   g_object_set_data (G_OBJECT (window), "infobar", widget);
 
-  dialog = (GtkWidget *)gtk_builder_get_object (builder, "info_dialog");
+  dialog = (BobguiWidget *)bobgui_builder_get_object (builder, "info_dialog");
   g_signal_connect (dialog, "response", G_CALLBACK (close_dialog), NULL);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "info_dialog_button");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "info_dialog_button");
   g_signal_connect (widget, "clicked", G_CALLBACK (show_dialog), dialog);
 
-  dialog = (GtkWidget *)gtk_builder_get_object (builder, "action_dialog");
+  dialog = (BobguiWidget *)bobgui_builder_get_object (builder, "action_dialog");
   g_signal_connect (dialog, "response", G_CALLBACK (close_dialog), NULL);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "action_dialog_button");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "action_dialog_button");
   g_signal_connect (widget, "clicked", G_CALLBACK (show_dialog), dialog);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "act_action_dialog");
-  stack = (GtkWidget *)gtk_builder_get_object (builder, "toplevel_stack");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "act_action_dialog");
+  stack = (BobguiWidget *)bobgui_builder_get_object (builder, "toplevel_stack");
   g_signal_connect (widget, "clicked", G_CALLBACK (action_dialog_button_clicked), stack);
   g_signal_connect (stack, "notify::visible-child-name", G_CALLBACK (page_changed_cb), NULL);
   page_changed_cb (stack, NULL, NULL);
 
   page_stack = stack;
 
-  dialog = (GtkWidget *)gtk_builder_get_object (builder, "preference_dialog");
+  dialog = (BobguiWidget *)bobgui_builder_get_object (builder, "preference_dialog");
   g_signal_connect (dialog, "response", G_CALLBACK (close_dialog), NULL);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "preference_dialog_button");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "preference_dialog_button");
   g_signal_connect (widget, "clicked", G_CALLBACK (show_dialog), dialog);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "circular_button");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "circular_button");
   g_signal_connect (widget, "clicked", G_CALLBACK (show_dialog), dialog);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "level_scale");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "level_scale");
   g_object_set_data (G_OBJECT (dialog), "level_scale", widget);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "mode_switch");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "mode_switch");
   g_object_set_data (G_OBJECT (dialog), "mode_switch", widget);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "error_label");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "error_label");
   g_object_set_data (G_OBJECT (dialog), "error_label", widget);
 
-  dialog = (GtkWidget *)gtk_builder_get_object (builder, "selection_dialog");
+  dialog = (BobguiWidget *)bobgui_builder_get_object (builder, "selection_dialog");
   g_object_set_data (G_OBJECT (window), "selection_dialog", dialog);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "text3");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "text3");
   g_signal_connect (dialog, "response", G_CALLBACK (close_selection_dialog), widget);
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "opacity");
-  my_text_view_set_adjustment ((MyTextView *)widget, gtk_range_get_adjustment (GTK_RANGE (widget2)));
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "selection_dialog_button");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "opacity");
+  my_text_view_set_adjustment ((MyTextView *)widget, bobgui_range_get_adjustment (BOBGUI_RANGE (widget2)));
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "selection_dialog_button");
   g_signal_connect (widget, "clicked", G_CALLBACK (show_dialog), dialog);
 
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "selection_flowbox");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "selection_flowbox");
   g_object_set_data (G_OBJECT (window), "selection_flowbox", widget2);
   g_signal_connect_swapped (widget, "clicked", G_CALLBACK (populate_flowbox), widget2);
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "charletree");
-  populate_model ((GtkTreeStore *)gtk_tree_view_get_model (GTK_TREE_VIEW (widget)));
-  gtk_tree_view_set_row_separator_func (GTK_TREE_VIEW (widget), row_separator_func, NULL, NULL);
-  gtk_tree_view_expand_all (GTK_TREE_VIEW (widget));
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "charletree");
+  populate_model ((BobguiTreeStore *)bobgui_tree_view_get_model (BOBGUI_TREE_VIEW (widget)));
+  bobgui_tree_view_set_row_separator_func (BOBGUI_TREE_VIEW (widget), row_separator_func, NULL, NULL);
+  bobgui_tree_view_expand_all (BOBGUI_TREE_VIEW (widget));
 G_GNUC_END_IGNORE_DEPRECATIONS
 
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "munsell"));
-  widget2 = GTK_WIDGET (gtk_builder_get_object (builder, "cchooser"));
+  widget = BOBGUI_WIDGET (bobgui_builder_get_object (builder, "munsell"));
+  widget2 = BOBGUI_WIDGET (bobgui_builder_get_object (builder, "cchooser"));
 
   populate_colors (widget, widget2);
   g_signal_connect (widget2, "notify::rgba", G_CALLBACK (rgba_changed), widget);
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "page_combo");
-  gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (widget), page_combo_separator_func, NULL, NULL);
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "range_from_spin");
-  widget3 = (GtkWidget *)gtk_builder_get_object (builder, "range_to_spin");
-  widget4 = (GtkWidget *)gtk_builder_get_object (builder, "print_button");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "page_combo");
+  bobgui_combo_box_set_row_separator_func (BOBGUI_COMBO_BOX (widget), page_combo_separator_func, NULL, NULL);
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "range_from_spin");
+  widget3 = (BobguiWidget *)bobgui_builder_get_object (builder, "range_to_spin");
+  widget4 = (BobguiWidget *)bobgui_builder_get_object (builder, "print_button");
   g_object_set_data (G_OBJECT (widget), "range_from_spin", widget2);
   g_object_set_data (G_OBJECT (widget3), "range_from_spin", widget2);
   g_object_set_data (G_OBJECT (widget), "range_to_spin", widget3);
@@ -2516,54 +2516,54 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   g_object_set_data (G_OBJECT (widget), "print_button", widget4);
 G_GNUC_END_IGNORE_DEPRECATIONS
 
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "tooltextview");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "tooltextview");
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "toolbutton1");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "toolbutton1");
   g_signal_connect (widget, "clicked", G_CALLBACK (handle_insert), widget2);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "toolbutton2");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "toolbutton2");
   g_signal_connect (widget, "clicked", G_CALLBACK (handle_insert), widget2);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "toolbutton3");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "toolbutton3");
   g_signal_connect (widget, "clicked", G_CALLBACK (handle_insert), widget2);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "toolbutton4");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "toolbutton4");
   g_signal_connect (widget, "clicked", G_CALLBACK (handle_insert), widget2);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "cutbutton");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "cutbutton");
   g_signal_connect (widget, "clicked", G_CALLBACK (handle_cutcopypaste), widget2);
-  g_signal_connect (gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget2)), "notify::has-selection",
+  g_signal_connect (bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (widget2)), "notify::has-selection",
                     G_CALLBACK (textbuffer_notify_selection), widget);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "copybutton");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "copybutton");
   g_signal_connect (widget, "clicked", G_CALLBACK (handle_cutcopypaste), widget2);
-  g_signal_connect (gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget2)), "notify::has-selection",
+  g_signal_connect (bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (widget2)), "notify::has-selection",
                     G_CALLBACK (textbuffer_notify_selection), widget);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "deletebutton");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "deletebutton");
   g_signal_connect (widget, "clicked", G_CALLBACK (handle_cutcopypaste), widget2);
-  g_signal_connect (gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget2)), "notify::has-selection",
+  g_signal_connect (bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (widget2)), "notify::has-selection",
                     G_CALLBACK (textbuffer_notify_selection), widget);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "pastebutton");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "pastebutton");
   g_signal_connect (widget, "clicked", G_CALLBACK (handle_cutcopypaste), widget2);
-  g_signal_connect_object (gtk_widget_get_clipboard (widget2), "notify::formats",
+  g_signal_connect_object (bobgui_widget_get_clipboard (widget2), "notify::formats",
                            G_CALLBACK (clipboard_formats_notify), widget, 0);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "osd_frame");
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "totem_like_osd");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "osd_frame");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "totem_like_osd");
   g_object_set_data (G_OBJECT (widget), "osd", widget2);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "textview1");
-  text_view_add_to_context_menu (GTK_TEXT_VIEW (widget));
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "textview1");
+  text_view_add_to_context_menu (BOBGUI_TEXT_VIEW (widget));
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "open_popover");
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "open_popover_entry");
-  widget3 = (GtkWidget *)gtk_builder_get_object (builder, "open_popover_button");
-  gtk_popover_set_default_widget (GTK_POPOVER (widget), widget3);
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "open_popover");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "open_popover_entry");
+  widget3 = (BobguiWidget *)bobgui_builder_get_object (builder, "open_popover_button");
+  bobgui_popover_set_default_widget (BOBGUI_POPOVER (widget), widget3);
   g_signal_connect (widget2, "notify::text", G_CALLBACK (open_popover_text_changed), widget3);
   g_signal_connect_swapped (widget3, "clicked", G_CALLBACK (hide_widget), widget);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "open_menubutton");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "open_menubutton");
   g_object_set_data (G_OBJECT (window), "open_menubutton", widget);
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "record_button");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "record_button");
   g_object_set_data (G_OBJECT (window), "record_button", widget);
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "lockbox");
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "lockbutton");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "lockbox");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "lockbutton");
   g_object_set_data (G_OBJECT (window), "lockbutton", widget2);
   permission = g_object_new (g_test_permission_get_type (), NULL);
   g_object_bind_property (permission, "allowed",
@@ -2577,53 +2577,53 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   g_object_bind_property (permission, "allowed",
                           action, "enabled",
                           G_BINDING_SYNC_CREATE);
-  gtk_lock_button_set_permission (GTK_LOCK_BUTTON (widget2), permission);
+  bobgui_lock_button_set_permission (BOBGUI_LOCK_BUTTON (widget2), permission);
   g_object_unref (permission);
 G_GNUC_END_IGNORE_DEPRECATIONS
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "iconview1");
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "increase_button");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "iconview1");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "increase_button");
   g_object_set_data (G_OBJECT (widget), "increase_button", widget2);
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "decrease_button");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "decrease_button");
   g_object_set_data (G_OBJECT (widget), "decrease_button", widget2);
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "reset_button");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "reset_button");
   g_object_set_data (G_OBJECT (widget), "reset_button", widget2);
   reset_icon_size (widget);
 
-  adj = (GtkAdjustment *)gtk_builder_get_object (builder, "adjustment3");
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "progressbar1");
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "progressbar2");
+  adj = (BobguiAdjustment *)bobgui_builder_get_object (builder, "adjustment3");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "progressbar1");
+  widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "progressbar2");
   g_signal_connect (adj, "value-changed", G_CALLBACK (adjustment3_value_changed), widget);
   g_signal_connect (adj, "value-changed", G_CALLBACK (adjustment3_value_changed), widget2);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "extra_info_entry");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "extra_info_entry");
   g_timeout_add (100, (GSourceFunc)pulse_it, widget);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "scale3");
-  gtk_scale_set_format_value_func (GTK_SCALE (widget), scale_format_value, NULL, NULL);
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "scale3");
+  bobgui_scale_set_format_value_func (BOBGUI_SCALE (widget), scale_format_value, NULL, NULL);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "scale4");
-  gtk_scale_set_format_value_func (GTK_SCALE (widget), scale_format_value_blank, NULL, NULL);
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "scale4");
+  bobgui_scale_set_format_value_func (BOBGUI_SCALE (widget), scale_format_value_blank, NULL, NULL);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "box_for_context");
-  model = (GMenuModel *)gtk_builder_get_object (builder, "new_style_context_menu_model");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "box_for_context");
+  model = (GMenuModel *)bobgui_builder_get_object (builder, "new_style_context_menu_model");
   set_up_context_popover (widget, model);
 
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "video");
+  widget = (BobguiWidget *)bobgui_builder_get_object (builder, "video");
 
   GFile *file;
   GInputStream *input_stream;
-  GtkMediaStream *media_stream;
+  BobguiMediaStream *media_stream;
 
-  file = g_file_new_for_uri ("resource:///org/gtk/WidgetFactory4/gtk-logo.webm");
+  file = g_file_new_for_uri ("resource:///org/bobgui/WidgetFactory4/bobgui-logo.webm");
   input_stream = G_INPUT_STREAM (g_file_read (file, NULL, NULL));
-  media_stream = gtk_media_file_new_for_input_stream (input_stream);
-  gtk_video_set_media_stream (GTK_VIDEO (widget), media_stream);
+  media_stream = bobgui_media_file_new_for_input_stream (input_stream);
+  bobgui_video_set_media_stream (BOBGUI_VIDEO (widget), media_stream);
   g_object_unref (media_stream);
   g_object_unref (input_stream);
   g_object_unref (file);
 
-  gtk_window_present (window);
+  bobgui_window_present (window);
 
   g_object_unref (builder);
 }
@@ -2674,7 +2674,7 @@ G_MODULE_EXPORT
 int
 main (int argc, char *argv[])
 {
-  GtkApplication *app;
+  BobguiApplication *app;
   GAction *action;
   static GActionEntry app_entries[] = {
     { "about", activate_about, NULL, NULL, NULL },
@@ -2719,7 +2719,7 @@ main (int argc, char *argv[])
   int status;
   char version[80];
 
-  app = gtk_application_new ("org.gtk.WidgetFactory4", G_APPLICATION_NON_UNIQUE);
+  app = bobgui_application_new ("org.bobgui.WidgetFactory4", G_APPLICATION_NON_UNIQUE);
 
   g_snprintf (version, sizeof (version), "%s%s%s\n",
               PACKAGE_VERSION,
@@ -2741,7 +2741,7 @@ main (int argc, char *argv[])
 
   g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
 
-  if (g_getenv ("GTK_DEBUG_AUTO_QUIT"))
+  if (g_getenv ("BOBGUI_DEBUG_AUTO_QUIT"))
     g_timeout_add (500, quit_timeout, NULL);
 
   status = g_application_run (G_APPLICATION (app), argc, argv);

@@ -1,7 +1,7 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #define BASELINE_TYPE_WIDGET (baseline_widget_get_type ())
-G_DECLARE_FINAL_TYPE (BaselineWidget, baseline_widget, BASELINE, WIDGET, GtkWidget)
+G_DECLARE_FINAL_TYPE (BaselineWidget, baseline_widget, BASELINE, WIDGET, BobguiWidget)
 
 enum
 {
@@ -12,17 +12,17 @@ enum
 
 struct _BaselineWidget
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   int above, below, across;
 };
 
 struct _BaselineWidgetClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (BaselineWidget, baseline_widget, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (BaselineWidget, baseline_widget, BOBGUI_TYPE_WIDGET)
 
 static void
 baseline_widget_init (BaselineWidget *self)
@@ -41,17 +41,17 @@ baseline_widget_set_property (GObject      *object,
     {
     case PROP_ABOVE:
       self->above = g_value_get_int (value);
-      gtk_widget_queue_resize (GTK_WIDGET (object));
+      bobgui_widget_queue_resize (BOBGUI_WIDGET (object));
       break;
 
     case PROP_BELOW:
       self->below = g_value_get_int (value);
-      gtk_widget_queue_resize (GTK_WIDGET (object));
+      bobgui_widget_queue_resize (BOBGUI_WIDGET (object));
       break;
 
     case PROP_ACROSS:
       self->across = g_value_get_int (value);
-      gtk_widget_queue_resize (GTK_WIDGET (object));
+      bobgui_widget_queue_resize (BOBGUI_WIDGET (object));
       break;
 
     default:
@@ -89,8 +89,8 @@ baseline_widget_get_property (GObject     *object,
 }
 
 static void
-baseline_widget_measure (GtkWidget      *widget,
-                         GtkOrientation  orientation,
+baseline_widget_measure (BobguiWidget      *widget,
+                         BobguiOrientation  orientation,
                          int             for_size,
                          int            *minimum,
                          int            *natural,
@@ -99,7 +99,7 @@ baseline_widget_measure (GtkWidget      *widget,
 {
   BaselineWidget *self = BASELINE_WIDGET (widget);
 
-  if (orientation == GTK_ORIENTATION_VERTICAL)
+  if (orientation == BOBGUI_ORIENTATION_VERTICAL)
     {
       if (self->below >= 0)
         {
@@ -120,8 +120,8 @@ baseline_widget_measure (GtkWidget      *widget,
 }
 
 static void
-baseline_widget_snapshot (GtkWidget   *widget,
-                          GtkSnapshot *snapshot)
+baseline_widget_snapshot (BobguiWidget   *widget,
+                          BobguiSnapshot *snapshot)
 {
   BaselineWidget *self = BASELINE_WIDGET (widget);
   int height, baseline;
@@ -130,10 +130,10 @@ baseline_widget_snapshot (GtkWidget   *widget,
   GdkRGBA colors[4];
   GskRoundedRect outline;
 
-  height = gtk_widget_get_height (widget);
-  baseline = gtk_widget_get_baseline (widget);
+  height = bobgui_widget_get_height (widget);
+  baseline = bobgui_widget_get_baseline (widget);
 
-  gtk_snapshot_save (snapshot);
+  bobgui_snapshot_save (snapshot);
 
   if (baseline > -1)
     {
@@ -142,7 +142,7 @@ baseline_widget_snapshot (GtkWidget   *widget,
         y = MAX (baseline - self->above, 0);
       else
         y = CLAMP (baseline - self->above / 2, 0, height - self->above);
-      gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0, y));
+      bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0, y));
     }
 
   bounds.origin.x = 0;
@@ -151,9 +151,9 @@ baseline_widget_snapshot (GtkWidget   *widget,
   bounds.size.height = self->above;
 
   if (self->below >= 0)
-    gtk_snapshot_append_color (snapshot, &(GdkRGBA){1, 1, 0, 0.2}, &bounds);
+    bobgui_snapshot_append_color (snapshot, &(GdkRGBA){1, 1, 0, 0.2}, &bounds);
   else
-    gtk_snapshot_append_color (snapshot, &(GdkRGBA){0, 1, 0, 0.2}, &bounds);
+    bobgui_snapshot_append_color (snapshot, &(GdkRGBA){0, 1, 0, 0.2}, &bounds);
 
   outline = GSK_ROUNDED_RECT_INIT (0, 0, self->across, self->above);
   for (int i = 0; i < 4; i++)
@@ -162,23 +162,23 @@ baseline_widget_snapshot (GtkWidget   *widget,
       gdk_rgba_parse (&colors[i], "black");
     }
 
-  gtk_snapshot_append_border (snapshot, &outline, widths, colors);
+  bobgui_snapshot_append_border (snapshot, &outline, widths, colors);
 
-  gtk_snapshot_restore (snapshot);
+  bobgui_snapshot_restore (snapshot);
 
   if (self->below >= 0)
     {
-      gtk_snapshot_save (snapshot);
+      bobgui_snapshot_save (snapshot);
 
       if (baseline > -1)
-        gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0, baseline));
+        bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0, baseline));
       else
-        gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0, self->above));
+        bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (0, self->above));
       bounds.origin.x = 0;
       bounds.origin.y = 0;
       bounds.size.width = self->across;
       bounds.size.height = self->below;
-      gtk_snapshot_append_color (snapshot, &(GdkRGBA){0, 0, 1, 0.2}, &bounds);
+      bobgui_snapshot_append_color (snapshot, &(GdkRGBA){0, 0, 1, 0.2}, &bounds);
 
       outline = GSK_ROUNDED_RECT_INIT (0, 0, self->across, self->below);
       for (int i = 0; i < 4; i++)
@@ -187,9 +187,9 @@ baseline_widget_snapshot (GtkWidget   *widget,
           gdk_rgba_parse (&colors[i], "black");
         }
 
-      gtk_snapshot_append_border (snapshot, &outline, widths, colors);
+      bobgui_snapshot_append_border (snapshot, &outline, widths, colors);
 
-      gtk_snapshot_restore (snapshot);
+      bobgui_snapshot_restore (snapshot);
     }
 }
 
@@ -198,7 +198,7 @@ static void
 baseline_widget_class_init (BaselineWidgetClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->set_property = baseline_widget_set_property;
   object_class->get_property = baseline_widget_get_property;
@@ -214,234 +214,234 @@ baseline_widget_class_init (BaselineWidgetClass *class)
     g_param_spec_int ("across", NULL, NULL, 0, G_MAXINT, 0, G_PARAM_READWRITE));
 }
 
-static GtkWidget *
+static BobguiWidget *
 baseline_widget_new (int above, int below, int across)
 {
   return g_object_new (BASELINE_TYPE_WIDGET,
                        "above", above,
                        "below", below,
                        "across", across,
-                       "valign", GTK_ALIGN_BASELINE_CENTER,
+                       "valign", BOBGUI_ALIGN_BASELINE_CENTER,
                        NULL);
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *header;
-  GtkWidget *stack, *switcher;
-  GtkWidget *box, *box1;
-  GtkWidget *grid;
-  GtkWidget *child;
+  BobguiWidget *window, *header;
+  BobguiWidget *stack, *switcher;
+  BobguiWidget *box, *box1;
+  BobguiWidget *grid;
+  BobguiWidget *child;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
 
-  header = gtk_header_bar_new ();
-  gtk_window_set_titlebar (GTK_WINDOW (window), header);
+  header = bobgui_header_bar_new ();
+  bobgui_window_set_titlebar (BOBGUI_WINDOW (window), header);
 
-  stack = gtk_stack_new ();
-  gtk_window_set_child (GTK_WINDOW (window), stack);
+  stack = bobgui_stack_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), stack);
 
-  switcher = gtk_stack_switcher_new ();
-  gtk_stack_switcher_set_stack (GTK_STACK_SWITCHER (switcher), GTK_STACK (stack));
+  switcher = bobgui_stack_switcher_new ();
+  bobgui_stack_switcher_set_stack (BOBGUI_STACK_SWITCHER (switcher), BOBGUI_STACK (stack));
 
-  gtk_header_bar_set_title_widget (GTK_HEADER_BAR (header), switcher);
+  bobgui_header_bar_set_title_widget (BOBGUI_HEADER_BAR (header), switcher);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 20);
-  gtk_widget_set_margin_top (box, 20);
-  gtk_widget_set_margin_bottom (box, 20);
-  gtk_widget_set_margin_start (box, 20);
-  gtk_widget_set_margin_end (box, 20);
-  gtk_widget_set_valign (box, GTK_ALIGN_BASELINE_CENTER);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 20);
+  bobgui_widget_set_margin_top (box, 20);
+  bobgui_widget_set_margin_bottom (box, 20);
+  bobgui_widget_set_margin_start (box, 20);
+  bobgui_widget_set_margin_end (box, 20);
+  bobgui_widget_set_valign (box, BOBGUI_ALIGN_BASELINE_CENTER);
 
-  gtk_stack_add_titled (GTK_STACK (stack), box, "boxes", "Boxes");
+  bobgui_stack_add_titled (BOBGUI_STACK (stack), box, "boxes", "Boxes");
 
-  box1 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_widget_set_halign (box1, GTK_ALIGN_FILL);
-  gtk_widget_set_valign (box1, GTK_ALIGN_BASELINE_CENTER);
-  gtk_widget_set_hexpand (box1, TRUE);
-
-  child = baseline_widget_new (20, 10, 20);
-  gtk_box_append (GTK_BOX (box1), child);
-
-  child = baseline_widget_new (5, 20, 20);
-  gtk_box_append (GTK_BOX (box1), child);
-
-  child = baseline_widget_new (25, -1, 20);
-  gtk_box_append (GTK_BOX (box1), child);
-
-  child = baseline_widget_new (25, 20, 30);
-  gtk_box_append (GTK_BOX (box1), child);
-
-  gtk_box_append (GTK_BOX (box), box1);
-
-  box1 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_widget_set_halign (box1, GTK_ALIGN_FILL);
-  gtk_widget_set_valign (box1, GTK_ALIGN_BASELINE_CENTER);
-  gtk_widget_set_hexpand (box1, TRUE);
-
-  child = baseline_widget_new (10, 15, 10);
-  gtk_box_append (GTK_BOX (box1), child);
-
-  child = baseline_widget_new (80, -1, 20);
-  gtk_box_append (GTK_BOX (box1), child);
-
-  child = baseline_widget_new (60, 15, 20);
-  gtk_box_append (GTK_BOX (box1), child);
-
-  child = baseline_widget_new (5, 10, 30);
-  gtk_box_append (GTK_BOX (box1), child);
-
-  gtk_box_append (GTK_BOX (box), box1);
-
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 20);
-  gtk_widget_set_margin_top (box, 20);
-  gtk_widget_set_margin_bottom (box, 20);
-  gtk_widget_set_margin_start (box, 20);
-  gtk_widget_set_margin_end (box, 20);
-  gtk_widget_set_valign (box, GTK_ALIGN_BASELINE_CENTER);
-
-  grid = gtk_grid_new ();
-  gtk_widget_set_valign (grid, GTK_ALIGN_BASELINE_CENTER);
-  gtk_widget_set_hexpand (grid, TRUE);
+  box1 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  bobgui_widget_set_halign (box1, BOBGUI_ALIGN_FILL);
+  bobgui_widget_set_valign (box1, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_widget_set_hexpand (box1, TRUE);
 
   child = baseline_widget_new (20, 10, 20);
-  gtk_grid_attach (GTK_GRID (grid), child, 0, 0, 1, 1);
+  bobgui_box_append (BOBGUI_BOX (box1), child);
 
   child = baseline_widget_new (5, 20, 20);
-  gtk_grid_attach (GTK_GRID (grid), child, 1, 0, 1, 1);
+  bobgui_box_append (BOBGUI_BOX (box1), child);
 
   child = baseline_widget_new (25, -1, 20);
-  gtk_grid_attach (GTK_GRID (grid), child, 0, 1, 1, 1);
+  bobgui_box_append (BOBGUI_BOX (box1), child);
 
   child = baseline_widget_new (25, 20, 30);
-  gtk_grid_attach (GTK_GRID (grid), child, 1, 1, 1, 1);
+  bobgui_box_append (BOBGUI_BOX (box1), child);
 
-  gtk_box_append (GTK_BOX (box), grid);
+  bobgui_box_append (BOBGUI_BOX (box), box1);
 
-  grid = gtk_grid_new ();
-  gtk_widget_set_valign (grid, GTK_ALIGN_BASELINE_CENTER);
-  gtk_widget_set_hexpand (grid, TRUE);
+  box1 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  bobgui_widget_set_halign (box1, BOBGUI_ALIGN_FILL);
+  bobgui_widget_set_valign (box1, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_widget_set_hexpand (box1, TRUE);
 
   child = baseline_widget_new (10, 15, 10);
-  gtk_grid_attach (GTK_GRID (grid), child, 0, 0, 1, 1);
+  bobgui_box_append (BOBGUI_BOX (box1), child);
 
   child = baseline_widget_new (80, -1, 20);
-  gtk_grid_attach (GTK_GRID (grid), child, 1, 0, 1, 1);
+  bobgui_box_append (BOBGUI_BOX (box1), child);
 
   child = baseline_widget_new (60, 15, 20);
-  gtk_grid_attach (GTK_GRID (grid), child, 0, 1, 1, 1);
+  bobgui_box_append (BOBGUI_BOX (box1), child);
 
   child = baseline_widget_new (5, 10, 30);
-  gtk_grid_attach (GTK_GRID (grid), child, 1, 1, 1, 1);
+  bobgui_box_append (BOBGUI_BOX (box1), child);
 
-  gtk_box_append (GTK_BOX (box), grid);
+  bobgui_box_append (BOBGUI_BOX (box), box1);
 
-  gtk_stack_add_titled (GTK_STACK (stack), box, "grids", "Grids");
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 20);
+  bobgui_widget_set_margin_top (box, 20);
+  bobgui_widget_set_margin_bottom (box, 20);
+  bobgui_widget_set_margin_start (box, 20);
+  bobgui_widget_set_margin_end (box, 20);
+  bobgui_widget_set_valign (box, BOBGUI_ALIGN_BASELINE_CENTER);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 20);
-  gtk_widget_set_margin_top (box, 20);
-  gtk_widget_set_margin_bottom (box, 20);
-  gtk_widget_set_margin_start (box, 20);
-  gtk_widget_set_margin_end (box, 20);
-  gtk_widget_set_valign (box, GTK_ALIGN_BASELINE_CENTER);
+  grid = bobgui_grid_new ();
+  bobgui_widget_set_valign (grid, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_widget_set_hexpand (grid, TRUE);
 
-  child = baseline_widget_new (60, 15, 20);
-  gtk_box_append (GTK_BOX (box), child);
+  child = baseline_widget_new (20, 10, 20);
+  bobgui_grid_attach (BOBGUI_GRID (grid), child, 0, 0, 1, 1);
 
-  child = gtk_label_new ("Label");
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  child = baseline_widget_new (5, 20, 20);
+  bobgui_grid_attach (BOBGUI_GRID (grid), child, 1, 0, 1, 1);
 
-  child = gtk_entry_new ();
-  gtk_editable_set_text (GTK_EDITABLE (child), "Entry");
-  gtk_editable_set_width_chars (GTK_EDITABLE (child), 10);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  child = baseline_widget_new (25, -1, 20);
+  bobgui_grid_attach (BOBGUI_GRID (grid), child, 0, 1, 1, 1);
 
-  child = gtk_password_entry_new ();
-  gtk_editable_set_text (GTK_EDITABLE (child), "Password");
-  gtk_editable_set_width_chars (GTK_EDITABLE (child), 10);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  child = baseline_widget_new (25, 20, 30);
+  bobgui_grid_attach (BOBGUI_GRID (grid), child, 1, 1, 1, 1);
 
-  child = gtk_spin_button_new_with_range (0, 100, 1);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  bobgui_box_append (BOBGUI_BOX (box), grid);
 
-  child = gtk_spin_button_new_with_range (0, 100, 1);
-  gtk_orientable_set_orientation (GTK_ORIENTABLE (child), GTK_ORIENTATION_VERTICAL);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  grid = bobgui_grid_new ();
+  bobgui_widget_set_valign (grid, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_widget_set_hexpand (grid, TRUE);
 
-  child = gtk_switch_new ();
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  child = baseline_widget_new (10, 15, 10);
+  bobgui_grid_attach (BOBGUI_GRID (grid), child, 0, 0, 1, 1);
 
-  child = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
-  gtk_widget_set_size_request (child, 100, -1);
-  //gtk_scale_add_mark (GTK_SCALE (child), 50, GTK_POS_BOTTOM, "50");
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
-
-  gtk_stack_add_titled (GTK_STACK (stack), box, "controls", "Controls");
-
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 20);
-  gtk_widget_set_margin_top (box, 20);
-  gtk_widget_set_margin_bottom (box, 20);
-  gtk_widget_set_margin_start (box, 20);
-  gtk_widget_set_margin_end (box, 20);
-  gtk_widget_set_valign (box, GTK_ALIGN_BASELINE_CENTER);
+  child = baseline_widget_new (80, -1, 20);
+  bobgui_grid_attach (BOBGUI_GRID (grid), child, 1, 0, 1, 1);
 
   child = baseline_widget_new (60, 15, 20);
-  gtk_widget_set_hexpand (child, TRUE);
-  gtk_box_append (GTK_BOX (box), child);
+  bobgui_grid_attach (BOBGUI_GRID (grid), child, 0, 1, 1, 1);
 
-  child = gtk_label_new ("Label");
-  gtk_widget_set_hexpand (child, TRUE);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  child = baseline_widget_new (5, 10, 30);
+  bobgui_grid_attach (BOBGUI_GRID (grid), child, 1, 1, 1, 1);
 
-  child = gtk_label_new ("Two\nlines");
-  gtk_widget_set_hexpand (child, TRUE);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  bobgui_box_append (BOBGUI_BOX (box), grid);
 
-  child = gtk_label_new ("<span size='large'>Large</span>");
-  gtk_widget_set_hexpand (child, TRUE);
-  gtk_label_set_use_markup (GTK_LABEL (child), TRUE);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  bobgui_stack_add_titled (BOBGUI_STACK (stack), box, "grids", "Grids");
 
-  child = gtk_label_new ("<span size='xx-large'>Huge</span>");
-  gtk_widget_set_hexpand (child, TRUE);
-  gtk_label_set_use_markup (GTK_LABEL (child), TRUE);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 20);
+  bobgui_widget_set_margin_top (box, 20);
+  bobgui_widget_set_margin_bottom (box, 20);
+  bobgui_widget_set_margin_start (box, 20);
+  bobgui_widget_set_margin_end (box, 20);
+  bobgui_widget_set_valign (box, BOBGUI_ALIGN_BASELINE_CENTER);
 
-  child = gtk_label_new ("<span underline='double'>Underlined</span>");
-  gtk_widget_set_hexpand (child, TRUE);
-  gtk_label_set_use_markup (GTK_LABEL (child), TRUE);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  child = baseline_widget_new (60, 15, 20);
+  bobgui_box_append (BOBGUI_BOX (box), child);
 
-  child = gtk_label_new ("♥️");
-  gtk_widget_set_hexpand (child, TRUE);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  child = bobgui_label_new ("Label");
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
 
-  child = gtk_image_new_from_icon_name ("edit-copy-symbolic");
-  gtk_widget_set_hexpand (child, TRUE);
-  gtk_widget_set_valign (child, GTK_ALIGN_BASELINE_CENTER);
-  gtk_box_append (GTK_BOX (box), child);
+  child = bobgui_entry_new ();
+  bobgui_editable_set_text (BOBGUI_EDITABLE (child), "Entry");
+  bobgui_editable_set_width_chars (BOBGUI_EDITABLE (child), 10);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
 
-  gtk_stack_add_titled (GTK_STACK (stack), box, "labels", "Labels");
+  child = bobgui_password_entry_new ();
+  bobgui_editable_set_text (BOBGUI_EDITABLE (child), "Password");
+  bobgui_editable_set_width_chars (BOBGUI_EDITABLE (child), 10);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
 
-  gtk_window_present (GTK_WINDOW (window));
+  child = bobgui_spin_button_new_with_range (0, 100, 1);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()) > 0)
+  child = bobgui_spin_button_new_with_range (0, 100, 1);
+  bobgui_orientable_set_orientation (BOBGUI_ORIENTABLE (child), BOBGUI_ORIENTATION_VERTICAL);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_switch_new ();
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  bobgui_widget_set_size_request (child, 100, -1);
+  //bobgui_scale_add_mark (BOBGUI_SCALE (child), 50, BOBGUI_POS_BOTTOM, "50");
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  bobgui_stack_add_titled (BOBGUI_STACK (stack), box, "controls", "Controls");
+
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 20);
+  bobgui_widget_set_margin_top (box, 20);
+  bobgui_widget_set_margin_bottom (box, 20);
+  bobgui_widget_set_margin_start (box, 20);
+  bobgui_widget_set_margin_end (box, 20);
+  bobgui_widget_set_valign (box, BOBGUI_ALIGN_BASELINE_CENTER);
+
+  child = baseline_widget_new (60, 15, 20);
+  bobgui_widget_set_hexpand (child, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_label_new ("Label");
+  bobgui_widget_set_hexpand (child, TRUE);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_label_new ("Two\nlines");
+  bobgui_widget_set_hexpand (child, TRUE);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_label_new ("<span size='large'>Large</span>");
+  bobgui_widget_set_hexpand (child, TRUE);
+  bobgui_label_set_use_markup (BOBGUI_LABEL (child), TRUE);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_label_new ("<span size='xx-large'>Huge</span>");
+  bobgui_widget_set_hexpand (child, TRUE);
+  bobgui_label_set_use_markup (BOBGUI_LABEL (child), TRUE);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_label_new ("<span underline='double'>Underlined</span>");
+  bobgui_widget_set_hexpand (child, TRUE);
+  bobgui_label_set_use_markup (BOBGUI_LABEL (child), TRUE);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_label_new ("♥️");
+  bobgui_widget_set_hexpand (child, TRUE);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  child = bobgui_image_new_from_icon_name ("edit-copy-symbolic");
+  bobgui_widget_set_hexpand (child, TRUE);
+  bobgui_widget_set_valign (child, BOBGUI_ALIGN_BASELINE_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), child);
+
+  bobgui_stack_add_titled (BOBGUI_STACK (stack), box, "labels", "Labels");
+
+  bobgui_window_present (BOBGUI_WINDOW (window));
+
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()) > 0)
     g_main_context_iteration (NULL, FALSE);
 
   return 0;

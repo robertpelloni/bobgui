@@ -39,15 +39,15 @@ static const char *css =
 
 struct _NodeEditorApplication
 {
-  GtkApplication parent;
+  BobguiApplication parent;
 };
 
 struct _NodeEditorApplicationClass
 {
-  GtkApplicationClass parent_class;
+  BobguiApplicationClass parent_class;
 };
 
-G_DEFINE_TYPE(NodeEditorApplication, node_editor_application, GTK_TYPE_APPLICATION);
+G_DEFINE_TYPE(NodeEditorApplication, node_editor_application, BOBGUI_TYPE_APPLICATION);
 
 static void
 node_editor_application_init (NodeEditorApplication *app)
@@ -59,16 +59,16 @@ activate_about (GSimpleAction *action,
                 GVariant      *parameter,
                 gpointer       user_data)
 {
-  GtkApplication *app = user_data;
+  BobguiApplication *app = user_data;
   char *version;
   GString *s;
   GskRenderer *gsk_renderer;
   const char *renderer;
   char *os_name;
   char *os_version;
-  GtkWidget *dialog;
+  BobguiWidget *dialog;
   GFile *logo_file;
-  GtkIconPaintable *logo;
+  BobguiIconPaintable *logo;
 
   os_name = g_get_os_info (G_OS_INFO_KEY_NAME);
   os_version = g_get_os_info (G_OS_INFO_KEY_VERSION_ID);
@@ -83,12 +83,12 @@ activate_about (GSimpleAction *action,
                           glib_micro_version);
   g_string_append_printf (s, "\tPango\t%s\n",
                           pango_version_string ());
-  g_string_append_printf (s, "\tGTK \t%d.%d.%d\n",
-                          gtk_get_major_version (),
-                          gtk_get_minor_version (),
-                          gtk_get_micro_version ());
+  g_string_append_printf (s, "\tBOBGUI \t%d.%d.%d\n",
+                          bobgui_get_major_version (),
+                          bobgui_get_minor_version (),
+                          bobgui_get_micro_version ());
 
-  gsk_renderer = gtk_native_get_renderer (GTK_NATIVE (gtk_application_get_active_window (app)));
+  gsk_renderer = bobgui_native_get_renderer (BOBGUI_NATIVE (bobgui_application_get_active_window (app)));
   if (strcmp (G_OBJECT_TYPE_NAME (gsk_renderer), "GskVulkanRenderer") == 0)
     renderer = "Vulkan";
   else if (strcmp (G_OBJECT_TYPE_NAME (gsk_renderer), "GskGLRenderer") == 0)
@@ -100,41 +100,41 @@ activate_about (GSimpleAction *action,
 
   g_string_append_printf (s, "\nRenderer\n\t%s", renderer);
 
-  version = g_strdup_printf ("%s%s%s\nRunning against GTK %d.%d.%d",
+  version = g_strdup_printf ("%s%s%s\nRunning against BOBGUI %d.%d.%d",
                              PACKAGE_VERSION,
                              g_strcmp0 (PROFILE, "devel") == 0 ? "-" : "",
                              g_strcmp0 (PROFILE, "devel") == 0 ? VCS_TAG : "",
-                             gtk_get_major_version (),
-                             gtk_get_minor_version (),
-                             gtk_get_micro_version ());
+                             bobgui_get_major_version (),
+                             bobgui_get_minor_version (),
+                             bobgui_get_micro_version ());
 
-  logo_file = g_file_new_for_uri ("resource:///org/gtk/gtk4/node-editor/icons/apps/org.gtk.gtk4.NodeEditor.svg");
-  logo = gtk_icon_paintable_new_for_file (logo_file, 64, 1);
-  dialog = g_object_new (GTK_TYPE_ABOUT_DIALOG,
-                         "transient-for", gtk_application_get_active_window (app),
+  logo_file = g_file_new_for_uri ("resource:///org/bobgui/bobgui4/node-editor/icons/apps/org.bobgui.bobgui4.NodeEditor.svg");
+  logo = bobgui_icon_paintable_new_for_file (logo_file, 64, 1);
+  dialog = g_object_new (BOBGUI_TYPE_ABOUT_DIALOG,
+                         "transient-for", bobgui_application_get_active_window (app),
                          "program-name", g_strcmp0 (PROFILE, "devel") == 0
-                                         ? "GTK Node Editor (Development)"
-                                         : "GTK Node Editor",
+                                         ? "BOBGUI Node Editor (Development)"
+                                         : "BOBGUI Node Editor",
                          "version", version,
-                         "copyright", "© 2019—2024 The GTK Team",
-                         "license-type", GTK_LICENSE_LGPL_2_1,
-                         "website", "http://www.gtk.org",
-                         "comments", "Program to test GTK rendering",
+                         "copyright", "© 2019—2024 The BOBGUI Team",
+                         "license-type", BOBGUI_LICENSE_LGPL_2_1,
+                         "website", "http://www.bobgui.org",
+                         "comments", "Program to test BOBGUI rendering",
                          "authors", (const char *[]){ "Benjamin Otte", "Timm Bäder", NULL},
                          "logo", logo,
-                         "title", "About GTK Node Editor",
+                         "title", "About BOBGUI Node Editor",
                          "system-information", s->str,
                          NULL);
   g_object_unref (logo);
   g_object_unref (logo_file);
 
-  gtk_about_dialog_add_credit_section (GTK_ABOUT_DIALOG (dialog),
+  bobgui_about_dialog_add_credit_section (BOBGUI_ABOUT_DIALOG (dialog),
                                        "Artwork by", (const char *[]) { "Jakub Steiner", NULL });
-  gtk_about_dialog_add_credit_section (GTK_ABOUT_DIALOG (dialog),
-                                       "Maintained by", (const char *[]) { "The GTK Team", NULL });
+  bobgui_about_dialog_add_credit_section (BOBGUI_ABOUT_DIALOG (dialog),
+                                       "Maintained by", (const char *[]) { "The BOBGUI Team", NULL });
 
 
-  gtk_window_present (GTK_WINDOW (dialog));
+  bobgui_window_present (BOBGUI_WINDOW (dialog));
 
   g_string_free (s, TRUE);
   g_free (version);
@@ -155,7 +155,7 @@ activate_inspector (GSimpleAction *action,
                     GVariant      *parameter,
                     gpointer       user_data)
 {
-  gtk_window_set_interactive_debugging (TRUE);
+  bobgui_window_set_interactive_debugging (TRUE);
 }
 
 static void
@@ -163,26 +163,26 @@ activate_help (GSimpleAction *action,
                GVariant      *parameter,
                gpointer       user_data)
 {
-  GtkBuilder *builder;
-  GtkWidget *window;
-  GtkTextBuffer *buffer;
+  BobguiBuilder *builder;
+  BobguiWidget *window;
+  BobguiTextBuffer *buffer;
   GBytes *bytes;
   const char *text;
   gsize len;
 
-  builder = gtk_builder_new ();
-  gtk_builder_add_from_resource (builder, "/org/gtk/gtk4/node-editor/help-window.ui", NULL);
-  window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
-  buffer = GTK_TEXT_BUFFER (gtk_builder_get_object (builder, "buffer"));
+  builder = bobgui_builder_new ();
+  bobgui_builder_add_from_resource (builder, "/org/bobgui/bobgui4/node-editor/help-window.ui", NULL);
+  window = BOBGUI_WIDGET (bobgui_builder_get_object (builder, "window"));
+  buffer = BOBGUI_TEXT_BUFFER (bobgui_builder_get_object (builder, "buffer"));
 
-  bytes = g_resources_lookup_data ("/org/gtk/gtk4/node-editor/node-format.md",
+  bytes = g_resources_lookup_data ("/org/bobgui/bobgui4/node-editor/node-format.md",
                                    G_RESOURCE_LOOKUP_FLAGS_NONE,
                                    NULL);
   text = g_bytes_get_data (bytes, &len);
-  gtk_text_buffer_set_text (buffer, text, len);
+  bobgui_text_buffer_set_text (buffer, text, len);
   g_bytes_unref (bytes);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
   g_object_unref (builder);
 }
 
@@ -200,41 +200,41 @@ node_editor_application_startup (GApplication *app)
   const char *help_accels[2] = { "F1", NULL };
   const char *quit_accels[2] = { "<Ctrl>Q", NULL };
   const char *open_accels[2] = { "<Ctrl>O", NULL };
-  GtkCssProvider *provider;
+  BobguiCssProvider *provider;
 
   G_APPLICATION_CLASS (node_editor_application_parent_class)->startup (app);
 
   g_action_map_add_action_entries (G_ACTION_MAP (app),
                                    app_entries, G_N_ELEMENTS (app_entries),
                                    app);
-  gtk_application_set_accels_for_action (GTK_APPLICATION (app), "app.help", help_accels);
-  gtk_application_set_accels_for_action (GTK_APPLICATION (app), "app.quit", quit_accels);
-  gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.open", open_accels);
+  bobgui_application_set_accels_for_action (BOBGUI_APPLICATION (app), "app.help", help_accels);
+  bobgui_application_set_accels_for_action (BOBGUI_APPLICATION (app), "app.quit", quit_accels);
+  bobgui_application_set_accels_for_action (BOBGUI_APPLICATION (app), "win.open", open_accels);
 
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_string (provider, css);
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_string (provider, css);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 static NodeEditorWindow *
-create_window (GtkApplication *app)
+create_window (BobguiApplication *app)
 {
   NodeEditorWindow *win;
 
   win = node_editor_window_new (NODE_EDITOR_APPLICATION (app));
 
   if (g_strcmp0 (PROFILE, "devel") == 0)
-    gtk_widget_add_css_class (GTK_WIDGET (win), "devel");
+    bobgui_widget_add_css_class (BOBGUI_WIDGET (win), "devel");
 
   return win;
 }
 
 static void
-node_editor_application_restore_window (GtkApplication   *app,
-                                        GtkRestoreReason  reason,
+node_editor_application_restore_window (BobguiApplication   *app,
+                                        BobguiRestoreReason  reason,
                                         GVariant         *state)
 {
   NodeEditorWindow *win;
@@ -248,7 +248,7 @@ node_editor_application_restore_window (GtkApplication   *app,
   if (!state)
     return;
 
-  if (reason <= GTK_RESTORE_REASON_LAUNCH)
+  if (reason <= BOBGUI_RESTORE_REASON_LAUNCH)
     return;
 
   g_variant_lookup (state, "zoom-level", "i", &zoom_level);
@@ -256,7 +256,7 @@ node_editor_application_restore_window (GtkApplication   *app,
   g_variant_lookup (state, "auto-reload", "b", &auto_reload);
   g_variant_lookup (state, "paned-position", "i", &paned_position);
 
-  if (reason == GTK_RESTORE_REASON_RECOVER)
+  if (reason == BOBGUI_RESTORE_REASON_RECOVER)
     auto_reload = FALSE;
 
   g_object_set (win,
@@ -273,13 +273,13 @@ node_editor_application_activate (GApplication *app)
   GList *list;
   NodeEditorWindow *win;
 
-  list = gtk_application_get_windows (GTK_APPLICATION (app));
+  list = bobgui_application_get_windows (BOBGUI_APPLICATION (app));
   if (list)
     win = list->data;
   else
-    win = create_window (GTK_APPLICATION (app));
+    win = create_window (BOBGUI_APPLICATION (app));
 
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 }
 
 static void
@@ -293,9 +293,9 @@ node_editor_application_open (GApplication  *app,
 
   for (i = 0; i < n_files; i++)
     {
-      win = create_window (GTK_APPLICATION (app));
+      win = create_window (BOBGUI_APPLICATION (app));
       node_editor_window_load (win, files[i]);
-      gtk_window_present (GTK_WINDOW (win));
+      bobgui_window_present (BOBGUI_WINDOW (win));
     }
 }
 
@@ -303,12 +303,12 @@ static void
 node_editor_application_class_init (NodeEditorApplicationClass *class)
 {
   GApplicationClass *application_class = G_APPLICATION_CLASS (class);
-  GtkApplicationClass *gtk_application_class = GTK_APPLICATION_CLASS (class);
+  BobguiApplicationClass *bobgui_application_class = BOBGUI_APPLICATION_CLASS (class);
 
   application_class->startup = node_editor_application_startup;
   application_class->open = node_editor_application_open;
   application_class->activate = node_editor_application_activate;
-  gtk_application_class->restore_window = node_editor_application_restore_window;
+  bobgui_application_class->restore_window = node_editor_application_restore_window;
 }
 
 static int
@@ -348,7 +348,7 @@ node_editor_application_new (void)
               g_strcmp0 (PROFILE, "devel") == 0 ? VCS_TAG : "");
 
   app = g_object_new (NODE_EDITOR_APPLICATION_TYPE,
-                      "application-id", "org.gtk.gtk4.NodeEditor",
+                      "application-id", "org.bobgui.bobgui4.NodeEditor",
                       "flags", G_APPLICATION_HANDLES_OPEN | G_APPLICATION_NON_UNIQUE,
                       "version", version,
                       "support-save", FALSE,

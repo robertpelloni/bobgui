@@ -1,12 +1,12 @@
 <interface>
-  <object class="GtkPaned">
+  <object class="BobguiPaned">
     <child type="end">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">end</property>
       </object>
     </child>
     <child type="start">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">start</property>
       </object>
     </child>

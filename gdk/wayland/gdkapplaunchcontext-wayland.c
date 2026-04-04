@@ -109,11 +109,11 @@ gdk_wayland_app_launch_context_get_startup_notify_id (GAppLaunchContext *context
       id = app_launch_data.token;
       wl_event_queue_destroy (event_queue);
     }
-  else if (display->gtk_shell &&
-           gtk_shell1_get_version (display->gtk_shell) >= GTK_SHELL1_NOTIFY_LAUNCH_SINCE_VERSION)
+  else if (display->bobgui_shell &&
+           bobgui_shell1_get_version (display->bobgui_shell) >= BOBGUI_SHELL1_NOTIFY_LAUNCH_SINCE_VERSION)
     {
       id = g_uuid_string_random ();
-      gtk_shell1_notify_launch (display->gtk_shell, id);
+      bobgui_shell1_notify_launch (display->bobgui_shell, id);
     }
 
   g_object_unref (display);

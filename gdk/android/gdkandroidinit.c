@@ -52,7 +52,7 @@ static const JNINativeMethod surface_natives[] = {
   { .name = "notifyLayoutPosition", .signature = "(II)V", .fnPtr = _gdk_android_surface_on_layout_position },
   { .name = "notifyDetached", .signature = "()V", .fnPtr = _gdk_android_surface_on_detach },
 
-  { .name = "notifyDNDStartFailed", .signature = "(Lorg/gtk/android/ClipboardProvider$NativeDragIdentifier;)V", .fnPtr = _gdk_android_surface_on_dnd_start_failed },
+  { .name = "notifyDNDStartFailed", .signature = "(Lorg/bobgui/android/ClipboardProvider$NativeDragIdentifier;)V", .fnPtr = _gdk_android_surface_on_dnd_start_failed },
 
   { .name = "notifyMotionEvent", .signature = "(ILandroid/view/MotionEvent;)V", .fnPtr = _gdk_android_surface_on_motion_event },
   { .name = "notifyKeyEvent", .signature = "(Landroid/view/KeyEvent;)V", .fnPtr = _gdk_android_surface_on_key_event },
@@ -162,7 +162,7 @@ gdk_android_set_latest_activity (JNIEnv *env, jobject activity)
 /**
  * gdk_android_initialize: (skip)
  * @env: the JNI environment for the current thread
- * @application_classloader: the classloader used to resolve GTK classes
+ * @application_classloader: the classloader used to resolve BOBGUI classes
  * @activity: (nullable): the android.content.Context object
  *
  * Initializes the android backend.
@@ -184,37 +184,37 @@ gdk_android_initialize (JNIEnv *env, jobject application_classloader, jobject ac
 
   (*env)->PushLocalFrame (env, 16);
 
-  jclass glib_context_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/GlibContext");
+  jclass glib_context_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/GlibContext");
   (*env)->RegisterNatives (env, glib_context_class, glib_context_natives, sizeof glib_context_natives / sizeof (JNINativeMethod));
 
-  jclass gdk_context_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ToplevelActivity$GdkContext");
+  jclass gdk_context_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ToplevelActivity$GdkContext");
   (*env)->RegisterNatives (env, gdk_context_class, gdk_context_natives, sizeof gdk_context_natives / sizeof (JNINativeMethod));
 
-  jclass gdk_clipboard_provider_change_listener_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ClipboardProvider$ClipboardChangeListener");
+  jclass gdk_clipboard_provider_change_listener_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ClipboardProvider$ClipboardChangeListener");
   gdk_android_java_cache.clipboard_provider_change_listener.klass = (*env)->NewGlobalRef (env, gdk_clipboard_provider_change_listener_class);
   POPULATE_REFCACHE_MEMBER (clipboard_provider_change_listener, native_ptr, "nativePtr", "J")
   POPULATE_REFCACHE_METHOD (clipboard_provider_change_listener, constructor, "<init>", "(J)V")
   (*env)->RegisterNatives (env, gdk_clipboard_provider_change_listener_class, clipboard_provider_change_listener_natives, sizeof clipboard_provider_change_listener_natives / sizeof (JNINativeMethod));
 
-  jclass gdk_clipboard_bitmap_drag_shadow_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ClipboardProvider$ClipboardBitmapDragShadow");
+  jclass gdk_clipboard_bitmap_drag_shadow_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ClipboardProvider$ClipboardBitmapDragShadow");
   gdk_android_java_cache.clipboard_bitmap_drag_shadow.klass = (*env)->NewGlobalRef (env, gdk_clipboard_bitmap_drag_shadow_class);
   POPULATE_REFCACHE_METHOD (clipboard_bitmap_drag_shadow, constructor, "<init>", "(Landroid/view/View;Landroid/graphics/Bitmap;II)V")
   POPULATE_STATIC_REFCACHE_METHOD (clipboard_bitmap_drag_shadow, vflip, "vflip", "(Landroid/graphics/Bitmap;)Landroid/graphics/Bitmap;")
 
-  jclass gdk_clipboard_empty_drag_shadow_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ClipboardProvider$ClipboardEmptyDragShadow");
+  jclass gdk_clipboard_empty_drag_shadow_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ClipboardProvider$ClipboardEmptyDragShadow");
   gdk_android_java_cache.clipboard_empty_drag_shadow.klass = (*env)->NewGlobalRef (env, gdk_clipboard_empty_drag_shadow_class);
   POPULATE_REFCACHE_METHOD (clipboard_empty_drag_shadow, constructor, "<init>", "(Landroid/view/View;)V")
 
-  jclass gdk_clipboard_internal_clipdata_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ClipboardProvider$InternalClipdata");
+  jclass gdk_clipboard_internal_clipdata_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ClipboardProvider$InternalClipdata");
   gdk_android_java_cache.clipboard_internal_clipdata.klass = (*env)->NewGlobalRef (env, gdk_clipboard_internal_clipdata_class);
   POPULATE_REFCACHE_METHOD (clipboard_internal_clipdata, constructor, "<init>", "()V")
 
-  jclass gdk_clipboard_native_drag_identifier = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ClipboardProvider$NativeDragIdentifier");
+  jclass gdk_clipboard_native_drag_identifier = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ClipboardProvider$NativeDragIdentifier");
   gdk_android_java_cache.clipboard_native_drag_identifier.klass = (*env)->NewGlobalRef (env, gdk_clipboard_native_drag_identifier);
   POPULATE_REFCACHE_METHOD (clipboard_native_drag_identifier, constructor, "<init>", "(J)V")
   POPULATE_REFCACHE_MEMBER (clipboard_native_drag_identifier, native_identifier, "nativeIdentifier", "J")
 
-  jclass surface_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ToplevelActivity$ToplevelView$Surface");
+  jclass surface_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ToplevelActivity$ToplevelView$Surface");
   gdk_android_java_cache.surface.klass = (*env)->NewGlobalRef (env, surface_class);
   POPULATE_REFCACHE_MEMBER (surface, surface_identifier, "surfaceIdentifier", "J")
   POPULATE_REFCACHE_METHOD (surface, get_holder, "getHolder", "()Landroid/view/SurfaceHolder;")
@@ -224,18 +224,18 @@ gdk_android_initialize (JNIEnv *env, jobject application_classloader, jobject ac
   POPULATE_REFCACHE_METHOD (surface, drop_cursor_icon, "dropCursorIcon", "()V")
   POPULATE_REFCACHE_METHOD (surface, set_cursor_from_id, "setCursorFromId", "(I)V")
   POPULATE_REFCACHE_METHOD (surface, set_cursor_from_bitmap, "setCursorFromBitmap", "(Landroid/graphics/Bitmap;FF)V")
-  POPULATE_REFCACHE_METHOD (surface, start_dnd, "startDND", "(Landroid/content/ClipData;Landroid/view/View$DragShadowBuilder;Lorg/gtk/android/ClipboardProvider$NativeDragIdentifier;I)V")
+  POPULATE_REFCACHE_METHOD (surface, start_dnd, "startDND", "(Landroid/content/ClipData;Landroid/view/View$DragShadowBuilder;Lorg/bobgui/android/ClipboardProvider$NativeDragIdentifier;I)V")
   POPULATE_REFCACHE_METHOD (surface, update_dnd, "updateDND", "(Landroid/view/View$DragShadowBuilder;)V")
   POPULATE_REFCACHE_METHOD (surface, cancel_dnd, "cancelDND", "()V")
-  POPULATE_REFCACHE_METHOD (surface, set_active_im_context, "setActiveImContext", "(Lorg/gtk/android/ImContext;)V")
+  POPULATE_REFCACHE_METHOD (surface, set_active_im_context, "setActiveImContext", "(Lorg/bobgui/android/ImContext;)V")
   POPULATE_REFCACHE_METHOD (surface, reposition, "reposition", "(IIII)V")
   POPULATE_REFCACHE_METHOD (surface, drop, "drop", "()V")
   (*env)->RegisterNatives (env, surface_class, surface_natives, sizeof surface_natives / sizeof (JNINativeMethod));
 
-  jclass toplevel_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ToplevelActivity");
+  jclass toplevel_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ToplevelActivity");
   gdk_android_java_cache.toplevel.klass = (*env)->NewGlobalRef (env, toplevel_class);
   POPULATE_REFCACHE_MEMBER (toplevel, native_identifier, "nativeIdentifier", "J")
-  POPULATE_REFCACHE_MEMBER (toplevel, toplevel_view, "view", "Lorg/gtk/android/ToplevelActivity$ToplevelView;")
+  POPULATE_REFCACHE_MEMBER (toplevel, toplevel_view, "view", "Lorg/bobgui/android/ToplevelActivity$ToplevelView;")
   POPULATE_REFCACHE_STRING (toplevel, toplevel_identifier_key, "toplevelIdentifierKey")
   POPULATE_REFCACHE_METHOD (toplevel, bind_native, "bindNative", "(J)V")
   POPULATE_REFCACHE_METHOD (toplevel, attach_toplevel_surface, "attachToplevelSurface", "()V")
@@ -243,12 +243,12 @@ gdk_android_initialize (JNIEnv *env, jobject application_classloader, jobject ac
   POPULATE_REFCACHE_METHOD (toplevel, post_title, "postTitle", "(Ljava/lang/String;)V")
   (*env)->RegisterNatives (env, toplevel_class, toplevel_natives, sizeof toplevel_natives / sizeof (JNINativeMethod));
 
-  jclass toplevel_view_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ToplevelActivity$ToplevelView");
+  jclass toplevel_view_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ToplevelActivity$ToplevelView");
   gdk_android_java_cache.toplevel_view.klass = (*env)->NewGlobalRef (env, toplevel_view_class);
-  POPULATE_REFCACHE_METHOD (toplevel_view, set_grabbed_surface, "setGrabbedSurface", "(Lorg/gtk/android/ToplevelActivity$ToplevelView$Surface;)V")
+  POPULATE_REFCACHE_METHOD (toplevel_view, set_grabbed_surface, "setGrabbedSurface", "(Lorg/bobgui/android/ToplevelActivity$ToplevelView$Surface;)V")
   POPULATE_REFCACHE_METHOD (toplevel_view, push_popup, "pushPopup", "(JIIII)V")
 
-  jclass surface_exception_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/gtk/android/ToplevelActivity$UnregisteredSurfaceException");
+  jclass surface_exception_class = gdk_android_init_find_class_using_classloader (env, application_classloader, "org/bobgui/android/ToplevelActivity$UnregisteredSurfaceException");
   gdk_android_java_cache.surface_exception.klass = (*env)->NewGlobalRef (env, surface_exception_class);
   POPULATE_REFCACHE_METHOD (surface_exception, constructor, "<init>", "(Ljava/lang/Object;)V")
 

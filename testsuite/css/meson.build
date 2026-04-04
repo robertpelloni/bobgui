@@ -1,5 +1,5 @@
 csstest_env = environment()
-csstest_env.set('GTK_A11Y', 'test')
+csstest_env.set('BOBGUI_A11Y', 'test')
 csstest_env.set('GSK_RENDERER', 'cairo')
 csstest_env.set('G_TEST_SRCDIR', meson.current_source_dir())
 csstest_env.set('G_TEST_BUILDDIR', meson.current_build_dir())
@@ -12,7 +12,7 @@ subdir('change')
 test_api = executable('api',
   sources: ['api.c'],
   c_args: common_cflags,
-  dependencies: libgtk_dep,
+  dependencies: libbobgui_dep,
 )
 
 test('api', test_api,
@@ -24,9 +24,9 @@ test('api', test_api,
 
 test_data = executable('data',
   sources: ['data.c'],
-  c_args: common_cflags + ['-DGTK_COMPILATION'],
+  c_args: common_cflags + ['-DBOBGUI_COMPILATION'],
   include_directories: [confinc, ],
-  dependencies: libgtk_static_dep,
+  dependencies: libbobgui_static_dep,
 )
 
 test('data', test_data,
@@ -38,8 +38,8 @@ test('data', test_data,
 
 transition = executable('transition',
   sources: ['transition.c'],
-  c_args: common_cflags + ['-DGTK_COMPILATION'],
-  dependencies: libgtk_static_dep,
+  c_args: common_cflags + ['-DBOBGUI_COMPILATION'],
+  dependencies: libbobgui_static_dep,
 )
 
 test('transition', transition,
@@ -51,8 +51,8 @@ test('transition', transition,
 
 color = executable('color',
   sources: ['color.c'],
-  c_args: common_cflags + ['-DGTK_COMPILATION'],
-  dependencies: libgtk_static_dep,
+  c_args: common_cflags + ['-DBOBGUI_COMPILATION'],
+  dependencies: libbobgui_static_dep,
 )
 
 test('color', color,
@@ -64,8 +64,8 @@ test('color', color,
 
 compute = executable('compute',
   sources: ['compute.c'],
-  c_args: common_cflags + ['-DGTK_COMPILATION'],
-  dependencies: libgtk_static_dep
+  c_args: common_cflags + ['-DBOBGUI_COMPILATION'],
+  dependencies: libbobgui_static_dep
 )
 
 test('compute', compute,

@@ -19,7 +19,7 @@
 
 #include "svgpaintable.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <librsvg/rsvg.h>
 
 /**
@@ -48,30 +48,30 @@ enum {
 
 /* {{{ Utilities */
 
-/* Like gtk_snapshot_append_node, but transforms the node
+/* Like bobgui_snapshot_append_node, but transforms the node
  * to map the @from rect to the @to rect.
  */
 static void
-gtk_snapshot_append_node_scaled (GtkSnapshot     *snapshot,
+bobgui_snapshot_append_node_scaled (BobguiSnapshot     *snapshot,
                                  GskRenderNode   *node,
                                  graphene_rect_t *from,
                                  graphene_rect_t *to)
 {
   if (graphene_rect_equal (from, to))
     {
-      gtk_snapshot_append_node (snapshot, node);
+      bobgui_snapshot_append_node (snapshot, node);
     }
   else
     {
-      gtk_snapshot_save (snapshot);
-      gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (to->origin.x,
+      bobgui_snapshot_save (snapshot);
+      bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (to->origin.x,
                                                               to->origin.y));
-      gtk_snapshot_scale (snapshot, to->size.width / from->size.width,
+      bobgui_snapshot_scale (snapshot, to->size.width / from->size.width,
                                     to->size.height / from->size.height);
-      gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (- from->origin.x,
+      bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (- from->origin.x,
                                                               - from->origin.y));
-      gtk_snapshot_append_node (snapshot, node);
-      gtk_snapshot_restore (snapshot);
+      bobgui_snapshot_append_node (snapshot, node);
+      bobgui_snapshot_restore (snapshot);
     }
 }
 
@@ -183,11 +183,11 @@ svg_paintable_snapshot (GdkPaintable *paintable,
 
   if (!self->node)
     {
-      gtk_snapshot_append_color (snapshot, &(GdkRGBA) { 238/255.0, 106/255.0, 167/255.0,  1 }, &GRAPHENE_RECT_INIT (0, 0, width, height));
+      bobgui_snapshot_append_color (snapshot, &(GdkRGBA) { 238/255.0, 106/255.0, 167/255.0,  1 }, &GRAPHENE_RECT_INIT (0, 0, width, height));
     }
   else
     {
-      gtk_snapshot_append_node_scaled (snapshot, self->node, &icon_rect, &render_rect);
+      bobgui_snapshot_append_node_scaled (snapshot, self->node, &icon_rect, &render_rect);
     }
 }
 

@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
@@ -52,7 +52,7 @@ file_info_selection_list_model_init (GListModelInterface *iface)
 }
 
 static gboolean
-file_info_selection_is_selected (GtkSelectionModel *model,
+file_info_selection_is_selected (BobguiSelectionModel *model,
                                  guint              position)
 {
   FileInfoSelection *self = FILE_INFO_SELECTION (model);
@@ -62,10 +62,10 @@ file_info_selection_is_selected (GtkSelectionModel *model,
   if (item == NULL)
     return FALSE;
 
-  if (GTK_IS_TREE_LIST_ROW (item))
+  if (BOBGUI_IS_TREE_LIST_ROW (item))
     {
-      GtkTreeListRow *row = item;
-      item = gtk_tree_list_row_get_item (row);
+      BobguiTreeListRow *row = item;
+      item = bobgui_tree_list_row_get_item (row);
       g_object_unref (row);
     }
 
@@ -83,10 +83,10 @@ file_info_selection_set_selected (FileInfoSelection *self,
   if (item == NULL)
     return;
 
-  if (GTK_IS_TREE_LIST_ROW (item))
+  if (BOBGUI_IS_TREE_LIST_ROW (item))
     {
-      GtkTreeListRow *row = item;
-      item = gtk_tree_list_row_get_item (row);
+      BobguiTreeListRow *row = item;
+      item = bobgui_tree_list_row_get_item (row);
       g_object_unref (row);
     }
 
@@ -94,7 +94,7 @@ file_info_selection_set_selected (FileInfoSelection *self,
 }
 
 static gboolean
-file_info_selection_select_item (GtkSelectionModel *model,
+file_info_selection_select_item (BobguiSelectionModel *model,
                                  guint              position,
                                  gboolean           exclusive)
 {
@@ -107,33 +107,33 @@ file_info_selection_select_item (GtkSelectionModel *model,
       for (i = 0; i < g_list_model_get_n_items (self->model); i++)
         file_info_selection_set_selected (self, i, i == position);
 
-      gtk_selection_model_selection_changed (model, 0, g_list_model_get_n_items (self->model));
+      bobgui_selection_model_selection_changed (model, 0, g_list_model_get_n_items (self->model));
     }
   else
     {
       file_info_selection_set_selected (self, position, TRUE);
 
-      gtk_selection_model_selection_changed (model, position, 1);
+      bobgui_selection_model_selection_changed (model, position, 1);
     }
 
   return TRUE;
 }
 
 static gboolean
-file_info_selection_unselect_item (GtkSelectionModel *model,
+file_info_selection_unselect_item (BobguiSelectionModel *model,
                                    guint              position)
 {
   FileInfoSelection *self = FILE_INFO_SELECTION (model);
 
   file_info_selection_set_selected (self, position, FALSE);
 
-  gtk_selection_model_selection_changed (model, position, 1);
+  bobgui_selection_model_selection_changed (model, position, 1);
 
   return TRUE;
 }
 
 static gboolean
-file_info_selection_select_range (GtkSelectionModel *model,
+file_info_selection_select_range (BobguiSelectionModel *model,
                                   guint              position,
                                   guint              n_items,
                                   gboolean           exclusive)
@@ -153,15 +153,15 @@ file_info_selection_select_range (GtkSelectionModel *model,
       file_info_selection_set_selected (self, i, FALSE);
 
   if (exclusive)
-    gtk_selection_model_selection_changed (model, 0, g_list_model_get_n_items (self->model));
+    bobgui_selection_model_selection_changed (model, 0, g_list_model_get_n_items (self->model));
   else
-    gtk_selection_model_selection_changed (model, position, n_items);
+    bobgui_selection_model_selection_changed (model, position, n_items);
 
   return TRUE;
 }
 
 static gboolean
-file_info_selection_unselect_range (GtkSelectionModel *model,
+file_info_selection_unselect_range (BobguiSelectionModel *model,
                                     guint              position,
                                     guint              n_items)
 {
@@ -171,13 +171,13 @@ file_info_selection_unselect_range (GtkSelectionModel *model,
   for (i = position; i < position + n_items; i++)
     file_info_selection_set_selected (self, i, FALSE);
 
-  gtk_selection_model_selection_changed (model, position, n_items);
+  bobgui_selection_model_selection_changed (model, position, n_items);
 
   return TRUE;
 }
 
 static void
-file_info_selection_selection_model_init (GtkSelectionModelInterface *iface)
+file_info_selection_selection_model_init (BobguiSelectionModelInterface *iface)
 {
   iface->is_selected = file_info_selection_is_selected; 
   iface->select_item = file_info_selection_select_item; 
@@ -189,7 +189,7 @@ file_info_selection_selection_model_init (GtkSelectionModelInterface *iface)
 G_DEFINE_TYPE_EXTENDED (FileInfoSelection, file_info_selection, G_TYPE_OBJECT, 0,
                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL,
                                                file_info_selection_list_model_init)
-                        G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL,
+                        G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_SELECTION_MODEL,
                                                file_info_selection_selection_model_init))
 
 static void
@@ -258,11 +258,11 @@ guint pending = 0;
 guint active = 0;
 
 static void
-loading_cb (GtkDirectoryList *dir,
+loading_cb (BobguiDirectoryList *dir,
             GParamSpec       *pspec,
             gpointer          unused)
 {
-  if (gtk_directory_list_is_loading (dir))
+  if (bobgui_directory_list_is_loading (dir))
     {
       active++;
       /* HACK: ensure loading finishes and the dir doesn't get destroyed */
@@ -275,27 +275,27 @@ loading_cb (GtkDirectoryList *dir,
 
       while (active < 20 && pending)
         {
-          GtkDirectoryList *dir2 = pending_dirs->data;
+          BobguiDirectoryList *dir2 = pending_dirs->data;
           pending_dirs = g_slist_remove (pending_dirs, dir2);
           pending--;
-          gtk_directory_list_set_file (dir2, g_object_get_data (G_OBJECT (dir2), "file"));
+          bobgui_directory_list_set_file (dir2, g_object_get_data (G_OBJECT (dir2), "file"));
           g_object_unref (dir2);
         }
     }
 }
 
-static GtkDirectoryList *
+static BobguiDirectoryList *
 create_directory_list (GFile *file)
 {
-  GtkDirectoryList *dir;
+  BobguiDirectoryList *dir;
 
-  dir = gtk_directory_list_new (G_FILE_ATTRIBUTE_STANDARD_TYPE
+  dir = bobgui_directory_list_new (G_FILE_ATTRIBUTE_STANDARD_TYPE
                                 "," G_FILE_ATTRIBUTE_STANDARD_NAME
                                 "," G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
                                 NULL);
-  gtk_directory_list_set_io_priority (dir, G_PRIORITY_DEFAULT_IDLE);
+  bobgui_directory_list_set_io_priority (dir, G_PRIORITY_DEFAULT_IDLE);
   g_signal_connect (dir, "notify::loading", G_CALLBACK (loading_cb), NULL);
-  g_assert (!gtk_directory_list_is_loading (dir));
+  g_assert (!bobgui_directory_list_is_loading (dir));
 
   if (active > 20)
     {
@@ -305,7 +305,7 @@ create_directory_list (GFile *file)
     }
   else
     {
-      gtk_directory_list_set_file (dir, file);
+      bobgui_directory_list_set_file (dir, file);
     }
 
   return dir;
@@ -323,30 +323,30 @@ get_file_path (GFileInfo *info)
 static GListModel *
 create_list_model_for_directory (gpointer file)
 {
-  GtkDirectoryList *dir;
-  GtkSorter *sorter;
+  BobguiDirectoryList *dir;
+  BobguiSorter *sorter;
 
   if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL) != G_FILE_TYPE_DIRECTORY)
     return NULL;
 
   dir = create_directory_list (file);
-  sorter = GTK_SORTER (gtk_string_sorter_new (gtk_cclosure_expression_new (G_TYPE_STRING, NULL, 0, NULL, (GCallback) get_file_path, NULL, NULL)));
+  sorter = BOBGUI_SORTER (bobgui_string_sorter_new (bobgui_cclosure_expression_new (G_TYPE_STRING, NULL, 0, NULL, (GCallback) get_file_path, NULL, NULL)));
 
-  return G_LIST_MODEL (gtk_sort_list_model_new (G_LIST_MODEL (dir), sorter));
+  return G_LIST_MODEL (bobgui_sort_list_model_new (G_LIST_MODEL (dir), sorter));
 }
 
 typedef struct _RowData RowData;
 struct _RowData
 {
-  GtkWidget *expander;
-  GtkWidget *icon;
-  GtkWidget *name;
+  BobguiWidget *expander;
+  BobguiWidget *icon;
+  BobguiWidget *name;
   GCancellable *cancellable;
 
-  GtkTreeListRow *current_item;
+  BobguiTreeListRow *current_item;
 };
 
-static void row_data_notify_item (GtkListItem *item,
+static void row_data_notify_item (BobguiListItem *item,
                                   GParamSpec  *pspec,
                                   RowData     *data);
 static void
@@ -388,8 +388,8 @@ row_data_update_info (RowData   *data,
       icon = NULL;
     }
 
-  gtk_widget_set_visible (data->icon, icon != NULL);
-  gtk_image_set_from_gicon (GTK_IMAGE (data->icon), icon);
+  bobgui_widget_set_visible (data->icon, icon != NULL);
+  bobgui_image_set_from_gicon (BOBGUI_IMAGE (data->icon), icon);
 }
 
 static void
@@ -419,7 +419,7 @@ row_data_got_thumbnail_info_cb (GObject      *source,
 
   /* now we know row is valid */
 
-  info = gtk_tree_list_row_get_item (data->current_item);
+  info = bobgui_tree_list_row_get_item (data->current_item);
 
   copy_attribute (info, queried, G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
   copy_attribute (info, queried, G_FILE_ATTRIBUTE_THUMBNAILING_FAILED);
@@ -434,7 +434,7 @@ row_data_got_thumbnail_info_cb (GObject      *source,
 
 static void
 row_data_bind (RowData        *data,
-               GtkTreeListRow *item)
+               BobguiTreeListRow *item)
 {
   GFileInfo *info;
 
@@ -445,9 +445,9 @@ row_data_bind (RowData        *data,
 
   data->current_item = g_object_ref (item);
 
-  gtk_tree_expander_set_list_row (GTK_TREE_EXPANDER (data->expander), item);
+  bobgui_tree_expander_set_list_row (BOBGUI_TREE_EXPANDER (data->expander), item);
 
-  info = gtk_tree_list_row_get_item (item);
+  info = bobgui_tree_list_row_get_item (item);
 
   if (!g_file_info_has_attribute (info, "filechooser::queried"))
     {
@@ -466,17 +466,17 @@ row_data_bind (RowData        *data,
 
   row_data_update_info (data, info);
 
-  gtk_label_set_label (GTK_LABEL (data->name), g_file_info_get_display_name (info));
+  bobgui_label_set_label (BOBGUI_LABEL (data->name), g_file_info_get_display_name (info));
 
   g_object_unref (info);
 }
 
 static void
-row_data_notify_item (GtkListItem *item,
+row_data_notify_item (BobguiListItem *item,
                       GParamSpec  *pspec,
                       RowData     *data)
 {
-  row_data_bind (data, gtk_list_item_get_item (item));
+  row_data_bind (data, bobgui_list_item_get_item (item));
 }
 
 static void
@@ -490,34 +490,34 @@ row_data_free (gpointer _data)
 }
 
 static void
-setup_widget (GtkSignalListItemFactory *factory,
-              GtkListItem              *list_item)
+setup_widget (BobguiSignalListItemFactory *factory,
+              BobguiListItem              *list_item)
 {
-  GtkWidget *box, *child;
+  BobguiWidget *box, *child;
   RowData *data;
 
   data = g_new0 (RowData, 1);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 4);
-  gtk_list_item_set_child (list_item, box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 4);
+  bobgui_list_item_set_child (list_item, box);
 
-  child = gtk_label_new (NULL);
-  gtk_label_set_width_chars (GTK_LABEL (child), 5);
-  gtk_box_append (GTK_BOX (box), child);
+  child = bobgui_label_new (NULL);
+  bobgui_label_set_width_chars (BOBGUI_LABEL (child), 5);
+  bobgui_box_append (BOBGUI_BOX (box), child);
 
-  data->expander = gtk_tree_expander_new ();
-  gtk_box_append (GTK_BOX (box), data->expander);
+  data->expander = bobgui_tree_expander_new ();
+  bobgui_box_append (BOBGUI_BOX (box), data->expander);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 4);
-  gtk_tree_expander_set_child (GTK_TREE_EXPANDER (data->expander), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 4);
+  bobgui_tree_expander_set_child (BOBGUI_TREE_EXPANDER (data->expander), box);
 
-  data->icon = gtk_image_new ();
-  gtk_box_append (GTK_BOX (box), data->icon);
+  data->icon = bobgui_image_new ();
+  bobgui_box_append (BOBGUI_BOX (box), data->icon);
 
-  data->name = gtk_label_new (NULL);
-  gtk_label_set_max_width_chars (GTK_LABEL (data->name), 25);
-  gtk_label_set_ellipsize (GTK_LABEL (data->name), PANGO_ELLIPSIZE_END);
-  gtk_box_append (GTK_BOX (box), data->name);
+  data->name = bobgui_label_new (NULL);
+  bobgui_label_set_max_width_chars (BOBGUI_LABEL (data->name), 25);
+  bobgui_label_set_ellipsize (BOBGUI_LABEL (data->name), PANGO_ELLIPSIZE_END);
+  bobgui_box_append (BOBGUI_BOX (box), data->name);
 
   g_signal_connect (list_item, "notify::item", G_CALLBACK (row_data_notify_item), data);
   g_object_set_data_full (G_OBJECT (list_item), "row-data", data, row_data_free);
@@ -536,20 +536,20 @@ create_list_model_for_file_info (gpointer file_info,
 }
 
 static gboolean
-update_statusbar (GtkStatusbar *statusbar)
+update_statusbar (BobguiStatusbar *statusbar)
 {
   GListModel *model = g_object_get_data (G_OBJECT (statusbar), "model");
   GString *string = g_string_new (NULL);
   guint n;
   gboolean result = G_SOURCE_REMOVE;
 
-  gtk_statusbar_remove_all (statusbar, 0);
+  bobgui_statusbar_remove_all (statusbar, 0);
 
   n = g_list_model_get_n_items (model);
   g_string_append_printf (string, "%u", n);
-  if (GTK_IS_FILTER_LIST_MODEL (model))
+  if (BOBGUI_IS_FILTER_LIST_MODEL (model))
     {
-      guint n_unfiltered = g_list_model_get_n_items (gtk_filter_list_model_get_model (GTK_FILTER_LIST_MODEL (model)));
+      guint n_unfiltered = g_list_model_get_n_items (bobgui_filter_list_model_get_model (BOBGUI_FILTER_LIST_MODEL (model)));
       if (n != n_unfiltered)
         g_string_append_printf (string, "/%u", n_unfiltered);
     }
@@ -561,7 +561,7 @@ update_statusbar (GtkStatusbar *statusbar)
       result = G_SOURCE_CONTINUE;
     }
 
-  gtk_statusbar_push (statusbar, 0, string->str);
+  bobgui_statusbar_push (statusbar, 0, string->str);
   g_free (string->str);
 
   return result;
@@ -570,15 +570,15 @@ update_statusbar (GtkStatusbar *statusbar)
 static gboolean
 match_file (gpointer item, gpointer data)
 {
-  GtkWidget *search_entry = data;
-  GFileInfo *info = gtk_tree_list_row_get_item (item);
+  BobguiWidget *search_entry = data;
+  GFileInfo *info = bobgui_tree_list_row_get_item (item);
   GFile *file = G_FILE (g_file_info_get_attribute_object (info, "standard::file"));
   char *path;
   gboolean result;
   
   path = g_file_get_path (file);
 
-  result = strstr (path, gtk_editable_get_text (GTK_EDITABLE (search_entry))) != NULL;
+  result = strstr (path, bobgui_editable_get_text (BOBGUI_EDITABLE (search_entry))) != NULL;
 
   g_object_unref (info);
   g_free (path);
@@ -587,77 +587,77 @@ match_file (gpointer item, gpointer data)
 }
 
 static void
-search_changed_cb (GtkSearchEntry *entry,
-                   GtkFilter      *custom_filter)
+search_changed_cb (BobguiSearchEntry *entry,
+                   BobguiFilter      *custom_filter)
 {
-  gtk_filter_changed (custom_filter, GTK_FILTER_CHANGE_DIFFERENT);
+  bobgui_filter_changed (custom_filter, BOBGUI_FILTER_CHANGE_DIFFERENT);
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *win, *vbox, *sw, *listview, *search_entry, *statusbar;
-  GtkTreeListModel *tree;
-  GtkFilterListModel *filter;
-  GtkFilter *custom_filter;
+  BobguiWidget *win, *vbox, *sw, *listview, *search_entry, *statusbar;
+  BobguiTreeListModel *tree;
+  BobguiFilterListModel *filter;
+  BobguiFilter *custom_filter;
   FileInfoSelection *selectionmodel;
   GFile *root;
   GListModel *toplevels;
-  GtkListItemFactory *factory;
+  BobguiListItemFactory *factory;
 
-  gtk_init ();
+  bobgui_init ();
 
-  win = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (win), 400, 600);
+  win = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (win), 400, 600);
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (win), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (win), vbox);
 
-  search_entry = gtk_search_entry_new ();
-  gtk_box_append (GTK_BOX (vbox), search_entry);
+  search_entry = bobgui_search_entry_new ();
+  bobgui_box_append (BOBGUI_BOX (vbox), search_entry);
 
-  sw = gtk_scrolled_window_new ();
-  gtk_widget_set_vexpand (sw, TRUE);
-  gtk_search_entry_set_key_capture_widget (GTK_SEARCH_ENTRY (search_entry), sw);
-  gtk_box_append (GTK_BOX (vbox), sw);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_widget_set_vexpand (sw, TRUE);
+  bobgui_search_entry_set_key_capture_widget (BOBGUI_SEARCH_ENTRY (search_entry), sw);
+  bobgui_box_append (BOBGUI_BOX (vbox), sw);
 
-  factory = gtk_signal_list_item_factory_new ();
+  factory = bobgui_signal_list_item_factory_new ();
   g_signal_connect (factory, "setup", G_CALLBACK (setup_widget), NULL);
-  listview = gtk_list_view_new (NULL, factory);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), listview);
+  listview = bobgui_list_view_new (NULL, factory);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), listview);
 
   if (argc > 1)
     root = g_file_new_for_commandline_arg (argv[1]);
   else
     root = g_file_new_for_path (g_get_current_dir ());
-  tree = gtk_tree_list_model_new (create_list_model_for_directory (root),
+  tree = bobgui_tree_list_model_new (create_list_model_for_directory (root),
                                   FALSE,
                                   TRUE,
                                   create_list_model_for_file_info,
                                   NULL, NULL);
   g_object_unref (root);
 
-  custom_filter = GTK_FILTER (gtk_custom_filter_new (match_file, search_entry, NULL));
-  filter = gtk_filter_list_model_new (G_LIST_MODEL (tree), custom_filter);
+  custom_filter = BOBGUI_FILTER (bobgui_custom_filter_new (match_file, search_entry, NULL));
+  filter = bobgui_filter_list_model_new (G_LIST_MODEL (tree), custom_filter);
   g_signal_connect (search_entry, "search-changed", G_CALLBACK (search_changed_cb), custom_filter);
 
   selectionmodel = file_info_selection_new (G_LIST_MODEL (filter));
   g_object_unref (filter);
 
-  gtk_list_view_set_model (GTK_LIST_VIEW (listview), GTK_SELECTION_MODEL (selectionmodel));
+  bobgui_list_view_set_model (BOBGUI_LIST_VIEW (listview), BOBGUI_SELECTION_MODEL (selectionmodel));
 
-  statusbar = gtk_statusbar_new ();
-  gtk_widget_add_tick_callback (statusbar, (GtkTickCallback) update_statusbar, NULL, NULL);
+  statusbar = bobgui_statusbar_new ();
+  bobgui_widget_add_tick_callback (statusbar, (BobguiTickCallback) update_statusbar, NULL, NULL);
   g_object_set_data (G_OBJECT (statusbar), "model", filter);
   g_signal_connect_swapped (filter, "items-changed", G_CALLBACK (update_statusbar), statusbar);
-  update_statusbar (GTK_STATUSBAR (statusbar));
-  gtk_box_append (GTK_BOX (vbox), statusbar);
+  update_statusbar (BOBGUI_STATUSBAR (statusbar));
+  bobgui_box_append (BOBGUI_BOX (vbox), statusbar);
 
   g_object_unref (selectionmodel);
 
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 
-  toplevels = gtk_window_get_toplevels ();
+  toplevels = bobgui_window_get_toplevels ();
   while (g_list_model_get_n_items (toplevels))
     g_main_context_iteration (NULL, TRUE);
 

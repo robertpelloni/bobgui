@@ -1,16 +1,16 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 typedef struct
 {
-  GtkApplication parent_instance;
+  BobguiApplication parent_instance;
 } TestApp;
 
-typedef GtkApplicationClass TestAppClass;
+typedef BobguiApplicationClass TestAppClass;
 
 static GType test_app_get_type (void);
-G_DEFINE_TYPE (TestApp, test_app, GTK_TYPE_APPLICATION)
+G_DEFINE_TYPE (TestApp, test_app, BOBGUI_TYPE_APPLICATION)
 
-static GtkWidget *create_row (const char *label);
+static BobguiWidget *create_row (const char *label);
 
 static void
 activate_first_row (GSimpleAction *simple,
@@ -20,7 +20,7 @@ activate_first_row (GSimpleAction *simple,
   const char *text = "First row activated (no parameter action)";
 
   g_print ("%s\n", text);
-  gtk_label_set_label (GTK_LABEL (user_data), text);
+  bobgui_label_set_label (BOBGUI_LABEL (user_data), text);
 }
 
 static void
@@ -31,7 +31,7 @@ activate_print_string (GSimpleAction *simple,
   const char *text = g_variant_get_string (parameter, NULL);
 
   g_print ("%s\n", text);
-  gtk_label_set_label (GTK_LABEL (user_data), text);
+  bobgui_label_set_label (BOBGUI_LABEL (user_data), text);
 }
 
 static void
@@ -45,41 +45,41 @@ activate_print_int (GSimpleAction *simple,
   text = g_strdup_printf ("Row %d activated (int action)", value);
 
   g_print ("%s\n", text);
-  gtk_label_set_label (GTK_LABEL (user_data), text);
+  bobgui_label_set_label (BOBGUI_LABEL (user_data), text);
 }
 
 static void
-row_without_gaction_activated_cb (GtkListBox    *list,
-                                  GtkListBoxRow *row,
+row_without_gaction_activated_cb (BobguiListBox    *list,
+                                  BobguiListBoxRow *row,
                                   gpointer       user_data)
 {
-  int index = gtk_list_box_row_get_index (row);
+  int index = bobgui_list_box_row_get_index (row);
   char *text;
 
   text = g_strdup_printf ("Row %d activated (signal based)", index);
 
   g_print ("%s\n", text);
-  gtk_label_set_label (GTK_LABEL (user_data), text);
+  bobgui_label_set_label (BOBGUI_LABEL (user_data), text);
 }
 
 static void
-add_separator (GtkListBoxRow *row, GtkListBoxRow *before, gpointer data)
+add_separator (BobguiListBoxRow *row, BobguiListBoxRow *before, gpointer data)
 {
   if (!before)
     return;
 
-  gtk_list_box_row_set_header (row, gtk_separator_new (GTK_ORIENTATION_HORIZONTAL));
+  bobgui_list_box_row_set_header (row, bobgui_separator_new (BOBGUI_ORIENTATION_HORIZONTAL));
 }
 
-static GtkWidget *
+static BobguiWidget *
 create_row (const char *text)
 {
-  GtkWidget *row_content, *label;
+  BobguiWidget *row_content, *label;
 
-  row_content = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+  row_content = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
 
-  label = gtk_label_new (text);
-  gtk_box_append (GTK_BOX (row_content), label);
+  label = bobgui_label_new (text);
+  bobgui_box_append (BOBGUI_BOX (row_content), label);
 
   return row_content;
 }
@@ -87,43 +87,43 @@ create_row (const char *text)
 static void
 new_window (GApplication *app)
 {
-  GtkWidget *window, *grid, *sw, *list, *label;
+  BobguiWidget *window, *grid, *sw, *list, *label;
   GSimpleAction *action;
 
-  GtkWidget *row_content;
-  GtkListBoxRow *row;
+  BobguiWidget *row_content;
+  BobguiListBoxRow *row;
 
   int i;
   char *text, *text2;
 
-  window = gtk_application_window_new (GTK_APPLICATION (app));
-  gtk_window_set_default_size (GTK_WINDOW (window), 300, 300);
+  window = bobgui_application_window_new (BOBGUI_APPLICATION (app));
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 300, 300);
 
   /* widget creation */
-  grid = gtk_grid_new ();
-  gtk_window_set_child (GTK_WINDOW (window), grid);
-  sw = gtk_scrolled_window_new ();
-  gtk_widget_set_hexpand (GTK_WIDGET (sw), true);
-  gtk_widget_set_vexpand (GTK_WIDGET (sw), true);
-  gtk_grid_attach (GTK_GRID (grid), sw, 0, 0, 1, 1);
+  grid = bobgui_grid_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), grid);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_widget_set_hexpand (BOBGUI_WIDGET (sw), true);
+  bobgui_widget_set_vexpand (BOBGUI_WIDGET (sw), true);
+  bobgui_grid_attach (BOBGUI_GRID (grid), sw, 0, 0, 1, 1);
 
-  list = gtk_list_box_new ();
-  gtk_list_box_set_selection_mode (GTK_LIST_BOX (list), GTK_SELECTION_NONE);
-  gtk_list_box_set_header_func (GTK_LIST_BOX (list), add_separator, NULL, NULL);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), list);
+  list = bobgui_list_box_new ();
+  bobgui_list_box_set_selection_mode (BOBGUI_LIST_BOX (list), BOBGUI_SELECTION_NONE);
+  bobgui_list_box_set_header_func (BOBGUI_LIST_BOX (list), add_separator, NULL, NULL);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), list);
 
-  label = gtk_label_new ("No row activated");
-  gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
+  label = bobgui_label_new ("No row activated");
+  bobgui_grid_attach (BOBGUI_GRID (grid), label, 0, 1, 1, 1);
 
   /* no parameter action row */
   action = g_simple_action_new ("first-row-action", NULL);
   g_action_map_add_action (G_ACTION_MAP (window), G_ACTION (action));
 
   row_content = create_row ("First row (no parameter action)");
-  gtk_list_box_insert (GTK_LIST_BOX (list), row_content, -1);
+  bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row_content, -1);
 
-  row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (list), 0);
-  gtk_actionable_set_action_name (GTK_ACTIONABLE (row), "win.first-row-action");
+  row = bobgui_list_box_get_row_at_index (BOBGUI_LIST_BOX (list), 0);
+  bobgui_actionable_set_action_name (BOBGUI_ACTIONABLE (row), "win.first-row-action");
 
   g_signal_connect (action, "activate", (GCallback) activate_first_row, label);
 
@@ -135,12 +135,12 @@ new_window (GApplication *app)
     {
       text = g_strdup_printf ("Row %d (string action)", i);
       row_content = create_row (text);
-      gtk_list_box_insert (GTK_LIST_BOX (list), row_content, -1);
+      bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row_content, -1);
 
-      row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (list), i);
+      row = bobgui_list_box_get_row_at_index (BOBGUI_LIST_BOX (list), i);
       text2 = g_strdup_printf ("Row %d activated (string action)", i);
-      gtk_actionable_set_action_target (GTK_ACTIONABLE (row), "s", text2);
-      gtk_actionable_set_action_name (GTK_ACTIONABLE (row), "win.print-string");
+      bobgui_actionable_set_action_target (BOBGUI_ACTIONABLE (row), "s", text2);
+      bobgui_actionable_set_action_name (BOBGUI_ACTIONABLE (row), "win.print-string");
     }
 
   g_signal_connect (action, "activate", (GCallback) activate_print_string, label);
@@ -153,11 +153,11 @@ new_window (GApplication *app)
     {
       text = g_strdup_printf ("Row %d (int action)", i);
       row_content = create_row (text);
-      gtk_list_box_insert (GTK_LIST_BOX (list), row_content, -1);
+      bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row_content, -1);
 
-      row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (list), i);
-      gtk_actionable_set_action_target (GTK_ACTIONABLE (row), "i", i);
-      gtk_actionable_set_action_name (GTK_ACTIONABLE (row), "win.print-int");
+      row = bobgui_list_box_get_row_at_index (BOBGUI_LIST_BOX (list), i);
+      bobgui_actionable_set_action_target (BOBGUI_ACTIONABLE (row), "i", i);
+      bobgui_actionable_set_action_name (BOBGUI_ACTIONABLE (row), "win.print-int");
     }
 
   g_signal_connect (action, "activate", (GCallback) activate_print_int, label);
@@ -167,14 +167,14 @@ new_window (GApplication *app)
     {
       text = g_strdup_printf ("Row %d (signal based)", i);
       row_content = create_row (text);
-      gtk_list_box_insert (GTK_LIST_BOX (list), row_content, -1);
+      bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row_content, -1);
     }
 
   g_signal_connect (list, "row-activated",
                     G_CALLBACK (row_without_gaction_activated_cb), label);
 
   /* let the show begin */
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 static void
@@ -202,7 +202,7 @@ test_app_new (void)
   g_set_application_name ("Test List 4");
 
   test_app = g_object_new (test_app_get_type (),
-                           "application-id", "org.gtk.testlist4",
+                           "application-id", "org.bobgui.testlist4",
                            "flags", G_APPLICATION_DEFAULT_FLAGS,
                            NULL);
 

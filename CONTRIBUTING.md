@@ -1,15 +1,15 @@
 # Contribution guidelines
 
-Thank you for considering contributing to the GTK project!
+Thank you for considering contributing to the BOBGUI project!
 
 These guidelines are meant for new contributors, regardless of their level
-of proficiency; following them allows the maintainers of the GTK project to
+of proficiency; following them allows the maintainers of the BOBGUI project to
 more effectively evaluate your contribution, and provide prompt feedback to
 you. Additionally, by following these guidelines you clearly communicate
-that you respect the time and effort that the people developing GTK put into
+that you respect the time and effort that the people developing BOBGUI put into
 managing the project.
 
-GTK is a complex free software GUI toolkit, and it would not exist without
+BOBGUI is a complex free software GUI toolkit, and it would not exist without
 contributions from the free and open source software community. There are
 many things that we value:
 
@@ -19,13 +19,13 @@ many things that we value:
  - new features
 
 Please, do not use the issue tracker for support questions. If you have
-questions on how to use GTK effectively, you can use:
+questions on how to use BOBGUI effectively, you can use:
 
- - the `gtk` [room on matrix](https://matrix.to/#/#gtk:gnome.org)
- - the [gtk tag on the GNOME Discourse instance](https://discourse.gnome.org/tag/gtk)
+ - the `bobgui` [room on matrix](https://matrix.to/#/#bobgui:gnome.org)
+ - the [bobgui tag on the GNOME Discourse instance](https://discourse.gnome.org/tag/bobgui)
 
-You can also look at the GTK tag on [Stack
-Overflow](https://stackoverflow.com/questions/tagged/gtk).
+You can also look at the BOBGUI tag on [Stack
+Overflow](https://stackoverflow.com/questions/tagged/bobgui).
 
 The issue tracker is meant to be used for actionable issues only.
 
@@ -41,14 +41,14 @@ When in doubt, follow the process for [GNOME security issues](https://security.g
 
 If you're reporting a bug make sure to list:
 
- 0. which version of GTK are you using?
+ 0. which version of BOBGUI are you using?
  0. which operating system are you using?
  0. what display and graphics driver are you using?
  0. the necessary steps to reproduce the issue
  0. the expected outcome
  0. a description of the behavior; screenshots are also welcome
  0. a small, self-contained example exhibiting the behavior; if this
-    is not available, try reproducing the issue using the GTK examples
+    is not available, try reproducing the issue using the BOBGUI examples
     or interactive tests
 
 If the issue includes a crash, you should also include:
@@ -93,7 +93,7 @@ Each feature should also come fully documented, and with tests.
 
 ### Prerequisites
 
-If you want to contribute to the GTK project, you will need to have the
+If you want to contribute to the BOBGUI project, you will need to have the
 development tools appropriate for your operating system, including:
 
  - Python 3.x
@@ -105,7 +105,7 @@ development tools appropriate for your operating system, including:
 Up-to-date instructions about developing GNOME applications and libraries
 can be found on [the GNOME Developer Center](https://developer.gnome.org).
 
-The GTK project uses GitLab for code hosting and for tracking issues. More
+The BOBGUI project uses GitLab for code hosting and for tracking issues. More
 information about using GitLab can be found on [the GNOME handbook][handbook].
 
 [glib-toolchain-reqs]: https://gitlab.gnome.org/GNOME/glib/-/blob/main/docs/toolchain-requirements.md
@@ -113,13 +113,13 @@ information about using GitLab can be found on [the GNOME handbook][handbook].
 
 ### Dependencies
 
-In order to get GTK from Git installed on your system, you need to have the
-required versions of all the software dependencies required by GTK; typically,
+In order to get BOBGUI from Git installed on your system, you need to have the
+required versions of all the software dependencies required by BOBGUI; typically,
 this means a recent version of GLib, Cairo, Pango, and ATK, as well as the
 platform-specific dependencies for the windowing system you are using (Wayland,
 X11, Windows, or macOS).
 
-The core dependencies for GTK are:
+The core dependencies for BOBGUI are:
 
  - [GLib, GObject, and GIO](https://gitlab.gnome.org/GNOME/glib)
  - [Cairo](http://cairographics.org)
@@ -129,24 +129,24 @@ The core dependencies for GTK are:
  - [ATK](https://gitlab.gnome.org/GNOME/atk)
  - [Graphene](https://github.com/ebassi/graphene)
 
-GTK will attempt to download and build some of these dependencies if it
+BOBGUI will attempt to download and build some of these dependencies if it
 cannot find them on your system.
 
 Additionally, you may want to look at projects that create a development
 environment for you, like [jhbuild](https://gitlab.gnome.org/GNOME/jhbuild)
-and [gvsbuild](https://github.com/wingtk/gvsbuild).
+and [gvsbuild](https://github.com/winbobgui/gvsbuild).
 
 ### Getting started
 
-You should start by forking the GTK repository from the GitLab web UI, and
+You should start by forking the BOBGUI repository from the GitLab web UI, and
 cloning from your fork:
 
 ```sh
-$ git clone https://gitlab.gnome.org/yourusername/gtk.git
-$ cd gtk
+$ git clone https://gitlab.gnome.org/yourusername/bobgui.git
+$ cd bobgui
 ```
 
-To compile the Git version of GTK on your system, you will need to
+To compile the Git version of BOBGUI on your system, you will need to
 configure your build using Meson:
 
 ```sh
@@ -161,19 +161,19 @@ $ git switch -C your-branch
 ```
 
 Once you've finished working on the bug fix or feature, push the branch
-to the Git repository and open a new merge request, to let the GTK
+to the Git repository and open a new merge request, to let the BOBGUI
 maintainers review your contribution.
 
 **Important**: Do **not** attach a diff or a patch file to a GitLab issue.
 Patches cannot be reviewed, and do not not go through the CI pipeline. If
-you wish to submit your changes to GTK, always use a merge request.
+you wish to submit your changes to BOBGUI, always use a merge request.
 
 ### Code reviews
 
-Each contribution is reviewed by the core developers of the GTK project.
+Each contribution is reviewed by the core developers of the BOBGUI project.
 
 The [CODEOWNERS](./docs/CODEOWNERS) document contains the list of core
-contributors to GTK and the areas for which they are responsible; you
+contributors to BOBGUI and the areas for which they are responsible; you
 should ensure to receive their review and signoff on your changes.
 
 ### Commit messages
@@ -217,7 +217,7 @@ Closes #1234
 ```plain
 Closes #1234
 Fixes #1234
-Closes: https://gitlab.gnome.org/GNOME/gtk/issues/1234
+Closes: https://gitlab.gnome.org/GNOME/bobgui/issues/1234
 ```
 
  - If you have a merge request with multiple commits and none of them
@@ -225,25 +225,25 @@ Closes: https://gitlab.gnome.org/GNOME/gtk/issues/1234
  the commit message, e.g. `Bug: #1234`, and use the automatic issue
  closing syntax in the description of the merge request.
 
-### Commit access to the GTK repository
+### Commit access to the BOBGUI repository
 
-GTK is part of the GNOME infrastructure. At the current time, any
+BOBGUI is part of the GNOME infrastructure. At the current time, any
 person with write access to the GNOME repository can merge changes to
-GTK. This is a good thing, in that it encourages many people to work
-on GTK, and progress can be made quickly. However, GTK is a fairly
+BOBGUI. This is a good thing, in that it encourages many people to work
+on BOBGUI, and progress can be made quickly. However, BOBGUI is a fairly
 large and complicated project on which many other things depend, so to
 avoid unnecessary breakage, and to take advantage of the knowledge
-about GTK that has been built up over the years, we'd like to ask
-people committing to GTK to follow a few rules:
+about BOBGUI that has been built up over the years, we'd like to ask
+people committing to BOBGUI to follow a few rules:
 
 0. Ask first. If your changes are major, or could possibly break existing
    code, you should always ask. If your change is minor and you've been
-   working on GTK for a while it probably isn't necessary to ask. But when
+   working on BOBGUI for a while it probably isn't necessary to ask. But when
    in doubt, ask. Even if your change is correct, somebody may know a
    better way to do things.
-   The `gtk` [room on matrix](https://matrix.to/#/#gtk:gnome.org) is also a
-   good place to find GTK developers to discuss changes, but if you live
-   outside of the EU/US time zones, the [gtk tag on the GNOME Discourse instance](https://discourse.gnome.org/tag/gtk)
+   The `bobgui` [room on matrix](https://matrix.to/#/#bobgui:gnome.org) is also a
+   good place to find BOBGUI developers to discuss changes, but if you live
+   outside of the EU/US time zones, the [bobgui tag on the GNOME Discourse instance](https://discourse.gnome.org/tag/bobgui)
    is the most certain and preferred method.
 
 0. Ask _first_.
@@ -255,15 +255,15 @@ people committing to GTK to follow a few rules:
    should always go through a merge request, to ensure that the code is
    tested on the CI infrastructure at the very least. A merge request is
    also the proper place to get a comprehensive code review from the core
-   developers of GTK.
+   developers of BOBGUI.
 
-If you have been contributing to GTK for a while and you don't have commit
+If you have been contributing to BOBGUI for a while and you don't have commit
 access to the repository, you may ask to obtain it following the [GNOME account
 process](https://handbook.gnome.org/infrastructure/developer-access.html).
 
 ## AI Contribution Policy
 
-GTK is a project by humans for humans. We prefer contributions that
+BOBGUI is a project by humans for humans. We prefer contributions that
 are produced by human creativity, we expect a human to take full
 responsibility for each contribution, and we will take more joy in
 reviewing contributions when there's people at the other end of the

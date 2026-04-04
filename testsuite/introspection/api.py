@@ -7,8 +7,8 @@ try:
 except ImportError:
     sys.exit(77) # skip this test, gi module is not available
 
-gi.require_version('Gtk', '4.0')
+gi.require_version('Bobgui', '4.0')
 
-from gi.repository import Gtk
+from gi.repository import Bobgui
 
-assert isinstance(Gtk.INVALID_LIST_POSITION, int), 'Gtk.INVALID_LIST_POSITION is not an int'
+assert isinstance(Bobgui.INVALID_LIST_POSITION, int), 'Bobgui.INVALID_LIST_POSITION is not an int'

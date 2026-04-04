@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkActionBar">
+  <object class="BobguiActionBar">
     <child>
-      <object class="GtkButton" id="button">
+      <object class="BobguiButton" id="button">
         <property name="icon-name">document-new</property>
       </object>
       <packing>

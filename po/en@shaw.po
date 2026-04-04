@@ -1,12 +1,12 @@
-# Shavian translation of GTK.
+# Shavian translation of BOBGUI.
 # Copyright (C) 2009.
-# This file is distributed under the same license as the GTK package.
+# This file is distributed under the same license as the BOBGUI package.
 # Thomas Thurman <tthurman@gnome.org>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtk+\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtk%2b&component=general\n"
+"Project-Id-Version: bobgui+\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=bobgui%2b&component=general\n"
 "POT-Creation-Date: 2010-05-16 01:34+0000\n"
 "PO-Revision-Date: 2010-05-16 16:06 -0400\n"
 "Last-Translator: Thomas Thurman <tthurman@gnome.org>\n"
@@ -76,9 +76,9 @@ msgstr "Gdk 𐑛𐑰𐑚𐑳𐑜𐑦𐑙 𐑓𐑤𐑨𐑜𐑟 𐑑 𐑕𐑧𐑑"
 
 #. Placeholder in --gdk-debug=FLAGS in --help output
 #. Placeholder in --gdk-no-debug=FLAGS in --help output
-#. Placeholder in --gtk-debug=FLAGS in --help output
-#. Placeholder in --gtk-no-debug=FLAGS in --help output
-#: ../gdk/gdk.c:165 ../gdk/gdk.c:168 ../gtk/gtkmain.c:454 ../gtk/gtkmain.c:457
+#. Placeholder in --bobgui-debug=FLAGS in --help output
+#. Placeholder in --bobgui-no-debug=FLAGS in --help output
+#: ../gdk/gdk.c:165 ../gdk/gdk.c:168 ../bobgui/bobguimain.c:454 ../bobgui/bobguimain.c:457
 msgid "FLAGS"
 msgstr "𐑓𐑤𐑨𐑜𐑟"
 
@@ -330,10 +330,10 @@ msgstr "𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑤𐑴𐑛 𐑦𐑥𐑦𐑡-𐑤𐑴𐑛
 #: ../gdk-pixbuf/gdk-pixbuf-io.c:730
 msgid ""
 "Image-loading module %s does not export the proper interface; perhaps it's "
-"from a different GTK version?"
+"from a different BOBGUI version?"
 msgstr ""
 "𐑦𐑥𐑦𐑡-𐑤𐑴𐑛𐑦𐑙 𐑥𐑪𐑛𐑿𐑤 %s 𐑛𐑳𐑟 𐑯𐑪𐑑 𐑧𐑒𐑕𐑐𐑹𐑑 𐑞 𐑐𐑮𐑪𐑐𐑼 𐑦𐑯𐑑𐑼𐑓𐑱𐑕; 𐑐𐑼𐑣𐑨𐑐𐑕 𐑦𐑑𐑕 𐑓𐑮𐑪𐑥 𐑩 𐑛𐑦𐑓𐑼𐑩𐑯𐑑 "
-"GTK 𐑝𐑻𐑠𐑩𐑯?"
+"BOBGUI 𐑝𐑻𐑠𐑩𐑯?"
 
 #, c-format
 #: ../gdk-pixbuf/gdk-pixbuf-io.c:739 ../gdk-pixbuf/gdk-pixbuf-io.c:790
@@ -1273,50 +1273,50 @@ msgid_plural "Opening %d Items"
 msgstr[0] "𐑴𐑐𐑩𐑯𐑦𐑙 %d 𐑲𐑑𐑩𐑥"
 msgstr[1] "𐑴𐑐𐑩𐑯𐑦𐑙 %d 𐑲𐑑𐑩𐑥𐑟"
 
-#: ../gtk/gtkaboutdialog.c:241
+#: ../bobgui/bobguiaboutdialog.c:241
 msgid "Could not show link"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑖𐑴 𐑤𐑦𐑙𐑒"
 
-#: ../gtk/gtkaboutdialog.c:364 ../gtk/gtkaboutdialog.c:2214
+#: ../bobgui/bobguiaboutdialog.c:364 ../bobgui/bobguiaboutdialog.c:2214
 msgid "License"
 msgstr "𐑤𐑲𐑕𐑩𐑯𐑕"
 
-#: ../gtk/gtkaboutdialog.c:365
+#: ../bobgui/bobguiaboutdialog.c:365
 msgid "The license of the program"
 msgstr "𐑞 𐑤𐑲𐑕𐑩𐑯𐑕 𐑝 𐑞 𐑐𐑮𐑴𐑜𐑮𐑨𐑥"
 
 #. Add the credits button
-#: ../gtk/gtkaboutdialog.c:628
+#: ../bobgui/bobguiaboutdialog.c:628
 msgid "C_redits"
 msgstr "𐑒_𐑮𐑧𐑛𐑦𐑑𐑕"
 
 #. Add the license button
-#: ../gtk/gtkaboutdialog.c:642
+#: ../bobgui/bobguiaboutdialog.c:642
 msgid "_License"
 msgstr "_𐑤𐑲𐑕𐑩𐑯𐑕"
 
 #, c-format
-#: ../gtk/gtkaboutdialog.c:901
+#: ../bobgui/bobguiaboutdialog.c:901
 msgid "About %s"
 msgstr "𐑩𐑚𐑬𐑑 %s"
 
-#: ../gtk/gtkaboutdialog.c:2131
+#: ../bobgui/bobguiaboutdialog.c:2131
 msgid "Credits"
 msgstr "𐑒𐑮𐑧𐑛𐑦𐑑𐑕"
 
-#: ../gtk/gtkaboutdialog.c:2164
+#: ../bobgui/bobguiaboutdialog.c:2164
 msgid "Written by"
 msgstr "𐑮𐑦𐑑𐑩𐑯 𐑚𐑲"
 
-#: ../gtk/gtkaboutdialog.c:2167
+#: ../bobgui/bobguiaboutdialog.c:2167
 msgid "Documented by"
 msgstr "𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑𐑩𐑛 𐑚𐑲"
 
-#: ../gtk/gtkaboutdialog.c:2179
+#: ../bobgui/bobguiaboutdialog.c:2179
 msgid "Translated by"
 msgstr "𐑑𐑮𐑩𐑯𐑕𐑤𐑱𐑑𐑩𐑛 𐑚𐑲"
 
-#: ../gtk/gtkaboutdialog.c:2183
+#: ../bobgui/bobguiaboutdialog.c:2183
 msgid "Artwork by"
 msgstr "𐑭𐑮𐑑𐑢𐑻𐑒 𐑚𐑲"
 
@@ -1325,7 +1325,7 @@ msgstr "𐑭𐑮𐑑𐑢𐑻𐑒 𐑚𐑲"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-#: ../gtk/gtkaccellabel.c:157
+#: ../bobgui/bobguiaccellabel.c:157
 msgctxt "keyboard label"
 msgid "Shift"
 msgstr "𐑖𐑦𐑓𐑑"
@@ -1335,7 +1335,7 @@ msgstr "𐑖𐑦𐑓𐑑"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-#: ../gtk/gtkaccellabel.c:163
+#: ../bobgui/bobguiaccellabel.c:163
 msgctxt "keyboard label"
 msgid "Ctrl"
 msgstr "𐑒𐑑𐑮𐑤"
@@ -1345,7 +1345,7 @@ msgstr "𐑒𐑑𐑮𐑤"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-#: ../gtk/gtkaccellabel.c:169
+#: ../bobgui/bobguiaccellabel.c:169
 msgctxt "keyboard label"
 msgid "Alt"
 msgstr "𐑷𐑤𐑑"
@@ -1355,7 +1355,7 @@ msgstr "𐑷𐑤𐑑"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-#: ../gtk/gtkaccellabel.c:767
+#: ../bobgui/bobguiaccellabel.c:767
 msgctxt "keyboard label"
 msgid "Super"
 msgstr "𐑕𐑵𐑐𐑼"
@@ -1365,7 +1365,7 @@ msgstr "𐑕𐑵𐑐𐑼"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-#: ../gtk/gtkaccellabel.c:780
+#: ../bobgui/bobguiaccellabel.c:780
 msgctxt "keyboard label"
 msgid "Hyper"
 msgstr "𐑣𐑲𐑐𐑻"
@@ -1375,40 +1375,40 @@ msgstr "𐑣𐑲𐑐𐑻"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-#: ../gtk/gtkaccellabel.c:794
+#: ../bobgui/bobguiaccellabel.c:794
 msgctxt "keyboard label"
 msgid "Meta"
 msgstr "𐑥𐑰𐑑𐑩"
 
-#: ../gtk/gtkaccellabel.c:811
+#: ../bobgui/bobguiaccellabel.c:811
 msgctxt "keyboard label"
 msgid "Space"
 msgstr "𐑕𐑐𐑱𐑕"
 
-#: ../gtk/gtkaccellabel.c:814
+#: ../bobgui/bobguiaccellabel.c:814
 msgctxt "keyboard label"
 msgid "Backslash"
 msgstr "𐑚𐑨𐑒𐑕𐑤𐑨𐑖"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkbuilderparser.c:343
+#: ../bobgui/bobguibuilderparser.c:343
 msgid "Invalid type function on line %d: '%s'"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑑𐑲𐑐 𐑓𐑳𐑙𐑒𐑖𐑩𐑯 𐑪𐑯 𐑤𐑲𐑯 %d: '%s'"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkbuilderparser.c:407
+#: ../bobgui/bobguibuilderparser.c:407
 msgid "Duplicate object id '%s' on line %d (previously on line %d)"
 msgstr "𐑛𐑿𐑐𐑤𐑦𐑒𐑱𐑑 𐑪𐑚𐑡𐑧𐑒𐑑 𐑦𐑛 '%s' 𐑪𐑯 𐑤𐑲𐑯 %d (𐑐𐑮𐑰𐑝𐑦𐑩𐑕𐑤𐑦 𐑪𐑯 𐑤𐑲𐑯 %d)"
 
 #, c-format
-#: ../gtk/gtkbuilderparser.c:859
+#: ../bobgui/bobguibuilderparser.c:859
 msgid "Invalid root element: '%s'"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑮𐑵𐑑 𐑧𐑤𐑩𐑥𐑩𐑯𐑑: '%s'"
 
 #, c-format
-#: ../gtk/gtkbuilderparser.c:898
+#: ../bobgui/bobguibuilderparser.c:898
 msgid "Unhandled tag: '%s'"
 msgstr "𐑳𐑯𐑣𐑨𐑯𐑛𐑩𐑤𐑛 𐑑𐑨𐑜: '%s'"
 
@@ -1422,7 +1422,7 @@ msgstr "𐑳𐑯𐑣𐑨𐑯𐑛𐑩𐑤𐑛 𐑑𐑨𐑜: '%s'"
 #. * text direction of RTL and specify "calendar:YM", then the year
 #. * will appear to the right of the month.
 #.
-#: ../gtk/gtkcalendar.c:759
+#: ../bobgui/bobguicalendar.c:759
 msgid "calendar:MY"
 msgstr "calendar:MY"
 
@@ -1430,7 +1430,7 @@ msgstr "calendar:MY"
 #. * first day of the week to calendar:week_start:1 if you want Monday
 #. * to be the first day of the week, and so on.
 #.
-#: ../gtk/gtkcalendar.c:797
+#: ../bobgui/bobguicalendar.c:797
 msgid "calendar:week_start:0"
 msgstr "calendar:week_start:0"
 
@@ -1439,7 +1439,7 @@ msgstr "calendar:week_start:0"
 #. *
 #. * If you don't understand this, leave it as "2000"
 #.
-#: ../gtk/gtkcalendar.c:1807
+#: ../bobgui/bobguicalendar.c:1807
 msgctxt "year measurement template"
 msgid "2000"
 msgstr "2000"
@@ -1456,7 +1456,7 @@ msgstr "2000"
 #.
 #, c-format
 #, fuzzy
-#: ../gtk/gtkcalendar.c:1838 ../gtk/gtkcalendar.c:2496
+#: ../bobgui/bobguicalendar.c:1838 ../bobgui/bobguicalendar.c:2496
 msgctxt "calendar:day:digits"
 msgid "%d"
 msgstr "%d"
@@ -1473,13 +1473,13 @@ msgstr "%d"
 #.
 #, c-format
 #, fuzzy
-#: ../gtk/gtkcalendar.c:1870 ../gtk/gtkcalendar.c:2359
+#: ../bobgui/bobguicalendar.c:1870 ../bobgui/bobguicalendar.c:2359
 msgctxt "calendar:week:digits"
 msgid "%d"
 msgstr "%d"
 
 #. Translators: This dictates how the year is displayed in
-#. * gtkcalendar widget.  See strftime() manual for the format.
+#. * bobguicalendar widget.  See strftime() manual for the format.
 #. * Use only ASCII in the translation.
 #. *
 #. * Also look for the msgid "2000".
@@ -1489,7 +1489,7 @@ msgstr "%d"
 #. * "%Y" is appropriate for most locales.
 #.
 #, fuzzy
-#: ../gtk/gtkcalendar.c:2150
+#: ../bobgui/bobguicalendar.c:2150
 msgctxt "calendar year format"
 msgid "%Y"
 msgstr "%Y"
@@ -1497,16 +1497,16 @@ msgstr "%Y"
 #. This label is displayed in a treeview cell displaying
 #. * a disabled accelerator key combination.
 #.
-#: ../gtk/gtkcellrendereraccel.c:244
+#: ../bobgui/bobguicellrendereraccel.c:244
 msgctxt "Accelerator"
 msgid "Disabled"
 msgstr "𐑛𐑦𐑕𐑱𐑚𐑩𐑤𐑛"
 
 #. This label is displayed in a treeview cell displaying
 #. * an accelerator key combination that is not valid according
-#. * to gtk_accelerator_valid().
+#. * to bobgui_accelerator_valid().
 #.
-#: ../gtk/gtkcellrendereraccel.c:254
+#: ../bobgui/bobguicellrendereraccel.c:254
 msgctxt "Accelerator"
 msgid "Invalid"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛"
@@ -1515,26 +1515,26 @@ msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛"
 #. * an accelerator when the cell is clicked to change the
 #. * acelerator.
 #.
-#: ../gtk/gtkcellrendereraccel.c:389 ../gtk/gtkcellrendereraccel.c:603
+#: ../bobgui/bobguicellrendereraccel.c:389 ../bobgui/bobguicellrendereraccel.c:603
 msgid "New accelerator..."
 msgstr "𐑯𐑿 𐑨𐑒𐑕𐑧𐑤𐑼𐑱𐑑𐑼..."
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkcellrendererprogress.c:361 ../gtk/gtkcellrendererprogress.c:448
+#: ../bobgui/bobguicellrendererprogress.c:361 ../bobgui/bobguicellrendererprogress.c:448
 msgctxt "progress bar label"
 msgid "%d %%"
 msgstr "%d %%"
 
-#: ../gtk/gtkcolorbutton.c:188 ../gtk/gtkcolorbutton.c:559
+#: ../bobgui/bobguicolorbutton.c:188 ../bobgui/bobguicolorbutton.c:559
 msgid "Pick a Color"
 msgstr "𐑐𐑦𐑒 𐑩 𐑒𐑳𐑤𐑼"
 
-#: ../gtk/gtkcolorbutton.c:448
+#: ../bobgui/bobguicolorbutton.c:448
 msgid "Received invalid color data\n"
 msgstr "𐑮𐑦𐑕𐑰𐑝𐑛 𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑒𐑳𐑤𐑼 𐑛𐑱𐑑𐑩\n"
 
-#: ../gtk/gtkcolorsel.c:354
+#: ../bobgui/bobguicolorsel.c:354
 msgid ""
 "Select the color you want from the outer ring. Select the darkness or "
 "lightness of that color using the inner triangle."
@@ -1542,73 +1542,73 @@ msgstr ""
 "𐑕𐑩𐑤𐑧𐑒𐑑 𐑞 𐑒𐑳𐑤𐑼 𐑿 𐑢𐑪𐑯𐑑 𐑓𐑮𐑪𐑥 𐑞 𐑬𐑑𐑼 𐑮𐑦𐑙. 𐑕𐑩𐑤𐑧𐑒𐑑 𐑞 𐑛𐑸𐑒𐑯𐑩𐑕 𐑹 𐑤𐑲𐑑𐑯𐑩𐑕 𐑝 𐑞𐑨𐑑 𐑒𐑳𐑤𐑼 𐑿𐑟𐑦𐑙 "
 "𐑞 𐑦𐑯𐑼 𐑑𐑮𐑲𐑨𐑙𐑜𐑩𐑤."
 
-#: ../gtk/gtkcolorsel.c:378
+#: ../bobgui/bobguicolorsel.c:378
 msgid ""
 "Click the eyedropper, then click a color anywhere on your screen to select "
 "that color."
 msgstr "𐑒𐑤𐑦𐑒 𐑞 𐑲𐑛𐑮𐑭𐑐𐑼, 𐑞𐑧𐑯 𐑒𐑤𐑦𐑒 𐑩 𐑒𐑳𐑤𐑼 𐑧𐑯𐑦𐑢𐑺 𐑪𐑯 𐑿𐑼 𐑕𐑒𐑮𐑰𐑯 𐑑 𐑕𐑩𐑤𐑧𐑒𐑑 𐑞𐑨𐑑 𐑒𐑳𐑤𐑼."
 
-#: ../gtk/gtkcolorsel.c:387
+#: ../bobgui/bobguicolorsel.c:387
 msgid "_Hue:"
 msgstr "_𐑣𐑿:"
 
-#: ../gtk/gtkcolorsel.c:388
+#: ../bobgui/bobguicolorsel.c:388
 msgid "Position on the color wheel."
 msgstr "𐑐𐑩𐑟𐑦𐑖𐑩𐑯 𐑪𐑯 𐑞 𐑒𐑳𐑤𐑼 𐑢𐑰𐑤."
 
-#: ../gtk/gtkcolorsel.c:390
+#: ../bobgui/bobguicolorsel.c:390
 msgid "_Saturation:"
 msgstr "_𐑕𐑨𐑑𐑿𐑮𐑱𐑖𐑩𐑯:"
 
-#: ../gtk/gtkcolorsel.c:391
+#: ../bobgui/bobguicolorsel.c:391
 msgid "\"Deepness\" of the color."
 msgstr "\"𐑛𐑰𐑐𐑯𐑧𐑕\" 𐑝 𐑞 𐑒𐑳𐑤𐑼."
 
-#: ../gtk/gtkcolorsel.c:392
+#: ../bobgui/bobguicolorsel.c:392
 msgid "_Value:"
 msgstr "_𐑝𐑨𐑤𐑿:"
 
-#: ../gtk/gtkcolorsel.c:393
+#: ../bobgui/bobguicolorsel.c:393
 msgid "Brightness of the color."
 msgstr "𐑚𐑮𐑲𐑑𐑯𐑩𐑕 𐑝 𐑞 𐑒𐑳𐑤𐑼."
 
-#: ../gtk/gtkcolorsel.c:394
+#: ../bobgui/bobguicolorsel.c:394
 msgid "_Red:"
 msgstr "_𐑮𐑧𐑛:"
 
-#: ../gtk/gtkcolorsel.c:395
+#: ../bobgui/bobguicolorsel.c:395
 msgid "Amount of red light in the color."
 msgstr "𐑩𐑥𐑬𐑯𐑑 𐑝 𐑮𐑧𐑛 𐑤𐑲𐑑 𐑦𐑯 𐑞 𐑒𐑳𐑤𐑼."
 
-#: ../gtk/gtkcolorsel.c:396
+#: ../bobgui/bobguicolorsel.c:396
 msgid "_Green:"
 msgstr "_𐑜𐑮𐑰𐑯:"
 
-#: ../gtk/gtkcolorsel.c:397
+#: ../bobgui/bobguicolorsel.c:397
 msgid "Amount of green light in the color."
 msgstr "𐑩𐑥𐑬𐑯𐑑 𐑝 𐑜𐑮𐑰𐑯 𐑤𐑲𐑑 𐑦𐑯 𐑞 𐑒𐑳𐑤𐑼."
 
-#: ../gtk/gtkcolorsel.c:398
+#: ../bobgui/bobguicolorsel.c:398
 msgid "_Blue:"
 msgstr "_𐑚𐑤𐑵:"
 
-#: ../gtk/gtkcolorsel.c:399
+#: ../bobgui/bobguicolorsel.c:399
 msgid "Amount of blue light in the color."
 msgstr "𐑩𐑥𐑬𐑯𐑑 𐑝 𐑚𐑤𐑵 𐑤𐑲𐑑 𐑦𐑯 𐑞 𐑒𐑳𐑤𐑼."
 
-#: ../gtk/gtkcolorsel.c:402
+#: ../bobgui/bobguicolorsel.c:402
 msgid "Op_acity:"
 msgstr "𐑪𐑐_𐑨𐑕𐑦𐑑𐑦:"
 
-#: ../gtk/gtkcolorsel.c:409 ../gtk/gtkcolorsel.c:419
+#: ../bobgui/bobguicolorsel.c:409 ../bobgui/bobguicolorsel.c:419
 msgid "Transparency of the color."
 msgstr "𐑑𐑮𐑨𐑯𐑕𐑐𐑨𐑮𐑩𐑯𐑕𐑦 𐑝 𐑞 𐑒𐑳𐑤𐑼."
 
-#: ../gtk/gtkcolorsel.c:426
+#: ../bobgui/bobguicolorsel.c:426
 msgid "Color _name:"
 msgstr "𐑒𐑳𐑤𐑼 _𐑯𐑱𐑥:"
 
-#: ../gtk/gtkcolorsel.c:440
+#: ../bobgui/bobguicolorsel.c:440
 msgid ""
 "You can enter an HTML-style hexadecimal color value, or simply a color name "
 "such as 'orange' in this entry."
@@ -1616,15 +1616,15 @@ msgstr ""
 "𐑿 𐑒𐑨𐑯 𐑧𐑯𐑑𐑼 𐑩𐑯 HTML-𐑕𐑑𐑲𐑤 𐑣𐑧𐑒𐑕𐑩𐑛𐑧𐑕𐑦𐑥𐑩𐑤 𐑒𐑳𐑤𐑼 𐑝𐑨𐑤𐑿, 𐑹 𐑕𐑦𐑥𐑐𐑤𐑦 𐑩 𐑒𐑳𐑤𐑼 𐑯𐑱𐑥 𐑕𐑳𐑗 𐑨𐑟 "
 "'𐑹𐑦𐑯𐑡' 𐑦𐑯 𐑞𐑦𐑕 𐑧𐑯𐑑𐑮𐑦."
 
-#: ../gtk/gtkcolorsel.c:470
+#: ../bobgui/bobguicolorsel.c:470
 msgid "_Palette:"
 msgstr "_𐑐𐑨𐑤𐑧𐑑:"
 
-#: ../gtk/gtkcolorsel.c:499
+#: ../bobgui/bobguicolorsel.c:499
 msgid "Color Wheel"
 msgstr "𐑒𐑳𐑤𐑼 𐑢𐑰𐑤"
 
-#: ../gtk/gtkcolorsel.c:958
+#: ../bobgui/bobguicolorsel.c:958
 msgid ""
 "The previously-selected color, for comparison to the color you're selecting "
 "now. You can drag this color to a palette entry, or select this color as "
@@ -1634,28 +1634,28 @@ msgstr ""
 "𐑞𐑦𐑕 𐑒𐑳𐑤𐑼 𐑑 𐑩 𐑐𐑩𐑤𐑧𐑑 𐑧𐑯𐑑𐑮𐑦, 𐑹 𐑕𐑩𐑤𐑧𐑒𐑑 𐑞𐑦𐑕 𐑒𐑳𐑤𐑼 𐑨𐑟 𐑒𐑳𐑮𐑩𐑯𐑑 𐑚𐑲 𐑛𐑮𐑨𐑜𐑦𐑙 𐑦𐑑 𐑑 𐑞 𐑳𐑞𐑼 "
 "𐑒𐑳𐑤𐑼 𐑕𐑢𐑭𐑗 𐑩𐑤𐑪𐑙𐑕𐑲𐑛."
 
-#: ../gtk/gtkcolorsel.c:961
+#: ../bobgui/bobguicolorsel.c:961
 msgid ""
 "The color you've chosen. You can drag this color to a palette entry to save "
 "it for use in the future."
 msgstr ""
 "𐑞 𐑒𐑳𐑤𐑼 𐑿𐑝 𐑗𐑴𐑟𐑩𐑯. 𐑿 𐑒𐑨𐑯 𐑛𐑮𐑨𐑜 𐑞𐑦𐑕 𐑒𐑳𐑤𐑼 𐑑 𐑩 𐑐𐑩𐑤𐑧𐑑 𐑧𐑯𐑑𐑮𐑦 𐑑 𐑕𐑱𐑝 𐑦𐑑 𐑓𐑹 𐑿𐑕 𐑦𐑯 𐑞 𐑓𐑿𐑗𐑼."
 
-#: ../gtk/gtkcolorsel.c:966
+#: ../bobgui/bobguicolorsel.c:966
 msgid ""
 "The previously-selected color, for comparison to the color you're selecting "
 "now."
 msgstr "𐑞 𐑐𐑮𐑰𐑝𐑦𐑩𐑕𐑤𐑦-𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛 𐑒𐑳𐑤𐑼, 𐑓𐑹 𐑒𐑩𐑥𐑐𐑨𐑮𐑦𐑕𐑩𐑯 𐑑 𐑞 𐑒𐑳𐑤𐑼 𐑿'𐑼 𐑕𐑩𐑤𐑧𐑒𐑑𐑦𐑙 𐑯𐑬."
 
-#: ../gtk/gtkcolorsel.c:969
+#: ../bobgui/bobguicolorsel.c:969
 msgid "The color you've chosen."
 msgstr "𐑞 𐑒𐑳𐑤𐑼 𐑿'𐑝 𐑗𐑴𐑟𐑩𐑯."
 
-#: ../gtk/gtkcolorsel.c:1382
+#: ../bobgui/bobguicolorsel.c:1382
 msgid "_Save color here"
 msgstr "_𐑕𐑲𐑝 𐑒𐑳𐑤𐑼 𐑣𐑽"
 
-#: ../gtk/gtkcolorsel.c:1587
+#: ../bobgui/bobguicolorsel.c:1587
 msgid ""
 "Click this palette entry to make it the current color. To change this entry, "
 "drag a color swatch here or right-click it and select \"Save color here.\""
@@ -1663,7 +1663,7 @@ msgstr ""
 "𐑒𐑤𐑦𐑒 𐑞𐑦𐑕 𐑐𐑩𐑤𐑧𐑑 𐑧𐑯𐑑𐑮𐑦 𐑑 𐑥𐑱𐑒 𐑦𐑑 𐑞 𐑒𐑳𐑮𐑩𐑯𐑑 𐑒𐑳𐑤𐑼. 𐑑 𐑗𐑱𐑯𐑡 𐑞𐑦𐑕 𐑧𐑯𐑑𐑮𐑦, 𐑛𐑮𐑨𐑜 𐑩 𐑒𐑳𐑤𐑼 "
 "𐑕𐑢𐑭𐑗 𐑣𐑽 𐑹 𐑮𐑲𐑑-𐑒𐑤𐑦𐑒 𐑦𐑑 𐑯 𐑕𐑩𐑤𐑧𐑒𐑑 \"𐑕𐑱𐑝 𐑒𐑳𐑤𐑼 𐑣𐑽.\""
 
-#: ../gtk/gtkcolorseldialog.c:170
+#: ../bobgui/bobguicolorseldialog.c:170
 msgid "Color Selection"
 msgstr "𐑒𐑳𐑤𐑼 𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯"
 
@@ -1673,113 +1673,113 @@ msgstr "𐑒𐑳𐑤𐑼 𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../gtk/gtkcustompaperunixdialog.c:118
+#: ../bobgui/bobguicustompaperunixdialog.c:118
 msgid "default:mm"
 msgstr "default:mm"
 
 #. And show the custom paper dialog
-#: ../gtk/gtkcustompaperunixdialog.c:373 ../gtk/gtkprintunixdialog.c:3226
+#: ../bobgui/bobguicustompaperunixdialog.c:373 ../bobgui/bobguiprintunixdialog.c:3226
 msgid "Manage Custom Sizes"
 msgstr "𐑥𐑨𐑯𐑦𐑡 𐑒𐑳𐑕𐑑𐑩𐑥 𐑕𐑲𐑟𐑩𐑟"
 
-#: ../gtk/gtkcustompaperunixdialog.c:533 ../gtk/gtkpagesetupunixdialog.c:793
+#: ../bobgui/bobguicustompaperunixdialog.c:533 ../bobgui/bobguipagesetupunixdialog.c:793
 msgid "inch"
 msgstr "𐑦𐑯𐑗"
 
-#: ../gtk/gtkcustompaperunixdialog.c:535 ../gtk/gtkpagesetupunixdialog.c:791
+#: ../bobgui/bobguicustompaperunixdialog.c:535 ../bobgui/bobguipagesetupunixdialog.c:791
 msgid "mm"
 msgstr "mm"
 
-#: ../gtk/gtkcustompaperunixdialog.c:580
+#: ../bobgui/bobguicustompaperunixdialog.c:580
 msgid "Margins from Printer..."
 msgstr "𐑥𐑸𐑡𐑦𐑯𐑟 𐑓𐑮𐑪𐑥 𐑐𐑮𐑦𐑯𐑑𐑼..."
 
 #, c-format
-#: ../gtk/gtkcustompaperunixdialog.c:746
+#: ../bobgui/bobguicustompaperunixdialog.c:746
 msgid "Custom Size %d"
 msgstr "𐑒𐑳𐑕𐑑𐑩𐑥 𐑕𐑲𐑟 %d"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1054
+#: ../bobgui/bobguicustompaperunixdialog.c:1054
 msgid "_Width:"
 msgstr "_𐑢𐑦𐑛𐑔:"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1066
+#: ../bobgui/bobguicustompaperunixdialog.c:1066
 msgid "_Height:"
 msgstr "_𐑣𐑲𐑑:"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1078
+#: ../bobgui/bobguicustompaperunixdialog.c:1078
 msgid "Paper Size"
 msgstr "𐑐𐑱𐑐𐑼 𐑕𐑲𐑟"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1087
+#: ../bobgui/bobguicustompaperunixdialog.c:1087
 msgid "_Top:"
 msgstr "_𐑑𐑪𐑐:"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1099
+#: ../bobgui/bobguicustompaperunixdialog.c:1099
 msgid "_Bottom:"
 msgstr "_𐑚𐑪𐑑𐑩𐑥:"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1111
+#: ../bobgui/bobguicustompaperunixdialog.c:1111
 msgid "_Left:"
 msgstr "_𐑤𐑧𐑓𐑑:"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1123
+#: ../bobgui/bobguicustompaperunixdialog.c:1123
 msgid "_Right:"
 msgstr "_𐑮𐑲𐑑:"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1164
+#: ../bobgui/bobguicustompaperunixdialog.c:1164
 msgid "Paper Margins"
 msgstr "𐑐𐑱𐑐𐑼 𐑥𐑸𐑡𐑦𐑯𐑟"
 
-#: ../gtk/gtkentry.c:8610 ../gtk/gtktextview.c:7974
+#: ../bobgui/bobguientry.c:8610 ../bobgui/bobguitextview.c:7974
 msgid "Input _Methods"
 msgstr "𐑦𐑯𐑐𐑫𐑑 _𐑥𐑧𐑔𐑪𐑛𐑟"
 
-#: ../gtk/gtkentry.c:8624 ../gtk/gtktextview.c:7988
+#: ../bobgui/bobguientry.c:8624 ../bobgui/bobguitextview.c:7988
 msgid "_Insert Unicode Control Character"
 msgstr "_𐑦𐑯𐑕𐑻𐑑 ·𐑿𐑯𐑦𐑒𐑴𐑛 𐑒𐑩𐑯𐑑𐑮𐑴𐑤 𐑒𐑨𐑮𐑩𐑒𐑑𐑼"
 
-#: ../gtk/gtkentry.c:10003
+#: ../bobgui/bobguientry.c:10003
 msgid "Caps Lock is on"
 msgstr "𐑒𐑨𐑐𐑕 𐑤𐑪𐑒 𐑦𐑟 𐑪𐑯"
 
-#: ../gtk/gtkfilechooserbutton.c:64
+#: ../bobgui/bobguifilechooserbutton.c:64
 msgid "Select A File"
 msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 𐑩 𐑓𐑲𐑤"
 
-#: ../gtk/gtkfilechooserbutton.c:65 ../gtk/gtkfilechooserdefault.c:1839
+#: ../bobgui/bobguifilechooserbutton.c:65 ../bobgui/bobguifilechooserdefault.c:1839
 msgid "Desktop"
 msgstr "𐑛𐑧𐑕𐑒𐑑𐑪𐑐"
 
-#: ../gtk/gtkfilechooserbutton.c:66
+#: ../bobgui/bobguifilechooserbutton.c:66
 msgid "(None)"
 msgstr "(𐑯𐑳𐑯)"
 
-#: ../gtk/gtkfilechooserbutton.c:2016
+#: ../bobgui/bobguifilechooserbutton.c:2016
 msgid "Other..."
 msgstr "𐑳𐑞𐑼..."
 
-#: ../gtk/gtkfilechooserdefault.c:148
+#: ../bobgui/bobguifilechooserdefault.c:148
 msgid "Type name of new folder"
 msgstr "𐑑𐑲𐑐 𐑯𐑱𐑥 𐑝 𐑯𐑿 𐑓𐑴𐑤𐑛𐑼"
 
-#: ../gtk/gtkfilechooserdefault.c:965
+#: ../bobgui/bobguifilechooserdefault.c:965
 msgid "Could not retrieve information about the file"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑮𐑦𐑑𐑮𐑰𐑝 𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯 𐑩𐑚𐑬𐑑 𐑞 𐑓𐑲𐑤"
 
-#: ../gtk/gtkfilechooserdefault.c:976
+#: ../bobgui/bobguifilechooserdefault.c:976
 msgid "Could not add a bookmark"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑨𐑛 𐑩 𐑚𐑫𐑒𐑥𐑸𐑒"
 
-#: ../gtk/gtkfilechooserdefault.c:987
+#: ../bobgui/bobguifilechooserdefault.c:987
 msgid "Could not remove bookmark"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑮𐑦𐑥𐑵𐑝 𐑚𐑫𐑒𐑥𐑸𐑒"
 
-#: ../gtk/gtkfilechooserdefault.c:998
+#: ../bobgui/bobguifilechooserdefault.c:998
 msgid "The folder could not be created"
 msgstr "𐑞 𐑓𐑴𐑤𐑛𐑼 𐑒𐑫𐑛 𐑯𐑪𐑑 𐑚𐑰 𐑒𐑮𐑦𐑱𐑑𐑩𐑛"
 
-#: ../gtk/gtkfilechooserdefault.c:1011
+#: ../bobgui/bobguifilechooserdefault.c:1011
 msgid ""
 "The folder could not be created, as a file with the same name already "
 "exists.  Try using a different name for the folder, or rename the file first."
@@ -1787,11 +1787,11 @@ msgstr ""
 "𐑞 𐑓𐑴𐑤𐑛𐑼 𐑒𐑫𐑛 𐑯𐑪𐑑 𐑚𐑰 𐑒𐑮𐑦𐑱𐑑𐑩𐑛, 𐑨𐑟 𐑩 𐑓𐑲𐑤 𐑢𐑦𐑞 𐑞 𐑕𐑱𐑥 𐑯𐑱𐑥 𐑷𐑤𐑮𐑧𐑛𐑦 𐑧𐑒𐑟𐑦𐑕𐑑𐑕.  𐑑𐑮𐑲 𐑿𐑟𐑦𐑙 "
 "𐑩 𐑛𐑦𐑓𐑼𐑩𐑯𐑑 𐑯𐑱𐑥 𐑓𐑹 𐑞 𐑓𐑴𐑤𐑛𐑼, 𐑹 𐑮𐑰𐑯𐑱𐑥 𐑞 𐑓𐑲𐑤 𐑓𐑻𐑕𐑑."
 
-#: ../gtk/gtkfilechooserdefault.c:1022
+#: ../bobgui/bobguifilechooserdefault.c:1022
 msgid "Invalid file name"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑓𐑲𐑤 𐑯𐑱𐑥"
 
-#: ../gtk/gtkfilechooserdefault.c:1032
+#: ../bobgui/bobguifilechooserdefault.c:1032
 msgid "The folder contents could not be displayed"
 msgstr "𐑞 𐑓𐑴𐑤𐑛𐑼 𐑒𐑪𐑯𐑑𐑩𐑯𐑑𐑕 𐑒𐑫𐑛 𐑯𐑪𐑑 𐑚𐑰 𐑛𐑩𐑕𐑐𐑤𐑱𐑛"
 
@@ -1800,202 +1800,202 @@ msgstr "𐑞 𐑓𐑴𐑤𐑛𐑼 𐑒𐑪𐑯𐑑𐑩𐑯𐑑𐑕 𐑒𐑫𐑛 
 #. * to translate.
 #.
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:1582
+#: ../bobgui/bobguifilechooserdefault.c:1582
 msgid "%1$s on %2$s"
 msgstr "%1$s 𐑪𐑯 %2$s"
 
-#: ../gtk/gtkfilechooserdefault.c:1758
+#: ../bobgui/bobguifilechooserdefault.c:1758
 msgid "Search"
 msgstr "𐑕𐑻𐑗"
 
-#: ../gtk/gtkfilechooserdefault.c:1782 ../gtk/gtkfilechooserdefault.c:9454
+#: ../bobgui/bobguifilechooserdefault.c:1782 ../bobgui/bobguifilechooserdefault.c:9454
 msgid "Recently Used"
 msgstr "𐑮𐑰𐑕𐑩𐑯𐑑𐑤𐑦 𐑿𐑕𐑑"
 
-#: ../gtk/gtkfilechooserdefault.c:2422
+#: ../bobgui/bobguifilechooserdefault.c:2422
 msgid "Select which types of files are shown"
 msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 𐑢𐑦𐑗 𐑑𐑲𐑐𐑕 𐑝 𐑓𐑲𐑤𐑟 𐑸 𐑖𐑴𐑯"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:2781
+#: ../bobgui/bobguifilechooserdefault.c:2781
 msgid "Add the folder '%s' to the bookmarks"
 msgstr "𐑨𐑛 𐑞 𐑓𐑴𐑤𐑛𐑼 '%s' 𐑑 𐑞 𐑚𐑫𐑒𐑥𐑸𐑒𐑕"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:2825
+#: ../bobgui/bobguifilechooserdefault.c:2825
 msgid "Add the current folder to the bookmarks"
 msgstr "𐑨𐑛 𐑞 𐑒𐑳𐑮𐑩𐑯𐑑 𐑓𐑴𐑤𐑛𐑼 𐑑 𐑞 𐑚𐑫𐑒𐑥𐑸𐑒𐑕"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:2827
+#: ../bobgui/bobguifilechooserdefault.c:2827
 msgid "Add the selected folders to the bookmarks"
 msgstr "𐑨𐑛 𐑞 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛 𐑓𐑴𐑤𐑛𐑼𐑟 𐑑 𐑞 𐑚𐑫𐑒𐑥𐑸𐑒𐑕"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:2865
+#: ../bobgui/bobguifilechooserdefault.c:2865
 msgid "Remove the bookmark '%s'"
 msgstr "𐑮𐑦𐑥𐑵𐑝 𐑞 𐑚𐑫𐑒𐑥𐑸𐑒 '%s'"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkfilechooserdefault.c:2867
+#: ../bobgui/bobguifilechooserdefault.c:2867
 msgid "Bookmark '%s' cannot be removed"
 msgstr "𐑚𐑫𐑒𐑥𐑸𐑒 '%s' 𐑒𐑨𐑯𐑪𐑑 𐑚𐑰 𐑮𐑦𐑥𐑵𐑝𐑛"
 
-#: ../gtk/gtkfilechooserdefault.c:2874 ../gtk/gtkfilechooserdefault.c:3898
+#: ../bobgui/bobguifilechooserdefault.c:2874 ../bobgui/bobguifilechooserdefault.c:3898
 msgid "Remove the selected bookmark"
 msgstr "𐑮𐑦𐑥𐑵𐑝 𐑞 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛 𐑚𐑫𐑒𐑥𐑸𐑒"
 
-#: ../gtk/gtkfilechooserdefault.c:3594
+#: ../bobgui/bobguifilechooserdefault.c:3594
 msgid "Remove"
 msgstr "𐑮𐑦𐑥𐑵𐑝"
 
-#: ../gtk/gtkfilechooserdefault.c:3603
+#: ../bobgui/bobguifilechooserdefault.c:3603
 msgid "Rename..."
 msgstr "𐑮𐑰𐑯𐑱𐑥..."
 
 #. Accessible object name for the file chooser's shortcuts pane
-#: ../gtk/gtkfilechooserdefault.c:3766
+#: ../bobgui/bobguifilechooserdefault.c:3766
 msgid "Places"
 msgstr "𐑐𐑤𐑱𐑕𐑩𐑟"
 
 #. Column header for the file chooser's shortcuts pane
-#: ../gtk/gtkfilechooserdefault.c:3823
+#: ../bobgui/bobguifilechooserdefault.c:3823
 msgid "_Places"
 msgstr "_𐑐𐑤𐑱𐑕𐑧𐑟"
 
-#: ../gtk/gtkfilechooserdefault.c:3879
+#: ../bobgui/bobguifilechooserdefault.c:3879
 msgid "_Add"
 msgstr "_𐑨𐑛"
 
-#: ../gtk/gtkfilechooserdefault.c:3886
+#: ../bobgui/bobguifilechooserdefault.c:3886
 msgid "Add the selected folder to the Bookmarks"
 msgstr "𐑨𐑛 𐑞 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛 𐑓𐑴𐑤𐑛𐑼 𐑑 𐑞 𐑚𐑫𐑒𐑥𐑸𐑒𐑕"
 
-#: ../gtk/gtkfilechooserdefault.c:3891
+#: ../bobgui/bobguifilechooserdefault.c:3891
 msgid "_Remove"
 msgstr "_𐑮𐑦𐑥𐑵𐑝"
 
-#: ../gtk/gtkfilechooserdefault.c:4026
+#: ../bobgui/bobguifilechooserdefault.c:4026
 msgid "Could not select file"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑕𐑩𐑤𐑧𐑒𐑑 𐑓𐑲𐑤"
 
-#: ../gtk/gtkfilechooserdefault.c:4201
+#: ../bobgui/bobguifilechooserdefault.c:4201
 msgid "_Add to Bookmarks"
 msgstr "_𐑨𐑛 𐑑 𐑚𐑫𐑒𐑥𐑸𐑒𐑕"
 
-#: ../gtk/gtkfilechooserdefault.c:4214
+#: ../bobgui/bobguifilechooserdefault.c:4214
 msgid "Show _Hidden Files"
 msgstr "𐑖𐑴 _𐑣𐑦𐑛𐑩𐑯 𐑓𐑲𐑤𐑟"
 
-#: ../gtk/gtkfilechooserdefault.c:4221
+#: ../bobgui/bobguifilechooserdefault.c:4221
 msgid "Show _Size Column"
 msgstr "𐑖𐑴 _𐑕𐑲𐑟 𐑒𐑪𐑤𐑩𐑥"
 
-#: ../gtk/gtkfilechooserdefault.c:4441
+#: ../bobgui/bobguifilechooserdefault.c:4441
 msgid "Files"
 msgstr "𐑓𐑲𐑤𐑟"
 
-#: ../gtk/gtkfilechooserdefault.c:4492
+#: ../bobgui/bobguifilechooserdefault.c:4492
 msgid "Name"
 msgstr "𐑯𐑱𐑥"
 
-#: ../gtk/gtkfilechooserdefault.c:4515
+#: ../bobgui/bobguifilechooserdefault.c:4515
 msgid "Size"
 msgstr "𐑕𐑲𐑟"
 
-#: ../gtk/gtkfilechooserdefault.c:4529
+#: ../bobgui/bobguifilechooserdefault.c:4529
 msgid "Modified"
 msgstr "𐑥𐑪𐑛𐑦𐑓𐑲𐑛"
 
 #. Label
-#: ../gtk/gtkfilechooserdefault.c:4784 ../gtk/gtkprinteroptionwidget.c:802
+#: ../bobgui/bobguifilechooserdefault.c:4784 ../bobgui/bobguiprinteroptionwidget.c:802
 msgid "_Name:"
 msgstr "_𐑯𐑱𐑥:"
 
-#: ../gtk/gtkfilechooserdefault.c:4827
+#: ../bobgui/bobguifilechooserdefault.c:4827
 msgid "_Browse for other folders"
 msgstr "_𐑚𐑮𐑬𐑟 𐑓𐑹 𐑳𐑞𐑼 𐑓𐑴𐑤𐑛𐑼𐑟"
 
-#: ../gtk/gtkfilechooserdefault.c:5099
+#: ../bobgui/bobguifilechooserdefault.c:5099
 msgid "Type a file name"
 msgstr "𐑑𐑲𐑐 𐑩 𐑓𐑲𐑤 𐑯𐑱𐑥"
 
 #. Create Folder
-#: ../gtk/gtkfilechooserdefault.c:5140
+#: ../bobgui/bobguifilechooserdefault.c:5140
 msgid "Create Fo_lder"
 msgstr "𐑒𐑮𐑦𐑱𐑑 𐑓𐑪_𐑤𐑛𐑼"
 
-#: ../gtk/gtkfilechooserdefault.c:5150
+#: ../bobgui/bobguifilechooserdefault.c:5150
 msgid "_Location:"
 msgstr "_𐑤𐑪𐑒𐑱𐑖𐑩𐑯:"
 
-#: ../gtk/gtkfilechooserdefault.c:5354
+#: ../bobgui/bobguifilechooserdefault.c:5354
 msgid "Save in _folder:"
 msgstr "𐑕𐑱𐑝 𐑦𐑯 _𐑓𐑴𐑤𐑛𐑼:"
 
-#: ../gtk/gtkfilechooserdefault.c:5356
+#: ../bobgui/bobguifilechooserdefault.c:5356
 msgid "Create in _folder:"
 msgstr "𐑒𐑮𐑦𐑱𐑑 𐑦𐑯 _𐑓𐑴𐑤𐑛𐑼:"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkfilechooserdefault.c:6419
+#: ../bobgui/bobguifilechooserdefault.c:6419
 msgid "Could not read the contents of %s"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑮𐑧𐑛 𐑞 𐑒𐑪𐑯𐑑𐑩𐑯𐑑𐑕 𐑝 %s"
 
-#: ../gtk/gtkfilechooserdefault.c:6423
+#: ../bobgui/bobguifilechooserdefault.c:6423
 msgid "Could not read the contents of the folder"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑮𐑧𐑛 𐑞 𐑒𐑪𐑯𐑑𐑩𐑯𐑑𐑕 𐑝 𐑞 𐑓𐑴𐑤𐑛𐑼"
 
-#: ../gtk/gtkfilechooserdefault.c:6516 ../gtk/gtkfilechooserdefault.c:6584
-#: ../gtk/gtkfilechooserdefault.c:6729
+#: ../bobgui/bobguifilechooserdefault.c:6516 ../bobgui/bobguifilechooserdefault.c:6584
+#: ../bobgui/bobguifilechooserdefault.c:6729
 msgid "Unknown"
 msgstr "𐑳𐑯𐑴𐑯"
 
 #, fuzzy
-#: ../gtk/gtkfilechooserdefault.c:6531
+#: ../bobgui/bobguifilechooserdefault.c:6531
 msgid "%H:%M"
 msgstr "%H:%M"
 
-#: ../gtk/gtkfilechooserdefault.c:6533
+#: ../bobgui/bobguifilechooserdefault.c:6533
 msgid "Yesterday at %H:%M"
 msgstr "𐑘𐑧𐑕𐑑𐑼𐑛𐑱 𐑨𐑑 %H:%M"
 
-#: ../gtk/gtkfilechooserdefault.c:7199
+#: ../bobgui/bobguifilechooserdefault.c:7199
 msgid "Cannot change to folder because it is not local"
 msgstr "𐑒𐑨𐑯𐑪𐑑 𐑗𐑱𐑯𐑡 𐑑 𐑓𐑴𐑤𐑛𐑼 𐑚𐑦𐑒𐑪𐑟 𐑦𐑑 𐑦𐑟 𐑯𐑪𐑑 𐑤𐑴𐑒𐑩𐑤"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:7796 ../gtk/gtkfilechooserdefault.c:7817
+#: ../bobgui/bobguifilechooserdefault.c:7796 ../bobgui/bobguifilechooserdefault.c:7817
 msgid "Shortcut %s already exists"
 msgstr "𐑕𐑹𐑑𐑒𐑳𐑑 %s 𐑷𐑤𐑮𐑧𐑛𐑦 𐑧𐑒𐑟𐑦𐑕𐑑𐑕"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:7907
+#: ../bobgui/bobguifilechooserdefault.c:7907
 msgid "Shortcut %s does not exist"
 msgstr "𐑕𐑹𐑑𐑒𐑳𐑑 %s 𐑛𐑳𐑟 𐑯𐑪𐑑 𐑧𐑒𐑟𐑦𐑕𐑑"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:8162 ../gtk/gtkprintunixdialog.c:480
+#: ../bobgui/bobguifilechooserdefault.c:8162 ../bobgui/bobguiprintunixdialog.c:480
 msgid "A file named \"%s\" already exists.  Do you want to replace it?"
 msgstr "𐑩 𐑓𐑲𐑤 𐑯𐑱𐑥𐑛 \"%s\" 𐑷𐑤𐑮𐑧𐑛𐑦 𐑧𐑒𐑟𐑦𐑕𐑑𐑕.  𐑛𐑵 𐑿 𐑢𐑪𐑯𐑑 𐑑 𐑮𐑦𐑐𐑤𐑱𐑕 𐑦𐑑?"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:8165 ../gtk/gtkprintunixdialog.c:484
+#: ../bobgui/bobguifilechooserdefault.c:8165 ../bobgui/bobguiprintunixdialog.c:484
 msgid ""
 "The file already exists in \"%s\".  Replacing it will overwrite its contents."
 msgstr "𐑞 𐑓𐑲𐑤 𐑷𐑤𐑮𐑧𐑛𐑦 𐑧𐑒𐑟𐑦𐑕𐑑𐑕 𐑦𐑯 \"%s\".  𐑮𐑦𐑐𐑤𐑱𐑕𐑦𐑙 𐑦𐑑 𐑢𐑦𐑤 𐑴𐑝𐑼𐑮𐑲𐑑 𐑦𐑑𐑕 𐑒𐑪𐑯𐑑𐑩𐑯𐑑𐑕."
 
-#: ../gtk/gtkfilechooserdefault.c:8170 ../gtk/gtkprintunixdialog.c:491
+#: ../bobgui/bobguifilechooserdefault.c:8170 ../bobgui/bobguiprintunixdialog.c:491
 msgid "_Replace"
 msgstr "_𐑮𐑦𐑐𐑤𐑱𐑕"
 
-#: ../gtk/gtkfilechooserdefault.c:8822
+#: ../bobgui/bobguifilechooserdefault.c:8822
 msgid "Could not start the search process"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑕𐑑𐑸𐑑 𐑞 𐑕𐑻𐑗 𐑐𐑮𐑴𐑕𐑧𐑕"
 
-#: ../gtk/gtkfilechooserdefault.c:8823
+#: ../bobgui/bobguifilechooserdefault.c:8823
 msgid ""
 "The program was not able to create a connection to the indexer daemon.  "
 "Please make sure it is running."
@@ -2003,36 +2003,36 @@ msgstr ""
 "𐑞 𐑐𐑮𐑴𐑜𐑮𐑨𐑥 𐑢𐑪𐑟 𐑯𐑪𐑑 𐑱𐑚𐑩𐑤 𐑑 𐑒𐑮𐑦𐑱𐑑 𐑩 𐑒𐑩𐑯𐑧𐑒𐑖𐑩𐑯 𐑑 𐑞 𐑦𐑯𐑛𐑧𐑒𐑕𐑼 𐑛𐑰𐑥𐑩𐑯.  𐑐𐑤𐑰𐑟 𐑥𐑱𐑒 𐑖𐑫𐑼 𐑦𐑑 "
 "𐑦𐑟 𐑮𐑳𐑯𐑦𐑙."
 
-#: ../gtk/gtkfilechooserdefault.c:8837
+#: ../bobgui/bobguifilechooserdefault.c:8837
 msgid "Could not send the search request"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑕𐑧𐑯𐑛 𐑞 𐑕𐑻𐑗 𐑮𐑦𐑒𐑢𐑧𐑕𐑑"
 
-#: ../gtk/gtkfilechooserdefault.c:9026
+#: ../bobgui/bobguifilechooserdefault.c:9026
 msgid "Search:"
 msgstr "𐑕𐑻𐑗:"
 
 #, c-format
-#: ../gtk/gtkfilechooserdefault.c:9630
+#: ../bobgui/bobguifilechooserdefault.c:9630
 msgid "Could not mount %s"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑥𐑬𐑯𐑑 %s"
 
 #. Translators: this is shown in the feedback for Tab-completion in a file
 #. * chooser's text entry, when the user enters an invalid path.
-#: ../gtk/gtkfilechooserentry.c:698 ../gtk/gtkfilechooserentry.c:1163
+#: ../bobgui/bobguifilechooserentry.c:698 ../bobgui/bobguifilechooserentry.c:1163
 msgid "Invalid path"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑐𐑭𐑔"
 
 #. translators: this text is shown when there are no completions
 #. * for something the user typed in a file chooser entry
 #.
-#: ../gtk/gtkfilechooserentry.c:1095
+#: ../bobgui/bobguifilechooserentry.c:1095
 msgid "No match"
 msgstr "𐑯𐑴 𐑥𐑨𐑗"
 
 #. translators: this text is shown when there is exactly one completion
 #. * for something the user typed in a file chooser entry
 #.
-#: ../gtk/gtkfilechooserentry.c:1106
+#: ../bobgui/bobguifilechooserentry.c:1106
 msgid "Sole completion"
 msgstr "𐑕𐑴𐑤 𐑒𐑩𐑥𐑐𐑤𐑰𐑖𐑩𐑯"
 
@@ -2040,13 +2040,13 @@ msgstr "𐑕𐑴𐑤 𐑒𐑩𐑥𐑐𐑤𐑰𐑖𐑩𐑯"
 #. * entry is a complete filename, but could be continued to find
 #. * a longer match
 #.
-#: ../gtk/gtkfilechooserentry.c:1122
+#: ../bobgui/bobguifilechooserentry.c:1122
 msgid "Complete, but not unique"
 msgstr "𐑒𐑩𐑥𐑐𐑤𐑰𐑑, 𐑚𐑳𐑑 𐑯𐑪𐑑 𐑿𐑯𐑰𐑒"
 
 #. Translators: this text is shown while the system is searching
 #. * for possible completions for filenames in a file chooser entry.
-#: ../gtk/gtkfilechooserentry.c:1154
+#: ../bobgui/bobguifilechooserentry.c:1154
 msgid "Completing..."
 msgstr "𐑒𐑩𐑥𐑐𐑤𐑰𐑑𐑦𐑙..."
 
@@ -2054,7 +2054,7 @@ msgstr "𐑒𐑩𐑥𐑐𐑤𐑰𐑑𐑦𐑙..."
 #. Translators: this is shown in the feedback for Tab-completion in a
 #. * file chooser's text entry when the user enters something like
 #. * "sftp://blahblah" in an app that only supports local filenames.
-#: ../gtk/gtkfilechooserentry.c:1176 ../gtk/gtkfilechooserentry.c:1201
+#: ../bobgui/bobguifilechooserentry.c:1176 ../bobgui/bobguifilechooserentry.c:1201
 msgid "Only local files may be selected"
 msgstr "𐑴𐑯𐑤𐑦 𐑤𐑴𐑒𐑩𐑤 𐑓𐑲𐑤𐑟 𐑥𐑱 𐑚𐑰 𐑕𐑩𐑤𐑧𐑒𐑑𐑩𐑛"
 
@@ -2062,68 +2062,68 @@ msgstr "𐑴𐑯𐑤𐑦 𐑤𐑴𐑒𐑩𐑤 𐑓𐑲𐑤𐑟 𐑥𐑱 𐑚𐑰
 #. Translators: this is shown in the feedback for Tab-completion in a
 #. * file chooser's text entry when the user hasn't entered the first '/'
 #. * after a hostname and yet hits Tab (such as "sftp://blahblah[Tab]")
-#: ../gtk/gtkfilechooserentry.c:1185
+#: ../bobgui/bobguifilechooserentry.c:1185
 msgid "Incomplete hostname; end it with '/'"
 msgstr "𐑦𐑯𐑒𐑩𐑥𐑐𐑤𐑰𐑑 𐑣𐑴𐑕𐑑𐑯𐑱𐑥; 𐑧𐑯𐑛 𐑦𐑑 𐑢𐑦𐑞 '/'"
 
 #. Translators: this is shown in the feedback for Tab-completion in a file
 #. * chooser's text entry when the user enters a path that does not exist
 #. * and then hits Tab
-#: ../gtk/gtkfilechooserentry.c:1196
+#: ../bobgui/bobguifilechooserentry.c:1196
 msgid "Path does not exist"
 msgstr "𐑐𐑭𐑔 𐑛𐑳𐑟 𐑯𐑪𐑑 𐑧𐑒𐑟𐑦𐑕𐑑"
 
 #, c-format
-#: ../gtk/gtkfilechoosersettings.c:487
+#: ../bobgui/bobguifilechoosersettings.c:487
 msgid "Error creating folder '%s': %s"
 msgstr "𐑻𐑼 𐑒𐑮𐑦𐑱𐑑𐑦𐑙 𐑓𐑴𐑤𐑛𐑼 '%s': %s"
 
-#. The pointers we return for a GtkFileSystemVolume are opaque tokens; they are
+#. The pointers we return for a BobguiFileSystemVolume are opaque tokens; they are
 #. * really pointers to GDrive, GVolume or GMount objects.  We need an extra
 #. * token for the fake "File System" volume.  So, we'll return a pointer to
 #. * this particular string.
 #.
-#: ../gtk/gtkfilesystem.c:52
+#: ../bobgui/bobguifilesystem.c:52
 msgid "File System"
 msgstr "𐑓𐑲𐑤 𐑕𐑦𐑕𐑑𐑩𐑥"
 
-#: ../gtk/gtkfontbutton.c:144 ../gtk/gtkfontbutton.c:266
+#: ../bobgui/bobguifontbutton.c:144 ../bobgui/bobguifontbutton.c:266
 msgid "Pick a Font"
 msgstr "𐑐𐑦𐑒 𐑩 𐑓𐑪𐑯𐑑"
 
 #. Initialize fields
-#: ../gtk/gtkfontbutton.c:260
+#: ../bobgui/bobguifontbutton.c:260
 msgid "Sans 12"
 msgstr "𐑕𐑨𐑯𐑟 12"
 
-#: ../gtk/gtkfontbutton.c:785
+#: ../bobgui/bobguifontbutton.c:785
 msgid "Font"
 msgstr "𐑓𐑪𐑯𐑑"
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
-#: ../gtk/gtkfontsel.c:75
+#: ../bobgui/bobguifontsel.c:75
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefgh ABCDEFGH 𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗"
 
-#: ../gtk/gtkfontsel.c:343
+#: ../bobgui/bobguifontsel.c:343
 msgid "_Family:"
 msgstr "_𐑓𐑨𐑥𐑦𐑤𐑦:"
 
-#: ../gtk/gtkfontsel.c:349
+#: ../bobgui/bobguifontsel.c:349
 msgid "_Style:"
 msgstr "_𐑕𐑑𐑲𐑤:"
 
-#: ../gtk/gtkfontsel.c:355
+#: ../bobgui/bobguifontsel.c:355
 msgid "Si_ze:"
 msgstr "𐑕𐑲_𐑟:"
 
 #. create the text entry widget
-#: ../gtk/gtkfontsel.c:532
+#: ../bobgui/bobguifontsel.c:532
 msgid "_Preview:"
 msgstr "_𐑐𐑮𐑰𐑝𐑿:"
 
-#: ../gtk/gtkfontsel.c:1631
+#: ../bobgui/bobguifontsel.c:1631
 msgid "Font Selection"
 msgstr "𐑓𐑪𐑯𐑑 𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯"
 
@@ -2131,12 +2131,12 @@ msgstr "𐑓𐑪𐑯𐑑 𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯"
 #. * load it.
 #.
 #, c-format
-#: ../gtk/gtkiconfactory.c:1401
+#: ../bobgui/bobguiiconfactory.c:1401
 msgid "Error loading icon: %s"
 msgstr "𐑻𐑼 𐑤𐑴𐑛𐑦𐑙 𐑲𐑒𐑪𐑯: %s"
 
 #, c-format
-#: ../gtk/gtkicontheme.c:1363
+#: ../bobgui/bobguiicontheme.c:1363
 msgid ""
 "Could not find the icon '%s'. The '%s' theme\nwas not found either, perhaps "
 "you need to install it.\nYou can get a copy from:\n\t%s"
@@ -2145,253 +2145,253 @@ msgstr ""
 "𐑦𐑑.\n𐑿 𐑒𐑨𐑯 𐑜𐑧𐑑 𐑩 𐑒𐑪𐑐𐑦 𐑓𐑮𐑪𐑥:\n\t%s"
 
 #, c-format
-#: ../gtk/gtkicontheme.c:1543
+#: ../bobgui/bobguiicontheme.c:1543
 msgid "Icon '%s' not present in theme"
 msgstr "𐑲𐑒𐑪𐑯 '%s' 𐑯𐑪𐑑 𐑐𐑮𐑩𐑟𐑧𐑯𐑑 𐑦𐑯 𐑔𐑰𐑥"
 
-#: ../gtk/gtkicontheme.c:3074
+#: ../bobgui/bobguiicontheme.c:3074
 msgid "Failed to load icon"
 msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑤𐑴𐑛 𐑲𐑒𐑪𐑯"
 
-#: ../gtk/gtkimmodule.c:527
+#: ../bobgui/bobguiimmodule.c:527
 msgid "Simple"
 msgstr "𐑕𐑦𐑥𐑐𐑩𐑤"
 
-#: ../gtk/gtkimmulticontext.c:563
+#: ../bobgui/bobguiimmulticontext.c:563
 msgctxt "input method menu"
 msgid "System"
 msgstr "𐑕𐑦𐑕𐑑𐑩𐑥"
 
-#: ../gtk/gtkimmulticontext.c:573
+#: ../bobgui/bobguiimmulticontext.c:573
 msgctxt "input method menu"
 msgid "None"
 msgstr "𐑯𐑳𐑯"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkimmulticontext.c:656
+#: ../bobgui/bobguiimmulticontext.c:656
 msgctxt "input method menu"
 msgid "System (%s)"
 msgstr "𐑕𐑦𐑕𐑑𐑩𐑥 (%s)"
 
 #. Open Link
-#: ../gtk/gtklabel.c:6077
+#: ../bobgui/bobguilabel.c:6077
 msgid "_Open Link"
 msgstr "_𐑴𐑐𐑩𐑯 𐑤𐑦𐑙𐑒"
 
 #. Copy Link Address
-#: ../gtk/gtklabel.c:6089
+#: ../bobgui/bobguilabel.c:6089
 msgid "Copy _Link Address"
 msgstr "𐑒𐑪𐑐𐑦 _𐑤𐑦𐑙𐑒 𐑩𐑛𐑮𐑧𐑕"
 
-#: ../gtk/gtklinkbutton.c:428
+#: ../bobgui/bobguilinkbutton.c:428
 msgid "Copy URL"
 msgstr "𐑒𐑪𐑐𐑦 URL"
 
-#: ../gtk/gtklinkbutton.c:586
+#: ../bobgui/bobguilinkbutton.c:586
 msgid "Invalid URI"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 URI"
 
-#. Description of --gtk-module=MODULES in --help output
-#: ../gtk/gtkmain.c:447
-msgid "Load additional GTK+ modules"
-msgstr "𐑤𐑴𐑛 𐑩𐑛𐑦𐑖𐑩𐑯𐑩𐑤 GTK+ 𐑥𐑪𐑛𐑿𐑤𐑟"
+#. Description of --bobgui-module=MODULES in --help output
+#: ../bobgui/bobguimain.c:447
+msgid "Load additional BOBGUI+ modules"
+msgstr "𐑤𐑴𐑛 𐑩𐑛𐑦𐑖𐑩𐑯𐑩𐑤 BOBGUI+ 𐑥𐑪𐑛𐑿𐑤𐑟"
 
-#. Placeholder in --gtk-module=MODULES in --help output
-#: ../gtk/gtkmain.c:448
+#. Placeholder in --bobgui-module=MODULES in --help output
+#: ../bobgui/bobguimain.c:448
 msgid "MODULES"
 msgstr "𐑥𐑪𐑛𐑿𐑤𐑟"
 
 #. Description of --g-fatal-warnings in --help output
-#: ../gtk/gtkmain.c:450
+#: ../bobgui/bobguimain.c:450
 msgid "Make all warnings fatal"
 msgstr "𐑥𐑱𐑒 𐑷𐑤 𐑢𐑪𐑮𐑯𐑦𐑙𐑟 𐑓𐑱𐑑𐑩𐑤"
 
-#. Description of --gtk-debug=FLAGS in --help output
-#: ../gtk/gtkmain.c:453
-msgid "GTK+ debugging flags to set"
-msgstr "GTK+ 𐑛𐑰𐑚𐑳𐑜𐑦𐑙 𐑓𐑤𐑨𐑜𐑟 𐑑 𐑕𐑧𐑑"
+#. Description of --bobgui-debug=FLAGS in --help output
+#: ../bobgui/bobguimain.c:453
+msgid "BOBGUI+ debugging flags to set"
+msgstr "BOBGUI+ 𐑛𐑰𐑚𐑳𐑜𐑦𐑙 𐑓𐑤𐑨𐑜𐑟 𐑑 𐑕𐑧𐑑"
 
-#. Description of --gtk-no-debug=FLAGS in --help output
-#: ../gtk/gtkmain.c:456
-msgid "GTK+ debugging flags to unset"
-msgstr "GTK+ 𐑛𐑰𐑚𐑳𐑜𐑦𐑙 𐑓𐑤𐑨𐑜𐑟 𐑑 𐑩𐑯𐑕𐑧𐑑"
+#. Description of --bobgui-no-debug=FLAGS in --help output
+#: ../bobgui/bobguimain.c:456
+msgid "BOBGUI+ debugging flags to unset"
+msgstr "BOBGUI+ 𐑛𐑰𐑚𐑳𐑜𐑦𐑙 𐑓𐑤𐑨𐑜𐑟 𐑑 𐑩𐑯𐑕𐑧𐑑"
 
 #. Translate to default:RTL if you want your widgets
 #. * to be RTL, otherwise translate to default:LTR.
 #. * Do *not* translate it to "predefinito:LTR", if it
 #. * it isn't default:LTR or default:RTL it will not work
 #.
-#: ../gtk/gtkmain.c:708
+#: ../bobgui/bobguimain.c:708
 msgid "default:LTR"
 msgstr "default:LTR"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkmain.c:773
+#: ../bobgui/bobguimain.c:773
 msgid "Cannot open display: %s"
 msgstr "𐑒𐑨𐑯𐑪𐑑 𐑴𐑐𐑩𐑯 𐑛𐑩𐑕𐑐𐑤𐑱: %s"
 
-#: ../gtk/gtkmain.c:810
-msgid "GTK+ Options"
-msgstr "GTK+ 𐑪𐑐𐑖𐑩𐑯𐑟"
+#: ../bobgui/bobguimain.c:810
+msgid "BOBGUI+ Options"
+msgstr "BOBGUI+ 𐑪𐑐𐑖𐑩𐑯𐑟"
 
-#: ../gtk/gtkmain.c:810
-msgid "Show GTK+ Options"
-msgstr "𐑖𐑴 GTK+ 𐑪𐑐𐑖𐑩𐑯𐑟"
+#: ../bobgui/bobguimain.c:810
+msgid "Show BOBGUI+ Options"
+msgstr "𐑖𐑴 BOBGUI+ 𐑪𐑐𐑖𐑩𐑯𐑟"
 
-#: ../gtk/gtkmountoperation.c:489
+#: ../bobgui/bobguimountoperation.c:489
 msgid "Co_nnect"
 msgstr "_𐑒𐑩𐑯𐑧𐑒𐑑"
 
-#: ../gtk/gtkmountoperation.c:556
+#: ../bobgui/bobguimountoperation.c:556
 msgid "Connect _anonymously"
 msgstr "𐑒𐑩𐑯𐑧𐑒𐑑 _𐑩𐑯𐑪𐑯𐑦𐑥𐑩𐑕𐑤𐑦"
 
-#: ../gtk/gtkmountoperation.c:565
+#: ../bobgui/bobguimountoperation.c:565
 msgid "Connect as u_ser:"
 msgstr "𐑒𐑩𐑯𐑧𐑒𐑑 𐑨𐑟 _𐑿𐑟𐑼:"
 
-#: ../gtk/gtkmountoperation.c:603
+#: ../bobgui/bobguimountoperation.c:603
 msgid "_Username:"
 msgstr "_𐑿𐑟𐑼𐑯𐑱𐑥:"
 
-#: ../gtk/gtkmountoperation.c:608
+#: ../bobgui/bobguimountoperation.c:608
 msgid "_Domain:"
 msgstr "_𐑛𐑴𐑥𐑱𐑯:"
 
-#: ../gtk/gtkmountoperation.c:614
+#: ../bobgui/bobguimountoperation.c:614
 msgid "_Password:"
 msgstr "_𐑐𐑭𐑕𐑢𐑼𐑛:"
 
-#: ../gtk/gtkmountoperation.c:632
+#: ../bobgui/bobguimountoperation.c:632
 msgid "Forget password _immediately"
 msgstr "𐑓𐑼𐑜𐑧𐑑 𐑐𐑭𐑕𐑢𐑼𐑛 _𐑦𐑥𐑰𐑛𐑾𐑑𐑤𐑰"
 
 #, fuzzy
-#: ../gtk/gtkmountoperation.c:642
+#: ../bobgui/bobguimountoperation.c:642
 msgid "Remember password until you _logout"
 msgstr "𐑮𐑦𐑥𐑧𐑥𐑚𐑼 𐑐𐑭𐑕𐑢𐑼𐑛 𐑳𐑯𐑑𐑦𐑤 𐑿 _logout"
 
-#: ../gtk/gtkmountoperation.c:652
+#: ../bobgui/bobguimountoperation.c:652
 msgid "Remember _forever"
 msgstr "𐑮𐑦𐑥𐑧𐑥𐑚𐑼 _𐑓𐑹𐑧𐑝𐑼"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkmountoperation.c:881
+#: ../bobgui/bobguimountoperation.c:881
 msgid "Unknown Application (pid %d)"
 msgstr "𐑳𐑯𐑴𐑯 𐑩𐑐𐑤𐑦𐑒𐑱𐑕𐑩𐑯 (pid %d)"
 
-#: ../gtk/gtkmountoperation.c:1064
+#: ../bobgui/bobguimountoperation.c:1064
 msgid "Unable to end process"
 msgstr "𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑧𐑯𐑛 𐑐𐑮𐑴𐑕𐑧𐑕"
 
-#: ../gtk/gtkmountoperation.c:1101
+#: ../bobgui/bobguimountoperation.c:1101
 msgid "_End Process"
 msgstr "_𐑧𐑯𐑛 𐑐𐑮𐑴𐑕𐑧𐑕"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkmountoperation-stub.c:64
+#: ../bobgui/bobguimountoperation-stub.c:64
 msgid "Cannot kill process with pid %d. Operation is not implemented."
 msgstr "𐑒𐑨𐑯𐑪𐑑 𐑒𐑦𐑤 𐑐𐑮𐑴𐑕𐑧𐑕 𐑢𐑦𐑞 pid %d. 𐑪𐑐𐑼𐑱𐑖𐑩𐑯 𐑦𐑟 𐑯𐑪𐑑 𐑦𐑥𐑐𐑤𐑩𐑥𐑧𐑯𐑑𐑩𐑛."
 
 #. translators: this string is a name for the 'less' command
-#: ../gtk/gtkmountoperation-x11.c:865
+#: ../bobgui/bobguimountoperation-x11.c:865
 msgid "Terminal Pager"
 msgstr "𐑑𐑻𐑥𐑦𐑯𐑩𐑤 𐑐𐑱𐑡𐑻"
 
-#: ../gtk/gtkmountoperation-x11.c:866
+#: ../bobgui/bobguimountoperation-x11.c:866
 msgid "Top Command"
 msgstr "𐑑𐑪𐑐 𐑒𐑩𐑥𐑭𐑯𐑛"
 
-#: ../gtk/gtkmountoperation-x11.c:867
+#: ../bobgui/bobguimountoperation-x11.c:867
 msgid "Bourne Again Shell"
 msgstr "·𐑚𐑹𐑯 𐑩𐑜𐑱𐑯 𐑖𐑧𐑤"
 
-#: ../gtk/gtkmountoperation-x11.c:868
+#: ../bobgui/bobguimountoperation-x11.c:868
 msgid "Bourne Shell"
 msgstr "·𐑚𐑹𐑯 𐑖𐑧𐑤"
 
-#: ../gtk/gtkmountoperation-x11.c:869
+#: ../bobgui/bobguimountoperation-x11.c:869
 msgid "Z Shell"
 msgstr "Z 𐑖𐑧𐑤"
 
 #, c-format
 #, fuzzy
-#: ../gtk/gtkmountoperation-x11.c:966
+#: ../bobgui/bobguimountoperation-x11.c:966
 msgid "Cannot end process with pid %d: %s"
 msgstr "𐑒𐑨𐑯𐑪𐑑 𐑧𐑯𐑛 𐑐𐑮𐑴𐑕𐑧𐑕 𐑢𐑦𐑞 pid %d: %s"
 
 #, c-format
-#: ../gtk/gtknotebook.c:4620 ../gtk/gtknotebook.c:7049
+#: ../bobgui/bobguinotebook.c:4620 ../bobgui/bobguinotebook.c:7049
 msgid "Page %u"
 msgstr "𐑐𐑱𐑡 %u"
 
-#: ../gtk/gtkpagesetup.c:597 ../gtk/gtkpapersize.c:826
-#: ../gtk/gtkpapersize.c:868
+#: ../bobgui/bobguipagesetup.c:597 ../bobgui/bobguipapersize.c:826
+#: ../bobgui/bobguipapersize.c:868
 msgid "Not a valid page setup file"
 msgstr "𐑯𐑪𐑑 𐑩 𐑝𐑨𐑤𐑦𐑛 𐑐𐑱𐑡 𐑕𐑧𐑑𐑳𐑐 𐑓𐑲𐑤"
 
-#: ../gtk/gtkpagesetupunixdialog.c:182
+#: ../bobgui/bobguipagesetupunixdialog.c:182
 msgid "Any Printer"
 msgstr "𐑧𐑯𐑦 𐑐𐑮𐑦𐑯𐑑𐑼"
 
-#: ../gtk/gtkpagesetupunixdialog.c:182
+#: ../bobgui/bobguipagesetupunixdialog.c:182
 msgid "For portable documents"
 msgstr "𐑓𐑹 𐑐𐑪𐑮𐑑𐑩𐑚𐑩𐑤 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑𐑕"
 
 #, c-format
-#: ../gtk/gtkpagesetupunixdialog.c:812
+#: ../bobgui/bobguipagesetupunixdialog.c:812
 msgid "Margins:\n Left: %s %s\n Right: %s %s\n Top: %s %s\n Bottom: %s %s"
 msgstr "𐑥𐑸𐑡𐑦𐑯𐑟:\n 𐑤𐑧𐑓𐑑: %s %s\n 𐑮𐑲𐑑: %s %s\n 𐑑𐑪𐑐: %s %s\n 𐑚𐑪𐑑𐑫𐑥: %s %s"
 
-#: ../gtk/gtkpagesetupunixdialog.c:861 ../gtk/gtkprintunixdialog.c:3277
+#: ../bobgui/bobguipagesetupunixdialog.c:861 ../bobgui/bobguiprintunixdialog.c:3277
 msgid "Manage Custom Sizes..."
 msgstr "𐑥𐑨𐑯𐑦𐑡 𐑒𐑳𐑕𐑑𐑩𐑥 𐑕𐑲𐑟𐑩𐑟..."
 
-#: ../gtk/gtkpagesetupunixdialog.c:909
+#: ../bobgui/bobguipagesetupunixdialog.c:909
 msgid "_Format for:"
 msgstr "_𐑓𐑹𐑥𐑨𐑑 𐑓𐑹:"
 
-#: ../gtk/gtkpagesetupunixdialog.c:931 ../gtk/gtkprintunixdialog.c:3449
+#: ../bobgui/bobguipagesetupunixdialog.c:931 ../bobgui/bobguiprintunixdialog.c:3449
 msgid "_Paper size:"
 msgstr "_𐑐𐑱𐑐𐑼 𐑕𐑲𐑟:"
 
-#: ../gtk/gtkpagesetupunixdialog.c:962
+#: ../bobgui/bobguipagesetupunixdialog.c:962
 msgid "_Orientation:"
 msgstr "_𐑹𐑾𐑯𐑑𐑲𐑖𐑩𐑯:"
 
-#: ../gtk/gtkpagesetupunixdialog.c:1026 ../gtk/gtkprintunixdialog.c:3511
+#: ../bobgui/bobguipagesetupunixdialog.c:1026 ../bobgui/bobguiprintunixdialog.c:3511
 msgid "Page Setup"
 msgstr "𐑐𐑱𐑡 𐑕𐑧𐑑𐑳𐑐"
 
-#: ../gtk/gtkpathbar.c:151
+#: ../bobgui/bobguipathbar.c:151
 msgid "Up Path"
 msgstr "𐑳𐑐 𐑐𐑭𐑔"
 
-#: ../gtk/gtkpathbar.c:153
+#: ../bobgui/bobguipathbar.c:153
 msgid "Down Path"
 msgstr "𐑛𐑬𐑯 𐑐𐑭𐑔"
 
-#: ../gtk/gtkpathbar.c:1480
+#: ../bobgui/bobguipathbar.c:1480
 msgid "File System Root"
 msgstr "𐑓𐑲𐑤 𐑕𐑦𐑕𐑑𐑩𐑥 𐑮𐑵𐑑"
 
-#: ../gtk/gtkprintbackend.c:749
+#: ../bobgui/bobguiprintbackend.c:749
 msgid "Authentication"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯"
 
-#: ../gtk/gtkprinteroptionwidget.c:695
+#: ../bobgui/bobguiprinteroptionwidget.c:695
 msgid "Not available"
 msgstr "𐑯𐑪𐑑 𐑩𐑝𐑱𐑤𐑩𐑚𐑩𐑤"
 
-#: ../gtk/gtkprinteroptionwidget.c:795
+#: ../bobgui/bobguiprinteroptionwidget.c:795
 msgid "Select a folder"
 msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 𐑩 𐑓𐑴𐑤𐑛𐑼"
 
-#: ../gtk/gtkprinteroptionwidget.c:814
+#: ../bobgui/bobguiprinteroptionwidget.c:814
 msgid "_Save in folder:"
 msgstr "_𐑕𐑱𐑝 𐑦𐑯 𐑓𐑴𐑤𐑛𐑼:"
 
@@ -2400,385 +2400,385 @@ msgstr "_𐑕𐑱𐑝 𐑦𐑯 𐑓𐑴𐑤𐑛𐑼:"
 #. * by the job number.
 #.
 #, c-format
-#: ../gtk/gtkprintoperation.c:190
+#: ../bobgui/bobguiprintoperation.c:190
 msgid "%s job #%d"
 msgstr "%s 𐑡𐑪𐑚 #%d"
 
-#: ../gtk/gtkprintoperation.c:1687
+#: ../bobgui/bobguiprintoperation.c:1687
 msgctxt "print operation status"
 msgid "Initial state"
 msgstr "𐑦𐑯𐑦𐑖𐑩𐑤 𐑕𐑑𐑱𐑑"
 
-#: ../gtk/gtkprintoperation.c:1688
+#: ../bobgui/bobguiprintoperation.c:1688
 msgctxt "print operation status"
 msgid "Preparing to print"
 msgstr "𐑐𐑮𐑰𐑐𐑺𐑦𐑙 𐑑 𐑐𐑮𐑦𐑯𐑑"
 
-#: ../gtk/gtkprintoperation.c:1689
+#: ../bobgui/bobguiprintoperation.c:1689
 msgctxt "print operation status"
 msgid "Generating data"
 msgstr "𐑡𐑧𐑯𐑼𐑱𐑑𐑦𐑙 𐑛𐑱𐑑𐑩"
 
-#: ../gtk/gtkprintoperation.c:1690
+#: ../bobgui/bobguiprintoperation.c:1690
 msgctxt "print operation status"
 msgid "Sending data"
 msgstr "𐑕𐑧𐑯𐑛𐑦𐑙 𐑛𐑱𐑑𐑩"
 
-#: ../gtk/gtkprintoperation.c:1691
+#: ../bobgui/bobguiprintoperation.c:1691
 msgctxt "print operation status"
 msgid "Waiting"
 msgstr "𐑢𐑱𐑑𐑦𐑙"
 
-#: ../gtk/gtkprintoperation.c:1692
+#: ../bobgui/bobguiprintoperation.c:1692
 msgctxt "print operation status"
 msgid "Blocking on issue"
 msgstr "𐑚𐑤𐑪𐑒𐑦𐑙 𐑪𐑯 𐑦𐑖𐑵"
 
-#: ../gtk/gtkprintoperation.c:1693
+#: ../bobgui/bobguiprintoperation.c:1693
 msgctxt "print operation status"
 msgid "Printing"
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑦𐑙"
 
-#: ../gtk/gtkprintoperation.c:1694
+#: ../bobgui/bobguiprintoperation.c:1694
 msgctxt "print operation status"
 msgid "Finished"
 msgstr "𐑓𐑦𐑯𐑦𐑖𐑑"
 
-#: ../gtk/gtkprintoperation.c:1695
+#: ../bobgui/bobguiprintoperation.c:1695
 msgctxt "print operation status"
 msgid "Finished with error"
 msgstr "𐑓𐑦𐑯𐑦𐑖𐑑 𐑢𐑦𐑞 𐑻𐑼"
 
 #, c-format
-#: ../gtk/gtkprintoperation.c:2254
+#: ../bobgui/bobguiprintoperation.c:2254
 msgid "Preparing %d"
 msgstr "𐑐𐑮𐑰𐑐𐑺𐑦𐑙 %d"
 
-#: ../gtk/gtkprintoperation.c:2256 ../gtk/gtkprintoperation.c:2875
+#: ../bobgui/bobguiprintoperation.c:2256 ../bobgui/bobguiprintoperation.c:2875
 msgid "Preparing"
 msgstr "𐑐𐑮𐑰𐑐𐑺𐑦𐑙"
 
 #, c-format
-#: ../gtk/gtkprintoperation.c:2259
+#: ../bobgui/bobguiprintoperation.c:2259
 msgid "Printing %d"
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑦𐑙 %d"
 
-#: ../gtk/gtkprintoperation.c:2905
+#: ../bobgui/bobguiprintoperation.c:2905
 msgid "Error creating print preview"
 msgstr "𐑻𐑼 𐑒𐑮𐑦𐑱𐑑𐑦𐑙 𐑐𐑮𐑦𐑯𐑑 𐑐𐑮𐑰𐑝𐑿"
 
-#: ../gtk/gtkprintoperation.c:2908
+#: ../bobgui/bobguiprintoperation.c:2908
 msgid ""
 "The most probable reason is that a temporary file could not be created."
 msgstr "𐑞 𐑥𐑴𐑕𐑑 𐑐𐑮𐑪𐑚𐑩𐑚𐑩𐑤 𐑮𐑰𐑟𐑩𐑯 𐑦𐑟 𐑞𐑨𐑑 𐑩 𐑑𐑧𐑥𐑐𐑼𐑼𐑦 𐑓𐑲𐑤 𐑒𐑫𐑛 𐑯𐑪𐑑 𐑚𐑰 𐑒𐑮𐑦𐑱𐑑𐑩𐑛."
 
-#: ../gtk/gtkprintoperation-unix.c:297 ../gtk/gtkprintoperation-unix.c:314
+#: ../bobgui/bobguiprintoperation-unix.c:297 ../bobgui/bobguiprintoperation-unix.c:314
 msgid "Error launching preview"
 msgstr "𐑻𐑼 𐑤𐑷𐑯𐑗𐑦𐑙 𐑐𐑮𐑰𐑝𐑿"
 
-#: ../gtk/gtkprintoperation-unix.c:358
+#: ../bobgui/bobguiprintoperation-unix.c:358
 msgid "Error printing"
 msgstr "𐑻𐑼 𐑐𐑮𐑦𐑯𐑑𐑦𐑙"
 
-#: ../gtk/gtkprintoperation-unix.c:494 ../gtk/gtkprintoperation-win32.c:1447
+#: ../bobgui/bobguiprintoperation-unix.c:494 ../bobgui/bobguiprintoperation-win32.c:1447
 msgid "Application"
 msgstr "𐑩𐑐𐑤𐑦𐑒𐑱𐑕𐑩𐑯"
 
-#: ../gtk/gtkprintoperation-win32.c:612
+#: ../bobgui/bobguiprintoperation-win32.c:612
 msgid "Printer offline"
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 𐑪𐑓𐑤𐑲𐑯"
 
-#: ../gtk/gtkprintoperation-win32.c:614
+#: ../bobgui/bobguiprintoperation-win32.c:614
 msgid "Out of paper"
 msgstr "𐑬𐑑 𐑝 𐑐𐑱𐑐𐑼"
 
 #. Translators: this is a printer status.
-#: ../gtk/gtkprintoperation-win32.c:616
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1997
+#: ../bobgui/bobguiprintoperation-win32.c:616
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1997
 msgid "Paused"
 msgstr "𐑐𐑷𐑟𐑛"
 
-#: ../gtk/gtkprintoperation-win32.c:618
+#: ../bobgui/bobguiprintoperation-win32.c:618
 msgid "Need user intervention"
 msgstr "𐑯𐑰𐑛 𐑿𐑟𐑼 𐑦𐑯𐑑𐑻𐑝𐑧𐑯𐑗𐑩𐑯"
 
-#: ../gtk/gtkprintoperation-win32.c:718
+#: ../bobgui/bobguiprintoperation-win32.c:718
 msgid "Custom size"
 msgstr "𐑒𐑳𐑕𐑑𐑩𐑥 𐑕𐑲𐑟"
 
-#: ../gtk/gtkprintoperation-win32.c:1539
+#: ../bobgui/bobguiprintoperation-win32.c:1539
 msgid "No printer found"
 msgstr "𐑯𐑴 𐑐𐑮𐑦𐑯𐑑𐑼 𐑓𐑬𐑯𐑛"
 
 #, fuzzy
-#: ../gtk/gtkprintoperation-win32.c:1566
+#: ../bobgui/bobguiprintoperation-win32.c:1566
 msgid "Invalid argument to CreateDC"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑸𐑜𐑿𐑥𐑩𐑯𐑑 𐑑 CreateDC"
 
-#: ../gtk/gtkprintoperation-win32.c:1602 ../gtk/gtkprintoperation-win32.c:1829
+#: ../bobgui/bobguiprintoperation-win32.c:1602 ../bobgui/bobguiprintoperation-win32.c:1829
 msgid "Error from StartDoc"
 msgstr "𐑻𐑼 𐑓𐑮𐑪𐑥 StartDoc"
 
-#: ../gtk/gtkprintoperation-win32.c:1684 ../gtk/gtkprintoperation-win32.c:1707
-#: ../gtk/gtkprintoperation-win32.c:1755
+#: ../bobgui/bobguiprintoperation-win32.c:1684 ../bobgui/bobguiprintoperation-win32.c:1707
+#: ../bobgui/bobguiprintoperation-win32.c:1755
 msgid "Not enough free memory"
 msgstr "𐑯𐑪𐑑 𐑦𐑯𐑳𐑓 𐑓𐑮𐑰 𐑥𐑧𐑥𐑼𐑦"
 
-#: ../gtk/gtkprintoperation-win32.c:1760
+#: ../bobgui/bobguiprintoperation-win32.c:1760
 msgid "Invalid argument to PrintDlgEx"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑸𐑜𐑿𐑥𐑩𐑯𐑑 𐑑 PrintDlgEx"
 
-#: ../gtk/gtkprintoperation-win32.c:1765
+#: ../bobgui/bobguiprintoperation-win32.c:1765
 msgid "Invalid pointer to PrintDlgEx"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑐𐑶𐑯𐑑𐑼 𐑑 PrintDlgEx"
 
-#: ../gtk/gtkprintoperation-win32.c:1770
+#: ../bobgui/bobguiprintoperation-win32.c:1770
 msgid "Invalid handle to PrintDlgEx"
 msgstr "𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑣𐑨𐑯𐑛𐑩𐑤 𐑑 PrintDlgEx"
 
-#: ../gtk/gtkprintoperation-win32.c:1775
+#: ../bobgui/bobguiprintoperation-win32.c:1775
 msgid "Unspecified error"
 msgstr "𐑩𐑯𐑕𐑐𐑧𐑕𐑩𐑓𐑲𐑛 𐑻𐑼"
 
-#: ../gtk/gtkprintunixdialog.c:614
+#: ../bobgui/bobguiprintunixdialog.c:614
 msgid "Getting printer information failed"
 msgstr "𐑜𐑧𐑑𐑦𐑙 𐑐𐑮𐑦𐑯𐑑𐑼 𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯 𐑓𐑱𐑤𐑛"
 
-#: ../gtk/gtkprintunixdialog.c:1862
+#: ../bobgui/bobguiprintunixdialog.c:1862
 msgid "Getting printer information..."
 msgstr "𐑜𐑧𐑑𐑦𐑙 𐑐𐑮𐑦𐑯𐑑𐑼 𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯..."
 
-#: ../gtk/gtkprintunixdialog.c:2132
+#: ../bobgui/bobguiprintunixdialog.c:2132
 msgid "Printer"
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼"
 
 #. Translators: this is the header for the location column in the print dialog
-#: ../gtk/gtkprintunixdialog.c:2142
+#: ../bobgui/bobguiprintunixdialog.c:2142
 msgid "Location"
 msgstr "𐑤𐑴𐑒𐑱𐑖𐑩𐑯"
 
 #. Translators: this is the header for the printer status column in the print dialog
-#: ../gtk/gtkprintunixdialog.c:2153
+#: ../bobgui/bobguiprintunixdialog.c:2153
 msgid "Status"
 msgstr "𐑕𐑑𐑱𐑑𐑫𐑕"
 
-#: ../gtk/gtkprintunixdialog.c:2179
+#: ../bobgui/bobguiprintunixdialog.c:2179
 msgid "Range"
 msgstr "𐑮𐑱𐑯𐑡"
 
-#: ../gtk/gtkprintunixdialog.c:2183
+#: ../bobgui/bobguiprintunixdialog.c:2183
 msgid "_All Pages"
 msgstr "_𐑷𐑤 𐑐𐑱𐑡𐑧𐑟"
 
-#: ../gtk/gtkprintunixdialog.c:2190
+#: ../bobgui/bobguiprintunixdialog.c:2190
 msgid "C_urrent Page"
 msgstr "_𐑒𐑳𐑮𐑩𐑯𐑑 𐑐𐑱𐑡"
 
-#: ../gtk/gtkprintunixdialog.c:2200
+#: ../bobgui/bobguiprintunixdialog.c:2200
 msgid "Se_lection"
 msgstr "_𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯"
 
-#: ../gtk/gtkprintunixdialog.c:2209
+#: ../bobgui/bobguiprintunixdialog.c:2209
 msgid "Pag_es:"
 msgstr "_𐑐𐑱𐑡𐑧𐑟:"
 
-#: ../gtk/gtkprintunixdialog.c:2210
+#: ../bobgui/bobguiprintunixdialog.c:2210
 msgid "Specify one or more page ranges,\n e.g. 1-3,7,11"
 msgstr "𐑕𐑐𐑧𐑕𐑦𐑓𐑲 𐑢𐑳𐑯 𐑹 𐑥𐑹 𐑐𐑱𐑡 𐑮𐑱𐑯𐑡𐑩𐑟,\n 𐑧.𐑡𐑰. 1-3,7,11"
 
-#: ../gtk/gtkprintunixdialog.c:2220
+#: ../bobgui/bobguiprintunixdialog.c:2220
 msgid "Pages"
 msgstr "𐑐𐑱𐑡𐑧𐑟"
 
-#: ../gtk/gtkprintunixdialog.c:2233
+#: ../bobgui/bobguiprintunixdialog.c:2233
 msgid "Copies"
 msgstr "𐑒𐑪𐑐𐑦𐑟"
 
 #. FIXME chpe: too much space between Copies and spinbutton, put those 2 in a hbox and make it span 2 columns
-#: ../gtk/gtkprintunixdialog.c:2238
+#: ../bobgui/bobguiprintunixdialog.c:2238
 msgid "Copie_s:"
 msgstr "𐑒𐑪𐑐𐑦_𐑟:"
 
-#: ../gtk/gtkprintunixdialog.c:2256
+#: ../bobgui/bobguiprintunixdialog.c:2256
 msgid "C_ollate"
 msgstr "𐑒_𐑪𐑤𐑱𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:2264
+#: ../bobgui/bobguiprintunixdialog.c:2264
 msgid "_Reverse"
 msgstr "_𐑮𐑦𐑝𐑻𐑕"
 
-#: ../gtk/gtkprintunixdialog.c:2284
+#: ../bobgui/bobguiprintunixdialog.c:2284
 msgid "General"
 msgstr "𐑡𐑧𐑯𐑼𐑩𐑤"
 
 #. Translators: These strings name the possible arrangements of
-#. * multiple pages on a sheet when printing (same as in gtkprintbackendcups.c)
+#. * multiple pages on a sheet when printing (same as in bobguiprintbackendcups.c)
 #.
 #. Translators: These strings name the possible arrangements of
 #. * multiple pages on a sheet when printing
 #.
-#: ../gtk/gtkprintunixdialog.c:3010
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3505
+#: ../bobgui/bobguiprintunixdialog.c:3010
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3505
 msgid "Left to right, top to bottom"
 msgstr "𐑤𐑧𐑓𐑑 𐑑 𐑮𐑲𐑑, 𐑑𐑪𐑐 𐑑 𐑚𐑪𐑑𐑫𐑥"
 
-#: ../gtk/gtkprintunixdialog.c:3010
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3505
+#: ../bobgui/bobguiprintunixdialog.c:3010
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3505
 msgid "Left to right, bottom to top"
 msgstr "𐑤𐑧𐑓𐑑 𐑑 𐑮𐑲𐑑, 𐑚𐑪𐑑𐑫𐑥 𐑑 𐑑𐑪𐑐"
 
-#: ../gtk/gtkprintunixdialog.c:3011
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3506
+#: ../bobgui/bobguiprintunixdialog.c:3011
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3506
 msgid "Right to left, top to bottom"
 msgstr "𐑮𐑲𐑑 𐑑 𐑤𐑧𐑓𐑑, 𐑑𐑪𐑐 𐑑 𐑚𐑪𐑑𐑫𐑥"
 
-#: ../gtk/gtkprintunixdialog.c:3011
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3506
+#: ../bobgui/bobguiprintunixdialog.c:3011
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3506
 msgid "Right to left, bottom to top"
 msgstr "𐑮𐑲𐑑 𐑑 𐑤𐑧𐑓𐑑, 𐑚𐑪𐑑𐑫𐑥 𐑑 𐑑𐑪𐑐"
 
-#: ../gtk/gtkprintunixdialog.c:3012
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3507
+#: ../bobgui/bobguiprintunixdialog.c:3012
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3507
 msgid "Top to bottom, left to right"
 msgstr "𐑑𐑪𐑐 𐑑 𐑚𐑪𐑑𐑫𐑥, 𐑤𐑧𐑓𐑑 𐑑 𐑮𐑲𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3012
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3507
+#: ../bobgui/bobguiprintunixdialog.c:3012
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3507
 msgid "Top to bottom, right to left"
 msgstr "𐑑𐑪𐑐 𐑑 𐑚𐑪𐑑𐑫𐑥, 𐑮𐑲𐑑 𐑑 𐑤𐑧𐑓𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3013
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3508
+#: ../bobgui/bobguiprintunixdialog.c:3013
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3508
 msgid "Bottom to top, left to right"
 msgstr "𐑚𐑪𐑑𐑫𐑥 𐑑 𐑑𐑪𐑐, 𐑤𐑧𐑓𐑑 𐑑 𐑮𐑲𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3013
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3508
+#: ../bobgui/bobguiprintunixdialog.c:3013
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3508
 msgid "Bottom to top, right to left"
 msgstr "𐑚𐑪𐑑𐑫𐑥 𐑑 𐑑𐑪𐑐, 𐑮𐑲𐑑 𐑑 𐑤𐑧𐑓𐑑"
 
 #. Translators, this string is used to label the option in the print
 #. * dialog that controls in what order multiple pages are arranged
 #.
-#: ../gtk/gtkprintunixdialog.c:3017 ../gtk/gtkprintunixdialog.c:3030
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3540
+#: ../bobgui/bobguiprintunixdialog.c:3017 ../bobgui/bobguiprintunixdialog.c:3030
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3540
 msgid "Page Ordering"
 msgstr "𐑐𐑱𐑡 𐑹𐑛𐑼𐑦𐑙"
 
-#: ../gtk/gtkprintunixdialog.c:3046
+#: ../bobgui/bobguiprintunixdialog.c:3046
 msgid "Left to right"
 msgstr "𐑤𐑧𐑓𐑑 𐑑 𐑮𐑲𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3047
+#: ../bobgui/bobguiprintunixdialog.c:3047
 msgid "Right to left"
 msgstr "𐑮𐑲𐑑 𐑑 𐑤𐑧𐑓𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3059
+#: ../bobgui/bobguiprintunixdialog.c:3059
 msgid "Top to bottom"
 msgstr "𐑑𐑪𐑐 𐑑 𐑚𐑪𐑑𐑫𐑥"
 
-#: ../gtk/gtkprintunixdialog.c:3060
+#: ../bobgui/bobguiprintunixdialog.c:3060
 msgid "Bottom to top"
 msgstr "𐑚𐑪𐑑𐑫𐑥 𐑑 𐑑𐑪𐑐"
 
-#: ../gtk/gtkprintunixdialog.c:3300
+#: ../bobgui/bobguiprintunixdialog.c:3300
 msgid "Layout"
 msgstr "𐑤𐑱𐑬𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3304
+#: ../bobgui/bobguiprintunixdialog.c:3304
 msgid "T_wo-sided:"
 msgstr "𐑑_𐑵-𐑕𐑲𐑛𐑩𐑛:"
 
-#: ../gtk/gtkprintunixdialog.c:3319
+#: ../bobgui/bobguiprintunixdialog.c:3319
 msgid "Pages per _side:"
 msgstr "𐑐𐑱𐑡𐑧𐑟 𐑐𐑻 _𐑕𐑲𐑛:"
 
-#: ../gtk/gtkprintunixdialog.c:3336
+#: ../bobgui/bobguiprintunixdialog.c:3336
 msgid "Page or_dering:"
 msgstr "𐑐𐑱𐑡 _𐑹𐑛𐑼𐑦𐑙:"
 
-#: ../gtk/gtkprintunixdialog.c:3352
+#: ../bobgui/bobguiprintunixdialog.c:3352
 msgid "_Only print:"
 msgstr "_𐑴𐑯𐑤𐑦 𐑐𐑮𐑦𐑯𐑑:"
 
 #. In enum order
-#: ../gtk/gtkprintunixdialog.c:3367
+#: ../bobgui/bobguiprintunixdialog.c:3367
 msgid "All sheets"
 msgstr "𐑷𐑤 𐑖𐑰𐑑𐑕"
 
-#: ../gtk/gtkprintunixdialog.c:3368
+#: ../bobgui/bobguiprintunixdialog.c:3368
 msgid "Even sheets"
 msgstr "𐑰𐑝𐑩𐑯 𐑖𐑰𐑑𐑕"
 
-#: ../gtk/gtkprintunixdialog.c:3369
+#: ../bobgui/bobguiprintunixdialog.c:3369
 msgid "Odd sheets"
 msgstr "𐑪𐑛 𐑖𐑰𐑑𐑕"
 
-#: ../gtk/gtkprintunixdialog.c:3372
+#: ../bobgui/bobguiprintunixdialog.c:3372
 msgid "Sc_ale:"
 msgstr "𐑕𐑒_𐑱𐑤:"
 
-#: ../gtk/gtkprintunixdialog.c:3399
+#: ../bobgui/bobguiprintunixdialog.c:3399
 msgid "Paper"
 msgstr "𐑐𐑱𐑐𐑼"
 
-#: ../gtk/gtkprintunixdialog.c:3403
+#: ../bobgui/bobguiprintunixdialog.c:3403
 msgid "Paper _type:"
 msgstr "𐑐𐑱𐑐𐑼 _𐑑𐑲𐑐:"
 
-#: ../gtk/gtkprintunixdialog.c:3418
+#: ../bobgui/bobguiprintunixdialog.c:3418
 msgid "Paper _source:"
 msgstr "𐑐𐑱𐑐𐑼 _𐑕𐑹𐑕:"
 
-#: ../gtk/gtkprintunixdialog.c:3433
+#: ../bobgui/bobguiprintunixdialog.c:3433
 msgid "Output t_ray:"
 msgstr "𐑬𐑑𐑐𐑫𐑑 𐑑_𐑮𐑱:"
 
-#: ../gtk/gtkprintunixdialog.c:3473
+#: ../bobgui/bobguiprintunixdialog.c:3473
 msgid "Or_ientation:"
 msgstr "_𐑪𐑮𐑦𐑩𐑯𐑑𐑱𐑖𐑩𐑯:"
 
 #. In enum order
-#: ../gtk/gtkprintunixdialog.c:3488
+#: ../bobgui/bobguiprintunixdialog.c:3488
 msgid "Portrait"
 msgstr "𐑐𐑪𐑮𐑑𐑮𐑩𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3489
+#: ../bobgui/bobguiprintunixdialog.c:3489
 msgid "Landscape"
 msgstr "𐑤𐑨𐑯𐑛𐑕𐑒𐑨𐑐"
 
-#: ../gtk/gtkprintunixdialog.c:3490
+#: ../bobgui/bobguiprintunixdialog.c:3490
 msgid "Reverse portrait"
 msgstr "𐑮𐑰𐑝𐑻𐑕 𐑐𐑪𐑮𐑑𐑮𐑩𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3491
+#: ../bobgui/bobguiprintunixdialog.c:3491
 msgid "Reverse landscape"
 msgstr "𐑮𐑰𐑝𐑻𐑕 𐑤𐑨𐑯𐑛𐑕𐑒𐑨𐑐"
 
-#: ../gtk/gtkprintunixdialog.c:3536
+#: ../bobgui/bobguiprintunixdialog.c:3536
 msgid "Job Details"
 msgstr "𐑡𐑪𐑚 𐑛𐑰𐑑𐑱𐑤𐑟"
 
-#: ../gtk/gtkprintunixdialog.c:3542
+#: ../bobgui/bobguiprintunixdialog.c:3542
 msgid "Pri_ority:"
 msgstr "𐑐𐑮𐑲_𐑹𐑦𐑑𐑦:"
 
-#: ../gtk/gtkprintunixdialog.c:3557
+#: ../bobgui/bobguiprintunixdialog.c:3557
 msgid "_Billing info:"
 msgstr "_𐑚𐑦𐑤𐑦𐑙 𐑦𐑯𐑓𐑴:"
 
-#: ../gtk/gtkprintunixdialog.c:3575
+#: ../bobgui/bobguiprintunixdialog.c:3575
 msgid "Print Document"
 msgstr "𐑐𐑮𐑦𐑯𐑑 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑"
 
 #. Translators: this is one of the choices for the print at option
 #. * in the print dialog
 #.
-#: ../gtk/gtkprintunixdialog.c:3584
+#: ../bobgui/bobguiprintunixdialog.c:3584
 msgid "_Now"
 msgstr "_𐑯𐑬"
 
-#: ../gtk/gtkprintunixdialog.c:3595
+#: ../bobgui/bobguiprintunixdialog.c:3595
 msgid "A_t:"
 msgstr "𐑨_𐑑:"
 
@@ -2786,127 +2786,127 @@ msgstr "𐑨_𐑑:"
 #. * You can remove the am/pm values below for your locale if they are not
 #. * supported.
 #.
-#: ../gtk/gtkprintunixdialog.c:3601
+#: ../bobgui/bobguiprintunixdialog.c:3601
 msgid ""
 "Specify the time of print,\n e.g. 15:30, 2:35 pm, 14:15:20, 11:46:30 am, 4 pm"
 msgstr ""
 "𐑕𐑐𐑧𐑕𐑦𐑓𐑲 𐑞 𐑑𐑲𐑥 𐑝 𐑐𐑮𐑦𐑯𐑑,\n e.g. 15:30, 2:35 pm, 14:15:20, 11:46:30 am, 4 pm"
 
-#: ../gtk/gtkprintunixdialog.c:3611
+#: ../bobgui/bobguiprintunixdialog.c:3611
 msgid "Time of print"
 msgstr "𐑑𐑲𐑥 𐑝 𐑐𐑮𐑦𐑯𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3627
+#: ../bobgui/bobguiprintunixdialog.c:3627
 msgid "On _hold"
 msgstr "𐑪𐑯 _𐑣𐑴𐑤𐑛"
 
-#: ../gtk/gtkprintunixdialog.c:3628
+#: ../bobgui/bobguiprintunixdialog.c:3628
 msgid "Hold the job until it is explicitly released"
 msgstr "𐑣𐑴𐑤𐑛 𐑞 𐑡𐑪𐑚 𐑳𐑯𐑑𐑦𐑤 𐑦𐑑 𐑦𐑟 𐑦𐑒𐑕𐑐𐑤𐑦𐑕𐑩𐑑𐑤𐑰 𐑮𐑦𐑤𐑰𐑕𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3648
+#: ../bobgui/bobguiprintunixdialog.c:3648
 msgid "Add Cover Page"
 msgstr "𐑨𐑛 𐑒𐑳𐑝𐑼 𐑐𐑱𐑡"
 
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the front cover page.
 #.
-#: ../gtk/gtkprintunixdialog.c:3657
+#: ../bobgui/bobguiprintunixdialog.c:3657
 msgid "Be_fore:"
 msgstr "𐑚𐑦_𐑓𐑹:"
 
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the back cover page.
 #.
-#: ../gtk/gtkprintunixdialog.c:3675
+#: ../bobgui/bobguiprintunixdialog.c:3675
 msgid "_After:"
 msgstr "_𐑭𐑓𐑑𐑼:"
 
 #. Translators: this is the tab label for the notebook tab containing
 #. * job-specific options in the print dialog
 #.
-#: ../gtk/gtkprintunixdialog.c:3693
+#: ../bobgui/bobguiprintunixdialog.c:3693
 msgid "Job"
 msgstr "𐑡𐑪𐑚"
 
-#: ../gtk/gtkprintunixdialog.c:3759
+#: ../bobgui/bobguiprintunixdialog.c:3759
 msgid "Advanced"
 msgstr "𐑩𐑛𐑝𐑭𐑯𐑕𐑑"
 
 #. Translators: this will appear as tab label in print dialog.
-#: ../gtk/gtkprintunixdialog.c:3794
+#: ../bobgui/bobguiprintunixdialog.c:3794
 msgid "Image Quality"
 msgstr "𐑦𐑥𐑦𐑡 𐑒𐑢𐑪𐑤𐑦𐑑𐑰"
 
 #. Translators: this will appear as tab label in print dialog.
-#: ../gtk/gtkprintunixdialog.c:3798
+#: ../bobgui/bobguiprintunixdialog.c:3798
 msgid "Color"
 msgstr "𐑒𐑳𐑤𐑼"
 
 #. Translators: this will appear as tab label in print dialog.
 #. It's a typographical term, as in "Binding and finishing"
-#: ../gtk/gtkprintunixdialog.c:3803
+#: ../bobgui/bobguiprintunixdialog.c:3803
 msgid "Finishing"
 msgstr "𐑓𐑦𐑯𐑦𐑖𐑦𐑙"
 
-#: ../gtk/gtkprintunixdialog.c:3813
+#: ../bobgui/bobguiprintunixdialog.c:3813
 msgid "Some of the settings in the dialog conflict"
 msgstr "𐑕𐑳𐑥 𐑝 𐑞 𐑕𐑧𐑑𐑦𐑙𐑟 𐑦𐑯 𐑞 𐑛𐑲𐑩𐑤𐑪𐑜 𐑒𐑩𐑯𐑓𐑤𐑦𐑒𐑑"
 
-#: ../gtk/gtkprintunixdialog.c:3836
+#: ../bobgui/bobguiprintunixdialog.c:3836
 msgid "Print"
 msgstr "𐑐𐑮𐑦𐑯𐑑"
 
 #, c-format
-#: ../gtk/gtkrc.c:2839
+#: ../bobgui/bobguirc.c:2839
 msgid "Unable to find include file: \"%s\""
 msgstr "𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑓𐑲𐑯𐑛 𐑦𐑯𐑒𐑤𐑵𐑛 𐑓𐑲𐑤: \"%s\""
 
 #, c-format
-#: ../gtk/gtkrc.c:3469 ../gtk/gtkrc.c:3472
+#: ../bobgui/bobguirc.c:3469 ../bobgui/bobguirc.c:3472
 msgid "Unable to locate image file in pixmap_path: \"%s\""
 msgstr "𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑤𐑴𐑒𐑱𐑑 𐑦𐑥𐑦𐑡 𐑓𐑲𐑤 𐑦𐑯 pixmap_path: \"%s\""
 
 #, c-format
-#: ../gtk/gtkrecentaction.c:171 ../gtk/gtkrecentaction.c:179
-#: ../gtk/gtkrecentchoosermenu.c:588 ../gtk/gtkrecentchoosermenu.c:596
+#: ../bobgui/bobguirecentaction.c:171 ../bobgui/bobguirecentaction.c:179
+#: ../bobgui/bobguirecentchoosermenu.c:588 ../bobgui/bobguirecentchoosermenu.c:596
 msgid "This function is not implemented for widgets of class '%s'"
 msgstr "𐑞𐑦𐑕 𐑓𐑳𐑙𐑒𐑖𐑩𐑯 𐑦𐑟 𐑯𐑪𐑑 𐑦𐑥𐑐𐑤𐑩𐑥𐑧𐑯𐑑𐑩𐑛 𐑓𐑹 𐑢𐑦𐑡𐑩𐑑𐑕 𐑝 𐑒𐑤𐑭𐑕 '%s'"
 
-#: ../gtk/gtkrecentchooserdefault.c:481
+#: ../bobgui/bobguirecentchooserdefault.c:481
 msgid "Select which type of documents are shown"
 msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 𐑢𐑦𐑗 𐑑𐑲𐑐 𐑝 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑𐑕 𐑸 𐑖𐑴𐑯"
 
 #, c-format
-#: ../gtk/gtkrecentchooserdefault.c:1134 ../gtk/gtkrecentchooserdefault.c:1171
+#: ../bobgui/bobguirecentchooserdefault.c:1134 ../bobgui/bobguirecentchooserdefault.c:1171
 msgid "No item for URI '%s' found"
 msgstr "𐑯𐑴 𐑲𐑑𐑩𐑥 𐑓𐑹 URI '%s' 𐑓𐑬𐑯𐑛"
 
-#: ../gtk/gtkrecentchooserdefault.c:1298
+#: ../bobgui/bobguirecentchooserdefault.c:1298
 msgid "Untitled filter"
 msgstr "𐑳𐑯𐑑𐑲𐑑𐑩𐑤𐑛 𐑓𐑦𐑤𐑑𐑼"
 
-#: ../gtk/gtkrecentchooserdefault.c:1651
+#: ../bobgui/bobguirecentchooserdefault.c:1651
 msgid "Could not remove item"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑮𐑦𐑥𐑵𐑝 𐑲𐑑𐑩𐑥"
 
-#: ../gtk/gtkrecentchooserdefault.c:1695
+#: ../bobgui/bobguirecentchooserdefault.c:1695
 msgid "Could not clear list"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑒𐑤𐑽 𐑤𐑦𐑕𐑑"
 
-#: ../gtk/gtkrecentchooserdefault.c:1779
+#: ../bobgui/bobguirecentchooserdefault.c:1779
 msgid "Copy _Location"
 msgstr "𐑒𐑪𐑐𐑦 _𐑤𐑴𐑒𐑱𐑖𐑩𐑯"
 
-#: ../gtk/gtkrecentchooserdefault.c:1792
+#: ../bobgui/bobguirecentchooserdefault.c:1792
 msgid "_Remove From List"
 msgstr "_𐑮𐑦𐑥𐑴𐑝 𐑓𐑮𐑪𐑥 𐑤𐑦𐑕𐑑"
 
-#: ../gtk/gtkrecentchooserdefault.c:1801
+#: ../bobgui/bobguirecentchooserdefault.c:1801
 msgid "_Clear List"
 msgstr "_𐑒𐑤𐑻 𐑤𐑦𐑕𐑑"
 
-#: ../gtk/gtkrecentchooserdefault.c:1815
+#: ../bobgui/bobguirecentchooserdefault.c:1815
 msgid "Show _Private Resources"
 msgstr "𐑖𐑴 _𐑐𐑮𐑲𐑝𐑦𐑑 𐑮𐑦𐑟𐑹𐑕𐑩𐑟"
 
@@ -2920,21 +2920,21 @@ msgstr "𐑖𐑴 _𐑐𐑮𐑲𐑝𐑦𐑑 𐑮𐑦𐑟𐑹𐑕𐑩𐑟"
 #. * user appended or prepended custom menu items to the
 #. * recent chooser menu widget.
 #.
-#: ../gtk/gtkrecentchoosermenu.c:342
+#: ../bobgui/bobguirecentchoosermenu.c:342
 msgid "No items found"
 msgstr "𐑯𐑴 𐑲𐑑𐑩𐑥𐑟 𐑓𐑬𐑯𐑛"
 
 #, c-format
-#: ../gtk/gtkrecentchoosermenu.c:508 ../gtk/gtkrecentchoosermenu.c:564
+#: ../bobgui/bobguirecentchoosermenu.c:508 ../bobgui/bobguirecentchoosermenu.c:564
 msgid "No recently used resource found with URI `%s'"
 msgstr "𐑯𐑴 𐑮𐑰𐑕𐑩𐑯𐑑𐑤𐑦 𐑿𐑕𐑑 𐑮𐑦𐑟𐑹𐑕 𐑓𐑬𐑯𐑛 𐑢𐑦𐑞 URI `%s'"
 
 #, c-format
-#: ../gtk/gtkrecentchoosermenu.c:775
+#: ../bobgui/bobguirecentchoosermenu.c:775
 msgid "Open '%s'"
 msgstr "𐑴𐑐𐑩𐑯 '%s'"
 
-#: ../gtk/gtkrecentchoosermenu.c:805
+#: ../bobgui/bobguirecentchoosermenu.c:805
 msgid "Unknown item"
 msgstr "𐑳𐑯𐑴𐑯 𐑲𐑑𐑩𐑥"
 
@@ -2945,7 +2945,7 @@ msgstr "𐑳𐑯𐑴𐑯 𐑲𐑑𐑩𐑥"
 #.
 #, c-format
 #, fuzzy
-#: ../gtk/gtkrecentchoosermenu.c:816
+#: ../bobgui/bobguirecentchoosermenu.c:816
 msgctxt "recent menu label"
 msgid "_%d. %s"
 msgstr "_%d. %s"
@@ -2955,45 +2955,45 @@ msgstr "_%d. %s"
 #.
 #, c-format
 #, fuzzy
-#: ../gtk/gtkrecentchoosermenu.c:821
+#: ../bobgui/bobguirecentchoosermenu.c:821
 msgctxt "recent menu label"
 msgid "%d. %s"
 msgstr "%d. %s"
 
 #, c-format
-#: ../gtk/gtkrecentmanager.c:968 ../gtk/gtkrecentmanager.c:981
-#: ../gtk/gtkrecentmanager.c:1119 ../gtk/gtkrecentmanager.c:1129
-#: ../gtk/gtkrecentmanager.c:1182 ../gtk/gtkrecentmanager.c:1191
-#: ../gtk/gtkrecentmanager.c:1206
+#: ../bobgui/bobguirecentmanager.c:968 ../bobgui/bobguirecentmanager.c:981
+#: ../bobgui/bobguirecentmanager.c:1119 ../bobgui/bobguirecentmanager.c:1129
+#: ../bobgui/bobguirecentmanager.c:1182 ../bobgui/bobguirecentmanager.c:1191
+#: ../bobgui/bobguirecentmanager.c:1206
 msgid "Unable to find an item with URI '%s'"
 msgstr "𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑓𐑲𐑯𐑛 𐑩𐑯 𐑲𐑑𐑩𐑥 𐑢𐑦𐑞 URI '%s'"
 
-#: ../gtk/gtkspinner.c:458
+#: ../bobgui/bobguispinner.c:458
 msgctxt "throbbing progress animation widget"
 msgid "Spinner"
 msgstr "𐑕𐑐𐑦𐑯𐑼"
 
-#: ../gtk/gtkspinner.c:459
+#: ../bobgui/bobguispinner.c:459
 msgid "Provides visual indication of progress"
 msgstr "𐑐𐑮𐑩𐑝𐑲𐑛𐑟 𐑝𐑦𐑠𐑩𐑢𐑩𐑤 𐑦𐑯𐑛𐑩𐑒𐑱𐑖𐑩𐑯 𐑝 𐑐𐑮𐑴𐑜𐑮𐑧𐑕"
 
-#. KEEP IN SYNC with gtkiconfactory.c stock icons, when appropriate
-#: ../gtk/gtkstock.c:314
+#. KEEP IN SYNC with bobguiiconfactory.c stock icons, when appropriate
+#: ../bobgui/bobguistock.c:314
 msgctxt "Stock label"
 msgid "Information"
 msgstr "𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯"
 
-#: ../gtk/gtkstock.c:315
+#: ../bobgui/bobguistock.c:315
 msgctxt "Stock label"
 msgid "Warning"
 msgstr "𐑢𐑹𐑯𐑦𐑙"
 
-#: ../gtk/gtkstock.c:316
+#: ../bobgui/bobguistock.c:316
 msgctxt "Stock label"
 msgid "Error"
 msgstr "𐑻𐑼"
 
-#: ../gtk/gtkstock.c:317
+#: ../bobgui/bobguistock.c:317
 msgctxt "Stock label"
 msgid "Question"
 msgstr "𐑒𐑢𐑧𐑕𐑑𐑦𐑩𐑯"
@@ -3001,693 +3001,693 @@ msgstr "𐑒𐑢𐑧𐑕𐑑𐑦𐑩𐑯"
 #. FIXME these need accelerators when appropriate, and
 #. * need the mnemonics to be rationalized
 #.
-#: ../gtk/gtkstock.c:322
+#: ../bobgui/bobguistock.c:322
 msgctxt "Stock label"
 msgid "_About"
 msgstr "_𐑩𐑚𐑬𐑑"
 
-#: ../gtk/gtkstock.c:323
+#: ../bobgui/bobguistock.c:323
 msgctxt "Stock label"
 msgid "_Add"
 msgstr "_𐑨𐑛"
 
-#: ../gtk/gtkstock.c:324
+#: ../bobgui/bobguistock.c:324
 msgctxt "Stock label"
 msgid "_Apply"
 msgstr "_𐑩𐑐𐑤𐑲"
 
-#: ../gtk/gtkstock.c:325
+#: ../bobgui/bobguistock.c:325
 msgctxt "Stock label"
 msgid "_Bold"
 msgstr "_𐑚𐑴𐑤𐑛"
 
-#: ../gtk/gtkstock.c:326
+#: ../bobgui/bobguistock.c:326
 msgctxt "Stock label"
 msgid "_Cancel"
 msgstr "_𐑒𐑨𐑯𐑕𐑩𐑤"
 
-#: ../gtk/gtkstock.c:327
+#: ../bobgui/bobguistock.c:327
 msgctxt "Stock label"
 msgid "_CD-Rom"
 msgstr "_·𐑒·𐑛-𐑮𐑭𐑥"
 
-#: ../gtk/gtkstock.c:328
+#: ../bobgui/bobguistock.c:328
 msgctxt "Stock label"
 msgid "_Clear"
 msgstr "_𐑒𐑤𐑽"
 
-#: ../gtk/gtkstock.c:329
+#: ../bobgui/bobguistock.c:329
 msgctxt "Stock label"
 msgid "_Close"
 msgstr "_𐑒𐑤𐑴𐑟"
 
-#: ../gtk/gtkstock.c:330
+#: ../bobgui/bobguistock.c:330
 msgctxt "Stock label"
 msgid "C_onnect"
 msgstr "_𐑒𐑩𐑯𐑧𐑒𐑑"
 
-#: ../gtk/gtkstock.c:331
+#: ../bobgui/bobguistock.c:331
 msgctxt "Stock label"
 msgid "_Convert"
 msgstr "_𐑒𐑩𐑯𐑝𐑻𐑑"
 
-#: ../gtk/gtkstock.c:332
+#: ../bobgui/bobguistock.c:332
 msgctxt "Stock label"
 msgid "_Copy"
 msgstr "_𐑒𐑪𐑐𐑦"
 
-#: ../gtk/gtkstock.c:333
+#: ../bobgui/bobguistock.c:333
 msgctxt "Stock label"
 msgid "Cu_t"
 msgstr "_𐑒𐑳𐑑"
 
-#: ../gtk/gtkstock.c:334
+#: ../bobgui/bobguistock.c:334
 msgctxt "Stock label"
 msgid "_Delete"
 msgstr "_𐑛𐑦𐑤𐑰𐑑"
 
-#: ../gtk/gtkstock.c:335
+#: ../bobgui/bobguistock.c:335
 msgctxt "Stock label"
 msgid "_Discard"
 msgstr "_𐑛𐑦𐑕𐑒𐑭𐑮𐑛"
 
-#: ../gtk/gtkstock.c:336
+#: ../bobgui/bobguistock.c:336
 msgctxt "Stock label"
 msgid "_Disconnect"
 msgstr "_𐑛𐑦𐑕𐑒𐑩𐑯𐑧𐑒𐑑"
 
-#: ../gtk/gtkstock.c:337
+#: ../bobgui/bobguistock.c:337
 msgctxt "Stock label"
 msgid "_Execute"
 msgstr "_𐑧𐑒𐑕𐑩𐑒𐑿𐑑"
 
-#: ../gtk/gtkstock.c:338
+#: ../bobgui/bobguistock.c:338
 msgctxt "Stock label"
 msgid "_Edit"
 msgstr "_𐑧𐑛𐑦𐑑"
 
-#: ../gtk/gtkstock.c:339
+#: ../bobgui/bobguistock.c:339
 msgctxt "Stock label"
 msgid "_Find"
 msgstr "_𐑓𐑲𐑯𐑛"
 
-#: ../gtk/gtkstock.c:340
+#: ../bobgui/bobguistock.c:340
 msgctxt "Stock label"
 msgid "Find and _Replace"
 msgstr "𐑓𐑲𐑯𐑛 𐑯 _𐑮𐑦𐑐𐑤𐑱𐑕"
 
-#: ../gtk/gtkstock.c:341
+#: ../bobgui/bobguistock.c:341
 msgctxt "Stock label"
 msgid "_Floppy"
 msgstr "_𐑓𐑤𐑪𐑐𐑦"
 
 #, fuzzy
-#: ../gtk/gtkstock.c:342
+#: ../bobgui/bobguistock.c:342
 msgctxt "Stock label"
 msgid "_Fullscreen"
 msgstr "_Fullscreen"
 
 #, fuzzy
-#: ../gtk/gtkstock.c:343
+#: ../bobgui/bobguistock.c:343
 msgctxt "Stock label"
 msgid "_Leave Fullscreen"
 msgstr "_𐑤𐑰𐑝 Fullscreen"
 
 #. This is a navigation label as in "go to the bottom of the page"
-#: ../gtk/gtkstock.c:345
+#: ../bobgui/bobguistock.c:345
 msgctxt "Stock label, navigation"
 msgid "_Bottom"
 msgstr "_𐑚𐑪𐑑𐑫𐑥"
 
 #. This is a navigation label as in "go to the first page"
-#: ../gtk/gtkstock.c:347
+#: ../bobgui/bobguistock.c:347
 msgctxt "Stock label, navigation"
 msgid "_First"
 msgstr "_𐑓𐑻𐑕𐑑"
 
 #. This is a navigation label as in "go to the last page"
-#: ../gtk/gtkstock.c:349
+#: ../bobgui/bobguistock.c:349
 msgctxt "Stock label, navigation"
 msgid "_Last"
 msgstr "_𐑤𐑭𐑕𐑑"
 
 #. This is a navigation label as in "go to the top of the page"
-#: ../gtk/gtkstock.c:351
+#: ../bobgui/bobguistock.c:351
 msgctxt "Stock label, navigation"
 msgid "_Top"
 msgstr "_𐑑𐑪𐑐"
 
 #. This is a navigation label as in "go back"
-#: ../gtk/gtkstock.c:353
+#: ../bobgui/bobguistock.c:353
 msgctxt "Stock label, navigation"
 msgid "_Back"
 msgstr "_𐑚𐑨𐑒"
 
 #. This is a navigation label as in "go down"
-#: ../gtk/gtkstock.c:355
+#: ../bobgui/bobguistock.c:355
 msgctxt "Stock label, navigation"
 msgid "_Down"
 msgstr "_𐑛𐑬𐑯"
 
 #. This is a navigation label as in "go forward"
-#: ../gtk/gtkstock.c:357
+#: ../bobgui/bobguistock.c:357
 msgctxt "Stock label, navigation"
 msgid "_Forward"
 msgstr "_𐑓𐑹𐑢𐑼𐑛"
 
 #. This is a navigation label as in "go up"
-#: ../gtk/gtkstock.c:359
+#: ../bobgui/bobguistock.c:359
 msgctxt "Stock label, navigation"
 msgid "_Up"
 msgstr "_𐑳𐑐"
 
 #, fuzzy
-#: ../gtk/gtkstock.c:360
+#: ../bobgui/bobguistock.c:360
 msgctxt "Stock label"
 msgid "_Harddisk"
 msgstr "_Harddisk"
 
-#: ../gtk/gtkstock.c:361
+#: ../bobgui/bobguistock.c:361
 msgctxt "Stock label"
 msgid "_Help"
 msgstr "_𐑣𐑧𐑤𐑐"
 
-#: ../gtk/gtkstock.c:362
+#: ../bobgui/bobguistock.c:362
 msgctxt "Stock label"
 msgid "_Home"
 msgstr "_𐑣𐑴𐑥"
 
-#: ../gtk/gtkstock.c:363
+#: ../bobgui/bobguistock.c:363
 msgctxt "Stock label"
 msgid "Increase Indent"
 msgstr "𐑦𐑯𐑒𐑮𐑰𐑕 𐑦𐑯𐑛𐑧𐑯𐑑"
 
-#: ../gtk/gtkstock.c:364
+#: ../bobgui/bobguistock.c:364
 msgctxt "Stock label"
 msgid "Decrease Indent"
 msgstr "𐑛𐑦𐑒𐑮𐑰𐑕 𐑦𐑯𐑛𐑧𐑯𐑑"
 
-#: ../gtk/gtkstock.c:365
+#: ../bobgui/bobguistock.c:365
 msgctxt "Stock label"
 msgid "_Index"
 msgstr "_𐑦𐑯𐑛𐑧𐑒𐑕"
 
-#: ../gtk/gtkstock.c:366
+#: ../bobgui/bobguistock.c:366
 msgctxt "Stock label"
 msgid "_Information"
 msgstr "_𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯"
 
-#: ../gtk/gtkstock.c:367
+#: ../bobgui/bobguistock.c:367
 msgctxt "Stock label"
 msgid "_Italic"
 msgstr "_𐑲𐑑𐑨𐑤𐑦𐑒"
 
-#: ../gtk/gtkstock.c:368
+#: ../bobgui/bobguistock.c:368
 msgctxt "Stock label"
 msgid "_Jump to"
 msgstr "_𐑡𐑳𐑥𐑐 𐑑"
 
 #. This is about text justification, "centered text"
-#: ../gtk/gtkstock.c:370
+#: ../bobgui/bobguistock.c:370
 msgctxt "Stock label"
 msgid "_Center"
 msgstr "_𐑕𐑧𐑯𐑑𐑼"
 
 #. This is about text justification
-#: ../gtk/gtkstock.c:372
+#: ../bobgui/bobguistock.c:372
 msgctxt "Stock label"
 msgid "_Fill"
 msgstr "_𐑓𐑦𐑤"
 
 #. This is about text justification, "left-justified text"
-#: ../gtk/gtkstock.c:374
+#: ../bobgui/bobguistock.c:374
 msgctxt "Stock label"
 msgid "_Left"
 msgstr "_𐑤𐑧𐑓𐑑"
 
 #. This is about text justification, "right-justified text"
-#: ../gtk/gtkstock.c:376
+#: ../bobgui/bobguistock.c:376
 msgctxt "Stock label"
 msgid "_Right"
 msgstr "_𐑮𐑲𐑑"
 
 #. Media label, as in "fast forward"
-#: ../gtk/gtkstock.c:379
+#: ../bobgui/bobguistock.c:379
 msgctxt "Stock label, media"
 msgid "_Forward"
 msgstr "_𐑓𐑹𐑢𐑼𐑛"
 
 #. Media label, as in "next song"
-#: ../gtk/gtkstock.c:381
+#: ../bobgui/bobguistock.c:381
 msgctxt "Stock label, media"
 msgid "_Next"
 msgstr "_𐑯𐑧𐑒𐑕𐑑"
 
 #. Media label, as in "pause music"
-#: ../gtk/gtkstock.c:383
+#: ../bobgui/bobguistock.c:383
 msgctxt "Stock label, media"
 msgid "P_ause"
 msgstr "_𐑐𐑷𐑟"
 
 #. Media label, as in "play music"
-#: ../gtk/gtkstock.c:385
+#: ../bobgui/bobguistock.c:385
 msgctxt "Stock label, media"
 msgid "_Play"
 msgstr "_𐑐𐑤𐑱"
 
 #. Media label, as in  "previous song"
-#: ../gtk/gtkstock.c:387
+#: ../bobgui/bobguistock.c:387
 msgctxt "Stock label, media"
 msgid "Pre_vious"
 msgstr "_𐑐𐑮𐑰𐑝𐑦𐑩𐑕"
 
 #. Media label
-#: ../gtk/gtkstock.c:389
+#: ../bobgui/bobguistock.c:389
 msgctxt "Stock label, media"
 msgid "_Record"
 msgstr "_𐑮𐑩𐑒𐑹𐑛"
 
 #. Media label
-#: ../gtk/gtkstock.c:391
+#: ../bobgui/bobguistock.c:391
 msgctxt "Stock label, media"
 msgid "R_ewind"
 msgstr "_𐑮𐑰𐑢𐑲𐑯𐑛"
 
 #. Media label
-#: ../gtk/gtkstock.c:393
+#: ../bobgui/bobguistock.c:393
 msgctxt "Stock label, media"
 msgid "_Stop"
 msgstr "_𐑕𐑑𐑪𐑐"
 
-#: ../gtk/gtkstock.c:394
+#: ../bobgui/bobguistock.c:394
 msgctxt "Stock label"
 msgid "_Network"
 msgstr "_𐑯𐑧𐑑𐑢𐑻𐑒"
 
-#: ../gtk/gtkstock.c:395
+#: ../bobgui/bobguistock.c:395
 msgctxt "Stock label"
 msgid "_New"
 msgstr "_𐑯𐑿"
 
-#: ../gtk/gtkstock.c:396
+#: ../bobgui/bobguistock.c:396
 msgctxt "Stock label"
 msgid "_No"
 msgstr "_𐑯𐑴"
 
-#: ../gtk/gtkstock.c:397
+#: ../bobgui/bobguistock.c:397
 msgctxt "Stock label"
 msgid "_OK"
 msgstr "_𐑴𐑒𐑱"
 
-#: ../gtk/gtkstock.c:398
+#: ../bobgui/bobguistock.c:398
 msgctxt "Stock label"
 msgid "_Open"
 msgstr "_𐑴𐑐𐑩𐑯"
 
 #. Page orientation
-#: ../gtk/gtkstock.c:400
+#: ../bobgui/bobguistock.c:400
 msgctxt "Stock label"
 msgid "Landscape"
 msgstr "𐑤𐑨𐑯𐑛𐑕𐑒𐑨𐑐"
 
 #. Page orientation
-#: ../gtk/gtkstock.c:402
+#: ../bobgui/bobguistock.c:402
 msgctxt "Stock label"
 msgid "Portrait"
 msgstr "𐑐𐑪𐑮𐑑𐑮𐑩𐑑"
 
 #. Page orientation
-#: ../gtk/gtkstock.c:404
+#: ../bobgui/bobguistock.c:404
 msgctxt "Stock label"
 msgid "Reverse landscape"
 msgstr "𐑮𐑰𐑝𐑻𐑕 𐑤𐑨𐑯𐑛𐑕𐑒𐑨𐑐"
 
 #. Page orientation
-#: ../gtk/gtkstock.c:406
+#: ../bobgui/bobguistock.c:406
 msgctxt "Stock label"
 msgid "Reverse portrait"
 msgstr "𐑮𐑰𐑝𐑻𐑕 𐑐𐑪𐑮𐑑𐑮𐑩𐑑"
 
-#: ../gtk/gtkstock.c:407
+#: ../bobgui/bobguistock.c:407
 msgctxt "Stock label"
 msgid "Page Set_up"
 msgstr "𐑐𐑱𐑡 _𐑕𐑧𐑑𐑳𐑐"
 
-#: ../gtk/gtkstock.c:408
+#: ../bobgui/bobguistock.c:408
 msgctxt "Stock label"
 msgid "_Paste"
 msgstr "_𐑐𐑱𐑕𐑑"
 
-#: ../gtk/gtkstock.c:409
+#: ../bobgui/bobguistock.c:409
 msgctxt "Stock label"
 msgid "_Preferences"
 msgstr "_𐑐𐑮𐑧𐑓𐑼𐑩𐑯𐑕𐑩𐑟"
 
-#: ../gtk/gtkstock.c:410
+#: ../bobgui/bobguistock.c:410
 msgctxt "Stock label"
 msgid "_Print"
 msgstr "_𐑐𐑮𐑦𐑯𐑑"
 
-#: ../gtk/gtkstock.c:411
+#: ../bobgui/bobguistock.c:411
 msgctxt "Stock label"
 msgid "Print Pre_view"
 msgstr "𐑐𐑮𐑦𐑯𐑑 _𐑐𐑮𐑰𐑝𐑿"
 
-#: ../gtk/gtkstock.c:412
+#: ../bobgui/bobguistock.c:412
 msgctxt "Stock label"
 msgid "_Properties"
 msgstr "_𐑐𐑮𐑪𐑐𐑼𐑑𐑦𐑟"
 
-#: ../gtk/gtkstock.c:413
+#: ../bobgui/bobguistock.c:413
 msgctxt "Stock label"
 msgid "_Quit"
 msgstr "_𐑒𐑢𐑦𐑑"
 
-#: ../gtk/gtkstock.c:414
+#: ../bobgui/bobguistock.c:414
 msgctxt "Stock label"
 msgid "_Redo"
 msgstr "_𐑮𐑰𐑛𐑵"
 
-#: ../gtk/gtkstock.c:415
+#: ../bobgui/bobguistock.c:415
 msgctxt "Stock label"
 msgid "_Refresh"
 msgstr "_𐑮𐑰𐑓𐑮𐑧𐑖"
 
-#: ../gtk/gtkstock.c:416
+#: ../bobgui/bobguistock.c:416
 msgctxt "Stock label"
 msgid "_Remove"
 msgstr "_𐑮𐑦𐑥𐑵𐑝"
 
-#: ../gtk/gtkstock.c:417
+#: ../bobgui/bobguistock.c:417
 msgctxt "Stock label"
 msgid "_Revert"
 msgstr "_𐑮𐑦𐑝𐑻𐑑"
 
-#: ../gtk/gtkstock.c:418
+#: ../bobgui/bobguistock.c:418
 msgctxt "Stock label"
 msgid "_Save"
 msgstr "_𐑕𐑱𐑝"
 
-#: ../gtk/gtkstock.c:419
+#: ../bobgui/bobguistock.c:419
 msgctxt "Stock label"
 msgid "Save _As"
 msgstr "𐑕𐑱𐑝 _𐑨𐑟"
 
-#: ../gtk/gtkstock.c:420
+#: ../bobgui/bobguistock.c:420
 msgctxt "Stock label"
 msgid "Select _All"
 msgstr "𐑕𐑩𐑤𐑧𐑒𐑑 _𐑷𐑤"
 
-#: ../gtk/gtkstock.c:421
+#: ../bobgui/bobguistock.c:421
 msgctxt "Stock label"
 msgid "_Color"
 msgstr "_𐑒𐑳𐑤𐑼"
 
-#: ../gtk/gtkstock.c:422
+#: ../bobgui/bobguistock.c:422
 msgctxt "Stock label"
 msgid "_Font"
 msgstr "_𐑓𐑪𐑯𐑑"
 
 #. Sorting direction
-#: ../gtk/gtkstock.c:424
+#: ../bobgui/bobguistock.c:424
 msgctxt "Stock label"
 msgid "_Ascending"
 msgstr "_𐑩𐑕𐑧𐑯𐑛𐑦𐑙"
 
 #. Sorting direction
-#: ../gtk/gtkstock.c:426
+#: ../bobgui/bobguistock.c:426
 msgctxt "Stock label"
 msgid "_Descending"
 msgstr "_𐑛𐑦𐑕𐑧𐑯𐑛𐑦𐑙"
 
-#: ../gtk/gtkstock.c:427
+#: ../bobgui/bobguistock.c:427
 msgctxt "Stock label"
 msgid "_Spell Check"
 msgstr "_𐑕𐑐𐑧𐑤 𐑗𐑧𐑒"
 
-#: ../gtk/gtkstock.c:428
+#: ../bobgui/bobguistock.c:428
 msgctxt "Stock label"
 msgid "_Stop"
 msgstr "_𐑕𐑑𐑪𐑐"
 
 #. Font variant
 #, fuzzy
-#: ../gtk/gtkstock.c:430
+#: ../bobgui/bobguistock.c:430
 msgctxt "Stock label"
 msgid "_Strikethrough"
 msgstr "_Strikethrough"
 
 #, fuzzy
-#: ../gtk/gtkstock.c:431
+#: ../bobgui/bobguistock.c:431
 msgctxt "Stock label"
 msgid "_Undelete"
 msgstr "_Undelete"
 
 #. Font variant
-#: ../gtk/gtkstock.c:433
+#: ../bobgui/bobguistock.c:433
 msgctxt "Stock label"
 msgid "_Underline"
 msgstr "_𐑩𐑯𐑛𐑻𐑤𐑲𐑯"
 
-#: ../gtk/gtkstock.c:434
+#: ../bobgui/bobguistock.c:434
 msgctxt "Stock label"
 msgid "_Undo"
 msgstr "_𐑳𐑯𐑛𐑵"
 
-#: ../gtk/gtkstock.c:435
+#: ../bobgui/bobguistock.c:435
 msgctxt "Stock label"
 msgid "_Yes"
 msgstr "_𐑘𐑧𐑕"
 
 #. Zoom
-#: ../gtk/gtkstock.c:437
+#: ../bobgui/bobguistock.c:437
 msgctxt "Stock label"
 msgid "_Normal Size"
 msgstr "_𐑯𐑹𐑥𐑩𐑤 𐑕𐑲𐑟"
 
 #. Zoom
-#: ../gtk/gtkstock.c:439
+#: ../bobgui/bobguistock.c:439
 msgctxt "Stock label"
 msgid "Best _Fit"
 msgstr "𐑚𐑧𐑕𐑑 _𐑓𐑦𐑑"
 
-#: ../gtk/gtkstock.c:440
+#: ../bobgui/bobguistock.c:440
 msgctxt "Stock label"
 msgid "Zoom _In"
 msgstr "𐑟𐑵𐑥 _𐑦𐑯"
 
-#: ../gtk/gtkstock.c:441
+#: ../bobgui/bobguistock.c:441
 msgctxt "Stock label"
 msgid "Zoom _Out"
 msgstr "𐑟𐑵𐑥 _𐑬𐑑"
 
 #, c-format
-#: ../gtk/gtktextbufferrichtext.c:651
+#: ../bobgui/bobguitextbufferrichtext.c:651
 msgid "Unknown error when trying to deserialize %s"
 msgstr "𐑳𐑯𐑴𐑯 𐑻𐑼 𐑢𐑧𐑯 𐑑𐑮𐑲𐑦𐑙 𐑑 𐑛𐑧𐑕𐑽𐑮𐑾𐑤𐑲𐑟 %s"
 
 #, c-format
-#: ../gtk/gtktextbufferrichtext.c:710
+#: ../bobgui/bobguitextbufferrichtext.c:710
 msgid "No deserialize function found for format %s"
 msgstr "𐑯𐑴 𐑛𐑧𐑕𐑽𐑮𐑾𐑤𐑲𐑟 𐑓𐑳𐑙𐑒𐑖𐑩𐑯 𐑓𐑬𐑯𐑛 𐑓𐑹 𐑓𐑹𐑥𐑨𐑑 %s"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:796 ../gtk/gtktextbufferserialize.c:822
+#: ../bobgui/bobguitextbufferserialize.c:796 ../bobgui/bobguitextbufferserialize.c:822
 msgid "Both \"id\" and \"name\" were found on the <%s> element"
 msgstr "𐑚𐑴𐑔 \"id\" 𐑯 \"name\" 𐑢𐑻 𐑓𐑬𐑯𐑛 𐑪𐑯 𐑞 <%s> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:806 ../gtk/gtktextbufferserialize.c:832
+#: ../bobgui/bobguitextbufferserialize.c:806 ../bobgui/bobguitextbufferserialize.c:832
 msgid "The attribute \"%s\" was found twice on the <%s> element"
 msgstr "𐑞 𐑨𐑑𐑮𐑦𐑚𐑿𐑑 \"%s\" 𐑢𐑪𐑟 𐑓𐑬𐑯𐑛 𐑑𐑢𐑲𐑕 𐑪𐑯 𐑞 <%s> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:846
+#: ../bobgui/bobguitextbufferserialize.c:846
 msgid "<%s> element has invalid id \"%s\""
 msgstr "<%s> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑 𐑣𐑨𐑟 𐑦𐑯𐑝𐑨𐑤𐑦𐑛 id \"%s\""
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:856
+#: ../bobgui/bobguitextbufferserialize.c:856
 msgid "<%s> element has neither a \"name\" nor an \"id\" attribute"
 msgstr "<%s> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑 𐑣𐑨𐑟 𐑯𐑲𐑞𐑼 𐑩 \"name\" 𐑯𐑹 𐑩𐑯 \"id\" 𐑩𐑑𐑮𐑦𐑚𐑿𐑑"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:943
+#: ../bobgui/bobguitextbufferserialize.c:943
 msgid "Attribute \"%s\" repeated twice on the same <%s> element"
 msgstr "𐑩𐑑𐑮𐑦𐑚𐑿𐑑 \"%s\" 𐑮𐑦𐑐𐑰𐑑𐑩𐑛 𐑑𐑢𐑲𐑕 𐑪𐑯 𐑞 𐑕𐑱𐑥 <%s> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:961 ../gtk/gtktextbufferserialize.c:986
+#: ../bobgui/bobguitextbufferserialize.c:961 ../bobgui/bobguitextbufferserialize.c:986
 msgid "Attribute \"%s\" is invalid on <%s> element in this context"
 msgstr "𐑩𐑑𐑮𐑦𐑚𐑿𐑑 \"%s\" 𐑦𐑟 𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑪𐑯 <%s> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑 𐑦𐑯 𐑞𐑦𐑕 𐑒𐑪𐑯𐑑𐑧𐑒𐑕𐑑"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1022
+#: ../bobgui/bobguitextbufferserialize.c:1022
 msgid "Tag \"%s\" has not been defined."
 msgstr "𐑑𐑨𐑜 \"%s\" 𐑣𐑨𐑟 𐑯𐑪𐑑 𐑚𐑰𐑯 𐑛𐑦𐑓𐑲𐑯𐑛."
 
-#: ../gtk/gtktextbufferserialize.c:1034
+#: ../bobgui/bobguitextbufferserialize.c:1034
 msgid "Anonymous tag found and tags can not be created."
 msgstr "𐑩𐑯𐑪𐑯𐑦𐑥𐑩𐑕 𐑑𐑨𐑜 𐑓𐑬𐑯𐑛 𐑯 𐑑𐑨𐑜𐑟 𐑒𐑨𐑯 𐑯𐑪𐑑 𐑚𐑰 𐑒𐑮𐑦𐑱𐑑𐑩𐑛."
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1045
+#: ../bobgui/bobguitextbufferserialize.c:1045
 msgid "Tag \"%s\" does not exist in buffer and tags can not be created."
 msgstr "𐑑𐑨𐑜 \"%s\" 𐑛𐑳𐑟 𐑯𐑪𐑑 𐑧𐑒𐑟𐑦𐑕𐑑 𐑦𐑯 𐑚𐑳𐑓𐑼 𐑯 𐑑𐑨𐑜𐑟 𐑒𐑨𐑯 𐑯𐑪𐑑 𐑚𐑰 𐑒𐑮𐑦𐑱𐑑𐑩𐑛."
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1144 ../gtk/gtktextbufferserialize.c:1219
-#: ../gtk/gtktextbufferserialize.c:1320 ../gtk/gtktextbufferserialize.c:1394
+#: ../bobgui/bobguitextbufferserialize.c:1144 ../bobgui/bobguitextbufferserialize.c:1219
+#: ../bobgui/bobguitextbufferserialize.c:1320 ../bobgui/bobguitextbufferserialize.c:1394
 msgid "Element <%s> is not allowed below <%s>"
 msgstr "𐑧𐑤𐑩𐑥𐑩𐑯𐑑 <%s> 𐑦𐑟 𐑯𐑪𐑑 𐑩𐑤𐑬𐑛 𐑚𐑩𐑤𐑴 <%s>"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1175
+#: ../bobgui/bobguitextbufferserialize.c:1175
 msgid "\"%s\" is not a valid attribute type"
 msgstr "\"%s\" 𐑦𐑟 𐑯𐑪𐑑 𐑩 𐑝𐑨𐑤𐑦𐑛 𐑨𐑑𐑮𐑦𐑚𐑿𐑑 𐑑𐑲𐑐"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1183
+#: ../bobgui/bobguitextbufferserialize.c:1183
 msgid "\"%s\" is not a valid attribute name"
 msgstr "\"%s\" 𐑦𐑟 𐑯𐑪𐑑 𐑩 𐑝𐑨𐑤𐑦𐑛 𐑨𐑑𐑮𐑦𐑚𐑿𐑑 𐑯𐑱𐑥"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1193
+#: ../bobgui/bobguitextbufferserialize.c:1193
 msgid ""
 "\"%s\" could not be converted to a value of type \"%s\" for attribute \"%s\""
 msgstr "\"%s\" 𐑒𐑫𐑛 𐑯𐑪𐑑 𐑚𐑰 𐑒𐑩𐑯𐑝𐑻𐑑𐑩𐑛 𐑑 𐑩 𐑝𐑨𐑤𐑿 𐑝 𐑑𐑲𐑐 \"%s\" 𐑓𐑹 𐑨𐑑𐑮𐑦𐑚𐑿𐑑 \"%s\""
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1202
+#: ../bobgui/bobguitextbufferserialize.c:1202
 msgid "\"%s\" is not a valid value for attribute \"%s\""
 msgstr "\"%s\" 𐑦𐑟 𐑯𐑪𐑑 𐑩 𐑝𐑨𐑤𐑦𐑛 𐑝𐑨𐑤𐑿 𐑓𐑹 𐑨𐑑𐑮𐑦𐑚𐑿𐑑 \"%s\""
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1285
+#: ../bobgui/bobguitextbufferserialize.c:1285
 msgid "Tag \"%s\" already defined"
 msgstr "𐑑𐑨𐑜 \"%s\" 𐑷𐑤𐑮𐑧𐑛𐑦 𐑛𐑦𐑓𐑲𐑯𐑛"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1296
+#: ../bobgui/bobguitextbufferserialize.c:1296
 msgid "Tag \"%s\" has invalid priority \"%s\""
 msgstr "𐑑𐑨𐑜 \"%s\" 𐑣𐑨𐑟 𐑦𐑯𐑝𐑨𐑤𐑦𐑛 𐑐𐑮𐑲𐑪𐑮𐑦𐑑𐑦 \"%s\""
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1349
+#: ../bobgui/bobguitextbufferserialize.c:1349
 msgid "Outermost element in text must be <text_view_markup> not <%s>"
 msgstr "𐑶𐑑𐑻𐑥𐑴𐑕𐑑 𐑧𐑤𐑩𐑥𐑩𐑯𐑑 𐑦𐑯 𐑑𐑧𐑒𐑕𐑑 𐑥𐑳𐑕𐑑 𐑚𐑰 <text_view_markup> 𐑯𐑪𐑑 <%s>"
 
 #, c-format
-#: ../gtk/gtktextbufferserialize.c:1358 ../gtk/gtktextbufferserialize.c:1374
+#: ../bobgui/bobguitextbufferserialize.c:1358 ../bobgui/bobguitextbufferserialize.c:1374
 msgid "A <%s> element has already been specified"
 msgstr "𐑩 <%s> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑 𐑣𐑨𐑟 𐑷𐑤𐑮𐑧𐑛𐑦 𐑚𐑰𐑯 𐑕𐑐𐑧𐑕𐑦𐑓𐑲𐑛"
 
-#: ../gtk/gtktextbufferserialize.c:1380
+#: ../bobgui/bobguitextbufferserialize.c:1380
 msgid "A <text> element can't occur before a <tags> element"
 msgstr "𐑩 <text> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑 𐑒𐑨𐑯'𐑑𐑰 𐑪𐑒𐑻 𐑚𐑦𐑓𐑹 𐑩 <tags> 𐑧𐑤𐑩𐑥𐑩𐑯𐑑"
 
-#: ../gtk/gtktextbufferserialize.c:1779
+#: ../bobgui/bobguitextbufferserialize.c:1779
 msgid "Serialized data is malformed"
 msgstr "𐑕𐑦𐑮𐑰𐑩𐑤𐑲𐑟𐑛 𐑛𐑱𐑑𐑩 𐑦𐑟 𐑥𐑨𐑤𐑓𐑹𐑥𐑛"
 
-#: ../gtk/gtktextbufferserialize.c:1857
+#: ../bobgui/bobguitextbufferserialize.c:1857
 msgid ""
-"Serialized data is malformed. First section isn't GTKTEXTBUFFERCONTENTS-0001"
+"Serialized data is malformed. First section isn't BOBGUITEXTBUFFERCONTENTS-0001"
 msgstr ""
-"𐑕𐑦𐑮𐑰𐑩𐑤𐑲𐑟𐑛 𐑛𐑱𐑑𐑩 𐑦𐑟 𐑥𐑨𐑤𐑓𐑹𐑥𐑛. 𐑓𐑻𐑕𐑑 𐑕𐑧𐑒𐑖𐑩𐑯 𐑦𐑟𐑯𐑑 GTKTEXTBUFFERCONTENTS-0001"
+"𐑕𐑦𐑮𐑰𐑩𐑤𐑲𐑟𐑛 𐑛𐑱𐑑𐑩 𐑦𐑟 𐑥𐑨𐑤𐑓𐑹𐑥𐑛. 𐑓𐑻𐑕𐑑 𐑕𐑧𐑒𐑖𐑩𐑯 𐑦𐑟𐑯𐑑 BOBGUITEXTBUFFERCONTENTS-0001"
 
-#: ../gtk/gtktextutil.c:61
+#: ../bobgui/bobguitextutil.c:61
 msgid "LRM _Left-to-right mark"
 msgstr "LRM _𐑤𐑧𐑓𐑑-𐑑-𐑮𐑲𐑑 𐑥𐑸𐑒"
 
-#: ../gtk/gtktextutil.c:62
+#: ../bobgui/bobguitextutil.c:62
 msgid "RLM _Right-to-left mark"
 msgstr "RLM _𐑮𐑲𐑑-𐑑-𐑤𐑧𐑓𐑑 ·𐑥𐑸𐑒"
 
-#: ../gtk/gtktextutil.c:63
+#: ../bobgui/bobguitextutil.c:63
 msgid "LRE Left-to-right _embedding"
 msgstr "LRE 𐑤𐑧𐑓𐑑-𐑑-𐑮𐑲𐑑 _𐑦𐑚𐑧𐑛𐑦𐑙"
 
-#: ../gtk/gtktextutil.c:64
+#: ../bobgui/bobguitextutil.c:64
 msgid "RLE Right-to-left e_mbedding"
 msgstr "RLE 𐑮𐑲𐑑-𐑑-𐑤𐑧𐑓𐑑 𐑦_𐑥𐑚𐑧𐑛𐑦𐑙"
 
-#: ../gtk/gtktextutil.c:65
+#: ../bobgui/bobguitextutil.c:65
 msgid "LRO Left-to-right _override"
 msgstr "LRO 𐑤𐑧𐑓𐑑-𐑑-𐑮𐑲𐑑 _𐑴𐑝𐑼𐑮𐑲𐑛"
 
-#: ../gtk/gtktextutil.c:66
+#: ../bobgui/bobguitextutil.c:66
 msgid "RLO Right-to-left o_verride"
 msgstr "RLO 𐑮𐑲𐑑-𐑑-𐑤𐑧𐑓𐑑 𐑴_𐑝𐑼𐑮𐑲𐑛"
 
-#: ../gtk/gtktextutil.c:67
+#: ../bobgui/bobguitextutil.c:67
 msgid "PDF _Pop directional formatting"
 msgstr "·𐑐·𐑛·𐑓 _𐑐𐑪𐑐 𐑛𐑻𐑧𐑒𐑖𐑩𐑯𐑩𐑤 𐑓𐑹𐑥𐑨𐑑𐑦𐑙"
 
-#: ../gtk/gtktextutil.c:68
+#: ../bobgui/bobguitextutil.c:68
 msgid "ZWS _Zero width space"
 msgstr "ZWS _𐑟𐑻𐑴 𐑢𐑦𐑛𐑔 𐑕𐑐𐑱𐑕"
 
-#: ../gtk/gtktextutil.c:69
+#: ../bobgui/bobguitextutil.c:69
 msgid "ZWJ Zero width _joiner"
 msgstr "ZWJ 𐑟𐑽𐑴 𐑢𐑦𐑛𐑔 _𐑡𐑶𐑯𐑼"
 
-#: ../gtk/gtktextutil.c:70
+#: ../bobgui/bobguitextutil.c:70
 msgid "ZWNJ Zero width _non-joiner"
 msgstr "ZWNJ 𐑟𐑽𐑴 𐑢𐑦𐑛𐑔 _𐑯𐑪𐑯-𐑡𐑶𐑯𐑼"
 
 #, c-format
-#: ../gtk/gtkthemes.c:71
+#: ../bobgui/bobguithemes.c:71
 msgid "Unable to locate theme engine in module_path: \"%s\","
 msgstr "𐑳𐑯𐑱𐑚𐑩𐑤 𐑑 𐑤𐑴𐑒𐑱𐑑 𐑔𐑰𐑥 𐑧𐑯𐑡𐑦𐑯 𐑦𐑯 module_path: \"%s\","
 
 #, c-format
-#: ../gtk/gtkuimanager.c:1505
+#: ../bobgui/bobguiuimanager.c:1505
 msgid "Unexpected start tag '%s' on line %d char %d"
 msgstr "𐑳𐑯𐑦𐑒𐑕𐑐𐑧𐑒𐑑𐑩𐑛 𐑕𐑑𐑸𐑑 𐑑𐑨𐑜 '%s' 𐑪𐑯 𐑤𐑲𐑯 %d 𐑗𐑸 %d"
 
 #, c-format
-#: ../gtk/gtkuimanager.c:1595
+#: ../bobgui/bobguiuimanager.c:1595
 msgid "Unexpected character data on line %d char %d"
 msgstr "𐑳𐑯𐑦𐑒𐑕𐑐𐑧𐑒𐑑𐑩𐑛 𐑒𐑨𐑮𐑩𐑒𐑑𐑼 𐑛𐑱𐑑𐑩 𐑪𐑯 𐑤𐑲𐑯 %d 𐑗𐑸 %d"
 
-#: ../gtk/gtkuimanager.c:2427
+#: ../bobgui/bobguiuimanager.c:2427
 msgid "Empty"
 msgstr "𐑧𐑥𐑐𐑑𐑦"
 
-#: ../gtk/gtkvolumebutton.c:83
+#: ../bobgui/bobguivolumebutton.c:83
 msgid "Volume"
 msgstr "𐑝𐑪𐑤𐑿𐑥"
 
-#: ../gtk/gtkvolumebutton.c:85
+#: ../bobgui/bobguivolumebutton.c:85
 msgid "Turns volume down or up"
 msgstr "𐑑𐑻𐑯𐑟 𐑝𐑪𐑤𐑿𐑥 𐑛𐑬𐑯 𐑹 𐑳𐑐"
 
-#: ../gtk/gtkvolumebutton.c:88
+#: ../bobgui/bobguivolumebutton.c:88
 msgid "Adjusts the volume"
 msgstr "𐑩𐑡𐑩𐑕𐑑𐑕 𐑞 𐑝𐑪𐑤𐑿𐑥"
 
-#: ../gtk/gtkvolumebutton.c:91 ../gtk/gtkvolumebutton.c:94
+#: ../bobgui/bobguivolumebutton.c:91 ../bobgui/bobguivolumebutton.c:94
 msgid "Volume Down"
 msgstr "𐑝𐑪𐑤𐑿𐑥 𐑛𐑬𐑯"
 
-#: ../gtk/gtkvolumebutton.c:93
+#: ../bobgui/bobguivolumebutton.c:93
 msgid "Decreases the volume"
 msgstr "𐑛𐑦𐑒𐑮𐑰𐑕𐑩𐑟 𐑞 𐑝𐑪𐑤𐑿𐑥"
 
-#: ../gtk/gtkvolumebutton.c:97 ../gtk/gtkvolumebutton.c:100
+#: ../bobgui/bobguivolumebutton.c:97 ../bobgui/bobguivolumebutton.c:100
 msgid "Volume Up"
 msgstr "𐑝𐑪𐑤𐑿𐑥 𐑳𐑐"
 
-#: ../gtk/gtkvolumebutton.c:99
+#: ../bobgui/bobguivolumebutton.c:99
 msgid "Increases the volume"
 msgstr "𐑦𐑯𐑒𐑮𐑰𐑕𐑩𐑟 𐑞 𐑝𐑪𐑤𐑿𐑥"
 
-#: ../gtk/gtkvolumebutton.c:157
+#: ../bobgui/bobguivolumebutton.c:157
 msgid "Muted"
 msgstr "𐑥𐑿𐑑𐑩𐑛"
 
-#: ../gtk/gtkvolumebutton.c:161
+#: ../bobgui/bobguivolumebutton.c:161
 msgid "Full Volume"
 msgstr "𐑓𐑫𐑤 𐑝𐑪𐑤𐑿𐑥"
 
@@ -3698,1064 +3698,1064 @@ msgstr "𐑓𐑫𐑤 𐑝𐑪𐑤𐑿𐑥"
 #.
 #, c-format
 #, fuzzy
-#: ../gtk/gtkvolumebutton.c:174
+#: ../bobgui/bobguivolumebutton.c:174
 msgctxt "volume percentage"
 msgid "%d %%"
 msgstr "%d %%"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:4
+#: ../bobgui/paper_names_offsets.c:4
 msgctxt "paper size"
 msgid "asme_f"
 msgstr "_asmef"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:5
+#: ../bobgui/paper_names_offsets.c:5
 msgctxt "paper size"
 msgid "A0x2"
 msgstr "A0x2"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:6
+#: ../bobgui/paper_names_offsets.c:6
 msgctxt "paper size"
 msgid "A0"
 msgstr "A0"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:7
+#: ../bobgui/paper_names_offsets.c:7
 msgctxt "paper size"
 msgid "A0x3"
 msgstr "A0x3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:8
+#: ../bobgui/paper_names_offsets.c:8
 msgctxt "paper size"
 msgid "A1"
 msgstr "A1"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:9
+#: ../bobgui/paper_names_offsets.c:9
 msgctxt "paper size"
 msgid "A10"
 msgstr "A10"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:10
+#: ../bobgui/paper_names_offsets.c:10
 msgctxt "paper size"
 msgid "A1x3"
 msgstr "A1x3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:11
+#: ../bobgui/paper_names_offsets.c:11
 msgctxt "paper size"
 msgid "A1x4"
 msgstr "A1x4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:12
+#: ../bobgui/paper_names_offsets.c:12
 msgctxt "paper size"
 msgid "A2"
 msgstr "A2"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:13
+#: ../bobgui/paper_names_offsets.c:13
 msgctxt "paper size"
 msgid "A2x3"
 msgstr "A2x3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:14
+#: ../bobgui/paper_names_offsets.c:14
 msgctxt "paper size"
 msgid "A2x4"
 msgstr "A2x4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:15
+#: ../bobgui/paper_names_offsets.c:15
 msgctxt "paper size"
 msgid "A2x5"
 msgstr "A2x5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:16
+#: ../bobgui/paper_names_offsets.c:16
 msgctxt "paper size"
 msgid "A3"
 msgstr "A3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:17
+#: ../bobgui/paper_names_offsets.c:17
 msgctxt "paper size"
 msgid "A3 Extra"
 msgstr "A3 𐑧𐑒𐑕𐑑𐑮𐑩"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:18
+#: ../bobgui/paper_names_offsets.c:18
 msgctxt "paper size"
 msgid "A3x3"
 msgstr "A3x3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:19
+#: ../bobgui/paper_names_offsets.c:19
 msgctxt "paper size"
 msgid "A3x4"
 msgstr "A3x4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:20
+#: ../bobgui/paper_names_offsets.c:20
 msgctxt "paper size"
 msgid "A3x5"
 msgstr "A3x5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:21
+#: ../bobgui/paper_names_offsets.c:21
 msgctxt "paper size"
 msgid "A3x6"
 msgstr "A3x6"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:22
+#: ../bobgui/paper_names_offsets.c:22
 msgctxt "paper size"
 msgid "A3x7"
 msgstr "A3x7"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:23
+#: ../bobgui/paper_names_offsets.c:23
 msgctxt "paper size"
 msgid "A4"
 msgstr "A4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:24
+#: ../bobgui/paper_names_offsets.c:24
 msgctxt "paper size"
 msgid "A4 Extra"
 msgstr "A4 𐑧𐑒𐑕𐑑𐑮𐑩"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:25
+#: ../bobgui/paper_names_offsets.c:25
 msgctxt "paper size"
 msgid "A4 Tab"
 msgstr "A4 𐑑𐑨𐑚"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:26
+#: ../bobgui/paper_names_offsets.c:26
 msgctxt "paper size"
 msgid "A4x3"
 msgstr "A4x3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:27
+#: ../bobgui/paper_names_offsets.c:27
 msgctxt "paper size"
 msgid "A4x4"
 msgstr "A4x4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:28
+#: ../bobgui/paper_names_offsets.c:28
 msgctxt "paper size"
 msgid "A4x5"
 msgstr "A4x5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:29
+#: ../bobgui/paper_names_offsets.c:29
 msgctxt "paper size"
 msgid "A4x6"
 msgstr "A4x6"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:30
+#: ../bobgui/paper_names_offsets.c:30
 msgctxt "paper size"
 msgid "A4x7"
 msgstr "A4x7"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:31
+#: ../bobgui/paper_names_offsets.c:31
 msgctxt "paper size"
 msgid "A4x8"
 msgstr "A4x8"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:32
+#: ../bobgui/paper_names_offsets.c:32
 msgctxt "paper size"
 msgid "A4x9"
 msgstr "A4x9"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:33
+#: ../bobgui/paper_names_offsets.c:33
 msgctxt "paper size"
 msgid "A5"
 msgstr "A5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:34
+#: ../bobgui/paper_names_offsets.c:34
 msgctxt "paper size"
 msgid "A5 Extra"
 msgstr "A5 𐑧𐑒𐑕𐑑𐑮𐑩"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:35
+#: ../bobgui/paper_names_offsets.c:35
 msgctxt "paper size"
 msgid "A6"
 msgstr "A6"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:36
+#: ../bobgui/paper_names_offsets.c:36
 msgctxt "paper size"
 msgid "A7"
 msgstr "A7"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:37
+#: ../bobgui/paper_names_offsets.c:37
 msgctxt "paper size"
 msgid "A8"
 msgstr "A8"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:38
+#: ../bobgui/paper_names_offsets.c:38
 msgctxt "paper size"
 msgid "A9"
 msgstr "A9"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:39
+#: ../bobgui/paper_names_offsets.c:39
 msgctxt "paper size"
 msgid "B0"
 msgstr "B0"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:40
+#: ../bobgui/paper_names_offsets.c:40
 msgctxt "paper size"
 msgid "B1"
 msgstr "B1"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:41
+#: ../bobgui/paper_names_offsets.c:41
 msgctxt "paper size"
 msgid "B10"
 msgstr "B10"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:42
+#: ../bobgui/paper_names_offsets.c:42
 msgctxt "paper size"
 msgid "B2"
 msgstr "B2"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:43
+#: ../bobgui/paper_names_offsets.c:43
 msgctxt "paper size"
 msgid "B3"
 msgstr "B3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:44
+#: ../bobgui/paper_names_offsets.c:44
 msgctxt "paper size"
 msgid "B4"
 msgstr "B4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:45
+#: ../bobgui/paper_names_offsets.c:45
 msgctxt "paper size"
 msgid "B5"
 msgstr "B5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:46
+#: ../bobgui/paper_names_offsets.c:46
 msgctxt "paper size"
 msgid "B5 Extra"
 msgstr "B5 𐑧𐑒𐑕𐑑𐑮𐑩"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:47
+#: ../bobgui/paper_names_offsets.c:47
 msgctxt "paper size"
 msgid "B6"
 msgstr "B6"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:48
+#: ../bobgui/paper_names_offsets.c:48
 msgctxt "paper size"
 msgid "B6/C4"
 msgstr "B6/C4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:49
+#: ../bobgui/paper_names_offsets.c:49
 msgctxt "paper size"
 msgid "B7"
 msgstr "B7"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:50
+#: ../bobgui/paper_names_offsets.c:50
 msgctxt "paper size"
 msgid "B8"
 msgstr "B8"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:51
+#: ../bobgui/paper_names_offsets.c:51
 msgctxt "paper size"
 msgid "B9"
 msgstr "B9"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:52
+#: ../bobgui/paper_names_offsets.c:52
 msgctxt "paper size"
 msgid "C0"
 msgstr "C0"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:53
+#: ../bobgui/paper_names_offsets.c:53
 msgctxt "paper size"
 msgid "C1"
 msgstr "C1"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:54
+#: ../bobgui/paper_names_offsets.c:54
 msgctxt "paper size"
 msgid "C10"
 msgstr "C10"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:55
+#: ../bobgui/paper_names_offsets.c:55
 msgctxt "paper size"
 msgid "C2"
 msgstr "C2"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:56
+#: ../bobgui/paper_names_offsets.c:56
 msgctxt "paper size"
 msgid "C3"
 msgstr "C3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:57
+#: ../bobgui/paper_names_offsets.c:57
 msgctxt "paper size"
 msgid "C4"
 msgstr "C4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:58
+#: ../bobgui/paper_names_offsets.c:58
 msgctxt "paper size"
 msgid "C5"
 msgstr "C5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:59
+#: ../bobgui/paper_names_offsets.c:59
 msgctxt "paper size"
 msgid "C6"
 msgstr "C6"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:60
+#: ../bobgui/paper_names_offsets.c:60
 msgctxt "paper size"
 msgid "C6/C5"
 msgstr "C6/C5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:61
+#: ../bobgui/paper_names_offsets.c:61
 msgctxt "paper size"
 msgid "C7"
 msgstr "C7"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:62
+#: ../bobgui/paper_names_offsets.c:62
 msgctxt "paper size"
 msgid "C7/C6"
 msgstr "C7/C6"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:63
+#: ../bobgui/paper_names_offsets.c:63
 msgctxt "paper size"
 msgid "C8"
 msgstr "C8"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:64
+#: ../bobgui/paper_names_offsets.c:64
 msgctxt "paper size"
 msgid "C9"
 msgstr "C9"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:65
+#: ../bobgui/paper_names_offsets.c:65
 msgctxt "paper size"
 msgid "DL Envelope"
 msgstr "DL 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:66
+#: ../bobgui/paper_names_offsets.c:66
 msgctxt "paper size"
 msgid "RA0"
 msgstr "RA0"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:67
+#: ../bobgui/paper_names_offsets.c:67
 msgctxt "paper size"
 msgid "RA1"
 msgstr "RA1"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:68
+#: ../bobgui/paper_names_offsets.c:68
 msgctxt "paper size"
 msgid "RA2"
 msgstr "RA2"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:69
+#: ../bobgui/paper_names_offsets.c:69
 msgctxt "paper size"
 msgid "SRA0"
 msgstr "SRA0"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:70
+#: ../bobgui/paper_names_offsets.c:70
 msgctxt "paper size"
 msgid "SRA1"
 msgstr "SRA1"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:71
+#: ../bobgui/paper_names_offsets.c:71
 msgctxt "paper size"
 msgid "SRA2"
 msgstr "SRA2"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:72
+#: ../bobgui/paper_names_offsets.c:72
 msgctxt "paper size"
 msgid "JB0"
 msgstr "JB0"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:73
+#: ../bobgui/paper_names_offsets.c:73
 msgctxt "paper size"
 msgid "JB1"
 msgstr "JB1"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:74
+#: ../bobgui/paper_names_offsets.c:74
 msgctxt "paper size"
 msgid "JB10"
 msgstr "JB10"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:75
+#: ../bobgui/paper_names_offsets.c:75
 msgctxt "paper size"
 msgid "JB2"
 msgstr "JB2"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:76
+#: ../bobgui/paper_names_offsets.c:76
 msgctxt "paper size"
 msgid "JB3"
 msgstr "JB3"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:77
+#: ../bobgui/paper_names_offsets.c:77
 msgctxt "paper size"
 msgid "JB4"
 msgstr "JB4"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:78
+#: ../bobgui/paper_names_offsets.c:78
 msgctxt "paper size"
 msgid "JB5"
 msgstr "JB5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:79
+#: ../bobgui/paper_names_offsets.c:79
 msgctxt "paper size"
 msgid "JB6"
 msgstr "JB6"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:80
+#: ../bobgui/paper_names_offsets.c:80
 msgctxt "paper size"
 msgid "JB7"
 msgstr "JB7"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:81
+#: ../bobgui/paper_names_offsets.c:81
 msgctxt "paper size"
 msgid "JB8"
 msgstr "JB8"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:82
+#: ../bobgui/paper_names_offsets.c:82
 msgctxt "paper size"
 msgid "JB9"
 msgstr "JB9"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:83
+#: ../bobgui/paper_names_offsets.c:83
 msgctxt "paper size"
 msgid "jis exec"
 msgstr "jis 𐑧𐑜𐑟𐑧𐑒"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:84
+#: ../bobgui/paper_names_offsets.c:84
 msgctxt "paper size"
 msgid "Choukei 2 Envelope"
 msgstr "Choukei 2 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:85
+#: ../bobgui/paper_names_offsets.c:85
 msgctxt "paper size"
 msgid "Choukei 3 Envelope"
 msgstr "Choukei 3 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:86
+#: ../bobgui/paper_names_offsets.c:86
 msgctxt "paper size"
 msgid "Choukei 4 Envelope"
 msgstr "Choukei 4 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:87
+#: ../bobgui/paper_names_offsets.c:87
 msgctxt "paper size"
 msgid "hagaki (postcard)"
 msgstr "hagaki (𐑐𐑴𐑕𐑑𐑒𐑭𐑮𐑛)"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:88
+#: ../bobgui/paper_names_offsets.c:88
 msgctxt "paper size"
 msgid "kahu Envelope"
 msgstr "kahu 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:89
+#: ../bobgui/paper_names_offsets.c:89
 msgctxt "paper size"
 msgid "kaku2 Envelope"
 msgstr "kaku2 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:90
+#: ../bobgui/paper_names_offsets.c:90
 msgctxt "paper size"
 msgid "oufuku (reply postcard)"
 msgstr "oufuku (𐑮𐑦𐑐𐑤𐑲 𐑐𐑴𐑕𐑑𐑒𐑭𐑮𐑛)"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:91
+#: ../bobgui/paper_names_offsets.c:91
 msgctxt "paper size"
 msgid "you4 Envelope"
 msgstr "you4 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:92
+#: ../bobgui/paper_names_offsets.c:92
 msgctxt "paper size"
 msgid "10x11"
 msgstr "10x11"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:93
+#: ../bobgui/paper_names_offsets.c:93
 msgctxt "paper size"
 msgid "10x13"
 msgstr "10x13"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:94
+#: ../bobgui/paper_names_offsets.c:94
 msgctxt "paper size"
 msgid "10x14"
 msgstr "10x14"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:95 ../gtk/paper_names_offsets.c:96
+#: ../bobgui/paper_names_offsets.c:95 ../bobgui/paper_names_offsets.c:96
 msgctxt "paper size"
 msgid "10x15"
 msgstr "10x15"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:97
+#: ../bobgui/paper_names_offsets.c:97
 msgctxt "paper size"
 msgid "11x12"
 msgstr "11x12"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:98
+#: ../bobgui/paper_names_offsets.c:98
 msgctxt "paper size"
 msgid "11x15"
 msgstr "11x15"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:99
+#: ../bobgui/paper_names_offsets.c:99
 msgctxt "paper size"
 msgid "12x19"
 msgstr "12x19"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:100
+#: ../bobgui/paper_names_offsets.c:100
 msgctxt "paper size"
 msgid "5x7"
 msgstr "5x7"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:101
+#: ../bobgui/paper_names_offsets.c:101
 msgctxt "paper size"
 msgid "6x9 Envelope"
 msgstr "6x9 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:102
+#: ../bobgui/paper_names_offsets.c:102
 msgctxt "paper size"
 msgid "7x9 Envelope"
 msgstr "7x9 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:103
+#: ../bobgui/paper_names_offsets.c:103
 msgctxt "paper size"
 msgid "9x11 Envelope"
 msgstr "9x11 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:104
+#: ../bobgui/paper_names_offsets.c:104
 msgctxt "paper size"
 msgid "a2 Envelope"
 msgstr "a2 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:105
+#: ../bobgui/paper_names_offsets.c:105
 msgctxt "paper size"
 msgid "Arch A"
 msgstr "𐑸𐑗 A"
 
-#: ../gtk/paper_names_offsets.c:106
+#: ../bobgui/paper_names_offsets.c:106
 msgctxt "paper size"
 msgid "Arch B"
 msgstr "𐑸𐑗 B"
 
-#: ../gtk/paper_names_offsets.c:107
+#: ../bobgui/paper_names_offsets.c:107
 msgctxt "paper size"
 msgid "Arch C"
 msgstr "𐑸𐑗 C"
 
-#: ../gtk/paper_names_offsets.c:108
+#: ../bobgui/paper_names_offsets.c:108
 msgctxt "paper size"
 msgid "Arch D"
 msgstr "𐑸𐑗 D"
 
-#: ../gtk/paper_names_offsets.c:109
+#: ../bobgui/paper_names_offsets.c:109
 msgctxt "paper size"
 msgid "Arch E"
 msgstr "𐑸𐑗 E"
 
-#: ../gtk/paper_names_offsets.c:110
+#: ../bobgui/paper_names_offsets.c:110
 msgctxt "paper size"
 msgid "b-plus"
 msgstr "b-𐑐𐑤𐑳𐑕"
 
-#: ../gtk/paper_names_offsets.c:111
+#: ../bobgui/paper_names_offsets.c:111
 msgctxt "paper size"
 msgid "c"
 msgstr "c"
 
-#: ../gtk/paper_names_offsets.c:112
+#: ../bobgui/paper_names_offsets.c:112
 msgctxt "paper size"
 msgid "c5 Envelope"
 msgstr "c5 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:113
+#: ../bobgui/paper_names_offsets.c:113
 msgctxt "paper size"
 msgid "d"
 msgstr "d"
 
-#: ../gtk/paper_names_offsets.c:114
+#: ../bobgui/paper_names_offsets.c:114
 msgctxt "paper size"
 msgid "e"
 msgstr "𐑧"
 
-#: ../gtk/paper_names_offsets.c:115
+#: ../bobgui/paper_names_offsets.c:115
 msgctxt "paper size"
 msgid "edp"
 msgstr "edp"
 
-#: ../gtk/paper_names_offsets.c:116
+#: ../bobgui/paper_names_offsets.c:116
 msgctxt "paper size"
 msgid "European edp"
 msgstr "𐑘𐑫𐑼𐑩𐑐𐑰𐑩𐑯 edp"
 
-#: ../gtk/paper_names_offsets.c:117
+#: ../bobgui/paper_names_offsets.c:117
 msgctxt "paper size"
 msgid "Executive"
 msgstr "𐑦𐑜𐑟𐑧𐑒𐑘𐑩𐑑𐑦𐑝"
 
-#: ../gtk/paper_names_offsets.c:118
+#: ../bobgui/paper_names_offsets.c:118
 msgctxt "paper size"
 msgid "f"
 msgstr "f"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:119
+#: ../bobgui/paper_names_offsets.c:119
 msgctxt "paper size"
 msgid "FanFold European"
 msgstr "FanFold 𐑘𐑫𐑼𐑩𐑐𐑰𐑩𐑯"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:120
+#: ../bobgui/paper_names_offsets.c:120
 msgctxt "paper size"
 msgid "FanFold US"
 msgstr "FanFold 𐑳𐑕"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:121
+#: ../bobgui/paper_names_offsets.c:121
 msgctxt "paper size"
 msgid "FanFold German Legal"
 msgstr "FanFold 𐑡𐑻𐑥𐑩𐑯 𐑤𐑰𐑜𐑩𐑤"
 
-#: ../gtk/paper_names_offsets.c:122
+#: ../bobgui/paper_names_offsets.c:122
 msgctxt "paper size"
 msgid "Government Legal"
 msgstr "𐑜𐑳𐑝𐑼𐑯𐑥𐑩𐑯𐑑 𐑤𐑰𐑜𐑩𐑤"
 
-#: ../gtk/paper_names_offsets.c:123
+#: ../bobgui/paper_names_offsets.c:123
 msgctxt "paper size"
 msgid "Government Letter"
 msgstr "𐑜𐑳𐑝𐑼𐑯𐑥𐑩𐑯𐑑 𐑤𐑧𐑑𐑼"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:124
+#: ../bobgui/paper_names_offsets.c:124
 msgctxt "paper size"
 msgid "Index 3x5"
 msgstr "𐑦𐑯𐑛𐑧𐑒𐑕 3x5"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:125
+#: ../bobgui/paper_names_offsets.c:125
 msgctxt "paper size"
 msgid "Index 4x6 (postcard)"
 msgstr "𐑦𐑯𐑛𐑧𐑒𐑕 4x6 (𐑐𐑴𐑕𐑑𐑒𐑭𐑮𐑛)"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:126
+#: ../bobgui/paper_names_offsets.c:126
 msgctxt "paper size"
 msgid "Index 4x6 ext"
 msgstr "𐑦𐑯𐑛𐑧𐑒𐑕 4x6 ext"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:127
+#: ../bobgui/paper_names_offsets.c:127
 msgctxt "paper size"
 msgid "Index 5x8"
 msgstr "𐑦𐑯𐑛𐑧𐑒𐑕 5x8"
 
-#: ../gtk/paper_names_offsets.c:128
+#: ../bobgui/paper_names_offsets.c:128
 msgctxt "paper size"
 msgid "Invoice"
 msgstr "𐑦𐑯𐑝𐑬𐑕"
 
-#: ../gtk/paper_names_offsets.c:129
+#: ../bobgui/paper_names_offsets.c:129
 msgctxt "paper size"
 msgid "Tabloid"
 msgstr "𐑑𐑨𐑚𐑤𐑬𐑛"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:130
+#: ../bobgui/paper_names_offsets.c:130
 msgctxt "paper size"
 msgid "US Legal"
 msgstr "US 𐑤𐑰𐑜𐑩𐑤"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:131
+#: ../bobgui/paper_names_offsets.c:131
 msgctxt "paper size"
 msgid "US Legal Extra"
 msgstr "US 𐑤𐑰𐑜𐑩𐑤 𐑧𐑒𐑕𐑑𐑮𐑩"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:132
+#: ../bobgui/paper_names_offsets.c:132
 msgctxt "paper size"
 msgid "US Letter"
 msgstr "US 𐑤𐑧𐑑𐑼"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:133
+#: ../bobgui/paper_names_offsets.c:133
 msgctxt "paper size"
 msgid "US Letter Extra"
 msgstr "US 𐑤𐑧𐑑𐑼 𐑧𐑒𐑕𐑑𐑮𐑩"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:134
+#: ../bobgui/paper_names_offsets.c:134
 msgctxt "paper size"
 msgid "US Letter Plus"
 msgstr "US 𐑤𐑧𐑑𐑼 𐑐𐑤𐑳𐑕"
 
-#: ../gtk/paper_names_offsets.c:135
+#: ../bobgui/paper_names_offsets.c:135
 msgctxt "paper size"
 msgid "Monarch Envelope"
 msgstr "𐑥𐑪𐑯𐑼𐑒 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:136
+#: ../bobgui/paper_names_offsets.c:136
 msgctxt "paper size"
 msgid "#10 Envelope"
 msgstr "#10 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:137
+#: ../bobgui/paper_names_offsets.c:137
 msgctxt "paper size"
 msgid "#11 Envelope"
 msgstr "#11 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:138
+#: ../bobgui/paper_names_offsets.c:138
 msgctxt "paper size"
 msgid "#12 Envelope"
 msgstr "#12 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:139
+#: ../bobgui/paper_names_offsets.c:139
 msgctxt "paper size"
 msgid "#14 Envelope"
 msgstr "#14 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:140
+#: ../bobgui/paper_names_offsets.c:140
 msgctxt "paper size"
 msgid "#9 Envelope"
 msgstr "#9 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:141
+#: ../bobgui/paper_names_offsets.c:141
 msgctxt "paper size"
 msgid "Personal Envelope"
 msgstr "𐑐𐑻𐑕𐑩𐑯𐑩𐑤 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:142
+#: ../bobgui/paper_names_offsets.c:142
 msgctxt "paper size"
 msgid "Quarto"
 msgstr "𐑒𐑢𐑪𐑮𐑑𐑴"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:143
+#: ../bobgui/paper_names_offsets.c:143
 msgctxt "paper size"
 msgid "Super A"
 msgstr "𐑕𐑵𐑐𐑼 A"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:144
+#: ../bobgui/paper_names_offsets.c:144
 msgctxt "paper size"
 msgid "Super B"
 msgstr "𐑕𐑵𐑐𐑼 B"
 
-#: ../gtk/paper_names_offsets.c:145
+#: ../bobgui/paper_names_offsets.c:145
 msgctxt "paper size"
 msgid "Wide Format"
 msgstr "𐑢𐑲𐑛 𐑓𐑹𐑥𐑨𐑑"
 
-#: ../gtk/paper_names_offsets.c:146
+#: ../bobgui/paper_names_offsets.c:146
 msgctxt "paper size"
 msgid "Dai-pa-kai"
 msgstr "𐑛𐑲-𐑐𐑭-𐑒𐑲"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:147
+#: ../bobgui/paper_names_offsets.c:147
 msgctxt "paper size"
 msgid "Folio"
 msgstr "Folio"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:148
+#: ../bobgui/paper_names_offsets.c:148
 msgctxt "paper size"
 msgid "Folio sp"
 msgstr "Folio sp"
 
-#: ../gtk/paper_names_offsets.c:149
+#: ../bobgui/paper_names_offsets.c:149
 msgctxt "paper size"
 msgid "Invite Envelope"
 msgstr "𐑦𐑯𐑝𐑲𐑑 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:150
+#: ../bobgui/paper_names_offsets.c:150
 msgctxt "paper size"
 msgid "Italian Envelope"
 msgstr "𐑦𐑑𐑨𐑤𐑦𐑩𐑯 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:151
+#: ../bobgui/paper_names_offsets.c:151
 msgctxt "paper size"
 msgid "juuro-ku-kai"
 msgstr "juuro-𐑒𐑵-𐑒𐑲"
 
-#: ../gtk/paper_names_offsets.c:152
+#: ../bobgui/paper_names_offsets.c:152
 msgctxt "paper size"
 msgid "pa-kai"
 msgstr "𐑐𐑭-𐑒𐑲"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:153
+#: ../bobgui/paper_names_offsets.c:153
 msgctxt "paper size"
 msgid "Postfix Envelope"
 msgstr "Postfix 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
-#: ../gtk/paper_names_offsets.c:154
+#: ../bobgui/paper_names_offsets.c:154
 msgctxt "paper size"
 msgid "Small Photo"
 msgstr "𐑕𐑥𐑷𐑤 𐑓𐑴𐑑𐑴"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:155
+#: ../bobgui/paper_names_offsets.c:155
 msgctxt "paper size"
 msgid "prc1 Envelope"
 msgstr "prc1 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:156
+#: ../bobgui/paper_names_offsets.c:156
 msgctxt "paper size"
 msgid "prc10 Envelope"
 msgstr "prc10 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:157
+#: ../bobgui/paper_names_offsets.c:157
 msgctxt "paper size"
 msgid "prc 16k"
 msgstr "prc 16k"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:158
+#: ../bobgui/paper_names_offsets.c:158
 msgctxt "paper size"
 msgid "prc2 Envelope"
 msgstr "prc2 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:159
+#: ../bobgui/paper_names_offsets.c:159
 msgctxt "paper size"
 msgid "prc3 Envelope"
 msgstr "prc3 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:160
+#: ../bobgui/paper_names_offsets.c:160
 msgctxt "paper size"
 msgid "prc 32k"
 msgstr "prc 32k"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:161
+#: ../bobgui/paper_names_offsets.c:161
 msgctxt "paper size"
 msgid "prc4 Envelope"
 msgstr "prc4 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:162
+#: ../bobgui/paper_names_offsets.c:162
 msgctxt "paper size"
 msgid "prc5 Envelope"
 msgstr "prc5 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:163
+#: ../bobgui/paper_names_offsets.c:163
 msgctxt "paper size"
 msgid "prc6 Envelope"
 msgstr "prc6 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:164
+#: ../bobgui/paper_names_offsets.c:164
 msgctxt "paper size"
 msgid "prc7 Envelope"
 msgstr "prc7 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:165
+#: ../bobgui/paper_names_offsets.c:165
 msgctxt "paper size"
 msgid "prc8 Envelope"
 msgstr "prc8 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:166
+#: ../bobgui/paper_names_offsets.c:166
 msgctxt "paper size"
 msgid "prc9 Envelope"
 msgstr "prc9 𐑧𐑯𐑝𐑩𐑤𐑴𐑐"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:167
+#: ../bobgui/paper_names_offsets.c:167
 msgctxt "paper size"
 msgid "ROC 16k"
 msgstr "𐑮𐑭𐑒 16k"
 
 #, fuzzy
-#: ../gtk/paper_names_offsets.c:168
+#: ../bobgui/paper_names_offsets.c:168
 msgctxt "paper size"
 msgid "ROC 8k"
 msgstr "𐑮𐑭𐑒 8k"
 
 #, c-format
-#: ../gtk/updateiconcache.c:492 ../gtk/updateiconcache.c:552
+#: ../bobgui/updateiconcache.c:492 ../bobgui/updateiconcache.c:552
 msgid "different idatas found for symlinked '%s' and '%s'\n"
 msgstr "𐑛𐑦𐑓𐑼𐑩𐑯𐑑 idata𐑟 𐑓𐑬𐑯𐑛 𐑓𐑹 𐑕𐑦𐑥𐑤𐑦𐑙𐑒𐑛 '%s' 𐑯 '%s'\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1374
+#: ../bobgui/updateiconcache.c:1374
 msgid "Failed to write header\n"
 msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑮𐑲𐑑 𐑣𐑧𐑛𐑼\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1380
+#: ../bobgui/updateiconcache.c:1380
 msgid "Failed to write hash table\n"
 msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑮𐑲𐑑 𐑣𐑨𐑖 𐑑𐑱𐑚𐑩𐑤\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1386
+#: ../bobgui/updateiconcache.c:1386
 msgid "Failed to write folder index\n"
 msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑮𐑲𐑑 𐑓𐑴𐑤𐑛𐑼 𐑦𐑯𐑛𐑧𐑒𐑕\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1394
+#: ../bobgui/updateiconcache.c:1394
 msgid "Failed to rewrite header\n"
 msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑮𐑰𐑮𐑲𐑑 𐑣𐑧𐑛𐑼\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1463
+#: ../bobgui/updateiconcache.c:1463
 msgid "Failed to open file %s : %s\n"
 msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑴𐑐𐑩𐑯 𐑓𐑲𐑤 %s : %s\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1471
+#: ../bobgui/updateiconcache.c:1471
 msgid "Failed to write cache file: %s\n"
 msgstr "𐑓𐑱𐑤𐑛 𐑑 𐑮𐑲𐑑 𐑒𐑨𐑖 𐑓𐑲𐑤: %s\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1507
+#: ../bobgui/updateiconcache.c:1507
 msgid "The generated cache was invalid.\n"
 msgstr "𐑞 𐑡𐑧𐑯𐑼𐑱𐑑𐑩𐑛 𐑒𐑨𐑖 𐑢𐑪𐑟 𐑦𐑯𐑝𐑨𐑤𐑦𐑛.\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1521
+#: ../bobgui/updateiconcache.c:1521
 msgid "Could not rename %s to %s: %s, removing %s then.\n"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑮𐑰𐑯𐑱𐑥 %s 𐑑 %s: %s, 𐑮𐑦𐑥𐑵𐑝𐑦𐑙 %s 𐑞𐑧𐑯.\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1535
+#: ../bobgui/updateiconcache.c:1535
 msgid "Could not rename %s to %s: %s\n"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑮𐑰𐑯𐑱𐑥 %s 𐑑 %s: %s\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1545
+#: ../bobgui/updateiconcache.c:1545
 msgid "Could not rename %s back to %s: %s.\n"
 msgstr "𐑒𐑫𐑛 𐑯𐑪𐑑 𐑮𐑰𐑯𐑱𐑥 %s 𐑚𐑨𐑒 𐑑 %s: %s.\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1572
+#: ../bobgui/updateiconcache.c:1572
 msgid "Cache file created successfully.\n"
 msgstr "𐑒𐑨𐑖 𐑓𐑲𐑤 𐑒𐑮𐑦𐑱𐑑𐑩𐑛 𐑕𐑩𐑒𐑕𐑧𐑕𐑓𐑩𐑤𐑦.\n"
 
-#: ../gtk/updateiconcache.c:1611
+#: ../bobgui/updateiconcache.c:1611
 msgid "Overwrite an existing cache, even if up to date"
 msgstr "𐑴𐑝𐑼𐑮𐑲𐑑 𐑩𐑯 𐑧𐑒𐑟𐑦𐑕𐑑𐑦𐑙 𐑒𐑨𐑖, 𐑰𐑝𐑩𐑯 𐑦𐑓 𐑳𐑐 𐑑 𐑛𐑱𐑑"
 
-#: ../gtk/updateiconcache.c:1612
+#: ../bobgui/updateiconcache.c:1612
 msgid "Don't check for the existence of index.theme"
 msgstr "𐑛𐑴𐑯𐑑 𐑗𐑧𐑒 𐑓𐑹 𐑞 𐑧𐑒𐑟𐑦𐑕𐑑𐑩𐑯𐑕 𐑝 𐑦𐑯𐑛𐑧𐑒𐑕.𐑔𐑰𐑥"
 
-#: ../gtk/updateiconcache.c:1613
+#: ../bobgui/updateiconcache.c:1613
 msgid "Don't include image data in the cache"
 msgstr "𐑛𐑴𐑯𐑑 𐑦𐑯𐑒𐑤𐑵𐑛 𐑦𐑥𐑦𐑡 𐑛𐑱𐑑𐑩 𐑦𐑯 𐑞 𐑒𐑨𐑖"
 
-#: ../gtk/updateiconcache.c:1614
+#: ../bobgui/updateiconcache.c:1614
 msgid "Output a C header file"
 msgstr "𐑬𐑑𐑐𐑫𐑑 𐑩 C 𐑣𐑧𐑛𐑼 𐑓𐑲𐑤"
 
-#: ../gtk/updateiconcache.c:1615
+#: ../bobgui/updateiconcache.c:1615
 msgid "Turn off verbose output"
 msgstr "𐑑𐑻𐑯 𐑪𐑓 𐑝𐑻𐑚𐑴𐑕 𐑬𐑑𐑐𐑫𐑑"
 
-#: ../gtk/updateiconcache.c:1616
+#: ../bobgui/updateiconcache.c:1616
 msgid "Validate existing icon cache"
 msgstr "𐑝𐑨𐑤𐑩𐑛𐑱𐑑 𐑧𐑒𐑟𐑦𐑕𐑑𐑦𐑙 𐑲𐑒𐑪𐑯 𐑒𐑨𐑖"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1683
+#: ../bobgui/updateiconcache.c:1683
 msgid "File not found: %s\n"
 msgstr "𐑓𐑲𐑤 𐑯𐑪𐑑 𐑓𐑬𐑯𐑛: %s\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1689
+#: ../bobgui/updateiconcache.c:1689
 msgid "Not a valid icon cache: %s\n"
 msgstr "𐑯𐑪𐑑 𐑩 𐑝𐑨𐑤𐑦𐑛 𐑲𐑒𐑪𐑯 𐑒𐑨𐑖: %s\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1702
+#: ../bobgui/updateiconcache.c:1702
 msgid "No theme index file.\n"
 msgstr "𐑯𐑴 𐑔𐑰𐑥 𐑦𐑯𐑛𐑧𐑒𐑕 𐑓𐑲𐑤.\n"
 
 #, c-format
-#: ../gtk/updateiconcache.c:1706
+#: ../bobgui/updateiconcache.c:1706
 msgid ""
 "No theme index file in '%s'.\nIf you really want to create an icon cache "
 "here, use --ignore-theme-index.\n"
@@ -4818,286 +4818,286 @@ msgstr "𐑝𐑰𐑧𐑑𐑯𐑭𐑥𐑰𐑕 (VIQR)"
 msgid "X Input Method"
 msgstr "X 𐑦𐑯𐑐𐑫𐑑 𐑥𐑧𐑔𐑩𐑛"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:809
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1018
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:809
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1018
 msgid "Username:"
 msgstr "𐑿𐑟𐑼𐑯𐑱𐑥:"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:810
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1027
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:810
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1027
 msgid "Password:"
 msgstr "𐑐𐑭𐑕𐑢𐑼𐑛:"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:848
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:848
 msgid "Authentication is required to get a file from %s"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑜𐑧𐑑 𐑩 𐑓𐑲𐑤 𐑓𐑮𐑪𐑥 %s"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:852
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1040
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:852
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1040
 msgid "Authentication is required to print document '%s' on printer %s"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑐𐑮𐑦𐑯𐑑 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑 '%s' 𐑪𐑯 𐑐𐑮𐑦𐑯𐑑𐑼 %s"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:854
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:854
 msgid "Authentication is required to print a document on %s"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑐𐑮𐑦𐑯𐑑 𐑩 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑 𐑪𐑯 %s"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:858
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:858
 msgid "Authentication is required to get attributes of job '%s'"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑜𐑧𐑑 𐑩𐑑𐑮𐑦𐑚𐑿𐑑𐑕 𐑝 𐑡𐑪𐑚 '%s'"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:860
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:860
 msgid "Authentication is required to get attributes of a job"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑜𐑧𐑑 𐑩𐑑𐑮𐑦𐑚𐑿𐑑𐑕 𐑝 𐑩 𐑡𐑪𐑚"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:864
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:864
 msgid "Authentication is required to get attributes of printer %s"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑜𐑧𐑑 𐑩𐑑𐑮𐑦𐑚𐑿𐑑𐑕 𐑝 𐑐𐑮𐑦𐑯𐑑𐑼 %s"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:866
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:866
 msgid "Authentication is required to get attributes of a printer"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑜𐑧𐑑 𐑩𐑑𐑮𐑦𐑚𐑿𐑑𐑕 𐑝 𐑩 𐑐𐑮𐑦𐑯𐑑𐑼"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:869
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:869
 msgid "Authentication is required to get default printer of %s"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑜𐑧𐑑 𐑛𐑦𐑓𐑷𐑤𐑑 𐑐𐑮𐑦𐑯𐑑𐑼 𐑝 %s"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:872
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:872
 msgid "Authentication is required to get printers from %s"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑜𐑧𐑑 𐑐𐑮𐑦𐑯𐑑𐑼𐑟 𐑓𐑮𐑪𐑥 %s"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:875
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:875
 msgid "Authentication is required on %s"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑪𐑯 %s"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1012
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1012
 msgid "Domain:"
 msgstr "𐑛𐑴𐑥𐑱𐑯:"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1042
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1042
 msgid "Authentication is required to print document '%s'"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑐𐑮𐑦𐑯𐑑 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑 '%s'"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1047
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1047
 msgid "Authentication is required to print this document on printer %s"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑐𐑮𐑦𐑯𐑑 𐑞𐑦𐑕 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑 𐑪𐑯 𐑐𐑮𐑦𐑯𐑑𐑼 %s"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1049
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1049
 msgid "Authentication is required to print this document"
 msgstr "𐑷𐑔𐑧𐑯𐑑𐑦𐑒𐑱𐑖𐑩𐑯 𐑦𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑐𐑮𐑦𐑯𐑑 𐑞𐑦𐑕 𐑛𐑪𐑒𐑿𐑥𐑩𐑯𐑑"
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1670
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1670
 msgid "Printer '%s' is low on toner."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑦𐑟 𐑤𐑴 𐑪𐑯 𐑑𐑴𐑯𐑻."
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1671
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1671
 msgid "Printer '%s' has no toner left."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑣𐑨𐑟 𐑯𐑴 𐑑𐑴𐑯𐑻 𐑤𐑧𐑓𐑑."
 
 #. Translators: "Developer" like on photo development context
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1673
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1673
 msgid "Printer '%s' is low on developer."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑦𐑟 𐑤𐑴 𐑪𐑯 𐑛𐑦𐑝𐑧𐑤𐑩𐑐𐑼."
 
 #. Translators: "Developer" like on photo development context
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1675
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1675
 msgid "Printer '%s' is out of developer."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑦𐑟 𐑬𐑑 𐑝 𐑛𐑦𐑝𐑧𐑤𐑩𐑐𐑼."
 
 #. Translators: "marker" is one color bin of the printer
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1677
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1677
 msgid "Printer '%s' is low on at least one marker supply."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑦𐑟 𐑤𐑴 𐑪𐑯 𐑨𐑑 𐑤𐑰𐑕𐑑 𐑢𐑳𐑯 𐑥𐑭𐑮𐑒𐑻 𐑕𐑩𐑐𐑤𐑲."
 
 #. Translators: "marker" is one color bin of the printer
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1679
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1679
 msgid "Printer '%s' is out of at least one marker supply."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑦𐑟 𐑬𐑑 𐑝 𐑨𐑑 𐑤𐑰𐑕𐑑 𐑢𐑳𐑯 𐑥𐑭𐑮𐑒𐑻 𐑕𐑩𐑐𐑤𐑲."
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1680
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1680
 msgid "The cover is open on printer '%s'."
 msgstr "𐑞 𐑒𐑳𐑝𐑼 𐑦𐑟 𐑴𐑐𐑩𐑯 𐑪𐑯 𐑐𐑮𐑦𐑯𐑑𐑼 '%s'."
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1681
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1681
 msgid "The door is open on printer '%s'."
 msgstr "𐑞 𐑛𐑹 𐑦𐑟 𐑴𐑐𐑩𐑯 𐑪𐑯 𐑐𐑮𐑦𐑯𐑑𐑼 '%s'."
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1682
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1682
 msgid "Printer '%s' is low on paper."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑦𐑟 𐑤𐑴 𐑪𐑯 𐑐𐑱𐑐𐑼."
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1683
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1683
 msgid "Printer '%s' is out of paper."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑦𐑟 𐑬𐑑 𐑝 𐑐𐑱𐑐𐑼."
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1684
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1684
 msgid "Printer '%s' is currently off-line."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑦𐑟 𐑒𐑳𐑮𐑩𐑯𐑑𐑤𐑦 𐑪𐑓-𐑤𐑲𐑯."
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1685
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1685
 msgid "Printer '%s' may not be connected."
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 '%s' 𐑥𐑱 𐑯𐑪𐑑 𐑚𐑰 𐑒𐑩𐑯𐑧𐑒𐑑𐑩𐑛."
 
 #, c-format
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1686
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1686
 msgid "There is a problem on printer '%s'."
 msgstr "𐑞𐑺 𐑦𐑟 𐑩 𐑐𐑮𐑪𐑚𐑤𐑩𐑥 𐑪𐑯 𐑐𐑮𐑦𐑯𐑑𐑼 '%s'."
 
 #. Translators: this is a printer status.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1994
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1994
 msgid "Paused; Rejecting Jobs"
 msgstr "𐑐𐑷𐑟𐑛 ; 𐑮𐑦𐑡𐑧𐑒𐑑𐑦𐑙 𐑡𐑪𐑚𐑟"
 
 #. Translators: this is a printer status.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2000
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2000
 msgid "Rejecting Jobs"
 msgstr "𐑮𐑦𐑡𐑧𐑒𐑑𐑦𐑙 𐑡𐑪𐑚𐑟"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2774
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2774
 msgid "Two Sided"
 msgstr "𐑑𐑵 𐑕𐑲𐑛𐑩𐑛"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2775
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2775
 msgid "Paper Type"
 msgstr "𐑐𐑱𐑐𐑼 𐑑𐑲𐑐"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2776
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2776
 msgid "Paper Source"
 msgstr "𐑐𐑱𐑐𐑼 𐑕𐑹𐑕"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2777
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2777
 msgid "Output Tray"
 msgstr "𐑬𐑑𐑐𐑫𐑑 𐑑𐑮𐑱"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2778
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2778
 msgid "Resolution"
 msgstr "𐑮𐑧𐑟𐑩𐑤𐑵𐑖𐑩𐑯"
 
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2779
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2779
 msgid "GhostScript pre-filtering"
 msgstr "GhostScript 𐑐𐑮𐑰-𐑓𐑦𐑤𐑑𐑼𐑦𐑙"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2788
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2788
 msgid "One Sided"
 msgstr "𐑢𐑳𐑯 𐑕𐑲𐑛𐑩𐑛"
 
 #. Translators: this is an option of "Two Sided"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2790
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2790
 msgid "Long Edge (Standard)"
 msgstr "𐑤𐑪𐑙 𐑧𐑡 (𐑕𐑑𐑨𐑯𐑛𐑼𐑛)"
 
 #. Translators: this is an option of "Two Sided"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2792
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2792
 msgid "Short Edge (Flip)"
 msgstr "𐑖𐑹𐑑 𐑧𐑡 (𐑓𐑤𐑦𐑐)"
 
 #. Translators: this is an option of "Paper Source"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2794
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2796
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2804
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2794
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2796
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2804
 msgid "Auto Select"
 msgstr "𐑷𐑑𐑴 𐑕𐑩𐑤𐑧𐑒𐑑"
 
 #. Translators: this is an option of "Paper Source"
 #. Translators: this is an option of "Resolution"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2798
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2800
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2802
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2806
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3292
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2798
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2800
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2802
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2806
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3292
 msgid "Printer Default"
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 𐑛𐑦𐑓𐑷𐑤𐑑"
 
 #. Translators: this is an option of "GhostScript"
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2808
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2808
 msgid "Embed GhostScript fonts only"
 msgstr "𐑦𐑥𐑚𐑧𐑛 GhostScript 𐑓𐑪𐑯𐑑𐑕 𐑴𐑯𐑤𐑦"
 
 #. Translators: this is an option of "GhostScript"
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2810
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2810
 msgid "Convert to PS level 1"
 msgstr "𐑒𐑩𐑯𐑝𐑻𐑑 𐑑 PS 𐑤𐑧𐑝𐑩𐑤 1"
 
 #. Translators: this is an option of "GhostScript"
 #, fuzzy
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2812
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2812
 msgid "Convert to PS level 2"
 msgstr "𐑒𐑩𐑯𐑝𐑻𐑑 𐑑 PS 𐑤𐑧𐑝𐑩𐑤 2"
 
 #. Translators: this is an option of "GhostScript"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2814
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2814
 msgid "No pre-filtering"
 msgstr "𐑯𐑴 𐑐𐑮𐑰-𐑓𐑦𐑤𐑑𐑼𐑦𐑙"
 
 #. Translators: "Miscellaneous" is the label for a button, that opens
 #. up an extra panel of settings in a print dialog.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2823
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2823
 msgid "Miscellaneous"
 msgstr "𐑥𐑦𐑕𐑩𐑤𐑱𐑯𐑰𐑩𐑕"
 
 #. Translators: These strings name the possible values of the
 #. * job priority option in the print dialog
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3500
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3500
 msgid "Urgent"
 msgstr "𐑻𐑡𐑩𐑯𐑑"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3500
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3500
 msgid "High"
 msgstr "𐑣𐑲"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3500
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3500
 msgid "Medium"
 msgstr "𐑥𐑰𐑛𐑦𐑩𐑥"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3500
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3500
 msgid "Low"
 msgstr "𐑤𐑴"
 
@@ -5105,66 +5105,66 @@ msgstr "𐑤𐑴"
 #. Translators, this string is used to label the pages-per-sheet option
 #. * in the print dialog
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3524
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3524
 msgid "Pages per Sheet"
 msgstr "𐑐𐑱𐑡𐑧𐑟 𐑐𐑻 𐑖𐑰𐑑"
 
 #. Translators, this string is used to label the job priority option
 #. * in the print dialog
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3561
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3561
 msgid "Job Priority"
 msgstr "·𐑡𐑴𐑚 𐑐𐑮𐑲𐑪𐑮𐑦𐑑𐑦"
 
 #. Translators, this string is used to label the billing info entry
 #. * in the print dialog
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3572
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3572
 msgid "Billing Info"
 msgstr "𐑚𐑦𐑤𐑦𐑙 𐑦𐑯𐑓𐑴"
 
 #. Translators, these strings are names for various 'standard' cover
 #. * pages that the printing system may support.
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3587
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3587
 msgid "None"
 msgstr "𐑯𐑳𐑯"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3587
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3587
 msgid "Classified"
 msgstr "𐑒𐑤𐑨𐑕𐑦𐑓𐑲𐑛"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3587
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3587
 msgid "Confidential"
 msgstr "𐑒𐑪𐑯𐑓𐑦𐑛𐑧𐑯𐑖𐑩𐑤"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3587
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3587
 msgid "Secret"
 msgstr "𐑕𐑰𐑒𐑮𐑩𐑑"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3587
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3587
 msgid "Standard"
 msgstr "𐑕𐑑𐑨𐑯𐑛𐑼𐑛"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3587
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3587
 msgid "Top Secret"
 msgstr "𐑑𐑪𐑐 𐑕𐑰𐑒𐑮𐑩𐑑"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3587
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3587
 msgid "Unclassified"
 msgstr "𐑩𐑯𐑒𐑤𐑨𐑕𐑦𐑓𐑲𐑛"
 
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the front cover page.
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3622
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3622
 msgid "Before"
 msgstr "𐑚𐑦𐑓𐑹"
 
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the back cover page.
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3637
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3637
 msgid "After"
 msgstr "𐑭𐑓𐑑𐑼"
 
@@ -5172,14 +5172,14 @@ msgstr "𐑭𐑓𐑑𐑼"
 #. * a print job is printed. Possible values are 'now', a specified time,
 #. * or 'on hold'
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3657
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3657
 msgid "Print at"
 msgstr "𐑐𐑮𐑦𐑯𐑑 𐑨𐑑"
 
 #. Translators: this is the name of the option that allows the user
 #. * to specify a time when a print job will be printed.
 #.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3668
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3668
 msgid "Print at time"
 msgstr "𐑐𐑮𐑦𐑯𐑑 𐑨𐑑 𐑑𐑲𐑥"
 
@@ -5188,89 +5188,89 @@ msgstr "𐑐𐑮𐑦𐑯𐑑 𐑨𐑑 𐑑𐑲𐑥"
 #. * in points. E.g: "Custom 230.4x142.9"
 #.
 #, c-format
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3703
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3703
 msgid "Custom %sx%s"
 msgstr "𐑒𐑳𐑕𐑑𐑩𐑥 %sx%s"
 
 #. default filename used for print-to-file
 #, c-format
-#: ../modules/printbackends/file/gtkprintbackendfile.c:250
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:250
 msgid "output.%s"
 msgstr "𐑬𐑑𐑐𐑫𐑑.%s"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:493
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:493
 msgid "Print to File"
 msgstr "𐑐𐑮𐑦𐑯𐑑 𐑑 𐑓𐑲𐑤"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:570
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:570
 msgid "PDF"
 msgstr "PDF"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:570
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:570
 msgid "Postscript"
 msgstr "𐑐𐑴𐑕𐑑𐑕𐑒𐑮𐑦𐑐𐑑"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:570
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:570
 msgid "SVG"
 msgstr "SVG"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:582
-#: ../modules/printbackends/test/gtkprintbackendtest.c:503
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:582
+#: ../modules/printbackends/test/bobguiprintbackendtest.c:503
 msgid "Pages per _sheet:"
 msgstr "𐑐𐑱𐑡𐑧𐑟 𐑐𐑻 _𐑖𐑰𐑑:"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:641
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:641
 msgid "File"
 msgstr "𐑓𐑲𐑤"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:651
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:651
 msgid "_Output format"
 msgstr "_𐑬𐑑𐑐𐑳𐑑 𐑓𐑹𐑥𐑨𐑑"
 
-#: ../modules/printbackends/lpr/gtkprintbackendlpr.c:395
+#: ../modules/printbackends/lpr/bobguiprintbackendlpr.c:395
 msgid "Print to LPR"
 msgstr "𐑐𐑮𐑦𐑯𐑑 𐑑 LPR"
 
-#: ../modules/printbackends/lpr/gtkprintbackendlpr.c:421
+#: ../modules/printbackends/lpr/bobguiprintbackendlpr.c:421
 msgid "Pages Per Sheet"
 msgstr "𐑐𐑱𐑡𐑧𐑟 𐑐𐑻 𐑖𐑰𐑑"
 
-#: ../modules/printbackends/lpr/gtkprintbackendlpr.c:428
+#: ../modules/printbackends/lpr/bobguiprintbackendlpr.c:428
 msgid "Command Line"
 msgstr "𐑒𐑩𐑥𐑭𐑯𐑛 𐑤𐑲𐑯"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:811
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:811
 msgid "printer offline"
 msgstr "𐑐𐑮𐑦𐑯𐑑𐑼 𐑪𐑓𐑤𐑲𐑯"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:829
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:829
 msgid "ready to print"
 msgstr "𐑮𐑧𐑛𐑦 𐑑 𐑐𐑮𐑦𐑯𐑑"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:832
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:832
 msgid "processing job"
 msgstr "𐑐𐑮𐑴𐑕𐑧𐑕𐑦𐑙 𐑡𐑪𐑚"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:836
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:836
 msgid "paused"
 msgstr "𐑐𐑷𐑟𐑛"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:839
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:839
 msgid "unknown"
 msgstr "𐑳𐑯𐑴𐑯"
 
 #. default filename used for print-to-test
 #, c-format
-#: ../modules/printbackends/test/gtkprintbackendtest.c:234
+#: ../modules/printbackends/test/bobguiprintbackendtest.c:234
 msgid "test-output.%s"
 msgstr "𐑑𐑧𐑕𐑑-𐑬𐑑𐑐𐑫𐑑.%s"
 
-#: ../modules/printbackends/test/gtkprintbackendtest.c:467
+#: ../modules/printbackends/test/bobguiprintbackendtest.c:467
 msgid "Print to Test Printer"
 msgstr "𐑐𐑮𐑦𐑯𐑑 𐑑 𐑑𐑧𐑕𐑑 𐑐𐑮𐑦𐑯𐑑𐑼"
 

@@ -8,7 +8,7 @@
   <desc>
     This is based on the text-text-03-b.svg testcase from
     the SVG 1.1 testsuite. It has been modified by stripping
-    out data that GtkSvg doesn't handle, and by embedding
+    out data that BobguiSvg doesn't handle, and by embedding
     the used fonts.
   </desc>
   <defs>
@@ -835,7 +835,7 @@ pDuaXh5v9ycVOQpXBDoKDvvr96v4RxWDiI+WH/cwB71aqz09WG5dcpt8paefmaAei5p3l4uTCJee \
 laGvmXxmHmMH+xtoZHKLWYtkqXC3i7GLqJeuqJJtmYCri6iLn5SjpAiBlwWFhYqJhosIIKkVfXl+ \
 g3uLeIt+nIuii62ko72aCA739/d3FTsK+1gWOwoOsPj+yxX3vvzAKfhh+1wHDvvK97P3sxX7h/sI \
 94cGDvP4dvctFdyWBnafd6RuswhR3QXAoKavi7sIxl+wRB77VXkGuYiLi4tiCPuTB4tjiopeiAh5 \
-90CdB16OioyLswj0sAfKJJ9LqIsI+yn3+RWvBrSfcVVTdGtkH2gGtPfxFTkKVwQ6Cg77yvff+REV \
+90CdB16OioyLswj0sAfKJJ9LqIsI+yn3+RWvBrSfcVVTdBobguiH2gGtPfxFTkKVwQ6Cg77yvff+REV \
 +95D994GDvuH91z5RBU7TEw7PMpL2d3KydzbTMo7H2cEwrpaUVBdW1JUXbzFxbm8wx8OrPj696AV \
 6/t391Yr+1b7eCv3ePtJ6/dJB/d2+8wV5/y7LwcO++v3wPgmFXsGeGCDh0mLCC+L7ucFwL2gr4u3 \
 i8xZuUWLS4teZWk3CKMGoLKgmq2LtYusaYthi1FoW/sp+ykIffeiBw7767b3/xVwgn5+i3gIarJ2 \

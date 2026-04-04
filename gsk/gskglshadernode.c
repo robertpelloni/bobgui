@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2016  Endless
  *
@@ -202,8 +202,8 @@ GSK_DEFINE_RENDER_NODE_TYPE (GskGLShaderNode, gsk_gl_shader_node)
  *
  * Returns: (transfer full) (type GskGLShaderNode): A new `GskRenderNode`
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GskRenderNode *
@@ -259,8 +259,8 @@ gsk_gl_shader_node_new (GskGLShader           *shader,
  *
  * Returns: The number of children
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 guint
@@ -280,8 +280,8 @@ gsk_gl_shader_node_get_n_children (const GskRenderNode *node)
  *
  * Returns: (transfer none): the @idx'th child of @node
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GskRenderNode *
@@ -317,8 +317,8 @@ gsk_gl_shader_node_get_shader (const GskRenderNode *node)
  *
  * Returns: (transfer none): A `GBytes` with the uniform arguments
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GBytes *

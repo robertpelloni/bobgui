@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="name">label1</property>
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="name">label2</property>
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="name">label3</property>
           </object>
         </child>

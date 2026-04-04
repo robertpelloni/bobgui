@@ -1,5 +1,5 @@
 nodetest_env = environment()
-nodetest_env.set('GTK_A11Y', 'test')
+nodetest_env.set('BOBGUI_A11Y', 'test')
 nodetest_env.set('GSK_RENDERER', 'cairo')
 nodetest_env.set('G_TEST_SRCDIR', meson.current_source_dir())
 nodetest_env.set('G_TEST_BUILDDIR', meson.current_build_dir())
@@ -10,7 +10,7 @@ test_nodes = executable('test-css-nodes',
   sources: ['test-css-nodes.c'],
   c_args: common_cflags,
   link_with: testutils_lib,
-  dependencies: libgtk_dep,
+  dependencies: libbobgui_dep,
 )
 
 test('nodes', test_nodes,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkAssistant" id="window1">
+  <object class="BobguiAssistant" id="window1">
     <child>
-      <object class="GtkButton" id="button1">
+      <object class="BobguiButton" id="button1">
         <property name="label" translatable="yes">Button 1</property>
         <property name="visible">True</property>
       </object>
@@ -11,7 +11,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkButton" id="button2">
+      <object class="BobguiButton" id="button2">
         <property name="label" translatable="yes">Button 2</property>
         <property name="visible">True</property>
       </object>

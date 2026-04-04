@@ -22,8 +22,8 @@
 
 #include "gsktransform.h"
 
-#include <gtk/css/gtkcss.h>
-#include "gtk/css/gtkcssparserprivate.h"
+#include <bobgui/css/bobguicss.h>
+#include "bobgui/css/bobguicssparserprivate.h"
 
 /* declares GdkDihedralTransform */
 #include "gdk/gdksubsurfaceprivate.h"
@@ -55,7 +55,7 @@ typedef struct _GskTransformClass GskTransformClass;
  * @GSK_FINE_TRANSFORM_CATEGORY_2D_TRANSLATE: The matrix is a 2D translation.
  * @GSK_FINE_TRANSFORM_CATEGORY_IDENTITY: The matrix is the identity matrix.
  *
- * The categories of matrices relevant for GSK and GTK.
+ * The categories of matrices relevant for GSK and BOBGUI.
  *
  * Note that any category includes matrices of all later categories.
  * So if you want to for example check if a matrix is a 2D matrix,
@@ -87,7 +87,7 @@ struct _GskTransform
   GskTransform *next;
 };
 
-gboolean                gsk_transform_parser_parse              (GtkCssParser           *parser,
+gboolean                gsk_transform_parser_parse              (BobguiCssParser           *parser,
                                                                  GskTransform          **out_transform);
 
 void                    gsk_transform_to_dihedral               (GskTransform           *self,

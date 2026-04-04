@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #define TEST_TYPE_OBJECT (test_object_get_type ())
 G_DECLARE_FINAL_TYPE (TestObject, test_object, TEST, OBJECT, GObject)
@@ -191,7 +191,7 @@ create_child_model (gpointer item,
 static GListModel *
 create_tree_model (guint n, guint m)
 {
-  return G_LIST_MODEL (gtk_tree_list_model_new (create_model (0, n, m, TRUE),
+  return G_LIST_MODEL (bobgui_tree_list_model_new (create_model (0, n, m, TRUE),
                                                 FALSE,
                                                 FALSE,
                                                 create_child_model,
@@ -199,14 +199,14 @@ create_tree_model (guint n, guint m)
 }
 
 static void
-setup_item (GtkSignalListItemFactory *factory,
-            GtkListItem              *item)
+setup_item (BobguiSignalListItemFactory *factory,
+            BobguiListItem              *item)
 {
-  GtkWidget *entry;
+  BobguiWidget *entry;
 
-  entry = gtk_editable_label_new ("");
-  gtk_editable_set_width_chars (GTK_EDITABLE (entry), 3);
-  gtk_list_item_set_child (item, entry);
+  entry = bobgui_editable_label_new ("");
+  bobgui_editable_set_width_chars (BOBGUI_EDITABLE (entry), 3);
+  bobgui_list_item_set_child (item, entry);
 }
 
 static void
@@ -216,208 +216,208 @@ text_changed (GObject    *object,
 {
   const char *text;
 
-  text = gtk_editable_get_text (GTK_EDITABLE (object));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (object));
 g_print ("text changed to '%s'\n", text);
   g_object_set (data, "string", text, NULL);
 }
 
 static void
-bind_item (GtkSignalListItemFactory *factory,
-           GtkListItem              *item)
+bind_item (BobguiSignalListItemFactory *factory,
+           BobguiListItem              *item)
 {
   TestObject *obj;
-  GtkWidget *entry;
+  BobguiWidget *entry;
 
-  obj = gtk_list_item_get_item (item);
-  entry = gtk_list_item_get_child (item);
-  gtk_editable_set_text (GTK_EDITABLE (entry), test_object_get_string (obj));
+  obj = bobgui_list_item_get_item (item);
+  entry = bobgui_list_item_get_child (item);
+  bobgui_editable_set_text (BOBGUI_EDITABLE (entry), test_object_get_string (obj));
   g_signal_connect (entry, "notify::text", G_CALLBACK (text_changed), obj);
 }
 
 static void
-unbind_item (GtkSignalListItemFactory *factory,
-             GtkListItem              *item)
+unbind_item (BobguiSignalListItemFactory *factory,
+             BobguiListItem              *item)
 {
   TestObject *obj;
-  GtkWidget *entry;
+  BobguiWidget *entry;
 
-  obj = gtk_list_item_get_item (item);
-  entry = gtk_list_item_get_child (item);
+  obj = bobgui_list_item_get_item (item);
+  entry = bobgui_list_item_get_child (item);
   g_signal_handlers_disconnect_by_func (entry, text_changed, obj);
 }
 
 static void
-setup_tree_item (GtkSignalListItemFactory *factory,
-                 GtkListItem              *item)
+setup_tree_item (BobguiSignalListItemFactory *factory,
+                 BobguiListItem              *item)
 {
-  GtkWidget *expander;
-  GtkWidget *entry;
+  BobguiWidget *expander;
+  BobguiWidget *entry;
 
-  entry = gtk_editable_label_new ("");
-  gtk_editable_set_width_chars (GTK_EDITABLE (entry), 3);
-  expander = gtk_tree_expander_new ();
-  gtk_tree_expander_set_child (GTK_TREE_EXPANDER (expander), entry);
-  gtk_list_item_set_child (item, expander);
+  entry = bobgui_editable_label_new ("");
+  bobgui_editable_set_width_chars (BOBGUI_EDITABLE (entry), 3);
+  expander = bobgui_tree_expander_new ();
+  bobgui_tree_expander_set_child (BOBGUI_TREE_EXPANDER (expander), entry);
+  bobgui_list_item_set_child (item, expander);
 }
 
 static void
-bind_tree_item (GtkSignalListItemFactory *factory,
-                GtkListItem              *item)
+bind_tree_item (BobguiSignalListItemFactory *factory,
+                BobguiListItem              *item)
 {
-  GtkTreeListRow *row;
-  GtkTreeExpander *expander;
+  BobguiTreeListRow *row;
+  BobguiTreeExpander *expander;
   TestObject *obj;
-  GtkWidget *entry;
+  BobguiWidget *entry;
 
-  row = gtk_list_item_get_item (item);
-  expander = GTK_TREE_EXPANDER (gtk_list_item_get_child (item));
-  gtk_tree_expander_set_list_row (expander, row);
-  obj = gtk_tree_list_row_get_item (row);
-  entry = gtk_tree_expander_get_child (expander);
-  gtk_editable_set_text (GTK_EDITABLE (entry), test_object_get_string (obj));
+  row = bobgui_list_item_get_item (item);
+  expander = BOBGUI_TREE_EXPANDER (bobgui_list_item_get_child (item));
+  bobgui_tree_expander_set_list_row (expander, row);
+  obj = bobgui_tree_list_row_get_item (row);
+  entry = bobgui_tree_expander_get_child (expander);
+  bobgui_editable_set_text (BOBGUI_EDITABLE (entry), test_object_get_string (obj));
 
   g_signal_connect (entry, "notify::text", G_CALLBACK (text_changed), obj);
 }
 
 static void
-unbind_tree_item (GtkSignalListItemFactory *factory,
-                  GtkListItem              *item)
+unbind_tree_item (BobguiSignalListItemFactory *factory,
+                  BobguiListItem              *item)
 {
-  GtkTreeListRow *row;
-  GtkTreeExpander *expander;
+  BobguiTreeListRow *row;
+  BobguiTreeExpander *expander;
   TestObject *obj;
-  GtkWidget *entry;
+  BobguiWidget *entry;
 
-  row = gtk_list_item_get_item (item);
-  expander = GTK_TREE_EXPANDER (gtk_list_item_get_child (item));
-  obj = gtk_tree_list_row_get_item (row);
-  entry = gtk_tree_expander_get_child (expander);
+  row = bobgui_list_item_get_item (item);
+  expander = BOBGUI_TREE_EXPANDER (bobgui_list_item_get_child (item));
+  obj = bobgui_tree_list_row_get_item (row);
+  entry = bobgui_tree_expander_get_child (expander);
   g_signal_handlers_disconnect_by_func (entry, text_changed, obj);
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *box;
-  GtkWidget *label;
-  GtkWidget *box2;
-  GtkWidget *stack;
-  GtkWidget *switcher;
-  GtkWidget *sw;
-  GtkWidget *grid;
-  GtkWidget *list;
-  GtkWidget *cv;
+  BobguiWidget *window;
+  BobguiWidget *box;
+  BobguiWidget *label;
+  BobguiWidget *box2;
+  BobguiWidget *stack;
+  BobguiWidget *switcher;
+  BobguiWidget *sw;
+  BobguiWidget *grid;
+  BobguiWidget *list;
+  BobguiWidget *cv;
   GListModel *model;
-  GtkListItemFactory *factory;
+  BobguiListItemFactory *factory;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 600, 400);
 
-  box2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
-  gtk_window_set_child (GTK_WINDOW (window), box2);
+  box2 = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 10);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box2);
 
-  switcher = gtk_stack_switcher_new ();
-  gtk_widget_set_halign (GTK_WIDGET (switcher), GTK_ALIGN_CENTER);
-  gtk_widget_set_margin_top (GTK_WIDGET (switcher), 10);
-  gtk_widget_set_margin_bottom (GTK_WIDGET (switcher), 10);
-  gtk_box_append (GTK_BOX (box2), switcher);
+  switcher = bobgui_stack_switcher_new ();
+  bobgui_widget_set_halign (BOBGUI_WIDGET (switcher), BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_margin_top (BOBGUI_WIDGET (switcher), 10);
+  bobgui_widget_set_margin_bottom (BOBGUI_WIDGET (switcher), 10);
+  bobgui_box_append (BOBGUI_BOX (box2), switcher);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_box_set_homogeneous (GTK_BOX (box), TRUE);
-  gtk_box_append (GTK_BOX (box2), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
+  bobgui_box_set_homogeneous (BOBGUI_BOX (box), TRUE);
+  bobgui_box_append (BOBGUI_BOX (box2), box);
 
-  label = gtk_editable_label_new ("Drag me");
-  gtk_box_append (GTK_BOX (box), label);
+  label = bobgui_editable_label_new ("Drag me");
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  stack = gtk_stack_new ();
-  gtk_widget_set_vexpand (stack, TRUE);
-  gtk_stack_switcher_set_stack (GTK_STACK_SWITCHER (switcher), GTK_STACK (stack));
-  gtk_box_append (GTK_BOX (box), stack);
+  stack = bobgui_stack_new ();
+  bobgui_widget_set_vexpand (stack, TRUE);
+  bobgui_stack_switcher_set_stack (BOBGUI_STACK_SWITCHER (switcher), BOBGUI_STACK (stack));
+  bobgui_box_append (BOBGUI_BOX (box), stack);
 
   /* grid */
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (sw), TRUE);
-  gtk_stack_add_titled (GTK_STACK (stack), sw, "grid", "GtkGridView");
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_has_frame (BOBGUI_SCROLLED_WINDOW (sw), TRUE);
+  bobgui_stack_add_titled (BOBGUI_STACK (stack), sw, "grid", "BobguiGridView");
 
   model = create_model (0, 400, 1, FALSE);
-  factory = gtk_signal_list_item_factory_new ();
+  factory = bobgui_signal_list_item_factory_new ();
   g_signal_connect (factory, "setup", G_CALLBACK (setup_item), NULL);
   g_signal_connect (factory, "bind", G_CALLBACK (bind_item), NULL);
   g_signal_connect (factory, "unbind", G_CALLBACK (unbind_item), NULL);
 
-  grid = gtk_grid_view_new (GTK_SELECTION_MODEL (gtk_single_selection_new (model)), factory);
-  gtk_grid_view_set_min_columns (GTK_GRID_VIEW (grid), 20);
-  gtk_grid_view_set_max_columns (GTK_GRID_VIEW (grid), 20);
+  grid = bobgui_grid_view_new (BOBGUI_SELECTION_MODEL (bobgui_single_selection_new (model)), factory);
+  bobgui_grid_view_set_min_columns (BOBGUI_GRID_VIEW (grid), 20);
+  bobgui_grid_view_set_max_columns (BOBGUI_GRID_VIEW (grid), 20);
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), grid);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), grid);
 
   /* list */
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (sw), TRUE);
-  gtk_stack_add_titled (GTK_STACK (stack), sw, "list", "GtkListView");
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_has_frame (BOBGUI_SCROLLED_WINDOW (sw), TRUE);
+  bobgui_stack_add_titled (BOBGUI_STACK (stack), sw, "list", "BobguiListView");
 
-  list = gtk_list_view_new (GTK_SELECTION_MODEL (gtk_single_selection_new (create_model (0, 400, 1, FALSE))), NULL);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), list);
+  list = bobgui_list_view_new (BOBGUI_SELECTION_MODEL (bobgui_single_selection_new (create_model (0, 400, 1, FALSE))), NULL);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), list);
 
-  factory = gtk_signal_list_item_factory_new ();
+  factory = bobgui_signal_list_item_factory_new ();
   g_signal_connect (factory, "setup", G_CALLBACK (setup_item), NULL);
   g_signal_connect (factory, "bind", G_CALLBACK (bind_item), NULL);
   g_signal_connect (factory, "unbind", G_CALLBACK (unbind_item), NULL);
 
-  gtk_list_view_set_factory (GTK_LIST_VIEW (list), factory);
+  bobgui_list_view_set_factory (BOBGUI_LIST_VIEW (list), factory);
   g_object_unref (factory);
 
   /* columnview */
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (sw), TRUE);
-  gtk_stack_add_titled (GTK_STACK (stack), sw, "column", "GtkColumnView");
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_has_frame (BOBGUI_SCROLLED_WINDOW (sw), TRUE);
+  bobgui_stack_add_titled (BOBGUI_STACK (stack), sw, "column", "BobguiColumnView");
 
-  cv = gtk_column_view_new (GTK_SELECTION_MODEL (gtk_single_selection_new (create_model (0, 400, 1, FALSE))));
+  cv = bobgui_column_view_new (BOBGUI_SELECTION_MODEL (bobgui_single_selection_new (create_model (0, 400, 1, FALSE))));
 
   for (guint i = 0; i < 20; i++)
     {
-      GtkColumnViewColumn *column;
+      BobguiColumnViewColumn *column;
       char *title;
 
-      factory = gtk_signal_list_item_factory_new ();
+      factory = bobgui_signal_list_item_factory_new ();
       g_signal_connect (factory, "setup", G_CALLBACK (setup_item), NULL);
       g_signal_connect (factory, "bind", G_CALLBACK (bind_item), NULL);
       g_signal_connect (factory, "unbind", G_CALLBACK (unbind_item), NULL);
 
       title = g_strdup_printf ("Column %u", i);
-      column = gtk_column_view_column_new (title, factory);
-      gtk_column_view_append_column (GTK_COLUMN_VIEW (cv), column);
+      column = bobgui_column_view_column_new (title, factory);
+      bobgui_column_view_append_column (BOBGUI_COLUMN_VIEW (cv), column);
       g_object_unref (column);
       g_free (title);
     }
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), cv);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), cv);
 
   /* tree */
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (sw), TRUE);
-  gtk_stack_add_titled (GTK_STACK (stack), sw, "tree", "Tree");
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_has_frame (BOBGUI_SCROLLED_WINDOW (sw), TRUE);
+  bobgui_stack_add_titled (BOBGUI_STACK (stack), sw, "tree", "Tree");
 
-  list = gtk_list_view_new (GTK_SELECTION_MODEL (gtk_single_selection_new (create_tree_model (20, 20))), NULL);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), list);
+  list = bobgui_list_view_new (BOBGUI_SELECTION_MODEL (bobgui_single_selection_new (create_tree_model (20, 20))), NULL);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), list);
 
-  factory = gtk_signal_list_item_factory_new ();
+  factory = bobgui_signal_list_item_factory_new ();
   g_signal_connect (factory, "setup", G_CALLBACK (setup_tree_item), NULL);
   g_signal_connect (factory, "bind", G_CALLBACK (bind_tree_item), NULL);
   g_signal_connect (factory, "unbind", G_CALLBACK (unbind_tree_item), NULL);
 
-  gtk_list_view_set_factory (GTK_LIST_VIEW (list), factory);
+  bobgui_list_view_set_factory (BOBGUI_LIST_VIEW (list), factory);
   g_object_unref (factory);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()) > 0)
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()) > 0)
     g_main_context_iteration (NULL, TRUE);
 
-  gtk_window_destroy (GTK_WINDOW (window));
+  bobgui_window_destroy (BOBGUI_WINDOW (window));
 
   return 0;
 }

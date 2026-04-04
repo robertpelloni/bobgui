@@ -1,8 +1,8 @@
-# How to contribute to GTK's documentation
+# How to contribute to BOBGUI's documentation
 
-The GTK documentation is divided in two major components:
+The BOBGUI documentation is divided in two major components:
 
- - the API reference, which is generated from special comments in the GTK
+ - the API reference, which is generated from special comments in the BOBGUI
    source code
  - static pages that provide an overview of specific sections of the API
 
@@ -10,13 +10,13 @@ In both cases, the contents are parsed as markdown and cross-linked in order
 to match types, functions, signals, and properties. Ultimatively, we generate
 HTML, which can be used to read the documentation both offline and online.
 
-Contributing to the GTK documentation requires modifying files tracked in the
+Contributing to the BOBGUI documentation requires modifying files tracked in the
 source control repository, and follows the same steps as any other code
-contribution as outlined in the GTK [contribution guide][contributing].
+contribution as outlined in the BOBGUI [contribution guide][contributing].
 Please, refer to that document for any further question on the mechanics
-of contributing to GTK.
+of contributing to BOBGUI.
 
-GTK uses [gi-docgen][gidocgen] to generate its documentation. Please, visit
+BOBGUI uses [gi-docgen][gidocgen] to generate its documentation. Please, visit
 the gi-docgen website to read the project's documentation.
 
 [contributing]: ../../CONTRIBUTING.md
@@ -30,17 +30,17 @@ above the type or function declaration. For instance:
 
 ```c
 /**
- * gtk_foo_set_bar:
+ * bobgui_foo_set_bar:
  * @self: a foo widget
  * @bar: (nullable): the bar to set
  *
- * Sets the given `GtkBar` instance on a foo widget.
+ * Sets the given `BobguiBar` instance on a foo widget.
  *
  * Returns: `TRUE` if the bar was set
  */
 gboolean
-gtk_foo_set_bar (GtkFoo *self,
-                 GtkBar *bar)
+bobgui_foo_set_bar (BobguiFoo *self,
+                 BobguiBar *bar)
 {
   ...
 ```
@@ -49,19 +49,19 @@ Or, for types:
 
 ```c
 /**
- * GtkFoo:
+ * BobguiFoo:
  *
  * A foo widget instance.
  */
-struct _GtkFoo
+struct _BobguiFoo
 {
   /*< private >*/
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 };
 ```
 
-The GTK documentation also contains a number of 'freestanding' chapters
-for which the source is in .md files in docs/reference/gtk.
+The BOBGUI documentation also contains a number of 'freestanding' chapters
+for which the source is in .md files in docs/reference/bobgui.
 
 ## Style guide
 
@@ -77,7 +77,7 @@ unrelated reasons.
 
 ### Syntax
 
-The input syntax for GTK documentation is Markdown, in a flavor that is
+The input syntax for BOBGUI documentation is Markdown, in a flavor that is
 similar to what you see on GitLab or GitHub. The markdown support for
 fragments that are extracted from sources is identical to the one for
 freestanding chapters. As an exception, man pages for tools are currently
@@ -85,7 +85,7 @@ maintained in docbook, since the conversion from markdown to docbook is
 losing too much of the expected formatting.
 
 In addition to typical markdown formatting such as \*emphasis\* or \_italics\_,
-the GTK documentation supports additional link formats, like:
+the BOBGUI documentation supports additional link formats, like:
 
 `[class@Namespace.ClassName]`
  : Creates a link to the docs for a class
@@ -110,7 +110,7 @@ The purpose of the annotations for function arguments, properties, signals,
 etc., is to describe the API in a machine readable way. The annotations
 are consumed by language bindings and by the documentation tools.
 
-For more information about the annotations used by GTK, you should refer to
+For more information about the annotations used by BOBGUI, you should refer to
 the [GObject Introspection documentation][gi-annotations].
 
 [gi-annotations]: https://gi.readthedocs.io/en/latest/annotations/giannotations.html
@@ -125,7 +125,7 @@ what it does; typical use cases; and idiomatic examples of its use.
 For widget classes, the description should also contain:
 
   - special XML elements and attributes parsed by the class, in case of a
-    custom GtkBuildable implementation
+    custom BobguiBuildable implementation
   - the CSS element name to be used by selectors
   - the CSS selector hierarchy for children, in case of a composite widget
   - the accessible role of the class
@@ -155,14 +155,14 @@ Checks whether the widget is set to be visible or not.
    of a certain class. The instance argument for newly written code should be
    called `self`.
  - If a method is a setter or a getter for an object property
-   `GtkClassName:prop-name`, and if its name does not match the naming scheme
-   `gtk_class_name_{g,s}et_prop_name`, you should add a `(set-property
+   `BobguiClassName:prop-name`, and if its name does not match the naming scheme
+   `bobgui_class_name_{g,s}et_prop_name`, you should add a `(set-property
    prop-name)` or a `(get-property prop-name)` annotation to the method's
    identifier
  - If a method changes one or more properties as side effect, link those
    properties in the method's description
  - If a method is a signal emitter, you should use the
-   `(attributes org.gtk.Method.signal=signal-name)` annotation in
+   `(attributes org.bobgui.Method.signal=signal-name)` annotation in
    the method's identifier
 
 ### Arguments and return values
@@ -179,7 +179,7 @@ Checks whether the widget is set to be visible or not.
 
 ```c
 /**
- * GtkFoo::signal-name:
+ * BobguiFoo::signal-name:
  * @arg1: ...
  * @arg2: ...
  *
@@ -196,28 +196,28 @@ Checks whether the widget is set to be visible or not.
    purposes.
  - Always note if setting a property has side effects, like causing another
    property to change state.
- - If a property `GtkClassName:prop-name` has a public getter or setter, and
-   they do not match the naming scheme `gtk_class_name_{g,s}et_prop_name` you
+ - If a property `BobguiClassName:prop-name` has a public getter or setter, and
+   they do not match the naming scheme `bobgui_class_name_{g,s}et_prop_name` you
    should annotate it with the `(setter setter_function)` and `(getter
    getter_function)`.
  - The syntax for property documentation is:
 
 ```c
 /**
- * GtkFoo:property-name:
+ * BobguiFoo:property-name:
  *
  * ...
 ```
 
 ### Actions
 
- - Actions are new in GTK 4, and describe an action associated to
+ - Actions are new in BOBGUI 4, and describe an action associated to
    a widget class
  - The syntax for action documentation is:
 
 ```
 /**c
- * GtkFoo|action-name:
+ * BobguiFoo|action-name:
  * @arg1: ...
  * @arg2: ...
  *

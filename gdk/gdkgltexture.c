@@ -394,7 +394,7 @@ gdk_gl_texture_determine_format (GdkGLTexture *self)
       G_GNUC_FALLTHROUGH;
 
     default:
-      g_warning ("Texture in unexpected format 0x%X (%d). File a bug about adding it to GTK", internal_format, internal_format);
+      g_warning ("Texture in unexpected format 0x%X (%d). File a bug about adding it to BOBGUI", internal_format, internal_format);
       /* fallback to the dumbest possible format
        * so that even age old GLES can do it */
       texture->format = GDK_MEMORY_R8G8B8A8_PREMULTIPLIED;

@@ -17,7 +17,7 @@
  * Authors: Benjamin Otte <otte@gnome.org>
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 /* testcases from path_parser.rs in librsvg */
 static void
@@ -1791,7 +1791,7 @@ test_large_coord_conics (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/path/rsvg-parse", test_rsvg_parse);
   g_test_add_func ("/path/empty", test_empty_path);

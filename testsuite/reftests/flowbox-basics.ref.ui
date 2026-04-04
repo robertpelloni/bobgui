@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid">
+      <object class="BobguiGrid">
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label">Longer text here</property>
             <layout>
               <property name="row">0</property>
@@ -15,7 +15,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="margin-top">3</property>
             <property name="margin-bottom">3</property>
             <property name="margin-start">3</property>
@@ -28,7 +28,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="margin-top">3</property>
             <property name="margin-bottom">3</property>
             <property name="margin-start">3</property>
@@ -41,7 +41,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="margin-top">3</property>
             <property name="margin-bottom">3</property>
             <property name="margin-start">3</property>
@@ -54,7 +54,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="margin-top">3</property>
             <property name="margin-bottom">3</property>
             <property name="margin-start">3</property>
@@ -67,7 +67,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="margin-top">3</property>
             <property name="margin-bottom">3</property>
             <property name="margin-start">3</property>

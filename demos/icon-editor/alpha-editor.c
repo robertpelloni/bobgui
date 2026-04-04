@@ -23,10 +23,10 @@
 
 struct _AlphaEditor
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
-  GtkSpinButton *alpha_spin;
-  GtkScale *alpha_scale;
+  BobguiSpinButton *alpha_spin;
+  BobguiScale *alpha_scale;
 
   double alpha;
 };
@@ -43,27 +43,27 @@ static GParamSpec *properties[NUM_PROPERTIES];
 
 struct _AlphaEditorClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (AlphaEditor, alpha_editor, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (AlphaEditor, alpha_editor, BOBGUI_TYPE_WIDGET)
 
 static void
 alpha_editor_init (AlphaEditor *self)
 {
   self->alpha = 1;
 
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 
   /* We want a numeric entry, but there's no space
    * for buttons, so...
    */
-  for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (self->alpha_spin));
+  for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->alpha_spin));
        child != NULL;
-       child = gtk_widget_get_next_sibling (child))
+       child = bobgui_widget_get_next_sibling (child))
     {
-      if (GTK_IS_BUTTON (child))
-        gtk_widget_set_visible (child, FALSE);
+      if (BOBGUI_IS_BUTTON (child))
+        bobgui_widget_set_visible (child, FALSE);
     }
 }
 
@@ -110,7 +110,7 @@ alpha_editor_get_property (GObject      *object,
 static void
 alpha_editor_dispose (GObject *object)
 {
-  gtk_widget_dispose_template (GTK_WIDGET (object), alpha_editor_get_type ());
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), alpha_editor_get_type ());
 
   G_OBJECT_CLASS (alpha_editor_parent_class)->dispose (object);
 }
@@ -127,7 +127,7 @@ static void
 alpha_editor_class_init (AlphaEditorClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->set_property = alpha_editor_set_property;
   object_class->get_property = alpha_editor_get_property;
@@ -141,13 +141,13 @@ alpha_editor_class_init (AlphaEditorClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gtk/Shaper/alpha-editor.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class, "/org/bobgui/Shaper/alpha-editor.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, AlphaEditor, alpha_spin);
-  gtk_widget_class_bind_template_child (widget_class, AlphaEditor, alpha_scale);
+  bobgui_widget_class_bind_template_child (widget_class, AlphaEditor, alpha_spin);
+  bobgui_widget_class_bind_template_child (widget_class, AlphaEditor, alpha_scale);
 
-  gtk_widget_class_set_css_name (widget_class, "AlphaEditor");
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
+  bobgui_widget_class_set_css_name (widget_class, "AlphaEditor");
+  bobgui_widget_class_set_layout_manager_type (widget_class, BOBGUI_TYPE_BOX_LAYOUT);
 }
 
 /* }}} */

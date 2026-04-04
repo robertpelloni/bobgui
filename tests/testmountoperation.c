@@ -17,7 +17,7 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static gboolean ask_question = FALSE;
 static gboolean show_processes = FALSE;
@@ -122,12 +122,12 @@ main (int argc, char *argv[])
     }
   g_option_context_free (context);
 
-  gtk_init ();
+  bobgui_init ();
 
   if (force_rtl)
-    gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+    bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
 
-  op = gtk_mount_operation_new (NULL);
+  op = bobgui_mount_operation_new (NULL);
 
   g_signal_connect (op, "reply", G_CALLBACK (got_reply), NULL);
 

@@ -1,16 +1,16 @@
-#!/usr/bin/env -S GI_TYPELIB_PATH=${PWD}/build/gtk:${GI_TYPELIB_PATH} LD_PRELOAD=${LD_PRELOAD}:${PWD}/build/gtk/libgtk-4.so python3
+#!/usr/bin/env -S GI_TYPELIB_PATH=${PWD}/build/bobgui:${GI_TYPELIB_PATH} LD_PRELOAD=${LD_PRELOAD}:${PWD}/build/bobgui/libbobgui-4.so python3
 
 import gi
 
 gi.require_version('Gdk', '4.0')
-gi.require_version('Gtk', '4.0')
+gi.require_version('Bobgui', '4.0')
 
 from gi.repository import Gdk
-from gi.repository import Gtk
+from gi.repository import Bobgui
 from gi.repository import Graphene
 
 
-class DemoWidget(Gtk.Widget):
+class DemoWidget(Bobgui.Widget):
 
     __gtype_name__ = "DemoWidget"
 
@@ -47,14 +47,14 @@ class DemoWidget(Gtk.Widget):
 
 def on_activate(app):
     # Create a new window
-    win = Gtk.ApplicationWindow(application=app)
+    win = Bobgui.ApplicationWindow(application=app)
     win.set_title("Squares")
     icon = DemoWidget()
     win.set_child(icon)
     win.present()
 
 # Create a new application
-app = Gtk.Application(application_id='org.gtk.exampleapp')
+app = Bobgui.Application(application_id='org.bobgui.exampleapp')
 app.connect('activate', on_activate)
 
 # Run the application

@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static const char *format_name[] = {
   "BGRAp", "ARGBp", "RGBAp",
@@ -276,12 +276,12 @@ make_texture (GdkMemoryFormat  format,
 }
 
 static void
-update_picture (GtkWidget *picture)
+update_picture (BobguiWidget *picture)
 {
   GdkMemoryFormat format;
   int padding;
   GdkTexture *texture;
-  GtkLabel *label;
+  BobguiLabel *label;
   char *text;
   int stride;
   int bpp;
@@ -290,83 +290,83 @@ update_picture (GtkWidget *picture)
   padding = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (picture), "padding"));
 
   texture = make_texture (format, padding, &stride, &bpp);
-  gtk_picture_set_paintable (GTK_PICTURE (picture), GDK_PAINTABLE (texture));
+  bobgui_picture_set_paintable (BOBGUI_PICTURE (picture), GDK_PAINTABLE (texture));
 
-  label = GTK_LABEL (g_object_get_data (G_OBJECT (picture), "size_label"));
+  label = BOBGUI_LABEL (g_object_get_data (G_OBJECT (picture), "size_label"));
   text = g_strdup_printf ("%d x %d @ %d",
                           gdk_texture_get_width (texture),
                           gdk_texture_get_height (texture),
                           bpp);
-  gtk_label_set_label (label, text);
+  bobgui_label_set_label (label, text);
   g_free (text);
 
-  label = GTK_LABEL (g_object_get_data (G_OBJECT (picture), "stride_label"));
+  label = BOBGUI_LABEL (g_object_get_data (G_OBJECT (picture), "stride_label"));
   text = g_strdup_printf ("%d", stride);
-  gtk_label_set_label (label, text);
+  bobgui_label_set_label (label, text);
   g_free (text);
 
   g_object_unref (texture);
 }
 
 static void
-update_format (GtkDropDown *dropdown,
+update_format (BobguiDropDown *dropdown,
                GParamSpec  *pspec,
-               GtkWidget   *picture)
+               BobguiWidget   *picture)
 {
-  g_object_set_data (G_OBJECT (picture), "format", GINT_TO_POINTER (gtk_drop_down_get_selected (dropdown)));
+  g_object_set_data (G_OBJECT (picture), "format", GINT_TO_POINTER (bobgui_drop_down_get_selected (dropdown)));
   update_picture (picture);
 }
 
 static void
-update_padding (GtkSpinButton *spinbutton,
+update_padding (BobguiSpinButton *spinbutton,
                 GParamSpec    *pspec,
-                GtkWidget     *picture)
+                BobguiWidget     *picture)
 {
-  g_object_set_data (G_OBJECT (picture), "padding", GINT_TO_POINTER (gtk_spin_button_get_value_as_int (spinbutton)));
+  g_object_set_data (G_OBJECT (picture), "padding", GINT_TO_POINTER (bobgui_spin_button_get_value_as_int (spinbutton)));
   update_picture (picture);
 }
 
 static void
-add_to_grid (GtkWidget      *grid,
+add_to_grid (BobguiWidget      *grid,
              int             left,
              int             top,
              GdkMemoryFormat format,
              int             padding)
 {
-  GtkWidget *dropdown, *spin, *picture, *label;
+  BobguiWidget *dropdown, *spin, *picture, *label;
 
-  picture = gtk_picture_new ();
-  gtk_grid_attach (GTK_GRID (grid), picture, left + 2, top + 0, 1, 4);
+  picture = bobgui_picture_new ();
+  bobgui_grid_attach (BOBGUI_GRID (grid), picture, left + 2, top + 0, 1, 4);
 
   g_object_set_data (G_OBJECT (picture), "format", GINT_TO_POINTER (format));
   g_object_set_data (G_OBJECT (picture), "padding", GINT_TO_POINTER (padding));
 
-  dropdown = gtk_drop_down_new_from_strings (format_name);
-  gtk_widget_set_valign (dropdown, GTK_ALIGN_CENTER);
-  gtk_drop_down_set_selected (GTK_DROP_DOWN (dropdown), format);
+  dropdown = bobgui_drop_down_new_from_strings (format_name);
+  bobgui_widget_set_valign (dropdown, BOBGUI_ALIGN_CENTER);
+  bobgui_drop_down_set_selected (BOBGUI_DROP_DOWN (dropdown), format);
   g_signal_connect (dropdown, "notify::selected", G_CALLBACK (update_format), picture);
 
-  gtk_grid_attach (GTK_GRID (grid), gtk_label_new ("Format"), left, top, 1, 1);
-  gtk_grid_attach (GTK_GRID (grid), dropdown, left + 1, top, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), bobgui_label_new ("Format"), left, top, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), dropdown, left + 1, top, 1, 1);
 
-  spin = gtk_spin_button_new_with_range (0, 10, 1);
-  gtk_widget_set_valign (spin, GTK_ALIGN_CENTER);
-  gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin), padding);
+  spin = bobgui_spin_button_new_with_range (0, 10, 1);
+  bobgui_widget_set_valign (spin, BOBGUI_ALIGN_CENTER);
+  bobgui_spin_button_set_value (BOBGUI_SPIN_BUTTON (spin), padding);
   g_signal_connect (spin, "notify::value", G_CALLBACK (update_padding), picture);
 
-  gtk_grid_attach (GTK_GRID (grid), gtk_label_new ("Padding"), left, top + 1, 1, 1);
-  gtk_grid_attach (GTK_GRID (grid), spin, left + 1, top + 1, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), bobgui_label_new ("Padding"), left, top + 1, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), spin, left + 1, top + 1, 1, 1);
 
-  label = gtk_label_new ("");
-  gtk_label_set_xalign (GTK_LABEL (label), 0);
+  label = bobgui_label_new ("");
+  bobgui_label_set_xalign (BOBGUI_LABEL (label), 0);
   g_object_set_data (G_OBJECT (picture), "size_label", label);
-  gtk_grid_attach (GTK_GRID (grid), gtk_label_new ("Size"), left, top + 2, 1, 1);
-  gtk_grid_attach (GTK_GRID (grid), label, left + 1, top + 2, 1, 1);
-  label = gtk_label_new ("");
-  gtk_label_set_xalign (GTK_LABEL (label), 0);
+  bobgui_grid_attach (BOBGUI_GRID (grid), bobgui_label_new ("Size"), left, top + 2, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), label, left + 1, top + 2, 1, 1);
+  label = bobgui_label_new ("");
+  bobgui_label_set_xalign (BOBGUI_LABEL (label), 0);
   g_object_set_data (G_OBJECT (picture), "stride_label", label);
-  gtk_grid_attach (GTK_GRID (grid), gtk_label_new ("Stride"), left, top + 3, 1, 1);
-  gtk_grid_attach (GTK_GRID (grid), label, left + 1, top + 3, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), bobgui_label_new ("Stride"), left, top + 3, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), label, left + 1, top + 3, 1, 1);
 
   update_picture (picture);
 }
@@ -374,25 +374,25 @@ add_to_grid (GtkWidget      *grid,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *grid;
+  BobguiWidget *window, *grid;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  grid = gtk_grid_new ();
-  gtk_widget_set_margin_top (grid, 10);
-  gtk_widget_set_margin_bottom (grid, 10);
-  gtk_widget_set_margin_start (grid, 10);
-  gtk_widget_set_margin_end (grid, 10);
-  gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
-  gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
-  gtk_window_set_child (GTK_WINDOW (window), grid);
+  window = bobgui_window_new ();
+  grid = bobgui_grid_new ();
+  bobgui_widget_set_margin_top (grid, 10);
+  bobgui_widget_set_margin_bottom (grid, 10);
+  bobgui_widget_set_margin_start (grid, 10);
+  bobgui_widget_set_margin_end (grid, 10);
+  bobgui_grid_set_row_spacing (BOBGUI_GRID (grid), 6);
+  bobgui_grid_set_column_spacing (BOBGUI_GRID (grid), 6);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), grid);
 
   add_to_grid (grid, 0, 0, GDK_MEMORY_R8G8B8, 0);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()) > 0)
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()) > 0)
     g_main_context_iteration (NULL, TRUE);
 
   return 0;

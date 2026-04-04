@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
@@ -6,11 +6,11 @@ GSList *pending = NULL;
 guint active = 0;
 
 static void
-loading_cb (GtkDirectoryList *dir,
+loading_cb (BobguiDirectoryList *dir,
             GParamSpec       *pspec,
             gpointer          unused)
 {
-  if (gtk_directory_list_is_loading (dir))
+  if (bobgui_directory_list_is_loading (dir))
     {
       active++;
       /* HACK: ensure loading finishes and the dir doesn't get destroyed */
@@ -23,24 +23,24 @@ loading_cb (GtkDirectoryList *dir,
 
       while (active < 20 && pending)
         {
-          GtkDirectoryList *dir2 = pending->data;
+          BobguiDirectoryList *dir2 = pending->data;
           pending = g_slist_remove (pending, dir2);
-          gtk_directory_list_set_file (dir2, g_object_get_data (G_OBJECT (dir2), "file"));
+          bobgui_directory_list_set_file (dir2, g_object_get_data (G_OBJECT (dir2), "file"));
           g_object_unref (dir2);
         }
     }
 }
 
-static GtkDirectoryList *
+static BobguiDirectoryList *
 create_directory_list (GFile *file)
 {
-  GtkDirectoryList *dir;
+  BobguiDirectoryList *dir;
 
-  dir = gtk_directory_list_new ("*",
+  dir = bobgui_directory_list_new ("*",
                                 NULL);
-  gtk_directory_list_set_io_priority (dir, G_PRIORITY_DEFAULT_IDLE);
+  bobgui_directory_list_set_io_priority (dir, G_PRIORITY_DEFAULT_IDLE);
   g_signal_connect (dir, "notify::loading", G_CALLBACK (loading_cb), NULL);
-  g_assert (!gtk_directory_list_is_loading (dir));
+  g_assert (!bobgui_directory_list_is_loading (dir));
 
   if (active > 20)
     {
@@ -49,7 +49,7 @@ create_directory_list (GFile *file)
     }
   else
     {
-      gtk_directory_list_set_file (dir, file);
+      bobgui_directory_list_set_file (dir, file);
     }
 
   return dir;
@@ -67,9 +67,9 @@ create_list_model_for_directory (gpointer file)
 static GListModel *
 create_recent_files_list (void)
 {
-  GtkBookmarkList *dir;
+  BobguiBookmarkList *dir;
 
-  dir = gtk_bookmark_list_new (NULL, "*");
+  dir = bobgui_bookmark_list_new (NULL, "*");
 
   return G_LIST_MODEL (dir);
 }
@@ -78,15 +78,15 @@ create_recent_files_list (void)
 typedef struct _RowData RowData;
 struct _RowData
 {
-  GtkWidget *expander;
-  GtkWidget *icon;
-  GtkWidget *name;
+  BobguiWidget *expander;
+  BobguiWidget *icon;
+  BobguiWidget *name;
   GCancellable *cancellable;
 
-  GtkTreeListRow *current_item;
+  BobguiTreeListRow *current_item;
 };
 
-static void row_data_notify_item (GtkListItem *item,
+static void row_data_notify_item (BobguiListItem *item,
                                   GParamSpec  *pspec,
                                   RowData     *data);
 static void
@@ -129,8 +129,8 @@ row_data_update_info (RowData   *data,
     }
 
 
-  gtk_widget_set_visible (data->icon, icon != NULL);
-  gtk_image_set_from_gicon (GTK_IMAGE (data->icon), icon);
+  bobgui_widget_set_visible (data->icon, icon != NULL);
+  bobgui_image_set_from_gicon (BOBGUI_IMAGE (data->icon), icon);
 }
 
 static void
@@ -160,7 +160,7 @@ row_data_got_thumbnail_info_cb (GObject      *source,
 
   /* now we know row is valid */
 
-  info = gtk_tree_list_row_get_item (data->current_item);
+  info = bobgui_tree_list_row_get_item (data->current_item);
 
   copy_attribute (info, queried, G_FILE_ATTRIBUTE_THUMBNAIL_PATH);
   copy_attribute (info, queried, G_FILE_ATTRIBUTE_THUMBNAILING_FAILED);
@@ -175,7 +175,7 @@ row_data_got_thumbnail_info_cb (GObject      *source,
 
 static void
 row_data_bind (RowData        *data,
-               GtkTreeListRow *item)
+               BobguiTreeListRow *item)
 {
   GFileInfo *info;
 
@@ -186,9 +186,9 @@ row_data_bind (RowData        *data,
 
   data->current_item = g_object_ref (item);
 
-  gtk_tree_expander_set_list_row (GTK_TREE_EXPANDER (data->expander), item);
+  bobgui_tree_expander_set_list_row (BOBGUI_TREE_EXPANDER (data->expander), item);
 
-  info = gtk_tree_list_row_get_item (item);
+  info = bobgui_tree_list_row_get_item (item);
 
   if (!g_file_info_has_attribute (info, "filechooser::queried"))
     {
@@ -207,17 +207,17 @@ row_data_bind (RowData        *data,
 
   row_data_update_info (data, info);
 
-  gtk_inscription_set_text (GTK_LABEL (data->name), g_file_info_get_display_name (info));
+  bobgui_inscription_set_text (BOBGUI_LABEL (data->name), g_file_info_get_display_name (info));
 
   g_object_unref (info);
 }
 
 static void
-row_data_notify_item (GtkListItem *item,
+row_data_notify_item (BobguiListItem *item,
                       GParamSpec  *pspec,
                       RowData     *data)
 {
-  row_data_bind (data, gtk_list_item_get_item (item));
+  row_data_bind (data, bobgui_list_item_get_item (item));
 }
 
 static void
@@ -231,37 +231,37 @@ row_data_free (gpointer _data)
 }
 
 static void
-setup_widget (GtkListItem *list_item,
+setup_widget (BobguiListItem *list_item,
               gpointer     unused)
 {
-  GtkWidget *box, *child;
+  BobguiWidget *box, *child;
   RowData *data;
 
   data = g_new0 (RowData, 1);
   g_signal_connect (list_item, "notify::item", G_CALLBACK (row_data_notify_item), data);
   g_object_set_data_full (G_OBJECT (list_item), "row-data", data, row_data_free);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 4);
-  gtk_container_add (GTK_CONTAINER (list_item), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 4);
+  bobgui_container_add (BOBGUI_CONTAINER (list_item), box);
 
-  child = gtk_inscription_new (NULL);
-  gtk_inscription_set_min_chars (GTK_LABEL (child), 5);
-  gtk_inscription_set_xalign (GTK_LABEL (child), 1.0);
+  child = bobgui_inscription_new (NULL);
+  bobgui_inscription_set_min_chars (BOBGUI_LABEL (child), 5);
+  bobgui_inscription_set_xalign (BOBGUI_LABEL (child), 1.0);
   g_object_bind_property (list_item, "position", child, "text", G_BINDING_SYNC_CREATE);
-  gtk_container_add (GTK_CONTAINER (box), child);
+  bobgui_container_add (BOBGUI_CONTAINER (box), child);
 
-  data->expander = gtk_tree_expander_new ();
-  gtk_container_add (GTK_CONTAINER (box), data->expander);
+  data->expander = bobgui_tree_expander_new ();
+  bobgui_container_add (BOBGUI_CONTAINER (box), data->expander);
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 4);
-  gtk_tree_expander_set_child (GTK_TREE_EXPANDER (data->expander), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 4);
+  bobgui_tree_expander_set_child (BOBGUI_TREE_EXPANDER (data->expander), box);
 
-  data->icon = gtk_image_new ();
-  gtk_container_add (GTK_CONTAINER (box), data->icon);
+  data->icon = bobgui_image_new ();
+  bobgui_container_add (BOBGUI_CONTAINER (box), data->icon);
 
-  data->name = gtk_inscription_new (NULL);
-  gtk_inscription_set_nat_chars (GTK_LABEL (data->name), 25);
-  gtk_container_add (GTK_CONTAINER (box), data->name);
+  data->name = bobgui_inscription_new (NULL);
+  bobgui_inscription_set_nat_chars (BOBGUI_LABEL (data->name), 25);
+  bobgui_container_add (BOBGUI_CONTAINER (box), data->name);
 }
 #endif
 
@@ -278,20 +278,20 @@ create_list_model_for_file_info (gpointer file_info,
 }
 
 static gboolean
-update_statusbar (GtkStatusbar *statusbar)
+update_statusbar (BobguiStatusbar *statusbar)
 {
   GListModel *model = g_object_get_data (G_OBJECT (statusbar), "model");
   GString *string = g_string_new (NULL);
   guint n;
   gboolean result = G_SOURCE_REMOVE;
 
-  gtk_statusbar_remove_all (statusbar, 0);
+  bobgui_statusbar_remove_all (statusbar, 0);
 
   n = g_list_model_get_n_items (model);
   g_string_append_printf (string, "%u", n);
-  if (GTK_IS_FILTER_LIST_MODEL (model))
+  if (BOBGUI_IS_FILTER_LIST_MODEL (model))
     {
-      guint n_unfiltered = g_list_model_get_n_items (gtk_filter_list_model_get_model (GTK_FILTER_LIST_MODEL (model)));
+      guint n_unfiltered = g_list_model_get_n_items (bobgui_filter_list_model_get_model (BOBGUI_FILTER_LIST_MODEL (model)));
       if (n != n_unfiltered)
         g_string_append_printf (string, "/%u", n_unfiltered);
     }
@@ -304,7 +304,7 @@ update_statusbar (GtkStatusbar *statusbar)
     }
       result = G_SOURCE_CONTINUE;
 
-  gtk_statusbar_push (statusbar, 0, string->str);
+  bobgui_statusbar_push (statusbar, 0, string->str);
   g_free (string->str);
 
   return result;
@@ -313,15 +313,15 @@ update_statusbar (GtkStatusbar *statusbar)
 static gboolean
 match_file (gpointer item, gpointer data)
 {
-  GtkWidget *search_entry = data;
-  GFileInfo *info = gtk_tree_list_row_get_item (item);
+  BobguiWidget *search_entry = data;
+  GFileInfo *info = bobgui_tree_list_row_get_item (item);
   GFile *file = G_FILE (g_file_info_get_attribute_object (info, "standard::file"));
   char *path;
   gboolean result;
   
   path = g_file_get_path (file);
 
-  result = strstr (path, gtk_editable_get_text (GTK_EDITABLE (search_entry))) != NULL;
+  result = strstr (path, bobgui_editable_get_text (BOBGUI_EDITABLE (search_entry))) != NULL;
 
   g_object_unref (info);
   g_free (path);
@@ -419,25 +419,25 @@ get_boolean (GObject    *unused,
 const char *ui_file =
 "<?xml version='1.0' encoding='UTF-8'?>\n"
 "<interface>\n"
-"  <object class='GtkColumnView' id='view'>\n"
+"  <object class='BobguiColumnView' id='view'>\n"
 "    <child>\n"
-"      <object class='GtkColumnViewColumn'>\n"
+"      <object class='BobguiColumnViewColumn'>\n"
 "        <property name='title'>Name</property>\n"
 "        <property name='factory'>\n"
-"          <object class='GtkBuilderListItemFactory'>\n"
+"          <object class='BobguiBuilderListItemFactory'>\n"
 "            <property name='bytes'><![CDATA[\n"
 "<?xml version='1.0' encoding='UTF-8'?>\n"
 "<interface>\n"
-"  <template class='GtkColumnViewCell'>\n"
+"  <template class='BobguiColumnViewCell'>\n"
 "    <property name='child'>\n"
-"      <object class='GtkTreeExpander' id='expander'>\n"
+"      <object class='BobguiTreeExpander' id='expander'>\n"
 "        <binding name='list-row'>\n"
-"          <lookup name='item'>GtkColumnViewCell</lookup>\n"
+"          <lookup name='item'>BobguiColumnViewCell</lookup>\n"
 "        </binding>\n"
 "        <property name='child'>\n"
-"          <object class='GtkBox'>\n"
+"          <object class='BobguiBox'>\n"
 "            <child>\n"
-"              <object class='GtkImage'>\n"
+"              <object class='BobguiImage'>\n"
 "                <binding name='gicon'>\n"
 "                  <closure type='GIcon' function='get_object'>\n"
 "                    <lookup name='item'>expander</lookup>\n"
@@ -447,7 +447,7 @@ const char *ui_file =
 "              </object>\n"
 "            </child>\n"
 "            <child>\n"
-"              <object class='GtkInscription'>\n"
+"              <object class='BobguiInscription'>\n"
 "                <binding name='text'>\n"
 "                  <closure type='gchararray' function='get_string'>\n"
 "                    <lookup name='item'>expander</lookup>\n"
@@ -466,7 +466,7 @@ const char *ui_file =
 "          </object>\n"
 "        </property>\n"
 "        <property name='sorter'>\n"
-"          <object class='GtkStringSorter'>\n"
+"          <object class='BobguiStringSorter'>\n"
 "            <property name='expression'>\n"
 "              <closure type='gchararray' function='g_file_info_get_attribute_as_string'>\n"
 "                <constant type='gchararray'>standard::display-name</constant>"
@@ -482,12 +482,12 @@ const char *ui_file =
 #define SIMPLE_STRING_FACTORY(attr, type) \
 "<?xml version='1.0' encoding='UTF-8'?>\n" \
 "<interface>\n" \
-"  <template class='GtkColumnViewCell'>\n" \
+"  <template class='BobguiColumnViewCell'>\n" \
 "    <property name='child'>\n" \
-"      <object class='GtkInscription'>\n" \
+"      <object class='BobguiInscription'>\n" \
 "        <binding name='text'>\n" \
 "          <closure type='gchararray' function='get_string'>\n" \
-"            <lookup name='item' type='GtkTreeListRow'><lookup name='item'>GtkColumnViewCell</lookup></lookup>\n" \
+"            <lookup name='item' type='BobguiTreeListRow'><lookup name='item'>BobguiColumnViewCell</lookup></lookup>\n" \
 "            <constant type='gchararray'>" attr "</constant>" \
 "          </closure>\n" \
 "        </binding>\n" \
@@ -499,12 +499,12 @@ const char *ui_file =
 #define BOOLEAN_FACTORY(attr) \
 "<?xml version='1.0' encoding='UTF-8'?>\n" \
 "<interface>\n" \
-"  <template class='GtkColumnViewCell'>\n" \
+"  <template class='BobguiColumnViewCell'>\n" \
 "    <property name='child'>\n" \
-"      <object class='GtkCheckButton'>\n" \
+"      <object class='BobguiCheckButton'>\n" \
 "        <binding name='active'>\n" \
 "          <closure type='gboolean' function='get_boolean'>\n" \
-"            <lookup name='item' type='GtkTreeListRow'><lookup name='item'>GtkColumnViewCell</lookup></lookup>\n" \
+"            <lookup name='item' type='BobguiTreeListRow'><lookup name='item'>BobguiColumnViewCell</lookup></lookup>\n" \
 "            <constant type='gchararray'>" attr "</constant>" \
 "          </closure>\n" \
 "        </binding>\n" \
@@ -516,12 +516,12 @@ const char *ui_file =
 #define ICON_FACTORY(attr) \
 "<?xml version='1.0' encoding='UTF-8'?>\n" \
 "<interface>\n" \
-"  <template class='GtkColumnViewCell'>\n" \
+"  <template class='BobguiColumnViewCell'>\n" \
 "    <property name='child'>\n" \
-"      <object class='GtkImage'>\n" \
+"      <object class='BobguiImage'>\n" \
 "        <binding name='gicon'>\n" \
 "          <closure type='GIcon' function='get_object'>\n" \
-"            <lookup name='item' type='GtkTreeListRow'><lookup name='item'>GtkColumnViewCell</lookup></lookup>\n" \
+"            <lookup name='item' type='BobguiTreeListRow'><lookup name='item'>BobguiColumnViewCell</lookup></lookup>\n" \
 "            <constant type='gchararray'>" attr "</constant>" \
 "          </closure>\n" \
 "        </binding>\n" \
@@ -623,13 +623,13 @@ struct {
 const char *factory_ui =
 "<?xml version='1.0' encoding='UTF-8'?>\n"
 "<interface>\n"
-"  <template class='GtkListItem'>\n"
+"  <template class='BobguiListItem'>\n"
 "    <property name='child'>\n"
-"      <object class='GtkLabel'>\n"
+"      <object class='BobguiLabel'>\n"
 "        <property name='xalign'>0</property>\n"
 "        <binding name='label'>\n"
-"          <lookup name='title' type='GtkColumnViewColumn'>\n"
-"            <lookup name='item'>GtkListItem</lookup>\n"
+"          <lookup name='title' type='BobguiColumnViewColumn'>\n"
+"            <lookup name='item'>BobguiListItem</lookup>\n"
 "          </lookup>\n"
 "        </binding>\n"
 "      </object>\n"
@@ -637,14 +637,14 @@ const char *factory_ui =
 "  </template>\n"
 "</interface>\n";
 
-static GtkBuilderScope *
+static BobguiBuilderScope *
 create_scope (void)
 {
 #define ADD_SYMBOL(name) \
-  gtk_builder_cscope_add_callback_symbol (GTK_BUILDER_CSCOPE (scope), G_STRINGIFY (name), G_CALLBACK (name))
-  GtkBuilderScope *scope;
+  bobgui_builder_cscope_add_callback_symbol (BOBGUI_BUILDER_CSCOPE (scope), G_STRINGIFY (name), G_CALLBACK (name))
+  BobguiBuilderScope *scope;
 
-  scope = gtk_builder_cscope_new ();
+  scope = bobgui_builder_cscope_new ();
 
   ADD_SYMBOL (get_object);
   ADD_SYMBOL (get_string);
@@ -655,81 +655,81 @@ create_scope (void)
 }
 
 static void
-add_extra_columns (GtkColumnView   *view,
-                   GtkBuilderScope *scope)
+add_extra_columns (BobguiColumnView   *view,
+                   BobguiBuilderScope *scope)
 {
-  GtkColumnViewColumn *column;
-  GtkSorter *sorter;
+  BobguiColumnViewColumn *column;
+  BobguiSorter *sorter;
   GBytes *bytes;
   guint i;
 
   for (i = 0; i < G_N_ELEMENTS(extra_columns); i++)
     {
       bytes = g_bytes_new_static (extra_columns[i].factory_xml, strlen (extra_columns[i].factory_xml));
-      column = gtk_column_view_column_new (extra_columns[i].title,
-          gtk_builder_list_item_factory_new_from_bytes (scope, bytes));
+      column = bobgui_column_view_column_new (extra_columns[i].title,
+          bobgui_builder_list_item_factory_new_from_bytes (scope, bytes));
       g_bytes_unref (bytes);
-      sorter = GTK_SORTER (gtk_custom_sorter_new (compare_file_attribute, (gpointer) extra_columns[i].attribute, NULL));
-      gtk_column_view_column_set_sorter (column, sorter);
+      sorter = BOBGUI_SORTER (bobgui_custom_sorter_new (compare_file_attribute, (gpointer) extra_columns[i].attribute, NULL));
+      bobgui_column_view_column_set_sorter (column, sorter);
       g_object_unref (sorter);
-      gtk_column_view_append_column (view, column);
+      bobgui_column_view_append_column (view, column);
     }
 }
 
 static void
-search_changed_cb (GtkSearchEntry *entry,
-                   GtkFilter      *custom_filter)
+search_changed_cb (BobguiSearchEntry *entry,
+                   BobguiFilter      *custom_filter)
 {
-  gtk_filter_changed (custom_filter, GTK_FILTER_CHANGE_DIFFERENT);
+  bobgui_filter_changed (custom_filter, BOBGUI_FILTER_CHANGE_DIFFERENT);
 }
 
 int
 main (int argc, char *argv[])
 {
   GListModel *toplevels;
-  GtkWidget *win, *hbox, *vbox, *sw, *view, *list, *search_entry, *statusbar;
+  BobguiWidget *win, *hbox, *vbox, *sw, *view, *list, *search_entry, *statusbar;
   GListModel *dirmodel;
-  GtkTreeListModel *tree;
-  GtkFilterListModel *filter;
-  GtkFilter *custom_filter;
-  GtkSortListModel *sort;
-  GtkSorter *sorter;
+  BobguiTreeListModel *tree;
+  BobguiFilterListModel *filter;
+  BobguiFilter *custom_filter;
+  BobguiSortListModel *sort;
+  BobguiSorter *sorter;
   GFile *root;
-  GtkBuilderScope *scope;
-  GtkBuilder *builder;
+  BobguiBuilderScope *scope;
+  BobguiBuilder *builder;
   GError *error = NULL;
-  GtkSelectionModel *selection;
+  BobguiSelectionModel *selection;
 
-  gtk_init ();
+  bobgui_init ();
 
-  win = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (win), 800, 600);
+  win = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (win), 800, 600);
 
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-  gtk_window_set_child (GTK_WINDOW (win), hbox);
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6);
+  bobgui_window_set_child (BOBGUI_WINDOW (win), hbox);
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_box_append (GTK_BOX (hbox), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_box_append (BOBGUI_BOX (hbox), vbox);
 
-  search_entry = gtk_search_entry_new ();
-  gtk_box_append (GTK_BOX (vbox), search_entry);
+  search_entry = bobgui_search_entry_new ();
+  bobgui_box_append (BOBGUI_BOX (vbox), search_entry);
 
-  sw = gtk_scrolled_window_new ();
-  gtk_widget_set_hexpand (sw, TRUE);
-  gtk_widget_set_vexpand (sw, TRUE);
-  gtk_search_entry_set_key_capture_widget (GTK_SEARCH_ENTRY (search_entry), sw);
-  gtk_box_append (GTK_BOX (vbox), sw);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_widget_set_hexpand (sw, TRUE);
+  bobgui_widget_set_vexpand (sw, TRUE);
+  bobgui_search_entry_set_key_capture_widget (BOBGUI_SEARCH_ENTRY (search_entry), sw);
+  bobgui_box_append (BOBGUI_BOX (vbox), sw);
 
   scope = create_scope ();
-  builder = gtk_builder_new ();
-  gtk_builder_set_scope (builder, scope);
-  if (!gtk_builder_add_from_string (builder, ui_file, -1, &error))
+  builder = bobgui_builder_new ();
+  bobgui_builder_set_scope (builder, scope);
+  if (!bobgui_builder_add_from_string (builder, ui_file, -1, &error))
     {
       g_assert_no_error (error);
     }
-  view = GTK_WIDGET (gtk_builder_get_object (builder, "view"));
-  add_extra_columns (GTK_COLUMN_VIEW (view), scope);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), view);
+  view = BOBGUI_WIDGET (bobgui_builder_get_object (builder, "view"));
+  add_extra_columns (BOBGUI_COLUMN_VIEW (view), scope);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), view);
   g_object_unref (builder);
 
   if (argc > 1)
@@ -751,40 +751,40 @@ main (int argc, char *argv[])
       dirmodel = create_list_model_for_directory (root);
       g_object_unref (root);
     }
-  tree = gtk_tree_list_model_new (dirmodel,
+  tree = bobgui_tree_list_model_new (dirmodel,
                                   FALSE,
                                   TRUE,
                                   create_list_model_for_file_info,
                                   NULL, NULL);
 
-  sorter = GTK_SORTER (gtk_tree_list_row_sorter_new (g_object_ref (gtk_column_view_get_sorter (GTK_COLUMN_VIEW (view)))));
-  sort = gtk_sort_list_model_new (G_LIST_MODEL (tree), sorter);
+  sorter = BOBGUI_SORTER (bobgui_tree_list_row_sorter_new (g_object_ref (bobgui_column_view_get_sorter (BOBGUI_COLUMN_VIEW (view)))));
+  sort = bobgui_sort_list_model_new (G_LIST_MODEL (tree), sorter);
 
-  custom_filter = GTK_FILTER (gtk_custom_filter_new (match_file, g_object_ref (search_entry), g_object_unref));
-  filter = gtk_filter_list_model_new (G_LIST_MODEL (sort), custom_filter);
+  custom_filter = BOBGUI_FILTER (bobgui_custom_filter_new (match_file, g_object_ref (search_entry), g_object_unref));
+  filter = bobgui_filter_list_model_new (G_LIST_MODEL (sort), custom_filter);
   g_signal_connect (search_entry, "search-changed", G_CALLBACK (search_changed_cb), custom_filter);
 
-  selection = GTK_SELECTION_MODEL (gtk_single_selection_new (G_LIST_MODEL (filter)));
-  gtk_column_view_set_model (GTK_COLUMN_VIEW (view), selection);
+  selection = BOBGUI_SELECTION_MODEL (bobgui_single_selection_new (G_LIST_MODEL (filter)));
+  bobgui_column_view_set_model (BOBGUI_COLUMN_VIEW (view), selection);
   g_object_unref (selection);
 
-  statusbar = gtk_statusbar_new ();
-  gtk_widget_add_tick_callback (statusbar, (GtkTickCallback) update_statusbar, NULL, NULL);
+  statusbar = bobgui_statusbar_new ();
+  bobgui_widget_add_tick_callback (statusbar, (BobguiTickCallback) update_statusbar, NULL, NULL);
   g_object_set_data (G_OBJECT (statusbar), "model", filter);
   g_signal_connect_swapped (filter, "items-changed", G_CALLBACK (update_statusbar), statusbar);
-  update_statusbar (GTK_STATUSBAR (statusbar));
-  gtk_box_append (GTK_BOX (vbox), statusbar);
+  update_statusbar (BOBGUI_STATUSBAR (statusbar));
+  bobgui_box_append (BOBGUI_BOX (vbox), statusbar);
 
-  list = gtk_list_view_new (
-             GTK_SELECTION_MODEL (gtk_single_selection_new (g_object_ref (gtk_column_view_get_columns (GTK_COLUMN_VIEW (view))))),
-             gtk_builder_list_item_factory_new_from_bytes (scope, g_bytes_new_static (factory_ui, strlen (factory_ui))));
-  gtk_box_append (GTK_BOX (hbox), list);
+  list = bobgui_list_view_new (
+             BOBGUI_SELECTION_MODEL (bobgui_single_selection_new (g_object_ref (bobgui_column_view_get_columns (BOBGUI_COLUMN_VIEW (view))))),
+             bobgui_builder_list_item_factory_new_from_bytes (scope, g_bytes_new_static (factory_ui, strlen (factory_ui))));
+  bobgui_box_append (BOBGUI_BOX (hbox), list);
 
   g_object_unref (scope);
 
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 
-  toplevels = gtk_window_get_toplevels ();
+  toplevels = bobgui_window_get_toplevels ();
   while (g_list_model_get_n_items (toplevels))
     g_main_context_iteration (NULL, TRUE);
 

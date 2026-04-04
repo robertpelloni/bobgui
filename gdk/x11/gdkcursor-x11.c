@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/. 
  */
 
 #include "config.h"
@@ -266,12 +266,12 @@ gdk_x11_cursor_create_for_name (GdkDisplay  *display,
  * If the windowing system supports it, existing cursors created
  * with [ctor@Gdk.Cursor.new_from_name] are updated to reflect the theme
  * change. Custom cursors constructed with [ctor@Gdk.Cursor.new_from_texture]
- * will have to be handled by the application (GTK applications can learn
+ * will have to be handled by the application (BOBGUI applications can learn
  * about cursor theme changes by listening for change notification
- * for the corresponding `GtkSetting`).
+ * for the corresponding `BobguiSetting`).
  *
  * Deprecated: 4.16: Use the cursor-related properties of
- *   [GtkSettings](../gtk4/class.Settings.html) to set the cursor theme
+ *   [BobguiSettings](../bobgui4/class.Settings.html) to set the cursor theme
  */
 void
 gdk_x11_display_set_cursor_theme (GdkDisplay  *display,

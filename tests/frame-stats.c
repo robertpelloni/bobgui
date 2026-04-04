@@ -1,6 +1,6 @@
 /* -*- mode: C; c-basic-offset: 2; indent-tabs-mode: nil; -*- */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <stdlib.h>
 
 #include "frame-stats.h"
@@ -131,16 +131,16 @@ on_frame_clock_after_paint (GdkFrameClock *frame_clock,
 }
 
 static void
-on_window_realize (GtkWidget  *window,
+on_window_realize (BobguiWidget  *window,
                    FrameStats *frame_stats)
 {
-  frame_stats->frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (window));
+  frame_stats->frame_clock = bobgui_widget_get_frame_clock (BOBGUI_WIDGET (window));
   g_signal_connect (frame_stats->frame_clock, "after-paint",
                     G_CALLBACK (on_frame_clock_after_paint), frame_stats);
 }
 
 static void
-on_window_unrealize (GtkWidget  *window,
+on_window_unrealize (BobguiWidget  *window,
                      FrameStats *frame_stats)
 {
   g_signal_handlers_disconnect_by_func (frame_stats->frame_clock,
@@ -150,14 +150,14 @@ on_window_unrealize (GtkWidget  *window,
 }
 
 static void
-on_window_destroy (GtkWidget  *window,
+on_window_destroy (BobguiWidget  *window,
                    FrameStats *stats)
 {
   g_free (stats);
 }
 
 void
-frame_stats_ensure (GtkWindow *window)
+frame_stats_ensure (BobguiWindow *window)
 {
   FrameStats *frame_stats;
 
@@ -178,6 +178,6 @@ frame_stats_ensure (GtkWindow *window)
   g_signal_connect (window, "destroy",
                     G_CALLBACK (on_window_destroy), frame_stats);
 
-  if (gtk_widget_get_realized (GTK_WIDGET (window)))
-    on_window_realize (GTK_WIDGET (window), frame_stats);
+  if (bobgui_widget_get_realized (BOBGUI_WIDGET (window)))
+    on_window_realize (BOBGUI_WIDGET (window), frame_stats);
 }

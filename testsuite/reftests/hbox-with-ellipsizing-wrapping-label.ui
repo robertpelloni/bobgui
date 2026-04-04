@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="label">Hello World</property>
             <property name="ellipsize">end</property>
             <property name="wrap">True</property>

@@ -132,8 +132,8 @@ gdk_public_headers = files([
   'gdktoplevel.h',
   'gdkdragsurface.h',
 ])
-install_headers(gdk_public_headers, subdir: 'gtk-4.0/gdk/')
-install_headers(gdk_deprecated_headers, subdir: 'gtk-4.0/gdk/deprecated')
+install_headers(gdk_public_headers, subdir: 'bobgui-4.0/gdk/')
+install_headers(gdk_deprecated_headers, subdir: 'bobgui-4.0/gdk/deprecated')
 
 gdk_sources = gdk_public_sources + gdk_deprecated_sources
 
@@ -169,7 +169,7 @@ gdk_enums = gnome.mkenums_simple('gdkenumtypes',
   decorator: 'GDK_AVAILABLE_IN_ALL',
   body_prefix: '#include "config.h"',
   header_prefix: '#include "version/gdkversionmacros.h"\n',
-  install_dir: gtk_includedir / 'gtk-4.0/gdk',
+  install_dir: bobgui_includedir / 'bobgui-4.0/gdk',
   install_header: true,
 )
 
@@ -198,13 +198,13 @@ gdkconfig = configure_file(
   input: 'gdkconfig.h.meson',
   output: 'gdkconfig.h',
   configuration: gdkconfig_cdata,
-  install_dir: gtk_includedir / 'gtk-4.0/gdk',
+  install_dir: bobgui_includedir / 'bobgui-4.0/gdk',
 )
 
 gdkversion_cdata = configuration_data()
-gdkversion_cdata.set('GTK_MAJOR_VERSION', gtk_major_version)
-gdkversion_cdata.set('GTK_MINOR_VERSION', gtk_minor_version)
-gdkversion_cdata.set('GTK_MICRO_VERSION', gtk_micro_version)
+gdkversion_cdata.set('BOBGUI_MAJOR_VERSION', bobgui_major_version)
+gdkversion_cdata.set('BOBGUI_MINOR_VERSION', bobgui_minor_version)
+gdkversion_cdata.set('BOBGUI_MICRO_VERSION', bobgui_micro_version)
 
 gdkinc = include_directories('.')
 gdkx11_inc = include_directories('x11')
@@ -272,7 +272,7 @@ if wayland_enabled or broadway_enabled
 endif
 
 libgdk_c_args = [
-  '-DGTK_COMPILATION',
+  '-DBOBGUI_COMPILATION',
   '-DG_LOG_DOMAIN="Gdk"',
 ]
 
@@ -297,8 +297,8 @@ endif
 
 libgdk = static_library('gdk',
   sources: [gdk_sources, gdk_backends_gen_headers, gdk_gen_headers],
-  dependencies: gdk_deps + [libgtk_css_dep],
-  link_with: [libgtk_css],
+  dependencies: gdk_deps + [libbobgui_css_dep],
+  link_with: [libbobgui_css],
   include_directories: [confinc, gdkx11_inc, wlinc],
   c_args: libgdk_c_args + common_cflags,
   link_whole: gdk_backends,
@@ -306,9 +306,9 @@ libgdk = static_library('gdk',
 
 # We don't have link_with: to internal static libs here on purpose, just
 # list the dependencies and generated headers and such, for use in the
-# "public" libgtk_dep used by internal executables.
+# "public" libbobgui_dep used by internal executables.
 libgdk_dep = declare_dependency(
   sources: ['gdk.h', gdk_gen_headers],
   include_directories: [confinc, gdkx11_inc, wlinc],
-  dependencies: gdk_deps + [libgtk_css_dep],
+  dependencies: gdk_deps + [libbobgui_css_dep],
 )

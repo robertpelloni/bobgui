@@ -1,5 +1,5 @@
 #include <math.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "variable.h"
 
@@ -11,7 +11,7 @@ typedef struct {
 } FrameData;
 
 static FrameData *displayed_frame;
-static GtkWidget *window;
+static BobguiWidget *window;
 static GList *past_frames;
 static Variable latency_error = VARIABLE_INIT;
 static Variable time_factor_stats = VARIABLE_INIT;
@@ -191,7 +191,7 @@ adjust_clock_for_phase (gint64 frame_clock_time,
 /* Drawing */
 
 static void
-on_draw (GtkDrawingArea *da,
+on_draw (BobguiDrawingArea *da,
          cairo_t        *cr,
          int             width,
          int             height,
@@ -221,7 +221,7 @@ on_draw (GtkDrawingArea *da,
 
       if (displayed_frame->frame_counter == 0)
         {
-          GdkFrameClock *frame_clock = gtk_widget_get_frame_clock (window);
+          GdkFrameClock *frame_clock = bobgui_widget_get_frame_clock (window);
           displayed_frame->frame_counter = gdk_frame_clock_get_frame_counter (frame_clock);
         }
     }
@@ -230,7 +230,7 @@ on_draw (GtkDrawingArea *da,
 static void
 collect_old_frames (void)
 {
-  GdkFrameClock *frame_clock = gtk_widget_get_frame_clock (window);
+  GdkFrameClock *frame_clock = bobgui_widget_get_frame_clock (window);
   GList *l, *l_next;
 
   for (l = past_frames; l; l = l_next)
@@ -352,7 +352,7 @@ on_update (GdkFrameClock *frame_clock,
       collect_old_frames ();
       print_statistics ();
 
-      gtk_widget_queue_draw (window);
+      bobgui_widget_queue_draw (window);
     }
 }
 
@@ -363,7 +363,7 @@ static GOptionEntry options[] = {
 };
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -376,7 +376,7 @@ quit_cb (GtkWidget *widget,
 int
 main(int argc, char **argv)
 {
-  GtkWidget *da;
+  BobguiWidget *da;
   GError *error = NULL;
   GdkFrameClock *frame_clock;
   GOptionContext *context;
@@ -393,18 +393,18 @@ main(int argc, char **argv)
 
   g_option_context_free (context);
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 300, 300);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 300, 300);
   g_signal_connect (window, "destroy",
                     G_CALLBACK (quit_cb), &done);
 
-  da = gtk_drawing_area_new ();
-  gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (da), on_draw, NULL, NULL);
-  gtk_window_set_child (GTK_WINDOW (window), da);
+  da = bobgui_drawing_area_new ();
+  bobgui_drawing_area_set_draw_func (BOBGUI_DRAWING_AREA (da), on_draw, NULL, NULL);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), da);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   frame_queue = g_queue_new ();
   g_mutex_init (&frame_mutex);
@@ -412,7 +412,7 @@ main(int argc, char **argv)
 
   g_thread_new ("Create Frames", create_frames_thread, NULL);
 
-  frame_clock = gtk_widget_get_frame_clock (window);
+  frame_clock = bobgui_widget_get_frame_clock (window);
   g_signal_connect (frame_clock, "update",
                     G_CALLBACK (on_update), NULL);
   gdk_frame_clock_begin_updating (frame_clock);

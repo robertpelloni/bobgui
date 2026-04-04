@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -43,7 +43,7 @@
  *
  * Represents windowing system events.
  *
- * In GTK applications the events are handled automatically by toplevel
+ * In BOBGUI applications the events are handled automatically by toplevel
  * widgets and passed on to the event controllers of appropriate widgets,
  * so using `GdkEvent` and its related API is rarely needed.
  *
@@ -1861,7 +1861,7 @@ gdk_key_event_matches (GdkEvent        *event,
    * In this case, we still want to pay attention to its state.
    * For example, when Ctrl+x is translated into Ctrl+x, we only want to
    * trigger shortcuts for <Control>x, not for <Control><Shift>x.
-   * (See https://gitlab.gnome.org/GNOME/gtk/-/issues/5095)
+   * (See https://gitlab.gnome.org/GNOME/bobgui/-/issues/5095)
    */
   ignored_modifiers = (self->translated[1].consumed & state);
 
@@ -2471,7 +2471,7 @@ gdk_scroll_event_new_discrete (GdkSurface                 *surface,
 }
 
 /*< private >
- * gtk_scroll_event_new_value120:
+ * bobgui_scroll_event_new_value120:
  * @surface: the `GdkSurface` of the event
  * @device: the `GdkDevice` of the event
  * @tool: (nullable): the tool that generated to event

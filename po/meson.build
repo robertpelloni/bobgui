@@ -1,7 +1,7 @@
 i18n = import('i18n')
 
 xgettext_args = [
-  '--msgid-bugs-address="https://gitlab.gnome.org/GNOME/gtk/-/issues/"',
+  '--msgid-bugs-address="https://gitlab.gnome.org/GNOME/bobgui/-/issues/"',
   '--add-comments',
   '--from-code=utf-8',
   '--flag=g_dngettext:2:pass-c-format',
@@ -20,11 +20,11 @@ xgettext_args = [
   '--flag=g_snprintf:3:c-format',
   '--flag=g_scanner_error:2:c-format',
   '--flag=g_scanner_warn:2:c-format',
-  '--flag=gtk_message_dialog_format_secondary_markup:2:c-format',
-  '--flag=gtk_message_dialog_format_secondary_text:2:c-format',
-  '--flag=gtk_message_dialog_new:5:c-format',
-  '--flag=gtk_message_dialog_new_with_markup:5:c-format',
-  '--flag=gtk_alert_dialog_new:1:c-format',
+  '--flag=bobgui_message_dialog_format_secondary_markup:2:c-format',
+  '--flag=bobgui_message_dialog_format_secondary_text:2:c-format',
+  '--flag=bobgui_message_dialog_new:5:c-format',
+  '--flag=bobgui_message_dialog_new_with_markup:5:c-format',
+  '--flag=bobgui_alert_dialog_new:1:c-format',
 ]
 
-i18n.gettext('gtk40', args: xgettext_args)
+i18n.gettext('bobgui40', args: xgettext_args)

@@ -15,7 +15,7 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <math.h>
 
 /* Function to normalize rounding errors in FP arithmetic to
@@ -35,16 +35,16 @@ double_normalize (double n)
 }
 
 static void
-spin_xalign_cb (GtkSpinButton *spin, GtkFrame *frame)
+spin_xalign_cb (BobguiSpinButton *spin, BobguiFrame *frame)
 {
   double xalign;
 
-  xalign = double_normalize (gtk_spin_button_get_value (spin));
-  gtk_frame_set_label_align (frame, xalign);
+  xalign = double_normalize (bobgui_spin_button_get_value (spin));
+  bobgui_frame_set_label_align (frame, xalign);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -56,51 +56,51 @@ quit_cb (GtkWidget *widget,
 
 int main (int argc, char **argv)
 {
-  GtkWidget *window, *widget;
-  GtkBox *vbox;
-  GtkFrame *frame;
-  GtkGrid *grid;
+  BobguiWidget *window, *widget;
+  BobguiBox *vbox;
+  BobguiFrame *frame;
+  BobguiGrid *grid;
   float xalign;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 300, 300);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 300, 300);
 
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  vbox = GTK_BOX (gtk_box_new (GTK_ORIENTATION_VERTICAL, 5));
-  gtk_widget_set_margin_start (GTK_WIDGET (vbox), 12);
-  gtk_widget_set_margin_end (GTK_WIDGET (vbox), 12);
-  gtk_widget_set_margin_top (GTK_WIDGET (vbox), 12);
-  gtk_widget_set_margin_bottom (GTK_WIDGET (vbox), 12);
-  gtk_window_set_child (GTK_WINDOW (window), GTK_WIDGET (vbox));
+  vbox = BOBGUI_BOX (bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 5));
+  bobgui_widget_set_margin_start (BOBGUI_WIDGET (vbox), 12);
+  bobgui_widget_set_margin_end (BOBGUI_WIDGET (vbox), 12);
+  bobgui_widget_set_margin_top (BOBGUI_WIDGET (vbox), 12);
+  bobgui_widget_set_margin_bottom (BOBGUI_WIDGET (vbox), 12);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), BOBGUI_WIDGET (vbox));
 
-  frame = GTK_FRAME (gtk_frame_new ("Test GtkFrame"));
-  gtk_widget_set_vexpand (GTK_WIDGET (frame), TRUE);
-  gtk_box_append (GTK_BOX (vbox), GTK_WIDGET (frame));
+  frame = BOBGUI_FRAME (bobgui_frame_new ("Test BobguiFrame"));
+  bobgui_widget_set_vexpand (BOBGUI_WIDGET (frame), TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), BOBGUI_WIDGET (frame));
 
-  widget = gtk_button_new_with_label ("Hello!");
-  gtk_frame_set_child (GTK_FRAME (frame), widget);
+  widget = bobgui_button_new_with_label ("Hello!");
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), widget);
 
-  grid = GTK_GRID (gtk_grid_new ());
-  gtk_grid_set_row_spacing (grid, 12);
-  gtk_grid_set_column_spacing (grid, 6);
-  gtk_box_append (GTK_BOX (vbox), GTK_WIDGET (grid));
+  grid = BOBGUI_GRID (bobgui_grid_new ());
+  bobgui_grid_set_row_spacing (grid, 12);
+  bobgui_grid_set_column_spacing (grid, 6);
+  bobgui_box_append (BOBGUI_BOX (vbox), BOBGUI_WIDGET (grid));
 
-  xalign = gtk_frame_get_label_align (frame);
+  xalign = bobgui_frame_get_label_align (frame);
 
   /* Spin to control :label-xalign */
-  widget = gtk_label_new ("label xalign:");
-  gtk_grid_attach (grid, widget, 0, 0, 1, 1);
+  widget = bobgui_label_new ("label xalign:");
+  bobgui_grid_attach (grid, widget, 0, 0, 1, 1);
 
-  widget = gtk_spin_button_new_with_range (0.0, 1.0, 0.1);
-  gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), xalign);
+  widget = bobgui_spin_button_new_with_range (0.0, 1.0, 0.1);
+  bobgui_spin_button_set_value (BOBGUI_SPIN_BUTTON (widget), xalign);
   g_signal_connect (widget, "value-changed", G_CALLBACK (spin_xalign_cb), frame);
-  gtk_grid_attach (grid, widget, 1, 0, 1, 1);
+  bobgui_grid_attach (grid, widget, 1, 0, 1, 1);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

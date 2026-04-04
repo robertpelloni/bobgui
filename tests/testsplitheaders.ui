@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window">
+  <object class="BobguiWindow" id="window">
     <property name="default-width">600</property>
     <property name="default-height">400</property>
     <property name="icon-name">preferences-desktop-font</property>
     <child type="titlebar">
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkHeaderBar" id="sidebar-header">
+          <object class="BobguiHeaderBar" id="sidebar-header">
             <child type="end">
-              <object class="GtkCheckButton">
+              <object class="BobguiCheckButton">
                 <property name="valign">center</property>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkSeparator">
+          <object class="BobguiSeparator">
             <property name="orientation">vertical</property>
           </object>
         </child>
         <child>
-          <object class="GtkHeaderBar" id="main-header">
+          <object class="BobguiHeaderBar" id="main-header">
             <property name="hexpand">1</property>
             <child type="start">
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <style>
                   <class name="linked"/>
                 </style>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="icon-name">go-previous-symbolic</property>
                     <property name="valign">center</property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="icon-name">go-next-symbolic</property>
                     <property name="valign">center</property>
                   </object>
@@ -47,30 +47,30 @@
       </object>
     </child>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkListBox" id="sidebar-content">
+          <object class="BobguiListBox" id="sidebar-content">
             <property name="selection-mode">none</property>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label">Bla</property>
                 <property name="xalign">0</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label">Bla bla</property>
                 <property name="xalign">0</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label">Bla bla bla</property>
                 <property name="xalign">0</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label">Bla bla bla bla</property>
                 <property name="xalign">0</property>
               </object>
@@ -78,13 +78,13 @@
           </object>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="main-content">
+          <object class="BobguiScrolledWindow" id="main-content">
             <property name="hexpand">1</property>
             <property name="vexpand">1</property>
             <property name="hscrollbar-policy">always</property>
             <property name="vscrollbar-policy">always</property>
             <child>
-              <object class="GtkGrid">
+              <object class="BobguiGrid">
                 <property name="margin-start">20</property>
                 <property name="margin-end">20</property>
                 <property name="margin-top">20</property>
@@ -92,7 +92,7 @@
                 <property name="row-spacing">10</property>
                 <property name="column-spacing">10</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="BobguiLabel">
                     <property name="label">Layout</property>
                     <layout>
                       <property name="column">0</property>
@@ -101,7 +101,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkEntry" id="layout-entry">
+                  <object class="BobguiEntry" id="layout-entry">
                     <property name="width-chars">25</property>
                     <layout>
                       <property name="column">1</property>
@@ -110,7 +110,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="BobguiLabel">
                     <property name="label">Decorations</property>
                     <layout>
                       <property name="column">0</property>
@@ -119,7 +119,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkCheckButton" id="decorations">
+                  <object class="BobguiCheckButton" id="decorations">
                     <layout>
                       <property name="column">1</property>
                       <property name="row">1</property>
@@ -133,13 +133,13 @@
       </object>
     </child>
   </object>
-  <object class="GtkSizeGroup">
+  <object class="BobguiSizeGroup">
     <widgets>
       <widget name="sidebar-header"/>
       <widget name="sidebar-content"/>
     </widgets>
   </object>
-  <object class="GtkSizeGroup">
+  <object class="BobguiSizeGroup">
     <widgets>
       <widget name="main-header"/>
       <widget name="main-content"/>

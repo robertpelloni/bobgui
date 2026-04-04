@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkLevelBar">
+          <object class="BobguiLevelBar">
             <property name="value">0.5</property>
           </object>
         </child>
         <child>
-          <object class="GtkLevelBar">
+          <object class="BobguiLevelBar">
             <property name="inverted">1</property>
             <property name="value">0.5</property>
           </object>
         </child>
         <child>
-          <object class="GtkLevelBar">
+          <object class="BobguiLevelBar">
             <property name="value">0.2</property>
           </object>
         </child>
         <child>
-          <object class="GtkLevelBar">
+          <object class="BobguiLevelBar">
             <property name="value">0.8</property>
           </object>
         </child>
         <child>
-          <object class="GtkLevelBar">
+          <object class="BobguiLevelBar">
             <property name="max-value">10</property>
             <property name="value">5</property>
             <property name="mode">discrete</property>
@@ -39,7 +39,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLevelBar">
+          <object class="BobguiLevelBar">
             <property name="max-value">10</property>
             <property name="value">2</property>
             <property name="mode">discrete</property>
@@ -51,7 +51,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLevelBar">
+          <object class="BobguiLevelBar">
             <property name="max-value">10</property>
             <property name="value">8</property>
             <property name="mode">discrete</property>

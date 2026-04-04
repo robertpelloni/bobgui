@@ -15,89 +15,89 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
-static GtkWidget *_margin;
-static GtkWidget *_align;
-static GtkWidget *_xalign;
-static GtkWidget *_yalign;
+static BobguiWidget *_margin;
+static BobguiWidget *_align;
+static BobguiWidget *_xalign;
+static BobguiWidget *_yalign;
 
 static void
-highlight_at_mark (GtkTextBuffer *buffer,
-                   GtkTextMark   *mark,
+highlight_at_mark (BobguiTextBuffer *buffer,
+                   BobguiTextMark   *mark,
                    gboolean       on)
 {
-  GtkTextIter iter, iter2;
+  BobguiTextIter iter, iter2;
 
-  gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
+  bobgui_text_buffer_get_iter_at_mark (buffer, &iter, mark);
   iter2 = iter;
-  gtk_text_iter_forward_line (&iter2);
+  bobgui_text_iter_forward_line (&iter2);
 
   if (on)
-    gtk_text_buffer_apply_tag_by_name (buffer, "hihi", &iter, &iter2);
+    bobgui_text_buffer_apply_tag_by_name (buffer, "hihi", &iter, &iter2);
   else
-    gtk_text_buffer_remove_tag_by_name (buffer, "hihi", &iter, &iter2);
+    bobgui_text_buffer_remove_tag_by_name (buffer, "hihi", &iter, &iter2);
 }
 
 static void
-go_forward_or_back (GtkButton   *button,
-                    GtkTextView *tv,
+go_forward_or_back (BobguiButton   *button,
+                    BobguiTextView *tv,
                     gboolean     forward)
 {
-  GtkTextBuffer *buffer;
-  GtkTextMark *mark;
-  GtkTextIter iter;
+  BobguiTextBuffer *buffer;
+  BobguiTextMark *mark;
+  BobguiTextIter iter;
   gboolean found;
 
-  buffer = gtk_text_view_get_buffer (tv);
-  mark = gtk_text_buffer_get_mark (buffer, "mimi");
+  buffer = bobgui_text_view_get_buffer (tv);
+  mark = bobgui_text_buffer_get_mark (buffer, "mimi");
   highlight_at_mark (buffer, mark, FALSE);
 
-  gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
+  bobgui_text_buffer_get_iter_at_mark (buffer, &iter, mark);
   if (forward)
-    found = gtk_text_iter_forward_search (&iter, "\n-----", 0, &iter, NULL, NULL);
+    found = bobgui_text_iter_forward_search (&iter, "\n-----", 0, &iter, NULL, NULL);
   else
-    found = gtk_text_iter_backward_search (&iter, "\n-----", 0, &iter, NULL, NULL);
+    found = bobgui_text_iter_backward_search (&iter, "\n-----", 0, &iter, NULL, NULL);
   if (found)
     {
       double margin;
       gboolean use_align;
       double xalign, yalign;
 
-      gtk_text_iter_forward_char (&iter);
-      gtk_text_buffer_move_mark (buffer, mark, &iter);
+      bobgui_text_iter_forward_char (&iter);
+      bobgui_text_buffer_move_mark (buffer, mark, &iter);
       highlight_at_mark (buffer, mark, TRUE);
 
-      margin = gtk_spin_button_get_value (GTK_SPIN_BUTTON (_margin));
-      use_align = gtk_check_button_get_active (GTK_CHECK_BUTTON (_align));
-      xalign = gtk_spin_button_get_value (GTK_SPIN_BUTTON (_xalign));
-      yalign = gtk_spin_button_get_value (GTK_SPIN_BUTTON (_yalign));
+      margin = bobgui_spin_button_get_value (BOBGUI_SPIN_BUTTON (_margin));
+      use_align = bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (_align));
+      xalign = bobgui_spin_button_get_value (BOBGUI_SPIN_BUTTON (_xalign));
+      yalign = bobgui_spin_button_get_value (BOBGUI_SPIN_BUTTON (_yalign));
 
-      gtk_text_view_scroll_to_mark (tv, mark, margin, use_align, xalign, yalign);
+      bobgui_text_view_scroll_to_mark (tv, mark, margin, use_align, xalign, yalign);
     }
   else
     {
       if (forward)
-        gtk_text_buffer_get_end_iter (buffer, &iter);
+        bobgui_text_buffer_get_end_iter (buffer, &iter);
       else
-        gtk_text_buffer_get_start_iter (buffer, &iter);
+        bobgui_text_buffer_get_start_iter (buffer, &iter);
 
-      gtk_text_buffer_move_mark (buffer, mark, &iter);
+      bobgui_text_buffer_move_mark (buffer, mark, &iter);
 
-      gtk_widget_error_bell (GTK_WIDGET (button));
+      bobgui_widget_error_bell (BOBGUI_WIDGET (button));
     }
 }
 
 static void
-go_forward (GtkButton   *button,
-            GtkTextView *tv)
+go_forward (BobguiButton   *button,
+            BobguiTextView *tv)
 {
   go_forward_or_back (button, tv, TRUE);
 }
 
 static void
-go_back (GtkButton   *button,
-         GtkTextView *tv)
+go_back (BobguiButton   *button,
+         BobguiTextView *tv)
 {
   go_forward_or_back (button, tv, FALSE);
 }
@@ -105,28 +105,28 @@ go_back (GtkButton   *button,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *box;
-  GtkWidget *sw, *tv;
-  GtkWidget *button, *box2;
-  GtkTextBuffer *buffer;
-  GtkTextIter iter;
-  GtkTextTag *tag;
+  BobguiWidget *window, *box;
+  BobguiWidget *sw, *tv;
+  BobguiWidget *button, *box2;
+  BobguiTextBuffer *buffer;
+  BobguiTextIter iter;
+  BobguiTextTag *tag;
   GdkRGBA bg;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 400, 600);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 400, 600);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 10);
 
-  tv = gtk_text_view_new ();
-  gtk_text_view_set_left_margin (GTK_TEXT_VIEW (tv), 10);
-  gtk_text_view_set_right_margin (GTK_TEXT_VIEW (tv), 10);
-  gtk_text_view_set_top_margin (GTK_TEXT_VIEW (tv), 10);
-  gtk_text_view_set_bottom_margin (GTK_TEXT_VIEW (tv), 10);
+  tv = bobgui_text_view_new ();
+  bobgui_text_view_set_left_margin (BOBGUI_TEXT_VIEW (tv), 10);
+  bobgui_text_view_set_right_margin (BOBGUI_TEXT_VIEW (tv), 10);
+  bobgui_text_view_set_top_margin (BOBGUI_TEXT_VIEW (tv), 10);
+  bobgui_text_view_set_bottom_margin (BOBGUI_TEXT_VIEW (tv), 10);
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (tv));
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (tv));
 
   if (argc > 1)
     {
@@ -134,57 +134,57 @@ main (int argc, char *argv[])
       gsize size;
 
       if (g_file_get_contents (argv[1], &contents, &size, NULL))
-        gtk_text_buffer_set_text (buffer, contents, size);
+        bobgui_text_buffer_set_text (buffer, contents, size);
     }
 
-  gtk_text_buffer_get_start_iter (buffer, &iter);
-  gtk_text_buffer_create_mark (buffer, "mimi", &iter, TRUE);
+  bobgui_text_buffer_get_start_iter (buffer, &iter);
+  bobgui_text_buffer_create_mark (buffer, "mimi", &iter, TRUE);
 
-  tag = gtk_text_tag_new ("hihi");
+  tag = bobgui_text_tag_new ("hihi");
   bg.red = 0;
   bg.green = 0;
   bg.blue = 1;
   bg.alpha = 0.3;
   g_object_set (tag, "background-rgba", &bg, NULL);
-  gtk_text_tag_table_add (gtk_text_buffer_get_tag_table (buffer), tag);
+  bobgui_text_tag_table_add (bobgui_text_buffer_get_tag_table (buffer), tag);
 
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), tv);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), tv);
 
-  gtk_widget_set_hexpand (sw, TRUE);
-  gtk_widget_set_vexpand (sw, TRUE);
-  gtk_box_append (GTK_BOX (box), sw);
+  bobgui_widget_set_hexpand (sw, TRUE);
+  bobgui_widget_set_vexpand (sw, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), sw);
 
-  box2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_box_append (GTK_BOX (box), box2);
+  box2 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
+  bobgui_box_append (BOBGUI_BOX (box), box2);
 
-  button = gtk_button_new_with_label ("Forward");
+  button = bobgui_button_new_with_label ("Forward");
   g_signal_connect (button, "clicked", G_CALLBACK (go_forward), tv);
-  gtk_box_append (GTK_BOX (box2), button);
+  bobgui_box_append (BOBGUI_BOX (box2), button);
 
-  button = gtk_button_new_with_label ("Back");
+  button = bobgui_button_new_with_label ("Back");
   g_signal_connect (button, "clicked", G_CALLBACK (go_back), tv);
-  gtk_box_append (GTK_BOX (box2), button);
+  bobgui_box_append (BOBGUI_BOX (box2), button);
 
-  box2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_box_append (GTK_BOX (box), box2);
-  gtk_box_append (GTK_BOX (box2), gtk_label_new ("Margin:"));
-  _margin = gtk_spin_button_new_with_range (0, 0.5, 0.1);
-  gtk_box_append (GTK_BOX (box2), _margin);
+  box2 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
+  bobgui_box_append (BOBGUI_BOX (box), box2);
+  bobgui_box_append (BOBGUI_BOX (box2), bobgui_label_new ("Margin:"));
+  _margin = bobgui_spin_button_new_with_range (0, 0.5, 0.1);
+  bobgui_box_append (BOBGUI_BOX (box2), _margin);
 
-  box2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_box_append (GTK_BOX (box), box2);
-  gtk_box_append (GTK_BOX (box2), gtk_label_new ("Align:"));
-  _align = gtk_check_button_new ();
-  gtk_box_append (GTK_BOX (box2), _align);
-  _xalign = gtk_spin_button_new_with_range (0, 1, 0.1);
-  gtk_box_append (GTK_BOX (box2), _xalign);
-  _yalign = gtk_spin_button_new_with_range (0, 1, 0.1);
-  gtk_box_append (GTK_BOX (box2), _yalign);
+  box2 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
+  bobgui_box_append (BOBGUI_BOX (box), box2);
+  bobgui_box_append (BOBGUI_BOX (box2), bobgui_label_new ("Align:"));
+  _align = bobgui_check_button_new ();
+  bobgui_box_append (BOBGUI_BOX (box2), _align);
+  _xalign = bobgui_spin_button_new_with_range (0, 1, 0.1);
+  bobgui_box_append (BOBGUI_BOX (box2), _xalign);
+  _yalign = bobgui_spin_button_new_with_range (0, 1, 0.1);
+  bobgui_box_append (BOBGUI_BOX (box2), _yalign);
 
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (1)
     g_main_context_iteration (NULL, TRUE);

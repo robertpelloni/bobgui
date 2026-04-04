@@ -17,7 +17,7 @@
  * Authors: Benjamin Otte <otte@gnome.org>
  */
 
-#include "../../gtk/css/gtkcssdataurlprivate.h"
+#include "../../bobgui/css/bobguicssdataurlprivate.h"
 
 #include <locale.h>
 
@@ -70,7 +70,7 @@ test_parse (gconstpointer data)
       g_iconv_close (iconv);
     }
 
-  bytes = gtk_css_data_url_parse (test->url, &mimetype, &error);
+  bytes = bobgui_css_data_url_parse (test->url, &mimetype, &error);
 
   if (test->contents)
     {

@@ -3,15 +3,15 @@
 
 // A map between namespaces and base URLs for their online documentation
 baseURLs = [
-    [ 'GLib', 'https://docs.gtk.org/glib/' ],
-    [ 'GObject', 'https://docs.gtk.org/gobject/' ],
-    [ 'Gio', 'https://docs.gtk.org/gio/' ],
-    [ 'Gdk', 'https://docs.gtk.org/gdk4/' ],
-    [ 'GdkWayland', 'https://docs.gtk.org/gdk4-wayland/' ],
-    [ 'GdkX11', 'https://docs.gtk.org/gdk4-x11/' ],
-    [ 'Gsk', 'https://docs.gtk.org/gsk4/' ],
-    [ 'Gtk', 'https://docs.gtk.org/gtk4/' ],
-    [ 'Pango', 'https://docs.gtk.org/Pango/' ],
-    [ 'PangoCairo', 'https://docs.gtk.org/PangoCairo/' ],
-    [ 'GdkPixbuf', 'https://docs.gtk.org/gdk-pixbuf/' ],
+    [ 'GLib', 'https://docs.bobgui.org/glib/' ],
+    [ 'GObject', 'https://docs.bobgui.org/gobject/' ],
+    [ 'Gio', 'https://docs.bobgui.org/gio/' ],
+    [ 'Gdk', 'https://docs.bobgui.org/gdk4/' ],
+    [ 'GdkWayland', 'https://docs.bobgui.org/gdk4-wayland/' ],
+    [ 'GdkX11', 'https://docs.bobgui.org/gdk4-x11/' ],
+    [ 'Gsk', 'https://docs.bobgui.org/gsk4/' ],
+    [ 'Bobgui', 'https://docs.bobgui.org/bobgui4/' ],
+    [ 'Pango', 'https://docs.bobgui.org/Pango/' ],
+    [ 'PangoCairo', 'https://docs.bobgui.org/PangoCairo/' ],
+    [ 'GdkPixbuf', 'https://docs.bobgui.org/gdk-pixbuf/' ],
 ]

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid" id="grid">
+      <object class="BobguiGrid" id="grid">
         <child>
-          <object class="GtkGrid" id="grid0">
+          <object class="BobguiGrid" id="grid0">
             <property name="row-spacing">20</property>
             <child>
-              <object class="GtkLabel" id="one">
+              <object class="BobguiLabel" id="one">
                 <property name="label">One</property>
                 <layout>
                   <property name="column">0</property>
@@ -17,7 +17,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="two">
+              <object class="BobguiLabel" id="two">
                 <property name="label">Two</property>
                 <layout>
                   <property name="column">0</property>
@@ -26,7 +26,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="three">
+              <object class="BobguiLabel" id="three">
                 <property name="label">Three</property>
                 <layout>
                   <property name="column">0</property>
@@ -41,10 +41,10 @@
           </object>
         </child>
         <child>
-          <object class="GtkGrid" id="grid1">
+          <object class="BobguiGrid" id="grid1">
             <property name="row-homogeneous">1</property>
             <child>
-              <object class="GtkLabel" id="long">
+              <object class="BobguiLabel" id="long">
                 <property name="label">Verylongtext</property>
                 <layout>
                   <property name="column">0</property>
@@ -53,7 +53,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="short">
+              <object class="BobguiLabel" id="short">
                 <property name="label">Short</property>
                 <layout>
                   <property name="column">0</property>
@@ -68,9 +68,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkGrid" id="grid3">
+          <object class="BobguiGrid" id="grid3">
             <child>
-              <object class="GtkLabel" id="a">
+              <object class="BobguiLabel" id="a">
                 <property name="label">A</property>
                 <layout>
                   <property name="column">0</property>
@@ -79,7 +79,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="b">
+              <object class="BobguiLabel" id="b">
                 <property name="label">B</property>
                 <property name="vexpand">1</property>
                 <layout>
@@ -89,7 +89,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="c">
+              <object class="BobguiLabel" id="c">
                 <property name="label">C</property>
                 <layout>
                   <property name="column">0</property>

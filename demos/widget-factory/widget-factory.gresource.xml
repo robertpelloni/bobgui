@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/org/gtk/WidgetFactory4">
+  <gresource prefix="/org/bobgui/WidgetFactory4">
     <file preprocess="xml-stripblanks">widget-factory.ui</file>
   </gresource>
-  <gresource prefix="/org/gtk/WidgetFactory4">
+  <gresource prefix="/org/bobgui/WidgetFactory4">
     <file>widget-factory.css</file>
   </gresource>
-  <gresource prefix="/org/gtk/WidgetFactory4/gtk">
+  <gresource prefix="/org/bobgui/WidgetFactory4/bobgui">
     <file preprocess="xml-stripblanks">help-overlay.ui</file>
   </gresource>
-  <gresource prefix="/org/gtk/WidgetFactory4">
+  <gresource prefix="/org/bobgui/WidgetFactory4">
     <file>icons/scalable/actions/call-start-symbolic.svg</file>
     <file>icons/scalable/actions/call-stop-symbolic.svg</file>
     <file>icons/scalable/actions/document-new-symbolic.svg</file>
@@ -53,11 +53,11 @@
     <file>icons/checked.gpa</file>
     <file>icons/view-refresh.gpa</file>
 
-    <file alias='icons/scalable/apps/org.gtk.WidgetFactory4.svg'>data/scalable/apps/org.gtk.WidgetFactory4.svg</file>
+    <file alias='icons/scalable/apps/org.bobgui.WidgetFactory4.svg'>data/scalable/apps/org.bobgui.WidgetFactory4.svg</file>
 
   </gresource>
-  <gresource prefix="/org/gtk/WidgetFactory4">
-    <file>gtk-logo.webm</file>
+  <gresource prefix="/org/bobgui/WidgetFactory4">
+    <file>bobgui-logo.webm</file>
     <file>sunset.jpg</file>
     <file>portland-rose.jpg</file>
     <file>nyc.jpg</file>

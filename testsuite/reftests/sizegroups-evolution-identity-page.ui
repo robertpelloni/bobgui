@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox" id="box1">
+      <object class="BobguiBox" id="box1">
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
-          <object class="GtkLabel" id="label1">
+          <object class="BobguiLabel" id="label1">
             <property name="xalign">0</property>
             <property name="label" translatable="yes">Please enter your name and email address below. The &quot;optional&quot; fields below do not need to be filled in, unless you wish to include this information in email you send.</property>
             <property name="wrap">1</property>
           </object>
         </child>
         <child>
-          <object class="GtkGrid" id="grid1">
+          <object class="BobguiGrid" id="grid1">
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
-              <object class="GtkLabel" id="label2">
+              <object class="BobguiLabel" id="label2">
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">&lt;b&gt;Account Information&lt;/b&gt;</property>
                 <property name="use_markup">1</property>
@@ -31,7 +31,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="label3">
+              <object class="BobguiLabel" id="label3">
                 <property name="margin_start">12</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Type the name by which you would like to refer to this account.
@@ -45,7 +45,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="label4">
+              <object class="BobguiLabel" id="label4">
                 <property name="margin_start">12</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">_Name:</property>
@@ -60,7 +60,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="entry1">
+              <object class="BobguiEntry" id="entry1">
                 <property name="hexpand">1</property>
                 <property name="invisible_char">●</property>
                 <layout>
@@ -74,11 +74,11 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
           </object>
         </child>
         <child>
-          <object class="GtkGrid" id="grid2">
+          <object class="BobguiGrid" id="grid2">
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
-              <object class="GtkLabel" id="label5">
+              <object class="BobguiLabel" id="label5">
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">&lt;b&gt;Required Information&lt;/b&gt;</property>
                 <property name="use_markup">1</property>
@@ -91,7 +91,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="label6">
+              <object class="BobguiLabel" id="label6">
                 <property name="margin_start">12</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">Full Nam_e:</property>
@@ -106,7 +106,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="entry2">
+              <object class="BobguiEntry" id="entry2">
                 <property name="hexpand">1</property>
                 <property name="invisible_char">●</property>
                 <layout>
@@ -118,7 +118,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="label7">
+              <object class="BobguiLabel" id="label7">
                 <property name="margin_start">12</property>
                 <property name="label" translatable="yes">Email _Address:</property>
                 <property name="use_underline">1</property>
@@ -131,7 +131,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="entry3">
+              <object class="BobguiEntry" id="entry3">
                 <property name="hexpand">1</property>
                 <property name="invisible_char">●</property>
                 <layout>
@@ -145,11 +145,11 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
           </object>
         </child>
         <child>
-          <object class="GtkGrid" id="grid3">
+          <object class="BobguiGrid" id="grid3">
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
-              <object class="GtkLabel" id="label8">
+              <object class="BobguiLabel" id="label8">
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">&lt;b&gt;Optional Information&lt;/b&gt;</property>
                 <property name="use_markup">1</property>
@@ -162,7 +162,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="label9">
+              <object class="BobguiLabel" id="label9">
                 <property name="margin_start">12</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">Re_ply-To:</property>
@@ -177,7 +177,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="entry4">
+              <object class="BobguiEntry" id="entry4">
                 <property name="hexpand">1</property>
                 <property name="invisible_char">●</property>
                 <layout>
@@ -189,7 +189,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="label10">
+              <object class="BobguiLabel" id="label10">
                 <property name="margin_start">12</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">Or_ganization:</property>
@@ -204,7 +204,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="entry5">
+              <object class="BobguiEntry" id="entry5">
                 <property name="invisible_char">●</property>
                 <layout>
                   <property name="column">1</property>
@@ -219,7 +219,7 @@ For example, &quot;Work&quot; or &quot;Personal&quot;.</property>
       </object>
     </child>
   </object>
-  <object class="GtkSizeGroup" id="sizegroup1">
+  <object class="BobguiSizeGroup" id="sizegroup1">
     <widgets>
       <widget name="label4"/>
       <widget name="label6"/>

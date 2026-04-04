@@ -35,7 +35,7 @@ option('android-backend',
        description : 'Enable the Android gdk backend (only when building on Android)')
 
 # Media backends
-# For distros: GTK guarantees support for WebM video (VP8 and VP9), so a supported build
+# For distros: BOBGUI guarantees support for WebM video (VP8 and VP9), so a supported build
 # should provide that.
 
 option('media-gstreamer',

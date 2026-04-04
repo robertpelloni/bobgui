@@ -402,7 +402,7 @@ gdk_d3d12_texture_builder_set_fence (GdkD3D12TextureBuilder *self,
  * gdk_d3d12_texture_builder_get_fence_wait:
  * @self: a `GdkD3D12TextureBuilder`
  *
- * Returns the value that GTK should wait for on the fence
+ * Returns the value that BOBGUI should wait for on the fence
  * before using the resource.
  *
  * Returns: the fence wait value
@@ -422,7 +422,7 @@ gdk_d3d12_texture_builder_get_fence_wait (GdkD3D12TextureBuilder *self)
  * @self: a `GdkD3D12TextureBuilder`
  * @fence_wait: the value to wait on
  *
- * Sets the value that GTK should wait on on the given fence before using the
+ * Sets the value that BOBGUI should wait on on the given fence before using the
  * resource.
  *
  * When no fence is set, this value has no effect.
@@ -512,7 +512,7 @@ gdk_d3d12_texture_builder_get_color_state (GdkD3D12TextureBuilder *self)
  *
  * Sets the color state for the texture.
  *
- * By default, the colorstate is `NULL`. In that case, GTK will choose the
+ * By default, the colorstate is `NULL`. In that case, BOBGUI will choose the
  * correct colorstate based on the format.
  * If you don't know what colorstates are, this is probably the right thing.
  *
@@ -609,7 +609,7 @@ gdk_d3d12_texture_builder_get_update_region (GdkD3D12TextureBuilder *self)
  * When rendering animations of large textures, it is possible that
  * consecutive textures are only updating contents in parts of the texture.
  * It is then possible to describe this update via these two properties,
- * so that GTK can avoid rerendering parts that did not change.
+ * so that BOBGUI can avoid rerendering parts that did not change.
  *
  * An example would be a screen recording where only the mouse pointer moves.
  *
@@ -646,7 +646,7 @@ gdk_d3d12_texture_builder_set_update_region (GdkD3D12TextureBuilder *self,
  *
  * Not all formats defined in the `drm_fourcc.h` header are supported. You can use
  * [method@Gdk.Display.get_d3d12_formats] to get a list of supported formats. If the
- * format is not supported by GTK, %NULL will be returned and @error will be set.
+ * format is not supported by BOBGUI, %NULL will be returned and @error will be set.
  *
  * The `destroy` function gets called when the returned texture gets released.
  *

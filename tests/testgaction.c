@@ -1,6 +1,6 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
-GtkWidget *label;
+BobguiWidget *label;
 
 
 static void
@@ -8,7 +8,7 @@ change_label_button (GSimpleAction *action,
                      GVariant      *parameter,
                      gpointer       user_data)
 {
-  gtk_label_set_label (GTK_LABEL (label), "Text set from button");
+  bobgui_label_set_label (BOBGUI_LABEL (label), "Text set from button");
 }
 
 static void
@@ -16,7 +16,7 @@ normal_menu_item (GSimpleAction *action,
                   GVariant      *parameter,
                   gpointer       user_data)
 {
-  gtk_label_set_label (GTK_LABEL (label), "Text set from normal menu item");
+  bobgui_label_set_label (BOBGUI_LABEL (label), "Text set from normal menu item");
 }
 
 static void
@@ -26,7 +26,7 @@ toggle_menu_item (GSimpleAction *action,
 {
   GVariant *state = g_action_get_state (G_ACTION (action));
 
-  gtk_label_set_label (GTK_LABEL (label), "Text set from toggle menu item");
+  bobgui_label_set_label (BOBGUI_LABEL (label), "Text set from toggle menu item");
 
   g_simple_action_set_state (action, g_variant_new_boolean (!g_variant_get_boolean (state)));
 
@@ -38,7 +38,7 @@ submenu_item (GSimpleAction *action,
               GVariant      *parameter,
               gpointer       user_data)
 {
-  gtk_label_set_label (GTK_LABEL (label), "Text set from submenu item");
+  bobgui_label_set_label (BOBGUI_LABEL (label), "Text set from submenu item");
 }
 
 static void
@@ -49,7 +49,7 @@ radio (GSimpleAction *action, GVariant *parameter, gpointer user_data)
   str = g_strdup_printf ("From Radio menu item %s",
                          g_variant_get_string (parameter, NULL));
 
-  gtk_label_set_label (GTK_LABEL (label), str);
+  bobgui_label_set_label (BOBGUI_LABEL (label), str);
 
   g_free (str);
 
@@ -111,14 +111,14 @@ static const char *menu_data =
 
 int main (int argc, char **argv)
 {
-  gtk_init ();
-  GtkWidget *window = gtk_window_new ();
-  GtkWidget *box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-  GtkWidget *menubutton = gtk_menu_button_new ();
-  GtkWidget *button1 = gtk_button_new_with_label ("Change Label Text");
-  GtkWidget *menu;
+  bobgui_init ();
+  BobguiWidget *window = bobgui_window_new ();
+  BobguiWidget *box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 12);
+  BobguiWidget *menubutton = bobgui_menu_button_new ();
+  BobguiWidget *button1 = bobgui_button_new_with_label ("Change Label Text");
+  BobguiWidget *menu;
   GSimpleActionGroup *action_group;
-  GtkWidget *box1;
+  BobguiWidget *box1;
 
 
   action_group = g_simple_action_group_new ();
@@ -127,75 +127,75 @@ int main (int argc, char **argv)
                                    G_N_ELEMENTS (win_actions),
                                    NULL);
 
-  gtk_widget_insert_action_group (window, "win", G_ACTION_GROUP (action_group));
+  bobgui_widget_insert_action_group (window, "win", G_ACTION_GROUP (action_group));
 
 
-  label = gtk_label_new ("Initial Text");
-  gtk_widget_set_margin_top (label, 12);
-  gtk_widget_set_margin_bottom (label, 12);
-  gtk_box_append (GTK_BOX (box), label);
-  gtk_widget_set_halign (menubutton, GTK_ALIGN_CENTER);
+  label = bobgui_label_new ("Initial Text");
+  bobgui_widget_set_margin_top (label, 12);
+  bobgui_widget_set_margin_bottom (label, 12);
+  bobgui_box_append (BOBGUI_BOX (box), label);
+  bobgui_widget_set_halign (menubutton, BOBGUI_ALIGN_CENTER);
   {
     GMenuModel *menu_model;
-    GtkBuilder *builder = gtk_builder_new_from_string (menu_data, -1);
-    menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "menu_model"));
+    BobguiBuilder *builder = bobgui_builder_new_from_string (menu_data, -1);
+    menu_model = G_MENU_MODEL (bobgui_builder_get_object (builder, "menu_model"));
 
-    menu = gtk_popover_menu_new_from_model (menu_model);
+    menu = bobgui_popover_menu_new_from_model (menu_model);
 
   }
-  gtk_menu_button_set_popover (GTK_MENU_BUTTON (menubutton), menu);
-  gtk_box_append (GTK_BOX (box), menubutton);
-  gtk_widget_set_halign (button1, GTK_ALIGN_CENTER);
-  gtk_actionable_set_action_name (GTK_ACTIONABLE (button1), "win.change-label-button");
-  gtk_box_append (GTK_BOX (box), button1);
+  bobgui_menu_button_set_popover (BOBGUI_MENU_BUTTON (menubutton), menu);
+  bobgui_box_append (BOBGUI_BOX (box), menubutton);
+  bobgui_widget_set_halign (button1, BOBGUI_ALIGN_CENTER);
+  bobgui_actionable_set_action_name (BOBGUI_ACTIONABLE (button1), "win.change-label-button");
+  bobgui_box_append (BOBGUI_BOX (box), button1);
 
-  box1 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+  box1 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
 
-  button1 = gtk_toggle_button_new_with_label ("Toggle");
-  gtk_actionable_set_action_name (GTK_ACTIONABLE (button1), "win.toggle-menu-item");
-  gtk_box_append (GTK_BOX (box1), button1);
+  button1 = bobgui_toggle_button_new_with_label ("Toggle");
+  bobgui_actionable_set_action_name (BOBGUI_ACTIONABLE (button1), "win.toggle-menu-item");
+  bobgui_box_append (BOBGUI_BOX (box1), button1);
 
-  button1 = gtk_check_button_new_with_label ("Check");
-  gtk_actionable_set_action_name (GTK_ACTIONABLE (button1), "win.toggle-menu-item");
-  gtk_box_append (GTK_BOX (box1), button1);
+  button1 = bobgui_check_button_new_with_label ("Check");
+  bobgui_actionable_set_action_name (BOBGUI_ACTIONABLE (button1), "win.toggle-menu-item");
+  bobgui_box_append (BOBGUI_BOX (box1), button1);
 
-  gtk_box_append (GTK_BOX (box), box1);
+  bobgui_box_append (BOBGUI_BOX (box), box1);
 
-  box1 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+  box1 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
 
-  button1 = gtk_toggle_button_new_with_label ("Radio 1");
-  gtk_actionable_set_detailed_action_name (GTK_ACTIONABLE (button1), "win.radio::1");
-  gtk_box_append (GTK_BOX (box1), button1);
+  button1 = bobgui_toggle_button_new_with_label ("Radio 1");
+  bobgui_actionable_set_detailed_action_name (BOBGUI_ACTIONABLE (button1), "win.radio::1");
+  bobgui_box_append (BOBGUI_BOX (box1), button1);
 
-  button1 = gtk_toggle_button_new_with_label ("Radio 2");
-  gtk_actionable_set_detailed_action_name (GTK_ACTIONABLE (button1), "win.radio::2");
-  gtk_box_append (GTK_BOX (box1), button1);
+  button1 = bobgui_toggle_button_new_with_label ("Radio 2");
+  bobgui_actionable_set_detailed_action_name (BOBGUI_ACTIONABLE (button1), "win.radio::2");
+  bobgui_box_append (BOBGUI_BOX (box1), button1);
 
-  button1 = gtk_toggle_button_new_with_label ("Radio 3");
-  gtk_actionable_set_detailed_action_name (GTK_ACTIONABLE (button1), "win.radio::3");
-  gtk_box_append (GTK_BOX (box1), button1);
+  button1 = bobgui_toggle_button_new_with_label ("Radio 3");
+  bobgui_actionable_set_detailed_action_name (BOBGUI_ACTIONABLE (button1), "win.radio::3");
+  bobgui_box_append (BOBGUI_BOX (box1), button1);
 
-  gtk_box_append (GTK_BOX (box), box1);
+  bobgui_box_append (BOBGUI_BOX (box), box1);
 
-  box1 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
+  box1 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
 
-  button1 = gtk_check_button_new_with_label ("Radio 1");
-  gtk_actionable_set_detailed_action_name (GTK_ACTIONABLE (button1), "win.radio::1");
-  gtk_box_append (GTK_BOX (box1), button1);
+  button1 = bobgui_check_button_new_with_label ("Radio 1");
+  bobgui_actionable_set_detailed_action_name (BOBGUI_ACTIONABLE (button1), "win.radio::1");
+  bobgui_box_append (BOBGUI_BOX (box1), button1);
 
-  button1 = gtk_check_button_new_with_label ("Radio 2");
-  gtk_actionable_set_detailed_action_name (GTK_ACTIONABLE (button1), "win.radio::2");
-  gtk_box_append (GTK_BOX (box1), button1);
+  button1 = bobgui_check_button_new_with_label ("Radio 2");
+  bobgui_actionable_set_detailed_action_name (BOBGUI_ACTIONABLE (button1), "win.radio::2");
+  bobgui_box_append (BOBGUI_BOX (box1), button1);
 
-  button1 = gtk_check_button_new_with_label ("Radio 3");
-  gtk_actionable_set_detailed_action_name (GTK_ACTIONABLE (button1), "win.radio::3");
-  gtk_box_append (GTK_BOX (box1), button1);
+  button1 = bobgui_check_button_new_with_label ("Radio 3");
+  bobgui_actionable_set_detailed_action_name (BOBGUI_ACTIONABLE (button1), "win.radio::3");
+  bobgui_box_append (BOBGUI_BOX (box1), button1);
 
-  gtk_box_append (GTK_BOX (box), box1);
+  bobgui_box_append (BOBGUI_BOX (box), box1);
 
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);
   return 0;

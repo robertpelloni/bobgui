@@ -8,7 +8,7 @@
   <desc>
     This is based on the text-text-10-t.svg testcase from
     the SVG 1.1 testsuite. It has been modified by stripping
-    out data that GtkSvg doesn't handle, and by embedding
+    out data that BobguiSvg doesn't handle, and by embedding
     the used fonts.
   </desc>
   <defs>

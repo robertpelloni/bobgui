@@ -32,7 +32,7 @@
 #include "version/gdkversionmacros.h"
 #include "gdkframeclockprivate.h"
 
-#define CATEGORY "GTK"
+#define CATEGORY "BOBGUI"
 
 gboolean
 gdk_profiler_is_running (void)

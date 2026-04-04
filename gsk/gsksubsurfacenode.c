@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2016  Endless
  *
@@ -213,8 +213,8 @@ GSK_DEFINE_RENDER_NODE_TYPE (GskSubsurfaceNode, gsk_subsurface_node)
  * node to a subsurface.
  *
  * Note: Since subsurfaces are currently private, these nodes cannot
- * currently be created outside of GTK. See
- * [GtkGraphicsOffload](../gtk4/class.GraphicsOffload.html).
+ * currently be created outside of BOBGUI. See
+ * [BobguiGraphicsOffload](../bobgui4/class.GraphicsOffload.html).
  *
  * Returns: (transfer full) (type GskSubsurfaceNode): A new `GskRenderNode`
  *

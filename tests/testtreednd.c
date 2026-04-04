@@ -1,15 +1,15 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
-typedef GtkListStore MyModel;
-typedef GtkListStoreClass MyModelClass;
+typedef BobguiListStore MyModel;
+typedef BobguiListStoreClass MyModelClass;
 
-static void my_model_drag_source_init (GtkTreeDragSourceIface *iface);
+static void my_model_drag_source_init (BobguiTreeDragSourceIface *iface);
 
 static GType my_model_get_type (void);
-G_DEFINE_TYPE_WITH_CODE (MyModel, my_model, GTK_TYPE_LIST_STORE,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_DRAG_SOURCE,
+G_DEFINE_TYPE_WITH_CODE (MyModel, my_model, BOBGUI_TYPE_LIST_STORE,
+                         G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_TREE_DRAG_SOURCE,
                                                 my_model_drag_source_init))
 
 static void
@@ -22,19 +22,19 @@ my_model_init (MyModel *object)
 {
   GType types[1] = { G_TYPE_STRING };
 
-  gtk_list_store_set_column_types (GTK_LIST_STORE (object), G_N_ELEMENTS (types), types);
+  bobgui_list_store_set_column_types (BOBGUI_LIST_STORE (object), G_N_ELEMENTS (types), types);
 }
 
 static GdkContentProvider *
-my_model_drag_data_get (GtkTreeDragSource *source,
-                        GtkTreePath       *path)
+my_model_drag_data_get (BobguiTreeDragSource *source,
+                        BobguiTreePath       *path)
 {
   GdkContentProvider *content;
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
   char *text;
 
-  gtk_tree_model_get_iter (GTK_TREE_MODEL (source), &iter, path);
-  gtk_tree_model_get (GTK_TREE_MODEL (source), &iter, 0, &text, -1);
+  bobgui_tree_model_get_iter (BOBGUI_TREE_MODEL (source), &iter, path);
+  bobgui_tree_model_get (BOBGUI_TREE_MODEL (source), &iter, 0, &text, -1);
   content = gdk_content_provider_new_typed (G_TYPE_STRING, text);
   g_free (text);
 
@@ -42,9 +42,9 @@ my_model_drag_data_get (GtkTreeDragSource *source,
 }
 
 static void
-my_model_drag_source_init (GtkTreeDragSourceIface *iface)
+my_model_drag_source_init (BobguiTreeDragSourceIface *iface)
 {
-  static GtkTreeDragSourceIface *parent;
+  static BobguiTreeDragSourceIface *parent;
 
   parent = g_type_interface_peek_parent (iface);
 
@@ -53,62 +53,62 @@ my_model_drag_source_init (GtkTreeDragSourceIface *iface)
   iface->drag_data_get = my_model_drag_data_get;
 }
 
-static GtkTreeModel *
+static BobguiTreeModel *
 get_model (void)
 {
   MyModel *model;
 
   model = g_object_new (my_model_get_type (), NULL);
-  gtk_list_store_insert_with_values (GTK_LIST_STORE (model), NULL, -1, 0, "Item 1", -1);
-  gtk_list_store_insert_with_values (GTK_LIST_STORE (model), NULL, -1, 0, "Item 2", -1);
-  gtk_list_store_insert_with_values (GTK_LIST_STORE (model), NULL, -1, 0, "Item 3", -1);
+  bobgui_list_store_insert_with_values (BOBGUI_LIST_STORE (model), NULL, -1, 0, "Item 1", -1);
+  bobgui_list_store_insert_with_values (BOBGUI_LIST_STORE (model), NULL, -1, 0, "Item 2", -1);
+  bobgui_list_store_insert_with_values (BOBGUI_LIST_STORE (model), NULL, -1, 0, "Item 3", -1);
 
-  return GTK_TREE_MODEL (model);
+  return BOBGUI_TREE_MODEL (model);
 }
 
-static GtkWidget *
+static BobguiWidget *
 get_dragsource (void)
 {
-  GtkTreeView *tv;
-  GtkCellRenderer *renderer;
-  GtkTreeViewColumn *column;
+  BobguiTreeView *tv;
+  BobguiCellRenderer *renderer;
+  BobguiTreeViewColumn *column;
   GdkContentFormats *targets;
 
-  tv = (GtkTreeView*) gtk_tree_view_new ();
-  renderer = gtk_cell_renderer_text_new ();
-  column = gtk_tree_view_column_new_with_attributes ("Text", renderer, "text", 0, NULL);
-  gtk_tree_view_append_column (tv, column);
+  tv = (BobguiTreeView*) bobgui_tree_view_new ();
+  renderer = bobgui_cell_renderer_text_new ();
+  column = bobgui_tree_view_column_new_with_attributes ("Text", renderer, "text", 0, NULL);
+  bobgui_tree_view_append_column (tv, column);
 
-  gtk_tree_view_set_model (tv, get_model ());
+  bobgui_tree_view_set_model (tv, get_model ());
   targets = gdk_content_formats_new_for_gtype (G_TYPE_STRING);
-  gtk_tree_view_enable_model_drag_source (tv, GDK_BUTTON1_MASK, targets, GDK_ACTION_COPY);
+  bobgui_tree_view_enable_model_drag_source (tv, GDK_BUTTON1_MASK, targets, GDK_ACTION_COPY);
   gdk_content_formats_unref (targets);
 
-  return GTK_WIDGET (tv);
+  return BOBGUI_WIDGET (tv);
 }
 
 static void
-drag_drop (GtkDropTarget *dest,
+drag_drop (BobguiDropTarget *dest,
            const GValue  *value,
            int            x,
            int            y,
            gpointer       dada)
 {
-  GtkWidget *widget = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (dest));
+  BobguiWidget *widget = bobgui_event_controller_get_widget (BOBGUI_EVENT_CONTROLLER (dest));
 
-  gtk_label_set_label (GTK_LABEL (widget), g_value_get_string (value));
+  bobgui_label_set_label (BOBGUI_LABEL (widget), g_value_get_string (value));
 }
 
-static GtkWidget *
+static BobguiWidget *
 get_droptarget (void)
 {
-  GtkWidget *label;
-  GtkDropTarget *dest;
+  BobguiWidget *label;
+  BobguiDropTarget *dest;
 
-  label = gtk_label_new ("Drop here");
-  dest = gtk_drop_target_new (G_TYPE_STRING, GDK_ACTION_COPY);
+  label = bobgui_label_new ("Drop here");
+  dest = bobgui_drop_target_new (G_TYPE_STRING, GDK_ACTION_COPY);
   g_signal_connect (dest, "drop", G_CALLBACK (drag_drop), NULL);
-  gtk_widget_add_controller (label, GTK_EVENT_CONTROLLER (dest));
+  bobgui_widget_add_controller (label, BOBGUI_EVENT_CONTROLLER (dest));
 
   return label;
 }
@@ -116,19 +116,19 @@ get_droptarget (void)
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *box;
+  BobguiWidget *window;
+  BobguiWidget *box;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), box);
-  gtk_box_append (GTK_BOX (box), get_dragsource ());
-  gtk_box_append (GTK_BOX (box), get_droptarget ());
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
+  bobgui_box_append (BOBGUI_BOX (box), get_dragsource ());
+  bobgui_box_append (BOBGUI_BOX (box), get_droptarget ());
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

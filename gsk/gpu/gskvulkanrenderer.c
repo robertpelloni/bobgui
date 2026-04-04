@@ -161,7 +161,7 @@ gsk_vulkan_renderer_realize (GskRenderer  *renderer,
                              GError      **error)
 {
   g_set_error_literal (error, GDK_VULKAN_ERROR, GDK_VULKAN_ERROR_NOT_AVAILABLE,
-                       _("Vulkan support disabled during GTK build"));
+                       _("Vulkan support disabled during BOBGUI build"));
 
   return FALSE;
 }
@@ -203,7 +203,7 @@ gsk_vulkan_renderer_init (GskVulkanRenderer *self)
  * The Vulkan renderer is a renderer that uses the Vulkan library for
  * rendering.
  *
- * This renderer will fail to realize when GTK was not compiled with
+ * This renderer will fail to realize when BOBGUI was not compiled with
  * Vulkan support.
  *
  * Returns: a new Vulkan renderer

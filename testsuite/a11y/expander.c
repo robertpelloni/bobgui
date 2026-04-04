@@ -1,12 +1,12 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 expander_role (void)
 {
-  GtkWidget *widget = gtk_expander_new ("Hello");
+  BobguiWidget *widget = bobgui_expander_new ("Hello");
   g_object_ref_sink (widget);
 
-  gtk_test_accessible_assert_role (widget, GTK_ACCESSIBLE_ROLE_BUTTON);
+  bobgui_test_accessible_assert_role (widget, BOBGUI_ACCESSIBLE_ROLE_BUTTON);
 
   g_object_unref (widget);
 }
@@ -14,14 +14,14 @@ expander_role (void)
 static void
 expander_state (void)
 {
-  GtkWidget *widget = gtk_expander_new ("Hello");
+  BobguiWidget *widget = bobgui_expander_new ("Hello");
   g_object_ref_sink (widget);
 
-  gtk_test_accessible_assert_state (widget, GTK_ACCESSIBLE_STATE_EXPANDED, FALSE);
+  bobgui_test_accessible_assert_state (widget, BOBGUI_ACCESSIBLE_STATE_EXPANDED, FALSE);
 
-  gtk_expander_set_expanded (GTK_EXPANDER (widget), TRUE);
+  bobgui_expander_set_expanded (BOBGUI_EXPANDER (widget), TRUE);
 
-  gtk_test_accessible_assert_state (widget, GTK_ACCESSIBLE_STATE_EXPANDED, TRUE);
+  bobgui_test_accessible_assert_state (widget, BOBGUI_ACCESSIBLE_STATE_EXPANDED, TRUE);
 
   g_object_unref (widget);
 }
@@ -29,16 +29,16 @@ expander_state (void)
 static void
 expander_relations (void)
 {
-  GtkWidget *widget = gtk_expander_new ("Hello");
-  GtkWidget *child = gtk_label_new ("Child");
+  BobguiWidget *widget = bobgui_expander_new ("Hello");
+  BobguiWidget *child = bobgui_label_new ("Child");
 
   g_object_ref_sink (widget);
 
-  gtk_expander_set_child (GTK_EXPANDER (widget), child);
+  bobgui_expander_set_child (BOBGUI_EXPANDER (widget), child);
 
-  gtk_expander_set_expanded (GTK_EXPANDER (widget), TRUE);
+  bobgui_expander_set_expanded (BOBGUI_EXPANDER (widget), TRUE);
 
-  gtk_test_accessible_assert_relation (widget, GTK_ACCESSIBLE_RELATION_CONTROLS, child, NULL);
+  bobgui_test_accessible_assert_relation (widget, BOBGUI_ACCESSIBLE_RELATION_CONTROLS, child, NULL);
 
   g_object_unref (widget);
 }
@@ -46,7 +46,7 @@ expander_relations (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/a11y/expander/role", expander_role);
   g_test_add_func ("/a11y/expander/state", expander_state);

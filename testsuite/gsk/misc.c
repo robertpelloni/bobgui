@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gsk/gskcontainernodeprivate.h"
 #include "gsk/gskbordernodeprivate.h"
 #include "gsk/gskgradientprivate.h"
@@ -324,7 +324,7 @@ int
 main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/rendernode/gvalue", test_rendernode_gvalue);
   g_test_add_func ("/rendernode/varargs", test_rendernode_varargs);

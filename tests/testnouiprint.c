@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-basic-offset: 2; -*- */
-/* Gtk+ - non-ui printing
+/* Bobgui+ - non-ui printing
  *
  * Copyright (C) 2006 Alexander Larsson <alexl@redhat.com>
  *
@@ -19,22 +19,22 @@
 
 #include "config.h"
 #include <math.h>
-#include "gtk/gtk.h"
+#include "bobgui/bobgui.h"
 
 static void
-draw_page (GtkPrintOperation *operation,
-	   GtkPrintContext *context,
+draw_page (BobguiPrintOperation *operation,
+	   BobguiPrintContext *context,
 	   int page_nr)
 {
   cairo_t *cr;
   PangoLayout *layout;
   PangoFontDescription *desc;
   
-  cr = gtk_print_context_get_cairo_context (context);
+  cr = bobgui_print_context_get_cairo_context (context);
 
   /* Draw a red rectangle, as wide as the paper (inside the margins) */
   cairo_set_source_rgb (cr, 1.0, 0, 0);
-  cairo_rectangle (cr, 0, 0, gtk_print_context_get_width (context), 50);
+  cairo_rectangle (cr, 0, 0, bobgui_print_context_get_width (context), 50);
   
   cairo_fill (cr);
 
@@ -53,7 +53,7 @@ draw_page (GtkPrintOperation *operation,
 
   /* Draw some text */
   
-  layout = gtk_print_context_create_pango_layout (context);
+  layout = bobgui_print_context_create_pango_layout (context);
   pango_layout_set_text (layout, "Hello World! Printing is easy", -1);
   desc = pango_font_description_from_string ("sans 28");
   pango_layout_set_font_description (layout, desc);
@@ -78,18 +78,18 @@ draw_page (GtkPrintOperation *operation,
 int
 main (int argc, char **argv)
 {
-  GtkPrintOperation *print;
-  GtkPrintSettings *settings;
+  BobguiPrintOperation *print;
+  BobguiPrintSettings *settings;
 
-  settings = gtk_print_settings_new ();
-  /* gtk_print_settings_set_printer (settings, "printer"); */
+  settings = bobgui_print_settings_new ();
+  /* bobgui_print_settings_set_printer (settings, "printer"); */
 
-  print = gtk_print_operation_new ();
-  gtk_print_operation_set_print_settings (print, settings);
-  gtk_print_operation_set_n_pages (print, 1);
-  gtk_print_operation_set_unit (print, GTK_UNIT_MM);
+  print = bobgui_print_operation_new ();
+  bobgui_print_operation_set_print_settings (print, settings);
+  bobgui_print_operation_set_n_pages (print, 1);
+  bobgui_print_operation_set_unit (print, BOBGUI_UNIT_MM);
   g_signal_connect (print, "draw_page", G_CALLBACK (draw_page), NULL);
-  gtk_print_operation_run (print, GTK_PRINT_OPERATION_ACTION_PRINT, NULL, NULL);
+  bobgui_print_operation_run (print, BOBGUI_PRINT_OPERATION_ACTION_PRINT, NULL, NULL);
 
   return 0;
 }

@@ -16,50 +16,50 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static guint add_rows_id = 0;
 
 static void
-populate_list (GtkListBox *list)
+populate_list (BobguiListBox *list)
 {
   int i;
   char *text;
-  GtkWidget *row, *label;
+  BobguiWidget *row, *label;
   int n;
-  GtkWidget *child;
+  BobguiWidget *child;
 
-  for (child = gtk_widget_get_first_child (GTK_WIDGET (list)), n = 0;
+  for (child = bobgui_widget_get_first_child (BOBGUI_WIDGET (list)), n = 0;
        child != NULL;
-       child = gtk_widget_get_next_sibling (child), n++) ;
+       child = bobgui_widget_get_next_sibling (child), n++) ;
 
   for (i = 1; i <= 50; i++)
     {
-      row = gtk_list_box_row_new ();
+      row = bobgui_list_box_row_new ();
       text = g_strdup_printf ("List row %d", i + n);
-      label = gtk_label_new (text);
+      label = bobgui_label_new (text);
       g_free (text);
 
-      gtk_widget_set_margin_start (label, 10);
-      gtk_widget_set_margin_end (label, 10);
-      gtk_widget_set_margin_top (label, 10);
-      gtk_widget_set_margin_bottom (label, 10);
-      gtk_widget_set_halign (label, GTK_ALIGN_START);
-      gtk_list_box_row_set_child (GTK_LIST_BOX_ROW (row), label);
-      gtk_list_box_insert (GTK_LIST_BOX (list), row, -1);
+      bobgui_widget_set_margin_start (label, 10);
+      bobgui_widget_set_margin_end (label, 10);
+      bobgui_widget_set_margin_top (label, 10);
+      bobgui_widget_set_margin_bottom (label, 10);
+      bobgui_widget_set_halign (label, BOBGUI_ALIGN_START);
+      bobgui_list_box_row_set_child (BOBGUI_LIST_BOX_ROW (row), label);
+      bobgui_list_box_insert (BOBGUI_LIST_BOX (list), row, -1);
     }
 }
 
-static GtkWidget *popup;
-static GtkWidget *spinner;
+static BobguiWidget *popup;
+static BobguiWidget *spinner;
 
 static gboolean
 add_rows (gpointer data)
 {
-  GtkListBox *list = data;
+  BobguiListBox *list = data;
 
-  gtk_widget_set_visible (popup, FALSE);
-  gtk_spinner_stop (GTK_SPINNER (spinner));
+  bobgui_widget_set_visible (popup, FALSE);
+  bobgui_spinner_stop (BOBGUI_SPINNER (spinner));
 
   populate_list (list);
   add_rows_id = 0;
@@ -68,14 +68,14 @@ add_rows (gpointer data)
 }
 
 static void
-edge_overshot (GtkScrolledWindow *sw,
-               GtkPositionType    pos,
-               GtkListBox        *list)
+edge_overshot (BobguiScrolledWindow *sw,
+               BobguiPositionType    pos,
+               BobguiListBox        *list)
 {
-  if (pos == GTK_POS_BOTTOM)
+  if (pos == BOBGUI_POS_BOTTOM)
     {
-      gtk_spinner_start (GTK_SPINNER (spinner));
-      gtk_widget_set_visible (popup, TRUE);
+      bobgui_spinner_start (BOBGUI_SPINNER (spinner));
+      bobgui_widget_set_visible (popup, TRUE);
 
       if (add_rows_id == 0)
         add_rows_id = g_timeout_add (2000, add_rows, list);
@@ -83,9 +83,9 @@ edge_overshot (GtkScrolledWindow *sw,
 }
 
 static void
-edge_reached (GtkScrolledWindow *sw,
-	      GtkPositionType    pos,
-	      GtkListBox        *list)
+edge_reached (BobguiScrolledWindow *sw,
+	      BobguiPositionType    pos,
+	      BobguiListBox        *list)
 {
   g_print ("Reached the edge at pos %d!\n", pos);
 }
@@ -93,47 +93,47 @@ edge_reached (GtkScrolledWindow *sw,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *win;
-  GtkWidget *sw;
-  GtkWidget *list;
-  GtkWidget *overlay;
-  GtkWidget *label;
+  BobguiWidget *win;
+  BobguiWidget *sw;
+  BobguiWidget *list;
+  BobguiWidget *overlay;
+  BobguiWidget *label;
 
-  gtk_init ();
+  bobgui_init ();
 
-  win = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (win), 600, 400);
+  win = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (win), 600, 400);
 
-  overlay = gtk_overlay_new ();
-  popup = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_widget_set_halign (popup, GTK_ALIGN_CENTER);
-  gtk_widget_set_valign (popup, GTK_ALIGN_END);
-  gtk_widget_set_margin_start (popup, 40);
-  gtk_widget_set_margin_end (popup, 40);
-  gtk_widget_set_margin_top (popup, 40);
-  gtk_widget_set_margin_bottom (popup, 40);
-  label = gtk_label_new ("Getting more rows...");
-  spinner = gtk_spinner_new ();
-  gtk_box_append (GTK_BOX (popup), label);
-  gtk_box_append (GTK_BOX (popup), spinner);
+  overlay = bobgui_overlay_new ();
+  popup = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
+  bobgui_widget_set_halign (popup, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_valign (popup, BOBGUI_ALIGN_END);
+  bobgui_widget_set_margin_start (popup, 40);
+  bobgui_widget_set_margin_end (popup, 40);
+  bobgui_widget_set_margin_top (popup, 40);
+  bobgui_widget_set_margin_bottom (popup, 40);
+  label = bobgui_label_new ("Getting more rows...");
+  spinner = bobgui_spinner_new ();
+  bobgui_box_append (BOBGUI_BOX (popup), label);
+  bobgui_box_append (BOBGUI_BOX (popup), spinner);
 
-  gtk_overlay_add_overlay (GTK_OVERLAY (overlay), popup);
-  gtk_widget_set_visible (popup, FALSE);
+  bobgui_overlay_add_overlay (BOBGUI_OVERLAY (overlay), popup);
+  bobgui_widget_set_visible (popup, FALSE);
 
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-  list = gtk_list_box_new ();
-  gtk_list_box_set_selection_mode (GTK_LIST_BOX (list), GTK_SELECTION_NONE);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (sw), BOBGUI_POLICY_NEVER, BOBGUI_POLICY_AUTOMATIC);
+  list = bobgui_list_box_new ();
+  bobgui_list_box_set_selection_mode (BOBGUI_LIST_BOX (list), BOBGUI_SELECTION_NONE);
 
-  gtk_window_set_child (GTK_WINDOW (win), overlay);
-  gtk_overlay_set_child (GTK_OVERLAY (overlay), sw);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), list);
-  populate_list (GTK_LIST_BOX (list));
+  bobgui_window_set_child (BOBGUI_WINDOW (win), overlay);
+  bobgui_overlay_set_child (BOBGUI_OVERLAY (overlay), sw);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), list);
+  populate_list (BOBGUI_LIST_BOX (list));
 
   g_signal_connect (sw, "edge-overshot", G_CALLBACK (edge_overshot), list);
   g_signal_connect (sw, "edge-reached", G_CALLBACK (edge_reached), list);
 
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

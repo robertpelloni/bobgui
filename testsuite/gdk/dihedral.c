@@ -1,4 +1,4 @@
-#include <gtk.h>
+#include <bobgui.h>
 
 #include "gdk/gdkdihedralprivate.h"
 
@@ -106,7 +106,7 @@ test_associative (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/dihedral/inversions", test_inversions);
   g_test_add_func ("/dihedral/swaps", test_swaps);

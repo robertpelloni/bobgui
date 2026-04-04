@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <string.h>
 
 
@@ -31,9 +31,9 @@ change_fullscreen_state (GSimpleAction *action,
                          gpointer       user_data)
 {
   if (g_variant_get_boolean (state))
-    gtk_window_fullscreen (user_data);
+    bobgui_window_fullscreen (user_data);
   else
-    gtk_window_unfullscreen (user_data);
+    bobgui_window_unfullscreen (user_data);
 
   g_simple_action_set_state (action, state);
 }
@@ -43,11 +43,11 @@ window_copy (GSimpleAction *action,
              GVariant      *parameter,
              gpointer       user_data)
 {
-  GtkWindow *window = GTK_WINDOW (user_data);
-  GtkTextView *text = g_object_get_data ((GObject*)window, "plugman-text");
+  BobguiWindow *window = BOBGUI_WINDOW (user_data);
+  BobguiTextView *text = g_object_get_data ((GObject*)window, "plugman-text");
 
-  gtk_text_buffer_copy_clipboard (gtk_text_view_get_buffer (text),
-                                  gtk_widget_get_clipboard (GTK_WIDGET (text)));
+  bobgui_text_buffer_copy_clipboard (bobgui_text_view_get_buffer (text),
+                                  bobgui_widget_get_clipboard (BOBGUI_WIDGET (text)));
 }
 
 static void
@@ -55,11 +55,11 @@ window_paste (GSimpleAction *action,
               GVariant      *parameter,
               gpointer       user_data)
 {
-  GtkWindow *window = GTK_WINDOW (user_data);
-  GtkTextView *text = g_object_get_data ((GObject*)window, "plugman-text");
+  BobguiWindow *window = BOBGUI_WINDOW (user_data);
+  BobguiTextView *text = g_object_get_data ((GObject*)window, "plugman-text");
 
-  gtk_text_buffer_paste_clipboard (gtk_text_view_get_buffer (text),
-                                   gtk_widget_get_clipboard (GTK_WIDGET (text)),
+  bobgui_text_buffer_paste_clipboard (bobgui_text_view_get_buffer (text),
+                                   bobgui_widget_get_clipboard (BOBGUI_WIDGET (text)),
                                    NULL,
                                    TRUE);
 
@@ -75,27 +75,27 @@ static void
 new_window (GApplication *app,
             GFile        *file)
 {
-  GtkWidget *window, *grid, *scrolled, *view;
+  BobguiWidget *window, *grid, *scrolled, *view;
 
-  window = gtk_application_window_new (GTK_APPLICATION (app));
-  gtk_window_set_default_size ((GtkWindow*)window, 640, 480);
+  window = bobgui_application_window_new (BOBGUI_APPLICATION (app));
+  bobgui_window_set_default_size ((BobguiWindow*)window, 640, 480);
   g_action_map_add_action_entries (G_ACTION_MAP (window), win_entries, G_N_ELEMENTS (win_entries), window);
-  gtk_window_set_title (GTK_WINDOW (window), "Plugman");
-  gtk_application_window_set_show_menubar (GTK_APPLICATION_WINDOW (window), TRUE);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Plugman");
+  bobgui_application_window_set_show_menubar (BOBGUI_APPLICATION_WINDOW (window), TRUE);
 
-  grid = gtk_grid_new ();
-  gtk_window_set_child (GTK_WINDOW (window), grid);
+  grid = bobgui_grid_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), grid);
 
-  scrolled = gtk_scrolled_window_new ();
-  gtk_widget_set_hexpand (scrolled, TRUE);
-  gtk_widget_set_vexpand (scrolled, TRUE);
-  view = gtk_text_view_new ();
+  scrolled = bobgui_scrolled_window_new ();
+  bobgui_widget_set_hexpand (scrolled, TRUE);
+  bobgui_widget_set_vexpand (scrolled, TRUE);
+  view = bobgui_text_view_new ();
 
   g_object_set_data ((GObject*)window, "plugman-text", view);
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled), view);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled), view);
 
-  gtk_grid_attach (GTK_GRID (grid), scrolled, 0, 0, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), scrolled, 0, 0, 1, 1);
 
   if (file != NULL)
     {
@@ -104,15 +104,15 @@ new_window (GApplication *app,
 
       if (g_file_load_contents (file, NULL, &contents, &length, NULL, NULL))
         {
-          GtkTextBuffer *buffer;
+          BobguiTextBuffer *buffer;
 
-          buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
-          gtk_text_buffer_set_text (buffer, contents, length);
+          buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (view));
+          bobgui_text_buffer_set_text (buffer, contents, length);
           g_free (contents);
         }
     }
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 static void
@@ -133,11 +133,11 @@ plug_man_open (GApplication  *application,
     new_window (application, files[i]);
 }
 
-typedef GtkApplication PlugMan;
-typedef GtkApplicationClass PlugManClass;
+typedef BobguiApplication PlugMan;
+typedef BobguiApplicationClass PlugManClass;
 
 static GType plug_man_get_type (void);
-G_DEFINE_TYPE (PlugMan, plug_man, GTK_TYPE_APPLICATION)
+G_DEFINE_TYPE (PlugMan, plug_man, BOBGUI_TYPE_APPLICATION)
 
 static void
 plug_man_finalize (GObject *object)
@@ -150,7 +150,7 @@ show_about (GSimpleAction *action,
             GVariant      *parameter,
             gpointer       user_data)
 {
-  gtk_show_about_dialog (NULL,
+  bobgui_show_about_dialog (NULL,
                          "program-name", "Plugman",
                          "title", "About Plugman",
                          "comments", "A cheap Bloatpad clone.",
@@ -164,17 +164,17 @@ quit_app (GSimpleAction *action,
           gpointer       user_data)
 {
   GList *list, *next;
-  GtkWindow *win;
+  BobguiWindow *win;
 
   g_print ("Going down...\n");
 
-  list = gtk_application_get_windows (GTK_APPLICATION (g_application_get_default ()));
+  list = bobgui_application_get_windows (BOBGUI_APPLICATION (g_application_get_default ()));
   while (list)
     {
       win = list->data;
       next = list->next;
 
-      gtk_window_destroy (GTK_WINDOW (win));
+      bobgui_window_destroy (BOBGUI_WINDOW (win));
 
       list = next;
     }
@@ -205,7 +205,7 @@ plugin_action (GAction  *action,
 {
   const char *action_name;
   const char *css_to_load;
-  GtkCssProvider *css_provider;
+  BobguiCssProvider *css_provider;
 
   action_name = g_action_get_name (action);
   if (strcmp (action_name, "red") == 0)
@@ -220,11 +220,11 @@ plugin_action (GAction  *action,
 
   g_message ("Color: %s", g_action_get_name (action));
 
-  css_provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_string (css_provider, css_to_load);
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (css_provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  css_provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_string (css_provider, css_to_load);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (css_provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 static void
@@ -310,7 +310,7 @@ disable_plugin (const char *name)
 }
 
 static void
-enable_or_disable_plugin (GtkToggleButton *button,
+enable_or_disable_plugin (BobguiToggleButton *button,
                           const char      *name)
 {
   if (plugin_enabled (name))
@@ -325,28 +325,28 @@ configure_plugins (GSimpleAction *action,
                    GVariant      *parameter,
                    gpointer       user_data)
 {
-  GtkBuilder *builder;
-  GtkWidget *dialog;
-  GtkWidget *check;
+  BobguiBuilder *builder;
+  BobguiWidget *dialog;
+  BobguiWidget *check;
   GError *error = NULL;
 
-  builder = gtk_builder_new ();
-  gtk_builder_add_from_string (builder,
+  builder = bobgui_builder_new ();
+  bobgui_builder_add_from_string (builder,
                                "<interface>"
-                               "  <object class='GtkDialog' id='plugin-dialog'>"
+                               "  <object class='BobguiDialog' id='plugin-dialog'>"
                                "    <property name='title'>Plugins</property>"
                                "    <child internal-child='content_area'>"
-                               "      <object class='GtkBox' id='content-area'>"
+                               "      <object class='BobguiBox' id='content-area'>"
                                "        <property name='visible'>True</property>"
                                "        <property name='orientation'>vertical</property>"
                                "        <child>"
-                               "          <object class='GtkCheckButton' id='red-plugin'>"
+                               "          <object class='BobguiCheckButton' id='red-plugin'>"
                                "            <property name='label' translatable='yes'>Red Plugin - turn your text red</property>"
                                "            <property name='visible'>True</property>"
                                "          </object>"
                                "        </child>"
                                "        <child>"
-                               "          <object class='GtkCheckButton' id='black-plugin'>"
+                               "          <object class='BobguiCheckButton' id='black-plugin'>"
                                "            <property name='label' translatable='yes'>Black Plugin - turn your text black</property>"
                                "            <property name='visible'>True</property>"
                                "          </object>"
@@ -354,10 +354,10 @@ configure_plugins (GSimpleAction *action,
                                "      </object>"
                                "    </child>"
                                "    <child internal-child='action_area'>"
-                               "      <object class='GtkBox' id='action-area'>"
+                               "      <object class='BobguiBox' id='action-area'>"
                                "        <property name='visible'>True</property>"
                                "        <child>"
-                               "          <object class='GtkButton' id='close-button'>"
+                               "          <object class='BobguiButton' id='close-button'>"
                                "            <property name='label' translatable='yes'>Close</property>"
                                "            <property name='visible'>True</property>"
                                "          </object>"
@@ -376,17 +376,17 @@ configure_plugins (GSimpleAction *action,
       goto out;
     }
 
-  dialog = (GtkWidget *)gtk_builder_get_object (builder, "plugin-dialog");
-  check = (GtkWidget *)gtk_builder_get_object (builder, "red-plugin");
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (check), plugin_enabled ("red"));
+  dialog = (BobguiWidget *)bobgui_builder_get_object (builder, "plugin-dialog");
+  check = (BobguiWidget *)bobgui_builder_get_object (builder, "red-plugin");
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (check), plugin_enabled ("red"));
   g_signal_connect (check, "toggled", G_CALLBACK (enable_or_disable_plugin), (char *) "red");
-  check = (GtkWidget *)gtk_builder_get_object (builder, "black-plugin");
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (check), plugin_enabled ("black"));
+  check = (BobguiWidget *)bobgui_builder_get_object (builder, "black-plugin");
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (check), plugin_enabled ("black"));
   g_signal_connect (check, "toggled", G_CALLBACK (enable_or_disable_plugin), (char *) "black");
 
-  g_signal_connect (dialog, "response", G_CALLBACK (gtk_window_destroy), NULL);
+  g_signal_connect (dialog, "response", G_CALLBACK (bobgui_window_destroy), NULL);
 
-  gtk_window_present (GTK_WINDOW (dialog));
+  bobgui_window_present (BOBGUI_WINDOW (dialog));
 
 out:
   g_object_unref (builder);
@@ -401,15 +401,15 @@ static GActionEntry app_entries[] = {
 static void
 plug_man_startup (GApplication *application)
 {
-  GtkBuilder *builder;
+  BobguiBuilder *builder;
 
   G_APPLICATION_CLASS (plug_man_parent_class)
     ->startup (application);
 
   g_action_map_add_action_entries (G_ACTION_MAP (application), app_entries, G_N_ELEMENTS (app_entries), application);
 
-  builder = gtk_builder_new ();
-  gtk_builder_add_from_string (builder,
+  builder = bobgui_builder_new ();
+  bobgui_builder_add_from_string (builder,
                                "<interface>"
                                "  <menu id='menubar'>"
                                "    <submenu>"
@@ -460,8 +460,8 @@ plug_man_startup (GApplication *application)
                                "    </submenu>"
                                "  </menu>"
                                "</interface>", -1, NULL);
-  gtk_application_set_menubar (GTK_APPLICATION (application), G_MENU_MODEL (gtk_builder_get_object (builder, "menubar")));
-  g_object_set_data_full (G_OBJECT (application), "plugin-menu", gtk_builder_get_object (builder, "plugins"), g_object_unref);
+  bobgui_application_set_menubar (BOBGUI_APPLICATION (application), G_MENU_MODEL (bobgui_builder_get_object (builder, "menubar")));
+  g_object_set_data_full (G_OBJECT (application), "plugin-menu", bobgui_builder_get_object (builder, "plugins"), g_object_unref);
   g_object_unref (builder);
 }
 
@@ -488,7 +488,7 @@ static PlugMan *
 plug_man_new (void)
 {
   return g_object_new (plug_man_get_type (),
-                       "application-id", "org.gtk.Test.plugman",
+                       "application-id", "org.bobgui.Test.plugman",
                        "flags", G_APPLICATION_HANDLES_OPEN,
                        NULL);
 }
@@ -501,7 +501,7 @@ main (int argc, char **argv)
   const char *accels[] = { "F11", NULL };
 
   plug_man = plug_man_new ();
-  gtk_application_set_accels_for_action (GTK_APPLICATION (plug_man),
+  bobgui_application_set_accels_for_action (BOBGUI_APPLICATION (plug_man),
                                          "win.fullscreen", accels);
   status = g_application_run (G_APPLICATION (plug_man), argc, argv);
   g_object_unref (plug_man);

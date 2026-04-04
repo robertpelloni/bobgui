@@ -16,10 +16,10 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gio/gio.h>
 
-/* This is used to take screenshots of GtkLockButton for the docs.
+/* This is used to take screenshots of BobguiLockButton for the docs.
  *
  * Run it like: testlockbutton lockbutton.ui style.css
  *
@@ -175,24 +175,24 @@ g_test_permission_set_success (GTestPermission *permission,
   permission->success = success;
 }
 
-static GtkWidget *allowed_button;
-static GtkWidget *can_acquire_button;
-static GtkWidget *can_release_button;
-static GtkWidget *success_button;
+static BobguiWidget *allowed_button;
+static BobguiWidget *can_acquire_button;
+static BobguiWidget *can_release_button;
+static BobguiWidget *success_button;
 
 static void
-update_clicked (GtkButton *button, GtkLockButton *lockbutton)
+update_clicked (BobguiButton *button, BobguiLockButton *lockbutton)
 {
   GPermission *permission;
   gboolean allowed, can_acquire, can_release;
   gboolean success;
 
-  permission = gtk_lock_button_get_permission (lockbutton);
+  permission = bobgui_lock_button_get_permission (lockbutton);
 
-  allowed = gtk_check_button_get_active (GTK_CHECK_BUTTON (allowed_button));
-  can_acquire = gtk_check_button_get_active (GTK_CHECK_BUTTON (can_acquire_button));
-  can_release = gtk_check_button_get_active (GTK_CHECK_BUTTON (can_release_button));
-  success = gtk_check_button_get_active (GTK_CHECK_BUTTON (success_button));
+  allowed = bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (allowed_button));
+  can_acquire = bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (can_acquire_button));
+  can_release = bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (can_release_button));
+  success = bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (success_button));
   g_permission_impl_update (permission, allowed, can_acquire, can_release);
   g_test_permission_set_success (G_TEST_PERMISSION (permission), success);
 }
@@ -209,15 +209,15 @@ permission_changed (GPermission *permission,
                 "can-release", &can_release,
                 NULL);
 
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (allowed_button), allowed);
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (can_acquire_button), can_acquire);
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (can_release_button), can_release);
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (allowed_button), allowed);
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (can_acquire_button), can_acquire);
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (can_release_button), can_release);
 }
 
 static void
 draw_paintable (GdkPaintable *paintable)
 {
-  GtkSnapshot *snapshot;
+  BobguiSnapshot *snapshot;
   GskRenderNode *node;
   GdkTexture *texture;
   GskRenderer *renderer;
@@ -225,12 +225,12 @@ draw_paintable (GdkPaintable *paintable)
   static int count = 0;
   char *path;
 
-  snapshot = gtk_snapshot_new ();
+  snapshot = bobgui_snapshot_new ();
   gdk_paintable_snapshot (paintable,
                           snapshot,
                           gdk_paintable_get_intrinsic_width (paintable),
                           gdk_paintable_get_intrinsic_height (paintable));
-  node = gtk_snapshot_free_to_node (snapshot);
+  node = bobgui_snapshot_free_to_node (snapshot);
 
   /* If the window literally draws nothing, we assume it hasn't been mapped yet and as such
    * the invalidations were only side effects of resizes.
@@ -247,9 +247,9 @@ draw_paintable (GdkPaintable *paintable)
       node = child;
     }
 
-  renderer = gtk_native_get_renderer (
-                 gtk_widget_get_native (
-                     gtk_widget_paintable_get_widget (GTK_WIDGET_PAINTABLE (paintable))));
+  renderer = bobgui_native_get_renderer (
+                 bobgui_widget_get_native (
+                     bobgui_widget_paintable_get_widget (BOBGUI_WIDGET_PAINTABLE (paintable))));
 
   gsk_render_node_get_bounds (node, &bounds);
   graphene_rect_union (&bounds,
@@ -279,86 +279,86 @@ draw_paintable (GdkPaintable *paintable)
 static gboolean
 do_snapshot (gpointer data)
 {
-  GtkWidget *widget = data;
+  BobguiWidget *widget = data;
   GdkPaintable *paintable;
 
-  paintable = gtk_widget_paintable_new (widget);
+  paintable = bobgui_widget_paintable_new (widget);
   g_signal_connect (paintable, "invalidate-contents", G_CALLBACK (draw_paintable), NULL);
 
-  gtk_widget_queue_draw (widget);
+  bobgui_widget_queue_draw (widget);
 
   return G_SOURCE_REMOVE;
 }
 
 static void
-screenshot_clicked (GtkButton *button,
-                    GtkWidget *widget)
+screenshot_clicked (BobguiButton *button,
+                    BobguiWidget *widget)
 {
-  g_assert_true (gtk_widget_get_realized (widget));
+  g_assert_true (bobgui_widget_get_realized (widget));
 
-  gtk_widget_grab_focus (GTK_WIDGET (gtk_widget_get_root (widget)));
+  bobgui_widget_grab_focus (BOBGUI_WIDGET (bobgui_widget_get_root (widget)));
 
-  g_idle_add (do_snapshot, gtk_widget_get_root (widget));
+  g_idle_add (do_snapshot, bobgui_widget_get_root (widget));
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *dialog;
-  GtkWidget *button;
-  GtkWidget *box;
-  GtkWidget *update;
-  GtkWidget *screenshot;
+  BobguiWidget *window;
+  BobguiWidget *dialog;
+  BobguiWidget *button;
+  BobguiWidget *box;
+  BobguiWidget *update;
+  BobguiWidget *screenshot;
   GPermission *permission;
-  GtkBuilder *builder;
-  GtkCssProvider *provider;
+  BobguiBuilder *builder;
+  BobguiCssProvider *provider;
 
-  gtk_init ();
+  bobgui_init ();
 
   permission = g_object_new (G_TYPE_TEST_PERMISSION, NULL);
 
-  window = gtk_window_new ();
-  gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
+  window = bobgui_window_new ();
+  bobgui_window_set_resizable (BOBGUI_WINDOW (window), FALSE);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 5);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  allowed_button = gtk_check_button_new_with_label ("Allowed");
-  gtk_box_append (GTK_BOX (box), allowed_button);
-  can_acquire_button = gtk_check_button_new_with_label ("Can acquire");
-  gtk_box_append (GTK_BOX (box), can_acquire_button);
-  can_release_button = gtk_check_button_new_with_label ("Can release");
-  gtk_box_append (GTK_BOX (box), can_release_button);
-  success_button = gtk_check_button_new_with_label ("Will succeed");
-  gtk_box_append (GTK_BOX (box), success_button);
-  update = gtk_button_new_with_label ("Update");
-  gtk_box_append (GTK_BOX (box), update);
-  screenshot = gtk_button_new_with_label ("Screenshot");
-  gtk_box_append (GTK_BOX (box), screenshot);
+  allowed_button = bobgui_check_button_new_with_label ("Allowed");
+  bobgui_box_append (BOBGUI_BOX (box), allowed_button);
+  can_acquire_button = bobgui_check_button_new_with_label ("Can acquire");
+  bobgui_box_append (BOBGUI_BOX (box), can_acquire_button);
+  can_release_button = bobgui_check_button_new_with_label ("Can release");
+  bobgui_box_append (BOBGUI_BOX (box), can_release_button);
+  success_button = bobgui_check_button_new_with_label ("Will succeed");
+  bobgui_box_append (BOBGUI_BOX (box), success_button);
+  update = bobgui_button_new_with_label ("Update");
+  bobgui_box_append (BOBGUI_BOX (box), update);
+  screenshot = bobgui_button_new_with_label ("Screenshot");
+  bobgui_box_append (BOBGUI_BOX (box), screenshot);
   g_signal_connect (permission, "notify",
                     G_CALLBACK (permission_changed), NULL);
 
-  builder = gtk_builder_new_from_file (argv[1]);
+  builder = bobgui_builder_new_from_file (argv[1]);
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_path (provider, argv[2]);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_path (provider, argv[2]);
 
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (), GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (), BOBGUI_STYLE_PROVIDER (provider), BOBGUI_STYLE_PROVIDER_PRIORITY_USER);
 
-  button = GTK_WIDGET (gtk_builder_get_object (builder, "lockbutton"));
-  gtk_lock_button_set_permission (GTK_LOCK_BUTTON (button), permission);
+  button = BOBGUI_WIDGET (bobgui_builder_get_object (builder, "lockbutton"));
+  bobgui_lock_button_set_permission (BOBGUI_LOCK_BUTTON (button), permission);
 
-  dialog = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
-  gtk_widget_add_css_class (dialog, "nobackground");
+  dialog = BOBGUI_WIDGET (bobgui_builder_get_object (builder, "window"));
+  bobgui_widget_add_css_class (dialog, "nobackground");
 
   g_signal_connect (update, "clicked",
                     G_CALLBACK (update_clicked), button);
   g_signal_connect (screenshot, "clicked",
                     G_CALLBACK (screenshot_clicked), button);
 
-  gtk_window_present (GTK_WINDOW (window));
-  gtk_window_present (GTK_WINDOW (dialog));
+  bobgui_window_present (BOBGUI_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (dialog));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

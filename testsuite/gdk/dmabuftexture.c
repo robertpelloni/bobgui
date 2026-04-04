@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gdk/gdkdisplayprivate.h>
 #include <gdk/gdkdmabufeglprivate.h>
 #include <gdk/gdkdmabuffourccprivate.h>
@@ -261,7 +261,7 @@ test_dmabuf_import (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/dmabuf/export", test_dmabuf_export);
   g_test_add_func ("/dmabuf/import", test_dmabuf_import);

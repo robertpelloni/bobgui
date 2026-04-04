@@ -21,7 +21,7 @@
 
 #pragma once
 
-#if !defined (__GDKX_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKX_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/x11/gdkx.h> can be included directly."
 #endif
 

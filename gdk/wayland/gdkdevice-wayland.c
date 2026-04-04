@@ -25,7 +25,7 @@
 #include "gdkeventsource.h"
 #include "gdkeventsprivate.h"
 
-#define  GTK_SHELL_FIXED_WL_SURFACE_OFFSET_VERSION 6
+#define  BOBGUI_SHELL_FIXED_WL_SURFACE_OFFSET_VERSION 6
 
 #define GDK_SLOT_TO_EVENT_SEQUENCE(s) ((GdkEventSequence *) GUINT_TO_POINTER((s) + 1))
 #define GDK_EVENT_SEQUENCE_TO_SLOT(s) (GPOINTER_TO_UINT(s) - 1)
@@ -387,9 +387,9 @@ gdk_wayland_device_update_surface_cursor (GdkDevice *device)
     pointer->has_cursor_surface &&
     wl_surface_get_version (pointer->pointer_surface) >=
     WL_SURFACE_OFFSET_SINCE_VERSION &&
-    (!wayland_display->gtk_shell ||
-     gtk_shell1_get_version (wayland_display->gtk_shell) >=
-     GTK_SHELL_FIXED_WL_SURFACE_OFFSET_VERSION);
+    (!wayland_display->bobgui_shell ||
+     bobgui_shell1_get_version (wayland_display->bobgui_shell) >=
+     BOBGUI_SHELL_FIXED_WL_SURFACE_OFFSET_VERSION);
 
   if (use_surface_offset)
     {

@@ -1,4 +1,4 @@
-/* GTK - The GIMP Toolkit
+/* BOBGUI - The GIMP Toolkit
  * gdkasync.c: Utility functions using the Xlib asynchronous interfaces
  * Copyright (C) 2003, Red Hat, Inc.
  *
@@ -173,7 +173,7 @@ send_event_handler (Display *dpy,
         {
           guint id;
           id = g_idle_add (callback_idle, state);
-          gdk_source_set_static_name_by_id (id, "[gtk] callback_idle");
+          gdk_source_set_static_name_by_id (id, "[bobgui] callback_idle");
         }
 
       DeqAsyncHandler(state->dpy, &state->async);
@@ -709,7 +709,7 @@ roundtrip_handler (Display *dpy,
         {
           guint id;
           id = g_idle_add (roundtrip_callback_idle, state);
-          gdk_source_set_static_name_by_id (id, "[gtk] roundtrip_callback_idle");
+          gdk_source_set_static_name_by_id (id, "[bobgui] roundtrip_callback_idle");
         }
 
       DeqAsyncHandler(state->dpy, &state->async);

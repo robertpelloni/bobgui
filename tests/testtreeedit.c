@@ -17,7 +17,7 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
@@ -49,14 +49,14 @@ static ListEntry model_strings[] =
   { NULL }
 };
 
-static GtkTreeModel *
+static BobguiTreeModel *
 create_model (void)
 {
-  GtkTreeStore *model;
-  GtkTreeIter iter;
+  BobguiTreeStore *model;
+  BobguiTreeIter iter;
   int i;
 
-  model = gtk_tree_store_new (NUM_COLUMNS,
+  model = bobgui_tree_store_new (NUM_COLUMNS,
 			      G_TYPE_STRING,
 			      G_TYPE_BOOLEAN,
 			      G_TYPE_BOOLEAN,
@@ -66,9 +66,9 @@ create_model (void)
 
   for (i = 0; model_strings[i].string != NULL; i++)
     {
-      gtk_tree_store_append (model, &iter, NULL);
+      bobgui_tree_store_append (model, &iter, NULL);
 
-      gtk_tree_store_set (model, &iter,
+      bobgui_tree_store_set (model, &iter,
 			  STRING_COLUMN, model_strings[i].string,
 			  IS_EDITABLE_COLUMN, model_strings[i].is_editable,
 			  IS_SENSITIVE_COLUMN, model_strings[i].is_sensitive,
@@ -78,105 +78,105 @@ create_model (void)
 			  -1);
     }
   
-  return GTK_TREE_MODEL (model);
+  return BOBGUI_TREE_MODEL (model);
 }
 
 static void
-editable_toggled (GtkCellRendererToggle *cell,
+editable_toggled (BobguiCellRendererToggle *cell,
 		  char                  *path_string,
 		  gpointer               data)
 {
-  GtkTreeModel *model = GTK_TREE_MODEL (data);
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+  BobguiTreeModel *model = BOBGUI_TREE_MODEL (data);
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_string);
   gboolean value;
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, IS_EDITABLE_COLUMN, &value, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, IS_EDITABLE_COLUMN, &value, -1);
 
   value = !value;
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, IS_EDITABLE_COLUMN, value, -1);
+  bobgui_tree_store_set (BOBGUI_TREE_STORE (model), &iter, IS_EDITABLE_COLUMN, value, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-sensitive_toggled (GtkCellRendererToggle *cell,
+sensitive_toggled (BobguiCellRendererToggle *cell,
 		   char                  *path_string,
 		   gpointer               data)
 {
-  GtkTreeModel *model = GTK_TREE_MODEL (data);
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+  BobguiTreeModel *model = BOBGUI_TREE_MODEL (data);
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_string);
   gboolean value;
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_model_get (model, &iter, IS_SENSITIVE_COLUMN, &value, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_model_get (model, &iter, IS_SENSITIVE_COLUMN, &value, -1);
 
   value = !value;
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, IS_SENSITIVE_COLUMN, value, -1);
+  bobgui_tree_store_set (BOBGUI_TREE_STORE (model), &iter, IS_SENSITIVE_COLUMN, value, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-edited (GtkCellRendererText *cell,
+edited (BobguiCellRendererText *cell,
 	char                *path_string,
 	char                *new_text,
 	gpointer             data)
 {
-  GtkTreeModel *model = GTK_TREE_MODEL (data);
-  GtkTreeIter iter;
-  GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+  BobguiTreeModel *model = BOBGUI_TREE_MODEL (data);
+  BobguiTreeIter iter;
+  BobguiTreePath *path = bobgui_tree_path_new_from_string (path_string);
 
-  gtk_tree_model_get_iter (model, &iter, path);
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, STRING_COLUMN, new_text, -1);
+  bobgui_tree_model_get_iter (model, &iter, path);
+  bobgui_tree_store_set (BOBGUI_TREE_STORE (model), &iter, STRING_COLUMN, new_text, -1);
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 }
 
 static void
-pressed_cb (GtkGesture *gesture,
+pressed_cb (BobguiGesture *gesture,
             int         n_press,
             double      x,
             double      y,
-            GtkWidget  *widget)
+            BobguiWidget  *widget)
 {
   /* Deselect if people click outside any row. */
-  if (!gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (widget), x, y, NULL, NULL, NULL, NULL))
-    gtk_tree_selection_unselect_all (gtk_tree_view_get_selection (GTK_TREE_VIEW (widget)));
+  if (!bobgui_tree_view_get_path_at_pos (BOBGUI_TREE_VIEW (widget), x, y, NULL, NULL, NULL, NULL))
+    bobgui_tree_selection_unselect_all (bobgui_tree_view_get_selection (BOBGUI_TREE_VIEW (widget)));
 }
 
 typedef struct {
-  GtkCellArea     *area;
-  GtkCellRenderer *renderer;
+  BobguiCellArea     *area;
+  BobguiCellRenderer *renderer;
 } CallbackData;
 
 static void
-align_cell_toggled (GtkToggleButton  *toggle,
+align_cell_toggled (BobguiToggleButton  *toggle,
 		    CallbackData     *data)
 {
-  gboolean active = gtk_toggle_button_get_active (toggle);
+  gboolean active = bobgui_toggle_button_get_active (toggle);
 
-  gtk_cell_area_cell_set (data->area, data->renderer, "align", active, NULL);
+  bobgui_cell_area_cell_set (data->area, data->renderer, "align", active, NULL);
 }
 
 static void
-expand_cell_toggled (GtkToggleButton  *toggle,
+expand_cell_toggled (BobguiToggleButton  *toggle,
 		     CallbackData     *data)
 {
-  gboolean active = gtk_toggle_button_get_active (toggle);
+  gboolean active = bobgui_toggle_button_get_active (toggle);
 
-  gtk_cell_area_cell_set (data->area, data->renderer, "expand", active, NULL);
+  bobgui_cell_area_cell_set (data->area, data->renderer, "expand", active, NULL);
 }
 
 static void
-fixed_cell_toggled (GtkToggleButton  *toggle,
+fixed_cell_toggled (BobguiToggleButton  *toggle,
 		    CallbackData     *data)
 {
-  gboolean active = gtk_toggle_button_get_active (toggle);
+  gboolean active = bobgui_toggle_button_get_active (toggle);
 
-  gtk_cell_area_cell_set (data->area, data->renderer, "fixed-size", active, NULL);
+  bobgui_cell_area_cell_set (data->area, data->renderer, "fixed-size", active, NULL);
 }
 
 enum {
@@ -186,9 +186,9 @@ enum {
 };
 
 static void
-create_control (GtkWidget *box, int number, int cntl, CallbackData *data)
+create_control (BobguiWidget *box, int number, int cntl, CallbackData *data)
 {
-  GtkWidget *checkbutton;
+  BobguiWidget *checkbutton;
   GCallback  callback = NULL;
   char *name = NULL;
 
@@ -210,16 +210,16 @@ create_control (GtkWidget *box, int number, int cntl, CallbackData *data)
       g_assert_not_reached ();
     }
 
-  checkbutton = gtk_check_button_new_with_label (name);
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (checkbutton), cntl == CNTL_FIXED);
-  gtk_box_append (GTK_BOX (box), checkbutton);
+  checkbutton = bobgui_check_button_new_with_label (name);
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (checkbutton), cntl == CNTL_FIXED);
+  bobgui_box_append (BOBGUI_BOX (box), checkbutton);
 
   g_signal_connect (G_OBJECT (checkbutton), "toggled", callback, data);
   g_free (name);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -232,60 +232,60 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char **argv)
 {
-  GtkWidget *window;
-  GtkWidget *scrolled_window;
-  GtkWidget *tree_view;
-  GtkWidget *vbox, *hbox, *cntl_vbox;
-  GtkTreeModel *tree_model;
-  GtkCellRenderer *renderer;
-  GtkTreeViewColumn *column;
-  GtkCellArea *area;
+  BobguiWidget *window;
+  BobguiWidget *scrolled_window;
+  BobguiWidget *tree_view;
+  BobguiWidget *vbox, *hbox, *cntl_vbox;
+  BobguiTreeModel *tree_model;
+  BobguiCellRenderer *renderer;
+  BobguiTreeViewColumn *column;
+  BobguiCellArea *area;
   CallbackData callback[4];
-  GtkGesture *gesture;
+  BobguiGesture *gesture;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
   if (g_getenv ("RTL"))
-    gtk_widget_set_default_direction (GTK_TEXT_DIR_RTL);
+    bobgui_widget_set_default_direction (BOBGUI_TEXT_DIR_RTL);
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "GtkTreeView editing sample");
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "BobguiTreeView editing sample");
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 6);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  scrolled_window = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_has_frame (GTK_SCROLLED_WINDOW (scrolled_window), TRUE);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-				  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_widget_set_vexpand (scrolled_window, TRUE);
-  gtk_box_append (GTK_BOX (vbox), scrolled_window);
+  scrolled_window = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_has_frame (BOBGUI_SCROLLED_WINDOW (scrolled_window), TRUE);
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (scrolled_window),
+				  BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
+  bobgui_widget_set_vexpand (scrolled_window, TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), scrolled_window);
 
   tree_model = create_model ();
-  tree_view = gtk_tree_view_new_with_model (tree_model);
-  gesture = gtk_gesture_click_new ();
+  tree_view = bobgui_tree_view_new_with_model (tree_model);
+  gesture = bobgui_gesture_click_new ();
   g_signal_connect (gesture, "pressed", G_CALLBACK (pressed_cb), tree_view);
-  gtk_widget_add_controller (tree_view, GTK_EVENT_CONTROLLER (gesture));
-  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree_view), TRUE);
+  bobgui_widget_add_controller (tree_view, BOBGUI_EVENT_CONTROLLER (gesture));
+  bobgui_tree_view_set_headers_visible (BOBGUI_TREE_VIEW (tree_view), TRUE);
 
-  column = gtk_tree_view_column_new ();
-  gtk_tree_view_column_set_title (column, "String");
-  area = gtk_cell_layout_get_area (GTK_CELL_LAYOUT (column));
+  column = bobgui_tree_view_column_new ();
+  bobgui_tree_view_column_set_title (column, "String");
+  area = bobgui_cell_layout_get_area (BOBGUI_CELL_LAYOUT (column));
 
-  renderer = gtk_cell_renderer_pixbuf_new ();
-  gtk_tree_view_column_pack_start (column, renderer, FALSE);
-  gtk_tree_view_column_set_attributes (column, renderer,
+  renderer = bobgui_cell_renderer_pixbuf_new ();
+  bobgui_tree_view_column_pack_start (column, renderer, FALSE);
+  bobgui_tree_view_column_set_attributes (column, renderer,
 				       "icon-name", ICON_NAME_COLUMN, 
 				       "sensitive", IS_SENSITIVE_COLUMN,
 				       NULL);
   callback[0].area = area;
   callback[0].renderer = renderer;
 
-  renderer = gtk_cell_renderer_text_new ();
-  gtk_tree_view_column_pack_start (column, renderer, FALSE);
-  gtk_tree_view_column_set_attributes (column, renderer,
+  renderer = bobgui_cell_renderer_text_new ();
+  bobgui_tree_view_column_pack_start (column, renderer, FALSE);
+  bobgui_tree_view_column_set_attributes (column, renderer,
 				       "text", STRING_COLUMN,
 				       "editable", IS_EDITABLE_COLUMN,
 				       "sensitive", IS_SENSITIVE_COLUMN,
@@ -298,9 +298,9 @@ main (int argc, char **argv)
                 "placeholder-text", "Type here",
                 NULL);
 
-  renderer = gtk_cell_renderer_text_new ();
-  gtk_tree_view_column_pack_start (column, renderer, FALSE);
-  gtk_tree_view_column_set_attributes (column, renderer,
+  renderer = bobgui_cell_renderer_text_new ();
+  bobgui_tree_view_column_pack_start (column, renderer, FALSE);
+  bobgui_tree_view_column_set_attributes (column, renderer,
 		  		       "text", STRING_COLUMN,
 				       "editable", IS_EDITABLE_COLUMN,
 				       "sensitive", IS_SENSITIVE_COLUMN,
@@ -313,64 +313,64 @@ main (int argc, char **argv)
                 "placeholder-text", "Type here too",
                 NULL);
 
-  renderer = gtk_cell_renderer_pixbuf_new ();
+  renderer = bobgui_cell_renderer_pixbuf_new ();
   g_object_set (renderer,
 		"xalign", 0.0,
 		NULL);
-  gtk_tree_view_column_pack_start (column, renderer, FALSE);
-  gtk_tree_view_column_set_attributes (column, renderer,
+  bobgui_tree_view_column_pack_start (column, renderer, FALSE);
+  bobgui_tree_view_column_set_attributes (column, renderer,
 				       "icon-name", LAST_ICON_NAME_COLUMN, 
 				       "sensitive", IS_SENSITIVE_COLUMN,
 				       NULL);
   callback[3].area = area;
   callback[3].renderer = renderer;
 
-  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
+  bobgui_tree_view_append_column (BOBGUI_TREE_VIEW (tree_view), column);
 
-  renderer = gtk_cell_renderer_toggle_new ();
+  renderer = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (renderer, "toggled",
 		    G_CALLBACK (editable_toggled), tree_model);
   
   g_object_set (renderer,
 		"xalign", 0.0,
 		NULL);
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Editable",
 					       renderer,
 					       "active", IS_EDITABLE_COLUMN,
 					       NULL);
 
-  renderer = gtk_cell_renderer_toggle_new ();
+  renderer = bobgui_cell_renderer_toggle_new ();
   g_signal_connect (renderer, "toggled",
 		    G_CALLBACK (sensitive_toggled), tree_model);
   
   g_object_set (renderer,
 		"xalign", 0.0,
 		NULL);
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Sensitive",
 					       renderer,
 					       "active", IS_SENSITIVE_COLUMN,
 					       NULL);
 
-  renderer = gtk_cell_renderer_progress_new ();
-  gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
+  renderer = bobgui_cell_renderer_progress_new ();
+  bobgui_tree_view_insert_column_with_attributes (BOBGUI_TREE_VIEW (tree_view),
 					       -1, "Progress",
 					       renderer,
 					       "value", PROGRESS_COLUMN,
 					       NULL);
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), tree_view);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled_window), tree_view);
 
-  gtk_window_set_default_size (GTK_WINDOW (window),
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window),
 			       800, 250);
 
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-  gtk_box_append (GTK_BOX (vbox), hbox);
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6);
+  bobgui_box_append (BOBGUI_BOX (vbox), hbox);
 
   /* Alignment controls */
-  cntl_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
-  gtk_box_append (GTK_BOX (hbox), cntl_vbox);
+  cntl_vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 2);
+  bobgui_box_append (BOBGUI_BOX (hbox), cntl_vbox);
 
   create_control (cntl_vbox, 1, CNTL_ALIGN, &callback[0]);
   create_control (cntl_vbox, 2, CNTL_ALIGN, &callback[1]);
@@ -378,8 +378,8 @@ main (int argc, char **argv)
   create_control (cntl_vbox, 4, CNTL_ALIGN, &callback[3]);
 
   /* Expand controls */
-  cntl_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
-  gtk_box_append (GTK_BOX (hbox), cntl_vbox);
+  cntl_vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 2);
+  bobgui_box_append (BOBGUI_BOX (hbox), cntl_vbox);
 
   create_control (cntl_vbox, 1, CNTL_EXPAND, &callback[0]);
   create_control (cntl_vbox, 2, CNTL_EXPAND, &callback[1]);
@@ -387,15 +387,15 @@ main (int argc, char **argv)
   create_control (cntl_vbox, 4, CNTL_EXPAND, &callback[3]);
 
   /* Fixed controls */
-  cntl_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
-  gtk_box_append (GTK_BOX (hbox), cntl_vbox);
+  cntl_vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 2);
+  bobgui_box_append (BOBGUI_BOX (hbox), cntl_vbox);
 
   create_control (cntl_vbox, 1, CNTL_FIXED, &callback[0]);
   create_control (cntl_vbox, 2, CNTL_FIXED, &callback[1]);
   create_control (cntl_vbox, 3, CNTL_FIXED, &callback[2]);
   create_control (cntl_vbox, 4, CNTL_FIXED, &callback[3]);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

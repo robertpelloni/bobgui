@@ -21,7 +21,7 @@
 #ifdef HAVE_PANGOFT
 #include <pango/pangofc-fontmap.h>
 #endif
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -35,15 +35,15 @@ monospace_filter (const PangoFontFamily *family,
 }
 
 static void
-notify_font_cb (GtkFontChooser *fontchooser, GParamSpec *pspec, gpointer data)
+notify_font_cb (BobguiFontChooser *fontchooser, GParamSpec *pspec, gpointer data)
 {
   PangoFontFamily *family;
   PangoFontFace *face;
 
-  g_debug ("Changed font name %s", gtk_font_chooser_get_font (fontchooser));
+  g_debug ("Changed font name %s", bobgui_font_chooser_get_font (fontchooser));
 
-  family = gtk_font_chooser_get_font_family (fontchooser);
-  face = gtk_font_chooser_get_font_face (fontchooser);
+  family = bobgui_font_chooser_get_font_family (fontchooser);
+  face = bobgui_font_chooser_get_font_face (fontchooser);
   if (family)
     {
        g_debug ("  Family: %s is-monospace:%s",
@@ -62,17 +62,17 @@ notify_font_cb (GtkFontChooser *fontchooser, GParamSpec *pspec, gpointer data)
 static void
 notify_preview_text_cb (GObject *fontchooser, GParamSpec *pspec, gpointer data)
 {
-  g_debug ("Changed preview text %s", gtk_font_chooser_get_preview_text (GTK_FONT_CHOOSER (fontchooser)));
+  g_debug ("Changed preview text %s", bobgui_font_chooser_get_preview_text (BOBGUI_FONT_CHOOSER (fontchooser)));
 }
 
 static void
-font_activated_cb (GtkFontChooser *chooser, const char *font_name, gpointer data)
+font_activated_cb (BobguiFontChooser *chooser, const char *font_name, gpointer data)
 {
   g_debug ("font-activated: %s", font_name);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -83,37 +83,37 @@ quit_cb (GtkWidget *widget,
 }
 
 static void
-level_changed (GtkCheckButton *button,
+level_changed (BobguiCheckButton *button,
                GParamSpec     *pspec,
                gpointer        data)
 {
-  GtkFontChooser *chooser = data;
-  GtkFontChooserLevel flags;
-  GtkFontChooserLevel flag;
+  BobguiFontChooser *chooser = data;
+  BobguiFontChooserLevel flags;
+  BobguiFontChooserLevel flag;
 
-  flags = gtk_font_chooser_get_level (chooser);
+  flags = bobgui_font_chooser_get_level (chooser);
   flag = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (button), "flag"));
 
-  if (gtk_check_button_get_active (button))
+  if (bobgui_check_button_get_active (button))
     flags |= flag;
   else
     flags &= ~flag;
 
-  gtk_font_chooser_set_level (chooser, flags);
+  bobgui_font_chooser_set_level (chooser, flags);
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *font_button;
-  GtkWidget *box;
-  GtkWidget *toggle;
+  BobguiWidget *window;
+  BobguiWidget *font_button;
+  BobguiWidget *box;
+  BobguiWidget *toggle;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  font_button = gtk_font_button_new ();
+  font_button = bobgui_font_button_new ();
 
 #ifdef HAVE_PANGOFT
   if (argc > 0)
@@ -131,39 +131,39 @@ main (int argc, char *argv[])
 
       fontmap = pango_cairo_font_map_new_for_font_type (CAIRO_FONT_TYPE_FT);
       pango_fc_font_map_set_config (PANGO_FC_FONT_MAP (fontmap), config);
-      gtk_font_chooser_set_font_map (GTK_FONT_CHOOSER (font_button), fontmap);
+      bobgui_font_chooser_set_font_map (BOBGUI_FONT_CHOOSER (font_button), fontmap);
     }
 #endif
 
-  gtk_font_button_set_use_font (GTK_FONT_BUTTON (font_button), TRUE);
+  bobgui_font_button_set_use_font (BOBGUI_FONT_BUTTON (font_button), TRUE);
 
-  window = gtk_window_new ();
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 10);
+  window = bobgui_window_new ();
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 10);
 
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  gtk_box_append (GTK_BOX (box), font_button);
+  bobgui_box_append (BOBGUI_BOX (box), font_button);
 
-  toggle = gtk_check_button_new_with_label ("Style");
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (toggle), TRUE);
-  g_object_set_data (G_OBJECT (toggle), "flag", GUINT_TO_POINTER (GTK_FONT_CHOOSER_LEVEL_STYLE));
+  toggle = bobgui_check_button_new_with_label ("Style");
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (toggle), TRUE);
+  g_object_set_data (G_OBJECT (toggle), "flag", GUINT_TO_POINTER (BOBGUI_FONT_CHOOSER_LEVEL_STYLE));
   g_signal_connect (toggle, "notify::active", G_CALLBACK (level_changed), font_button);
-  gtk_box_append (GTK_BOX (box), toggle);
-  toggle = gtk_check_button_new_with_label ("Size");
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (toggle), TRUE);
-  g_object_set_data (G_OBJECT (toggle), "flag", GUINT_TO_POINTER (GTK_FONT_CHOOSER_LEVEL_SIZE));
+  bobgui_box_append (BOBGUI_BOX (box), toggle);
+  toggle = bobgui_check_button_new_with_label ("Size");
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (toggle), TRUE);
+  g_object_set_data (G_OBJECT (toggle), "flag", GUINT_TO_POINTER (BOBGUI_FONT_CHOOSER_LEVEL_SIZE));
   g_signal_connect (toggle, "notify::active", G_CALLBACK (level_changed), font_button);
-  gtk_box_append (GTK_BOX (box), toggle);
-  toggle = gtk_check_button_new_with_label ("Variations");
-  g_object_set_data (G_OBJECT (toggle), "flag", GUINT_TO_POINTER (GTK_FONT_CHOOSER_LEVEL_VARIATIONS));
+  bobgui_box_append (BOBGUI_BOX (box), toggle);
+  toggle = bobgui_check_button_new_with_label ("Variations");
+  g_object_set_data (G_OBJECT (toggle), "flag", GUINT_TO_POINTER (BOBGUI_FONT_CHOOSER_LEVEL_VARIATIONS));
   g_signal_connect (toggle, "notify::active", G_CALLBACK (level_changed), font_button);
-  gtk_box_append (GTK_BOX (box), toggle);
-  toggle = gtk_check_button_new_with_label ("Features");
-  g_object_set_data (G_OBJECT (toggle), "flag", GUINT_TO_POINTER (GTK_FONT_CHOOSER_LEVEL_FEATURES));
+  bobgui_box_append (BOBGUI_BOX (box), toggle);
+  toggle = bobgui_check_button_new_with_label ("Features");
+  g_object_set_data (G_OBJECT (toggle), "flag", GUINT_TO_POINTER (BOBGUI_FONT_CHOOSER_LEVEL_FEATURES));
   g_signal_connect (toggle, "notify::active", G_CALLBACK (level_changed), font_button);
-  gtk_box_append (GTK_BOX (box), toggle);
+  bobgui_box_append (BOBGUI_BOX (box), toggle);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   g_signal_connect (font_button, "notify::font",
                     G_CALLBACK (notify_font_cb), NULL);
@@ -174,7 +174,7 @@ main (int argc, char *argv[])
 
   if (argc >= 2 && strcmp (argv[1], "--monospace") == 0)
     {
-      gtk_font_chooser_set_filter_func (GTK_FONT_CHOOSER (font_button),
+      bobgui_font_chooser_set_filter_func (BOBGUI_FONT_CHOOSER (font_button),
                                         monospace_filter, NULL, NULL);
     }
 

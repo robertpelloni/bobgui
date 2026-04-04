@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <epoxy/gl.h>
 
 /* A png for a red/yellow checkerboard */
@@ -12,7 +12,7 @@ static const char image_data[] = {
 };
 
 G_MODULE_EXPORT gboolean
-render_orange_glonly (GtkWidget    *glarea,
+render_orange_glonly (BobguiWidget    *glarea,
                       GdkGLContext *context)
 {
   GdkTexture *texture;
@@ -69,8 +69,8 @@ render_orange_glonly (GtkWidget    *glarea,
   glBlitFramebuffer (0, 0,
                      width / 4, height / 4,
                      0, 0,
-                     gtk_widget_get_width (glarea) * gtk_widget_get_scale_factor (glarea),
-                     gtk_widget_get_height (glarea) * gtk_widget_get_scale_factor (glarea),
+                     bobgui_widget_get_width (glarea) * bobgui_widget_get_scale_factor (glarea),
+                     bobgui_widget_get_height (glarea) * bobgui_widget_get_scale_factor (glarea),
                      GL_COLOR_BUFFER_BIT,
                      GL_LINEAR);
 

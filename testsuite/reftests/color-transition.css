@@ -8,11 +8,11 @@ window {
   background-color: #7F0080;
 }
 
-GtkBox {
+BobguiBox {
   background-color: red;
 }
 
-GtkBox GtkBox {
+BobguiBox BobguiBox {
   background-color: transparent;
   animation: foo 100s steps(2);
 }

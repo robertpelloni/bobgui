@@ -136,23 +136,23 @@ gdk_android_runtime_exit_looper_cb (int fd, int events, GThread *thread)
 }
 
 static void *
-gdk_android_runtime_gtk_thread (GdkAndroidRuntimeData *data)
+gdk_android_runtime_bobgui_thread (GdkAndroidRuntimeData *data)
 {
   __android_log_print (ANDROID_LOG_DEBUG,
-                       "GTK Runtime",
-                       "Reached GTK Thread");
+                       "BOBGUI Runtime",
+                       "Reached BOBGUI Thread");
 
   JNIEnv *env;
   JavaVMAttachArgs jargs = {
       .version = JNI_VERSION_1_6,
-      .name = "GTK Thread",
+      .name = "BOBGUI Thread",
       .group = NULL
   };
   int rc = (*data->vm)->AttachCurrentThread (data->vm, &env, &jargs);
   if (rc != JNI_OK)
     {
       __android_log_print (ANDROID_LOG_ERROR,
-                           "GTK Runtime",
+                           "BOBGUI Runtime",
                            "Unable to attach thread to JVM: Error %d", rc);
       gint exitfd = data->exitfd;
       g_free (data);
@@ -167,22 +167,22 @@ gdk_android_runtime_gtk_thread (GdkAndroidRuntimeData *data)
                    data,
                    NULL);
 
-  char *argv[] = { "android-gtk", NULL };
+  char *argv[] = { "android-bobgui", NULL };
   __android_log_print (ANDROID_LOG_DEBUG,
-                       "GTK Runtime",
+                       "BOBGUI Runtime",
                        "Calling main()");
   int ret = data->application_entrypoint (1, argv, environ);
   // Ideally, this should not be reached as a g_application_hold is active. But in cases where
   // g_application_quit was called, main shall return. We'll just clean up a bit and then exit
   // the process to have the OS give us a "clean" process.
   __android_log_print (ANDROID_LOG_WARN,
-                       "GTK Runtime",
+                       "BOBGUI Runtime",
                        "main() returned with %d", ret);
 
   if (!data->available_check_completed)
     {
       __android_log_print (ANDROID_LOG_ERROR,
-                           "GTK Runtime",
+                           "BOBGUI Runtime",
                            "GLib eventloop never ran. This is not supposed to happen!");
       pthread_barrier_wait (&data->application_available);
     }
@@ -191,19 +191,19 @@ gdk_android_runtime_gtk_thread (GdkAndroidRuntimeData *data)
   if (rc != JNI_OK)
     {
       __android_log_print (ANDROID_LOG_ERROR,
-                           "GTK Runtime",
+                           "BOBGUI Runtime",
                            "Unable to detach thread to JVM: Error %d", rc);
       ret = -1;
     }
   gint exitfd = data->exitfd;
   g_free (data);
 
-  // If this is reached, we could either attempt to restart the GTK thread, potentially resulting
+  // If this is reached, we could either attempt to restart the BOBGUI thread, potentially resulting
   // in an infinite loop in cases where g_application_run immediately exists (like when
   // g_application_quit has been called) or just exit the process to let the OS handle cleanup &&
   // reinitalization at a later date.
   // We can only call exit on the main thread (someone probably registered non threadsafe exit
-  // handlers). By closing this exitfd, we signal the looper to join the gtk thread.
+  // handlers). By closing this exitfd, we signal the looper to join the bobgui thread.
   close (exitfd);
   return GINT_TO_POINTER (ret);
 }
@@ -219,7 +219,7 @@ gdk_android_runtime_path_of_dir (JNIEnv *env, jobject dir)
 
 void g_set_user_dirs (const char *first_dir_type, ...) G_GNUC_NULL_TERMINATED;
 
-static GThread *gtk_thread_s = NULL;
+static GThread *bobgui_thread_s = NULL;
 
 static void
 _gdk_android_application_start_runtime (JNIEnv  *env,
@@ -239,12 +239,12 @@ _gdk_android_application_start_runtime (JNIEnv  *env,
       return;
     }
 
-  if (gtk_thread_s)
+  if (bobgui_thread_s)
     return;
 
   __android_log_print (ANDROID_LOG_DEBUG,
-                       "GTK Runtime",
-                       "Starting GTK Android runtime");
+                       "BOBGUI Runtime",
+                       "Starting BOBGUI Android runtime");
 
   g_set_print_handler (gdk_android_runtime_print_handler);
   g_set_printerr_handler (gdk_android_runtime_printerr_handler);
@@ -330,18 +330,18 @@ _gdk_android_application_start_runtime (JNIEnv  *env,
 
   pthread_barrier_init (&data->application_available, NULL, 2);
 
-  gtk_thread_s = g_thread_new ("GTK Thread", (GThreadFunc)gdk_android_runtime_gtk_thread, data);
+  bobgui_thread_s = g_thread_new ("BOBGUI Thread", (GThreadFunc)gdk_android_runtime_bobgui_thread, data);
 
   rc = ALooper_addFd (ALooper_forThread(),
                       pipefd[0], ALOOPER_POLL_CALLBACK, ALOOPER_EVENT_HANGUP,
-                      (ALooper_callbackFunc)gdk_android_runtime_exit_looper_cb, gtk_thread_s);
+                      (ALooper_callbackFunc)gdk_android_runtime_exit_looper_cb, bobgui_thread_s);
   g_assert (rc >= 0);
 
   pthread_barrier_wait (&data->application_available);
 }
 
 
-#define RUNTIME_APPLICATION_CLASS "org/gtk/android/RuntimeApplication"
+#define RUNTIME_APPLICATION_CLASS "org/bobgui/android/RuntimeApplication"
 static const JNINativeMethod
 gdk_android_runtime_application_natives[] = {
   { .name = "startRuntime", .signature = "(Ljava/lang/String;)V", .fnPtr = _gdk_android_application_start_runtime }
@@ -376,7 +376,7 @@ JNI_OnLoad (JavaVM *vm, gpointer reserved)
   else
     {
       __android_log_print (ANDROID_LOG_INFO,
-                           "GTK Runtime",
+                           "BOBGUI Runtime",
                            "Did not find \"" RUNTIME_APPLICATION_CLASS "\" in class path, skipping runtime initialization.");
       (*env)->ExceptionClear (env);
     }

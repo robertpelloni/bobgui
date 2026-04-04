@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 enum
 {
@@ -102,14 +102,14 @@ my_object_class_init (MyObjectClass *class)
   g_object_class_install_properties (object_class, LAST_PROPERTY, properties);
 }
 
-static GtkWidget *
+static BobguiWidget *
 create_widget (gpointer item,
                gpointer user_data)
 {
   MyObject *obj = (MyObject *)item;
-  GtkWidget *label;
+  BobguiWidget *label;
 
-  label = gtk_label_new ("");
+  label = bobgui_label_new ("");
   g_object_bind_property (obj, "label", label, "label", G_BINDING_SYNC_CREATE);
 
   return label;
@@ -127,7 +127,7 @@ compare_items (gconstpointer a, gconstpointer b, gpointer data)
 }
 
 static void
-add_some (GtkButton *button, GListStore *store)
+add_some (BobguiButton *button, GListStore *store)
 {
   int n, i;
   guint n_items;
@@ -150,7 +150,7 @@ add_some (GtkButton *button, GListStore *store)
 }
 
 static void
-remove_some (GtkButton *button, GListStore *store)
+remove_some (BobguiButton *button, GListStore *store)
 {
   int n, i;
   guint n_items;
@@ -168,11 +168,11 @@ remove_some (GtkButton *button, GListStore *store)
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *grid, *sw, *box, *button;
+  BobguiWidget *window, *grid, *sw, *box, *button;
   GListStore *store;
   int i;
 
-  gtk_init ();
+  bobgui_init ();
 
   store = g_list_store_new (my_object_get_type ());
   for (i = 0; i < 100; i++)
@@ -190,42 +190,42 @@ main (int argc, char *argv[])
       g_object_unref (obj);
     }
 
-  window = gtk_window_new ();
-  grid = gtk_grid_new ();
-  gtk_window_set_child (GTK_WINDOW (window), grid);
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-                                  GTK_POLICY_AUTOMATIC,
-                                  GTK_POLICY_AUTOMATIC);
-  gtk_widget_set_hexpand (sw, TRUE);
-  gtk_widget_set_vexpand (sw, TRUE);
-  gtk_grid_attach (GTK_GRID (grid), sw, 0, 0, 1, 1);
+  window = bobgui_window_new ();
+  grid = bobgui_grid_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), grid);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (sw),
+                                  BOBGUI_POLICY_AUTOMATIC,
+                                  BOBGUI_POLICY_AUTOMATIC);
+  bobgui_widget_set_hexpand (sw, TRUE);
+  bobgui_widget_set_vexpand (sw, TRUE);
+  bobgui_grid_attach (BOBGUI_GRID (grid), sw, 0, 0, 1, 1);
 
-  box = gtk_list_box_new ();
-  gtk_list_box_bind_model (GTK_LIST_BOX (box), G_LIST_MODEL (store), create_widget, NULL, NULL);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), box);
+  box = bobgui_list_box_new ();
+  bobgui_list_box_bind_model (BOBGUI_LIST_BOX (box), G_LIST_MODEL (store), create_widget, NULL, NULL);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), box);
 
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-                                  GTK_POLICY_AUTOMATIC,
-                                  GTK_POLICY_AUTOMATIC);
-  gtk_widget_set_hexpand (sw, TRUE);
-  gtk_widget_set_vexpand (sw, TRUE);
-  gtk_grid_attach (GTK_GRID (grid), sw, 1, 0, 1, 1);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (sw),
+                                  BOBGUI_POLICY_AUTOMATIC,
+                                  BOBGUI_POLICY_AUTOMATIC);
+  bobgui_widget_set_hexpand (sw, TRUE);
+  bobgui_widget_set_vexpand (sw, TRUE);
+  bobgui_grid_attach (BOBGUI_GRID (grid), sw, 1, 0, 1, 1);
 
-  box = gtk_flow_box_new ();
-  gtk_flow_box_bind_model (GTK_FLOW_BOX (box), G_LIST_MODEL (store), create_widget, NULL, NULL);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), box);
+  box = bobgui_flow_box_new ();
+  bobgui_flow_box_bind_model (BOBGUI_FLOW_BOX (box), G_LIST_MODEL (store), create_widget, NULL, NULL);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), box);
 
-  button = gtk_button_new_with_label ("Add some");
+  button = bobgui_button_new_with_label ("Add some");
   g_signal_connect (button, "clicked", G_CALLBACK (add_some), store);
-  gtk_grid_attach (GTK_GRID (grid), button, 0, 1, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), button, 0, 1, 1, 1);
 
-  button = gtk_button_new_with_label ("Remove some");
+  button = bobgui_button_new_with_label ("Remove some");
   g_signal_connect (button, "clicked", G_CALLBACK (remove_some), store);
-  gtk_grid_attach (GTK_GRID (grid), button, 0, 2, 1, 1);
+  bobgui_grid_attach (BOBGUI_GRID (grid), button, 0, 2, 1, 1);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

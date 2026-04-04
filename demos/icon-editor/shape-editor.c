@@ -27,21 +27,21 @@
 #include "number-editor.h"
 #include "path-editor.h"
 #include "transform-editor.h"
-#include "gtk/svg/gtksvgvalueprivate.h"
-#include "gtk/svg/gtksvgnumberprivate.h"
-#include "gtk/svg/gtksvgnumbersprivate.h"
-#include "gtk/svg/gtksvgenumprivate.h"
-#include "gtk/svg/gtksvgtransformprivate.h"
-#include "gtk/svg/gtksvgpaintprivate.h"
-#include "gtk/svg/gtksvgfilterfunctionsprivate.h"
-#include "gtk/svg/gtksvgpathprivate.h"
-#include "gtk/svg/gtksvgclipprivate.h"
-#include "gtk/svg/gtksvgmaskprivate.h"
-#include "gtk/svg/gtksvgelementprivate.h"
+#include "bobgui/svg/bobguisvgvalueprivate.h"
+#include "bobgui/svg/bobguisvgnumberprivate.h"
+#include "bobgui/svg/bobguisvgnumbersprivate.h"
+#include "bobgui/svg/bobguisvgenumprivate.h"
+#include "bobgui/svg/bobguisvgtransformprivate.h"
+#include "bobgui/svg/bobguisvgpaintprivate.h"
+#include "bobgui/svg/bobguisvgfilterfunctionsprivate.h"
+#include "bobgui/svg/bobguisvgpathprivate.h"
+#include "bobgui/svg/bobguisvgclipprivate.h"
+#include "bobgui/svg/bobguisvgmaskprivate.h"
+#include "bobgui/svg/bobguisvgelementprivate.h"
 
 struct _ShapeEditor
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   PathPaintable *paintable;
   SvgElement *shape;
@@ -52,10 +52,10 @@ struct _ShapeEditor
   SvgProperty externally_editing;
   int update_counter;
 
-  GtkGrid *grid;
-  GtkDropDown *shape_dropdown;
+  BobguiGrid *grid;
+  BobguiDropDown *shape_dropdown;
   PathEditor *path_editor;
-  GtkBox *polyline_box;
+  BobguiBox *polyline_box;
   NumberEditor *line_x1;
   NumberEditor *line_y1;
   NumberEditor *line_x2;
@@ -73,41 +73,41 @@ struct _ShapeEditor
   NumberEditor *rect_height;
   NumberEditor *rect_rx;
   NumberEditor *rect_ry;
-  GtkEditableLabel *id_label;
-  GtkDropDown *origin;
-  GtkDropDown *transition_type;
-  GtkSpinButton *transition_duration;
-  GtkSpinButton *transition_delay;
-  GtkDropDown *transition_easing;
-  GtkDropDown *animation_direction;
-  GtkSpinButton *animation_duration;
-  GtkSpinButton *animation_repeat;
-  GtkSpinButton *animation_segment;
-  GtkCheckButton *infty_check;
-  GtkDropDown *animation_easing;
+  BobguiEditableLabel *id_label;
+  BobguiDropDown *origin;
+  BobguiDropDown *transition_type;
+  BobguiSpinButton *transition_duration;
+  BobguiSpinButton *transition_delay;
+  BobguiDropDown *transition_easing;
+  BobguiDropDown *animation_direction;
+  BobguiSpinButton *animation_duration;
+  BobguiSpinButton *animation_repeat;
+  BobguiSpinButton *animation_segment;
+  BobguiCheckButton *infty_check;
+  BobguiDropDown *animation_easing;
   MiniGraph *mini_graph;
   ColorEditor *stroke_paint;
   NumberEditor *line_width;
   NumberEditor *min_width;
   NumberEditor *max_width;
-  GtkDropDown *line_join;
-  GtkDropDown *line_cap;
+  BobguiDropDown *line_join;
+  BobguiDropDown *line_cap;
   ColorEditor *fill_paint;
-  GtkDropDown *fill_rule;
-  GtkDropDown *attach_to;
-  GtkScale *attach_at;
-  GtkSizeGroup *sg;
-  GtkButton *move_down;
-  GtkDropDown *paint_order;
+  BobguiDropDown *fill_rule;
+  BobguiDropDown *attach_to;
+  BobguiScale *attach_at;
+  BobguiSizeGroup *sg;
+  BobguiButton *move_down;
+  BobguiDropDown *paint_order;
   AlphaEditor *opacity;
-  GtkScale *miter_limit;
+  BobguiScale *miter_limit;
   PathEditor *clip_path_editor;
-  GtkEntry *transform;
-  GtkBox *transform_box;
-  GtkEntry *filter;
-  GtkBox *children;
-  GtkDropDown *mask_type;
-  GtkDropDown *mask_dropdown;
+  BobguiEntry *transform;
+  BobguiBox *transform_box;
+  BobguiEntry *filter;
+  BobguiBox *children;
+  BobguiDropDown *mask_type;
+  BobguiDropDown *mask_dropdown;
 };
 
 enum
@@ -169,7 +169,7 @@ shape_changed (ShapeEditor *self)
       break;
     }
 
-  type = gtk_drop_down_get_selected (self->shape_dropdown);
+  type = bobgui_drop_down_get_selected (self->shape_dropdown);
   svg_element_set_type (self->shape, (SvgElementType) type);
   switch (type)
     {
@@ -251,20 +251,20 @@ shape_changed (ShapeEditor *self)
         SvgUnit *units;
         unsigned int i;
 
-        for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (self->polyline_box)); child; child = gtk_widget_get_next_sibling (child))
+        for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->polyline_box)); child; child = bobgui_widget_get_next_sibling (child))
           n_rows++;
 
         parms = g_newa (double, 2 * n_rows);
         units = g_newa (SvgUnit, 2 * n_rows);
 
         i = 0;
-        for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (self->polyline_box)); child; child = gtk_widget_get_next_sibling (child))
+        for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->polyline_box)); child; child = bobgui_widget_get_next_sibling (child))
           {
-            GtkWidget *editor;
+            BobguiWidget *editor;
 
-            editor = gtk_widget_get_first_child (child);
+            editor = bobgui_widget_get_first_child (child);
             number_editor_get (NUMBER_EDITOR (editor), &parms[2 * i], &units[2 * i]);
-            editor = gtk_widget_get_next_sibling (editor);
+            editor = bobgui_widget_get_next_sibling (editor);
             number_editor_get (NUMBER_EDITOR (editor), &parms[2 * i + 1], &units[2 * i + 1]);
             i++;
           }
@@ -306,36 +306,36 @@ shape_changed (ShapeEditor *self)
 }
 
 static void
-polyline_delete_row (GtkWidget   *button,
+polyline_delete_row (BobguiWidget   *button,
                      ShapeEditor *self)
 {
-  GtkWidget *row = gtk_widget_get_parent (button);
-  gtk_box_remove (GTK_BOX (gtk_widget_get_parent (row)), row);
+  BobguiWidget *row = bobgui_widget_get_parent (button);
+  bobgui_box_remove (BOBGUI_BOX (bobgui_widget_get_parent (row)), row);
   shape_changed (self);
 }
 
 static void
 polyline_add_row (ShapeEditor *self)
 {
-  GtkBox *box;
+  BobguiBox *box;
   NumberEditor *entry;
-  GtkButton *button;
+  BobguiButton *button;
 
-  box = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0));
+  box = BOBGUI_BOX (bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0));
   entry = number_editor_new ();
   g_signal_connect_swapped (entry, "notify::value", G_CALLBACK (shape_changed), self);
   g_signal_connect_swapped (entry, "notify::unit", G_CALLBACK (shape_changed), self);
-  gtk_box_append (box, GTK_WIDGET (entry));
+  bobgui_box_append (box, BOBGUI_WIDGET (entry));
   entry = number_editor_new ();
   g_signal_connect_swapped (entry, "notify::value", G_CALLBACK (shape_changed), self);
   g_signal_connect_swapped (entry, "notify::unit", G_CALLBACK (shape_changed), self);
-  gtk_box_append (box, GTK_WIDGET (entry));
-  button = GTK_BUTTON (gtk_button_new_from_icon_name ("user-trash-symbolic"));
-  gtk_widget_set_tooltip_text (GTK_WIDGET (button), "Delete Point");
+  bobgui_box_append (box, BOBGUI_WIDGET (entry));
+  button = BOBGUI_BUTTON (bobgui_button_new_from_icon_name ("user-trash-symbolic"));
+  bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (button), "Delete Point");
   g_signal_connect (button, "clicked", G_CALLBACK (polyline_delete_row), self);
-  gtk_box_append (box, GTK_WIDGET (button));
+  bobgui_box_append (box, BOBGUI_WIDGET (button));
 
-  gtk_box_append (self->polyline_box, GTK_WIDGET (box));
+  bobgui_box_append (self->polyline_box, BOBGUI_WIDGET (box));
   shape_changed (self);
 }
 
@@ -404,8 +404,8 @@ set_transform (ShapeEditor *self,
 {
   svg_element_take_base_value (self->shape, SVG_PROPERTY_TRANSFORM, tf);
   path_paintable_changed (self->paintable);
-  gtk_widget_remove_css_class (GTK_WIDGET (self->transform), "error");
-  gtk_accessible_reset_state (GTK_ACCESSIBLE (self->transform), GTK_ACCESSIBLE_STATE_INVALID);
+  bobgui_widget_remove_css_class (BOBGUI_WIDGET (self->transform), "error");
+  bobgui_accessible_reset_state (BOBGUI_ACCESSIBLE (self->transform), BOBGUI_ACCESSIBLE_STATE_INVALID);
 }
 
 static void
@@ -414,7 +414,7 @@ mask_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  if (gtk_drop_down_get_selected (self->mask_dropdown) == 0)
+  if (bobgui_drop_down_get_selected (self->mask_dropdown) == 0)
     {
       svg_element_set_base_value (self->shape, SVG_PROPERTY_MASK, NULL);
     }
@@ -422,7 +422,7 @@ mask_changed (ShapeEditor *self)
     {
       const char *id;
 
-      id = gtk_string_object_get_string (GTK_STRING_OBJECT (gtk_drop_down_get_selected_item (self->mask_dropdown)));
+      id = bobgui_string_object_get_string (BOBGUI_STRING_OBJECT (bobgui_drop_down_get_selected_item (self->mask_dropdown)));
       svg_element_take_base_value (self->shape, SVG_PROPERTY_MASK, svg_mask_new_url_take (g_strdup_printf ("#%s", id)));
     }
 
@@ -435,11 +435,11 @@ primitive_transform_changed (ShapeEditor *self)
   GString *s = g_string_new ("");
   SvgValue *value;
 
-  for (GtkWidget *row = gtk_widget_get_first_child (GTK_WIDGET (self->transform_box));
+  for (BobguiWidget *row = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->transform_box));
        row != NULL;
-       row = gtk_widget_get_next_sibling (row))
+       row = bobgui_widget_get_next_sibling (row))
     {
-      TransformEditor *e = TRANSFORM_EDITOR (gtk_widget_get_first_child (row));
+      TransformEditor *e = TRANSFORM_EDITOR (bobgui_widget_get_first_child (row));
       SvgValue *tf = transform_editor_get_transform (e);
       double params[6] = { 0, };
       TransformType type = svg_transform_get_primitive (tf, 0, params);
@@ -488,7 +488,7 @@ primitive_transform_changed (ShapeEditor *self)
       g_string_append_c (s, ')');
     }
 
-  gtk_editable_set_text (GTK_EDITABLE (self->transform), s->str);
+  bobgui_editable_set_text (BOBGUI_EDITABLE (self->transform), s->str);
 
   if (s->len > 0)
     value = svg_transform_parse (s->str);
@@ -501,11 +501,11 @@ primitive_transform_changed (ShapeEditor *self)
 }
 
 static void
-remove_primitive_transform (GtkButton   *button,
+remove_primitive_transform (BobguiButton   *button,
                             ShapeEditor *self)
 {
-  GtkWidget *row = gtk_widget_get_parent (GTK_WIDGET (button));
-  gtk_box_remove (GTK_BOX (gtk_widget_get_parent (row)), row);
+  BobguiWidget *row = bobgui_widget_get_parent (BOBGUI_WIDGET (button));
+  bobgui_box_remove (BOBGUI_BOX (bobgui_widget_get_parent (row)), row);
   primitive_transform_changed (self);
 }
 
@@ -514,30 +514,30 @@ add_transform_editor (ShapeEditor *self,
                       SvgValue    *value)
 {
   TransformEditor *e;
-  GtkBox *box;
-  GtkButton *button;
+  BobguiBox *box;
+  BobguiButton *button;
 
-  box = GTK_BOX (gtk_box_new (0, GTK_ORIENTATION_HORIZONTAL));
-  gtk_box_append (self->transform_box, GTK_WIDGET (box));
-  gtk_widget_set_hexpand (GTK_WIDGET (box), FALSE);
+  box = BOBGUI_BOX (bobgui_box_new (0, BOBGUI_ORIENTATION_HORIZONTAL));
+  bobgui_box_append (self->transform_box, BOBGUI_WIDGET (box));
+  bobgui_widget_set_hexpand (BOBGUI_WIDGET (box), FALSE);
 
   e = transform_editor_new ();
   transform_editor_set_transform (e, value);
   g_signal_connect_swapped (e, "notify::transform",
                             G_CALLBACK (primitive_transform_changed), self);
-  gtk_box_append (box, GTK_WIDGET (e));
+  bobgui_box_append (box, BOBGUI_WIDGET (e));
 
-  button = GTK_BUTTON (gtk_button_new_from_icon_name ("user-trash-symbolic"));
-  gtk_button_set_has_frame (button, FALSE);
-  gtk_widget_add_css_class (GTK_WIDGET (button), "circular");
-  gtk_widget_set_hexpand (GTK_WIDGET (button), TRUE);
-  gtk_widget_set_halign (GTK_WIDGET (button), GTK_ALIGN_END);
-  gtk_widget_set_valign (GTK_WIDGET (button), GTK_ALIGN_CENTER);
-  gtk_widget_set_tooltip_text (GTK_WIDGET (button), "Remove Transform");
+  button = BOBGUI_BUTTON (bobgui_button_new_from_icon_name ("user-trash-symbolic"));
+  bobgui_button_set_has_frame (button, FALSE);
+  bobgui_widget_add_css_class (BOBGUI_WIDGET (button), "circular");
+  bobgui_widget_set_hexpand (BOBGUI_WIDGET (button), TRUE);
+  bobgui_widget_set_halign (BOBGUI_WIDGET (button), BOBGUI_ALIGN_END);
+  bobgui_widget_set_valign (BOBGUI_WIDGET (button), BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (button), "Remove Transform");
   g_signal_connect (button, "clicked",
                     G_CALLBACK (remove_primitive_transform), self);
 
-  gtk_box_append (box, GTK_WIDGET (button));
+  bobgui_box_append (box, BOBGUI_WIDGET (button));
 }
 
 static void
@@ -546,11 +546,11 @@ populate_transform (ShapeEditor *self,
 {
   unsigned int n;
 
-  for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (self->transform_box));
+  for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->transform_box));
        child != NULL;
-       child = gtk_widget_get_first_child (GTK_WIDGET (self->transform_box)))
+       child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->transform_box)))
     {
-      gtk_box_remove (self->transform_box, child);
+      bobgui_box_remove (self->transform_box, child);
     }
 
   if (!tf)
@@ -569,7 +569,7 @@ populate_transform (ShapeEditor *self,
 static void
 transform_changed (ShapeEditor *self)
 {
-  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->transform));
+  const char *text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->transform));
   SvgValue *tf;
 
   if (text && *text)
@@ -584,10 +584,10 @@ transform_changed (ShapeEditor *self)
     }
   else
     {
-      gtk_widget_error_bell (GTK_WIDGET (self->transform));
-      gtk_widget_add_css_class (GTK_WIDGET (self->transform), "error");
-      gtk_accessible_update_state (GTK_ACCESSIBLE (self->transform),
-                                   GTK_ACCESSIBLE_STATE_INVALID, GTK_ACCESSIBLE_INVALID_TRUE,
+      bobgui_widget_error_bell (BOBGUI_WIDGET (self->transform));
+      bobgui_widget_add_css_class (BOBGUI_WIDGET (self->transform), "error");
+      bobgui_accessible_update_state (BOBGUI_ACCESSIBLE (self->transform),
+                                   BOBGUI_ACCESSIBLE_STATE_INVALID, BOBGUI_ACCESSIBLE_INVALID_TRUE,
                                    -1);
     }
 }
@@ -595,7 +595,7 @@ transform_changed (ShapeEditor *self)
 static void
 filter_changed (ShapeEditor *self)
 {
-  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->filter));
+  const char *text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->filter));
   SvgValue *value;
 
   if (text && *text)
@@ -607,15 +607,15 @@ filter_changed (ShapeEditor *self)
     {
       svg_element_take_base_value (self->shape, SVG_PROPERTY_FILTER, value);
       path_paintable_changed (self->paintable);
-      gtk_widget_remove_css_class (GTK_WIDGET (self->filter), "error");
-      gtk_accessible_reset_state (GTK_ACCESSIBLE (self->filter), GTK_ACCESSIBLE_STATE_INVALID);
+      bobgui_widget_remove_css_class (BOBGUI_WIDGET (self->filter), "error");
+      bobgui_accessible_reset_state (BOBGUI_ACCESSIBLE (self->filter), BOBGUI_ACCESSIBLE_STATE_INVALID);
     }
   else
     {
-      gtk_widget_error_bell (GTK_WIDGET (self->filter));
-      gtk_widget_add_css_class (GTK_WIDGET (self->filter), "error");
-      gtk_accessible_update_state (GTK_ACCESSIBLE (self->filter),
-                                   GTK_ACCESSIBLE_STATE_INVALID, GTK_ACCESSIBLE_INVALID_TRUE,
+      bobgui_widget_error_bell (BOBGUI_WIDGET (self->filter));
+      bobgui_widget_add_css_class (BOBGUI_WIDGET (self->filter), "error");
+      bobgui_accessible_update_state (BOBGUI_ACCESSIBLE (self->filter),
+                                   BOBGUI_ACCESSIBLE_STATE_INVALID, BOBGUI_ACCESSIBLE_INVALID_TRUE,
                                    -1);
     }
 }
@@ -651,14 +651,14 @@ animation_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  animation = (GpaAnimation) gtk_drop_down_get_selected (self->animation_direction);
-  duration = gtk_spin_button_get_value (self->animation_duration);
-  if (gtk_check_button_get_active (self->infty_check))
+  animation = (GpaAnimation) bobgui_drop_down_get_selected (self->animation_direction);
+  duration = bobgui_spin_button_get_value (self->animation_duration);
+  if (bobgui_check_button_get_active (self->infty_check))
     repeat = REPEAT_FOREVER;
   else
-    repeat = gtk_spin_button_get_value (self->animation_repeat);
-  segment = gtk_spin_button_get_value (self->animation_segment);
-  easing = (GpaEasing) gtk_drop_down_get_selected (self->animation_easing);
+    repeat = bobgui_spin_button_get_value (self->animation_repeat);
+  segment = bobgui_spin_button_get_value (self->animation_segment);
+  easing = (GpaEasing) bobgui_drop_down_get_selected (self->animation_easing);
 
   svg_element_get_gpa_animation (self->shape, &old_animation, &old_easing, &old_duration, &old_repeat, &old_segment);
   if (old_animation == animation &&
@@ -687,10 +687,10 @@ transition_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  transition = (GpaTransition) gtk_drop_down_get_selected (self->transition_type);
-  duration = gtk_spin_button_get_value (self->transition_duration);
-  delay = gtk_spin_button_get_value (self->transition_delay);
-  easing = (GpaEasing) gtk_drop_down_get_selected (self->transition_easing);
+  transition = (GpaTransition) bobgui_drop_down_get_selected (self->transition_type);
+  duration = bobgui_spin_button_get_value (self->transition_duration);
+  delay = bobgui_spin_button_get_value (self->transition_delay);
+  easing = (GpaEasing) bobgui_drop_down_get_selected (self->transition_easing);
 
   svg_element_get_gpa_transition (self->shape, &old_transition, &old_easing, &old_duration, &old_delay);
   if (old_transition == transition &&
@@ -711,7 +711,7 @@ origin_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  origin = gtk_range_get_value (GTK_RANGE (self->origin));
+  origin = bobgui_range_get_value (BOBGUI_RANGE (self->origin));
   if (svg_element_get_gpa_origin (self->shape) == origin)
     return;
 
@@ -727,7 +727,7 @@ id_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  id = gtk_editable_get_text (GTK_EDITABLE (self->id_label));
+  id = bobgui_editable_get_text (BOBGUI_EDITABLE (self->id_label));
   svg_element_set_id (self->shape, id);
   path_paintable_changed (self->paintable);
 }
@@ -735,7 +735,7 @@ id_changed (ShapeEditor *self)
 static void
 paint_order_changed (ShapeEditor *self)
 {
-  unsigned int value = gtk_drop_down_get_selected (self->paint_order);
+  unsigned int value = bobgui_drop_down_get_selected (self->paint_order);
 
   if (self->updating)
     return;
@@ -777,9 +777,9 @@ stroke_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  line_join = gtk_drop_down_get_selected (self->line_join);
-  line_cap = gtk_drop_down_get_selected (self->line_cap);
-  miter_limit = gtk_range_get_value (GTK_RANGE (self->miter_limit));
+  line_join = bobgui_drop_down_get_selected (self->line_join);
+  line_cap = bobgui_drop_down_get_selected (self->line_cap);
+  miter_limit = bobgui_range_get_value (BOBGUI_RANGE (self->miter_limit));
 
   number_editor_get (self->line_width, &width, &width_unit);
   number_editor_get (self->min_width, &min, &min_unit);
@@ -789,7 +789,7 @@ stroke_changed (ShapeEditor *self)
   if (selected == 0)
     {
       do_stroke = FALSE;
-      symbolic = GTK_SYMBOLIC_COLOR_FOREGROUND;
+      symbolic = BOBGUI_SYMBOLIC_COLOR_FOREGROUND;
     }
   else if (selected == 6)
     {
@@ -880,13 +880,13 @@ fill_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  fill_rule = gtk_drop_down_get_selected (self->fill_rule);
+  fill_rule = bobgui_drop_down_get_selected (self->fill_rule);
 
   selected = color_editor_get_color_type (self->fill_paint);
   if (selected == 0)
     {
       do_fill = FALSE;
-      symbolic = GTK_SYMBOLIC_COLOR_FOREGROUND;
+      symbolic = BOBGUI_SYMBOLIC_COLOR_FOREGROUND;
     }
   else if (selected == 6)
     {
@@ -947,8 +947,8 @@ attach_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  selected = gtk_drop_down_get_selected (self->attach_to);
-  pos = gtk_range_get_value (GTK_RANGE (self->attach_at));
+  selected = bobgui_drop_down_get_selected (self->attach_to);
+  pos = bobgui_range_get_value (BOBGUI_RANGE (self->attach_at));
 
   if (selected == 0)
     svg_element_set_gpa_attachment (self->shape, NULL, pos, NULL);
@@ -957,7 +957,7 @@ attach_changed (ShapeEditor *self)
       const char *id;
       SvgElement *sh;
 
-      id = gtk_string_object_get_string (GTK_STRING_OBJECT (gtk_drop_down_get_selected_item (self->attach_to)));
+      id = bobgui_string_object_get_string (BOBGUI_STRING_OBJECT (bobgui_drop_down_get_selected_item (self->attach_to)));
       sh = path_paintable_get_shape_by_id (self->paintable, id);
 
       svg_element_set_gpa_attachment (self->shape, id, pos, sh);
@@ -974,7 +974,7 @@ mask_type_changed (ShapeEditor *self)
   if (self->updating)
     return;
 
-  switch (gtk_drop_down_get_selected (self->mask_type))
+  switch (bobgui_drop_down_get_selected (self->mask_type))
     {
     case 0:
       mode = GSK_MASK_MODE_LUMINANCE;
@@ -1195,7 +1195,7 @@ add_shape (ShapeEditor *self)
 
 typedef struct
 {
-  GtkStringList *model;
+  BobguiStringList *model;
   SvgElement *skip;
 } CollectData;
 
@@ -1208,7 +1208,7 @@ collect_graphical (SvgElement    *shape,
   if (shape_is_graphical (shape) &&
       shape != d->skip &&
       svg_element_get_id (shape) != NULL)
-    gtk_string_list_append (d->model, svg_element_get_id (shape));
+    bobgui_string_list_append (d->model, svg_element_get_id (shape));
 }
 
 static void
@@ -1227,37 +1227,37 @@ collect_masks (SvgElement    *shape,
         return;
     }
 
-  gtk_string_list_append (d->model, svg_element_get_id (shape));
+  bobgui_string_list_append (d->model, svg_element_get_id (shape));
 }
 
 static void
 repopulate_attach_to (ShapeEditor *self)
 {
-  g_autoptr (GtkStringList) model = NULL;
+  g_autoptr (BobguiStringList) model = NULL;
   CollectData data;
 
-  model = gtk_string_list_new (NULL);
-  gtk_string_list_append (model, "None");
+  model = bobgui_string_list_new (NULL);
+  bobgui_string_list_append (model, "None");
 
   data.model = model;
   data.skip = self->shape;
   svg_element_foreach (path_paintable_get_svg (self->paintable)->content, collect_graphical, &data);
-  gtk_drop_down_set_model (self->attach_to, G_LIST_MODEL (model));
+  bobgui_drop_down_set_model (self->attach_to, G_LIST_MODEL (model));
 }
 
 static void
 repopulate_mask (ShapeEditor *self)
 {
-  g_autoptr (GtkStringList) model  = NULL;
+  g_autoptr (BobguiStringList) model  = NULL;
   CollectData data;
 
-  model = gtk_string_list_new (NULL);
-  gtk_string_list_append (model, "None");
+  model = bobgui_string_list_new (NULL);
+  bobgui_string_list_append (model, "None");
 
   data.model = model;
   data.skip = self->shape;
   svg_element_foreach (path_paintable_get_svg (self->paintable)->content, collect_masks, &data);
-  gtk_drop_down_set_model (self->mask_dropdown, G_LIST_MODEL (model));
+  bobgui_drop_down_set_model (self->mask_dropdown, G_LIST_MODEL (model));
 }
 
 static void
@@ -1280,8 +1280,8 @@ append_shape_editor (ShapeEditor *self,
   ShapeEditor *pe;
 
   pe = shape_editor_new (self->paintable, shape);
-  gtk_box_append (self->children, GTK_WIDGET (pe));
-  gtk_box_append (self->children, gtk_separator_new (GTK_ORIENTATION_HORIZONTAL));
+  bobgui_box_append (self->children, BOBGUI_WIDGET (pe));
+  bobgui_box_append (self->children, bobgui_separator_new (BOBGUI_ORIENTATION_HORIZONTAL));
 }
 
 static void
@@ -1314,13 +1314,13 @@ shape_editor_update (ShapeEditor *self)
       id = svg_element_get_id (self->shape);
       type = svg_element_get_type (self->shape);
 
-      gtk_editable_set_text (GTK_EDITABLE (self->id_label), id ? id : "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->id_label), id ? id : "");
 
       self->updating = TRUE;
 
       if (!can_edit_shape (self->shape))
         {
-          gtk_drop_down_set_selected (self->shape_dropdown, svg_element_get_type (self->shape));
+          bobgui_drop_down_set_selected (self->shape_dropdown, svg_element_get_type (self->shape));
 
           self->updating = FALSE;
           g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_UPDATE_COUNTER]);
@@ -1359,7 +1359,7 @@ shape_editor_update (ShapeEditor *self)
       number_editor_set (self->rect_rx, 0, SVG_UNIT_NUMBER);
       number_editor_set (self->rect_ry, 0, SVG_UNIT_NUMBER);
 
-      gtk_drop_down_set_selected (self->shape_dropdown, type);
+      bobgui_drop_down_set_selected (self->shape_dropdown, type);
       switch ((unsigned int) type)
         {
         case SVG_ELEMENT_LINE:
@@ -1431,7 +1431,7 @@ shape_editor_update (ShapeEditor *self)
           g_assert_not_reached ();
         }
 
-      gtk_editable_set_text (GTK_EDITABLE (self->id_label), id ? id : "");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->id_label), id ? id : "");
 
       if (shape_is_graphical (self->shape))
         {
@@ -1445,33 +1445,33 @@ shape_editor_update (ShapeEditor *self)
 
           svg_element_get_gpa_transition (self->shape, &transition, &easing, &duration, &delay);
 
-          gtk_drop_down_set_selected (self->transition_type, transition);
+          bobgui_drop_down_set_selected (self->transition_type, transition);
 
-          gtk_drop_down_set_selected (self->transition_easing, easing);
-          gtk_spin_button_set_value (self->transition_duration, duration / (double) G_TIME_SPAN_MILLISECOND);
-          gtk_spin_button_set_value (self->transition_delay, delay / (double) G_TIME_SPAN_MILLISECOND);
+          bobgui_drop_down_set_selected (self->transition_easing, easing);
+          bobgui_spin_button_set_value (self->transition_duration, duration / (double) G_TIME_SPAN_MILLISECOND);
+          bobgui_spin_button_set_value (self->transition_delay, delay / (double) G_TIME_SPAN_MILLISECOND);
 
-          gtk_range_set_value (GTK_RANGE (self->origin), svg_element_get_gpa_origin (self->shape));
+          bobgui_range_set_value (BOBGUI_RANGE (self->origin), svg_element_get_gpa_origin (self->shape));
           svg_element_get_gpa_animation (self->shape, &animation, &easing, &duration, &repeat, &segment);
-          gtk_drop_down_set_selected (self->animation_direction, animation);
+          bobgui_drop_down_set_selected (self->animation_direction, animation);
 
-          gtk_spin_button_set_value (self->animation_duration, duration / (double) G_TIME_SPAN_MILLISECOND);
+          bobgui_spin_button_set_value (self->animation_duration, duration / (double) G_TIME_SPAN_MILLISECOND);
           if (repeat == REPEAT_FOREVER)
             {
-              gtk_check_button_set_active (self->infty_check, TRUE);
-              gtk_spin_button_set_value (self->animation_repeat, 1);
+              bobgui_check_button_set_active (self->infty_check, TRUE);
+              bobgui_spin_button_set_value (self->animation_repeat, 1);
             }
           else
             {
-              gtk_check_button_set_active (self->infty_check, FALSE);
-              gtk_spin_button_set_value (self->animation_repeat, repeat);
+              bobgui_check_button_set_active (self->infty_check, FALSE);
+              bobgui_spin_button_set_value (self->animation_repeat, repeat);
             }
 
-          gtk_drop_down_set_selected (self->animation_easing, easing);
+          bobgui_drop_down_set_selected (self->animation_easing, easing);
 
           mini_graph_set_easing (self->mini_graph, easing);
 
-          gtk_spin_button_set_value (self->animation_segment, segment);
+          bobgui_spin_button_set_value (self->animation_segment, segment);
         }
 
       symbolic = 0xffff;
@@ -1502,9 +1502,9 @@ shape_editor_update (ShapeEditor *self)
       number_editor_set (self->min_width, svg_number_get (min_width, 100), svg_number_get_unit (min_width));
       number_editor_set (self->max_width, svg_number_get (max_width, 100), svg_number_get_unit (max_width));
 
-      gtk_drop_down_set_selected (self->line_join, svg_enum_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_STROKE_LINEJOIN)));
-      gtk_drop_down_set_selected (self->line_cap, svg_enum_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_STROKE_LINECAP)));
-      gtk_range_set_value (GTK_RANGE (self->miter_limit), svg_number_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_STROKE_MITERLIMIT), 100));
+      bobgui_drop_down_set_selected (self->line_join, svg_enum_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_STROKE_LINEJOIN)));
+      bobgui_drop_down_set_selected (self->line_cap, svg_enum_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_STROKE_LINECAP)));
+      bobgui_range_set_value (BOBGUI_RANGE (self->miter_limit), svg_number_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_STROKE_MITERLIMIT), 100));
 
       symbolic = 0xffff;
       color = (GdkRGBA) { 0, 0, 0, 1 };
@@ -1526,7 +1526,7 @@ shape_editor_update (ShapeEditor *self)
 
       color_editor_set_color (self->fill_paint, &color);
 
-      gtk_drop_down_set_selected (self->fill_rule, svg_enum_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_FILL_RULE)));
+      bobgui_drop_down_set_selected (self->fill_rule, svg_enum_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_FILL_RULE)));
 
       if (shape_is_graphical (self->shape))
         {
@@ -1537,14 +1537,14 @@ shape_editor_update (ShapeEditor *self)
           svg_element_get_gpa_attachment (self->shape, NULL, &pos, NULL);
 #if 0
           if (self->shape->gpa.attach.shape == NULL)
-            gtk_drop_down_set_selected (self->attach_to, 0);
+            bobgui_drop_down_set_selected (self->attach_to, 0);
           else if (to < self->path)
-            gtk_drop_down_set_selected (self->attach_to, to + 1);
+            bobgui_drop_down_set_selected (self->attach_to, to + 1);
           else
-            gtk_drop_down_set_selected (self->attach_to, to);
+            bobgui_drop_down_set_selected (self->attach_to, to);
 #endif
 
-          gtk_range_set_value (GTK_RANGE (self->attach_at), pos);
+          bobgui_range_set_value (BOBGUI_RANGE (self->attach_at), pos);
         }
 
       for (idx = 0; idx < svg_element_get_n_children (svg_element_get_parent (self->shape)); idx++)
@@ -1553,9 +1553,9 @@ shape_editor_update (ShapeEditor *self)
             break;
         }
       if (idx + 1 == svg_element_get_n_children (svg_element_get_parent (self->shape)))
-        gtk_widget_set_sensitive (GTK_WIDGET (self->move_down), FALSE);
+        bobgui_widget_set_sensitive (BOBGUI_WIDGET (self->move_down), FALSE);
 
-      gtk_drop_down_set_selected (self->paint_order,
+      bobgui_drop_down_set_selected (self->paint_order,
                                   svg_enum_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_PAINT_ORDER)));
 
       alpha_editor_set_alpha (self->opacity, svg_number_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_OPACITY), 1));
@@ -1602,15 +1602,15 @@ shape_editor_update (ShapeEditor *self)
               GListModel *model;
               const char *ref = NULL;
 
-              model = gtk_drop_down_get_model (self->mask_dropdown);
+              model = bobgui_drop_down_get_model (self->mask_dropdown);
               ref = svg_mask_get_id (value);
-              pos = gtk_string_list_find (GTK_STRING_LIST (model), ref);
+              pos = bobgui_string_list_find (BOBGUI_STRING_LIST (model), ref);
               if (pos == G_MAXUINT)
                 pos = 0;
             }
           svg_value_unref (initial);
 
-          gtk_drop_down_set_selected (self->mask_dropdown, pos);
+          bobgui_drop_down_set_selected (self->mask_dropdown, pos);
         }
 
       if (svg_property_applies_to (SVG_PROPERTY_TRANSFORM, type))
@@ -1619,9 +1619,9 @@ shape_editor_update (ShapeEditor *self)
           text = svg_value_to_string (value);
 
           if (g_strcmp0 (text, "none") == 0)
-            gtk_editable_set_text (GTK_EDITABLE (self->transform), "");
+            bobgui_editable_set_text (BOBGUI_EDITABLE (self->transform), "");
           else
-            gtk_editable_set_text (GTK_EDITABLE (self->transform), text);
+            bobgui_editable_set_text (BOBGUI_EDITABLE (self->transform), text);
 
           tf = svg_transform_parse (text);
           populate_transform (self, tf);
@@ -1636,9 +1636,9 @@ shape_editor_update (ShapeEditor *self)
           text = svg_value_to_string (value);
 
           if (g_strcmp0 (text, "none") == 0)
-            gtk_editable_set_text (GTK_EDITABLE (self->filter), "");
+            bobgui_editable_set_text (BOBGUI_EDITABLE (self->filter), "");
           else
-            gtk_editable_set_text (GTK_EDITABLE (self->filter), text);
+            bobgui_editable_set_text (BOBGUI_EDITABLE (self->filter), text);
 
           g_clear_pointer (&text, g_free);
         }
@@ -1652,10 +1652,10 @@ shape_editor_update (ShapeEditor *self)
           switch (svg_enum_get (svg_element_get_base_value (self->shape, SVG_PROPERTY_MASK_TYPE)))
             {
             case GSK_MASK_MODE_LUMINANCE:
-              gtk_drop_down_set_selected (self->mask_type, 0);
+              bobgui_drop_down_set_selected (self->mask_type, 0);
               break;
             case GSK_MASK_MODE_ALPHA:
-              gtk_drop_down_set_selected (self->mask_type, 1);
+              bobgui_drop_down_set_selected (self->mask_type, 1);
               break;
             default:
               g_assert_not_reached ();
@@ -1674,15 +1674,15 @@ shape_editor_update (ShapeEditor *self)
 
 struct _ShapeEditorClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (ShapeEditor, shape_editor, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (ShapeEditor, shape_editor, BOBGUI_TYPE_WIDGET)
 
 static void
 shape_editor_init (ShapeEditor *self)
 {
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 }
 
 static void
@@ -1716,7 +1716,7 @@ shape_editor_get_property (GObject      *object,
 static void
 shape_editor_dispose (GObject *object)
 {
-  gtk_widget_dispose_template (GTK_WIDGET (object), SHAPE_EDITOR_TYPE);
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), SHAPE_EDITOR_TYPE);
 
   G_OBJECT_CLASS (shape_editor_parent_class)->dispose (object);
 }
@@ -1739,7 +1739,7 @@ static void
 shape_editor_class_init (ShapeEditorClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   g_type_ensure (COLOR_EDITOR_TYPE);
   g_type_ensure (alpha_editor_get_type ());
@@ -1769,99 +1769,99 @@ shape_editor_class_init (ShapeEditorClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gtk/Shaper/shape-editor.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class, "/org/bobgui/Shaper/shape-editor.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, grid);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, shape_dropdown);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, path_editor);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, polyline_box);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, line_x1);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, line_y1);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, line_x2);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, line_y2);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, circle_cx);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, circle_cy);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, circle_r);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, ellipse_cx);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, ellipse_cy);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, ellipse_rx);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, ellipse_ry);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, rect_x);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, rect_y);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, rect_width);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, rect_height);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, rect_rx);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, rect_ry);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, id_label);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, origin);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, transition_type);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, transition_duration);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, transition_delay);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, transition_easing);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, animation_direction);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, animation_duration);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, animation_segment);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, animation_repeat);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, infty_check);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, animation_easing);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, mini_graph);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, stroke_paint);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, min_width);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, line_width);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, max_width);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, line_join);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, line_cap);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, fill_paint);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, fill_rule);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, attach_to);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, attach_at);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, move_down);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, sg);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, paint_order);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, opacity);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, miter_limit);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, clip_path_editor);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, transform);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, filter);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, children);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, transform_box);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, mask_type);
-  gtk_widget_class_bind_template_child (widget_class, ShapeEditor, mask_dropdown);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, grid);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, shape_dropdown);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, path_editor);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, polyline_box);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, line_x1);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, line_y1);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, line_x2);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, line_y2);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, circle_cx);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, circle_cy);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, circle_r);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, ellipse_cx);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, ellipse_cy);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, ellipse_rx);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, ellipse_ry);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, rect_x);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, rect_y);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, rect_width);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, rect_height);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, rect_rx);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, rect_ry);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, id_label);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, origin);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, transition_type);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, transition_duration);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, transition_delay);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, transition_easing);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, animation_direction);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, animation_duration);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, animation_segment);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, animation_repeat);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, infty_check);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, animation_easing);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, mini_graph);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, stroke_paint);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, min_width);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, line_width);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, max_width);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, line_join);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, line_cap);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, fill_paint);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, fill_rule);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, attach_to);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, attach_at);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, move_down);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, sg);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, paint_order);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, opacity);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, miter_limit);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, clip_path_editor);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, transform);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, filter);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, children);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, transform_box);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, mask_type);
+  bobgui_widget_class_bind_template_child (widget_class, ShapeEditor, mask_dropdown);
 
-  gtk_widget_class_bind_template_callback (widget_class, transition_changed);
-  gtk_widget_class_bind_template_callback (widget_class, animation_changed);
-  gtk_widget_class_bind_template_callback (widget_class, origin_changed);
-  gtk_widget_class_bind_template_callback (widget_class, id_changed);
-  gtk_widget_class_bind_template_callback (widget_class, paint_order_changed);
-  gtk_widget_class_bind_template_callback (widget_class, opacity_changed);
-  gtk_widget_class_bind_template_callback (widget_class, stroke_changed);
-  gtk_widget_class_bind_template_callback (widget_class, fill_changed);
-  gtk_widget_class_bind_template_callback (widget_class, attach_changed);
-  gtk_widget_class_bind_template_callback (widget_class, bb_and_uint_equal);
-  gtk_widget_class_bind_template_callback (widget_class, bb_and_uint_unequal);
-  gtk_widget_class_bind_template_callback (widget_class, bbb_and_uint_unequal);
-  gtk_widget_class_bind_template_callback (widget_class, bb_and_uint_one_of_two);
-  gtk_widget_class_bind_template_callback (widget_class, bb_and_shape_is_graphical);
-  gtk_widget_class_bind_template_callback (widget_class, bb_and_shape_has_children);
-  gtk_widget_class_bind_template_callback (widget_class, bb_and_shape_has_gpa);
-  gtk_widget_class_bind_template_callback (widget_class, bb_and_shape_has_attr);
-  gtk_widget_class_bind_template_callback (widget_class, bool_and_no_edit);
-  gtk_widget_class_bind_template_callback (widget_class, duplicate_shape);
-  gtk_widget_class_bind_template_callback (widget_class, move_shape_down);
-  gtk_widget_class_bind_template_callback (widget_class, delete_shape);
-  gtk_widget_class_bind_template_callback (widget_class, add_shape);
-  gtk_widget_class_bind_template_callback (widget_class, shape_changed);
-  gtk_widget_class_bind_template_callback (widget_class, polyline_add_row);
-  gtk_widget_class_bind_template_callback (widget_class, polyline_delete_row);
-  gtk_widget_class_bind_template_callback (widget_class, transform_changed);
-  gtk_widget_class_bind_template_callback (widget_class, filter_changed);
-  gtk_widget_class_bind_template_callback (widget_class, add_primitive_transform);
-  gtk_widget_class_bind_template_callback (widget_class, path_changed);
-  gtk_widget_class_bind_template_callback (widget_class, clip_path_changed);
-  gtk_widget_class_bind_template_callback (widget_class, mask_type_changed);
-  gtk_widget_class_bind_template_callback (widget_class, mask_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, transition_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, animation_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, origin_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, id_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, paint_order_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, opacity_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, stroke_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, fill_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, attach_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, bb_and_uint_equal);
+  bobgui_widget_class_bind_template_callback (widget_class, bb_and_uint_unequal);
+  bobgui_widget_class_bind_template_callback (widget_class, bbb_and_uint_unequal);
+  bobgui_widget_class_bind_template_callback (widget_class, bb_and_uint_one_of_two);
+  bobgui_widget_class_bind_template_callback (widget_class, bb_and_shape_is_graphical);
+  bobgui_widget_class_bind_template_callback (widget_class, bb_and_shape_has_children);
+  bobgui_widget_class_bind_template_callback (widget_class, bb_and_shape_has_gpa);
+  bobgui_widget_class_bind_template_callback (widget_class, bb_and_shape_has_attr);
+  bobgui_widget_class_bind_template_callback (widget_class, bool_and_no_edit);
+  bobgui_widget_class_bind_template_callback (widget_class, duplicate_shape);
+  bobgui_widget_class_bind_template_callback (widget_class, move_shape_down);
+  bobgui_widget_class_bind_template_callback (widget_class, delete_shape);
+  bobgui_widget_class_bind_template_callback (widget_class, add_shape);
+  bobgui_widget_class_bind_template_callback (widget_class, shape_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, polyline_add_row);
+  bobgui_widget_class_bind_template_callback (widget_class, polyline_delete_row);
+  bobgui_widget_class_bind_template_callback (widget_class, transform_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, filter_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, add_primitive_transform);
+  bobgui_widget_class_bind_template_callback (widget_class, path_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, clip_path_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, mask_type_changed);
+  bobgui_widget_class_bind_template_callback (widget_class, mask_changed);
 
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
+  bobgui_widget_class_set_layout_manager_type (widget_class, BOBGUI_TYPE_BIN_LAYOUT);
 }
 
 /* }}} */

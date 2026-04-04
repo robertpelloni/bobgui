@@ -41,7 +41,7 @@
  * handle:
  *
  * - the GLib main loop is in control. The application has called
- *   gtk_main(), or is otherwise iterating the main loop.
+ *   bobgui_main(), or is otherwise iterating the main loop.
  * - CFRunLoop is in control. We are in a modal operation such as window
  *   resizing.
  * - CFRunLoop is running a nested loop. This happens when a drag-and-drop

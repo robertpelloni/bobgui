@@ -196,7 +196,7 @@ _gdk_x11_screen_get_xft_setting (GdkX11Screen *x11_screen,
                                  const char   *name,
                                  GValue       *value)
 {
-  if (strncmp (name, "gtk-xft-", 8) != 0)
+  if (strncmp (name, "bobgui-xft-", 8) != 0)
     return FALSE;
 
   name += 8;

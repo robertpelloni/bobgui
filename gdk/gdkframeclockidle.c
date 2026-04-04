@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2010.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2010.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -123,7 +123,7 @@ get_sleep_serial (void)
     {
       sleep_source = g_source_new (&sleep_source_funcs, sizeof (GSource));
 
-      g_source_set_static_name (sleep_source, "[gtk] sleep serial");
+      g_source_set_static_name (sleep_source, "[bobgui] sleep serial");
       g_source_set_priority (sleep_source, G_PRIORITY_HIGH);
       g_source_attach (sleep_source, NULL);
       g_source_unref (sleep_source);
@@ -338,7 +338,7 @@ maybe_start_idle (GdkFrameClockIdle *self,
                                                     g_object_ref (self),
                                                     (GDestroyNotify) g_object_unref);
           source = g_main_context_find_source_by_id (NULL, priv->flush_idle_id);
-          g_source_set_static_name (source, "[gtk] gdk_frame_clock_flush_idle");
+          g_source_set_static_name (source, "[bobgui] gdk_frame_clock_flush_idle");
         }
 
       if (!priv->in_paint_idle &&
@@ -350,7 +350,7 @@ maybe_start_idle (GdkFrameClockIdle *self,
                                                     gdk_frame_clock_paint_idle,
                                                     g_object_ref (self),
                                                     (GDestroyNotify) g_object_unref);
-          gdk_source_set_static_name_by_id (priv->paint_idle_id, "[gtk] gdk_frame_clock_paint_idle");
+          gdk_source_set_static_name_by_id (priv->paint_idle_id, "[bobgui] gdk_frame_clock_paint_idle");
         }
     }
 }

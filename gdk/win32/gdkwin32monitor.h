@@ -22,7 +22,7 @@
 
 #pragma once
 
-#if !defined (__GDKWIN32_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKWIN32_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdkwin32.h> can be included directly."
 #endif
 
@@ -34,7 +34,7 @@ G_BEGIN_DECLS
 #define GDK_WIN32_MONITOR(object)        (G_TYPE_CHECK_INSTANCE_CAST ((object), GDK_TYPE_WIN32_MONITOR, GdkWin32Monitor))
 #define GDK_IS_WIN32_MONITOR(object)     (G_TYPE_CHECK_INSTANCE_TYPE ((object), GDK_TYPE_WIN32_MONITOR))
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkWin32Monitor      GdkWin32Monitor;
 #else
 typedef GdkMonitor GdkWin32Monitor;

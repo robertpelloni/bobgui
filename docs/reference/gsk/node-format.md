@@ -1,6 +1,6 @@
 Title: The Node file format
 
-GSK render nodes can be serialized and deserialized using APIs such as `gsk_render_node_serialize()` and `gsk_render_node_deserialize()`. The intended use for this is development - primarily the development of GTK - by allowing things such as creating testsuites and benchmarks, exchanging nodes in bug reports. GTK includes the `gtk4-node-editor` application for creating such test files.
+GSK render nodes can be serialized and deserialized using APIs such as `gsk_render_node_serialize()` and `gsk_render_node_deserialize()`. The intended use for this is development - primarily the development of BOBGUI - by allowing things such as creating testsuites and benchmarks, exchanging nodes in bug reports. BOBGUI includes the `bobgui4-node-editor` application for creating such test files.
 
 The format is a text format that follows the [CSS syntax rules](https://drafts.csswg.org/css-syntax-3/). In particular, this means that every array of bytes will produce a render node when parsed, as there is a defined error recovery method. For more details on error handling, please refer to the documentation of the parsing APIs.
 
@@ -122,7 +122,7 @@ The following properties can be set for custom color states:
 | range     | `<range>`        | full     | non-default |
 
 Note that the primaries, transfer and matrix properties always need
-to be specified, since GTK does not allow creating color state objects
+to be specified, since BOBGUI does not allow creating color state objects
 with these being set to 2 (== unspecified).
 
 Range can have the following values:

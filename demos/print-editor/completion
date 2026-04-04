@@ -1,4 +1,4 @@
-_gtk4_print_editor()
+_bobgui4_print_editor()
 {
     local cur prev opts
     COMPREPLY=()
@@ -15,4 +15,4 @@ _gtk4_print_editor()
         return 0
     fi
 }
-complete -F _gtk4_print_editor gtk4-print-editor
+complete -F _bobgui4_print_editor bobgui4-print-editor

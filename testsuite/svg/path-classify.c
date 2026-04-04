@@ -1,9 +1,9 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "gsk/gskroundedrectprivate.h"
 #include "gsk/gskpathprivate.h"
 #include "gsk/gskcontourprivate.h"
 
-#include "gtk/svg/gtksvgpathutilsprivate.h"
+#include "bobgui/svg/bobguisvgpathutilsprivate.h"
 
 typedef struct
 {
@@ -249,7 +249,7 @@ main (int   argc,
   GskRoundedRect r;
   unsigned int i;
 
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   for (i = 0; i < G_N_ELEMENTS (tests); i++)
     add_test (i + 1, tests[i].path_str, tests[i].expected);

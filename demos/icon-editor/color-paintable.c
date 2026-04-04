@@ -23,36 +23,36 @@
 
 struct _ColorPaintable
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
-  GtkSymbolicColor symbolic;
+  BobguiSymbolicColor symbolic;
   float alpha;
 };
 
 /* {{{ Utilities */
 
 static void
-snapshot_checkered_pattern (GtkSnapshot *snapshot,
+snapshot_checkered_pattern (BobguiSnapshot *snapshot,
                             int          width,
                             int          height)
 {
   const GdkRGBA color1 = (GdkRGBA) { 0.603, 0.603, 0.603, 1 };
   const GdkRGBA color2 = (GdkRGBA) { 0.329, 0.329, 0.329, 1 };
 
-  gtk_snapshot_push_repeat (snapshot, &GRAPHENE_RECT_INIT (0, 0, width, height), NULL);
-  gtk_snapshot_append_color (snapshot, &color1, &GRAPHENE_RECT_INIT (0,  0,  10, 10));
-  gtk_snapshot_append_color (snapshot, &color2, &GRAPHENE_RECT_INIT (10, 0,  10, 10));
-  gtk_snapshot_append_color (snapshot, &color2, &GRAPHENE_RECT_INIT (0,  10, 10, 10));
-  gtk_snapshot_append_color (snapshot, &color1, &GRAPHENE_RECT_INIT (10, 10, 10, 10));
-  gtk_snapshot_pop (snapshot);
+  bobgui_snapshot_push_repeat (snapshot, &GRAPHENE_RECT_INIT (0, 0, width, height), NULL);
+  bobgui_snapshot_append_color (snapshot, &color1, &GRAPHENE_RECT_INIT (0,  0,  10, 10));
+  bobgui_snapshot_append_color (snapshot, &color2, &GRAPHENE_RECT_INIT (10, 0,  10, 10));
+  bobgui_snapshot_append_color (snapshot, &color2, &GRAPHENE_RECT_INIT (0,  10, 10, 10));
+  bobgui_snapshot_append_color (snapshot, &color1, &GRAPHENE_RECT_INIT (10, 10, 10, 10));
+  bobgui_snapshot_pop (snapshot);
 }
 
 /* }}} */
-/* {{{ GtkWidget implementation */
+/* {{{ BobguiWidget implementation */
 
 static void
-color_paintable_snapshot_with_weight (GtkSymbolicPaintable  *paintable,
-                                      GtkSnapshot           *snapshot,
+color_paintable_snapshot_with_weight (BobguiSymbolicPaintable  *paintable,
+                                      BobguiSnapshot           *snapshot,
                                       double                 width,
                                       double                 height,
                                       const GdkRGBA         *colors,
@@ -66,14 +66,14 @@ color_paintable_snapshot_with_weight (GtkSymbolicPaintable  *paintable,
   color.alpha *= self->alpha;
 
   snapshot_checkered_pattern (snapshot, width, height);
-  gtk_snapshot_append_color (snapshot,
+  bobgui_snapshot_append_color (snapshot,
                              &color,
                              &GRAPHENE_RECT_INIT (0, 0, width, height));
 }
 
 static void
-color_paintable_snapshot_symbolic (GtkSymbolicPaintable  *paintable,
-                                   GtkSnapshot           *snapshot,
+color_paintable_snapshot_symbolic (BobguiSymbolicPaintable  *paintable,
+                                   BobguiSnapshot           *snapshot,
                                    double                 width,
                                    double                 height,
                                    const GdkRGBA         *colors,
@@ -87,7 +87,7 @@ color_paintable_snapshot_symbolic (GtkSymbolicPaintable  *paintable,
 }
 
 static void
-color_paintable_init_symbolic_paintable_interface (GtkSymbolicPaintableInterface *iface)
+color_paintable_init_symbolic_paintable_interface (BobguiSymbolicPaintableInterface *iface)
 {
   iface->snapshot_symbolic = color_paintable_snapshot_symbolic;
   iface->snapshot_with_weight = color_paintable_snapshot_with_weight;
@@ -98,11 +98,11 @@ color_paintable_init_symbolic_paintable_interface (GtkSymbolicPaintableInterface
 
 static void
 color_paintable_snapshot (GdkPaintable  *paintable,
-                           GtkSnapshot   *snapshot,
+                           BobguiSnapshot   *snapshot,
                            double         width,
                            double         height)
 {
-  color_paintable_snapshot_symbolic (GTK_SYMBOLIC_PAINTABLE (paintable),
+  color_paintable_snapshot_symbolic (BOBGUI_SYMBOLIC_PAINTABLE (paintable),
                                       snapshot,
                                       width, height,
                                       NULL, 0);
@@ -148,7 +148,7 @@ static GParamSpec *properties[NUM_PROPERTIES];
 G_DEFINE_TYPE_WITH_CODE (ColorPaintable, color_paintable, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GDK_TYPE_PAINTABLE,
                                                 color_paintable_init_paintable_interface)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SYMBOLIC_PAINTABLE,
+                         G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_SYMBOLIC_PAINTABLE,
                                                 color_paintable_init_symbolic_paintable_interface))
 
 static void
@@ -214,7 +214,7 @@ color_paintable_class_init (ColorPaintableClass *class)
 
   properties[PROP_SYMBOLIC] =
     g_param_spec_enum ("symbolic", NULL, NULL,
-                       GTK_TYPE_SYMBOLIC_COLOR, GTK_SYMBOLIC_COLOR_FOREGROUND,
+                       BOBGUI_TYPE_SYMBOLIC_COLOR, BOBGUI_SYMBOLIC_COLOR_FOREGROUND,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   properties[PROP_ALPHA] =
@@ -236,7 +236,7 @@ color_paintable_new (void)
 
 void
 color_paintable_set_symbolic (ColorPaintable   *self,
-                              GtkSymbolicColor  symbolic)
+                              BobguiSymbolicColor  symbolic)
 {
   g_return_if_fail (COLOR_IS_PAINTABLE (self));
 
@@ -249,10 +249,10 @@ color_paintable_set_symbolic (ColorPaintable   *self,
   gdk_paintable_invalidate_contents (GDK_PAINTABLE (self));
 }
 
-GtkSymbolicColor
+BobguiSymbolicColor
 color_paintable_get_symbolic (ColorPaintable *self)
 {
-  g_return_val_if_fail (COLOR_IS_PAINTABLE (self), GTK_SYMBOLIC_COLOR_FOREGROUND);
+  g_return_val_if_fail (COLOR_IS_PAINTABLE (self), BOBGUI_SYMBOLIC_COLOR_FOREGROUND);
 
   return self->symbolic;
 }

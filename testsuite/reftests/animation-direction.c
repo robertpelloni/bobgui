@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
-#include "gtk-reftest.h"
+#include "bobgui-reftest.h"
 
 static gboolean
 unblock (gpointer data)
@@ -32,17 +32,17 @@ unblock (gpointer data)
 }
 
 G_MODULE_EXPORT void
-strip_attributes_if_no_animation (GtkWidget *widget)
+strip_attributes_if_no_animation (BobguiWidget *widget)
 {
   gboolean enabled;
 
-  g_object_get (gtk_widget_get_settings (widget), "gtk-enable-animations", &enabled, NULL);
+  g_object_get (bobgui_widget_get_settings (widget), "bobgui-enable-animations", &enabled, NULL);
   if (enabled)
     return;
 
   g_message ("Unsetting text attributes because animation is disabled.");
 
   reftest_inhibit_snapshot ();
-  gtk_label_set_attributes (GTK_LABEL (widget), NULL);
+  bobgui_label_set_attributes (BOBGUI_LABEL (widget), NULL);
   g_timeout_add (500, unblock, NULL);
 }

@@ -20,23 +20,23 @@
  */
 
 #include "path-editor.h"
-#include "gtk/svg/gtksvgelementprivate.h"
+#include "bobgui/svg/bobguisvgelementprivate.h"
 
 
 struct _PathEditor
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   double width;
   double height;
   GskPath *path;
   PathPaintable *paintable;
 
-  GtkStack *path_cmds_stack;
-  GtkLabel *path_cmds_label;
-  GtkEntry *path_cmds_entry;
-  GtkButton *external_edit_button;
-  GtkMenuButton *id_dropdown;
+  BobguiStack *path_cmds_stack;
+  BobguiLabel *path_cmds_label;
+  BobguiEntry *path_cmds_entry;
+  BobguiButton *external_edit_button;
+  BobguiMenuButton *id_dropdown;
 };
 
 enum
@@ -146,12 +146,12 @@ path_cmds_clicked (PathEditor *self)
 
       svg_element_foreach (path_paintable_get_svg (self->paintable)->content, collect_ids, menu);
 
-      gtk_menu_button_set_menu_model (self->id_dropdown, G_MENU_MODEL (menu));
+      bobgui_menu_button_set_menu_model (self->id_dropdown, G_MENU_MODEL (menu));
     }
 
-  gtk_stack_set_visible_child_name (self->path_cmds_stack, "entry");
+  bobgui_stack_set_visible_child_name (self->path_cmds_stack, "entry");
 
-  gtk_entry_grab_focus_without_selecting (self->path_cmds_entry);
+  bobgui_entry_grab_focus_without_selecting (self->path_cmds_entry);
 }
 
 static gboolean
@@ -165,11 +165,11 @@ path_cmds_key (PathEditor      *self,
       g_autofree char *text = NULL;
 
       text = gsk_path_to_string (self->path);
-      gtk_editable_set_text (GTK_EDITABLE (self->path_cmds_entry), text);
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->path_cmds_entry), text);
 
-      gtk_widget_remove_css_class (GTK_WIDGET (self->path_cmds_entry), "error");
-      gtk_accessible_reset_state (GTK_ACCESSIBLE (self->path_cmds_entry), GTK_ACCESSIBLE_STATE_INVALID);
-      gtk_stack_set_visible_child_name (self->path_cmds_stack, "label");
+      bobgui_widget_remove_css_class (BOBGUI_WIDGET (self->path_cmds_entry), "error");
+      bobgui_accessible_reset_state (BOBGUI_ACCESSIBLE (self->path_cmds_entry), BOBGUI_ACCESSIBLE_STATE_INVALID);
+      bobgui_stack_set_visible_child_name (self->path_cmds_stack, "label");
       return TRUE;
     }
 
@@ -183,7 +183,7 @@ path_cmds_activated (PathEditor *self)
   g_autoptr (GskPath) path = NULL;
   const char *id = NULL;
 
-  text = gtk_editable_get_text (GTK_EDITABLE (self->path_cmds_entry));
+  text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->path_cmds_entry));
   path = gsk_path_parse (text);
 
   if (self->paintable)
@@ -195,28 +195,28 @@ path_cmds_activated (PathEditor *self)
 
   if (!path && !id)
     {
-      gtk_widget_error_bell (GTK_WIDGET (self->path_cmds_entry));
-      gtk_widget_add_css_class (GTK_WIDGET (self->path_cmds_entry), "error");
-      gtk_accessible_update_state (GTK_ACCESSIBLE (self->path_cmds_entry),
-                                   GTK_ACCESSIBLE_STATE_INVALID, GTK_ACCESSIBLE_INVALID_TRUE,
+      bobgui_widget_error_bell (BOBGUI_WIDGET (self->path_cmds_entry));
+      bobgui_widget_add_css_class (BOBGUI_WIDGET (self->path_cmds_entry), "error");
+      bobgui_accessible_update_state (BOBGUI_ACCESSIBLE (self->path_cmds_entry),
+                                   BOBGUI_ACCESSIBLE_STATE_INVALID, BOBGUI_ACCESSIBLE_INVALID_TRUE,
                                    -1);
       return;
     }
 
-  gtk_widget_remove_css_class (GTK_WIDGET (self->path_cmds_entry), "error");
-  gtk_accessible_reset_state (GTK_ACCESSIBLE (self->path_cmds_entry), GTK_ACCESSIBLE_STATE_INVALID);
+  bobgui_widget_remove_css_class (BOBGUI_WIDGET (self->path_cmds_entry), "error");
+  bobgui_accessible_reset_state (BOBGUI_ACCESSIBLE (self->path_cmds_entry), BOBGUI_ACCESSIBLE_STATE_INVALID);
 
   if (strcmp (text, "") == 0)
-    gtk_label_set_label (self->path_cmds_label, "—");
+    bobgui_label_set_label (self->path_cmds_label, "—");
   else
-    gtk_label_set_label (self->path_cmds_label, text);
-  gtk_stack_set_visible_child_name (self->path_cmds_stack, "label");
+    bobgui_label_set_label (self->path_cmds_label, text);
+  bobgui_stack_set_visible_child_name (self->path_cmds_stack, "label");
 
   g_clear_pointer (&self->path, gsk_path_unref);
   if (path)
     self->path = gsk_path_ref (path);
 
-  gtk_widget_set_sensitive (GTK_WIDGET (self->external_edit_button), path != NULL);
+  bobgui_widget_set_sensitive (BOBGUI_WIDGET (self->external_edit_button), path != NULL);
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_PATH]);
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_ID]);
@@ -227,12 +227,12 @@ show_error (PathEditor *self,
             const char *title,
             const char *detail)
 {
-  GtkWindow *window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (self)));
-  g_autoptr (GtkAlertDialog) alert = NULL;
+  BobguiWindow *window = BOBGUI_WINDOW (bobgui_widget_get_root (BOBGUI_WIDGET (self)));
+  g_autoptr (BobguiAlertDialog) alert = NULL;
 
-  alert = gtk_alert_dialog_new ("title");
-  gtk_alert_dialog_set_detail (alert, detail);
-  gtk_alert_dialog_show (alert, window);
+  alert = bobgui_alert_dialog_new ("title");
+  bobgui_alert_dialog_set_detail (alert, detail);
+  bobgui_alert_dialog_show (alert, window);
 }
 
 static void
@@ -274,10 +274,10 @@ file_launched (GObject      *source,
                GAsyncResult *result,
                gpointer      data)
 {
-  GtkFileLauncher *launcher = GTK_FILE_LAUNCHER (source);
+  BobguiFileLauncher *launcher = BOBGUI_FILE_LAUNCHER (source);
   g_autoptr (GError) error = NULL;
 
-  if (!gtk_file_launcher_launch_finish (launcher, result, &error))
+  if (!bobgui_file_launcher_launch_finish (launcher, result, &error))
     {
       g_print ("Failed to launch path editor: %s", error->message);
     }
@@ -295,12 +295,12 @@ edit_path_externally (PathEditor *self)
   g_autoptr (GError) error = NULL;
   GFileMonitor *monitor;
   g_autoptr (GskPath) path = NULL;
-  g_autoptr(GtkFileLauncher) launcher = NULL;
-  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+  g_autoptr(BobguiFileLauncher) launcher = NULL;
+  BobguiRoot *root = bobgui_widget_get_root (BOBGUI_WIDGET (self));
 
   if (!self->path)
     {
-      gtk_widget_error_bell (GTK_WIDGET (self));
+      bobgui_widget_error_bell (BOBGUI_WIDGET (self));
       return;
     }
 
@@ -327,7 +327,7 @@ edit_path_externally (PathEditor *self)
   g_string_append (str, "</svg>");
   bytes = g_string_free_to_bytes (str);
 
-  filename = g_build_filename (g_get_user_cache_dir (), "org.gtk.Shaper-path.svg", NULL);
+  filename = g_build_filename (g_get_user_cache_dir (), "org.bobgui.Shaper-path.svg", NULL);
   file = g_file_new_for_path (filename);
   ostream = G_OUTPUT_STREAM (g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, &error));
   if (!ostream)
@@ -355,11 +355,11 @@ edit_path_externally (PathEditor *self)
   g_signal_connect_object (monitor, "changed",
                            G_CALLBACK (temp_file_changed), self, G_CONNECT_DEFAULT);
 
-  launcher = gtk_file_launcher_new (file);
+  launcher = bobgui_file_launcher_new (file);
 
-  gtk_file_launcher_set_writable (launcher, TRUE);
+  bobgui_file_launcher_set_writable (launcher, TRUE);
 
-  gtk_file_launcher_launch (launcher, GTK_WINDOW (root), NULL, file_launched, self);
+  bobgui_file_launcher_launch (launcher, BOBGUI_WINDOW (root), NULL, file_launched, self);
 }
 
 static void
@@ -373,15 +373,15 @@ edit_path (PathEditor *self)
 
 struct _PathEditorClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (PathEditor, path_editor, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (PathEditor, path_editor, BOBGUI_TYPE_WIDGET)
 
 static void
 path_editor_init (PathEditor *self)
 {
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 }
 
 static void
@@ -439,7 +439,7 @@ path_editor_get_property (GObject      *object,
       break;
 
     case PROP_ID:
-      g_value_set_string (value, gtk_label_get_label (self->path_cmds_label));
+      g_value_set_string (value, bobgui_label_get_label (self->path_cmds_label));
       break;
 
     default:
@@ -453,7 +453,7 @@ path_editor_dispose (GObject *object)
 {
   PathEditor *self = PATH_EDITOR (object);
 
-  gtk_widget_dispose_template (GTK_WIDGET (object), PATH_EDITOR_TYPE);
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), PATH_EDITOR_TYPE);
 
   g_clear_object (&self->paintable);
 
@@ -471,7 +471,7 @@ path_editor_finalize (GObject *object)
 }
 
 static void
-set_id (GtkWidget  *widget,
+set_id (BobguiWidget  *widget,
         const char *action_name,
         GVariant   *parameter)
 {
@@ -486,14 +486,14 @@ set_id (GtkWidget  *widget,
   else
     path_editor_set_id (self, id);
 
-  gtk_stack_set_visible_child_name (self->path_cmds_stack, "label");
+  bobgui_stack_set_visible_child_name (self->path_cmds_stack, "label");
 }
 
 static void
 path_editor_class_init (PathEditorClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->set_property = path_editor_set_property;
   object_class->get_property = path_editor_get_property;
@@ -522,22 +522,22 @@ path_editor_class_init (PathEditorClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gtk/Shaper/path-editor.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class, "/org/bobgui/Shaper/path-editor.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, PathEditor, path_cmds_stack);
-  gtk_widget_class_bind_template_child (widget_class, PathEditor, path_cmds_label);
-  gtk_widget_class_bind_template_child (widget_class, PathEditor, path_cmds_entry);
-  gtk_widget_class_bind_template_child (widget_class, PathEditor, external_edit_button);
-  gtk_widget_class_bind_template_child (widget_class, PathEditor, id_dropdown);
+  bobgui_widget_class_bind_template_child (widget_class, PathEditor, path_cmds_stack);
+  bobgui_widget_class_bind_template_child (widget_class, PathEditor, path_cmds_label);
+  bobgui_widget_class_bind_template_child (widget_class, PathEditor, path_cmds_entry);
+  bobgui_widget_class_bind_template_child (widget_class, PathEditor, external_edit_button);
+  bobgui_widget_class_bind_template_child (widget_class, PathEditor, id_dropdown);
 
-  gtk_widget_class_bind_template_callback (widget_class, path_cmds_clicked);
-  gtk_widget_class_bind_template_callback (widget_class, path_cmds_activated);
-  gtk_widget_class_bind_template_callback (widget_class, path_cmds_key);
-  gtk_widget_class_bind_template_callback (widget_class, edit_path);
+  bobgui_widget_class_bind_template_callback (widget_class, path_cmds_clicked);
+  bobgui_widget_class_bind_template_callback (widget_class, path_cmds_activated);
+  bobgui_widget_class_bind_template_callback (widget_class, path_cmds_key);
+  bobgui_widget_class_bind_template_callback (widget_class, edit_path);
 
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
+  bobgui_widget_class_set_layout_manager_type (widget_class, BOBGUI_TYPE_BIN_LAYOUT);
 
-  gtk_widget_class_install_action (widget_class, "set_id", "s", set_id);
+  bobgui_widget_class_install_action (widget_class, "set_id", "s", set_id);
 }
 
 /* }}} */
@@ -576,14 +576,14 @@ path_editor_set_path (PathEditor *self,
 
   if (gsk_path_is_empty (path))
     {
-      gtk_label_set_label (self->path_cmds_label, "—");
-      gtk_editable_set_text (GTK_EDITABLE (self->path_cmds_entry), "");
+      bobgui_label_set_label (self->path_cmds_label, "—");
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->path_cmds_entry), "");
     }
   else
     {
       g_autofree char *text = gsk_path_to_string (path);
-      gtk_label_set_label (self->path_cmds_label, text);
-      gtk_editable_set_text (GTK_EDITABLE (self->path_cmds_entry), text);
+      bobgui_label_set_label (self->path_cmds_label, text);
+      bobgui_editable_set_text (BOBGUI_EDITABLE (self->path_cmds_entry), text);
     }
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_PATH]);
@@ -597,8 +597,8 @@ path_editor_set_id (PathEditor *self,
   g_return_if_fail (self->paintable != NULL);
 
   g_clear_pointer (&self->path, gsk_path_unref);
-  gtk_label_set_label (self->path_cmds_label, id);
-  gtk_editable_set_text (GTK_EDITABLE (self->path_cmds_entry), id);
+  bobgui_label_set_label (self->path_cmds_label, id);
+  bobgui_editable_set_text (BOBGUI_EDITABLE (self->path_cmds_entry), id);
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_PATH]);
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_ID]);
@@ -610,7 +610,7 @@ path_editor_get_id (PathEditor *self)
   if (self->paintable == NULL)
     return NULL;
 
-  return gtk_editable_get_text (GTK_EDITABLE (self->path_cmds_entry));
+  return bobgui_editable_get_text (BOBGUI_EDITABLE (self->path_cmds_entry));
 }
 
 void
@@ -619,7 +619,7 @@ path_editor_set_paintable (PathEditor *self,
 {
   g_clear_object (&self->paintable);
   self->paintable = g_object_ref (paintable);
-  gtk_widget_set_visible (GTK_WIDGET (self->id_dropdown), TRUE);
+  bobgui_widget_set_visible (BOBGUI_WIDGET (self->id_dropdown), TRUE);
 }
 
 /* }}} */

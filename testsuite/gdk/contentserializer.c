@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 typedef gboolean (* ValueCompareFunc) (GValue *v1, GValue *v2);
 
@@ -518,10 +518,10 @@ test_serialize_union_textbuffer (void)
     NULL,
   };
   const char * const * mime_types;
-  GtkTextBuffer *b = gtk_text_buffer_new (NULL); // Just to register serializers
+  BobguiTextBuffer *b = bobgui_text_buffer_new (NULL); // Just to register serializers
 
   builder = gdk_content_formats_builder_new ();
-  gdk_content_formats_builder_add_gtype (builder, GTK_TYPE_TEXT_BUFFER);
+  gdk_content_formats_builder_add_gtype (builder, BOBGUI_TYPE_TEXT_BUFFER);
   formats = gdk_content_formats_builder_free_to_formats (builder);
 
   result = gdk_content_formats_union_serialize_mime_types (formats);
@@ -543,10 +543,10 @@ test_deserialize_union_textbuffer (void)
     NULL,
   };
   const char * const * mime_types;
-  GtkTextBuffer *b = gtk_text_buffer_new (NULL);
+  BobguiTextBuffer *b = bobgui_text_buffer_new (NULL);
 
   builder = gdk_content_formats_builder_new ();
-  gdk_content_formats_builder_add_gtype (builder, GTK_TYPE_TEXT_BUFFER);
+  gdk_content_formats_builder_add_gtype (builder, BOBGUI_TYPE_TEXT_BUFFER);
   formats = gdk_content_formats_builder_free_to_formats (builder);
 
   result = gdk_content_formats_union_deserialize_mime_types (formats);
@@ -644,7 +644,7 @@ main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
 
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/content/text_plain_utf8", test_content_text_plain_utf8);
   g_test_add_func ("/content/text_plain", test_content_text_plain);

@@ -25,15 +25,15 @@
 #include "path-paintable.h"
 #include "border-paintable.h"
 #include "state-editor.h"
-#include "gtk/svg/gtksvgelementprivate.h"
-#include "gtk/svg/gtksvgpaintprivate.h"
+#include "bobgui/svg/bobguisvgelementprivate.h"
+#include "bobgui/svg/bobguisvgpaintprivate.h"
 
 #include <glib/gstdio.h>
 
 
 struct _IconEditorWindow
 {
-  GtkApplicationWindow parent;
+  BobguiApplicationWindow parent;
 
   GFile *file;
   PathPaintable *paintable;
@@ -50,33 +50,33 @@ struct _IconEditorWindow
   gboolean compat_classes;
   float weight;
   unsigned int state;
-  GtkStack *main_stack;
-  GtkImage *empty_logo;
+  BobguiStack *main_stack;
+  BobguiImage *empty_logo;
   union {
-    GtkImage *images[24];
+    BobguiImage *images[24];
     struct {
-      GtkImage *image48_0, *image48_1, *image48_2, *image48_3;
-      GtkImage *image48_4, *image48_5, *image48_6, *image48_7;
-      GtkImage *image24_0, *image24_1, *image24_2, *image24_3;
-      GtkImage *image24_4, *image24_5, *image24_6, *image24_7;
-      GtkImage *image24_8, *image24_9, *image24_10, *image24_11;
-      GtkImage *image24_12, *image24_13, *image24_14, *image24_15;
+      BobguiImage *image48_0, *image48_1, *image48_2, *image48_3;
+      BobguiImage *image48_4, *image48_5, *image48_6, *image48_7;
+      BobguiImage *image24_0, *image24_1, *image24_2, *image24_3;
+      BobguiImage *image24_4, *image24_5, *image24_6, *image24_7;
+      BobguiImage *image24_8, *image24_9, *image24_10, *image24_11;
+      BobguiImage *image24_12, *image24_13, *image24_14, *image24_15;
     };
   };
   union {
-    GtkImage *examples[6];
+    BobguiImage *examples[6];
     struct {
-      GtkImage *example1, *example2, *example3;
-      GtkImage *example4, *example5, *example6;
+      BobguiImage *example1, *example2, *example3;
+      BobguiImage *example4, *example5, *example6;
     };
   };
   PaintableEditor *paintable_editor;
-  GtkCssProvider *paintable_style;
+  BobguiCssProvider *paintable_style;
 };
 
 struct _IconEditorWindowClass
 {
-  GtkApplicationWindowClass parent_class;
+  BobguiApplicationWindowClass parent_class;
 };
 
 enum
@@ -98,7 +98,7 @@ enum
 
 static GParamSpec *properties[NUM_PROPERTIES];
 
-G_DEFINE_TYPE(IconEditorWindow, icon_editor_window, GTK_TYPE_APPLICATION_WINDOW);
+G_DEFINE_TYPE(IconEditorWindow, icon_editor_window, BOBGUI_TYPE_APPLICATION_WINDOW);
 
 /* {{{ Setters */
 
@@ -115,7 +115,7 @@ icon_editor_window_set_show_controls (IconEditorWindow *self,
 
       action = g_action_map_lookup_action (G_ACTION_MAP (self), "close");
       g_simple_action_set_enabled (G_SIMPLE_ACTION (action), TRUE);
-      gtk_stack_set_visible_child_name (self->main_stack, "content");
+      bobgui_stack_set_visible_child_name (self->main_stack, "content");
     }
 
   self->show_controls = show_controls;
@@ -160,28 +160,28 @@ static void
 icon_editor_window_set_invert_colors (IconEditorWindow *self,
                                       gboolean          invert_colors)
 {
-  GtkSettings *settings;
+  BobguiSettings *settings;
 
   if (self->invert_colors == invert_colors)
     return;
 
   self->invert_colors = invert_colors;
 
-  settings = gtk_widget_get_settings (GTK_WIDGET (self));
+  settings = bobgui_widget_get_settings (BOBGUI_WIDGET (self));
 
   if (invert_colors)
     {
-      GtkInterfaceColorScheme color_scheme;
+      BobguiInterfaceColorScheme color_scheme;
 
-      g_object_get (settings, "gtk-interface-color-scheme", &color_scheme, NULL);
-      if (color_scheme == GTK_INTERFACE_COLOR_SCHEME_DARK)
-        color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
+      g_object_get (settings, "bobgui-interface-color-scheme", &color_scheme, NULL);
+      if (color_scheme == BOBGUI_INTERFACE_COLOR_SCHEME_DARK)
+        color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_LIGHT;
       else
-        color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
-      g_object_set (settings, "gtk-interface-color-scheme", color_scheme, NULL);
+        color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_DARK;
+      g_object_set (settings, "bobgui-interface-color-scheme", color_scheme, NULL);
     }
   else
-    gtk_settings_reset_property (settings, "gtk-interface-color-scheme");
+    bobgui_settings_reset_property (settings, "bobgui-interface-color-scheme");
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_INVERT_COLORS]);
 }
@@ -192,17 +192,17 @@ update_icon_paintable_style (IconEditorWindow *self,
 {
   char *css;
 
-  css = g_strdup_printf ("image.icon-paintable-preview { -gtk-icon-weight: %f; }", weight);
+  css = g_strdup_printf ("image.icon-paintable-preview { -bobgui-icon-weight: %f; }", weight);
 
   if (!self->paintable_style)
     {
-      self->paintable_style = gtk_css_provider_new ();
-      gtk_style_context_add_provider_for_display (gtk_widget_get_display (GTK_WIDGET (self)),
-                                                  GTK_STYLE_PROVIDER (self->paintable_style),
-                                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+      self->paintable_style = bobgui_css_provider_new ();
+      bobgui_style_context_add_provider_for_display (bobgui_widget_get_display (BOBGUI_WIDGET (self)),
+                                                  BOBGUI_STYLE_PROVIDER (self->paintable_style),
+                                                  BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 
-  gtk_css_provider_load_from_string (self->paintable_style, css);
+  bobgui_css_provider_load_from_string (self->paintable_style, css);
 
   g_free (css);
 }
@@ -305,11 +305,11 @@ show_error (IconEditorWindow *self,
             const char       *title,
             const char       *detail)
 {
-  g_autoptr (GtkAlertDialog) alert = NULL;
+  g_autoptr (BobguiAlertDialog) alert = NULL;
 
-  alert = gtk_alert_dialog_new ("%s", title);
-  gtk_alert_dialog_set_detail (alert, detail);
-  gtk_alert_dialog_show (alert, GTK_WINDOW (self));
+  alert = bobgui_alert_dialog_new ("%s", title);
+  bobgui_alert_dialog_set_detail (alert, detail);
+  bobgui_alert_dialog_show (alert, BOBGUI_WINDOW (self));
 }
 
 /* }}} */
@@ -418,34 +418,34 @@ set_random_icons (IconEditorWindow *self)
     "switch-off-symbolic",
     "switch-on-symbolic",
   };
-  g_autoptr (GtkBitset) used = gtk_bitset_new_empty ();
+  g_autoptr (BobguiBitset) used = bobgui_bitset_new_empty ();
 
   for (unsigned int i = 0; i < 24; i++)
     {
       uint32_t r;
       g_autofree char *path;
-      g_autoptr (GtkSvg) paintable = NULL;
+      g_autoptr (BobguiSvg) paintable = NULL;
 
       do {
         r = g_random_int_range (0, (uint32_t) G_N_ELEMENTS (names));
-      } while (gtk_bitset_contains (used, r));
+      } while (bobgui_bitset_contains (used, r));
 
-      path = g_strconcat ("/org/gtk/libgtk/icons/", names[r], ".svg", NULL);
-      paintable = gtk_svg_new_from_resource (path);
-      gtk_svg_set_state (paintable, 0);
-      gtk_svg_play (paintable);
+      path = g_strconcat ("/org/bobgui/libbobgui/icons/", names[r], ".svg", NULL);
+      paintable = bobgui_svg_new_from_resource (path);
+      bobgui_svg_set_state (paintable, 0);
+      bobgui_svg_play (paintable);
       g_object_bind_property (self, "weight",
                               paintable, "weight",
                               G_BINDING_SYNC_CREATE);
-      gtk_image_set_from_paintable (self->images[i], GDK_PAINTABLE (paintable));
-      gtk_widget_set_tooltip_text (GTK_WIDGET (self->images[i]), names[r]);
-      gtk_bitset_add (used, r);
+      bobgui_image_set_from_paintable (self->images[i], GDK_PAINTABLE (paintable));
+      bobgui_widget_set_tooltip_text (BOBGUI_WIDGET (self->images[i]), names[r]);
+      bobgui_bitset_add (used, r);
     }
 
-  gtk_image_set_from_paintable (self->images[g_random_int_range (0, 3)], GDK_PAINTABLE (self->paintable));
-  gtk_image_set_from_paintable (self->images[g_random_int_range (4, 7)], GDK_PAINTABLE (self->paintable));
-  gtk_image_set_from_paintable (self->images[g_random_int_range (8, 15)], GDK_PAINTABLE (self->paintable));
-  gtk_image_set_from_paintable (self->images[g_random_int_range (16, 23)], GDK_PAINTABLE (self->paintable));
+  bobgui_image_set_from_paintable (self->images[g_random_int_range (0, 3)], GDK_PAINTABLE (self->paintable));
+  bobgui_image_set_from_paintable (self->images[g_random_int_range (4, 7)], GDK_PAINTABLE (self->paintable));
+  bobgui_image_set_from_paintable (self->images[g_random_int_range (8, 15)], GDK_PAINTABLE (self->paintable));
+  bobgui_image_set_from_paintable (self->images[g_random_int_range (16, 23)], GDK_PAINTABLE (self->paintable));
 }
 
 static void
@@ -465,7 +465,7 @@ icon_editor_window_set_paintable (IconEditorWindow *self,
 
   if (self->paintable)
     {
-      path_paintable_set_frame_clock (self->paintable, gtk_widget_get_frame_clock (GTK_WIDGET (self)));
+      path_paintable_set_frame_clock (self->paintable, bobgui_widget_get_frame_clock (BOBGUI_WIDGET (self)));
       icon_editor_window_set_state (self, path_paintable_get_state (paintable));
       path_paintable_set_weight (self->paintable, self->weight);
 
@@ -535,7 +535,7 @@ load_file_contents (IconEditorWindow *self,
 }
 
 static gboolean
-file_drop (GtkDropTarget *target,
+file_drop (BobguiDropTarget *target,
            const GValue  *value,
            double         x,
            double         y,
@@ -543,7 +543,7 @@ file_drop (GtkDropTarget *target,
 {
   if (G_VALUE_HOLDS (value, G_TYPE_FILE))
     {
-      GtkWidget *self = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (target));
+      BobguiWidget *self = bobgui_event_controller_get_widget (BOBGUI_EVENT_CONTROLLER (target));
       GFile *file = g_value_get_object (value);
 
       icon_editor_window_load (ICON_EDITOR_WINDOW (self), file);
@@ -558,15 +558,15 @@ open_response_cb (GObject      *source,
                   GAsyncResult *result,
                   void         *user_data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   IconEditorWindow *self = user_data;
   g_autoptr (GFile) file = NULL;
   g_autoptr (GError) error = NULL;
 
-  file = gtk_file_dialog_open_finish (dialog, result, &error);
+  file = bobgui_file_dialog_open_finish (dialog, result, &error);
   if (!file)
     {
-      if (!g_error_matches (error, GTK_DIALOG_ERROR, GTK_DIALOG_ERROR_DISMISSED))
+      if (!g_error_matches (error, BOBGUI_DIALOG_ERROR, BOBGUI_DIALOG_ERROR_DISMISSED))
         load_error (self, error->message);
       return;
     }
@@ -577,45 +577,45 @@ open_response_cb (GObject      *source,
 static void
 show_open_filechooser (IconEditorWindow *self)
 {
-  g_autoptr (GtkFileDialog) dialog = NULL;
+  g_autoptr (BobguiFileDialog) dialog = NULL;
   g_autoptr (GListStore) filters = NULL;
-  GtkFileFilter *filter;
+  BobguiFileFilter *filter;
 
-  filters = g_list_store_new (GTK_TYPE_FILE_FILTER);
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_set_name (filter, "All files");
-  gtk_file_filter_add_pattern (filter, "*");
+  filters = g_list_store_new (BOBGUI_TYPE_FILE_FILTER);
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (filter, "All files");
+  bobgui_file_filter_add_pattern (filter, "*");
   g_list_store_append (filters, filter);
   g_object_unref (filter);
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_set_name (filter, "SVG files");
-  gtk_file_filter_add_mime_type (filter, "image/svg+xml");
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (filter, "SVG files");
+  bobgui_file_filter_add_mime_type (filter, "image/svg+xml");
   g_list_store_append (filters, filter);
   g_object_unref (filter);
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_set_name (filter, "GTK icons");
-  gtk_file_filter_add_mime_type (filter, "image/x-gtk-path-animation");
-  gtk_file_filter_add_pattern (filter, "*.gpa");
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_set_name (filter, "BOBGUI icons");
+  bobgui_file_filter_add_mime_type (filter, "image/x-bobgui-path-animation");
+  bobgui_file_filter_add_pattern (filter, "*.gpa");
   g_list_store_append (filters, filter);
   g_object_unref (filter);
 
-  dialog = gtk_file_dialog_new ();
-  gtk_file_dialog_set_title (dialog, "Open icon file");
+  dialog = bobgui_file_dialog_new ();
+  bobgui_file_dialog_set_title (dialog, "Open icon file");
 
-  gtk_file_dialog_set_filters (dialog, G_LIST_MODEL (filters));
+  bobgui_file_dialog_set_filters (dialog, G_LIST_MODEL (filters));
 
   if (self->file)
     {
-      gtk_file_dialog_set_initial_file (dialog, self->file);
+      bobgui_file_dialog_set_initial_file (dialog, self->file);
     }
   else
     {
       g_autoptr (GFile) cwd = g_file_new_for_path (".");
-      gtk_file_dialog_set_initial_folder (dialog, cwd);
+      bobgui_file_dialog_set_initial_folder (dialog, cwd);
     }
 
 
-  gtk_file_dialog_open (dialog, GTK_WINDOW (self),
+  bobgui_file_dialog_open (dialog, BOBGUI_WINDOW (self),
                         NULL, open_response_cb, self);
 }
 
@@ -646,19 +646,19 @@ set_compat (SvgElement *shape,
         case PAINT_SYMBOLIC:
           switch (svg_paint_get_symbolic (value))
             {
-            case GTK_SYMBOLIC_COLOR_FOREGROUND:
+            case BOBGUI_SYMBOLIC_COLOR_FOREGROUND:
               g_strv_builder_add_many (builder, "foreground", "foreground-fill", NULL);
               break;
-            case GTK_SYMBOLIC_COLOR_ERROR:
+            case BOBGUI_SYMBOLIC_COLOR_ERROR:
               g_strv_builder_add_many (builder, "error", "error-fill", NULL);
               break;
-            case GTK_SYMBOLIC_COLOR_WARNING:
+            case BOBGUI_SYMBOLIC_COLOR_WARNING:
               g_strv_builder_add_many (builder, "warning", "warning-fill", NULL);
               break;
-            case GTK_SYMBOLIC_COLOR_SUCCESS:
+            case BOBGUI_SYMBOLIC_COLOR_SUCCESS:
               g_strv_builder_add_many (builder, "success", "success-fill", NULL);
               break;
-            case GTK_SYMBOLIC_COLOR_ACCENT:
+            case BOBGUI_SYMBOLIC_COLOR_ACCENT:
             default:
               break;
             }
@@ -676,19 +676,19 @@ set_compat (SvgElement *shape,
         case PAINT_SYMBOLIC:
           switch (svg_paint_get_symbolic (value))
             {
-            case GTK_SYMBOLIC_COLOR_FOREGROUND:
+            case BOBGUI_SYMBOLIC_COLOR_FOREGROUND:
               g_strv_builder_add (builder, "foreground-stroke");
               break;
-            case GTK_SYMBOLIC_COLOR_ERROR:
+            case BOBGUI_SYMBOLIC_COLOR_ERROR:
               g_strv_builder_add (builder, "error-stroke");
               break;
-            case GTK_SYMBOLIC_COLOR_WARNING:
+            case BOBGUI_SYMBOLIC_COLOR_WARNING:
               g_strv_builder_add (builder, "warning-stroke");
               break;
-            case GTK_SYMBOLIC_COLOR_SUCCESS:
+            case BOBGUI_SYMBOLIC_COLOR_SUCCESS:
               g_strv_builder_add (builder, "success-stroke");
               break;
-            case GTK_SYMBOLIC_COLOR_ACCENT:
+            case BOBGUI_SYMBOLIC_COLOR_ACCENT:
             default:
               break;
             }
@@ -703,7 +703,7 @@ set_compat (SvgElement *shape,
 
 static void
 apply_compat_classes (IconEditorWindow *window,
-                      GtkSvg           *svg)
+                      BobguiSvg           *svg)
 {
   svg_element_foreach (svg->content, set_compat, window);
 }
@@ -719,14 +719,14 @@ static void
 save_to_file (IconEditorWindow *self,
               GFile            *file)
 {
-  GtkSvg *svg;
+  BobguiSvg *svg;
 
   g_autoptr (GBytes) bytes = NULL;
   g_autoptr (GError) error = NULL;
 
   svg = path_paintable_get_svg (self->paintable);
   apply_compat_classes (self, svg);
-  bytes = gtk_svg_serialize (svg);
+  bytes = bobgui_svg_serialize (svg);
 
   if (!g_file_replace_contents (file,
                                 g_bytes_get_data (bytes, NULL),
@@ -751,15 +751,15 @@ save_response_cb (GObject      *source,
                   GAsyncResult *result,
                   void         *user_data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   IconEditorWindow *self = user_data;
   g_autoptr (GFile) file = NULL;
   g_autoptr (GError) error = NULL;
 
-  file = gtk_file_dialog_save_finish (dialog, result, &error);
+  file = bobgui_file_dialog_save_finish (dialog, result, &error);
   if (!file)
     {
-      if (!g_error_matches (error, GTK_DIALOG_ERROR, GTK_DIALOG_ERROR_DISMISSED))
+      if (!g_error_matches (error, BOBGUI_DIALOG_ERROR, BOBGUI_DIALOG_ERROR_DISMISSED))
         save_error (self, error->message);
       return;
     }
@@ -770,23 +770,23 @@ save_response_cb (GObject      *source,
 static void
 show_save_filechooser (IconEditorWindow *self)
 {
-  g_autoptr (GtkFileDialog) dialog = NULL;
+  g_autoptr (BobguiFileDialog) dialog = NULL;
 
-  dialog = gtk_file_dialog_new ();
-  gtk_file_dialog_set_title (dialog, "Save icon");
+  dialog = bobgui_file_dialog_new ();
+  bobgui_file_dialog_set_title (dialog, "Save icon");
   if (self->file)
     {
-      gtk_file_dialog_set_initial_file (dialog, self->file);
+      bobgui_file_dialog_set_initial_file (dialog, self->file);
     }
   else
     {
       g_autoptr (GFile) cwd = g_file_new_for_path (".");
-      gtk_file_dialog_set_initial_folder (dialog, cwd);
-      gtk_file_dialog_set_initial_name (dialog, "demo.gpa");
+      bobgui_file_dialog_set_initial_folder (dialog, cwd);
+      bobgui_file_dialog_set_initial_name (dialog, "demo.gpa");
     }
 
-  gtk_file_dialog_save (dialog,
-                        GTK_WINDOW (self),
+  bobgui_file_dialog_save (dialog,
+                        BOBGUI_WINDOW (self),
                         NULL,
                         save_response_cb, self);
 }
@@ -795,16 +795,16 @@ static void
 export_to_file (IconEditorWindow *self,
                 GFile            *file)
 {
-  GtkSvg *svg;
+  BobguiSvg *svg;
   g_autoptr (GBytes) bytes = NULL;
   g_autoptr (GError) error = NULL;
 
   svg = path_paintable_get_svg (self->paintable);
   apply_compat_classes (self, svg);
-  bytes = gtk_svg_serialize_full (svg,
+  bytes = bobgui_svg_serialize_full (svg,
                                   NULL, 0,
-                                  GTK_SVG_SERIALIZE_EXPAND_GPA_ATTRS |
-                                  GTK_SVG_SERIALIZE_NO_COMPAT);
+                                  BOBGUI_SVG_SERIALIZE_EXPAND_GPA_ATTRS |
+                                  BOBGUI_SVG_SERIALIZE_NO_COMPAT);
   if (!g_file_replace_contents (file,
                                 g_bytes_get_data (bytes, NULL),
                                 g_bytes_get_size (bytes),
@@ -824,15 +824,15 @@ export_response_cb (GObject      *source,
                     GAsyncResult *result,
                     void         *user_data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   IconEditorWindow *self = user_data;
   g_autoptr (GFile) file = NULL;
   g_autoptr (GError) error = NULL;
 
-  file = gtk_file_dialog_save_finish (dialog, result, &error);
+  file = bobgui_file_dialog_save_finish (dialog, result, &error);
   if (!file)
     {
-      if (!g_error_matches (error, GTK_DIALOG_ERROR, GTK_DIALOG_ERROR_DISMISSED))
+      if (!g_error_matches (error, BOBGUI_DIALOG_ERROR, BOBGUI_DIALOG_ERROR_DISMISSED))
         save_error (self, error->message);
       return;
     }
@@ -843,34 +843,34 @@ export_response_cb (GObject      *source,
 static void
 show_export_filechooser (IconEditorWindow *self)
 {
-  g_autoptr (GtkFileDialog) dialog = NULL;
+  g_autoptr (BobguiFileDialog) dialog = NULL;
   g_autoptr (GFile) cwd = g_file_new_for_path (".");
 
-  dialog = gtk_file_dialog_new ();
-  gtk_file_dialog_set_title (dialog, "Export as SVG");
-  gtk_file_dialog_set_initial_folder (dialog, cwd);
-  gtk_file_dialog_set_initial_name (dialog, "demo.svg");
+  dialog = bobgui_file_dialog_new ();
+  bobgui_file_dialog_set_title (dialog, "Export as SVG");
+  bobgui_file_dialog_set_initial_folder (dialog, cwd);
+  bobgui_file_dialog_set_initial_name (dialog, "demo.svg");
 
-  gtk_file_dialog_save (dialog,
-                        GTK_WINDOW (self),
+  bobgui_file_dialog_save (dialog,
+                        BOBGUI_WINDOW (self),
                         NULL,
                         export_response_cb, self);
 }
 
 /* }}} */
-/* {{{ GtkWindow implementation */
+/* {{{ BobguiWindow implementation */
 
 static void
 quit_alert_done (GObject      *source,
                  GAsyncResult *result,
                  gpointer      data)
 {
-  GtkAlertDialog *alert = GTK_ALERT_DIALOG (source);
+  BobguiAlertDialog *alert = BOBGUI_ALERT_DIALOG (source);
   IconEditorWindow *self = ICON_EDITOR_WINDOW (data);
   g_autoptr (GError) error = NULL;
   int res;
 
-  res = gtk_alert_dialog_choose_finish (alert, result, &error);
+  res = bobgui_alert_dialog_choose_finish (alert, result, &error);
   if (res == -1)
     return;
 
@@ -884,27 +884,27 @@ quit_alert_done (GObject      *source,
   else if (res == 1)
     {
       self->changed = FALSE;
-      gtk_window_close (GTK_WINDOW (self));
+      bobgui_window_close (BOBGUI_WINDOW (self));
     }
 }
 
 
 static gboolean
-icon_editor_window_close_request (GtkWindow *window)
+icon_editor_window_close_request (BobguiWindow *window)
 {
   IconEditorWindow *self = ICON_EDITOR_WINDOW (window);
 
   if (self->changed)
     {
-      g_autoptr (GtkAlertDialog) alert = NULL;
+      g_autoptr (BobguiAlertDialog) alert = NULL;
       const char *buttons[] = { "Save", "Quit", NULL };
 
-      alert = gtk_alert_dialog_new ("Unsaved changes");
-      gtk_alert_dialog_set_detail (alert, "The icon contains unsaved changes.");
-      gtk_alert_dialog_set_modal (alert, TRUE);
-      gtk_alert_dialog_set_buttons (alert, buttons);
-      gtk_alert_dialog_set_default_button (alert, 0);
-      gtk_alert_dialog_choose (alert, window, NULL, quit_alert_done, self);
+      alert = bobgui_alert_dialog_new ("Unsaved changes");
+      bobgui_alert_dialog_set_detail (alert, "The icon contains unsaved changes.");
+      bobgui_alert_dialog_set_modal (alert, TRUE);
+      bobgui_alert_dialog_set_buttons (alert, buttons);
+      bobgui_alert_dialog_set_default_button (alert, 0);
+      bobgui_alert_dialog_choose (alert, window, NULL, quit_alert_done, self);
 
       return TRUE;
     }
@@ -967,7 +967,7 @@ back_to_empty (IconEditorWindow *self)
   icon_editor_window_set_paintable (self, paintable);
   icon_editor_window_set_show_controls (self, FALSE);
 
-  gtk_stack_set_visible_child_name (self->main_stack, "empty");
+  bobgui_stack_set_visible_child_name (self->main_stack, "empty");
   action = g_action_map_lookup_action (G_ACTION_MAP (self), "close");
   g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 }
@@ -977,12 +977,12 @@ close_alert_done (GObject      *source,
                   GAsyncResult *result,
                   gpointer      data)
 {
-  GtkAlertDialog *alert = GTK_ALERT_DIALOG (source);
+  BobguiAlertDialog *alert = BOBGUI_ALERT_DIALOG (source);
   IconEditorWindow *self = ICON_EDITOR_WINDOW (data);
   g_autoptr (GError) error = NULL;
   int res;
 
-  res = gtk_alert_dialog_choose_finish (alert, result, &error);
+  res = bobgui_alert_dialog_choose_finish (alert, result, &error);
   if (res == -1)
     return;
 
@@ -1008,15 +1008,15 @@ file_close (GSimpleAction *action,
 
   if (self->changed)
     {
-      g_autoptr (GtkAlertDialog) alert = NULL;
+      g_autoptr (BobguiAlertDialog) alert = NULL;
       const char *buttons[] = { "Save", "Close", NULL };
 
-      alert = gtk_alert_dialog_new ("Unsaved changes");
-      gtk_alert_dialog_set_detail (alert, "The icon contains unsaved changes.");
-      gtk_alert_dialog_set_modal (alert, TRUE);
-      gtk_alert_dialog_set_buttons (alert, buttons);
-      gtk_alert_dialog_set_default_button (alert, 0);
-      gtk_alert_dialog_choose (alert, GTK_WINDOW (self), NULL, close_alert_done, self);
+      alert = bobgui_alert_dialog_new ("Unsaved changes");
+      bobgui_alert_dialog_set_detail (alert, "The icon contains unsaved changes.");
+      bobgui_alert_dialog_set_modal (alert, TRUE);
+      bobgui_alert_dialog_set_buttons (alert, buttons);
+      bobgui_alert_dialog_set_default_button (alert, 0);
+      bobgui_alert_dialog_choose (alert, BOBGUI_WINDOW (self), NULL, close_alert_done, self);
     }
   else
     {
@@ -1057,11 +1057,11 @@ edit_states (GSimpleAction *action,
   StateEditor *editor;
 
   editor = state_editor_new ();
-  gtk_window_set_transient_for (GTK_WINDOW (editor), GTK_WINDOW (self));
+  bobgui_window_set_transient_for (BOBGUI_WINDOW (editor), BOBGUI_WINDOW (self));
 
   state_editor_set_paintable (editor, self->paintable);
 
-  gtk_window_present (GTK_WINDOW (editor));
+  bobgui_window_present (BOBGUI_WINDOW (editor));
 }
 
 static void
@@ -1083,7 +1083,7 @@ open_example (GSimpleAction *action,
   g_autofree char *path = NULL;
   g_autoptr (PathPaintable) paintable = NULL;
 
-  path = g_strconcat ("/org/gtk/Shaper/",
+  path = g_strconcat ("/org/bobgui/Shaper/",
                       g_variant_get_string (parameter, NULL),
                       NULL);
 
@@ -1130,7 +1130,7 @@ icon_editor_window_init (IconEditorWindow *self)
   self->playing = TRUE;
   self->compat_classes = TRUE;
 
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 
   g_action_map_add_action_entries (G_ACTION_MAP (self),
                                    win_entries, G_N_ELEMENTS (win_entries),
@@ -1279,7 +1279,7 @@ icon_editor_window_get_property (GObject      *object,
 static void
 icon_editor_window_dispose (GObject *object)
 {
-  gtk_widget_dispose_template (GTK_WIDGET (object), ICON_EDITOR_WINDOW_TYPE);
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), ICON_EDITOR_WINDOW_TYPE);
 
   G_OBJECT_CLASS (icon_editor_window_parent_class)->dispose (object);
 }
@@ -1301,28 +1301,28 @@ icon_editor_window_finalize (GObject *object)
 }
 
 static void
-icon_editor_window_realize (GtkWidget *widget)
+icon_editor_window_realize (BobguiWidget *widget)
 {
   IconEditorWindow *self = ICON_EDITOR_WINDOW (widget);
-  GtkApplication *app = gtk_window_get_application (GTK_WINDOW (self));
+  BobguiApplication *app = bobgui_window_get_application (BOBGUI_WINDOW (self));
   g_autofree char *path = NULL;
   g_autoptr (GFile) file = NULL;
-  g_autoptr (GtkIconPaintable) logo = NULL;
+  g_autoptr (BobguiIconPaintable) logo = NULL;
   GdkFrameClock *clock;
 
-  GTK_WIDGET_CLASS (icon_editor_window_parent_class)->realize (widget);
+  BOBGUI_WIDGET_CLASS (icon_editor_window_parent_class)->realize (widget);
 
-  path = g_strconcat ("resource:///org/gtk/Shaper/",
+  path = g_strconcat ("resource:///org/bobgui/Shaper/",
                       g_application_get_application_id (G_APPLICATION (app)),
                       ".svg",
                       NULL);
   file = g_file_new_for_uri (path);
-  logo = gtk_icon_paintable_new_for_file (file, 128, 1);
-  gtk_image_set_from_paintable (self->empty_logo, GDK_PAINTABLE (logo));
+  logo = bobgui_icon_paintable_new_for_file (file, 128, 1);
+  bobgui_image_set_from_paintable (self->empty_logo, GDK_PAINTABLE (logo));
 
-  clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
+  clock = bobgui_widget_get_frame_clock (BOBGUI_WIDGET (self));
   for (unsigned int i = 0; i < 6; i++)
-    gtk_svg_set_frame_clock (GTK_SVG (gtk_image_get_paintable (GTK_IMAGE (self->examples[i]))), clock);
+    bobgui_svg_set_frame_clock (BOBGUI_SVG (bobgui_image_get_paintable (BOBGUI_IMAGE (self->examples[i]))), clock);
 
   if (self->paintable)
     path_paintable_set_frame_clock (self->paintable, clock);
@@ -1332,8 +1332,8 @@ static void
 icon_editor_window_class_init (IconEditorWindowClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
-  GtkWindowClass *window_class = GTK_WINDOW_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
+  BobguiWindowClass *window_class = BOBGUI_WINDOW_CLASS (class);
 
   g_type_ensure (PAINTABLE_EDITOR_TYPE);
   g_type_ensure (BORDER_PAINTABLE_TYPE);
@@ -1408,46 +1408,46 @@ icon_editor_window_class_init (IconEditorWindowClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gtk/Shaper/icon-editor-window.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class, "/org/bobgui/Shaper/icon-editor-window.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, main_stack);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, empty_logo);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_0);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_1);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_2);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_3);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_4);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_5);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_6);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_7);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_0);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_1);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_2);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_3);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_4);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_5);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_6);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_7);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_8);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_9);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_10);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_11);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_12);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_13);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_14);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_15);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, paintable_editor);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, example1);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, example2);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, example3);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, example4);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, example5);
-  gtk_widget_class_bind_template_child (widget_class, IconEditorWindow, example6);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, main_stack);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, empty_logo);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_0);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_1);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_2);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_3);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_4);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_5);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_6);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image48_7);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_0);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_1);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_2);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_3);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_4);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_5);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_6);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_7);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_8);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_9);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_10);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_11);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_12);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_13);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_14);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, image24_15);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, paintable_editor);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, example1);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, example2);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, example3);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, example4);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, example5);
+  bobgui_widget_class_bind_template_child (widget_class, IconEditorWindow, example6);
 
-  gtk_widget_class_bind_template_callback (widget_class, show_open_filechooser);
-  gtk_widget_class_bind_template_callback (widget_class, toggle_controls);
-  gtk_widget_class_bind_template_callback (widget_class, file_drop);
-  gtk_widget_class_bind_template_callback (widget_class, gtk_widget_activate);
+  bobgui_widget_class_bind_template_callback (widget_class, show_open_filechooser);
+  bobgui_widget_class_bind_template_callback (widget_class, toggle_controls);
+  bobgui_widget_class_bind_template_callback (widget_class, file_drop);
+  bobgui_widget_class_bind_template_callback (widget_class, bobgui_widget_activate);
 }
 
 /* }}} */
@@ -1473,7 +1473,7 @@ icon_editor_window_load (IconEditorWindow *self,
   g_set_object (&self->file, file);
 
   basename = g_file_get_basename (file);
-  gtk_window_set_title (GTK_WINDOW (self), basename);
+  bobgui_window_set_title (BOBGUI_WINDOW (self), basename);
 
   return TRUE;
 }

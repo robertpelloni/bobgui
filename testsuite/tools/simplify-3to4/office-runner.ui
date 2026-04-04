@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="border_width">12</property>
     <property name="title" translatable="yes">Office Runner</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
     <child>
-      <object class="GtkBox" id="box1">
+      <object class="BobguiBox" id="box1">
         <property name="visible">True</property>
         <property name="margin_left">12</property>
         <property name="margin_right">12</property>
@@ -14,17 +14,17 @@
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child>
-          <object class="GtkNotebook" id="notebook1">
+          <object class="BobguiNotebook" id="notebook1">
             <property name="visible">True</property>
             <property name="show_tabs">False</property>
             <property name="show_border">False</property>
             <child>
-              <object class="GtkGrid" id="grid1">
+              <object class="BobguiGrid" id="grid1">
                 <property name="visible">True</property>
                 <property name="row_spacing">12</property>
                 <property name="column_spacing">12</property>
                 <child>
-                  <object class="GtkImage" id="run_image">
+                  <object class="BobguiImage" id="run_image">
                     <property name="visible">True</property>
                     <property name="vexpand">True</property>
                   </object>
@@ -36,7 +36,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label5">
+                  <object class="BobguiLabel" id="label5">
                     <property name="visible">True</property>
                     <property name="valign">start</property>
                     <property name="hexpand">True</property>
@@ -54,7 +54,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label7">
+                  <object class="BobguiLabel" id="label7">
                     <property name="visible">True</property>
                     <property name="label" translatable="yes">Rules</property>
                     <attributes>
@@ -74,7 +74,7 @@
               </object>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="label1">
+              <object class="BobguiLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="label" translatable="no">page 1</property>
               </object>
@@ -83,12 +83,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkGrid" id="grid2">
+              <object class="BobguiGrid" id="grid2">
                 <property name="visible">True</property>
                 <property name="row_spacing">12</property>
                 <property name="column_spacing">12</property>
                 <child>
-                  <object class="GtkImage" id="time_image">
+                  <object class="BobguiImage" id="time_image">
                     <property name="visible">True</property>
                     <property name="vexpand">True</property>
                   </object>
@@ -100,7 +100,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="time_label">
+                  <object class="BobguiLabel" id="time_label">
                     <property name="visible">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
@@ -123,7 +123,7 @@
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="label2">
+              <object class="BobguiLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="label" translatable="no">page 2</property>
               </object>
@@ -133,13 +133,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkGrid" id="grid3">
+              <object class="BobguiGrid" id="grid3">
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="row_spacing">12</property>
                 <property name="column_spacing">12</property>
                 <child>
-                  <object class="GtkImage" id="trophy_image">
+                  <object class="BobguiImage" id="trophy_image">
                     <property name="visible">True</property>
                   </object>
                   <packing>
@@ -150,12 +150,12 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkBox" id="box2">
+                  <object class="BobguiBox" id="box2">
                     <property name="visible">True</property>
                     <property name="valign">center</property>
                     <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkLabel" id="result_label">
+                      <object class="BobguiLabel" id="result_label">
                         <property name="visible">True</property>
                         <property name="valign">start</property>
                         <property name="xalign">0</property>
@@ -176,7 +176,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="current_time_label">
+                      <object class="BobguiLabel" id="current_time_label">
                         <property name="visible">True</property>
                         <property name="valign">start</property>
                         <property name="xalign">0</property>
@@ -191,7 +191,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="better_time_label">
+                      <object class="BobguiLabel" id="better_time_label">
                         <property name="visible">True</property>
                         <property name="valign">start</property>
                         <property name="xalign">0</property>
@@ -219,7 +219,7 @@
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="label3">
+              <object class="BobguiLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="label" translatable="no">page 3</property>
               </object>
@@ -236,14 +236,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="run_button">
+          <object class="BobguiButton" id="run_button">
             <property name="visible">True</property>
             <property name="receives_default">True</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="use_action_appearance">False</property>
             <child>
-              <object class="GtkLabel" id="run_button_label">
+              <object class="BobguiLabel" id="run_button_label">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Run!</property>
                 <attributes>

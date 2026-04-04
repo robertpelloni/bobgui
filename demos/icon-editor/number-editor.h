@@ -21,10 +21,10 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
-#include "svg/gtksvgunitprivate.h"
+#include <bobgui/bobgui.h>
+#include "svg/bobguisvgunitprivate.h"
 
-G_DECLARE_FINAL_TYPE (NumberEditor, number_editor, NUMBER, EDITOR, GtkWidget)
+G_DECLARE_FINAL_TYPE (NumberEditor, number_editor, NUMBER, EDITOR, BobguiWidget)
 
 
 NumberEditor *  number_editor_new (void);

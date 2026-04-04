@@ -19,13 +19,13 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "icon-editor-application.h"
 
 
 #define ICON_EDITOR_WINDOW_TYPE (icon_editor_window_get_type ())
-G_DECLARE_FINAL_TYPE (IconEditorWindow, icon_editor_window, ICON_EDITOR, WINDOW, GtkApplicationWindow)
+G_DECLARE_FINAL_TYPE (IconEditorWindow, icon_editor_window, ICON_EDITOR, WINDOW, BobguiApplicationWindow)
 
 
 IconEditorWindow * icon_editor_window_new  (IconEditorApplication *application);

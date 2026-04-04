@@ -25,15 +25,15 @@
 
 struct _ColorEditor
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   unsigned int color_type;
   GdkRGBA color;
 
-  GtkDropDown *paint;
-  GtkStack *stack;
+  BobguiDropDown *paint;
+  BobguiStack *stack;
   ColorPaintable *indicator;
-  GtkColorDialogButton *custom;
+  BobguiColorDialogButton *custom;
 };
 
 enum
@@ -55,15 +55,15 @@ static GParamSpec *properties[NUM_PROPERTIES];
 
 struct _ColorEditorClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (ColorEditor, color_editor, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (ColorEditor, color_editor, BOBGUI_TYPE_WIDGET)
 
 static void
 color_editor_init (ColorEditor *self)
 {
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 }
 
 static void
@@ -109,7 +109,7 @@ color_editor_get_property (GObject      *object,
       break;
 
     case PROP_SYMBOLIC:
-      g_value_set_enum (value, CLAMP (self->color_type - 1, GTK_SYMBOLIC_COLOR_FOREGROUND, GTK_SYMBOLIC_COLOR_ACCENT));
+      g_value_set_enum (value, CLAMP (self->color_type - 1, BOBGUI_SYMBOLIC_COLOR_FOREGROUND, BOBGUI_SYMBOLIC_COLOR_ACCENT));
       break;
 
     case PROP_COLOR:
@@ -129,7 +129,7 @@ color_editor_get_property (GObject      *object,
 static void
 color_editor_dispose (GObject *object)
 {
-  gtk_widget_dispose_template (GTK_WIDGET (object), COLOR_EDITOR_TYPE);
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), COLOR_EDITOR_TYPE);
 
   G_OBJECT_CLASS (color_editor_parent_class)->dispose (object);
 }
@@ -146,7 +146,7 @@ static void
 color_editor_class_init (ColorEditorClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   g_type_ensure (color_paintable_get_type ());
   g_type_ensure (alpha_editor_get_type ());
@@ -163,7 +163,7 @@ color_editor_class_init (ColorEditorClass *class)
 
   properties[PROP_SYMBOLIC] =
     g_param_spec_enum ("symbolic", NULL, NULL,
-                       GTK_TYPE_SYMBOLIC_COLOR, GTK_SYMBOLIC_COLOR_FOREGROUND,
+                       BOBGUI_TYPE_SYMBOLIC_COLOR, BOBGUI_SYMBOLIC_COLOR_FOREGROUND,
                        G_PARAM_READABLE | G_PARAM_STATIC_NAME);
 
   properties[PROP_COLOR] =
@@ -178,15 +178,15 @@ color_editor_class_init (ColorEditorClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gtk/Shaper/color-editor.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class, "/org/bobgui/Shaper/color-editor.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, ColorEditor, paint);
-  gtk_widget_class_bind_template_child (widget_class, ColorEditor, stack);
-  gtk_widget_class_bind_template_child (widget_class, ColorEditor, indicator);
-  gtk_widget_class_bind_template_child (widget_class, ColorEditor, custom);
+  bobgui_widget_class_bind_template_child (widget_class, ColorEditor, paint);
+  bobgui_widget_class_bind_template_child (widget_class, ColorEditor, stack);
+  bobgui_widget_class_bind_template_child (widget_class, ColorEditor, indicator);
+  bobgui_widget_class_bind_template_child (widget_class, ColorEditor, custom);
 
-  gtk_widget_class_set_css_name (widget_class, "ColorEditor");
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
+  bobgui_widget_class_set_css_name (widget_class, "ColorEditor");
+  bobgui_widget_class_set_layout_manager_type (widget_class, BOBGUI_TYPE_BOX_LAYOUT);
 }
 
 /* }}} */
@@ -209,14 +209,14 @@ color_editor_set_color_type (ColorEditor  *self,
 
   self->color_type = color_type;
 
-  gtk_drop_down_set_selected (self->paint, color_type);
+  bobgui_drop_down_set_selected (self->paint, color_type);
 
   if (color_type == 0)
-    gtk_stack_set_visible_child_name (self->stack, "none");
-  else if (color_type - 1 <= GTK_SYMBOLIC_COLOR_ACCENT)
-    gtk_stack_set_visible_child_name (self->stack, "indicator");
+    bobgui_stack_set_visible_child_name (self->stack, "none");
+  else if (color_type - 1 <= BOBGUI_SYMBOLIC_COLOR_ACCENT)
+    bobgui_stack_set_visible_child_name (self->stack, "indicator");
   else
-    gtk_stack_set_visible_child_name (self->stack, "custom");
+    bobgui_stack_set_visible_child_name (self->stack, "custom");
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_COLOR_TYPE]);
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_SYMBOLIC]);
@@ -238,7 +238,7 @@ color_editor_set_color (ColorEditor   *self,
 
   self->color = *color;
 
-  gtk_color_dialog_button_set_rgba (self->custom, &self->color);
+  bobgui_color_dialog_button_set_rgba (self->custom, &self->color);
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_COLOR]);
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_ALPHA]);

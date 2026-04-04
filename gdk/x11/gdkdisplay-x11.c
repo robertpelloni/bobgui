@@ -237,8 +237,8 @@ do_edge_constraint_state_check (GdkSurface      *surface,
   local_unset = *unset;
   edge_constraints = toplevel->edge_constraints;
 
-  /* If the WM doesn't support _GTK_EDGE_CONSTRAINTS, rely on the fallback
-   * implementation. If it supports _GTK_EDGE_CONSTRAINTS, arrange for
+  /* If the WM doesn't support _BOBGUI_EDGE_CONSTRAINTS, rely on the fallback
+   * implementation. If it supports _BOBGUI_EDGE_CONSTRAINTS, arrange for
    * GDK_TOPLEVEL_STATE_TILED to be set if any edge is tiled, and cleared
    * if no edge is tiled.
    */
@@ -560,7 +560,7 @@ gdk_check_edge_constraints_changed (GdkSurface *surface)
   gdk_x11_display_error_trap_push (display);
   XGetWindowProperty (GDK_DISPLAY_XDISPLAY (display),
                       GDK_SURFACE_XID (surface),
-                      gdk_x11_get_xatom_by_name_for_display (display, "_GTK_EDGE_CONSTRAINTS"),
+                      gdk_x11_get_xatom_by_name_for_display (display, "_BOBGUI_EDGE_CONSTRAINTS"),
                       0, G_MAXLONG, False, XA_CARDINAL, &type,
                       &format, &nitems,
                       &bytes_after, &data);
@@ -1023,7 +1023,7 @@ gdk_x11_display_translate_event (GdkEventTranslator *translator,
 	  if (xevent->xproperty.atom == gdk_x11_get_xatom_by_name_for_display (display, "_NET_WM_DESKTOP"))
 	    gdk_check_wm_desktop_changed (surface);
 
-	  if (xevent->xproperty.atom == gdk_x11_get_xatom_by_name_for_display (display, "_GTK_EDGE_CONSTRAINTS"))
+	  if (xevent->xproperty.atom == gdk_x11_get_xatom_by_name_for_display (display, "_BOBGUI_EDGE_CONSTRAINTS"))
 	    gdk_check_edge_constraints_changed (surface);
 	}
       break;
@@ -1691,7 +1691,7 @@ update_shadow_width (GdkDisplay *display)
   gboolean composited;
 
   frame_extents = gdk_x11_screen_supports_net_wm_hint (gdk_x11_display_get_screen (display),
-                                                       g_intern_static_string ("_GTK_FRAME_EXTENTS"));
+                                                       g_intern_static_string ("_BOBGUI_FRAME_EXTENTS"));
   rgba = gdk_display_is_rgba (display);
   composited = gdk_display_is_composited (display);
 
@@ -3122,7 +3122,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
    * When handlers to this signal return %TRUE, no other handlers will be
    * invoked. In particular, the default handler for this function is
    * GDK's own event handling mechanism, so by returning %TRUE for an event
-   * that GDK expects to translate, you may break GDK and/or GTK+ in
+   * that GDK expects to translate, you may break GDK and/or BOBGUI+ in
    * interesting ways. You have been warned.
    *
    * If you want this signal handler to queue a `GdkEvent`, you can use

@@ -1,6 +1,6 @@
 /*
  * Copyright 2009 Carlos Garnacho <carlosg@gnome.org>
- * Copyright 2010 Kristian Rietveld <kris@gtk.org>
+ * Copyright 2010 Kristian Rietveld <kris@bobgui.org>
  * Copyright 2020 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or

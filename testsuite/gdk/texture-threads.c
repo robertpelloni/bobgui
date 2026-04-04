@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 /* This function will be called from a thread and/or the main loop.
  * Textures are threadsafe after all. */
@@ -112,7 +112,7 @@ texture_threads (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/texture-threads", texture_threads);
 

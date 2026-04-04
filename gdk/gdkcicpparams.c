@@ -429,7 +429,7 @@ gdk_cicp_params_set_range (GdkCicpParams *self,
  * Creates a new `GdkColorState` object for the cicp parameters in @self.
  *
  * Note that this may fail if the cicp parameters in @self are not
- * supported by GTK. In that case, `NULL` is returned, and @error is set
+ * supported by BOBGUI. In that case, `NULL` is returned, and @error is set
  * with an error message that can be presented to the user.
  *
  * Returns: (transfer full): A newly allocated `GdkColorState`

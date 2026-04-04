@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 test_list_seats (void)
@@ -127,7 +127,7 @@ main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
 
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/seat/list", test_list_seats);
   g_test_add_func ("/seat/default", test_default_seat);

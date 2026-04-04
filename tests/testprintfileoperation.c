@@ -1,5 +1,5 @@
 #include <pango/pangocairo.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <math.h>
 #include "testprintfileoperation.h"
 
@@ -7,7 +7,7 @@
 #define HEADER_HEIGHT (10*72/25.4)
 #define HEADER_GAP (3*72/25.4)
 
-G_DEFINE_TYPE (TestPrintFileOperation, test_print_file_operation, GTK_TYPE_PRINT_OPERATION)
+G_DEFINE_TYPE (TestPrintFileOperation, test_print_file_operation, BOBGUI_TYPE_PRINT_OPERATION)
 
 static void
 test_print_file_operation_finalize (GObject *object)
@@ -22,7 +22,7 @@ test_print_file_operation_finalize (GObject *object)
 static void
 test_print_file_operation_init (TestPrintFileOperation *operation)
 {
-  gtk_print_operation_set_unit (GTK_PRINT_OPERATION (operation), GTK_UNIT_POINTS);
+  bobgui_print_operation_set_unit (BOBGUI_PRINT_OPERATION (operation), BOBGUI_UNIT_POINTS);
   operation->font_size = 14.0;
 }
 
@@ -46,14 +46,14 @@ test_print_file_operation_set_font_size (TestPrintFileOperation *op,
 }
 
 static void
-test_print_file_operation_begin_print (GtkPrintOperation *operation, GtkPrintContext *context)
+test_print_file_operation_begin_print (BobguiPrintOperation *operation, BobguiPrintContext *context)
 {
   TestPrintFileOperation *op = TEST_PRINT_FILE_OPERATION (operation);
   char *contents;
   int i;
   double height;
 
-  height = gtk_print_context_get_height (context) - HEADER_HEIGHT - HEADER_GAP;
+  height = bobgui_print_context_get_height (context) - HEADER_HEIGHT - HEADER_GAP;
   
   op->lines_per_page = floor (height / op->font_size);
   
@@ -70,12 +70,12 @@ test_print_file_operation_begin_print (GtkPrintOperation *operation, GtkPrintCon
   
   op->num_lines = i;
   op->num_pages = (op->num_lines - 1) / op->lines_per_page + 1;
-  gtk_print_operation_set_n_pages (operation, op->num_pages);
+  bobgui_print_operation_set_n_pages (operation, op->num_pages);
 }
 
 static void
-test_print_file_operation_draw_page (GtkPrintOperation *operation,
-				     GtkPrintContext *context,
+test_print_file_operation_draw_page (BobguiPrintOperation *operation,
+				     BobguiPrintContext *context,
 				     int page_nr)
 {
   cairo_t *cr;
@@ -86,8 +86,8 @@ test_print_file_operation_draw_page (GtkPrintOperation *operation,
   PangoFontDescription *desc;
   char *page_str;
 
-  cr = gtk_print_context_get_cairo_context (context);
-  width = gtk_print_context_get_width (context);
+  cr = bobgui_print_context_get_cairo_context (context);
+  width = bobgui_print_context_get_width (context);
 
   cairo_rectangle (cr, 0, 0, width, HEADER_HEIGHT);
   
@@ -98,7 +98,7 @@ test_print_file_operation_draw_page (GtkPrintOperation *operation,
   cairo_set_line_width (cr, 1);
   cairo_stroke (cr);
 
-  layout = gtk_print_context_create_pango_layout (context);
+  layout = bobgui_print_context_create_pango_layout (context);
 
   desc = pango_font_description_from_string ("sans 14");
   pango_layout_set_font_description (layout, desc);
@@ -124,7 +124,7 @@ test_print_file_operation_draw_page (GtkPrintOperation *operation,
   
   g_object_unref (layout);
   
-  layout = gtk_print_context_create_pango_layout (context);
+  layout = bobgui_print_context_create_pango_layout (context);
   
   desc = pango_font_description_from_string ("mono");
   pango_font_description_set_size (desc, op->font_size * PANGO_SCALE);
@@ -143,7 +143,7 @@ test_print_file_operation_draw_page (GtkPrintOperation *operation,
 }
 
 static void
-test_print_file_operation_end_print (GtkPrintOperation *operation, GtkPrintContext *context)
+test_print_file_operation_end_print (BobguiPrintOperation *operation, BobguiPrintContext *context)
 {
   TestPrintFileOperation *op = TEST_PRINT_FILE_OPERATION (operation);
   g_strfreev (op->lines);
@@ -153,7 +153,7 @@ static void
 test_print_file_operation_class_init (TestPrintFileOperationClass *class)
 {
   GObjectClass *gobject_class = (GObjectClass *)class;
-  GtkPrintOperationClass *print_class = (GtkPrintOperationClass *)class;
+  BobguiPrintOperationClass *print_class = (BobguiPrintOperationClass *)class;
 
   gobject_class->finalize = test_print_file_operation_finalize;
   print_class->begin_print = test_print_file_operation_begin_print;

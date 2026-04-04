@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkFixed">
+      <object class="BobguiFixed">
         <property name="width-request">200</property>
         <property name="height-request">200</property>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="width-request">100</property>
             <property name="height-request">100</property>
             <property name="label" translatable="yes">ABC</property>
@@ -23,7 +23,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="width-request">100</property>
             <property name="height-request">100</property>
             <property name="label" translatable="yes">ABC</property>
@@ -36,7 +36,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="width-request">100</property>
             <property name="height-request">100</property>
             <property name="label" translatable="yes">ABC</property>
@@ -52,7 +52,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="width-request">100</property>
             <property name="height-request">100</property>
             <property name="label" translatable="yes">ABC</property>
@@ -65,7 +65,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="width-request">100</property>
             <property name="height-request">100</property>
             <property name="label" translatable="yes">ABC</property>
@@ -81,7 +81,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="width-request">100</property>
             <property name="height-request">100</property>
             <property name="label" translatable="yes">ABC</property>
@@ -94,7 +94,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="width-request">100</property>
             <property name="height-request">100</property>
             <property name="label" translatable="yes">ABC</property>
@@ -110,7 +110,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="BobguiLabel">
             <property name="width-request">100</property>
             <property name="height-request">100</property>
             <property name="label" translatable="yes">ABC</property>

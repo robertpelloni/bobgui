@@ -20,9 +20,9 @@
 
 #include <string.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
-#include "gtk/svg/gtksvgprivate.h"
-#include "gtk/svg/gtksvgpaintprivate.h"
+#include <bobgui/bobgui.h>
+#include "bobgui/svg/bobguisvgprivate.h"
+#include "bobgui/svg/bobguisvgpaintprivate.h"
 #include "testsuite/testutils.h"
 
 typedef enum {
@@ -175,12 +175,12 @@ static void
 add_error_context (const GError *error,
                    GString      *string)
 {
-  if (error->domain == GTK_SVG_ERROR)
+  if (error->domain == BOBGUI_SVG_ERROR)
     {
-      const GtkSvgLocation *start = gtk_svg_error_get_start (error);
-      const GtkSvgLocation *end = gtk_svg_error_get_end (error);
-      const char *element = gtk_svg_error_get_element (error);
-      const char *attribute = gtk_svg_error_get_attribute (error);
+      const BobguiSvgLocation *start = bobgui_svg_error_get_start (error);
+      const BobguiSvgLocation *end = bobgui_svg_error_get_end (error);
+      const char *element = bobgui_svg_error_get_element (error);
+      const char *attribute = bobgui_svg_error_get_attribute (error);
 
       if (start)
         {
@@ -203,15 +203,15 @@ add_error_context (const GError *error,
 }
 
 static void
-error_cb (GtkSvg       *svg,
+error_cb (BobguiSvg       *svg,
           const GError *error,
           GString      *errors)
 {
   add_error_context (error,errors);
 
-  if (error->domain == GTK_SVG_ERROR)
+  if (error->domain == BOBGUI_SVG_ERROR)
     {
-      GEnumClass *class = g_type_class_get (GTK_TYPE_SVG_ERROR);
+      GEnumClass *class = g_type_class_get (BOBGUI_TYPE_SVG_ERROR);
       GEnumValue *value = g_enum_get_value (class, error->code);
       g_string_append (errors, value->value_name);
     }
@@ -229,7 +229,7 @@ error_cb (GtkSvg       *svg,
 static void
 parse_svg_file (GFile *file, TestFlags flags)
 {
-  GtkSvg *svg;
+  BobguiSvg *svg;
   char *svg_file;
   const char *file_ext;
   char *reference_file;
@@ -268,12 +268,12 @@ parse_svg_file (GFile *file, TestFlags flags)
       bytes = g_bytes_new_take (contents, length);
     }
 
-  svg = gtk_svg_new ();
+  svg = bobgui_svg_new ();
   g_signal_connect (svg, "error", G_CALLBACK (error_cb), errors);
 
-  gtk_svg_load_from_bytes (svg, bytes);
+  bobgui_svg_load_from_bytes (svg, bytes);
 
-  output = gtk_svg_serialize (svg);
+  output = bobgui_svg_serialize (svg);
 
   if (flags & TEST_FLAG_GENERATE)
     {
@@ -531,7 +531,7 @@ main (int argc, char **argv)
     {
       GFile *file;
 
-      gtk_init ();
+      bobgui_init ();
 
       file = g_file_new_for_commandline_arg (argv[2]);
       parse_svg_file (file, TRUE);
@@ -543,7 +543,7 @@ main (int argc, char **argv)
     {
       GFile *file;
 
-      gtk_init ();
+      bobgui_init ();
 
       file = g_file_new_for_commandline_arg (argv[2]);
       parse_svg_file (file, TEST_FLAG_GENERATE|TEST_FLAG_REPLACE_EXPECTED);
@@ -552,7 +552,7 @@ main (int argc, char **argv)
       return 0;
     }
 
-  gtk_test_init (&argc, &argv);
+  bobgui_test_init (&argc, &argv);
 
   context = g_option_context_new ("");
   g_option_context_add_main_entries (context, options, NULL);

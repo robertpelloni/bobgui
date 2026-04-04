@@ -10,7 +10,7 @@
 #include <sys/ioctl.h>
 #include <linux/udmabuf.h>
 #include <errno.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <gio/gio.h>
 #include "gdk/gdkdmabuffourccprivate.h"
 
@@ -86,7 +86,7 @@ udmabuf_allocate (size_t   size,
 
   size = align (size, alignment);
 
-  mem_fd = memfd_create ("gtk", MFD_ALLOW_SEALING);
+  mem_fd = memfd_create ("bobgui", MFD_ALLOW_SEALING);
   if (mem_fd == -1)
     {
       g_set_error (error,

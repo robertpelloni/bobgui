@@ -16,51 +16,51 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 GSList *scales;
-GtkWidget *flipbox;
-GtkWidget *extra_scale;
+BobguiWidget *flipbox;
+BobguiWidget *extra_scale;
 
 static void
-invert (GtkButton *button)
+invert (BobguiButton *button)
 {
   GSList *l;
 
   for (l = scales; l; l = l->next)
     {
-      GtkRange *range = l->data;
-      gtk_range_set_inverted (range, !gtk_range_get_inverted (range));
+      BobguiRange *range = l->data;
+      bobgui_range_set_inverted (range, !bobgui_range_get_inverted (range));
     }
 }
 
 static void
-flip (GtkButton *button)
+flip (BobguiButton *button)
 {
   GSList *l;
 
-  gtk_orientable_set_orientation (GTK_ORIENTABLE (flipbox), 1 - gtk_orientable_get_orientation (GTK_ORIENTABLE (flipbox)));
+  bobgui_orientable_set_orientation (BOBGUI_ORIENTABLE (flipbox), 1 - bobgui_orientable_get_orientation (BOBGUI_ORIENTABLE (flipbox)));
 
   for (l = scales; l; l = l->next)
     {
-      GtkOrientable *o = l->data;
-      gtk_orientable_set_orientation (o, 1 - gtk_orientable_get_orientation (o));
+      BobguiOrientable *o = l->data;
+      bobgui_orientable_set_orientation (o, 1 - bobgui_orientable_get_orientation (o));
     }
 }
 
 static void
-trough (GtkToggleButton *button)
+trough (BobguiToggleButton *button)
 {
   GSList *l;
   gboolean value;
 
-  value = gtk_toggle_button_get_active (button);
+  value = bobgui_toggle_button_get_active (button);
 
   for (l = scales; l; l = l->next)
     {
-      GtkRange *range = l->data;
-      gtk_range_set_range (range, 0., value ? 100.0 : 0.);
+      BobguiRange *range = l->data;
+      bobgui_range_set_range (range, 0., value ? 100.0 : 0.);
     }
 }
 
@@ -68,28 +68,28 @@ double marks[3] = { 0.0, 50.0, 100.0 };
 double extra_marks[2] = { 20.0, 40.0 };
 
 static void
-extra (GtkToggleButton *button)
+extra (BobguiToggleButton *button)
 {
   gboolean value;
 
-  value = gtk_toggle_button_get_active (button);
+  value = bobgui_toggle_button_get_active (button);
 
   if (value)
     {
-      gtk_scale_add_mark (GTK_SCALE (extra_scale), extra_marks[0], GTK_POS_TOP, NULL);
-      gtk_scale_add_mark (GTK_SCALE (extra_scale), extra_marks[1], GTK_POS_TOP, NULL);
+      bobgui_scale_add_mark (BOBGUI_SCALE (extra_scale), extra_marks[0], BOBGUI_POS_TOP, NULL);
+      bobgui_scale_add_mark (BOBGUI_SCALE (extra_scale), extra_marks[1], BOBGUI_POS_TOP, NULL);
     }
   else
     {
-      gtk_scale_clear_marks (GTK_SCALE (extra_scale));
-      gtk_scale_add_mark (GTK_SCALE (extra_scale), marks[0], GTK_POS_BOTTOM, NULL);
-      gtk_scale_add_mark (GTK_SCALE (extra_scale), marks[1], GTK_POS_BOTTOM, NULL);
-      gtk_scale_add_mark (GTK_SCALE (extra_scale), marks[2], GTK_POS_BOTTOM, NULL);
+      bobgui_scale_clear_marks (BOBGUI_SCALE (extra_scale));
+      bobgui_scale_add_mark (BOBGUI_SCALE (extra_scale), marks[0], BOBGUI_POS_BOTTOM, NULL);
+      bobgui_scale_add_mark (BOBGUI_SCALE (extra_scale), marks[1], BOBGUI_POS_BOTTOM, NULL);
+      bobgui_scale_add_mark (BOBGUI_SCALE (extra_scale), marks[2], BOBGUI_POS_BOTTOM, NULL);
     }
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -101,13 +101,13 @@ quit_cb (GtkWidget *widget,
 
 int main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *box;
-  GtkWidget *box1;
-  GtkWidget *box2;
-  GtkWidget *button;
-  GtkWidget *frame;
-  GtkWidget *scale;
+  BobguiWidget *window;
+  BobguiWidget *box;
+  BobguiWidget *box1;
+  BobguiWidget *box2;
+  BobguiWidget *button;
+  BobguiWidget *frame;
+  BobguiWidget *scale;
   const char *labels[3] = {
     "<small>Left</small>",
     "<small>Middle</small>",
@@ -126,119 +126,119 @@ int main (int argc, char *argv[])
   const char *pos_labels[4] = { "Left", "Right", "Top", "Bottom" };
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "Ranges with marks");
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Ranges with marks");
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  box1 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
-  flipbox = box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
-  gtk_widget_set_hexpand (flipbox, TRUE);
-  gtk_widget_set_vexpand (flipbox, TRUE);
-  gtk_box_append (GTK_BOX (box1), box);
-  gtk_window_set_child (GTK_WINDOW (window), box1);
+  box1 = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 5);
+  flipbox = box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 5);
+  bobgui_widget_set_hexpand (flipbox, TRUE);
+  bobgui_widget_set_vexpand (flipbox, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box1), box);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box1);
 
-  frame = gtk_frame_new ("No marks");
-  scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  frame = bobgui_frame_new ("No marks");
+  scale = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
   scales = g_slist_prepend (scales, scale);
-  gtk_scale_set_draw_value (GTK_SCALE (scale), FALSE);
-  gtk_frame_set_child (GTK_FRAME (frame), scale);
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_scale_set_draw_value (BOBGUI_SCALE (scale), FALSE);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), scale);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  frame = gtk_frame_new ("With fill level");
-  scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  frame = bobgui_frame_new ("With fill level");
+  scale = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
   scales = g_slist_prepend (scales, scale);
-  gtk_scale_set_draw_value (GTK_SCALE (scale), FALSE);
-  gtk_range_set_show_fill_level (GTK_RANGE (scale), TRUE);
-  gtk_range_set_fill_level (GTK_RANGE (scale), 50);
-  gtk_frame_set_child (GTK_FRAME (frame), scale);
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_scale_set_draw_value (BOBGUI_SCALE (scale), FALSE);
+  bobgui_range_set_show_fill_level (BOBGUI_RANGE (scale), TRUE);
+  bobgui_range_set_fill_level (BOBGUI_RANGE (scale), 50);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), scale);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  frame = gtk_frame_new ("Simple marks");
-  extra_scale = scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  frame = bobgui_frame_new ("Simple marks");
+  extra_scale = scale = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
   scales = g_slist_prepend (scales, scale);
-  gtk_scale_set_draw_value (GTK_SCALE (scale), FALSE);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[0], GTK_POS_BOTTOM, NULL);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[1], GTK_POS_BOTTOM, NULL);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[2], GTK_POS_BOTTOM, NULL);
-  gtk_frame_set_child (GTK_FRAME (frame), scale);
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_scale_set_draw_value (BOBGUI_SCALE (scale), FALSE);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[0], BOBGUI_POS_BOTTOM, NULL);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[1], BOBGUI_POS_BOTTOM, NULL);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[2], BOBGUI_POS_BOTTOM, NULL);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), scale);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  frame = gtk_frame_new ("Simple marks up");
-  scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  frame = bobgui_frame_new ("Simple marks up");
+  scale = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
   scales = g_slist_prepend (scales, scale);
-  gtk_scale_set_draw_value (GTK_SCALE (scale), FALSE);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[0], GTK_POS_TOP, NULL);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[1], GTK_POS_TOP, NULL);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[2], GTK_POS_TOP, NULL);
-  gtk_frame_set_child (GTK_FRAME (frame), scale);
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_scale_set_draw_value (BOBGUI_SCALE (scale), FALSE);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[0], BOBGUI_POS_TOP, NULL);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[1], BOBGUI_POS_TOP, NULL);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[2], BOBGUI_POS_TOP, NULL);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), scale);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  frame = gtk_frame_new ("Labeled marks");
-  box2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  frame = bobgui_frame_new ("Labeled marks");
+  box2 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6);
 
-  scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  scale = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
   scales = g_slist_prepend (scales, scale);
-  gtk_scale_set_draw_value (GTK_SCALE (scale), FALSE);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[0], GTK_POS_BOTTOM, labels[0]);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[1], GTK_POS_BOTTOM, labels[1]);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[2], GTK_POS_BOTTOM, labels[2]);
-  gtk_frame_set_child (GTK_FRAME (frame), scale);
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_scale_set_draw_value (BOBGUI_SCALE (scale), FALSE);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[0], BOBGUI_POS_BOTTOM, labels[0]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[1], BOBGUI_POS_BOTTOM, labels[1]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[2], BOBGUI_POS_BOTTOM, labels[2]);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), scale);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  frame = gtk_frame_new ("Some labels");
-  scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  frame = bobgui_frame_new ("Some labels");
+  scale = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
   scales = g_slist_prepend (scales, scale);
-  gtk_scale_set_draw_value (GTK_SCALE (scale), FALSE);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[0], GTK_POS_TOP, labels[0]);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[1], GTK_POS_TOP, NULL);
-  gtk_scale_add_mark (GTK_SCALE (scale), marks[2], GTK_POS_TOP, labels[2]);
-  gtk_frame_set_child (GTK_FRAME (frame), scale);
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_scale_set_draw_value (BOBGUI_SCALE (scale), FALSE);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[0], BOBGUI_POS_TOP, labels[0]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[1], BOBGUI_POS_TOP, NULL);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), marks[2], BOBGUI_POS_TOP, labels[2]);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), scale);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  frame = gtk_frame_new ("Above and below");
-  scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  frame = bobgui_frame_new ("Above and below");
+  scale = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
   scales = g_slist_prepend (scales, scale);
-  gtk_scale_set_draw_value (GTK_SCALE (scale), FALSE);
-  gtk_scale_add_mark (GTK_SCALE (scale), bath_marks[0], GTK_POS_TOP, bath_labels[0]);
-  gtk_scale_add_mark (GTK_SCALE (scale), bath_marks[1], GTK_POS_BOTTOM, bath_labels[1]);
-  gtk_scale_add_mark (GTK_SCALE (scale), bath_marks[2], GTK_POS_BOTTOM, bath_labels[2]);
-  gtk_scale_add_mark (GTK_SCALE (scale), bath_marks[3], GTK_POS_TOP, bath_labels[3]);
-  gtk_frame_set_child (GTK_FRAME (frame), scale);
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_scale_set_draw_value (BOBGUI_SCALE (scale), FALSE);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), bath_marks[0], BOBGUI_POS_TOP, bath_labels[0]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), bath_marks[1], BOBGUI_POS_BOTTOM, bath_labels[1]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), bath_marks[2], BOBGUI_POS_BOTTOM, bath_labels[2]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), bath_marks[3], BOBGUI_POS_TOP, bath_labels[3]);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), scale);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  frame = gtk_frame_new ("Positions");
-  scale = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
+  frame = bobgui_frame_new ("Positions");
+  scale = bobgui_scale_new_with_range (BOBGUI_ORIENTATION_HORIZONTAL, 0, 100, 1);
   scales = g_slist_prepend (scales, scale);
-  gtk_scale_set_draw_value (GTK_SCALE (scale), FALSE);
-  gtk_scale_add_mark (GTK_SCALE (scale), pos_marks[0], GTK_POS_LEFT, pos_labels[0]);
-  gtk_scale_add_mark (GTK_SCALE (scale), pos_marks[1], GTK_POS_RIGHT, pos_labels[1]);
-  gtk_scale_add_mark (GTK_SCALE (scale), pos_marks[2], GTK_POS_TOP, pos_labels[2]);
-  gtk_scale_add_mark (GTK_SCALE (scale), pos_marks[3], GTK_POS_BOTTOM, pos_labels[3]);
-  gtk_frame_set_child (GTK_FRAME (frame), scale);
-  gtk_box_append (GTK_BOX (box), frame);
+  bobgui_scale_set_draw_value (BOBGUI_SCALE (scale), FALSE);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), pos_marks[0], BOBGUI_POS_LEFT, pos_labels[0]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), pos_marks[1], BOBGUI_POS_RIGHT, pos_labels[1]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), pos_marks[2], BOBGUI_POS_TOP, pos_labels[2]);
+  bobgui_scale_add_mark (BOBGUI_SCALE (scale), pos_marks[3], BOBGUI_POS_BOTTOM, pos_labels[3]);
+  bobgui_frame_set_child (BOBGUI_FRAME (frame), scale);
+  bobgui_box_append (BOBGUI_BOX (box), frame);
 
-  box2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-  gtk_box_append (GTK_BOX (box1), box2);
-  button = gtk_button_new_with_label ("Flip");
+  box2 = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6);
+  bobgui_box_append (BOBGUI_BOX (box1), box2);
+  button = bobgui_button_new_with_label ("Flip");
   g_signal_connect (button, "clicked", G_CALLBACK (flip), NULL);
-  gtk_box_append (GTK_BOX (box2), button);
+  bobgui_box_append (BOBGUI_BOX (box2), button);
 
-  button = gtk_button_new_with_label ("Invert");
+  button = bobgui_button_new_with_label ("Invert");
   g_signal_connect (button, "clicked", G_CALLBACK (invert), NULL);
-  gtk_box_append (GTK_BOX (box2), button);
+  bobgui_box_append (BOBGUI_BOX (box2), button);
 
-  button = gtk_toggle_button_new_with_label ("Trough");
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
+  button = bobgui_toggle_button_new_with_label ("Trough");
+  bobgui_toggle_button_set_active (BOBGUI_TOGGLE_BUTTON (button), TRUE);
   g_signal_connect (button, "toggled", G_CALLBACK (trough), NULL);
-  gtk_box_append (GTK_BOX (box2), button);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_box_append (BOBGUI_BOX (box2), button);
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  button = gtk_toggle_button_new_with_label ("Extra");
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), FALSE);
+  button = bobgui_toggle_button_new_with_label ("Extra");
+  bobgui_toggle_button_set_active (BOBGUI_TOGGLE_BUTTON (button), FALSE);
   g_signal_connect (button, "toggled", G_CALLBACK (extra), NULL);
-  gtk_box_append (GTK_BOX (box2), button);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_box_append (BOBGUI_BOX (box2), button);
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

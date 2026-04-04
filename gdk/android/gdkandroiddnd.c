@@ -177,7 +177,7 @@ gdk_android_drag_finalize (GObject *object)
   G_OBJECT_CLASS (gdk_android_drag_parent_class)->finalize (object);
 
   // Destroy the surface after handlers finalize handlers of Object have been
-  // called. GtkDragIcon expects the frame clock to still exist while it is
+  // called. BobguiDragIcon expects the frame clock to still exist while it is
   // beeing destroyed. As self has the DragIcon in data, we must destroy the
   // surface only after the data of self has been destroyed.
   if (!GDK_SURFACE_DESTROYED (surface))

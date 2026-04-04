@@ -22,7 +22,7 @@
 
 G_BEGIN_DECLS
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkX11Keymap GdkX11Keymap;
 #else
 typedef GdkKeymap GdkX11Keymap;

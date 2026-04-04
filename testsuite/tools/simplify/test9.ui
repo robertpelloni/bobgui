@@ -1,7 +1,7 @@
 <interface>
-  <object class="GtkComboBox">
+  <object class="BobguiComboBox">
     <child>
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">start</property>
       </object>
     </child>

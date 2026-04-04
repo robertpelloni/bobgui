@@ -55,7 +55,7 @@ foreach flag: common_cflags
 endforeach
 
 test_env = environment()
-test_env.set('GTK_A11Y', 'test')
+test_env.set('BOBGUI_A11Y', 'test')
 test_env.set('GSK_RENDERER', 'cairo')
 test_env.set('G_TEST_SRCDIR', meson.current_source_dir())
 test_env.set('G_TEST_BUILDDIR', meson.current_build_dir())
@@ -74,7 +74,7 @@ foreach t : tests
     sources: test_srcs,
     c_args: test_cargs + test_extra_cargs,
     link_args: test_extra_ldflags,
-    dependencies: libgtk_dep,
+    dependencies: libbobgui_dep,
   )
 
   if test_extra_suites.contains('slow')
@@ -100,9 +100,9 @@ foreach t : internal_tests
 
   test_exe = executable(test_name,
     sources: test_srcs,
-    c_args: test_cargs + test_extra_cargs + ['-DGTK_COMPILATION'],
+    c_args: test_cargs + test_extra_cargs + ['-DBOBGUI_COMPILATION'],
     link_args: test_extra_ldflags,
-    dependencies: libgtk_static_dep,
+    dependencies: libbobgui_static_dep,
   )
 
   if test_extra_suites.contains('slow')

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <property name="default-width">200</property>
     <property name="default-height">100</property>
     <property name="decorated">0</property>
     <child>
-      <object class="GtkPicture">
+      <object class="BobguiPicture">
         <property name="paintable">green-100x100.png</property>
         <property name="content-fit">fill</property>
         <property name="can-shrink">1</property>

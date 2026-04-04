@@ -1,8 +1,8 @@
 ## Symbolic icon format
 
-GTK has been using a simple subset of SVG for symbolic, recolorable icons for a long time. This document is an attempt to describe the format that we use.
+BOBGUI has been using a simple subset of SVG for symbolic, recolorable icons for a long time. This document is an attempt to describe the format that we use.
 
-Note that support for strokes, and style classes other than "success", "warning" and "error" has been added in GTK 4.20 and GTK 3.24.50.
+Note that support for strokes, and style classes other than "success", "warning" and "error" has been added in BOBGUI 4.20 and BOBGUI 3.24.50.
 
 ### Allowed primitives
 
@@ -35,7 +35,7 @@ The `class` attribute can also contain one of the following classes to determine
 - `color`: ignored
 - `overflow`: ignored
 
-Note that when a full SVG renderer is used to render symbolics, other attributes or elements may have an effect. But you should not rely on that. GTK may use its own parser for this subset of SVG, and ignore everything else.
+Note that when a full SVG renderer is used to render symbolics, other attributes or elements may have an effect. But you should not rely on that. BOBGUI may use its own parser for this subset of SVG, and ignore everything else.
 
 ### Styling
 

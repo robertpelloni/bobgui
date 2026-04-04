@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if !defined (__GDKX_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKX_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/x11/gdkx.h> can be included directly."
 #endif
 
@@ -32,7 +32,7 @@ G_BEGIN_DECLS
 #define GDK_IS_X11_APP_LAUNCH_CONTEXT_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_X11_APP_LAUNCH_CONTEXT))
 #define GDK_X11_APP_LAUNCH_CONTEXT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_X11_APP_LAUNCH_CONTEXT, GdkX11AppLaunchContextClass))
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkX11AppLaunchContext GdkX11AppLaunchContext;
 #else
 typedef GdkAppLaunchContext GdkX11AppLaunchContext;

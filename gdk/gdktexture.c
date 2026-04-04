@@ -73,9 +73,9 @@
  **/
 G_DEFINE_QUARK (gdk-texture-error-quark, gdk_texture_error)
 
-/* HACK: So we don't need to include any (not-yet-created) GSK or GTK headers */
+/* HACK: So we don't need to include any (not-yet-created) GSK or BOBGUI headers */
 void
-gtk_snapshot_append_texture (GdkSnapshot            *snapshot,
+bobgui_snapshot_append_texture (GdkSnapshot            *snapshot,
                              GdkTexture             *texture,
                              const graphene_rect_t  *bounds);
 
@@ -125,7 +125,7 @@ gdk_texture_paintable_snapshot (GdkPaintable *paintable,
 {
   GdkTexture *self = GDK_TEXTURE (paintable);
 
-  gtk_snapshot_append_texture (snapshot,
+  bobgui_snapshot_append_texture (snapshot,
                                self,
                                &GRAPHENE_RECT_INIT (0, 0, width, height));
 }
@@ -453,7 +453,7 @@ gdk_texture_init (GdkTexture *self)
  *
  * Creates a new texture object representing the surface.
  *
- * The @surface must be an image surface with a format supperted by GTK.
+ * The @surface must be an image surface with a format supperted by BOBGUI.
  *
  * The newly created texture will acquire a reference on the @surface.
  *
@@ -1189,7 +1189,7 @@ gdk_texture_save_to_png_bytes (GdkTexture *texture)
  *
  * Store the given @texture to the @filename as a TIFF file.
  *
- * GTK will attempt to store data without loss.
+ * BOBGUI will attempt to store data without loss.
  * Returns: %TRUE if saving succeeded, %FALSE on failure.
  *
  * Since: 4.6

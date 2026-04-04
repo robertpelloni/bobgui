@@ -1,6 +1,6 @@
-## GTK CI infrastructure
+## BOBGUI CI infrastructure
 
-GTK uses different CI images depending on platform and jobs.
+BOBGUI uses different CI images depending on platform and jobs.
 
 The CI images are Docker containers, generated either using `docker` or
 `podman`, and pushed to the GitLab [container registry][registry].
@@ -47,4 +47,4 @@ process:
  1. [ ] Build and upload fedora-base:$version+1
  1. [ ] Build and upload fedora:$version+1 based on fedora-base:version+1
 
-[registry]: https://gitlab.gnome.org/GNOME/gtk/container_registry
+[registry]: https://gitlab.gnome.org/GNOME/bobgui/container_registry

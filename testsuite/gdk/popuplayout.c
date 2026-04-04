@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 test_popup_layout_basic (void)
@@ -55,7 +55,7 @@ main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
 
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/popuplayout/basic", test_popup_layout_basic);
 

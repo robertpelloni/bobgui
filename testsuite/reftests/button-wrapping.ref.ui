@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="height_request">500</property>
     <property name="width_request">500</property>
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox" id="box1">
+      <object class="BobguiBox" id="box1">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkPaned" id="paned1">
+          <object class="BobguiPaned" id="paned1">
             <property name="shrink-start-child">0</property>
             <property name="resize-start-child">0</property>
             <property name="position_set">1</property>
             <child>
-              <object class="GtkCheckButton" id="checkbutton1">
+              <object class="BobguiCheckButton" id="checkbutton1">
                 <child>
-                  <object class="GtkLabel" id="label1">
+                  <object class="BobguiLabel" id="label1">
                     <property name="label" translatable="yes">Hello
 World</property>
                   </object>
@@ -23,7 +23,7 @@ World</property>
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="box2">
+              <object class="BobguiBox" id="box2">
                 <property name="orientation">vertical</property>
                 <child>
                   <placeholder/>
@@ -33,15 +33,15 @@ World</property>
           </object>
         </child>
         <child>
-          <object class="GtkPaned" id="paned2">
+          <object class="BobguiPaned" id="paned2">
             <property name="shrink-start-child">0</property>
             <property name="resize-start-child">0</property>
             <property name="position_set">1</property>
             <child>
-              <object class="GtkCheckButton" id="radiobutton1">
+              <object class="BobguiCheckButton" id="radiobutton1">
                 <property name="active">1</property>
                 <child>
-                  <object class="GtkLabel" id="label2">
+                  <object class="BobguiLabel" id="label2">
                     <property name="label" translatable="yes">Hello
 World</property>
                   </object>
@@ -49,7 +49,7 @@ World</property>
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="box3">
+              <object class="BobguiBox" id="box3">
                 <property name="orientation">vertical</property>
                 <child>
                   <placeholder/>
@@ -59,15 +59,15 @@ World</property>
           </object>
         </child>
         <child>
-          <object class="GtkPaned" id="paned3">
+          <object class="BobguiPaned" id="paned3">
             <property name="shrink-start-child">0</property>
             <property name="resize-start-child">0</property>
             <property name="position_set">1</property>
             <child>
-              <object class="GtkToggleButton" id="togglebutton1">
+              <object class="BobguiToggleButton" id="togglebutton1">
                 <property name="receives_default">1</property>
                 <child>
-                  <object class="GtkLabel" id="label3">
+                  <object class="BobguiLabel" id="label3">
                     <property name="label" translatable="yes">Hello
 World</property>
                   </object>
@@ -75,7 +75,7 @@ World</property>
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="box4">
+              <object class="BobguiBox" id="box4">
                 <property name="orientation">vertical</property>
                 <child>
                   <placeholder/>
@@ -85,15 +85,15 @@ World</property>
           </object>
         </child>
         <child>
-          <object class="GtkPaned" id="paned4">
+          <object class="BobguiPaned" id="paned4">
             <property name="shrink-start-child">0</property>
             <property name="resize-start-child">0</property>
             <property name="position_set">1</property>
             <child>
-              <object class="GtkButton" id="button1">
+              <object class="BobguiButton" id="button1">
                 <property name="receives_default">1</property>
                 <child>
-                  <object class="GtkLabel" id="label4">
+                  <object class="BobguiLabel" id="label4">
                     <property name="label" translatable="yes">Hello
 World</property>
                   </object>
@@ -101,7 +101,7 @@ World</property>
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="box5">
+              <object class="BobguiBox" id="box5">
                 <property name="orientation">vertical</property>
                 <child>
                   <placeholder/>

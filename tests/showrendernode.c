@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static char *write_to_filename = NULL;
 static gboolean compare_node;
@@ -11,29 +11,29 @@ static GOptionEntry options[] = {
 
 
 
-typedef struct _GtkNodeView      GtkNodeView;
-typedef struct _GtkNodeViewClass GtkNodeViewClass;
+typedef struct _BobguiNodeView      BobguiNodeView;
+typedef struct _BobguiNodeViewClass BobguiNodeViewClass;
 
-#define GTK_TYPE_NODE_VIEW           (gtk_node_view_get_type ())
-#define GTK_NODE_VIEW(obj)           (G_TYPE_CHECK_INSTANCE_CAST(obj, GTK_TYPE_NODE_VIEW, GtkNodeView))
-#define GTK_NODE_VIEW_CLASS(cls)     (G_TYPE_CHECK_CLASS_CAST(cls, GTK_TYPE_NODE_VIEW, GtkNodeViewClass))
-struct _GtkNodeView
+#define BOBGUI_TYPE_NODE_VIEW           (bobgui_node_view_get_type ())
+#define BOBGUI_NODE_VIEW(obj)           (G_TYPE_CHECK_INSTANCE_CAST(obj, BOBGUI_TYPE_NODE_VIEW, BobguiNodeView))
+#define BOBGUI_NODE_VIEW_CLASS(cls)     (G_TYPE_CHECK_CLASS_CAST(cls, BOBGUI_TYPE_NODE_VIEW, BobguiNodeViewClass))
+struct _BobguiNodeView
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   GskRenderNode *node;
   GFileMonitor *file_monitor;
 };
 
-struct _GtkNodeViewClass
+struct _BobguiNodeViewClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-GType gtk_node_view_get_type (void) G_GNUC_CONST;
+GType bobgui_node_view_get_type (void) G_GNUC_CONST;
 
 
-G_DEFINE_TYPE(GtkNodeView, gtk_node_view, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE(BobguiNodeView, bobgui_node_view, BOBGUI_TYPE_WIDGET)
 
 static void
 deserialize_error_func (const GskParseLocation *start,
@@ -59,7 +59,7 @@ deserialize_error_func (const GskParseLocation *start,
 }
 
 static void
-load_file_contents (GtkNodeView *self,
+load_file_contents (BobguiNodeView *self,
                     GFile       *file)
 {
   GBytes *bytes;
@@ -84,7 +84,7 @@ load_file_contents (GtkNodeView *self,
       return;
     }
 
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+  bobgui_widget_queue_draw (BOBGUI_WIDGET (self));
 
   g_bytes_unref (bytes);
 }
@@ -96,22 +96,22 @@ file_changed_cb (GFileMonitor      *monitor,
                  GFileMonitorEvent  event_type,
                  gpointer           user_data)
 {
-  GtkNodeView *self = user_data;
+  BobguiNodeView *self = user_data;
 
   if (event_type == G_FILE_MONITOR_EVENT_CHANGED)
     load_file_contents (self, file);
 }
 
 static void
-gtk_node_view_measure (GtkWidget      *widget,
-                       GtkOrientation  orientation,
+bobgui_node_view_measure (BobguiWidget      *widget,
+                       BobguiOrientation  orientation,
                        int             for_size,
                        int            *minimum,
                        int            *natural,
                        int            *minimum_baseline,
                        int            *natural_baseline)
 {
-  GtkNodeView *self = GTK_NODE_VIEW (widget);
+  BobguiNodeView *self = BOBGUI_NODE_VIEW (widget);
   graphene_rect_t bounds;
 
 
@@ -120,7 +120,7 @@ gtk_node_view_measure (GtkWidget      *widget,
 
   gsk_render_node_get_bounds (self->node, &bounds);
 
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+  if (orientation == BOBGUI_ORIENTATION_HORIZONTAL)
     {
       *minimum = *natural = bounds.origin.x + bounds.size.width;
     }
@@ -131,46 +131,46 @@ gtk_node_view_measure (GtkWidget      *widget,
 }
 
 static void
-gtk_node_view_snapshot (GtkWidget   *widget,
-                        GtkSnapshot *snapshot)
+bobgui_node_view_snapshot (BobguiWidget   *widget,
+                        BobguiSnapshot *snapshot)
 {
-  GtkNodeView *self = GTK_NODE_VIEW (widget);
+  BobguiNodeView *self = BOBGUI_NODE_VIEW (widget);
 
   if (self->node != NULL)
-    gtk_snapshot_append_node (snapshot, self->node);
+    bobgui_snapshot_append_node (snapshot, self->node);
 }
 
 static void
-gtk_node_view_finalize (GObject *object)
+bobgui_node_view_finalize (GObject *object)
 {
-  GtkNodeView *self = GTK_NODE_VIEW (object);
+  BobguiNodeView *self = BOBGUI_NODE_VIEW (object);
 
   if (self->node)
     gsk_render_node_unref (self->node);
 
-  G_OBJECT_CLASS (gtk_node_view_parent_class)->finalize (object);
+  G_OBJECT_CLASS (bobgui_node_view_parent_class)->finalize (object);
 }
 
 static void
-gtk_node_view_init (GtkNodeView *self)
+bobgui_node_view_init (BobguiNodeView *self)
 {
-  gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+  bobgui_widget_set_overflow (BOBGUI_WIDGET (self), BOBGUI_OVERFLOW_HIDDEN);
 }
 
 static void
-gtk_node_view_class_init (GtkNodeViewClass *klass)
+bobgui_node_view_class_init (BobguiNodeViewClass *klass)
 {
   GObjectClass   *object_class = G_OBJECT_CLASS (klass);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (klass);
 
-  object_class->finalize = gtk_node_view_finalize;
+  object_class->finalize = bobgui_node_view_finalize;
 
-  widget_class->measure = gtk_node_view_measure;
-  widget_class->snapshot = gtk_node_view_snapshot;
+  widget_class->measure = bobgui_node_view_measure;
+  widget_class->snapshot = bobgui_node_view_snapshot;
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -183,8 +183,8 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char **argv)
 {
-  GtkWidget *window;
-  GtkWidget *nodeview;
+  BobguiWidget *window;
+  BobguiWidget *nodeview;
   graphene_rect_t node_bounds;
   GOptionContext *option_context;
   GError *error = NULL;
@@ -211,16 +211,16 @@ main (int argc, char **argv)
 
   g_message ("Compare: %d, write to filename: %s", compare_node, write_to_filename);
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  nodeview = g_object_new (GTK_TYPE_NODE_VIEW, NULL);
+  window = bobgui_window_new ();
+  nodeview = g_object_new (BOBGUI_TYPE_NODE_VIEW, NULL);
 
-  gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
+  bobgui_window_set_decorated (BOBGUI_WINDOW (window), FALSE);
 
   file = g_file_new_for_path (argv[1]);
-  load_file_contents (GTK_NODE_VIEW (nodeview), file);
-  GTK_NODE_VIEW (nodeview)->file_monitor = g_file_monitor_file (file, G_FILE_MONITOR_NONE, NULL, &error);
+  load_file_contents (BOBGUI_NODE_VIEW (nodeview), file);
+  BOBGUI_NODE_VIEW (nodeview)->file_monitor = g_file_monitor_file (file, G_FILE_MONITOR_NONE, NULL, &error);
   g_object_unref (file);
 
   if (error)
@@ -229,14 +229,14 @@ main (int argc, char **argv)
       return -1;
     }
 
-  g_signal_connect (GTK_NODE_VIEW (nodeview)->file_monitor,
+  g_signal_connect (BOBGUI_NODE_VIEW (nodeview)->file_monitor,
                     "changed", G_CALLBACK (file_changed_cb), nodeview);
 
   if (write_to_filename != NULL)
     {
       GdkSurface *surface = gdk_surface_new_toplevel (gdk_display_get_default());
       GskRenderer *renderer = gsk_renderer_new_for_surface (surface);
-      GdkTexture *texture = gsk_renderer_render_texture (renderer, GTK_NODE_VIEW (nodeview)->node, NULL);
+      GdkTexture *texture = gsk_renderer_render_texture (renderer, BOBGUI_NODE_VIEW (nodeview)->node, NULL);
 
       g_message ("Writing .node file to .png using %s", G_OBJECT_TYPE_NAME (renderer));
 
@@ -253,19 +253,19 @@ main (int argc, char **argv)
 
   if (compare_node)
     {
-      GtkWidget *box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
+      BobguiWidget *box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 12);
       GdkSurface *gdk_surface = gdk_surface_new_toplevel (gdk_display_get_default());
       GskRenderer *renderer = gsk_renderer_new_for_surface (gdk_surface);
-      GdkTexture *texture = gsk_renderer_render_texture (renderer, GTK_NODE_VIEW (nodeview)->node, NULL);
-      GtkWidget *image = gtk_image_new_from_paintable (GDK_PAINTABLE (texture));
+      GdkTexture *texture = gsk_renderer_render_texture (renderer, BOBGUI_NODE_VIEW (nodeview)->node, NULL);
+      BobguiWidget *image = bobgui_image_new_from_paintable (GDK_PAINTABLE (texture));
 
-      gtk_widget_set_size_request (image,
+      bobgui_widget_set_size_request (image,
                                    gdk_texture_get_width (texture),
                                    gdk_texture_get_height (texture));
 
-      gtk_box_append (GTK_BOX (box), nodeview);
-      gtk_box_append (GTK_BOX (box), image);
-      gtk_window_set_child (GTK_WINDOW (window), box);
+      bobgui_box_append (BOBGUI_BOX (box), nodeview);
+      bobgui_box_append (BOBGUI_BOX (box), image);
+      bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
       gsk_renderer_unrealize (renderer);
       g_object_unref (texture);
@@ -274,16 +274,16 @@ main (int argc, char **argv)
     }
   else
     {
-      gtk_window_set_child (GTK_WINDOW (window), nodeview);
+      bobgui_window_set_child (BOBGUI_WINDOW (window), nodeview);
     }
 
-  gsk_render_node_get_bounds (GTK_NODE_VIEW (nodeview)->node, &node_bounds);
-  gtk_window_set_default_size (GTK_WINDOW (window),
+  gsk_render_node_get_bounds (BOBGUI_NODE_VIEW (nodeview)->node, &node_bounds);
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window),
                                MAX (600, node_bounds.size.width),
                                MAX (500, node_bounds.size.height));
 
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

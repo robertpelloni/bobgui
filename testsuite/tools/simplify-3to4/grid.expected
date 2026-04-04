@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <object class="GtkWindow" id="window1">
+  <requires lib="bobgui" version="4.0"/>
+  <object class="BobguiWindow" id="window1">
     <property name="child">
-      <object class="GtkGrid" id="grid1">
+      <object class="BobguiGrid" id="grid1">
         <child>
-          <object class="GtkToggleButton" id="button1">
+          <object class="BobguiToggleButton" id="button1">
             <property name="label" translatable="1">Hello World!</property>
             <property name="active">1</property>
             <property name="receives_default">1</property>
@@ -22,7 +22,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkCheckButton" id="button2">
+          <object class="BobguiCheckButton" id="button2">
             <property name="label" translatable="1">Hello World!</property>
             <property name="receives_default">1</property>
             <layout>
@@ -32,7 +32,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkCheckButton" id="button3">
+          <object class="BobguiCheckButton" id="button3">
             <property name="label" translatable="1">Hello World!</property>
             <property name="receives_default">1</property>
             <layout>
@@ -42,7 +42,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkCheckButton" id="button4">
+          <object class="BobguiCheckButton" id="button4">
             <property name="label" translatable="1">Hello World!</property>
             <property name="active">1</property>
             <property name="group">button3</property>
@@ -55,7 +55,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkToggleButton" id="button4a">
+          <object class="BobguiToggleButton" id="button4a">
             <property name="label" translatable="1">Hello World!</property>
             <property name="group">button4</property>
             <property name="receives_default">1</property>
@@ -66,7 +66,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkSwitch" id="button5">
+          <object class="BobguiSwitch" id="button5">
             <property name="active">1</property>
             <property name="focusable">1</property>
             <property name="receives_default">1</property>
@@ -77,7 +77,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkSwitch" id="button6">
+          <object class="BobguiSwitch" id="button6">
             <property name="focusable">1</property>
             <property name="receives_default">1</property>
             <layout>
@@ -87,7 +87,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button7">
+          <object class="BobguiButton" id="button7">
             <property name="focusable">1</property>
             <property name="receives_default">1</property>
             <property name="label">Text Button</property>
@@ -98,7 +98,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button8">
+          <object class="BobguiButton" id="button8">
             <property name="focusable">1</property>
             <property name="receives_default">1</property>
             <property name="halign">center</property>
@@ -110,7 +110,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button9">
+          <object class="BobguiButton" id="button9">
             <property name="focusable">1</property>
             <property name="receives_default">1</property>
             <property name="halign">center</property>

@@ -619,7 +619,7 @@ _gdk_macos_surface_set_native (GdkMacosSurface *self,
  * Gets the underlying NSWindow used by the surface.
  *
  * The NSWindow's contentView is an implementation detail and may change
- * between releases of GTK.
+ * between releases of BOBGUI.
  *
  * Returns: (nullable): a #NSWindow or %NULL
  *

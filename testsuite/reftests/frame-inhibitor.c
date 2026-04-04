@@ -20,26 +20,26 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
-#include "gtk-reftest.h"
+#include "bobgui-reftest.h"
 
 static gboolean 
-tick_callback_for_1_frame (GtkWidget     *widget,
+tick_callback_for_1_frame (BobguiWidget     *widget,
                            GdkFrameClock *frame_clock,
                            gpointer       unused)
 {
   reftest_uninhibit_snapshot ();
-  gtk_widget_queue_draw (widget);
+  bobgui_widget_queue_draw (widget);
 
   return G_SOURCE_REMOVE;
 }
 
 G_MODULE_EXPORT gboolean
-inhibit_for_1_frame (GtkWidget *widget)
+inhibit_for_1_frame (BobguiWidget *widget)
 {
   reftest_inhibit_snapshot ();
-  gtk_widget_add_tick_callback (widget,
+  bobgui_widget_add_tick_callback (widget,
                                 tick_callback_for_1_frame,
                                 NULL, NULL);
 
@@ -47,7 +47,7 @@ inhibit_for_1_frame (GtkWidget *widget)
 }
 
 static gboolean 
-tick_callback_for_2_frames (GtkWidget     *widget,
+tick_callback_for_2_frames (BobguiWidget     *widget,
                             GdkFrameClock *frame_clock,
                             gpointer       unused)
 {
@@ -58,10 +58,10 @@ tick_callback_for_2_frames (GtkWidget     *widget,
 }
 
 G_MODULE_EXPORT gboolean
-inhibit_for_2_frames (GtkWidget *widget)
+inhibit_for_2_frames (BobguiWidget *widget)
 {
   reftest_inhibit_snapshot ();
-  gtk_widget_add_tick_callback (widget,
+  bobgui_widget_add_tick_callback (widget,
                                 tick_callback_for_2_frames,
                                 NULL, NULL);
 
@@ -69,7 +69,7 @@ inhibit_for_2_frames (GtkWidget *widget)
 }
 
 static gboolean 
-tick_callback_for_3_frames (GtkWidget     *widget,
+tick_callback_for_3_frames (BobguiWidget     *widget,
                             GdkFrameClock *frame_clock,
                             gpointer       unused)
 {
@@ -80,10 +80,10 @@ tick_callback_for_3_frames (GtkWidget     *widget,
 }
 
 G_MODULE_EXPORT gboolean
-inhibit_for_3_frames (GtkWidget *widget)
+inhibit_for_3_frames (BobguiWidget *widget)
 {
   reftest_inhibit_snapshot ();
-  gtk_widget_add_tick_callback (widget,
+  bobgui_widget_add_tick_callback (widget,
                                 tick_callback_for_3_frames,
                                 NULL, NULL);
 
@@ -91,17 +91,17 @@ inhibit_for_3_frames (GtkWidget *widget)
 }
 
 G_MODULE_EXPORT gboolean
-add_reference_class_if_no_animation (GtkWidget *widget)
+add_reference_class_if_no_animation (BobguiWidget *widget)
 {
   gboolean enabled;
 
-  g_object_get (gtk_widget_get_settings (widget), "gtk-enable-animations", &enabled, NULL);
+  g_object_get (bobgui_widget_get_settings (widget), "bobgui-enable-animations", &enabled, NULL);
   if (enabled)
     return FALSE;
 
   g_message ("Adding reference class because animation is disabled");
 
-  gtk_widget_add_css_class (widget, "reference");
+  bobgui_widget_add_css_class (widget, "reference");
 
   return FALSE;
 }

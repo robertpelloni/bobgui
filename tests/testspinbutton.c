@@ -16,14 +16,14 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static int num_windows = 0;
 
 static gboolean done = FALSE;
 
 static gboolean
-on_delete (GtkWindow *w)
+on_delete (BobguiWindow *w)
 {
   num_windows--;
   if (num_windows == 0)
@@ -36,50 +36,50 @@ on_delete (GtkWindow *w)
 }
 
 static void
-prepare_window_for_orientation (GtkOrientation orientation)
+prepare_window_for_orientation (BobguiOrientation orientation)
 {
-  GtkWidget *window, *mainbox, *wrap_button;
+  BobguiWidget *window, *mainbox, *wrap_button;
   int max;
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "close-request", G_CALLBACK (on_delete), NULL);
 
-  mainbox = gtk_box_new (GTK_ORIENTATION_VERTICAL ^ orientation, 2);
-  gtk_window_set_child (GTK_WINDOW (window), mainbox);
+  mainbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL ^ orientation, 2);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), mainbox);
 
-  wrap_button = gtk_toggle_button_new_with_label ("Wrap");
-  gtk_box_append (GTK_BOX (mainbox), wrap_button);
+  wrap_button = bobgui_toggle_button_new_with_label ("Wrap");
+  bobgui_box_append (BOBGUI_BOX (mainbox), wrap_button);
 
   for (max = 9; max <= 999999999; max = max * 10 + 9)
     {
-      GtkAdjustment *adj = gtk_adjustment_new (max,
+      BobguiAdjustment *adj = bobgui_adjustment_new (max,
                                                1, max,
                                                1,
                                                (max + 1) / 10,
                                                0.0);
 
-      GtkWidget *spin = gtk_spin_button_new (adj, 1.0, 0);
-      gtk_orientable_set_orientation (GTK_ORIENTABLE (spin), orientation);
-      gtk_widget_set_halign (GTK_WIDGET (spin), GTK_ALIGN_CENTER);
+      BobguiWidget *spin = bobgui_spin_button_new (adj, 1.0, 0);
+      bobgui_orientable_set_orientation (BOBGUI_ORIENTABLE (spin), orientation);
+      bobgui_widget_set_halign (BOBGUI_WIDGET (spin), BOBGUI_ALIGN_CENTER);
 
       g_object_bind_property (wrap_button, "active", spin, "wrap", G_BINDING_SYNC_CREATE);
 
-      GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 4);
-      gtk_box_append (GTK_BOX (hbox), spin);
-      gtk_box_append (GTK_BOX (mainbox), hbox);
+      BobguiWidget *hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 4);
+      bobgui_box_append (BOBGUI_BOX (hbox), spin);
+      bobgui_box_append (BOBGUI_BOX (mainbox), hbox);
     }
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
   num_windows++;
 }
 
 int
 main (int argc, char **argv)
 {
-  gtk_init ();
+  bobgui_init ();
 
-  prepare_window_for_orientation (GTK_ORIENTATION_HORIZONTAL);
-  prepare_window_for_orientation (GTK_ORIENTATION_VERTICAL);
+  prepare_window_for_orientation (BOBGUI_ORIENTATION_HORIZONTAL);
+  prepare_window_for_orientation (BOBGUI_ORIENTATION_VERTICAL);
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

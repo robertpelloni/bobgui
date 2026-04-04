@@ -1,9 +1,9 @@
-<object class="GtkDialog">
+<object class="BobguiDialog">
   <child internal-child="vbox">
-    <object class="GtkBox">
+    <object class="BobguiBox">
       <property name="name">fancy</property>
       <child internal-child="action_area">
-        <object class="GtkButtonBox">
+        <object class="BobguiButtonBox">
           <property name="name">actions</property>
         </object>
       </child>

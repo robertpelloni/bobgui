@@ -23,10 +23,10 @@
 
 struct _NumberEditor
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
-  GtkSpinButton *value_spin;
-  GtkDropDown *unit_dropdown;
+  BobguiSpinButton *value_spin;
+  BobguiDropDown *unit_dropdown;
   double min, max, value;
   unsigned int unit;
 };
@@ -46,10 +46,10 @@ static GParamSpec *properties[NUM_PROPERTIES];
 
 struct _NumberEditorClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (NumberEditor, number_editor, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (NumberEditor, number_editor, BOBGUI_TYPE_WIDGET)
 
 static void
 number_editor_init (NumberEditor *self)
@@ -59,17 +59,17 @@ number_editor_init (NumberEditor *self)
   self->max = DBL_MAX;
   self->value = 0;
 
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 
   /* We want a numeric entry, but there's no space
    * for buttons, so...
    */
-  for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (self->value_spin));
+  for (BobguiWidget *child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->value_spin));
        child != NULL;
-       child = gtk_widget_get_next_sibling (child))
+       child = bobgui_widget_get_next_sibling (child))
     {
-      if (GTK_IS_BUTTON (child))
-        gtk_widget_set_visible (child, FALSE);
+      if (BOBGUI_IS_BUTTON (child))
+        bobgui_widget_set_visible (child, FALSE);
     }
 }
 
@@ -140,7 +140,7 @@ number_editor_get_property (GObject      *object,
 static void
 number_editor_dispose (GObject *object)
 {
-  gtk_widget_dispose_template (GTK_WIDGET (object), number_editor_get_type ());
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), number_editor_get_type ());
 
   G_OBJECT_CLASS (number_editor_parent_class)->dispose (object);
 }
@@ -157,7 +157,7 @@ static void
 number_editor_class_init (NumberEditorClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->set_property = number_editor_set_property;
   object_class->get_property = number_editor_get_property;
@@ -186,13 +186,13 @@ number_editor_class_init (NumberEditorClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gtk/Shaper/number-editor.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class, "/org/bobgui/Shaper/number-editor.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, NumberEditor, value_spin);
-  gtk_widget_class_bind_template_child (widget_class, NumberEditor, unit_dropdown);
+  bobgui_widget_class_bind_template_child (widget_class, NumberEditor, value_spin);
+  bobgui_widget_class_bind_template_child (widget_class, NumberEditor, unit_dropdown);
 
-  gtk_widget_class_set_css_name (widget_class, "NumberEditor");
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
+  bobgui_widget_class_set_css_name (widget_class, "NumberEditor");
+  bobgui_widget_class_set_layout_manager_type (widget_class, BOBGUI_TYPE_BOX_LAYOUT);
 }
 
 /* }}} */

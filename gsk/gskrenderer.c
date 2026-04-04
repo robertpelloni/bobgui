@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  * Copyright 2016  Endless
  *
  * This library is free software; you can redistribute it and/or
@@ -276,8 +276,8 @@ gsk_renderer_do_realize (GskRenderer  *renderer,
  *
  * Creates the resources needed by the renderer.
  *
- * Since GTK 4.6, the surface may be `NULL`, which allows using
- * renderers without having to create a surface. Since GTK 4.14,
+ * Since BOBGUI 4.6, the surface may be `NULL`, which allows using
+ * renderers without having to create a surface. Since BOBGUI 4.14,
  * it is recommended to use [method@Gsk.Renderer.realize_for_display]
  * for this case.
  *
@@ -513,7 +513,7 @@ get_renderer_for_name (const char *renderer_name)
 #ifdef GDK_WINDOWING_BROADWAY
                         "  broadway - Use the Broadway specific renderer\n"
 #else
-                        "  broadway - Disabled during GTK build\n"
+                        "  broadway - Disabled during BOBGUI build\n"
 #endif
                         "     cairo - Use the Cairo fallback renderer\n"
                         "    opengl - Use the OpenGL renderer\n"
@@ -521,10 +521,10 @@ get_renderer_for_name (const char *renderer_name)
 #ifdef GDK_RENDERING_VULKAN
                         "    vulkan - Use the Vulkan renderer\n"
 #else
-                        "    vulkan - Disabled during GTK build\n"
+                        "    vulkan - Disabled during BOBGUI build\n"
 #endif
                         "      help - Print this help\n\n"
-                        "The old OpenGL renderer has been removed in GTK 4.18, so using\n"
+                        "The old OpenGL renderer has been removed in BOBGUI 4.18, so using\n"
                         "GSK_RENDERER=gl will cause a warning and use the new OpenGL renderer.\n\n"
                         "Other arguments will cause a warning and be ignored.");
     }

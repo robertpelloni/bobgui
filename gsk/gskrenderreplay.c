@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2025  Benjamin Otte
  *
@@ -39,7 +39,7 @@
  * Here is a little example application that redacts text in a node file:
  *
  * ```
- * #include <gtk/gtk.h>
+ * #include <bobgui/bobgui.h>
  *
  * static GskRenderNode *
  * redact_nodes (GskRenderReplay *replay,
@@ -74,7 +74,7 @@
  *   GskRenderNode *result, *node;
  *   GskRenderReplay *replay;
  *
- *   gtk_init ();
+ *   bobgui_init ();
  *
  *   if (argc != 3)
  *     {

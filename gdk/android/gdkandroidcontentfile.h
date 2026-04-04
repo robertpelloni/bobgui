@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined (__GDKANDROID_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKANDROID_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/android/gdkandroid.h> can be included directly."
 #endif
 

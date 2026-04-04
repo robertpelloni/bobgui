@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="width_request">50</property>
     <property name="height_request">60</property>
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="BobguiGrid" id="grid1">
         <child>
-          <object class="GtkButton" id="no-repeat">
+          <object class="BobguiButton" id="no-repeat">
             <property name="name">no-repeat</property>
             <property name="width_request">50</property>
             <property name="height_request">60</property>
@@ -23,7 +23,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="repeat">
+          <object class="BobguiButton" id="repeat">
             <property name="name">repeat</property>
             <property name="width_request">40</property>
             <property name="height_request">60</property>
@@ -39,7 +39,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="default">
+          <object class="BobguiButton" id="default">
             <property name="name">default</property>
             <property name="width_request">50</property>
             <property name="height_request">60</property>

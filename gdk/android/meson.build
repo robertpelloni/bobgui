@@ -30,7 +30,7 @@ gdk_android_public_headers = files([
   'gdkandroiddevice.h'
 ])
 
-install_headers(gdk_android_public_headers, 'gdkandroid.h', subdir: 'gtk-4.0/gdk/android/')
+install_headers(gdk_android_public_headers, 'gdkandroid.h', subdir: 'bobgui-4.0/gdk/android/')
 
 if not cc.has_header('jni.h')
   error('the android backend requires a properly configured ndk')

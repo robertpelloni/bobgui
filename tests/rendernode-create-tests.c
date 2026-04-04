@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include <math.h>
 #include <stdlib.h>
@@ -363,7 +363,7 @@ text (guint n)
   PangoFontDescription *desc;
   PangoContext *context;
   PangoLayout *layout;
-  GtkSettings *settings;
+  BobguiSettings *settings;
   char *usr_dict_words;
   char **words;
   gsize n_words;
@@ -384,8 +384,8 @@ text (guint n)
   context = pango_font_map_create_context (pango_cairo_font_map_get_default ());
   nodes = g_ptr_array_new_with_free_func ((GDestroyNotify) gsk_render_node_unref);
 
-  settings = gtk_settings_get_default ();
-  g_object_get (settings, "gtk-xft-dpi", &dpi_int, NULL);
+  settings = bobgui_settings_get_default ();
+  g_object_get (settings, "bobgui-xft-dpi", &dpi_int, NULL);
   if (dpi_int > 0)
     pango_cairo_context_set_resolution (context, dpi_int / 1024.);
 
@@ -543,7 +543,7 @@ main (int argc, char **argv)
   const char *pattern;
   guint i, n;
 
-  gtk_init ();
+  bobgui_init ();
 
   n = 100000;
   pattern = "*";

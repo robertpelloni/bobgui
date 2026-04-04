@@ -16,15 +16,15 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/. 
  */
 
 #pragma once
 
-#if !defined (__GDKX_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKX_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/x11/gdkx.h> can be included directly."
 #endif
 
@@ -42,7 +42,7 @@ G_BEGIN_DECLS
 #define GDK_IS_X11_SURFACE_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_X11_SURFACE))
 #define GDK_X11_SURFACE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_X11_SURFACE, GdkX11SurfaceClass))
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkX11Surface GdkX11Surface;
 #else
 typedef GdkSurface GdkX11Surface;

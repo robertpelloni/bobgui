@@ -21,13 +21,13 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "path-paintable.h"
 
 
 #define PAINTABLE_EDITOR_TYPE (paintable_editor_get_type ())
-G_DECLARE_FINAL_TYPE (PaintableEditor, paintable_editor, PAINTABLE, EDITOR, GtkWidget)
+G_DECLARE_FINAL_TYPE (PaintableEditor, paintable_editor, PAINTABLE, EDITOR, BobguiWidget)
 
 
 PaintableEditor * paintable_editor_new           (void);

@@ -1,5 +1,5 @@
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static const char *names[] = {
   "none",
@@ -46,16 +46,16 @@ static int count = 0;
 static gboolean
 change_cursor (gpointer data)
 {
-  GtkWidget *window = data;
-  GtkWidget *label;
+  BobguiWidget *window = data;
+  BobguiWidget *label;
   char buffer[128];
 
-  gtk_widget_set_cursor_from_name (window, names[count % G_N_ELEMENTS (names)]);
+  bobgui_widget_set_cursor_from_name (window, names[count % G_N_ELEMENTS (names)]);
   count++;
 
-  label = gtk_window_get_child (GTK_WINDOW (window));
+  label = bobgui_window_get_child (BOBGUI_WINDOW (window));
   g_snprintf (buffer, sizeof (buffer), "%d", count);
-  gtk_label_set_label (GTK_LABEL (label), buffer);
+  bobgui_label_set_label (BOBGUI_LABEL (label), buffer);
 
   return G_SOURCE_CONTINUE;
 }
@@ -63,21 +63,21 @@ change_cursor (gpointer data)
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *label;
+  BobguiWidget *window, *label;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
-  gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
+  window = bobgui_window_new ();
+  bobgui_window_set_resizable (BOBGUI_WINDOW (window), TRUE);
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 600, 400);
 
-  label = gtk_label_new ("");
-  gtk_window_set_child (GTK_WINDOW (window), label);
+  label = bobgui_label_new ("");
+  bobgui_window_set_child (BOBGUI_WINDOW (window), label);
 
   g_timeout_add (4, change_cursor, window);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

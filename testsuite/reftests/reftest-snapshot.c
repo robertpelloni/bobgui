@@ -33,22 +33,22 @@
 
 #define REFTEST_TYPE_SCOPE               (reftest_scope_get_type ())
 
-G_DECLARE_FINAL_TYPE (ReftestScope, reftest_scope, REFTEST, SCOPE, GtkBuilderCScope)
+G_DECLARE_FINAL_TYPE (ReftestScope, reftest_scope, REFTEST, SCOPE, BobguiBuilderCScope)
 
-static GtkBuilderScopeInterface *parent_scope_iface;
+static BobguiBuilderScopeInterface *parent_scope_iface;
 
 struct _ReftestScope
 {
-  GtkBuilderCScope parent_instance;
+  BobguiBuilderCScope parent_instance;
 
   char *directory;
 };
 
 static GClosure *
-reftest_scope_create_closure (GtkBuilderScope        *scope,
-                              GtkBuilder             *builder,
+reftest_scope_create_closure (BobguiBuilderScope        *scope,
+                              BobguiBuilder             *builder,
                               const char             *function_name,
-                              GtkBuilderClosureFlags  flags,
+                              BobguiBuilderClosureFlags  flags,
                               GObject                *object,
                               GError                **error)
 {
@@ -77,8 +77,8 @@ reftest_scope_create_closure (GtkBuilderScope        *scope,
       if (module == NULL)
         {
           g_set_error (error,
-                       GTK_BUILDER_ERROR,
-                       GTK_BUILDER_ERROR_INVALID_FUNCTION,
+                       BOBGUI_BUILDER_ERROR,
+                       BOBGUI_BUILDER_ERROR_INVALID_FUNCTION,
                        "Could not load module '%s' from '%s' when looking up '%s': %s", split[0], self->directory, function_name, g_module_error ());
           return NULL;
         }
@@ -86,22 +86,22 @@ reftest_scope_create_closure (GtkBuilderScope        *scope,
       if (!func)
         {
           g_set_error (error,
-                       GTK_BUILDER_ERROR,
-                       GTK_BUILDER_ERROR_INVALID_FUNCTION,
+                       BOBGUI_BUILDER_ERROR,
+                       BOBGUI_BUILDER_ERROR_INVALID_FUNCTION,
                        "failed to lookup function for name '%s' in module '%s'", split[1], split[0]);
           return NULL;
         }
 
       if (object)
         {
-          if (flags & GTK_BUILDER_CLOSURE_SWAPPED)
+          if (flags & BOBGUI_BUILDER_CLOSURE_SWAPPED)
             closure = g_cclosure_new_object_swap (func, object);
           else
             closure = g_cclosure_new_object (func, object);
         }
       else
         {
-          if (flags & GTK_BUILDER_CLOSURE_SWAPPED)
+          if (flags & BOBGUI_BUILDER_CLOSURE_SWAPPED)
             closure = g_cclosure_new_swap (func, NULL, NULL);
           else
             closure = g_cclosure_new (func, NULL, NULL);
@@ -113,8 +113,8 @@ reftest_scope_create_closure (GtkBuilderScope        *scope,
 
     default:
       g_set_error (error,
-                   GTK_BUILDER_ERROR,
-                   GTK_BUILDER_ERROR_INVALID_FUNCTION,
+                   BOBGUI_BUILDER_ERROR,
+                   BOBGUI_BUILDER_ERROR_INVALID_FUNCTION,
                    "Could not find function named '%s'", function_name);
       return NULL;
     }
@@ -125,15 +125,15 @@ reftest_scope_create_closure (GtkBuilderScope        *scope,
 }
 
 static void
-reftest_scope_scope_init (GtkBuilderScopeInterface *iface)
+reftest_scope_scope_init (BobguiBuilderScopeInterface *iface)
 {
   iface->create_closure = reftest_scope_create_closure;
 
   parent_scope_iface = g_type_interface_peek_parent (iface);
 }
 
-G_DEFINE_TYPE_WITH_CODE (ReftestScope, reftest_scope, GTK_TYPE_BUILDER_CSCOPE,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDER_SCOPE,
+G_DEFINE_TYPE_WITH_CODE (ReftestScope, reftest_scope, BOBGUI_TYPE_BUILDER_CSCOPE,
+                         G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_BUILDER_SCOPE,
                                                 reftest_scope_scope_init))
 
 static void
@@ -159,7 +159,7 @@ reftest_scope_init (ReftestScope *self)
 {
 }
 
-static GtkBuilderScope *
+static BobguiBuilderScope *
 reftest_scope_new (const char *directory)
 {
   ReftestScope *result;
@@ -170,20 +170,20 @@ reftest_scope_new (const char *directory)
 
   result->directory = g_strdup (directory);
 
-  return GTK_BUILDER_SCOPE (result);
+  return BOBGUI_BUILDER_SCOPE (result);
 }
 
-static GtkWidget *
-builder_get_toplevel (GtkBuilder *builder)
+static BobguiWidget *
+builder_get_toplevel (BobguiBuilder *builder)
 {
   GSList *list, *walk;
-  GtkWidget *window = NULL;
+  BobguiWidget *window = NULL;
 
-  list = gtk_builder_get_objects (builder);
+  list = bobgui_builder_get_objects (builder);
   for (walk = list; walk; walk = walk->next)
     {
-      if (GTK_IS_WINDOW (walk->data) &&
-          gtk_widget_get_parent (walk->data) == NULL)
+      if (BOBGUI_IS_WINDOW (walk->data) &&
+          bobgui_widget_get_parent (walk->data) == NULL)
         {
           window = walk->data;
           break;
@@ -223,7 +223,7 @@ static void
 draw_paintable (GdkPaintable *paintable,
                 gpointer      out_texture)
 {
-  GtkSnapshot *snapshot;
+  BobguiSnapshot *snapshot;
   GskRenderNode *node;
   GdkTexture *texture;
   GskRenderer *renderer;
@@ -231,12 +231,12 @@ draw_paintable (GdkPaintable *paintable,
   if (inhibit_count > 0)
     return;
 
-  snapshot = gtk_snapshot_new ();
+  snapshot = bobgui_snapshot_new ();
   gdk_paintable_snapshot (paintable,
                           snapshot,
                           gdk_paintable_get_intrinsic_width (paintable),
                           gdk_paintable_get_intrinsic_height (paintable));
-  node = gtk_snapshot_free_to_node (snapshot);
+  node = bobgui_snapshot_free_to_node (snapshot);
 
   /* If the window literally draws nothing, we assume it hasn't been mapped yet and as such
    * the invalidations were only side effects of resizes.
@@ -244,9 +244,9 @@ draw_paintable (GdkPaintable *paintable,
   if (node == NULL)
     return;
 
-  renderer = gtk_native_get_renderer (
-                 gtk_widget_get_native (
-                     gtk_widget_paintable_get_widget (GTK_WIDGET_PAINTABLE (paintable))));
+  renderer = bobgui_native_get_renderer (
+                 bobgui_widget_get_native (
+                     bobgui_widget_paintable_get_widget (BOBGUI_WIDGET_PAINTABLE (paintable))));
   texture = gsk_renderer_render_texture (renderer,
                                          node,
                                          &GRAPHENE_RECT_INIT (
@@ -267,12 +267,12 @@ draw_paintable (GdkPaintable *paintable,
 }
 
 static GdkTexture *
-snapshot_widget (GtkWidget *widget)
+snapshot_widget (BobguiWidget *widget)
 {
   GdkPaintable *paintable;
   GdkTexture *texture = NULL;
 
-  g_assert_true (gtk_widget_get_realized (widget));
+  g_assert_true (bobgui_widget_get_realized (widget));
 
   loop = g_main_loop_new (NULL, FALSE);
 
@@ -281,13 +281,13 @@ snapshot_widget (GtkWidget *widget)
    * We also use an inhibit mechanism, to give module functions a chance
    * to delay the snapshot.
    */
-  paintable = gtk_widget_paintable_new (widget);
+  paintable = bobgui_widget_paintable_new (widget);
   g_signal_connect (paintable, "invalidate-contents", G_CALLBACK (draw_paintable), &texture);
   g_main_loop_run (loop);
 
   g_main_loop_unref (loop);
   g_object_unref (paintable);
-  gtk_window_destroy (GTK_WINDOW (widget));
+  bobgui_window_destroy (BOBGUI_WINDOW (widget));
 
   return texture;
 }
@@ -295,9 +295,9 @@ snapshot_widget (GtkWidget *widget)
 GdkTexture *
 reftest_snapshot_ui_file (const char *ui_file)
 {
-  GtkWidget *window;
-  GtkBuilder *builder;
-  GtkBuilderScope *scope;
+  BobguiWidget *window;
+  BobguiBuilder *builder;
+  BobguiBuilderScope *scope;
   GError *error = NULL;
   char *directory;
 
@@ -308,17 +308,17 @@ reftest_snapshot_ui_file (const char *ui_file)
   scope = reftest_scope_new (directory);
   g_free (directory);
 
-  builder = gtk_builder_new ();
-  gtk_builder_set_scope (builder, scope);
+  builder = bobgui_builder_new ();
+  bobgui_builder_set_scope (builder, scope);
   g_object_unref (scope);
 
-  gtk_builder_add_from_file (builder, ui_file, &error);
+  bobgui_builder_add_from_file (builder, ui_file, &error);
   g_assert_no_error (error);
   window = builder_get_toplevel (builder);
   g_object_unref (builder);
   g_assert_true (window);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   return snapshot_widget (window);
 }

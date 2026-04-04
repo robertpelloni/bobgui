@@ -1,117 +1,117 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
 static void
-unset_title (GtkWidget *window)
+unset_title (BobguiWidget *window)
 {
-  GtkWidget *box;
+  BobguiWidget *box;
 
-  g_assert (GTK_IS_WINDOW (window));
+  g_assert (BOBGUI_IS_WINDOW (window));
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_widget_hide (box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+  bobgui_widget_hide (box);
 
-  gtk_window_set_titlebar (GTK_WINDOW (window), box);
+  bobgui_window_set_titlebar (BOBGUI_WINDOW (window), box);
 }
 
 static void
-load_css (GtkWidget  *widget,
+load_css (BobguiWidget  *widget,
           const char *css)
 {
-  GtkCssProvider *provider;
-  GtkStyleContext *context;
+  BobguiCssProvider *provider;
+  BobguiStyleContext *context;
 
-  context = gtk_widget_get_style_context (widget);
+  context = bobgui_widget_get_style_context (widget);
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_data (provider, css, -1);
-  gtk_style_context_add_provider (context, GTK_STYLE_PROVIDER (provider), 800);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_data (provider, css, -1);
+  bobgui_style_context_add_provider (context, BOBGUI_STYLE_PROVIDER (provider), 800);
 }
 
 static void
-create_regular (GtkApplication *app)
+create_regular (BobguiApplication *app)
 {
-  GtkWidget *window, *label;
+  BobguiWidget *window, *label;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Regular window");
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Regular window");
 
-  label = gtk_label_new ("This window has no titlebar set");
-  gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-  gtk_window_set_child (GTK_WINDOW (window), label);
+  label = bobgui_label_new ("This window has no titlebar set");
+  bobgui_label_set_wrap (BOBGUI_LABEL (label), TRUE);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), label);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 static void
-create_headerbar_as_titlebar (GtkApplication *app)
+create_headerbar_as_titlebar (BobguiApplication *app)
 {
-  GtkWidget *window, *header, *label;
+  BobguiWidget *window, *header, *label;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Headerbar as titlebar");
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Headerbar as titlebar");
 
-  header = gtk_header_bar_new ();
-  gtk_window_set_titlebar (GTK_WINDOW (window), header);
+  header = bobgui_header_bar_new ();
+  bobgui_window_set_titlebar (BOBGUI_WINDOW (window), header);
 
-  label = gtk_label_new ("This window has a headerbar set as a titlebar");
-  gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-  gtk_window_set_child (GTK_WINDOW (window), label);
+  label = bobgui_label_new ("This window has a headerbar set as a titlebar");
+  bobgui_label_set_wrap (BOBGUI_LABEL (label), TRUE);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), label);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 static void
-create_headerbar_inside_window (GtkApplication *app)
+create_headerbar_inside_window (BobguiApplication *app)
 {
-  GtkWidget *window, *box, *header, *label;
+  BobguiWidget *window, *box, *header, *label;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Headerbar inside window");
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Headerbar inside window");
   unset_title (window);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  header = gtk_header_bar_new ();
-  gtk_box_append (GTK_BOX (box), header);
+  header = bobgui_header_bar_new ();
+  bobgui_box_append (BOBGUI_BOX (box), header);
 
-  label = gtk_label_new ("This window has a headerbar inside the window and no titlebar");
-  gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-  gtk_widget_set_vexpand (label, TRUE);
-  gtk_box_append (GTK_BOX (box), label);
+  label = bobgui_label_new ("This window has a headerbar inside the window and no titlebar");
+  bobgui_label_set_wrap (BOBGUI_LABEL (label), TRUE);
+  bobgui_widget_set_vexpand (label, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 static void
-create_headerbar_overlay (GtkApplication *app)
+create_headerbar_overlay (BobguiApplication *app)
 {
-  GtkWidget *window, *overlay, *sw, *box, *header, *label;
+  BobguiWidget *window, *overlay, *sw, *box, *header, *label;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Headerbar overlaying content");
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Headerbar overlaying content");
   unset_title (window);
 
-  overlay = gtk_overlay_new ();
-  gtk_window_set_child (GTK_WINDOW (window), overlay);
+  overlay = bobgui_overlay_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), overlay);
 
-  header = gtk_header_bar_new ();
-  gtk_widget_set_valign (header, GTK_ALIGN_START);
-  gtk_overlay_add_overlay (GTK_OVERLAY (overlay), header);
+  header = bobgui_header_bar_new ();
+  bobgui_widget_set_valign (header, BOBGUI_ALIGN_START);
+  bobgui_overlay_add_overlay (BOBGUI_OVERLAY (overlay), header);
   load_css (header, "headerbar { background: alpha(shade(@theme_bg_color, .9), .8); }");
 
-  sw = gtk_scrolled_window_new ();
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-  gtk_widget_set_size_request (sw, 300, 250);
-  gtk_overlay_set_child (GTK_OVERLAY (overlay), sw);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (sw), BOBGUI_POLICY_NEVER, BOBGUI_POLICY_AUTOMATIC);
+  bobgui_widget_set_size_request (sw, 300, 250);
+  bobgui_overlay_set_child (BOBGUI_OVERLAY (overlay), sw);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), box);
-  gtk_widget_set_size_request (sw, 300, 250);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 12);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), box);
+  bobgui_widget_set_size_request (sw, 300, 250);
 
-  label = gtk_label_new ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+  label = bobgui_label_new ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
                          "Nulla innn urna ac dui malesuada ornare. Nullam dictum "
                          "tempor mi et tincidunt. Aliquam metus nulla, auctor "
                          "vitae pulvinar nec, egestas at mi. Class aptent taciti "
@@ -122,111 +122,111 @@ create_headerbar_overlay (GtkApplication *app)
                          "In hac habitasse platea dictumst. Suspendisse lacinia"
                          "mi eu ipsum vestibulum in venenatis enim commodo. "
                          "Vivamus non malesuada ligula.");
-  gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-  gtk_box_append (GTK_BOX (box), label);
+  bobgui_label_set_wrap (BOBGUI_LABEL (label), TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  label = gtk_label_new ("This window has a headerbar inside an overlay, so the text is visible underneath it");
-  gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-  gtk_widget_set_vexpand (label, TRUE);
-  gtk_box_append (GTK_BOX (box), label);
+  label = bobgui_label_new ("This window has a headerbar inside an overlay, so the text is visible underneath it");
+  bobgui_label_set_wrap (BOBGUI_LABEL (label), TRUE);
+  bobgui_widget_set_vexpand (label, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 static void
-create_hiding_headerbar (GtkApplication *app)
+create_hiding_headerbar (BobguiApplication *app)
 {
-  GtkWidget *window, *box, *revealer, *header, *label, *hbox, *toggle;
+  BobguiWidget *window, *box, *revealer, *header, *label, *hbox, *toggle;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Hiding headerbar");
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Hiding headerbar");
   unset_title (window);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  revealer = gtk_revealer_new ();
-  gtk_box_append (GTK_BOX (box), revealer);
+  revealer = bobgui_revealer_new ();
+  bobgui_box_append (BOBGUI_BOX (box), revealer);
 
-  header = gtk_header_bar_new ();
-  gtk_revealer_set_child (GTK_REVEALER (revealer), header);
+  header = bobgui_header_bar_new ();
+  bobgui_revealer_set_child (BOBGUI_REVEALER (revealer), header);
 
-  label = gtk_label_new ("This window's headerbar can be shown and hidden with animation");
-  gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-  gtk_widget_set_vexpand (label, TRUE);
-  gtk_box_append (GTK_BOX (box), label);
+  label = bobgui_label_new ("This window's headerbar can be shown and hidden with animation");
+  bobgui_label_set_wrap (BOBGUI_LABEL (label), TRUE);
+  bobgui_widget_set_vexpand (label, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-  gtk_widget_set_halign (hbox, GTK_ALIGN_CENTER);
-  gtk_widget_set_margin_top (hbox, 12);
-  gtk_widget_set_margin_bottom (hbox, 12);
-  gtk_widget_set_margin_start (hbox, 12);
-  gtk_widget_set_margin_end (hbox, 12);
-  gtk_box_append (GTK_BOX (box), hbox);
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 12);
+  bobgui_widget_set_halign (hbox, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_margin_top (hbox, 12);
+  bobgui_widget_set_margin_bottom (hbox, 12);
+  bobgui_widget_set_margin_start (hbox, 12);
+  bobgui_widget_set_margin_end (hbox, 12);
+  bobgui_box_append (BOBGUI_BOX (box), hbox);
 
-  toggle = gtk_switch_new ();
-  gtk_switch_set_active (GTK_SWITCH (toggle), TRUE);
-  gtk_box_append (GTK_BOX (hbox), toggle);
+  toggle = bobgui_switch_new ();
+  bobgui_switch_set_active (BOBGUI_SWITCH (toggle), TRUE);
+  bobgui_box_append (BOBGUI_BOX (hbox), toggle);
   g_object_bind_property (toggle, "active",
                           revealer, "reveal-child",
                           G_BINDING_SYNC_CREATE);
 
-  label = gtk_label_new ("Show headerbar");
-  gtk_box_append (GTK_BOX (hbox), label);
+  label = bobgui_label_new ("Show headerbar");
+  bobgui_box_append (BOBGUI_BOX (hbox), label);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 static void
-create_fake_headerbar (GtkApplication *app)
+create_fake_headerbar (BobguiApplication *app)
 {
-  GtkWidget *window, *handle, *box, *center_box, *controls, *label;
+  BobguiWidget *window, *handle, *box, *center_box, *controls, *label;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Fake headerbar");
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Fake headerbar");
   unset_title (window);
 
-  handle = gtk_window_handle_new ();
-  gtk_window_set_child (GTK_WINDOW (window), handle);
+  handle = bobgui_window_handle_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), handle);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_handle_set_child (GTK_WINDOW_HANDLE (handle), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_handle_set_child (BOBGUI_WINDOW_HANDLE (handle), box);
 
-  center_box = gtk_center_box_new ();
-  gtk_box_append (GTK_BOX (box), center_box);
+  center_box = bobgui_center_box_new ();
+  bobgui_box_append (BOBGUI_BOX (box), center_box);
 
-  label = gtk_label_new ("Fake headerbar");
-  gtk_center_box_set_center_widget (GTK_CENTER_BOX (center_box), label);
+  label = bobgui_label_new ("Fake headerbar");
+  bobgui_center_box_set_center_widget (BOBGUI_CENTER_BOX (center_box), label);
 
-  controls = gtk_window_controls_new (GTK_PACK_START);
-  gtk_center_box_set_start_widget (GTK_CENTER_BOX (center_box), controls);
+  controls = bobgui_window_controls_new (BOBGUI_PACK_START);
+  bobgui_center_box_set_start_widget (BOBGUI_CENTER_BOX (center_box), controls);
 
-  controls = gtk_window_controls_new (GTK_PACK_END);
-  gtk_center_box_set_end_widget (GTK_CENTER_BOX (center_box), controls);
+  controls = bobgui_window_controls_new (BOBGUI_PACK_END);
+  bobgui_center_box_set_end_widget (BOBGUI_CENTER_BOX (center_box), controls);
 
-  label = gtk_label_new ("This window's titlebar is just a centerbox with a label and window controls.\nThe whole window is draggable.");
-  gtk_label_set_wrap (GTK_LABEL (label), TRUE);
-  gtk_widget_set_vexpand (label, TRUE);
-  gtk_box_append (GTK_BOX (box), label);
+  label = bobgui_label_new ("This window's titlebar is just a centerbox with a label and window controls.\nThe whole window is draggable.");
+  bobgui_label_set_wrap (BOBGUI_LABEL (label), TRUE);
+  bobgui_widget_set_vexpand (label, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 /* split headerbar  */
 
 static void
-split_decorations (GtkSettings *settings,
+split_decorations (BobguiSettings *settings,
                    GParamSpec  *pspec,
-                   GtkBuilder  *builder)
+                   BobguiBuilder  *builder)
 {
-  GtkWidget *sheader, *mheader;
+  BobguiWidget *sheader, *mheader;
   char *layout, *p1, *p2;
   char **p;
 
-  sheader = (GtkWidget *)gtk_builder_get_object (builder, "sidebar-header");
-  mheader = (GtkWidget *)gtk_builder_get_object (builder, "main-header");
+  sheader = (BobguiWidget *)bobgui_builder_get_object (builder, "sidebar-header");
+  mheader = (BobguiWidget *)bobgui_builder_get_object (builder, "main-header");
 
-  g_object_get (settings, "gtk-decoration-layout", &layout, NULL);
+  g_object_get (settings, "bobgui-decoration-layout", &layout, NULL);
 
   p = g_strsplit (layout, ":", -1);
 
@@ -237,8 +237,8 @@ split_decorations (GtkSettings *settings,
   else
     p2 = g_strdup ("");
 
-  gtk_header_bar_set_decoration_layout (GTK_HEADER_BAR (sheader), p1);
-  gtk_header_bar_set_decoration_layout (GTK_HEADER_BAR (mheader), p2);
+  bobgui_header_bar_set_decoration_layout (BOBGUI_HEADER_BAR (sheader), p1);
+  bobgui_header_bar_set_decoration_layout (BOBGUI_HEADER_BAR (mheader), p2);
  
   g_free (p1);
   g_free (p2);
@@ -248,14 +248,14 @@ split_decorations (GtkSettings *settings,
 
 
 static void
-create_split_headerbar (GtkApplication *app)
+create_split_headerbar (BobguiApplication *app)
 {
-  GtkBuilder *builder;
-  GtkSettings *settings;
-  GtkWidget *win;
-  GtkWidget *entry;
-  GtkWidget *check;
-  GtkWidget *header;
+  BobguiBuilder *builder;
+  BobguiSettings *settings;
+  BobguiWidget *win;
+  BobguiWidget *entry;
+  BobguiWidget *check;
+  BobguiWidget *header;
   const char *ui = "tests/testsplitheaders.ui";
 
   if (!g_file_test (ui, G_FILE_TEST_EXISTS))
@@ -264,72 +264,72 @@ create_split_headerbar (GtkApplication *app)
       return;
     }
 
-  builder = gtk_builder_new_from_file (ui);
+  builder = bobgui_builder_new_from_file (ui);
 
-  win = (GtkWidget *)gtk_builder_get_object (builder, "window");
-  gtk_window_set_application (GTK_WINDOW (win), app);
+  win = (BobguiWidget *)bobgui_builder_get_object (builder, "window");
+  bobgui_window_set_application (BOBGUI_WINDOW (win), app);
 
-  settings = gtk_widget_get_settings (win);
+  settings = bobgui_widget_get_settings (win);
 
-  g_signal_connect (settings, "notify::gtk-decoration-layout",
+  g_signal_connect (settings, "notify::bobgui-decoration-layout",
                     G_CALLBACK (split_decorations), builder);
   split_decorations (settings, NULL, builder);
 
-  entry = (GtkWidget *)gtk_builder_get_object (builder, "layout-entry");
-  g_object_bind_property (settings, "gtk-decoration-layout",
+  entry = (BobguiWidget *)bobgui_builder_get_object (builder, "layout-entry");
+  g_object_bind_property (settings, "bobgui-decoration-layout",
                           entry, "text",
                           G_BINDING_BIDIRECTIONAL|G_BINDING_SYNC_CREATE);
-  check = (GtkWidget *)gtk_builder_get_object (builder, "decorations");
-  header = (GtkWidget *)gtk_builder_get_object (builder, "sidebar-header");
+  check = (BobguiWidget *)bobgui_builder_get_object (builder, "decorations");
+  header = (BobguiWidget *)bobgui_builder_get_object (builder, "sidebar-header");
   g_object_bind_property (check, "active",
                           header, "show-title-buttons",
                           G_BINDING_DEFAULT);
-  header = (GtkWidget *)gtk_builder_get_object (builder, "main-header");
+  header = (BobguiWidget *)bobgui_builder_get_object (builder, "main-header");
   g_object_bind_property (check, "active",
                           header, "show-title-buttons",
 			  G_BINDING_DEFAULT);
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 }
 
 /* stacked headers */
 
 static void
-back_to_main (GtkButton *button,
-              GtkWidget *win)
+back_to_main (BobguiButton *button,
+              BobguiWidget *win)
 {
-  GtkWidget *header_stack;
-  GtkWidget *page_stack;
+  BobguiWidget *header_stack;
+  BobguiWidget *page_stack;
 
-  header_stack = GTK_WIDGET (g_object_get_data (G_OBJECT (win), "header-stack"));
-  page_stack = GTK_WIDGET (g_object_get_data (G_OBJECT (win), "page-stack"));
+  header_stack = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (win), "header-stack"));
+  page_stack = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (win), "page-stack"));
 
-  gtk_stack_set_visible_child_name (GTK_STACK (header_stack), "main");
-  gtk_stack_set_visible_child_name (GTK_STACK (page_stack), "page1");
+  bobgui_stack_set_visible_child_name (BOBGUI_STACK (header_stack), "main");
+  bobgui_stack_set_visible_child_name (BOBGUI_STACK (page_stack), "page1");
 }
 
 static void
-go_to_secondary (GtkButton *button,
-                 GtkWidget *win)
+go_to_secondary (BobguiButton *button,
+                 BobguiWidget *win)
 {
-  GtkWidget *header_stack;
-  GtkWidget *page_stack;
+  BobguiWidget *header_stack;
+  BobguiWidget *page_stack;
 
-  header_stack = GTK_WIDGET (g_object_get_data (G_OBJECT (win), "header-stack"));
-  page_stack = GTK_WIDGET (g_object_get_data (G_OBJECT (win), "page-stack"));
+  header_stack = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (win), "header-stack"));
+  page_stack = BOBGUI_WIDGET (g_object_get_data (G_OBJECT (win), "page-stack"));
 
-  gtk_stack_set_visible_child_name (GTK_STACK (header_stack), "secondary");
-  gtk_stack_set_visible_child_name (GTK_STACK (page_stack), "secondary");
+  bobgui_stack_set_visible_child_name (BOBGUI_STACK (header_stack), "secondary");
+  bobgui_stack_set_visible_child_name (BOBGUI_STACK (page_stack), "secondary");
 }
 
 static void
-create_stacked_headerbar (GtkApplication *app)
+create_stacked_headerbar (BobguiApplication *app)
 {
-  GtkBuilder *builder;
-  GtkWidget *win;
-  GtkWidget *new_btn;
-  GtkWidget *back_btn;
-  GtkWidget *header_stack;
-  GtkWidget *page_stack;
+  BobguiBuilder *builder;
+  BobguiWidget *win;
+  BobguiWidget *new_btn;
+  BobguiWidget *back_btn;
+  BobguiWidget *header_stack;
+  BobguiWidget *page_stack;
   const char *ui = "tests/teststackedheaders.ui";
 
   if (!g_file_test (ui, G_FILE_TEST_EXISTS))
@@ -338,33 +338,33 @@ create_stacked_headerbar (GtkApplication *app)
       return;
     }
 
-  builder = gtk_builder_new ();
-  gtk_builder_add_from_file (builder, ui, NULL);
+  builder = bobgui_builder_new ();
+  bobgui_builder_add_from_file (builder, ui, NULL);
 
-  win = (GtkWidget *)gtk_builder_get_object (builder, "window");
-  gtk_window_set_application (GTK_WINDOW (win), app);
+  win = (BobguiWidget *)bobgui_builder_get_object (builder, "window");
+  bobgui_window_set_application (BOBGUI_WINDOW (win), app);
 
-  header_stack = (GtkWidget *)gtk_builder_get_object (builder, "header_stack");
-  page_stack = (GtkWidget *)gtk_builder_get_object (builder, "page_stack");
+  header_stack = (BobguiWidget *)bobgui_builder_get_object (builder, "header_stack");
+  page_stack = (BobguiWidget *)bobgui_builder_get_object (builder, "page_stack");
 
   g_object_set_data (G_OBJECT (win), "header-stack", header_stack);
   g_object_set_data (G_OBJECT (win), "page-stack", page_stack);
 
-  new_btn = (GtkWidget *)gtk_builder_get_object (builder, "new_btn");
-  back_btn = (GtkWidget *)gtk_builder_get_object (builder, "back_btn");
+  new_btn = (BobguiWidget *)bobgui_builder_get_object (builder, "new_btn");
+  back_btn = (BobguiWidget *)bobgui_builder_get_object (builder, "back_btn");
 
   g_signal_connect (new_btn, "clicked", G_CALLBACK (go_to_secondary), win);
   g_signal_connect (back_btn, "clicked", G_CALLBACK (back_to_main), win);
 
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 }
 
 /* controls */
 static void
-create_controls (GtkApplication *app)
+create_controls (BobguiApplication *app)
 {
-  GtkBuilder *builder;
-  GtkWidget *win;
+  BobguiBuilder *builder;
+  BobguiWidget *win;
   const char *ui = "tests/testheadercontrols.ui";
 
   if (!g_file_test (ui, G_FILE_TEST_EXISTS))
@@ -373,12 +373,12 @@ create_controls (GtkApplication *app)
       return;
     }
 
-  builder = gtk_builder_new_from_file (ui);
+  builder = bobgui_builder_new_from_file (ui);
 
-  win = (GtkWidget *)gtk_builder_get_object (builder, "window");
-  gtk_window_set_application (GTK_WINDOW (win), app);
+  win = (BobguiWidget *)bobgui_builder_get_object (builder, "window");
+  bobgui_window_set_application (BOBGUI_WINDOW (win), app);
 
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_present (BOBGUI_WINDOW (win));
 }
 
 /* technorama */
@@ -399,135 +399,135 @@ static const char css[] =
  "}";
 
 static void
-on_bookmark_clicked (GtkButton *button, gpointer data)
+on_bookmark_clicked (BobguiButton *button, gpointer data)
 {
-  GtkWindow *window = GTK_WINDOW (data);
-  GtkWidget *chooser;
+  BobguiWindow *window = BOBGUI_WINDOW (data);
+  BobguiWidget *chooser;
 
-  chooser = gtk_file_chooser_dialog_new ("File Chooser Test",
+  chooser = bobgui_file_chooser_dialog_new ("File Chooser Test",
                                          window,
-                                         GTK_FILE_CHOOSER_ACTION_OPEN,
+                                         BOBGUI_FILE_CHOOSER_ACTION_OPEN,
                                          "_Close",
-                                         GTK_RESPONSE_CLOSE,
+                                         BOBGUI_RESPONSE_CLOSE,
                                          NULL);
 
   g_signal_connect (chooser, "response",
-                    G_CALLBACK (gtk_window_destroy), NULL);
+                    G_CALLBACK (bobgui_window_destroy), NULL);
 
-  gtk_window_present (GTK_WINDOW (chooser));
+  bobgui_window_present (BOBGUI_WINDOW (chooser));
 }
 
 static void
-toggle_fullscreen (GtkButton *button, gpointer data)
+toggle_fullscreen (BobguiButton *button, gpointer data)
 {
-  GtkWidget *window = GTK_WIDGET (data);
+  BobguiWidget *window = BOBGUI_WIDGET (data);
   static gboolean fullscreen = FALSE;
 
   if (fullscreen)
     {
-      gtk_window_unfullscreen (GTK_WINDOW (window));
+      bobgui_window_unfullscreen (BOBGUI_WINDOW (window));
       fullscreen = FALSE;
     }
   else
     {
-      gtk_window_fullscreen (GTK_WINDOW (window));
+      bobgui_window_fullscreen (BOBGUI_WINDOW (window));
       fullscreen = TRUE;
     }
 }
 
 static void
-change_header (GtkButton *button, gpointer data)
+change_header (BobguiButton *button, gpointer data)
 {
-  GtkWidget *window = GTK_WIDGET (data);
-  GtkWidget *label;
-  GtkWidget *widget;
-  GtkWidget *header;
+  BobguiWidget *window = BOBGUI_WIDGET (data);
+  BobguiWidget *label;
+  BobguiWidget *widget;
+  BobguiWidget *header;
 
-  if (button && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button)))
+  if (button && bobgui_toggle_button_get_active (BOBGUI_TOGGLE_BUTTON (button)))
     {
-      header = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-      gtk_widget_add_css_class (header, "titlebar");
-      gtk_widget_add_css_class (header, "header-bar");
-      gtk_widget_set_margin_start (header, 10);
-      gtk_widget_set_margin_end (header, 10);
-      gtk_widget_set_margin_top (header, 10);
-      gtk_widget_set_margin_bottom (header, 10);
-      label = gtk_label_new ("Label");
-      gtk_box_append (GTK_BOX (header), label);
-      widget = gtk_level_bar_new ();
-      gtk_level_bar_set_value (GTK_LEVEL_BAR (widget), 0.4);
-      gtk_widget_set_hexpand (widget, TRUE);
-      gtk_box_append (GTK_BOX (header), widget);
+      header = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 10);
+      bobgui_widget_add_css_class (header, "titlebar");
+      bobgui_widget_add_css_class (header, "header-bar");
+      bobgui_widget_set_margin_start (header, 10);
+      bobgui_widget_set_margin_end (header, 10);
+      bobgui_widget_set_margin_top (header, 10);
+      bobgui_widget_set_margin_bottom (header, 10);
+      label = bobgui_label_new ("Label");
+      bobgui_box_append (BOBGUI_BOX (header), label);
+      widget = bobgui_level_bar_new ();
+      bobgui_level_bar_set_value (BOBGUI_LEVEL_BAR (widget), 0.4);
+      bobgui_widget_set_hexpand (widget, TRUE);
+      bobgui_box_append (BOBGUI_BOX (header), widget);
     }
   else
     {
-      header = gtk_header_bar_new ();
-      gtk_widget_add_css_class (header, "titlebar");
+      header = bobgui_header_bar_new ();
+      bobgui_widget_add_css_class (header, "titlebar");
 
-      widget = gtk_button_new_with_label ("_Close");
-      gtk_button_set_use_underline (GTK_BUTTON (widget), TRUE);
-      gtk_widget_add_css_class (widget, "suggested-action");
-      g_signal_connect_swapped (widget, "clicked", G_CALLBACK (gtk_window_destroy), window);
+      widget = bobgui_button_new_with_label ("_Close");
+      bobgui_button_set_use_underline (BOBGUI_BUTTON (widget), TRUE);
+      bobgui_widget_add_css_class (widget, "suggested-action");
+      g_signal_connect_swapped (widget, "clicked", G_CALLBACK (bobgui_window_destroy), window);
 
-      gtk_header_bar_pack_end (GTK_HEADER_BAR (header), widget);
+      bobgui_header_bar_pack_end (BOBGUI_HEADER_BAR (header), widget);
 
-      widget= gtk_button_new_from_icon_name ("bookmark-new-symbolic");
+      widget= bobgui_button_new_from_icon_name ("bookmark-new-symbolic");
       g_signal_connect (widget, "clicked", G_CALLBACK (on_bookmark_clicked), window);
 
-      gtk_header_bar_pack_start (GTK_HEADER_BAR (header), widget);
+      bobgui_header_bar_pack_start (BOBGUI_HEADER_BAR (header), widget);
     }
 
-  gtk_window_set_titlebar (GTK_WINDOW (window), header);
+  bobgui_window_set_titlebar (BOBGUI_WINDOW (window), header);
 }
 
 static void
-create_technorama (GtkApplication *app)
+create_technorama (BobguiApplication *app)
 {
-  GtkWidget *window;
-  GtkWidget *box;
-  GtkWidget *footer;
-  GtkWidget *button;
-  GtkWidget *content;
-  GtkCssProvider *provider;
+  BobguiWidget *window;
+  BobguiWidget *box;
+  BobguiWidget *footer;
+  BobguiWidget *button;
+  BobguiWidget *content;
+  BobguiCssProvider *provider;
 
-  window = gtk_window_new ();
-  gtk_window_set_application (GTK_WINDOW (window), app);
+  window = bobgui_window_new ();
+  bobgui_window_set_application (BOBGUI_WINDOW (window), app);
 
-  gtk_widget_add_css_class (window, "main");
+  bobgui_widget_add_css_class (window, "main");
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_data (provider, css, -1);
-  gtk_style_context_add_provider_for_display (gtk_widget_get_display (window),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_USER);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_data (provider, css, -1);
+  bobgui_style_context_add_provider_for_display (bobgui_widget_get_display (window),
+                                              BOBGUI_STYLE_PROVIDER (provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_USER);
 
 
   change_header (NULL, window);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  content = gtk_image_new_from_icon_name ("start-here-symbolic");
-  gtk_image_set_pixel_size (GTK_IMAGE (content), 512);
-  gtk_widget_set_vexpand (content, TRUE);
+  content = bobgui_image_new_from_icon_name ("start-here-symbolic");
+  bobgui_image_set_pixel_size (BOBGUI_IMAGE (content), 512);
+  bobgui_widget_set_vexpand (content, TRUE);
 
-  gtk_box_append (GTK_BOX (box), content);
+  bobgui_box_append (BOBGUI_BOX (box), content);
 
-  footer = gtk_action_bar_new ();
-  gtk_action_bar_set_center_widget (GTK_ACTION_BAR (footer), gtk_check_button_new_with_label ("Middle"));
-  button = gtk_toggle_button_new_with_label ("Custom");
+  footer = bobgui_action_bar_new ();
+  bobgui_action_bar_set_center_widget (BOBGUI_ACTION_BAR (footer), bobgui_check_button_new_with_label ("Middle"));
+  button = bobgui_toggle_button_new_with_label ("Custom");
   g_signal_connect (button, "clicked", G_CALLBACK (change_header), window);
-  gtk_action_bar_pack_start (GTK_ACTION_BAR (footer), button);
-  button = gtk_button_new_with_label ("Fullscreen");
-  gtk_action_bar_pack_end (GTK_ACTION_BAR (footer), button);
+  bobgui_action_bar_pack_start (BOBGUI_ACTION_BAR (footer), button);
+  button = bobgui_button_new_with_label ("Fullscreen");
+  bobgui_action_bar_pack_end (BOBGUI_ACTION_BAR (footer), button);
   g_signal_connect (button, "clicked", G_CALLBACK (toggle_fullscreen), window);
-  gtk_box_append (GTK_BOX (box), footer);
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_box_append (BOBGUI_BOX (box), footer);
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 struct {
   const char *name;
-  void (*cb) (GtkApplication *app);
+  void (*cb) (BobguiApplication *app);
 } buttons[] =
 {
     { "Regular window", create_regular },
@@ -544,43 +544,43 @@ struct {
 int n_buttons = sizeof (buttons) / sizeof (buttons[0]);
 
 static void
-app_activate_cb (GtkApplication *app)
+app_activate_cb (BobguiApplication *app)
 {
-  GtkWidget *window, *box;
+  BobguiWidget *window, *box;
   int i;
 
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Headerbar test");
+  window = bobgui_application_window_new (app);
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "Headerbar test");
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_widget_set_halign (box, GTK_ALIGN_CENTER);
-  gtk_widget_set_valign (box, GTK_ALIGN_CENTER);
-  gtk_widget_add_css_class (box, "linked");
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_widget_set_halign (box, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_valign (box, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_add_css_class (box, "linked");
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
   for (i = 0; i < n_buttons; i++)
     {
-      GtkWidget *btn;
+      BobguiWidget *btn;
 
-      btn = gtk_button_new_with_label (buttons[i].name);
+      btn = bobgui_button_new_with_label (buttons[i].name);
       g_signal_connect_object (btn,
                                "clicked",
                                G_CALLBACK (buttons[i].cb),
                                app,
                                G_CONNECT_SWAPPED);
-      gtk_box_append (GTK_BOX (box), btn);
+      bobgui_box_append (BOBGUI_BOX (box), btn);
     }
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 }
 
 int
 main (int    argc,
       char **argv)
 {
-  GtkApplication *app;
+  BobguiApplication *app;
 
-  app = gtk_application_new ("org.gtk.Test.headerbar2", 0);
+  app = bobgui_application_new ("org.bobgui.Test.headerbar2", 0);
 
   g_signal_connect (app,
                     "activate",

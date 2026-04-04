@@ -188,7 +188,7 @@ tiff_open_read (GBytes *bytes)
 
   io->data = (char *) g_bytes_get_data (bytes, &io->size);
 
-  return TIFFClientOpen ("GTK-read", "r",
+  return TIFFClientOpen ("BOBGUI-read", "r",
                          (thandle_t) io,
                          tiff_io_read,
                          tiff_io_no_write,
@@ -210,7 +210,7 @@ tiff_open_write (GBytes **result)
 
   io->out_bytes = result;
 
-  return TIFFClientOpen ("GTK-write", "w",
+  return TIFFClientOpen ("BOBGUI-write", "w",
                          (thandle_t) io,
                          tiff_io_no_read,
                          tiff_io_write,
@@ -333,7 +333,7 @@ gdk_save_tiff (GdkTexture *texture)
   if (fdata == NULL)
     fdata = &format_data[0];
 
-  TIFFSetField (tif, TIFFTAG_SOFTWARE, "GTK");
+  TIFFSetField (tif, TIFFTAG_SOFTWARE, "BOBGUI");
   TIFFSetField (tif, TIFFTAG_IMAGEWIDTH, width);
   TIFFSetField (tif, TIFFTAG_IMAGELENGTH, height);
   TIFFSetField (tif, TIFFTAG_BITSPERSAMPLE, fdata->bits_per_sample);

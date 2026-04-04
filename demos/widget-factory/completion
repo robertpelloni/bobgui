@@ -1,4 +1,4 @@
-_gtk4_widget_factory()
+_bobgui4_widget_factory()
 {
     local cur prev opts
     COMPREPLY=()
@@ -15,4 +15,4 @@ _gtk4_widget_factory()
         return 0
     fi
 }
-complete -F _gtk4_widget_factory gtk4-widget-factory
+complete -F _bobgui4_widget_factory bobgui4-widget-factory

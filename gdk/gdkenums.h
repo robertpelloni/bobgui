@@ -16,15 +16,15 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #pragma once
 
-#if !defined (__GDK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdk.h> can be included directly."
 #endif
 
@@ -178,7 +178,7 @@ typedef enum
  * @GDK_DMABUF_ERROR_NOT_AVAILABLE: Dmabuf support is not available, because the OS
  *   is not Linux, or it was explicitly disabled at compile- or runtime
  * @GDK_DMABUF_ERROR_UNSUPPORTED_FORMAT: The requested format is not supported
- * @GDK_DMABUF_ERROR_CREATION_FAILED: GTK failed to create the resource for other
+ * @GDK_DMABUF_ERROR_CREATION_FAILED: BOBGUI failed to create the resource for other
  *   reasons
  *
  * Error enumeration for `GdkDmabufTexture`.
@@ -238,7 +238,7 @@ typedef enum {
  * @GDK_AXIS_SLIDER: the axis is used for pen slider information
  * @GDK_AXIS_LAST: a constant equal to the numerically highest axis value.
  *
- * Defines how device axes are interpreted by GTK.
+ * Defines how device axes are interpreted by BOBGUI.
  *
  * Note that the X and Y axes are not really needed; pointer devices
  * report their location via the x/y members of events regardless. Whether

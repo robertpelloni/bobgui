@@ -357,7 +357,7 @@ parse_settings (unsigned char *data,
 
       if (gdk_name == NULL)
         {
-          GDK_DEBUG (SETTINGS, "    ==> unknown to GTK");
+          GDK_DEBUG (SETTINGS, "    ==> unknown to BOBGUI");
           free_value (value);
         }
       else
@@ -455,7 +455,7 @@ read_settings (GdkX11Screen *x11_screen,
 	  g_value_init (copy, G_VALUE_TYPE (setting));
 	  g_value_copy (setting, copy);
 	  g_hash_table_insert (x11_screen->xsettings, 
-			       (gpointer) "gtk-xft-dpi", copy);
+			       (gpointer) "bobgui-xft-dpi", copy);
 	}
     }
 
@@ -469,7 +469,7 @@ read_settings (GdkX11Screen *x11_screen,
    * while we want logical pixel values instead.
    */
   if (x11_screen->surface_scale > 1 &&
-      gdk_display_get_setting (display, "gtk-cursor-theme-size", &value))
+      gdk_display_get_setting (display, "bobgui-cursor-theme-size", &value))
     {
       int cursor_theme_size = g_value_get_int (&value);
 
@@ -477,7 +477,7 @@ read_settings (GdkX11Screen *x11_screen,
       g_value_init (copy, G_TYPE_INT);
       g_value_set_int (copy, cursor_theme_size / x11_screen->surface_scale);
       g_hash_table_insert (x11_screen->xsettings,
-                           (gpointer) "gtk-cursor-theme-size", copy);
+                           (gpointer) "bobgui-cursor-theme-size", copy);
     }
 
   if (do_notify)

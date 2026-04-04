@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow">
+  <object class="BobguiWindow">
     <property name="default-width">200</property>
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkInscription">
+          <object class="BobguiInscription">
             <property name="text">עִברִית
 English</property>
             <property name="min-lines">2</property>
@@ -15,7 +15,7 @@ English</property>
           </object>
         </child>
         <child>
-          <object class="GtkInscription">
+          <object class="BobguiInscription">
             <property name="text">עִברִית
 English</property>
             <property name="min-lines">2</property>
@@ -23,7 +23,7 @@ English</property>
           </object>
         </child>
         <child>
-          <object class="GtkInscription">
+          <object class="BobguiInscription">
             <property name="text">עִברִית
 English</property>
             <property name="min-lines">2</property>
@@ -31,7 +31,7 @@ English</property>
           </object>
         </child>
         <child>
-          <object class="GtkInscription">
+          <object class="BobguiInscription">
             <property name="text">עִברִית
 English</property>
             <property name="min-lines">2</property>
@@ -39,7 +39,7 @@ English</property>
           </object>
         </child>
         <child>
-          <object class="GtkInscription">
+          <object class="BobguiInscription">
             <property name="text">עִברִית
 English</property>
             <property name="min-lines">2</property>

@@ -18,19 +18,19 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
-gtk_css_provider_load_data_not_null_terminated (void)
+bobgui_css_provider_load_data_not_null_terminated (void)
 {
-  GtkCssProvider *p;
+  BobguiCssProvider *p;
   const char data[3] = {'*', '{', '}'};
   GBytes *bytes;
 
-  p = gtk_css_provider_new ();
+  p = bobgui_css_provider_new ();
 
   bytes = g_bytes_new_static (data, sizeof (data));
-  gtk_css_provider_load_from_bytes (p, bytes);
+  bobgui_css_provider_load_from_bytes (p, bytes);
   g_bytes_unref (bytes);
 
   g_object_unref (p);
@@ -40,10 +40,10 @@ gtk_css_provider_load_data_not_null_terminated (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
-  g_test_add_func ("/gtk_css_provider_load_data/not_null_terminated",
-      gtk_css_provider_load_data_not_null_terminated);
+  g_test_add_func ("/bobgui_css_provider_load_data/not_null_terminated",
+      bobgui_css_provider_load_data_not_null_terminated);
 
   return g_test_run ();
 }

@@ -1,7 +1,7 @@
 <interface>
-  <object class="GtkAspectFrame">
+  <object class="BobguiAspectFrame">
     <child>
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">start</property>
       </object>
     </child>

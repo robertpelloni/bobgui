@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include <errno.h>
 
@@ -255,7 +255,7 @@ parse_command_line (int *argc, char ***argv)
         using_tap = TRUE;
     }
 
-  gtk_test_init (argc, argv);
+  bobgui_test_init (argc, argv);
 
   return TRUE;
 }

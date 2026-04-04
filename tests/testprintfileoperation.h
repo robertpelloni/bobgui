@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_BEGIN_DECLS
 
@@ -14,7 +14,7 @@ typedef struct _TestPrintFileOperation        TestPrintFileOperation;
 
 struct _TestPrintFileOperation
 {
-  GtkPrintOperation parent_instance;
+  BobguiPrintOperation parent_instance;
 
   /* < private > */
   char *filename;
@@ -28,7 +28,7 @@ struct _TestPrintFileOperation
 
 struct _TestPrintFileOperationClass
 {
-  GtkPrintOperationClass parent_class;
+  BobguiPrintOperationClass parent_class;
 };
 
 GType                   test_print_file_operation_get_type      (void);

@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "gdk/gdkmemoryformatprivate.h"
 #include "gdk/gdkmemorytextureprivate.h"
@@ -346,7 +346,7 @@ add_test (const char    *name,
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   add_test ("simple", test_mipmap_simple, 1);
   add_test ("pixels", test_mipmap_pixels, 3);

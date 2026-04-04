@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <object class="GtkWindow">
+  <requires lib="bobgui" version="4.0"/>
+  <object class="BobguiWindow">
     <property name="child">
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="hexpand">1</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <property name="valign">center</property>
                 <property name="hexpand">1</property>
                 <property name="vexpand">0</property>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="halign">center</property>
                     <property name="label" translatable="1">_</property>
                     <property name="focusable">1</property>
@@ -22,14 +22,14 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="label" translatable="1">F</property>
                     <property name="focusable">1</property>
                     <property name="receives_default">1</property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="halign">center</property>
                     <property name="hexpand">1</property>
                     <property name="label" translatable="1">E</property>
@@ -38,7 +38,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="hexpand">1</property>
                     <property name="label" translatable="1">FE</property>
                     <property name="focusable">1</property>
@@ -48,12 +48,12 @@
               </object>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <property name="valign">center</property>
                 <property name="hexpand">1</property>
                 <property name="vexpand">0</property>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="halign">center</property>
                     <property name="label" translatable="1">_</property>
                     <property name="focusable">1</property>
@@ -61,14 +61,14 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="label" translatable="1">F</property>
                     <property name="focusable">1</property>
                     <property name="receives_default">1</property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="halign">center</property>
                     <property name="hexpand">1</property>
                     <property name="label" translatable="1">E</property>
@@ -77,7 +77,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="hexpand">1</property>
                     <property name="label" translatable="1">FE</property>
                     <property name="focusable">1</property>
@@ -89,12 +89,12 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="orientation">vertical</property>
             <property name="halign">center</property>
             <property name="vexpand">1</property>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="label" translatable="1">_</property>
                 <property name="focusable">1</property>
@@ -102,14 +102,14 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">F</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">E</property>
@@ -118,7 +118,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">FE</property>
                 <property name="focusable">1</property>
@@ -128,12 +128,12 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="hexpand">0</property>
             <property name="vexpand">1</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="label" translatable="1">_I</property>
                 <property name="focusable">1</property>
@@ -141,14 +141,14 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FI</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">EI</property>
@@ -157,7 +157,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">FEI</property>
                 <property name="focusable">1</property>
@@ -165,7 +165,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_S</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -173,7 +173,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FS</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -181,7 +181,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">ES</property>
                 <property name="focusable">1</property>
@@ -190,7 +190,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">FES</property>
                 <property name="focusable">1</property>
@@ -199,7 +199,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_N</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -207,7 +207,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FN</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -215,7 +215,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">EN</property>
                 <property name="focusable">1</property>
@@ -224,7 +224,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">FEN</property>
                 <property name="focusable">1</property>
@@ -233,7 +233,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_C</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -241,7 +241,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FC</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -249,7 +249,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">EC</property>
                 <property name="focusable">1</property>
@@ -258,7 +258,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">FEC</property>
                 <property name="focusable">1</property>
@@ -267,7 +267,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_B</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -275,7 +275,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FB</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -283,7 +283,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">EB</property>
                 <property name="focusable">1</property>
@@ -292,7 +292,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="vexpand">1</property>
                 <property name="label" translatable="1">FEB</property>
                 <property name="focusable">1</property>
@@ -303,12 +303,12 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="hexpand">0</property>
             <property name="vexpand">1</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="label" translatable="1">_I</property>
                 <property name="focusable">1</property>
@@ -317,7 +317,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FI</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -325,7 +325,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="label" translatable="1">EI</property>
                 <property name="focusable">1</property>
@@ -334,7 +334,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FEI</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -342,7 +342,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_S</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -351,7 +351,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FS</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -360,7 +360,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">ES</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -369,7 +369,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FES</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -378,7 +378,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_N</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -387,7 +387,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FN</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -396,7 +396,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">EN</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -405,7 +405,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FEN</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -414,7 +414,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_C</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -423,7 +423,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FC</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -432,7 +432,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">EC</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -441,7 +441,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FEC</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -450,7 +450,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_B</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -459,7 +459,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FB</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -468,7 +468,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">EB</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -477,7 +477,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FEB</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -488,12 +488,12 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="hexpand">0</property>
             <property name="vexpand">1</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="label" translatable="1">_I</property>
                 <property name="focusable">1</property>
@@ -502,7 +502,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FI</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -510,7 +510,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="label" translatable="1">EI</property>
                 <property name="focusable">1</property>
@@ -519,7 +519,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FEI</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -527,7 +527,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_S</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -536,7 +536,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FS</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -545,7 +545,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">ES</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -554,7 +554,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FES</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -563,7 +563,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_N</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -572,7 +572,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FN</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -581,7 +581,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">EN</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -590,7 +590,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FEN</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -599,7 +599,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_C</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -608,7 +608,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FC</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -617,7 +617,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">EC</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -626,7 +626,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FEC</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -635,7 +635,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">_B</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -644,7 +644,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FB</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -653,7 +653,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">EB</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -662,7 +662,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="label" translatable="1">FEB</property>
                 <property name="focusable">1</property>
                 <property name="receives_default">1</property>
@@ -673,13 +673,13 @@
           </object>
         </child>
         <child>
-          <object class="GtkCenterBox">
+          <object class="BobguiCenterBox">
             <property name="orientation">vertical</property>
             <property name="start-widget">
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="valign">center</property>
                     <property name="label" translatable="1">start 0</property>
                     <property name="focusable">1</property>
@@ -687,7 +687,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="valign">center</property>
                     <property name="label" translatable="1">start 1</property>
                     <property name="focusable">1</property>
@@ -695,7 +695,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="valign">center</property>
                     <property name="label" translatable="1">start 2</property>
                     <property name="focusable">1</property>
@@ -705,7 +705,7 @@
               </object>
             </property>
             <property name="center-widget">
-              <object class="GtkButton">
+              <object class="BobguiButton">
                 <property name="valign">center</property>
                 <property name="label" translatable="1">center</property>
                 <property name="focusable">1</property>
@@ -713,10 +713,10 @@
               </object>
             </property>
             <property name="end-widget">
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="valign">center</property>
                     <property name="label" translatable="1">end 2</property>
                     <property name="focusable">1</property>
@@ -724,7 +724,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="valign">center</property>
                     <property name="label" translatable="1">end 1</property>
                     <property name="focusable">1</property>
@@ -732,7 +732,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <property name="valign">center</property>
                     <property name="label" translatable="1">end 0</property>
                     <property name="focusable">1</property>

@@ -1,6 +1,6 @@
 Title: Pango Interaction
 
-Pango is the text layout system used by GDK and GTK. The functions
+Pango is the text layout system used by GDK and BOBGUI. The functions
 and types in this section are used to obtain clip regions for
 `PangoLayout`s, and to get `PangoContext`s that can be used with
 GDK.
@@ -8,9 +8,9 @@ GDK.
 ## Using Pango in GDK
 
 Creating a `PangoLayout` object is the first step in rendering text,
-and requires getting a handle to a `PangoContext`. For GTK programs,
-you’ll usually want to use [method@Gtk.Widget.get_pango_context], or
-[method@Gtk.Widget.create_pango_layout]. Once you have a `PangoLayout`,
+and requires getting a handle to a `PangoContext`. For BOBGUI programs,
+you’ll usually want to use [method@Bobgui.Widget.get_pango_context], or
+[method@Bobgui.Widget.create_pango_layout]. Once you have a `PangoLayout`,
 you can set the text and attributes of it with Pango functions like
 [method@Pango.Layout.set_text] and get its size with
 [method@Pango.Layout.get_size].

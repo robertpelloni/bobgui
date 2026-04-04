@@ -1,21 +1,21 @@
 <interface>
-  <template class="IconEditorWindow" parent="GtkApplicationWindow">
+  <template class="IconEditorWindow" parent="BobguiApplicationWindow">
     <property name="title" translatable="yes">Icon Editor</property>
     <property name="default-width">1024</property>
     <property name="default-height">768</property>
     <property name="titlebar">
-      <object class="GtkHeaderBar">
+      <object class="BobguiHeaderBar">
         <property name="title-widget">
-          <object class="GtkCenterBox">
+          <object class="BobguiCenterBox">
             <style><class name="window-title"/></style>
             <property name="start-widget">
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label">•</property>
                 <property name="visible" bind-source="IconEditorWindow" bind-property="changed" bind-flags="sync-create"/>
               </object>
             </property>
             <property name="center-widget">
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="label" bind-source="IconEditorWindow" bind-property="title" bind-flags="sync-create"/>
                 <property name="attributes">weight bold</property>
               </object>
@@ -23,14 +23,14 @@
           </object>
         </property>
         <child type="start">
-          <object class="GtkButton">
+          <object class="BobguiButton">
             <property name="focus-on-click">0</property>
             <property name="tooltip-text" translatable="yes">Open a file</property>
             <property name="child">
-              <object class="GtkImage">
+              <object class="BobguiImage">
                 <property name="paintable">
-                  <object class="GtkIconPaintable">
-                    <property name="file">resource:///org/gtk/libgtk/icons/document-open-symbolic.svg</property>
+                  <object class="BobguiIconPaintable">
+                    <property name="file">resource:///org/bobgui/libbobgui/icons/document-open-symbolic.svg</property>
                   </object>
                 </property>
               </object>
@@ -42,14 +42,14 @@
           </object>
         </child>
         <child type="start">
-          <object class="GtkButton">
+          <object class="BobguiButton">
             <property name="focus-on-click">0</property>
             <property name="tooltip-text" translatable="yes">Save changes</property>
             <property name="child">
-              <object class="GtkImage">
+              <object class="BobguiImage">
                 <property name="paintable">
-                  <object class="GtkIconPaintable">
-                    <property name="file">resource:///org/gtk/libgtk/icons/document-save-symbolic.svg</property>
+                  <object class="BobguiIconPaintable">
+                    <property name="file">resource:///org/bobgui/libbobgui/icons/document-save-symbolic.svg</property>
                   </object>
                 </property>
               </object>
@@ -61,7 +61,7 @@
           </object>
         </child>
         <child type="end">
-          <object class="GtkMenuButton">
+          <object class="BobguiMenuButton">
             <property name="tooltip-text" translatable="yes">Main menu</property>
             <property name="focus-on-click">0</property>
             <property name="valign">center</property>
@@ -145,10 +145,10 @@
               </menu>
             </property>
             <child>
-              <object class="GtkImage">
+              <object class="BobguiImage">
                 <property name="paintable">
-                  <object class="GtkIconPaintable">
-                    <property name="file">resource:///org/gtk/libgtk/icons/open-menu-symbolic.svg</property>
+                  <object class="BobguiIconPaintable">
+                    <property name="file">resource:///org/bobgui/libbobgui/icons/open-menu-symbolic.svg</property>
                   </object>
                 </property>
               </object>
@@ -156,15 +156,15 @@
           </object>
         </child>
         <child type="end">
-          <object class="GtkToggleButton" id="open_menu">
+          <object class="BobguiToggleButton" id="open_menu">
             <property name="focus-on-click">0</property>
             <property name="tooltip-text" translatable="yes">Show controls</property>
             <property name="active" bind-source="IconEditorWindow" bind-property="show-controls" bind-flags="bidirectional|sync-create"/>
             <property name="child">
-              <object class="GtkImage">
+              <object class="BobguiImage">
                 <property name="paintable">
-                  <object class="GtkIconPaintable">
-                    <property name="file">resource:///org/gtk/libgtk/icons/info-outline-symbolic.svg</property>
+                  <object class="BobguiIconPaintable">
+                    <property name="file">resource:///org/bobgui/libbobgui/icons/info-outline-symbolic.svg</property>
                   </object>
                 </property>
               </object>
@@ -174,24 +174,24 @@
       </object>
     </property>
     <property name="child">
-      <object class="GtkStack" id="main_stack">
+      <object class="BobguiStack" id="main_stack">
         <style><class name="view"/></style>
         <property name="transition-type">crossfade</property>
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">empty</property>
             <property name="child">
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <style><class name="empty-page"/></style>
                 <property name="orientation">vertical</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <child>
-                  <object class="GtkImage" id="empty_logo">
+                  <object class="BobguiImage" id="empty_logo">
                     <property name="pixel-size">256</property>
                     <property name="paintable">
-                      <object class="GtkIconPaintable">
-                        <property name="file">resource:///org/gtk/Shaper/org.gtk.Shaper.svg</property>
+                      <object class="BobguiIconPaintable">
+                        <property name="file">resource:///org/bobgui/Shaper/org.bobgui.Shaper.svg</property>
                         <property name="size">192</property>
                         <property name="scale">1</property>
                       </object>
@@ -199,13 +199,13 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="BobguiLabel">
                     <style><class name="title-1"/></style>
                     <property name="label" translatable="yes">Create or Open an Icon</property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="BobguiButton">
                     <style>
                       <class name="suggested-action"/>
                       <class name="title-3"/>
@@ -217,20 +217,20 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkBox">
+                  <object class="BobguiBox">
                     <property name="hexpand">0</property>
                     <child>
-                      <object class="GtkButton">
+                      <object class="BobguiButton">
                         <property name="has-frame">0</property>
                         <property name="focus-on-click">0</property>
                         <property name="hexpand">1</property>
                         <property name="halign">center</property>
                         <property name="child">
-                          <object class="GtkImage" id="example1">
+                          <object class="BobguiImage" id="example1">
                             <property name="pixel-size">32</property>
                             <property name="paintable">
-                              <object class="GtkSvg">
-                                <property name="resource">/org/gtk/Shaper/example1.gpa</property>
+                              <object class="BobguiSvg">
+                                <property name="resource">/org/bobgui/Shaper/example1.gpa</property>
                                 <property name="playing">1</property>
                               </object>
                             </property>
@@ -242,17 +242,17 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="BobguiButton">
                         <property name="has-frame">0</property>
                         <property name="focus-on-click">0</property>
                         <property name="hexpand">1</property>
                         <property name="halign">center</property>
                         <property name="child">
-                          <object class="GtkImage" id="example2">
+                          <object class="BobguiImage" id="example2">
                             <property name="pixel-size">32</property>
                             <property name="paintable">
-                              <object class="GtkSvg">
-                                <property name="resource">/org/gtk/Shaper/example2.gpa</property>
+                              <object class="BobguiSvg">
+                                <property name="resource">/org/bobgui/Shaper/example2.gpa</property>
                                 <property name="playing">1</property>
                               </object>
                             </property>
@@ -264,17 +264,17 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="BobguiButton">
                         <property name="has-frame">0</property>
                         <property name="focus-on-click">0</property>
                         <property name="hexpand">1</property>
                         <property name="halign">center</property>
                         <property name="child">
-                          <object class="GtkImage" id="example3">
+                          <object class="BobguiImage" id="example3">
                             <property name="pixel-size">32</property>
                             <property name="paintable">
-                              <object class="GtkSvg">
-                                <property name="resource">/org/gtk/Shaper/example3.gpa</property>
+                              <object class="BobguiSvg">
+                                <property name="resource">/org/bobgui/Shaper/example3.gpa</property>
                                 <property name="playing">1</property>
                               </object>
                             </property>
@@ -286,17 +286,17 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="BobguiButton">
                         <property name="has-frame">0</property>
                         <property name="focus-on-click">0</property>
                         <property name="hexpand">1</property>
                         <property name="halign">center</property>
                         <property name="child">
-                          <object class="GtkImage" id="example4">
+                          <object class="BobguiImage" id="example4">
                             <property name="pixel-size">32</property>
                             <property name="paintable">
-                              <object class="GtkSvg">
-                                <property name="resource">/org/gtk/Shaper/example4.gpa</property>
+                              <object class="BobguiSvg">
+                                <property name="resource">/org/bobgui/Shaper/example4.gpa</property>
                                 <property name="playing">1</property>
                               </object>
                             </property>
@@ -308,17 +308,17 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="BobguiButton">
                         <property name="has-frame">0</property>
                         <property name="focus-on-click">0</property>
                         <property name="hexpand">1</property>
                         <property name="halign">center</property>
                         <property name="child">
-                          <object class="GtkImage" id="example5">
+                          <object class="BobguiImage" id="example5">
                             <property name="pixel-size">32</property>
                             <property name="paintable">
-                              <object class="GtkSvg">
-                                <property name="resource">/org/gtk/Shaper/example5.gpa</property>
+                              <object class="BobguiSvg">
+                                <property name="resource">/org/bobgui/Shaper/example5.gpa</property>
                                 <property name="playing">1</property>
                               </object>
                             </property>
@@ -330,17 +330,17 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton">
+                      <object class="BobguiButton">
                         <property name="has-frame">0</property>
                         <property name="focus-on-click">0</property>
                         <property name="hexpand">1</property>
                         <property name="halign">center</property>
                         <property name="child">
-                          <object class="GtkImage" id="example6">
+                          <object class="BobguiImage" id="example6">
                             <property name="pixel-size">32</property>
                             <property name="paintable">
-                              <object class="GtkSvg">
-                                <property name="resource">/org/gtk/Shaper/example6.gpa</property>
+                              <object class="BobguiSvg">
+                                <property name="resource">/org/bobgui/Shaper/example6.gpa</property>
                                 <property name="playing">1</property>
                               </object>
                             </property>
@@ -358,25 +358,25 @@
           </object>
         </child>
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">content</property>
             <property name="child">
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <style><class name="view"/></style>
                 <child>
-                  <object class="GtkGestureClick">
+                  <object class="BobguiGestureClick">
                     <property name="button">3</property>
                     <signal name="pressed" handler="toggle_controls" swapped="yes"/>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkGrid">
+                  <object class="BobguiGrid">
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="width-request">680</property>
                     <property name="height-request">680</property>
                     <child>
-                      <object class="GtkImage" id="image">
+                      <object class="BobguiImage" id="image">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -397,7 +397,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image48_0">
+                      <object class="BobguiImage" id="image48_0">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -410,7 +410,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image48_1">
+                      <object class="BobguiImage" id="image48_1">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -423,7 +423,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image48_2">
+                      <object class="BobguiImage" id="image48_2">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -436,7 +436,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image48_3">
+                      <object class="BobguiImage" id="image48_3">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -449,7 +449,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image48_4">
+                      <object class="BobguiImage" id="image48_4">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -462,7 +462,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image48_5">
+                      <object class="BobguiImage" id="image48_5">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -475,7 +475,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image48_6">
+                      <object class="BobguiImage" id="image48_6">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -488,7 +488,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image48_7">
+                      <object class="BobguiImage" id="image48_7">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -501,7 +501,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_0">
+                      <object class="BobguiImage" id="image24_0">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -513,7 +513,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_1">
+                      <object class="BobguiImage" id="image24_1">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -525,7 +525,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_2">
+                      <object class="BobguiImage" id="image24_2">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -537,7 +537,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_3">
+                      <object class="BobguiImage" id="image24_3">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -549,7 +549,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_4">
+                      <object class="BobguiImage" id="image24_4">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -561,7 +561,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_5">
+                      <object class="BobguiImage" id="image24_5">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -573,7 +573,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_6">
+                      <object class="BobguiImage" id="image24_6">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -585,7 +585,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_7">
+                      <object class="BobguiImage" id="image24_7">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -597,7 +597,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_8">
+                      <object class="BobguiImage" id="image24_8">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -609,7 +609,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_9">
+                      <object class="BobguiImage" id="image24_9">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -621,7 +621,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_10">
+                      <object class="BobguiImage" id="image24_10">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -633,7 +633,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_11">
+                      <object class="BobguiImage" id="image24_11">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -645,7 +645,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_12">
+                      <object class="BobguiImage" id="image24_12">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -657,7 +657,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_13">
+                      <object class="BobguiImage" id="image24_13">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -669,7 +669,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_14">
+                      <object class="BobguiImage" id="image24_14">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -681,7 +681,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="image24_15">
+                      <object class="BobguiImage" id="image24_15">
                         <style><class name="grid-image"/></style>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
@@ -693,29 +693,29 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuButton">
+                      <object class="BobguiMenuButton">
                         <style><class name="grid-button"/></style>
                         <property name="halign">end</property>
                         <property name="valign">end</property>
                         <property name="tooltip-text" translatable="yes">Display Settings</property>
                         <property name="child">
-                          <object class="GtkImage">
+                          <object class="BobguiImage">
                             <property name="paintable">
-                              <object class="GtkIconPaintable">
-                                <property name="file">resource:///org/gtk/Shaper/settings-symbolic.svg</property>
+                              <object class="BobguiIconPaintable">
+                                <property name="file">resource:///org/bobgui/Shaper/settings-symbolic.svg</property>
                               </object>
                             </property>
                           </object>
                         </property>
                         <property name="popover">
-                          <object class="GtkPopover">
+                          <object class="BobguiPopover">
                             <property name="child">
-                              <object class="GtkBox">
+                              <object class="BobguiBox">
                                 <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="BobguiLabel">
                                         <property name="xalign">1</property>
                                         <property name="valign">baseline</property>
                                         <property name="label" translatable="yes">_Weight</property>
@@ -724,11 +724,11 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkScale" id="weight">
+                                      <object class="BobguiScale" id="weight">
                                         <property name="valign">baseline</property>
                                         <property name="width-request">150</property>
                                         <property name="adjustment">
-                                          <object class="GtkAdjustment">
+                                          <object class="BobguiAdjustment">
                                             <property name="lower">1</property>
                                             <property name="upper">1000</property>
                                             <property name="value" bind-source="IconEditorWindow" bind-property="weight" bind-flags="bidirectional|sync-create"/>
@@ -742,12 +742,12 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSeparator"/>
+                                  <object class="BobguiSeparator"/>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="BobguiLabel">
                                         <property name="xalign">1</property>
                                         <property name="valign">baseline</property>
                                         <property name="label" translatable="yes">_State</property>
@@ -756,14 +756,14 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkSpinButton" id="state">
+                                      <object class="BobguiSpinButton" id="state">
                                         <property name="halign">end</property>
                                         <property name="valign">baseline</property>
                                         <property name="hexpand">1</property>
                                         <property name="numeric">1</property>
                                         <property name="digits">0</property>
                                         <property name="adjustment">
-                                          <object class="GtkAdjustment">
+                                          <object class="BobguiAdjustment">
                                             <property name="lower">0</property>
                                             <property name="upper">63</property>
                                             <property name="step-increment">1</property>
@@ -776,145 +776,145 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSeparator"/>
+                                  <object class="BobguiSeparator"/>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="hexpand">0</property>
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="BobguiLabel">
                                         <property name="xalign">0</property>
                                         <property name="hexpand">1</property>
                                         <property name="label" translatable="yes">_Animations</property>
                                         <property name="use-underline">1</property>
                                         <property name="mnemonic-widget">animations</property>
                                         <child>
-                                          <object class="GtkGestureClick">
-                                            <signal name="pressed" handler="gtk_widget_activate" object="animations"/>
+                                          <object class="BobguiGestureClick">
+                                            <signal name="pressed" handler="bobgui_widget_activate" object="animations"/>
                                           </object>
                                         </child>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkSwitch" id="animations">
+                                      <object class="BobguiSwitch" id="animations">
                                         <property name="action-name">win.set-playing</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSeparator"/>
+                                  <object class="BobguiSeparator"/>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="hexpand">0</property>
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="BobguiLabel">
                                         <property name="xalign">0</property>
                                         <property name="hexpand">1</property>
                                         <property name="label" translatable="yes">_X-Ray Shapes</property>
                                         <property name="use-underline">1</property>
                                         <property name="mnemonic-widget">spine</property>
                                         <child>
-                                          <object class="GtkGestureClick">
-                                            <signal name="pressed" handler="gtk_widget_activate" object="spine"/>
+                                          <object class="BobguiGestureClick">
+                                            <signal name="pressed" handler="bobgui_widget_activate" object="spine"/>
                                           </object>
                                         </child>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkSwitch" id="spine">
+                                      <object class="BobguiSwitch" id="spine">
                                         <property name="action-name">win.show-spines</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSeparator"/>
+                                  <object class="BobguiSeparator"/>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="hexpand">0</property>
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="BobguiLabel">
                                         <property name="xalign">0</property>
                                         <property name="hexpand">1</property>
                                         <property name="label" translatable="yes">Show _Grid</property>
                                         <property name="use-underline">1</property>
                                         <property name="mnemonic-widget">grid</property>
                                         <child>
-                                          <object class="GtkGestureClick">
-                                            <signal name="pressed" handler="gtk_widget_activate" object="grid"/>
+                                          <object class="BobguiGestureClick">
+                                            <signal name="pressed" handler="bobgui_widget_activate" object="grid"/>
                                           </object>
                                         </child>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkSwitch" id="grid">
+                                      <object class="BobguiSwitch" id="grid">
                                         <property name="action-name">win.show-grid</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSeparator"/>
+                                  <object class="BobguiSeparator"/>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="hexpand">0</property>
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="BobguiLabel">
                                         <property name="xalign">0</property>
                                         <property name="hexpand">1</property>
                                         <property name="label" translatable="yes">Show _Bounds</property>
                                         <property name="use-underline">1</property>
                                         <property name="mnemonic-widget">bounds</property>
                                         <child>
-                                          <object class="GtkGestureClick">
-                                            <signal name="pressed" handler="gtk_widget_activate" object="bounds"/>
+                                          <object class="BobguiGestureClick">
+                                            <signal name="pressed" handler="bobgui_widget_activate" object="bounds"/>
                                           </object>
                                         </child>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkSwitch" id="bounds">
+                                      <object class="BobguiSwitch" id="bounds">
                                         <property name="action-name">win.show-bounds</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSeparator"/>
+                                  <object class="BobguiSeparator"/>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="BobguiBox">
                                     <property name="hexpand">0</property>
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="BobguiLabel">
                                         <property name="xalign">0</property>
                                         <property name="hexpand">1</property>
                                         <property name="label" translatable="yes">_Invert Colors</property>
                                         <property name="use-underline">1</property>
                                         <property name="mnemonic-widget">invert</property>
                                         <child>
-                                          <object class="GtkGestureClick">
-                                            <signal name="pressed" handler="gtk_widget_activate" object="invert"/>
+                                          <object class="BobguiGestureClick">
+                                            <signal name="pressed" handler="bobgui_widget_activate" object="invert"/>
                                           </object>
                                         </child>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="GtkSwitch" id="invert">
+                                      <object class="BobguiSwitch" id="invert">
                                         <property name="action-name">win.invert-colors</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkSeparator"/>
+                                  <object class="BobguiSeparator"/>
                                 </child>
                                 <child>
-                                  <object class="GtkButton">
+                                  <object class="BobguiButton">
                                     <property name="label" translatable="yes">_Reshuffle</property>
                                     <property name="use-underline">1</property>
                                     <property name="halign">end</property>
@@ -935,7 +935,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkRevealer" id="revealer">
+                  <object class="BobguiRevealer" id="revealer">
                     <property name="halign">end</property>
                     <property name="valign">fill</property>
                     <property name="transition-type">slide-left</property>
@@ -955,7 +955,7 @@
       </object>
     </property>
     <child>
-      <object class="GtkDropTarget">
+      <object class="BobguiDropTarget">
         <property name="actions">copy</property>
         <property name="formats">GFile</property>
         <signal name="drop" handler="file_drop" swapped="no"/>

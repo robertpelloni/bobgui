@@ -1,12 +1,12 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 switch_role (void)
 {
-  GtkWidget *widget = gtk_switch_new ();
+  BobguiWidget *widget = bobgui_switch_new ();
   g_object_ref_sink (widget);
 
-  gtk_test_accessible_assert_role (widget, GTK_ACCESSIBLE_ROLE_SWITCH);
+  bobgui_test_accessible_assert_role (widget, BOBGUI_ACCESSIBLE_ROLE_SWITCH);
 
   g_object_unref (widget);
 }
@@ -14,14 +14,14 @@ switch_role (void)
 static void
 switch_state (void)
 {
-  GtkWidget *widget = gtk_switch_new ();
+  BobguiWidget *widget = bobgui_switch_new ();
   g_object_ref_sink (widget);
 
-  gtk_test_accessible_assert_state (widget, GTK_ACCESSIBLE_STATE_CHECKED, FALSE);
+  bobgui_test_accessible_assert_state (widget, BOBGUI_ACCESSIBLE_STATE_CHECKED, FALSE);
 
-  gtk_switch_set_active (GTK_SWITCH (widget), TRUE);
+  bobgui_switch_set_active (BOBGUI_SWITCH (widget), TRUE);
 
-  gtk_test_accessible_assert_state (widget, GTK_ACCESSIBLE_STATE_CHECKED, TRUE);
+  bobgui_test_accessible_assert_state (widget, BOBGUI_ACCESSIBLE_STATE_CHECKED, TRUE);
 
   g_object_unref (widget);
 }
@@ -29,7 +29,7 @@ switch_state (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/a11y/switch/role", switch_role);
   g_test_add_func ("/a11y/switch/state", switch_state);

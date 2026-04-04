@@ -2,7 +2,7 @@
         xmlns='http://www.w3.org/2000/svg'
         xmlns:svg='http://www.w3.org/2000/svg'>
   <rect
-          requiredExtensions='http://www.gtk.org/grappa'>
+          requiredExtensions='http://www.bobgui.org/grappa'>
   </rect>
   <circle
           systemLanguage='de'>

@@ -1036,12 +1036,12 @@ gsk_broadway_renderer_init (GskBroadwayRenderer *self)
  * It will only work with broadway surfaces, otherwise it will fail the
  * call to gsk_renderer_realize().
  *
- * This function is only available when GTK was compiled with Broadway
+ * This function is only available when BOBGUI was compiled with Broadway
  * support.
  *
  * Returns: a new Broadway renderer.
  *
- * Deprecated: 4.20: Broadway will be retired in GTK 5
+ * Deprecated: 4.20: Broadway will be retired in BOBGUI 5
  **/
 GskRenderer *
 gsk_broadway_renderer_new (void)

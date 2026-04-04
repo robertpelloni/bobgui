@@ -13,9 +13,9 @@ reftest_resources = gnome.compile_resources('reftest_resources',
   source_dir: meson.current_source_dir()
 )
 
-libgtkreftestprivate = library('gtkreftestprivate',
+libbobguireftestprivate = library('bobguireftestprivate',
   sources: [ 'reftest-compare.c', 'reftest-module.c', 'reftest-snapshot.c', ],
-  dependencies: libgtk_dep,
+  dependencies: libbobgui_dep,
   c_args: reftest_cflags)
 
 libreftest = library('reftest',
@@ -30,9 +30,9 @@ libreftest = library('reftest',
     'textview-tags.c',
     'animation-direction.c',
   ],
-  link_with: libgtkreftestprivate,
+  link_with: libbobguireftestprivate,
   c_args: reftest_cflags,
-  dependencies : libgtk_dep)
+  dependencies : libbobgui_dep)
 
 tcdata = configuration_data()
 tcdata.set('libexecdir', join_paths(get_option('prefix'), get_option('libexecdir')))
@@ -44,18 +44,18 @@ tcdata.set('libexecdir', join_paths(get_option('prefix'), get_option('libexecdir
 #    configuration : tcdata)
 #endforeach
 
-gtk_reftest = executable('gtk-reftest',
-  sources: [ 'gtk-reftest.c', reftest_resources ],
+bobgui_reftest = executable('bobgui-reftest',
+  sources: [ 'bobgui-reftest.c', reftest_resources ],
   c_args: common_cflags,
-  link_with : [libgtkreftestprivate, libreftest],
-  dependencies : libgtk_dep,
+  link_with : [libbobguireftestprivate, libreftest],
+  dependencies : libbobgui_dep,
 )
 
 image_compare = executable('image-compare',
   sources: 'image-compare.c',
   c_args: common_cflags,
-  link_with : [libgtkreftestprivate, libreftest],
-  dependencies : libgtk_dep)
+  link_with : [libbobguireftestprivate, libreftest],
+  dependencies : libbobgui_dep)
 # Installed data (TODO)
 
 testdata = [
@@ -325,9 +325,9 @@ testdata = [
   'glarea-gl-only.css',
   'glarea-gl-only.ref.ui',
   'glarea-gl-only.ui',
-  'gtk-image-effect-inherit.css',
-  'gtk-image-effect-inherit.ref.ui',
-  'gtk-image-effect-inherit.ui',
+  'bobgui-image-effect-inherit.css',
+  'bobgui-image-effect-inherit.ref.ui',
+  'bobgui-image-effect-inherit.ui',
   'gradient-hard-stop.css',
   'gradient-hard-stop.ref.ui',
   'gradient-hard-stop.ui',
@@ -351,9 +351,9 @@ testdata = [
   'grid-spacing3.css',
   'grid-spacing3.ref.ui',
   'grid-spacing3.ui',
-  'gtk-icontheme-sizing.css',
-  'gtk-icontheme-sizing.ref.ui',
-  'gtk-icontheme-sizing.ui',
+  'bobgui-icontheme-sizing.css',
+  'bobgui-icontheme-sizing.ref.ui',
+  'bobgui-icontheme-sizing.ui',
   'hbox-with-ellipsizing-label.ref.ui',
   'hbox-with-ellipsizing-label.ui',
   'hbox-with-ellipsizing-wrapping-label.ref.ui',
@@ -642,7 +642,7 @@ flaky = [
 ]
 
 reftest_env = environment()
-reftest_env.set('GTK_A11Y', 'test')
+reftest_env.set('BOBGUI_A11Y', 'test')
 reftest_env.set('G_TEST_SRCDIR', meson.current_source_dir())
 reftest_env.set('G_TEST_BUILDDIR', meson.current_build_dir())
 reftest_env.set('GSETTINGS_BACKEND', 'memory')
@@ -661,7 +661,7 @@ foreach testname : testdata
   endif
 
   if testname.endswith('.ui') and not testname.endswith('.ref.ui')
-    test('reftest ' + testname, gtk_reftest,
+    test('reftest ' + testname, bobgui_reftest,
       args: [
         '--tap',
         '-k',

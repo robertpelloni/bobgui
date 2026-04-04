@@ -17,42 +17,42 @@
    License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 on_shortcuts_inhibit_change (GdkSurface *surface, GParamSpec *pspec, gpointer data)
 {
-  GtkWidget *button = GTK_WIDGET (data);
+  BobguiWidget *button = BOBGUI_WIDGET (data);
   gboolean button_active;
   gboolean shortcuts_inhibited;
 
   g_object_get (GDK_TOPLEVEL (surface), "shortcuts-inhibited", &shortcuts_inhibited, NULL);
 
-  gtk_check_button_set_inconsistent (GTK_CHECK_BUTTON (button), FALSE);
+  bobgui_check_button_set_inconsistent (BOBGUI_CHECK_BUTTON (button), FALSE);
 
-  button_active = gtk_check_button_get_active (GTK_CHECK_BUTTON (button));
+  button_active = bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (button));
 
   if (button_active != shortcuts_inhibited)
-    gtk_check_button_set_active (GTK_CHECK_BUTTON (button), shortcuts_inhibited);
+    bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (button), shortcuts_inhibited);
 }
 
 static void
-on_button_toggle (GtkWidget *button, gpointer data)
+on_button_toggle (BobguiWidget *button, gpointer data)
 {
   GdkSurface *surface = GDK_SURFACE (data);
 
-  if (!gtk_check_button_get_active (GTK_CHECK_BUTTON (button)))
+  if (!bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (button)))
     {
       gdk_toplevel_restore_system_shortcuts (GDK_TOPLEVEL (surface));
       return;
     }
 
-  gtk_check_button_set_inconsistent (GTK_CHECK_BUTTON (button), TRUE);
+  bobgui_check_button_set_inconsistent (BOBGUI_CHECK_BUTTON (button), TRUE);
   gdk_toplevel_inhibit_system_shortcuts (GDK_TOPLEVEL (surface), NULL);
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   user_data)
 {
   gboolean *done = user_data;
@@ -66,37 +66,37 @@ int
 main (int argc, char *argv[])
 {
   GdkSurface *surface;
-  GtkWidget *window;
-  GtkWidget *button;
-  GtkWidget *vbox;
-  GtkWidget *text_view;
+  BobguiWidget *window;
+  BobguiWidget *button;
+  BobguiWidget *vbox;
+  BobguiWidget *text_view;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
-  gtk_widget_realize (window);
-  surface = gtk_native_get_surface (gtk_widget_get_native (window));
+  bobgui_widget_realize (window);
+  surface = bobgui_native_get_surface (bobgui_widget_get_native (window));
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 2);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  text_view = gtk_text_view_new ();
-  gtk_widget_set_hexpand (text_view, TRUE);
-  gtk_widget_set_vexpand (text_view, TRUE);
-  gtk_box_append (GTK_BOX (vbox), text_view);
+  text_view = bobgui_text_view_new ();
+  bobgui_widget_set_hexpand (text_view, TRUE);
+  bobgui_widget_set_vexpand (text_view, TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), text_view);
 
-  button = gtk_check_button_new_with_label ("Inhibit system keyboard shortcuts");
+  button = bobgui_check_button_new_with_label ("Inhibit system keyboard shortcuts");
 
-  gtk_box_append (GTK_BOX (vbox), button);
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
   g_signal_connect (G_OBJECT (button), "toggled",
                     G_CALLBACK (on_button_toggle), surface);
 
   g_signal_connect (G_OBJECT (surface), "notify::shortcuts-inhibited",
                     G_CALLBACK (on_shortcuts_inhibit_change), button);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

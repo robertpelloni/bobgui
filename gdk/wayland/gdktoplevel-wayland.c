@@ -85,7 +85,7 @@ struct _GdkWaylandToplevel
   GdkWaylandSurface parent_instance;
 
   struct {
-    struct gtk_surface1 *gtk_surface;
+    struct bobgui_surface1 *bobgui_surface;
     struct xdg_toplevel *xdg_toplevel;
     struct zxdg_toplevel_v6 *zxdg_toplevel_v6;
     struct xdg_dialog_v1 *xdg_dialog;
@@ -248,9 +248,9 @@ gdk_wayland_toplevel_init_capabilities (GdkWaylandToplevel *toplevel)
 /* }}} */
 /* {{{ Toplevel implementation */
 
-static void maybe_set_gtk_surface_dbus_properties (GdkWaylandToplevel *wayland_toplevel);
-static void maybe_set_gtk_surface_a11y_properties (GdkWaylandToplevel *wayland_toplevel);
-static void maybe_set_gtk_surface_modal (GdkWaylandToplevel *wayland_toplevel);
+static void maybe_set_bobgui_surface_dbus_properties (GdkWaylandToplevel *wayland_toplevel);
+static void maybe_set_bobgui_surface_a11y_properties (GdkWaylandToplevel *wayland_toplevel);
+static void maybe_set_bobgui_surface_modal (GdkWaylandToplevel *wayland_toplevel);
 static gboolean maybe_set_xdg_dialog_modal (GdkWaylandToplevel *wayland_toplevel);
 static gboolean maybe_set_xdg_toplevel_icon (GdkWaylandToplevel *wayland_toplevel);
 
@@ -263,13 +263,13 @@ gdk_wayland_toplevel_hide_surface (GdkWaylandSurface *wayland_surface)
   g_clear_pointer (&toplevel->display_server.zxdg_toplevel_v6, zxdg_toplevel_v6_destroy);
   g_clear_pointer (&toplevel->display_server.xdg_dialog, xdg_dialog_v1_destroy);
 
-  if (toplevel->display_server.gtk_surface)
+  if (toplevel->display_server.bobgui_surface)
     {
-      if (gtk_surface1_get_version (toplevel->display_server.gtk_surface) >= GTK_SURFACE1_RELEASE_SINCE_VERSION)
-        gtk_surface1_release (toplevel->display_server.gtk_surface);
+      if (bobgui_surface1_get_version (toplevel->display_server.bobgui_surface) >= BOBGUI_SURFACE1_RELEASE_SINCE_VERSION)
+        bobgui_surface1_release (toplevel->display_server.bobgui_surface);
       else
-        gtk_surface1_destroy (toplevel->display_server.gtk_surface);
-      toplevel->display_server.gtk_surface = NULL;
+        bobgui_surface1_destroy (toplevel->display_server.bobgui_surface);
+      toplevel->display_server.bobgui_surface = NULL;
       toplevel->application.was_set = FALSE;
     }
 
@@ -593,9 +593,9 @@ supports_native_edge_constraints (GdkWaylandToplevel *toplevel)
       XDG_TOPLEVEL_STATE_CONSTRAINED_LEFT_SINCE_VERSION)
     return TRUE;
 
-  if (toplevel->display_server.gtk_surface &&
-      gtk_surface1_get_version (toplevel->display_server.gtk_surface) >=
-      GTK_SURFACE1_CONFIGURE_EDGES_SINCE_VERSION)
+  if (toplevel->display_server.bobgui_surface &&
+      bobgui_surface1_get_version (toplevel->display_server.bobgui_surface) >=
+      BOBGUI_SURFACE1_CONFIGURE_EDGES_SINCE_VERSION)
     return TRUE;
 
   return FALSE;
@@ -1011,14 +1011,14 @@ gdk_wayland_surface_create_xdg_toplevel (GdkWaylandToplevel *wayland_toplevel)
     app_id = g_get_prgname ();
 
   if (app_id == NULL)
-    app_id = "GTK Application";
+    app_id = "BOBGUI Application";
 
   gdk_wayland_toplevel_set_application_id (GDK_TOPLEVEL (wayland_toplevel), app_id);
 
-  maybe_set_gtk_surface_dbus_properties (wayland_toplevel);
-  maybe_set_gtk_surface_a11y_properties (wayland_toplevel);
+  maybe_set_bobgui_surface_dbus_properties (wayland_toplevel);
+  maybe_set_bobgui_surface_a11y_properties (wayland_toplevel);
   if (!maybe_set_xdg_dialog_modal (wayland_toplevel))
-    maybe_set_gtk_surface_modal (wayland_toplevel);
+    maybe_set_bobgui_surface_modal (wayland_toplevel);
 
   maybe_set_xdg_toplevel_icon (wayland_toplevel);
   attempt_restore_toplevel (wayland_toplevel);
@@ -1054,8 +1054,8 @@ gdk_wayland_toplevel_init (GdkWaylandToplevel *toplevel)
 }
 
 static void
-gtk_surface_configure (void                *data,
-                       struct gtk_surface1 *gtk_surface,
+bobgui_surface_configure (void                *data,
+                       struct bobgui_surface1 *bobgui_surface,
                        struct wl_array     *states)
 {
   GdkSurface *surface = GDK_SURFACE (data);
@@ -1069,21 +1069,21 @@ gtk_surface_configure (void                *data,
 
       switch (state)
         {
-        case GTK_SURFACE1_STATE_TILED:
+        case BOBGUI_SURFACE1_STATE_TILED:
           new_state |= GDK_TOPLEVEL_STATE_TILED;
           break;
 
         /* Since v2 */
-        case GTK_SURFACE1_STATE_TILED_TOP:
+        case BOBGUI_SURFACE1_STATE_TILED_TOP:
           new_state |= (GDK_TOPLEVEL_STATE_TILED | GDK_TOPLEVEL_STATE_TOP_TILED);
           break;
-        case GTK_SURFACE1_STATE_TILED_RIGHT:
+        case BOBGUI_SURFACE1_STATE_TILED_RIGHT:
           new_state |= (GDK_TOPLEVEL_STATE_TILED | GDK_TOPLEVEL_STATE_RIGHT_TILED);
           break;
-        case GTK_SURFACE1_STATE_TILED_BOTTOM:
+        case BOBGUI_SURFACE1_STATE_TILED_BOTTOM:
           new_state |= (GDK_TOPLEVEL_STATE_TILED | GDK_TOPLEVEL_STATE_BOTTOM_TILED);
           break;
-        case GTK_SURFACE1_STATE_TILED_LEFT:
+        case BOBGUI_SURFACE1_STATE_TILED_LEFT:
           new_state |= (GDK_TOPLEVEL_STATE_TILED | GDK_TOPLEVEL_STATE_LEFT_TILED);
           break;
         default:
@@ -1096,8 +1096,8 @@ gtk_surface_configure (void                *data,
 }
 
 static void
-gtk_surface_configure_edges (void                *data,
-                             struct gtk_surface1 *gtk_surface,
+bobgui_surface_configure_edges (void                *data,
+                             struct bobgui_surface1 *bobgui_surface,
                              struct wl_array     *edge_constraints)
 {
   GdkSurface *surface = GDK_SURFACE (data);
@@ -1111,16 +1111,16 @@ gtk_surface_configure_edges (void                *data,
 
       switch (constraint)
         {
-        case GTK_SURFACE1_EDGE_CONSTRAINT_RESIZABLE_TOP:
+        case BOBGUI_SURFACE1_EDGE_CONSTRAINT_RESIZABLE_TOP:
           new_state |= GDK_TOPLEVEL_STATE_TOP_RESIZABLE;
           break;
-        case GTK_SURFACE1_EDGE_CONSTRAINT_RESIZABLE_RIGHT:
+        case BOBGUI_SURFACE1_EDGE_CONSTRAINT_RESIZABLE_RIGHT:
           new_state |= GDK_TOPLEVEL_STATE_RIGHT_RESIZABLE;
           break;
-        case GTK_SURFACE1_EDGE_CONSTRAINT_RESIZABLE_BOTTOM:
+        case BOBGUI_SURFACE1_EDGE_CONSTRAINT_RESIZABLE_BOTTOM:
           new_state |= GDK_TOPLEVEL_STATE_BOTTOM_RESIZABLE;
           break;
-        case GTK_SURFACE1_EDGE_CONSTRAINT_RESIZABLE_LEFT:
+        case BOBGUI_SURFACE1_EDGE_CONSTRAINT_RESIZABLE_LEFT:
           new_state |= GDK_TOPLEVEL_STATE_LEFT_RESIZABLE;
           break;
         default:
@@ -1132,37 +1132,37 @@ gtk_surface_configure_edges (void                *data,
   toplevel->pending.state |= new_state;
 }
 
-static const struct gtk_surface1_listener gtk_surface_listener = {
-  gtk_surface_configure,
-  gtk_surface_configure_edges
+static const struct bobgui_surface1_listener bobgui_surface_listener = {
+  bobgui_surface_configure,
+  bobgui_surface_configure_edges
 };
 
 static gboolean
-gdk_wayland_toplevel_init_gtk_surface (GdkWaylandToplevel *wayland_toplevel)
+gdk_wayland_toplevel_init_bobgui_surface (GdkWaylandToplevel *wayland_toplevel)
 {
   GdkWaylandSurface *wayland_surface = GDK_WAYLAND_SURFACE (wayland_toplevel);
   GdkWaylandDisplay *display =
     GDK_WAYLAND_DISPLAY (gdk_surface_get_display (GDK_SURFACE (wayland_toplevel)));
 
-  if (wayland_toplevel->display_server.gtk_surface != NULL)
+  if (wayland_toplevel->display_server.bobgui_surface != NULL)
     return TRUE;
 
   if (!is_realized_toplevel (wayland_surface))
     return FALSE;
 
-  if (display->gtk_shell == NULL)
+  if (display->bobgui_shell == NULL)
     return FALSE;
 
-  wayland_toplevel->display_server.gtk_surface =
-    gtk_shell1_get_gtk_surface (display->gtk_shell,
+  wayland_toplevel->display_server.bobgui_surface =
+    bobgui_shell1_get_bobgui_surface (display->bobgui_shell,
                                 wayland_surface->display_server.wl_surface);
-  wl_proxy_set_queue ((struct wl_proxy *) wayland_toplevel->display_server.gtk_surface,
+  wl_proxy_set_queue ((struct wl_proxy *) wayland_toplevel->display_server.bobgui_surface,
                       wayland_surface->event_queue);
   gdk_wayland_toplevel_set_geometry_hints (wayland_toplevel,
                                            &wayland_toplevel->geometry_hints,
                                            wayland_toplevel->geometry_mask);
-  gtk_surface1_add_listener (wayland_toplevel->display_server.gtk_surface,
-                             &gtk_surface_listener,
+  bobgui_surface1_add_listener (wayland_toplevel->display_server.bobgui_surface,
+                             &bobgui_surface_listener,
                              wayland_surface);
 
   return TRUE;
@@ -1225,15 +1225,15 @@ gdk_wayland_toplevel_set_startup_id (GdkWaylandToplevel *toplevel,
 }
 
 static void
-maybe_set_gtk_surface_modal (GdkWaylandToplevel *wayland_toplevel)
+maybe_set_bobgui_surface_modal (GdkWaylandToplevel *wayland_toplevel)
 {
-  if (!gdk_wayland_toplevel_init_gtk_surface (wayland_toplevel))
+  if (!gdk_wayland_toplevel_init_bobgui_surface (wayland_toplevel))
     return;
 
   if (GDK_SURFACE (wayland_toplevel)->modal_hint)
-    gtk_surface1_set_modal (wayland_toplevel->display_server.gtk_surface);
+    bobgui_surface1_set_modal (wayland_toplevel->display_server.bobgui_surface);
   else
-    gtk_surface1_unset_modal (wayland_toplevel->display_server.gtk_surface);
+    bobgui_surface1_unset_modal (wayland_toplevel->display_server.bobgui_surface);
 
 }
 
@@ -1270,7 +1270,7 @@ gdk_wayland_toplevel_set_modal_hint (GdkWaylandToplevel *wayland_toplevel,
   GDK_SURFACE (wayland_toplevel)->modal_hint = modal;
 
   if (!maybe_set_xdg_dialog_modal (wayland_toplevel))
-    maybe_set_gtk_surface_modal (wayland_toplevel);
+    maybe_set_bobgui_surface_modal (wayland_toplevel);
 }
 
 void
@@ -2147,20 +2147,20 @@ gdk_wayland_toplevel_show_window_menu (GdkToplevel *toplevel,
 
 static gboolean
 translate_gesture (GdkTitlebarGesture         gesture,
-                   enum gtk_surface1_gesture *out_gesture)
+                   enum bobgui_surface1_gesture *out_gesture)
 {
   switch (gesture)
     {
     case GDK_TITLEBAR_GESTURE_DOUBLE_CLICK:
-      *out_gesture = GTK_SURFACE1_GESTURE_DOUBLE_CLICK;
+      *out_gesture = BOBGUI_SURFACE1_GESTURE_DOUBLE_CLICK;
       break;
 
     case GDK_TITLEBAR_GESTURE_RIGHT_CLICK:
-      *out_gesture = GTK_SURFACE1_GESTURE_RIGHT_CLICK;
+      *out_gesture = BOBGUI_SURFACE1_GESTURE_RIGHT_CLICK;
       break;
 
     case GDK_TITLEBAR_GESTURE_MIDDLE_CLICK:
-      *out_gesture = GTK_SURFACE1_GESTURE_MIDDLE_CLICK;
+      *out_gesture = BOBGUI_SURFACE1_GESTURE_MIDDLE_CLICK;
       break;
 
     default:
@@ -2174,10 +2174,10 @@ translate_gesture (GdkTitlebarGesture         gesture,
 static gboolean
 gdk_wayland_toplevel_supports_titlebar_gestures (GdkWaylandToplevel *wayland_toplevel)
 {
-  if (!gdk_wayland_toplevel_init_gtk_surface (wayland_toplevel))
+  if (!gdk_wayland_toplevel_init_bobgui_surface (wayland_toplevel))
     return FALSE;
 
-  if (gtk_surface1_get_version (wayland_toplevel->display_server.gtk_surface) < GTK_SURFACE1_TITLEBAR_GESTURE_SINCE_VERSION)
+  if (bobgui_surface1_get_version (wayland_toplevel->display_server.bobgui_surface) < BOBGUI_SURFACE1_TITLEBAR_GESTURE_SINCE_VERSION)
     return FALSE;
 
   return TRUE;
@@ -2189,7 +2189,7 @@ gdk_wayland_toplevel_titlebar_gesture (GdkToplevel        *toplevel,
 {
   GdkSurface *surface = GDK_SURFACE (toplevel);
   GdkWaylandToplevel *wayland_toplevel = GDK_WAYLAND_TOPLEVEL (toplevel);
-  enum gtk_surface1_gesture gtk_gesture;
+  enum bobgui_surface1_gesture bobgui_gesture;
   GdkSeat *seat;
   struct wl_seat *wl_seat;
   uint32_t serial;
@@ -2197,7 +2197,7 @@ gdk_wayland_toplevel_titlebar_gesture (GdkToplevel        *toplevel,
   if (!gdk_wayland_toplevel_supports_titlebar_gestures (wayland_toplevel))
     return FALSE;
 
-  if (!translate_gesture (gesture, &gtk_gesture))
+  if (!translate_gesture (gesture, &bobgui_gesture))
     return FALSE;
 
   seat = gdk_display_get_default_seat (surface->display);
@@ -2207,10 +2207,10 @@ gdk_wayland_toplevel_titlebar_gesture (GdkToplevel        *toplevel,
   wl_seat = gdk_wayland_seat_get_wl_seat (seat);
   serial = _gdk_wayland_seat_get_last_implicit_grab_serial (GDK_WAYLAND_SEAT (seat), NULL);
 
-  gtk_surface1_titlebar_gesture (wayland_toplevel->display_server.gtk_surface,
+  bobgui_surface1_titlebar_gesture (wayland_toplevel->display_server.bobgui_surface,
                                  serial,
                                  wl_seat,
-                                 gtk_gesture);
+                                 bobgui_gesture);
 
   return TRUE;
 }
@@ -2400,12 +2400,12 @@ gdk_wayland_toplevel_focus (GdkToplevel *toplevel,
                                   startup_id,
                                   wayland_surface->display_server.wl_surface);
     }
-  else if (gdk_wayland_toplevel_init_gtk_surface (wayland_toplevel))
+  else if (gdk_wayland_toplevel_init_bobgui_surface (wayland_toplevel))
     {
       if (timestamp != GDK_CURRENT_TIME)
-        gtk_surface1_present (wayland_toplevel->display_server.gtk_surface, timestamp);
-      else if (startup_id && gtk_surface1_get_version (wayland_toplevel->display_server.gtk_surface) >= GTK_SURFACE1_REQUEST_FOCUS_SINCE_VERSION)
-        gtk_surface1_request_focus (wayland_toplevel->display_server.gtk_surface,
+        bobgui_surface1_present (wayland_toplevel->display_server.bobgui_surface, timestamp);
+      else if (startup_id && bobgui_surface1_get_version (wayland_toplevel->display_server.bobgui_surface) >= BOBGUI_SURFACE1_REQUEST_FOCUS_SINCE_VERSION)
+        bobgui_surface1_request_focus (wayland_toplevel->display_server.bobgui_surface,
                                     startup_id);
     }
 
@@ -2433,14 +2433,14 @@ gdk_wayland_toplevel_iface_init (GdkToplevelInterface *iface)
 /* }}} */
 /* {{{ Private Toplevel API */
 
-struct gtk_surface1 *
-gdk_wayland_toplevel_get_gtk_surface (GdkWaylandToplevel *wayland_toplevel)
+struct bobgui_surface1 *
+gdk_wayland_toplevel_get_bobgui_surface (GdkWaylandToplevel *wayland_toplevel)
 {
-  return wayland_toplevel->display_server.gtk_surface;
+  return wayland_toplevel->display_server.bobgui_surface;
 }
 
 static void
-maybe_set_gtk_surface_dbus_properties (GdkWaylandToplevel *wayland_toplevel)
+maybe_set_bobgui_surface_dbus_properties (GdkWaylandToplevel *wayland_toplevel)
 {
   if (wayland_toplevel->application.was_set)
     return;
@@ -2453,10 +2453,10 @@ maybe_set_gtk_surface_dbus_properties (GdkWaylandToplevel *wayland_toplevel)
       wayland_toplevel->application.unique_bus_name == NULL)
     return;
 
-  if (!gdk_wayland_toplevel_init_gtk_surface (wayland_toplevel))
+  if (!gdk_wayland_toplevel_init_bobgui_surface (wayland_toplevel))
     return;
 
-  gtk_surface1_set_dbus_properties (wayland_toplevel->display_server.gtk_surface,
+  bobgui_surface1_set_dbus_properties (wayland_toplevel->display_server.bobgui_surface,
                                     wayland_toplevel->application.application_id,
                                     wayland_toplevel->application.app_menu_path,
                                     wayland_toplevel->application.menubar_path,
@@ -2489,7 +2489,7 @@ gdk_wayland_toplevel_set_dbus_properties (GdkToplevel *toplevel,
     g_strdup (application_object_path);
   wayland_toplevel->application.unique_bus_name = g_strdup (unique_bus_name);
 
-  maybe_set_gtk_surface_dbus_properties (wayland_toplevel);
+  maybe_set_bobgui_surface_dbus_properties (wayland_toplevel);
 }
 
 void
@@ -2898,7 +2898,7 @@ gdk_wayland_toplevel_remove_from_session (GdkToplevel *toplevel)
 }
 
 static void
-maybe_set_gtk_surface_a11y_properties (GdkWaylandToplevel *wayland_toplevel)
+maybe_set_bobgui_surface_a11y_properties (GdkWaylandToplevel *wayland_toplevel)
 {
   if (wayland_toplevel->a11y.was_set)
     return;
@@ -2907,14 +2907,14 @@ maybe_set_gtk_surface_a11y_properties (GdkWaylandToplevel *wayland_toplevel)
       wayland_toplevel->a11y.toplevel_object_path == NULL)
     return;
 
-  if (!gdk_wayland_toplevel_init_gtk_surface (wayland_toplevel))
+  if (!gdk_wayland_toplevel_init_bobgui_surface (wayland_toplevel))
     return;
 
-  if (gtk_surface1_get_version (wayland_toplevel->display_server.gtk_surface) <
-      GTK_SURFACE1_SET_A11Y_PROPERTIES_SINCE_VERSION)
+  if (bobgui_surface1_get_version (wayland_toplevel->display_server.bobgui_surface) <
+      BOBGUI_SURFACE1_SET_A11Y_PROPERTIES_SINCE_VERSION)
     return;
 
-  gtk_surface1_set_a11y_properties (wayland_toplevel->display_server.gtk_surface,
+  bobgui_surface1_set_a11y_properties (wayland_toplevel->display_server.bobgui_surface,
                                     wayland_toplevel->a11y.dbus_name,
                                     wayland_toplevel->a11y.toplevel_object_path);
   wayland_toplevel->a11y.was_set = TRUE;
@@ -2937,7 +2937,7 @@ gdk_wayland_toplevel_set_a11y_properties (GdkToplevel *toplevel,
   wayland_toplevel->a11y.toplevel_object_path = g_strdup (toplevel_object_path);
   wayland_toplevel->a11y.was_set = FALSE;
 
-  maybe_set_gtk_surface_a11y_properties (wayland_toplevel);
+  maybe_set_bobgui_surface_a11y_properties (wayland_toplevel);
 }
 
 /* }}} */

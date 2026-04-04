@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <cairo-gobject.h>
 
 static void
@@ -60,7 +60,7 @@ main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
 
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/cursor/named", test_cursor_named);
   g_test_add_func ("/cursor/texture", test_cursor_texture);

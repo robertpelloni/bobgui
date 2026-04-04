@@ -1,6 +1,6 @@
 # translation of bn_IN.po to Bengali INDIA
-# Translation of GTK+ to Bengali India
-# This file is distributed under the same license as the GTK+ package.
+# Translation of BOBGUI+ to Bengali India
+# This file is distributed under the same license as the BOBGUI+ package.
 # Copyright (C) 2003-2005, 2006, 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
 # 
 # Sayamindu Dasgupta <unmadindu@Softhome.net>, 2004.
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product="
-"gtk%2b&keywords=I18N+L10N&component=general\n"
+"bobgui%2b&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-09-18 11:52+0000\n"
 "PO-Revision-Date: 2013-09-23 05:50-0400\n"
 "Last-Translator: sray <sray@redhat.com>\n"
@@ -68,23 +68,23 @@ msgstr "DISPLAY"
 #. Description of --gdk-debug=FLAGS in --help output
 #: ../gdk/gdk.c:215
 msgid "GDK debugging flags to set"
-msgstr "নির্ধারণের উদ্দেশ্যে চিহ্নিত GTK+ ডিবাগিং ফ্ল্যাগ"
+msgstr "নির্ধারণের উদ্দেশ্যে চিহ্নিত BOBGUI+ ডিবাগিং ফ্ল্যাগ"
 
 #. Placeholder in --gdk-debug=FLAGS in --help output
 #. Placeholder in --gdk-no-debug=FLAGS in --help output
-#. Placeholder in --gtk-debug=FLAGS in --help output
-#. Placeholder in --gtk-no-debug=FLAGS in --help output
+#. Placeholder in --bobgui-debug=FLAGS in --help output
+#. Placeholder in --bobgui-no-debug=FLAGS in --help output
 #: ../gdk/gdk.c:216
 #: ../gdk/gdk.c:219
-#: ../gtk/gtkmain.c:453
-#: ../gtk/gtkmain.c:456
+#: ../bobgui/bobguimain.c:453
+#: ../bobgui/bobguimain.c:456
 msgid "FLAGS"
 msgstr "FLAGS"
 
 #. Description of --gdk-no-debug=FLAGS in --help output
 #: ../gdk/gdk.c:218
 msgid "GDK debugging flags to unset"
-msgstr "মুছে ফেলার উদ্দেশ্যে চিহ্নিত GTK+ ডিবাগিং ফ্ল্যাগ"
+msgstr "মুছে ফেলার উদ্দেশ্যে চিহ্নিত BOBGUI+ ডিবাগিং ফ্ল্যাগ"
 
 #. * Translators, the strings in the 'keyboard label' context are
 #. * display names for keyboard keys. Some of them have prefixes like
@@ -460,155 +460,155 @@ msgid_plural "Opening %d Items"
 msgstr[0] "%d-টি সামগ্রী খোলা হচ্ছে"
 msgstr[1] "%d-টি সামগ্রী খোলা হচ্ছে"
 
-#: ../gtk/a11y/gtkbooleancellaccessible.c:43
+#: ../bobgui/a11y/bobguibooleancellaccessible.c:43
 msgctxt "Action description"
 msgid "Toggles the cell"
 msgstr "সেল অদলবদল করে"
 
-#: ../gtk/a11y/gtkbooleancellaccessible.c:63
-#: ../gtk/a11y/gtkswitchaccessible.c:101
+#: ../bobgui/a11y/bobguibooleancellaccessible.c:63
+#: ../bobgui/a11y/bobguiswitchaccessible.c:101
 msgctxt "Action name"
 msgid "Toggle"
 msgstr "অদলবদল করুন"
 
-#: ../gtk/a11y/gtkbuttonaccessible.c:341
-#: ../gtk/a11y/gtkmenuitemaccessible.c:436
+#: ../bobgui/a11y/bobguibuttonaccessible.c:341
+#: ../bobgui/a11y/bobguimenuitemaccessible.c:436
 msgctxt "Action name"
 msgid "Click"
 msgstr "ক্লিক করুন"
 
-#: ../gtk/a11y/gtkbuttonaccessible.c:350
+#: ../bobgui/a11y/bobguibuttonaccessible.c:350
 msgctxt "Action description"
 msgid "Clicks the button"
 msgstr "বোতামে ক্লিক করে"
 
-#: ../gtk/a11y/gtkcellaccessible.c:258
+#: ../bobgui/a11y/bobguicellaccessible.c:258
 msgctxt "Action name"
 msgid "Expand or contract"
 msgstr "মেলুন বা গোটান"
 
-#: ../gtk/a11y/gtkcellaccessible.c:260
+#: ../bobgui/a11y/bobguicellaccessible.c:260
 msgctxt "Action name"
 msgid "Edit"
 msgstr "সম্পাদনা"
 
-#: ../gtk/a11y/gtkcellaccessible.c:262
-#: ../gtk/a11y/gtkcolorswatchaccessible.c:72
-#: ../gtk/a11y/gtkentryaccessible.c:1557
-#: ../gtk/a11y/gtkexpanderaccessible.c:281
+#: ../bobgui/a11y/bobguicellaccessible.c:262
+#: ../bobgui/a11y/bobguicolorswatchaccessible.c:72
+#: ../bobgui/a11y/bobguientryaccessible.c:1557
+#: ../bobgui/a11y/bobguiexpanderaccessible.c:281
 msgctxt "Action name"
 msgid "Activate"
 msgstr "সক্রিয় করুন"
 
-#: ../gtk/a11y/gtkcellaccessible.c:275
+#: ../bobgui/a11y/bobguicellaccessible.c:275
 msgctxt "Action description"
 msgid "Expands or contracts the row in the tree view containing this cell"
 msgstr "এই সেল বিশিষ্ট সারি ট্রি ভিউতে মেলে ধরে বা গোটায়"
 
-#: ../gtk/a11y/gtkcellaccessible.c:277
+#: ../bobgui/a11y/bobguicellaccessible.c:277
 msgctxt "Action description"
 msgid "Creates a widget in which the contents of the cell can be edited"
 msgstr "একটি উইজেট প্রস্তুত করে যেখানে সেলের বিষয়বস্তু সম্পাদনা করা যেতে পারে"
 
-#: ../gtk/a11y/gtkcellaccessible.c:279
+#: ../bobgui/a11y/bobguicellaccessible.c:279
 msgctxt "Action description"
 msgid "Activates the cell"
 msgstr "সেল সক্রিয় করে"
 
-#: ../gtk/a11y/gtkcolorswatchaccessible.c:71
+#: ../bobgui/a11y/bobguicolorswatchaccessible.c:71
 msgctxt "Action name"
 msgid "Select"
 msgstr "নির্বাচন করুন"
 
-#: ../gtk/a11y/gtkcolorswatchaccessible.c:73
+#: ../bobgui/a11y/bobguicolorswatchaccessible.c:73
 msgctxt "Action name"
 msgid "Customize"
 msgstr "স্বনির্ধারিত"
 
-#: ../gtk/a11y/gtkcolorswatchaccessible.c:84
+#: ../bobgui/a11y/bobguicolorswatchaccessible.c:84
 msgctxt "Action description"
 msgid "Selects the color"
 msgstr "রঙটি নির্বাচন করে"
 
-#: ../gtk/a11y/gtkcolorswatchaccessible.c:85
+#: ../bobgui/a11y/bobguicolorswatchaccessible.c:85
 msgctxt "Action description"
 msgid "Activates the color"
 msgstr "রঙটি সক্রিয় করে"
 
-#: ../gtk/a11y/gtkcolorswatchaccessible.c:86
+#: ../bobgui/a11y/bobguicolorswatchaccessible.c:86
 msgctxt "Action description"
 msgid "Customizes the color"
 msgstr "রঙ স্বনির্ধারিত করে"
 
-#: ../gtk/a11y/gtkcomboboxaccessible.c:313
+#: ../bobgui/a11y/bobguicomboboxaccessible.c:313
 msgctxt "Action name"
 msgid "Press"
 msgstr "টিপুন"
 
-#: ../gtk/a11y/gtkcomboboxaccessible.c:322
+#: ../bobgui/a11y/bobguicomboboxaccessible.c:322
 msgctxt "Action description"
 msgid "Presses the combobox"
 msgstr "কম্বো-বক্স টেপা হয়"
 
-#: ../gtk/a11y/gtkentryaccessible.c:1566
+#: ../bobgui/a11y/bobguientryaccessible.c:1566
 msgctxt "Action description"
 msgid "Activates the entry"
 msgstr "এন্ট্রি সক্রিয় করে"
 
-#: ../gtk/a11y/gtkexpanderaccessible.c:290
+#: ../bobgui/a11y/bobguiexpanderaccessible.c:290
 msgctxt "Action description"
 msgid "Activates the expander"
 msgstr "বিস্তৃতকারী সক্রিয় করে"
 
-#: ../gtk/a11y/gtkmenuitemaccessible.c:445
+#: ../bobgui/a11y/bobguimenuitemaccessible.c:445
 msgctxt "Action description"
 msgid "Clicks the menuitem"
 msgstr "মেনু অাইটেম ক্লিক করে"
 
-#: ../gtk/a11y/gtkscalebuttonaccessible.c:140
+#: ../bobgui/a11y/bobguiscalebuttonaccessible.c:140
 msgctxt "Action description"
 msgid "Pops up the slider"
 msgstr "স্লাইডার পপ-অাপ করে"
 
-#: ../gtk/a11y/gtkscalebuttonaccessible.c:142
+#: ../bobgui/a11y/bobguiscalebuttonaccessible.c:142
 msgctxt "Action description"
 msgid "Dismisses the slider"
 msgstr "স্লাইডার বাতিল করে"
 
-#: ../gtk/a11y/gtkscalebuttonaccessible.c:170
+#: ../bobgui/a11y/bobguiscalebuttonaccessible.c:170
 msgctxt "Action name"
 msgid "Popup"
 msgstr "পপ অাপ"
 
-#: ../gtk/a11y/gtkscalebuttonaccessible.c:172
+#: ../bobgui/a11y/bobguiscalebuttonaccessible.c:172
 msgctxt "Action name"
 msgid "Dismiss"
 msgstr "বাতিল"
 
-#: ../gtk/a11y/gtkspinneraccessible.c:39
+#: ../bobgui/a11y/bobguispinneraccessible.c:39
 msgctxt "throbbing progress animation widget"
 msgid "Spinner"
 msgstr "স্পিনার"
 
-#: ../gtk/a11y/gtkspinneraccessible.c:40
+#: ../bobgui/a11y/bobguispinneraccessible.c:40
 msgid "Provides visual indication of progress"
 msgstr "কর্মের প্রগতির মাত্রার দৃশ্যমান ইঙ্গিত"
 
-#: ../gtk/a11y/gtkswitchaccessible.c:63
+#: ../bobgui/a11y/bobguiswitchaccessible.c:63
 msgctxt "light switch widget"
 msgid "Switch"
 msgstr "পরিবর্তন"
 
-#: ../gtk/a11y/gtkswitchaccessible.c:64
+#: ../bobgui/a11y/bobguiswitchaccessible.c:64
 msgid "Switches between on and off states"
 msgstr "চালু ও বন্ধ অবস্থার মধ্যে পরিবর্তন করা হয়"
 
-#: ../gtk/a11y/gtkswitchaccessible.c:110
+#: ../bobgui/a11y/bobguiswitchaccessible.c:110
 msgctxt "Action description"
 msgid "Toggles the switch"
 msgstr "স্যুইচ অদলবদল করে"
 
-#: ../gtk/deprecated/gtkcolorsel.c:425
+#: ../bobgui/deprecated/bobguicolorsel.c:425
 msgid ""
 "Select the color you want from the outer ring. Select the darkness or "
 "lightness of that color using the inner triangle."
@@ -616,7 +616,7 @@ msgstr ""
 "বাহির বৃত্তের মধ্যে উপস্থিত রঙগুলি থেকে প্রযোজ্য রঙ নির্বাচন করুন। মধ্যে "
 "স্থিত ত্রিকোণ প্রয়োগ করে রঙ হালকা অথবা গাঢ় করুন।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:451
+#: ../bobgui/deprecated/bobguicolorsel.c:451
 msgid ""
 "Click the eyedropper, then click a color anywhere on your screen to select "
 "that color."
@@ -624,68 +624,68 @@ msgstr ""
 "আই-ড্রপার ক্লিক করুন ও পর্দার মধ্যে প্রদর্শিত কোনো পছন্দসই রঙের উপর ক্লিক "
 "করে সেটি ব্যবহারের জন্য নির্বাচন করুন।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:461
+#: ../bobgui/deprecated/bobguicolorsel.c:461
 msgid "_Hue:"
 msgstr "হিউ: (_H)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:462
+#: ../bobgui/deprecated/bobguicolorsel.c:462
 msgid "Position on the color wheel."
 msgstr "রং প্রদর্শনকারী চাকতির অবস্থান।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:464
+#: ../bobgui/deprecated/bobguicolorsel.c:464
 msgid "S_aturation:"
 msgstr "ঘনত্ব: (_a)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:465
+#: ../bobgui/deprecated/bobguicolorsel.c:465
 msgid "Intensity of the color."
 msgstr "রঙের গভীরতা।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:466
+#: ../bobgui/deprecated/bobguicolorsel.c:466
 msgid "_Value:"
 msgstr "মান:(_V)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:467
+#: ../bobgui/deprecated/bobguicolorsel.c:467
 msgid "Brightness of the color."
 msgstr "রঙের উজ্জ্বলতা।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:468
+#: ../bobgui/deprecated/bobguicolorsel.c:468
 msgid "_Red:"
 msgstr "লাল:(_R)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:469
+#: ../bobgui/deprecated/bobguicolorsel.c:469
 msgid "Amount of red light in the color."
 msgstr "রঙের মধ্যে লাল আলোর পরিমাণ।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:470
+#: ../bobgui/deprecated/bobguicolorsel.c:470
 msgid "_Green:"
 msgstr "সবুজ: (_G)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:471
+#: ../bobgui/deprecated/bobguicolorsel.c:471
 msgid "Amount of green light in the color."
 msgstr "রঙের মধ্যে সবুজ আলোর পরিমাণ।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:472
+#: ../bobgui/deprecated/bobguicolorsel.c:472
 msgid "_Blue:"
 msgstr "নীল: (_B)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:473
+#: ../bobgui/deprecated/bobguicolorsel.c:473
 msgid "Amount of blue light in the color."
 msgstr "রঙের মধ্যে নীল আলোর পরিমাণ।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:476
+#: ../bobgui/deprecated/bobguicolorsel.c:476
 msgid "Op_acity:"
 msgstr "স্বচ্ছতা: (_a)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:484
-#: ../gtk/deprecated/gtkcolorsel.c:494
+#: ../bobgui/deprecated/bobguicolorsel.c:484
+#: ../bobgui/deprecated/bobguicolorsel.c:494
 msgid "Transparency of the color."
 msgstr "রঙের স্বচ্ছতা।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:501
+#: ../bobgui/deprecated/bobguicolorsel.c:501
 msgid "Color _name:"
 msgstr "রঙের নাম: (_n)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:516
+#: ../bobgui/deprecated/bobguicolorsel.c:516
 msgid ""
 "You can enter an HTML-style hexadecimal color value, or simply a color name "
 "such as 'orange' in this entry."
@@ -693,15 +693,15 @@ msgstr ""
 "রঙ চিহ্ন করতে এইখানে, HTML-বিন্যাসের হেক্সা-ডেসিমেল মান লিখুন অথবা কোনো রঙের "
 "নাম যেমন 'orange' লিখুন।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:548
+#: ../bobgui/deprecated/bobguicolorsel.c:548
 msgid "_Palette:"
 msgstr "প্যালেট: (_P)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:578
+#: ../bobgui/deprecated/bobguicolorsel.c:578
 msgid "Color Wheel"
 msgstr "রং প্রদর্শনকারী চাকতি"
 
-#: ../gtk/deprecated/gtkcolorsel.c:1072
+#: ../bobgui/deprecated/bobguicolorsel.c:1072
 msgid ""
 "The previously-selected color, for comparison to the color you're selecting "
 "now. You can drag this color to a palette entry, or select this color as "
@@ -711,7 +711,7 @@ msgstr ""
 "টেনে আনুন অথবা পার্শ্ববর্তী রঙ ধারণ ক্ষেত্রে টেনে এনে বর্তমান নির্বাচন রূপে "
 "স্থাপন করুন।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:1078
+#: ../bobgui/deprecated/bobguicolorsel.c:1078
 msgid ""
 "The color you've chosen. You can drag this color to a palette entry to save "
 "it for use in the future."
@@ -719,7 +719,7 @@ msgstr ""
 "নির্বাচিত রঙ। ভবিষ্যতে ব্যবহারের উদ্দেশ্যে এই রঙটি টেনে এনে একটি প্যালেটে "
 "স্থাপন করা যাবে।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:1084
+#: ../bobgui/deprecated/bobguicolorsel.c:1084
 msgid ""
 "The previously-selected color, for comparison to the color you're selecting "
 "now."
@@ -727,15 +727,15 @@ msgstr ""
 "বর্তমানে নির্বাচিত রংয়ের সাথে তুলনা করার উদ্দেশ্যে, পূর্বে নির্বাচিত রংয়ের "
 "প্রদর্শন।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:1088
+#: ../bobgui/deprecated/bobguicolorsel.c:1088
 msgid "The color you've chosen."
 msgstr "আপনার নির্বাচিত রং।"
 
-#: ../gtk/deprecated/gtkcolorsel.c:1491
+#: ../bobgui/deprecated/bobguicolorsel.c:1491
 msgid "_Save color here"
 msgstr "চিহ্নিত স্থানে রং সংরক্ষণ করুন (_S)"
 
-#: ../gtk/deprecated/gtkcolorsel.c:1695
+#: ../bobgui/deprecated/bobguicolorsel.c:1695
 msgid ""
 "Click this palette entry to make it the current color. To change this entry, "
 "drag a color swatch here or right-click it and select \"Save color here.\""
@@ -746,49 +746,49 @@ msgstr ""
 
 #. We emit the response for the Select button manually,
 #. * since we want to save the color first
-#: ../gtk/deprecated/gtkcolorseldialog.c:201
-#: ../gtk/gtkappchooserdialog.c:509
-#: ../gtk/gtkcolorchooserdialog.c:149
-#: ../gtk/gtkfontchooserdialog.c:174
-#: ../gtk/gtkprinteroptionwidget.c:552
+#: ../bobgui/deprecated/bobguicolorseldialog.c:201
+#: ../bobgui/bobguiappchooserdialog.c:509
+#: ../bobgui/bobguicolorchooserdialog.c:149
+#: ../bobgui/bobguifontchooserdialog.c:174
+#: ../bobgui/bobguiprinteroptionwidget.c:552
 msgid "_Select"
 msgstr "নির্বাচন করুন (_S)"
 
-#: ../gtk/deprecated/gtkcolorseldialog.c:219
+#: ../bobgui/deprecated/bobguicolorseldialog.c:219
 msgid "Color Selection"
 msgstr "রং নির্বাচন"
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
-#: ../gtk/deprecated/gtkfontsel.c:124
+#: ../bobgui/deprecated/bobguifontsel.c:124
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "অআইঈউঊঋঌএঐওঔ কখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ"
 
-#: ../gtk/deprecated/gtkfontsel.c:393
+#: ../bobgui/deprecated/bobguifontsel.c:393
 msgid "_Family:"
 msgstr "সংকলন: (_F)"
 
-#: ../gtk/deprecated/gtkfontsel.c:400
+#: ../bobgui/deprecated/bobguifontsel.c:400
 msgid "_Style:"
 msgstr "বিন্যাস:(_S)"
 
-#: ../gtk/deprecated/gtkfontsel.c:407
+#: ../bobgui/deprecated/bobguifontsel.c:407
 msgid "Si_ze:"
 msgstr "মাপ:(_z)"
 
 #. create the text entry widget
-#: ../gtk/deprecated/gtkfontsel.c:584
+#: ../bobgui/deprecated/bobguifontsel.c:584
 msgid "_Preview:"
 msgstr "পূর্বপ্রদর্শন:(_P)"
 
-#: ../gtk/deprecated/gtkfontsel.c:1720
-#: ../gtk/gtkfontchooserdialog.c:183
+#: ../bobgui/deprecated/bobguifontsel.c:1720
+#: ../bobgui/bobguifontchooserdialog.c:183
 msgid "Font Selection"
 msgstr "ফন্ট নির্বাচন"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the URL of the license.
-#: ../gtk/gtkaboutdialog.c:104
+#: ../bobgui/bobguiaboutdialog.c:104
 #, c-format
 msgid ""
 "This program comes with ABSOLUTELY NO WARRANTY;\n"
@@ -797,50 +797,50 @@ msgstr ""
 "এই প্রোগ্রামের জন্য কোনো ধরনের ওয়ারেন্টি উপলব্ধ করা হয় না; অধিক বিবরণের জন্য\n"
 "<a href=\"%s\">%s</a> দেখুন"
 
-#: ../gtk/gtkaboutdialog.c:357
+#: ../bobgui/bobguiaboutdialog.c:357
 msgid "License"
 msgstr "লাইসেন্স"
 
-#: ../gtk/gtkaboutdialog.c:358
+#: ../bobgui/bobguiaboutdialog.c:358
 msgid "The license of the program"
 msgstr "এই প্রোগ্রামের লাইসেন্স"
 
 #. Add the credits button
-#: ../gtk/gtkaboutdialog.c:751
+#: ../bobgui/bobguiaboutdialog.c:751
 msgid "C_redits"
 msgstr "স্বীকৃতি (_r)"
 
 #. Add the license button
-#: ../gtk/gtkaboutdialog.c:764
+#: ../bobgui/bobguiaboutdialog.c:764
 msgid "_License"
 msgstr "লাইসেন্স (_L)"
 
-#: ../gtk/gtkaboutdialog.c:980
+#: ../bobgui/bobguiaboutdialog.c:980
 msgid "Could not show link"
 msgstr "লিংক প্রদর্শন করতে ব্যর্থ"
 
-#: ../gtk/gtkaboutdialog.c:1017
+#: ../bobgui/bobguiaboutdialog.c:1017
 msgid "Website"
 msgstr "ওয়েবসাইট"
 
-#: ../gtk/gtkaboutdialog.c:1071
+#: ../bobgui/bobguiaboutdialog.c:1071
 #, c-format
 msgid "About %s"
 msgstr "%s পরিচিতি"
 
-#: ../gtk/gtkaboutdialog.c:2398
+#: ../bobgui/bobguiaboutdialog.c:2398
 msgid "Created by"
 msgstr "নির্মাতা"
 
-#: ../gtk/gtkaboutdialog.c:2401
+#: ../bobgui/bobguiaboutdialog.c:2401
 msgid "Documented by"
 msgstr "সহায়িকা লিখেছেন"
 
-#: ../gtk/gtkaboutdialog.c:2411
+#: ../bobgui/bobguiaboutdialog.c:2411
 msgid "Translated by"
 msgstr "অনুবাদক"
 
-#: ../gtk/gtkaboutdialog.c:2416
+#: ../bobgui/bobguiaboutdialog.c:2416
 msgid "Artwork by"
 msgstr "শিল্পী"
 
@@ -848,7 +848,7 @@ msgstr "শিল্পী"
 #. * that use the shift key. If the text on this key isn't typically
 #. * translated on keyboards used for your language, don't translate
 #. * this.
-#: ../gtk/gtkaccellabel.c:159
+#: ../bobgui/bobguiaccellabel.c:159
 msgctxt "keyboard label"
 msgid "Shift"
 msgstr "Shift"
@@ -857,7 +857,7 @@ msgstr "Shift"
 #. * that use the control key. If the text on this key isn't typically
 #. * translated on keyboards used for your language, don't translate
 #. * this.
-#: ../gtk/gtkaccellabel.c:165
+#: ../bobgui/bobguiaccellabel.c:165
 msgctxt "keyboard label"
 msgid "Ctrl"
 msgstr "Ctrl"
@@ -866,7 +866,7 @@ msgstr "Ctrl"
 #. * that use the alt key. If the text on this key isn't typically
 #. * translated on keyboards used for your language, don't translate
 #. * this.
-#: ../gtk/gtkaccellabel.c:171
+#: ../bobgui/bobguiaccellabel.c:171
 msgctxt "keyboard label"
 msgid "Alt"
 msgstr "Alt"
@@ -875,7 +875,7 @@ msgstr "Alt"
 #. * that use the super key. If the text on this key isn't typically
 #. * translated on keyboards used for your language, don't translate
 #. * this.
-#: ../gtk/gtkaccellabel.c:805
+#: ../bobgui/bobguiaccellabel.c:805
 msgctxt "keyboard label"
 msgid "Super"
 msgstr "Super"
@@ -884,7 +884,7 @@ msgstr "Super"
 #. * that use the hyper key. If the text on this key isn't typically
 #. * translated on keyboards used for your language, don't translate
 #. * this.
-#: ../gtk/gtkaccellabel.c:818
+#: ../bobgui/bobguiaccellabel.c:818
 msgctxt "keyboard label"
 msgid "Hyper"
 msgstr "Hyper"
@@ -893,57 +893,57 @@ msgstr "Hyper"
 #. * that use the meta key. If the text on this key isn't typically
 #. * translated on keyboards used for your language, don't translate
 #. * this.
-#: ../gtk/gtkaccellabel.c:832
+#: ../bobgui/bobguiaccellabel.c:832
 msgctxt "keyboard label"
 msgid "Meta"
 msgstr "Meta"
 
-#: ../gtk/gtkaccellabel.c:849
+#: ../bobgui/bobguiaccellabel.c:849
 msgctxt "keyboard label"
 msgid "Space"
 msgstr "Space"
 
-#: ../gtk/gtkaccellabel.c:852
+#: ../bobgui/bobguiaccellabel.c:852
 msgctxt "keyboard label"
 msgid "Backslash"
 msgstr "Backslash"
 
-#: ../gtk/gtkappchooserbutton.c:290
+#: ../bobgui/bobguiappchooserbutton.c:290
 msgid "Other application…"
 msgstr "অন্যান্য অ্যাপ্লিকেশন…"
 
-#: ../gtk/gtkappchooserdialog.c:137
+#: ../bobgui/bobguiappchooserdialog.c:137
 msgid "Failed to look for applications online"
 msgstr "অনলাইন অ্যাপ্লিকেশন অনুসন্ধান করতে ব্যর্থ"
 
-#: ../gtk/gtkappchooserdialog.c:188
+#: ../bobgui/bobguiappchooserdialog.c:188
 msgid "_Find applications online"
 msgstr "অনলাইন অ্যাপ্লিকেশন অনুসন্ধান করুন (_F)"
 
 #. Translators: %s is a filename
-#: ../gtk/gtkappchooserdialog.c:332
+#: ../bobgui/bobguiappchooserdialog.c:332
 #, c-format
 msgid "Select an application to open \"%s\""
 msgstr "\"%s\" খোলার জন্য একটি অ্যাপ্লিকেশন নির্বাচন করুন"
 
-#: ../gtk/gtkappchooserdialog.c:333
-#: ../gtk/gtkappchooserwidget.c:657
+#: ../bobgui/bobguiappchooserdialog.c:333
+#: ../bobgui/bobguiappchooserwidget.c:657
 #, c-format
 msgid "No applications available to open \"%s\""
 msgstr "\"%s\" খোলার জন্য কোনো অ্যাপ্লিকেশন উপলব্ধ নেই"
 
 #. Translators: %s is a file type description
-#: ../gtk/gtkappchooserdialog.c:339
+#: ../bobgui/bobguiappchooserdialog.c:339
 #, c-format
 msgid "Select an application for \"%s\" files"
 msgstr "\"%s\" ফাইলের জন্য একটি অ্যাপ্লিকেশন নির্বাচন করুন"
 
-#: ../gtk/gtkappchooserdialog.c:341
+#: ../bobgui/bobguiappchooserdialog.c:341
 #, c-format
 msgid "No applications available to open \"%s\" files"
 msgstr "\"%s\" ফাইল খোলার জন্য কোনো অ্যাপ্লিকেশন উপলব্ধ নয়"
 
-#: ../gtk/gtkappchooserdialog.c:357
+#: ../bobgui/bobguiappchooserdialog.c:357
 msgid ""
 "Click \"Show other applications\", for more options, or \"Find applications "
 "online\" to install a new application"
@@ -952,31 +952,31 @@ msgstr ""
 "নতুন অ্যাপ্লিকেশন ইনস্টল করার জন্য \"অনলাইন অ্যাপ্লিকেশন অনুসন্ধান করুন\" "
 "ক্লিক করুন।"
 
-#: ../gtk/gtkappchooserdialog.c:427
+#: ../bobgui/bobguiappchooserdialog.c:427
 msgid "Forget association"
 msgstr "যোগাযোগ মনে রাখা হবে না"
 
-#: ../gtk/gtkappchooserdialog.c:493
+#: ../bobgui/bobguiappchooserdialog.c:493
 msgid "Show other applications"
 msgstr "অন্যান্য অ্যাপ্লিকেশন"
 
-#: ../gtk/gtkappchooserwidget.c:606
+#: ../bobgui/bobguiappchooserwidget.c:606
 msgid "Default Application"
 msgstr "ডিফল্ট অ্যাপ্লিকেশন"
 
-#: ../gtk/gtkappchooserwidget.c:744
+#: ../bobgui/bobguiappchooserwidget.c:744
 msgid "Recommended Applications"
 msgstr "প্রস্তাবিত অ্যাপ্লিকেশন"
 
-#: ../gtk/gtkappchooserwidget.c:759
+#: ../bobgui/bobguiappchooserwidget.c:759
 msgid "Related Applications"
 msgstr "যুক্ত অ্যাপ্লিকেশন"
 
-#: ../gtk/gtkappchooserwidget.c:773
+#: ../bobgui/bobguiappchooserwidget.c:773
 msgid "Other Applications"
 msgstr "অন্যান্য অ্যাপ্লিকেশন"
 
-#: ../gtk/gtkapplication.c:1565
+#: ../bobgui/bobguiapplication.c:1565
 #, c-format
 msgid "%s cannot quit at this time:\n"
 "\n"
@@ -985,57 +985,57 @@ msgstr "এই মুহূর্তে %s থেকে প্রস্থান
 "\n"
 "%s"
 
-#: ../gtk/gtkapplicationwindow.c:334
-#: ../gtk/gtkprintoperation-unix.c:480
-#: ../gtk/gtkprintoperation-win32.c:1445
+#: ../bobgui/bobguiapplicationwindow.c:334
+#: ../bobgui/bobguiprintoperation-unix.c:480
+#: ../bobgui/bobguiprintoperation-win32.c:1445
 msgid "Application"
 msgstr "অ্যাপ্লিকেশন"
 
-#: ../gtk/gtkassistant.c:1008
+#: ../bobgui/bobguiassistant.c:1008
 msgid "C_ontinue"
 msgstr "এগিয়ে চলুন (_o)"
 
-#: ../gtk/gtkassistant.c:1011
+#: ../bobgui/bobguiassistant.c:1011
 msgid "Go _Back"
 msgstr "পূর্ববর্তী (_B)"
 
-#: ../gtk/gtkassistant.c:1015
+#: ../bobgui/bobguiassistant.c:1015
 msgid "_Finish"
 msgstr "সমাপ্তি (_F)"
 
-#: ../gtk/gtkbuilder-menus.c:220
+#: ../bobgui/bobguibuilder-menus.c:220
 #, c-format
 msgid "Element <%s> not allowed inside <%s>"
 msgstr "<%s> স্বত্বাটি <%s>-র নীচে ব্যবহার করা যাবে না"
 
-#: ../gtk/gtkbuilder-menus.c:225
+#: ../bobgui/bobguibuilder-menus.c:225
 #, c-format
 msgid "Element <%s> not allowed at toplevel"
 msgstr "<%s> স্বত্বাটি সর্বোচ্চ স্তরে ব্যবহার করা যাবে না"
 
-#: ../gtk/gtkbuilder-menus.c:314
+#: ../bobgui/bobguibuilder-menus.c:314
 #, c-format
 msgid "text may not appear inside <%s>"
 msgstr "<%s>-র অধীন টেক্সট উপস্থিত না হতে পারে"
 
-#: ../gtk/gtkbuilderparser.c:341
+#: ../bobgui/bobguibuilderparser.c:341
 #, c-format
 msgid "Invalid type function on line %d: '%s'"
 msgstr "%d পংক্তিতে উপস্থিত ফাংশানের ধরন বৈধ নয়: '%s'"
 
-#: ../gtk/gtkbuilderparser.c:405
+#: ../bobgui/bobguibuilderparser.c:405
 #, c-format
 msgid "Duplicate object ID '%s' on line %d (previously on line %d)"
 msgstr ""
 "'%s' অবজেক্ট ID %d পংক্তির মধ্যে দ্বিতীয়বার উল্লিখিত হয়েছে (%d পংক্তিতে "
 "প্রথম উপস্থিতি)"
 
-#: ../gtk/gtkbuilderparser.c:865
+#: ../bobgui/bobguibuilderparser.c:865
 #, c-format
 msgid "Invalid root element: '%s'"
 msgstr "অবৈধ root সামগ্রী: '%s'"
 
-#: ../gtk/gtkbuilderparser.c:906
+#: ../bobgui/bobguibuilderparser.c:906
 #, c-format
 msgid "Unhandled tag: '%s'"
 msgstr "ট্যাগের ব্যবস্থাপনা হয়নি: '%s'"
@@ -1049,14 +1049,14 @@ msgstr "ট্যাগের ব্যবস্থাপনা হয়নি: '%
 #. * further influenced by BIDI ordering. Thus, if you have a default
 #. * text direction of RTL and specify "calendar:YM", then the year
 #. * will appear to the right of the month.
-#: ../gtk/gtkcalendar.c:872
+#: ../bobgui/bobguicalendar.c:872
 msgid "calendar:MY"
 msgstr "calendar:MY"
 
 #. Translate to calendar:week_start:0 if you want Sunday to be the
 #. * first day of the week to calendar:week_start:1 if you want Monday
 #. * to be the first day of the week, and so on.
-#: ../gtk/gtkcalendar.c:910
+#: ../bobgui/bobguicalendar.c:910
 msgid "calendar:week_start:0"
 msgstr "calendar:week_start:0"
 
@@ -1064,7 +1064,7 @@ msgstr "calendar:week_start:0"
 #. * Translate it to the widest year text
 #. *
 #. * If you don't understand this, leave it as "2000"
-#: ../gtk/gtkcalendar.c:1910
+#: ../bobgui/bobguicalendar.c:1910
 msgctxt "year measurement template"
 msgid "2000"
 msgstr "2000"
@@ -1078,8 +1078,8 @@ msgstr "2000"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../gtk/gtkcalendar.c:1941
-#: ../gtk/gtkcalendar.c:2633
+#: ../bobgui/bobguicalendar.c:1941
+#: ../bobgui/bobguicalendar.c:2633
 #, c-format
 msgctxt "calendar:day:digits"
 msgid "%d"
@@ -1094,15 +1094,15 @@ msgstr "%d"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-#: ../gtk/gtkcalendar.c:1973
-#: ../gtk/gtkcalendar.c:2499
+#: ../bobgui/bobguicalendar.c:1973
+#: ../bobgui/bobguicalendar.c:2499
 #, c-format
 msgctxt "calendar:week:digits"
 msgid "%d"
 msgstr "%d"
 
 #. Translators: This dictates how the year is displayed in
-#. * gtkcalendar widget.  See strftime() manual for the format.
+#. * bobguicalendar widget.  See strftime() manual for the format.
 #. * Use only ASCII in the translation.
 #. *
 #. * Also look for the msgid "2000".
@@ -1110,22 +1110,22 @@ msgstr "%d"
 #. * msgid.
 #. *
 #. * "%Y" is appropriate for most locales.
-#: ../gtk/gtkcalendar.c:2268
+#: ../bobgui/bobguicalendar.c:2268
 msgctxt "calendar year format"
 msgid "%Y"
 msgstr "%Y"
 
 #. This label is displayed in a treeview cell displaying
 #. * a disabled accelerator key combination.
-#: ../gtk/gtkcellrendereraccel.c:282
+#: ../bobgui/bobguicellrendereraccel.c:282
 msgctxt "Accelerator"
 msgid "Disabled"
 msgstr "নিষ্ক্রিয়"
 
 #. This label is displayed in a treeview cell displaying
 #. * an accelerator key combination that is not valid according
-#. * to gtk_accelerator_valid().
-#: ../gtk/gtkcellrendereraccel.c:292
+#. * to bobgui_accelerator_valid().
+#: ../bobgui/bobguicellrendereraccel.c:292
 msgctxt "Accelerator"
 msgid "Invalid"
 msgstr "অবৈধ"
@@ -1133,287 +1133,287 @@ msgstr "অবৈধ"
 #. This label is displayed in a treeview cell displaying
 #. * an accelerator when the cell is clicked to change the
 #. * acelerator.
-#: ../gtk/gtkcellrendereraccel.c:416
-#: ../gtk/gtkcellrendereraccel.c:747
+#: ../bobgui/bobguicellrendereraccel.c:416
+#: ../bobgui/bobguicellrendereraccel.c:747
 msgid "New accelerator…"
 msgstr "নতুন অ্যাকসেলেরেটর..."
 
-#: ../gtk/gtkcellrendererprogress.c:372
-#: ../gtk/gtkcellrendererprogress.c:462
+#: ../bobgui/bobguicellrendererprogress.c:372
+#: ../bobgui/bobguicellrendererprogress.c:462
 #, c-format
 msgctxt "progress bar label"
 msgid "%d %%"
 msgstr "%d %%"
 
-#: ../gtk/gtkcolorbutton.c:188
-#: ../gtk/gtkcolorbutton.c:449
+#: ../bobgui/bobguicolorbutton.c:188
+#: ../bobgui/bobguicolorbutton.c:449
 msgid "Pick a Color"
 msgstr "একটি রং বেছে নিন"
 
-#: ../gtk/gtkcolorchooserdialog.c:162
+#: ../bobgui/bobguicolorchooserdialog.c:162
 msgid "Select a Color"
 msgstr "একটি রং নির্বাচন করুন"
 
-#: ../gtk/gtkcolorchooserwidget.c:281
+#: ../bobgui/bobguicolorchooserwidget.c:281
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%, Alpha %d%%"
 msgstr "লাল %d%%, সবুজ %d%%,নীল %d%%, আল্ফা %d%%"
 
-#: ../gtk/gtkcolorchooserwidget.c:287
+#: ../bobgui/bobguicolorchooserwidget.c:287
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "লাল %d%%, সবুজ %d%%, নীল %d%%"
 
-#: ../gtk/gtkcolorchooserwidget.c:364
+#: ../bobgui/bobguicolorchooserwidget.c:364
 #, c-format
 msgid "Color: %s"
 msgstr "রং: %s"
 
-#: ../gtk/gtkcolorchooserwidget.c:423
+#: ../bobgui/bobguicolorchooserwidget.c:423
 msgctxt "Color name"
 msgid "Light Scarlet Red"
 msgstr "হালকা কটকটে লাল"
 
-#: ../gtk/gtkcolorchooserwidget.c:424
+#: ../bobgui/bobguicolorchooserwidget.c:424
 msgctxt "Color name"
 msgid "Scarlet Red"
 msgstr "কটকটে লাল"
 
-#: ../gtk/gtkcolorchooserwidget.c:425
+#: ../bobgui/bobguicolorchooserwidget.c:425
 msgctxt "Color name"
 msgid "Dark Scarlet Red"
 msgstr "গাঢ় কটকটে লাল"
 
-#: ../gtk/gtkcolorchooserwidget.c:426
+#: ../bobgui/bobguicolorchooserwidget.c:426
 msgctxt "Color name"
 msgid "Light Orange"
 msgstr "হালকা কমলা"
 
-#: ../gtk/gtkcolorchooserwidget.c:427
+#: ../bobgui/bobguicolorchooserwidget.c:427
 msgctxt "Color name"
 msgid "Orange"
 msgstr "কমলা"
 
-#: ../gtk/gtkcolorchooserwidget.c:428
+#: ../bobgui/bobguicolorchooserwidget.c:428
 msgctxt "Color name"
 msgid "Dark Orange"
 msgstr "গাঢ় কমলা"
 
-#: ../gtk/gtkcolorchooserwidget.c:429
+#: ../bobgui/bobguicolorchooserwidget.c:429
 msgctxt "Color name"
 msgid "Light Butter"
 msgstr "হালকা ঘীয়ে রং"
 
-#: ../gtk/gtkcolorchooserwidget.c:430
+#: ../bobgui/bobguicolorchooserwidget.c:430
 msgctxt "Color name"
 msgid "Butter"
 msgstr "ঘীয়ে রং"
 
-#: ../gtk/gtkcolorchooserwidget.c:431
+#: ../bobgui/bobguicolorchooserwidget.c:431
 msgctxt "Color name"
 msgid "Dark Butter"
 msgstr "গাঢ় ঘীয়ে রং"
 
-#: ../gtk/gtkcolorchooserwidget.c:432
+#: ../bobgui/bobguicolorchooserwidget.c:432
 msgctxt "Color name"
 msgid "Light Chameleon"
 msgstr "হালকা ক্যামেলিয়ন"
 
-#: ../gtk/gtkcolorchooserwidget.c:433
+#: ../bobgui/bobguicolorchooserwidget.c:433
 msgctxt "Color name"
 msgid "Chameleon"
 msgstr "ক্যামেলিয়ন"
 
-#: ../gtk/gtkcolorchooserwidget.c:434
+#: ../bobgui/bobguicolorchooserwidget.c:434
 msgctxt "Color name"
 msgid "Dark Chameleon"
 msgstr "গাঢ় ক্যামেলিয়ন"
 
-#: ../gtk/gtkcolorchooserwidget.c:435
+#: ../bobgui/bobguicolorchooserwidget.c:435
 msgctxt "Color name"
 msgid "Light Sky Blue"
 msgstr "হালকা আকাশী"
 
-#: ../gtk/gtkcolorchooserwidget.c:436
+#: ../bobgui/bobguicolorchooserwidget.c:436
 msgctxt "Color name"
 msgid "Sky Blue"
 msgstr "আকাশী"
 
-#: ../gtk/gtkcolorchooserwidget.c:437
+#: ../bobgui/bobguicolorchooserwidget.c:437
 msgctxt "Color name"
 msgid "Dark Sky Blue"
 msgstr "গাঢ় আকাশী"
 
-#: ../gtk/gtkcolorchooserwidget.c:438
+#: ../bobgui/bobguicolorchooserwidget.c:438
 msgctxt "Color name"
 msgid "Light Plum"
 msgstr "হালকা প্লাম"
 
-#: ../gtk/gtkcolorchooserwidget.c:439
+#: ../bobgui/bobguicolorchooserwidget.c:439
 msgctxt "Color name"
 msgid "Plum"
 msgstr "প্লাম"
 
-#: ../gtk/gtkcolorchooserwidget.c:440
+#: ../bobgui/bobguicolorchooserwidget.c:440
 msgctxt "Color name"
 msgid "Dark Plum"
 msgstr "গাঢ় প্লাম"
 
-#: ../gtk/gtkcolorchooserwidget.c:441
+#: ../bobgui/bobguicolorchooserwidget.c:441
 msgctxt "Color name"
 msgid "Light Chocolate"
 msgstr "হালকা চকোলেট"
 
-#: ../gtk/gtkcolorchooserwidget.c:442
+#: ../bobgui/bobguicolorchooserwidget.c:442
 msgctxt "Color name"
 msgid "Chocolate"
 msgstr "চকোলেট"
 
-#: ../gtk/gtkcolorchooserwidget.c:443
+#: ../bobgui/bobguicolorchooserwidget.c:443
 msgctxt "Color name"
 msgid "Dark Chocolate"
 msgstr "গাঢ় চকোলেট"
 
-#: ../gtk/gtkcolorchooserwidget.c:444
+#: ../bobgui/bobguicolorchooserwidget.c:444
 msgctxt "Color name"
 msgid "Light Aluminum 1"
 msgstr "হালকা অ্যালুমিনিয়াম ১"
 
-#: ../gtk/gtkcolorchooserwidget.c:445
+#: ../bobgui/bobguicolorchooserwidget.c:445
 msgctxt "Color name"
 msgid "Aluminum 1"
 msgstr "অ্যালুমিনিয়াম ১"
 
-#: ../gtk/gtkcolorchooserwidget.c:446
+#: ../bobgui/bobguicolorchooserwidget.c:446
 msgctxt "Color name"
 msgid "Dark Aluminum 1"
 msgstr "গাঢ় অ্যালুমিনিয়াম ১"
 
-#: ../gtk/gtkcolorchooserwidget.c:447
+#: ../bobgui/bobguicolorchooserwidget.c:447
 msgctxt "Color name"
 msgid "Light Aluminum 2"
 msgstr "হালকা অ্যালুমিনিয়াম ২"
 
-#: ../gtk/gtkcolorchooserwidget.c:448
+#: ../bobgui/bobguicolorchooserwidget.c:448
 msgctxt "Color name"
 msgid "Aluminum 2"
 msgstr "অ্যালুমিনিয়াম ২"
 
-#: ../gtk/gtkcolorchooserwidget.c:449
+#: ../bobgui/bobguicolorchooserwidget.c:449
 msgctxt "Color name"
 msgid "Dark Aluminum 2"
 msgstr "গাঢ় অ্যালুমিনিয়াম ২"
 
-#: ../gtk/gtkcolorchooserwidget.c:463
+#: ../bobgui/bobguicolorchooserwidget.c:463
 msgctxt "Color name"
 msgid "Black"
 msgstr "কালো"
 
-#: ../gtk/gtkcolorchooserwidget.c:464
+#: ../bobgui/bobguicolorchooserwidget.c:464
 msgctxt "Color name"
 msgid "Very Dark Gray"
 msgstr "অতি গাঢ় ধূসর"
 
-#: ../gtk/gtkcolorchooserwidget.c:465
+#: ../bobgui/bobguicolorchooserwidget.c:465
 msgctxt "Color name"
 msgid "Darker Gray"
 msgstr "গাঢ়তর ধূসর"
 
-#: ../gtk/gtkcolorchooserwidget.c:466
+#: ../bobgui/bobguicolorchooserwidget.c:466
 msgctxt "Color name"
 msgid "Dark Gray"
 msgstr "গাঢ় ধূসর"
 
-#: ../gtk/gtkcolorchooserwidget.c:467
+#: ../bobgui/bobguicolorchooserwidget.c:467
 msgctxt "Color name"
 msgid "Medium Gray"
 msgstr "মাঝারি ধূসর"
 
-#: ../gtk/gtkcolorchooserwidget.c:468
+#: ../bobgui/bobguicolorchooserwidget.c:468
 msgctxt "Color name"
 msgid "Light Gray"
 msgstr "হালকা ধূসর"
 
-#: ../gtk/gtkcolorchooserwidget.c:469
+#: ../bobgui/bobguicolorchooserwidget.c:469
 msgctxt "Color name"
 msgid "Lighter Gray"
 msgstr "হালকাতর ধূসর"
 
-#: ../gtk/gtkcolorchooserwidget.c:470
+#: ../bobgui/bobguicolorchooserwidget.c:470
 msgctxt "Color name"
 msgid "Very Light Gray"
 msgstr "অতি হালকা ধূসর"
 
-#: ../gtk/gtkcolorchooserwidget.c:471
+#: ../bobgui/bobguicolorchooserwidget.c:471
 msgctxt "Color name"
 msgid "White"
 msgstr "সাদা"
 
 #. translators: label for the custom section in the color chooser
-#: ../gtk/gtkcolorchooserwidget.c:520
+#: ../bobgui/bobguicolorchooserwidget.c:520
 msgid "Custom"
 msgstr "স্বনির্ধারিত"
 
-#: ../gtk/gtkcolorchooserwidget.c:528
+#: ../bobgui/bobguicolorchooserwidget.c:528
 msgid "Create custom color"
 msgstr "স্বনির্ধারিত রং নির্মাণ করুন"
 
-#: ../gtk/gtkcolorchooserwidget.c:546
+#: ../bobgui/bobguicolorchooserwidget.c:546
 #, c-format
 msgid "Custom color %d: %s"
 msgstr "স্বনির্ধারিত রং %d: %s"
 
-#: ../gtk/gtkcoloreditor.c:412
+#: ../bobgui/bobguicoloreditor.c:412
 msgid "Color Name"
 msgstr "রঙের নাম"
 
-#: ../gtk/gtkcoloreditor.c:457
+#: ../bobgui/bobguicoloreditor.c:457
 msgctxt "Color channel"
 msgid "Saturation"
 msgstr "ঘনত্ব"
 
-#: ../gtk/gtkcoloreditor.c:463
+#: ../bobgui/bobguicoloreditor.c:463
 msgctxt "Color channel"
 msgid "Value"
 msgstr "মান"
 
-#: ../gtk/gtkcoloreditor.c:471
+#: ../bobgui/bobguicoloreditor.c:471
 msgctxt "Color channel"
 msgid "S"
 msgstr "S"
 
-#: ../gtk/gtkcoloreditor.c:473
+#: ../bobgui/bobguicoloreditor.c:473
 msgctxt "Color channel"
 msgid "V"
 msgstr "V"
 
-#: ../gtk/gtkcoloreditor.c:481
-#: ../gtk/gtkcolorscale.c:301
+#: ../bobgui/bobguicoloreditor.c:481
+#: ../bobgui/bobguicolorscale.c:301
 msgctxt "Color channel"
 msgid "Hue"
 msgstr "হিউ"
 
-#: ../gtk/gtkcoloreditor.c:488
+#: ../bobgui/bobguicoloreditor.c:488
 msgctxt "Color channel"
 msgid "H"
 msgstr "H"
 
-#: ../gtk/gtkcoloreditor.c:496
-#: ../gtk/gtkcolorscale.c:303
+#: ../bobgui/bobguicoloreditor.c:496
+#: ../bobgui/bobguicolorscale.c:303
 msgctxt "Color channel"
 msgid "Alpha"
 msgstr "আলফা"
 
-#: ../gtk/gtkcoloreditor.c:503
+#: ../bobgui/bobguicoloreditor.c:503
 msgctxt "Color channel"
 msgid "A"
 msgstr "A"
 
-#: ../gtk/gtkcolorplane.c:438
+#: ../bobgui/bobguicolorplane.c:438
 msgid "Color Plane"
 msgstr "রঙের সমতা"
 
-#: ../gtk/gtkcolorswatch.c:447
+#: ../bobgui/bobguicolorswatch.c:447
 msgid "_Customize"
 msgstr "স্বনির্ধারিত (_C)"
 
@@ -1422,159 +1422,159 @@ msgstr "স্বনির্ধারিত (_C)"
 #. * want inches, otherwise translate to default:mm.
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
-#: ../gtk/gtkcustompaperunixdialog.c:115
+#: ../bobgui/bobguicustompaperunixdialog.c:115
 msgid "default:mm"
 msgstr "default:mm"
 
 #. And show the custom paper dialog
-#: ../gtk/gtkcustompaperunixdialog.c:397
-#: ../gtk/gtkprintunixdialog.c:3275
+#: ../bobgui/bobguicustompaperunixdialog.c:397
+#: ../bobgui/bobguiprintunixdialog.c:3275
 msgid "Manage Custom Sizes"
 msgstr "স্বনির্বাচিত মাপ পরিচালনা করুন"
 
-#: ../gtk/gtkcustompaperunixdialog.c:558
-#: ../gtk/gtkpagesetupunixdialog.c:778
+#: ../bobgui/bobguicustompaperunixdialog.c:558
+#: ../bobgui/bobguipagesetupunixdialog.c:778
 msgid "inch"
 msgstr "inch"
 
-#: ../gtk/gtkcustompaperunixdialog.c:560
-#: ../gtk/gtkpagesetupunixdialog.c:776
+#: ../bobgui/bobguicustompaperunixdialog.c:560
+#: ../bobgui/bobguipagesetupunixdialog.c:776
 msgid "mm"
 msgstr "mm"
 
-#: ../gtk/gtkcustompaperunixdialog.c:605
+#: ../bobgui/bobguicustompaperunixdialog.c:605
 msgid "Margins from Printer…"
 msgstr "প্রিন্টার থেকে মার্জিন…"
 
-#: ../gtk/gtkcustompaperunixdialog.c:771
+#: ../bobgui/bobguicustompaperunixdialog.c:771
 #, c-format
 msgid "Custom Size %d"
 msgstr "স্বনির্বাচিত মাপ %d"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1109
+#: ../bobgui/bobguicustompaperunixdialog.c:1109
 msgid "_Width:"
 msgstr "প্রস্থ:(_W)"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1120
+#: ../bobgui/bobguicustompaperunixdialog.c:1120
 msgid "_Height:"
 msgstr "উচ্চতা:(_H)"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1131
+#: ../bobgui/bobguicustompaperunixdialog.c:1131
 msgid "Paper Size"
 msgstr "কাগজের মাপ"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1140
+#: ../bobgui/bobguicustompaperunixdialog.c:1140
 msgid "_Top:"
 msgstr "উপরে:(_T)"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1151
+#: ../bobgui/bobguicustompaperunixdialog.c:1151
 msgid "_Bottom:"
 msgstr "নীচে:(_B)"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1162
+#: ../bobgui/bobguicustompaperunixdialog.c:1162
 msgid "_Left:"
 msgstr "বাঁদিকে:(_L)"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1173
+#: ../bobgui/bobguicustompaperunixdialog.c:1173
 msgid "_Right:"
 msgstr "ডানদিকে:(_R)"
 
-#: ../gtk/gtkcustompaperunixdialog.c:1212
+#: ../bobgui/bobguicustompaperunixdialog.c:1212
 msgid "Paper Margins"
 msgstr "কাগজের প্রান্ত"
 
-#: ../gtk/gtkentry.c:9205
-#: ../gtk/gtktextview.c:8685
+#: ../bobgui/bobguientry.c:9205
+#: ../bobgui/bobguitextview.c:8685
 msgid "Input _Methods"
 msgstr "ইনপুট পদ্ধতি (_M)"
 
-#: ../gtk/gtkentry.c:9219
-#: ../gtk/gtktextview.c:8699
+#: ../bobgui/bobguientry.c:9219
+#: ../bobgui/bobguitextview.c:8699
 msgid "_Insert Unicode Control Character"
 msgstr "ইউনিকোডের কন্ট্রোল অক্ষর সন্নিবেশ করুন (_I)"
 
-#: ../gtk/gtkentry.c:10317
+#: ../bobgui/bobguientry.c:10317
 msgid "Caps Lock is on"
 msgstr "ক্যাপ্স-লক কি সক্রিয় আছে"
 
 #. *
-#. * SECTION:gtkfilechooserbutton
+#. * SECTION:bobguifilechooserbutton
 #. * @Short_description: A button to launch a file selection dialog
-#. * @Title: GtkFileChooserButton
-#. * @See_also:#GtkFileChooserDialog
+#. * @Title: BobguiFileChooserButton
+#. * @See_also:#BobguiFileChooserDialog
 #. *
-#. * The #GtkFileChooserButton is a widget that lets the user select a
-#. * file.  It implements the #GtkFileChooser interface.  Visually, it is a
-#. * file name with a button to bring up a #GtkFileChooserDialog.
+#. * The #BobguiFileChooserButton is a widget that lets the user select a
+#. * file.  It implements the #BobguiFileChooser interface.  Visually, it is a
+#. * file name with a button to bring up a #BobguiFileChooserDialog.
 #. * The user can then use that dialog to change the file associated with
 #. * that button.  This widget does not support setting the
-#. * #GtkFileChooser:select-multiple property to %TRUE.
+#. * #BobguiFileChooser:select-multiple property to %TRUE.
 #. *
 #. * <example>
 #. * <title>Create a button to let the user select a file in /etc</title>
 #. * <programlisting>
 #. * {
-#. *   GtkWidget *button;
+#. *   BobguiWidget *button;
 #. *
-#. *   button = gtk_file_chooser_button_new (_("Select a file"),
-#. *                                         GTK_FILE_CHOOSER_ACTION_OPEN);
-#. *   gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (button),
+#. *   button = bobgui_file_chooser_button_new (_("Select a file"),
+#. *                                         BOBGUI_FILE_CHOOSER_ACTION_OPEN);
+#. *   bobgui_file_chooser_set_current_folder (BOBGUI_FILE_CHOOSER (button),
 #. *                                        "/etc");
 #. * }
 #. * </programlisting>
 #. * </example>
 #. *
-#. * The #GtkFileChooserButton supports the #GtkFileChooserAction<!-- -->s
-#. * %GTK_FILE_CHOOSER_ACTION_OPEN and %GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER.
+#. * The #BobguiFileChooserButton supports the #BobguiFileChooserAction<!-- -->s
+#. * %BOBGUI_FILE_CHOOSER_ACTION_OPEN and %BOBGUI_FILE_CHOOSER_ACTION_SELECT_FOLDER.
 #. *
 #. * <important>
-#. * The #GtkFileChooserButton will ellipsize the label,
+#. * The #BobguiFileChooserButton will ellipsize the label,
 #. * and thus will thus request little horizontal space.  To give the button
-#. * more space, you should call gtk_widget_get_preferred_size(),
-#. * gtk_file_chooser_button_set_width_chars(), or pack the button in
+#. * more space, you should call bobgui_widget_get_preferred_size(),
+#. * bobgui_file_chooser_button_set_width_chars(), or pack the button in
 #. * such a way that other interface elements give space to the widget.
 #. * </important>
 #. **************** *
 #. *  Private Macros  *
 #. * ****************
-#: ../gtk/gtkfilechooserbutton.c:104
+#: ../bobgui/bobguifilechooserbutton.c:104
 msgid "Select a File"
 msgstr "একটি ফাইল নির্বাচন করুন"
 
-#: ../gtk/gtkfilechooserbutton.c:105
-#: ../gtk/gtkfilechooserdefault.c:1825
+#: ../bobgui/bobguifilechooserbutton.c:105
+#: ../bobgui/bobguifilechooserdefault.c:1825
 msgid "Desktop"
 msgstr "ডেস্কটপ"
 
-#: ../gtk/gtkfilechooserbutton.c:106
+#: ../bobgui/bobguifilechooserbutton.c:106
 msgid "(None)"
 msgstr "(শূণ্য)"
 
-#: ../gtk/gtkfilechooserbutton.c:2198
+#: ../bobgui/bobguifilechooserbutton.c:2198
 msgid "Other…"
 msgstr "অন্যান্য..."
 
-#: ../gtk/gtkfilechooserdefault.c:152
+#: ../bobgui/bobguifilechooserdefault.c:152
 msgid "Type name of new folder"
 msgstr "নতুন ফোল্ডারের নাম লিখুন"
 
-#: ../gtk/gtkfilechooserdefault.c:954
+#: ../bobgui/bobguifilechooserdefault.c:954
 msgid "Could not retrieve information about the file"
 msgstr "ফাইল সম্পর্কিত তথ্য প্রাপ্ত করতে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:965
+#: ../bobgui/bobguifilechooserdefault.c:965
 msgid "Could not add a bookmark"
 msgstr "বুকমার্ক যোগ করতে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:976
+#: ../bobgui/bobguifilechooserdefault.c:976
 msgid "Could not remove bookmark"
 msgstr "বুকমার্ক মুছে ফেলতে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:987
+#: ../bobgui/bobguifilechooserdefault.c:987
 msgid "The folder could not be created"
 msgstr "ফোল্ডার নির্মাণ করতে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:1000
+#: ../bobgui/bobguifilechooserdefault.c:1000
 msgid ""
 "The folder could not be created, as a file with the same name already exists."
 "  Try using a different name for the folder, or rename the file first."
@@ -1582,16 +1582,16 @@ msgstr ""
 "এক নামের একটি ফাইল বর্তমানে উপস্থিত থাকার ফলে ফোল্ডারটি নির্মাণ করতে ব্যর্থ। "
 " ফোল্ডারের জন্য পৃথক নাম ব্যবহার করুন অথবা উপস্থিত ফাইলের নাম পরিবর্তন করুন।"
 
-#: ../gtk/gtkfilechooserdefault.c:1014
+#: ../bobgui/bobguifilechooserdefault.c:1014
 msgid "You need to choose a valid filename."
 msgstr "একটি বৈধ ফাইলের নাম নির্বাচন করা আবশ্যক।"
 
-#: ../gtk/gtkfilechooserdefault.c:1017
+#: ../bobgui/bobguifilechooserdefault.c:1017
 #, c-format
 msgid "Cannot create a file under %s as it is not a folder"
 msgstr " %s ফোল্ডার না হওয়ার ফলে এটি অধীন ফাইল প্রস্তুত করা সম্ভব নয়"
 
-#: ../gtk/gtkfilechooserdefault.c:1029
+#: ../bobgui/bobguifilechooserdefault.c:1029
 msgid ""
 "You may only select folders.  The item that you selected is not a folder; "
 "try using a different item."
@@ -1599,213 +1599,213 @@ msgstr ""
 "শুধুমাত্র ফোল্ডার নির্বাচন করা যাবে। নির্বাচিত সামগ্রী ফোল্ডার নয়; ভিন্ন "
 "কোনো সামগ্রী ব্যবহারের চেষ্টা করুন।"
 
-#: ../gtk/gtkfilechooserdefault.c:1039
+#: ../bobgui/bobguifilechooserdefault.c:1039
 msgid "Invalid file name"
 msgstr "ফাইলের নাম বৈধ নয়"
 
-#: ../gtk/gtkfilechooserdefault.c:1049
+#: ../bobgui/bobguifilechooserdefault.c:1049
 msgid "The folder contents could not be displayed"
 msgstr "ফোল্ডারে বিষয়বস্তু প্রদর্শন করতে ব্যর্থ"
 
 #. Translators: the first string is a path and the second string
 #. * is a hostname. Nautilus and the panel contain the same string
 #. * to translate.
-#: ../gtk/gtkfilechooserdefault.c:1575
+#: ../bobgui/bobguifilechooserdefault.c:1575
 #, c-format
 msgid "%1$s on %2$s"
 msgstr "%1$s, %2$s'র উপর"
 
-#: ../gtk/gtkfilechooserdefault.c:1724
+#: ../bobgui/bobguifilechooserdefault.c:1724
 msgid "Search"
 msgstr "অনুসন্ধান"
 
-#: ../gtk/gtkfilechooserdefault.c:1768
-#: ../gtk/gtkfilechooserdefault.c:5000
+#: ../bobgui/bobguifilechooserdefault.c:1768
+#: ../bobgui/bobguifilechooserdefault.c:5000
 msgid "Recently Used"
 msgstr "সম্প্রতি ব্যবহৃত"
 
-#: ../gtk/gtkfilechooserdefault.c:2369
+#: ../bobgui/bobguifilechooserdefault.c:2369
 msgid "Select which types of files are shown"
 msgstr "প্রদর্শনের উদ্দেশ্যে বিভিন্ন ফাইলের বিন্যাস নির্বাচন করুন"
 
-#: ../gtk/gtkfilechooserdefault.c:2728
+#: ../bobgui/bobguifilechooserdefault.c:2728
 #, c-format
 msgid "Add the folder '%s' to the bookmarks"
 msgstr "'%s' নামক ফোল্ডারটি বুকমার্কের মধ্যে যোগ করুন"
 
-#: ../gtk/gtkfilechooserdefault.c:2772
+#: ../bobgui/bobguifilechooserdefault.c:2772
 #, c-format
 msgid "Add the current folder to the bookmarks"
 msgstr "বর্তমান ফোল্ডারটি বুকমার্কে যোগ করুন"
 
-#: ../gtk/gtkfilechooserdefault.c:2774
+#: ../bobgui/bobguifilechooserdefault.c:2774
 #, c-format
 msgid "Add the selected folders to the bookmarks"
 msgstr "নির্বাচিত ফোল্ডারগুলি বুকমার্কে যোগ করুন"
 
-#: ../gtk/gtkfilechooserdefault.c:2812
+#: ../bobgui/bobguifilechooserdefault.c:2812
 #, c-format
 msgid "Remove the bookmark '%s'"
 msgstr "'%s' নামক বুকমার্কটি মুছে ফেলুন"
 
-#: ../gtk/gtkfilechooserdefault.c:2814
+#: ../bobgui/bobguifilechooserdefault.c:2814
 #, c-format
 msgid "Bookmark '%s' cannot be removed"
 msgstr "'%s' বুকমার্ক মুছে ফেলা সম্ভব নয়"
 
-#: ../gtk/gtkfilechooserdefault.c:2821
-#: ../gtk/gtkfilechooserdefault.c:3707
+#: ../bobgui/bobguifilechooserdefault.c:2821
+#: ../bobgui/bobguifilechooserdefault.c:3707
 msgid "Remove the selected bookmark"
 msgstr "নির্বাচিত বুকমার্ক মুছে ফেলুন"
 
-#: ../gtk/gtkfilechooserdefault.c:3385
+#: ../bobgui/bobguifilechooserdefault.c:3385
 msgid "Remove"
 msgstr "মুছে ফেলুন"
 
-#: ../gtk/gtkfilechooserdefault.c:3394
+#: ../bobgui/bobguifilechooserdefault.c:3394
 msgid "Rename…"
 msgstr "নাম পরিবর্তন..."
 
 #. Accessible object name for the file chooser's shortcuts pane
-#: ../gtk/gtkfilechooserdefault.c:3558
+#: ../bobgui/bobguifilechooserdefault.c:3558
 msgid "Places"
 msgstr "অবস্থান"
 
 #. Column header for the file chooser's shortcuts pane
-#: ../gtk/gtkfilechooserdefault.c:3615
+#: ../bobgui/bobguifilechooserdefault.c:3615
 msgid "_Places"
 msgstr "অবস্থান (_P)"
 
-#: ../gtk/gtkfilechooserdefault.c:3695
+#: ../bobgui/bobguifilechooserdefault.c:3695
 msgid "Add the selected folder to the Bookmarks"
 msgstr "নির্বাচিত ফোল্ডারটি বুকমার্কে যোগ করুন"
 
-#: ../gtk/gtkfilechooserdefault.c:3956
+#: ../bobgui/bobguifilechooserdefault.c:3956
 msgid "Could not select file"
 msgstr "ফাইল নির্বাচন করতে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:4185
+#: ../bobgui/bobguifilechooserdefault.c:4185
 msgid "_Visit this file"
 msgstr "চিহ্নিত ফাইল পরিদর্শন করুন (_V)"
 
-#: ../gtk/gtkfilechooserdefault.c:4188
+#: ../bobgui/bobguifilechooserdefault.c:4188
 msgid "_Copy file’s location"
 msgstr "ফাইলের অবস্থান কপি করুন (_C)"
 
-#: ../gtk/gtkfilechooserdefault.c:4191
+#: ../bobgui/bobguifilechooserdefault.c:4191
 msgid "_Add to Bookmarks"
 msgstr "বুকমার্ক তালিকায় যোগ করুন(_A)"
 
-#: ../gtk/gtkfilechooserdefault.c:4198
+#: ../bobgui/bobguifilechooserdefault.c:4198
 msgid "Show _Hidden Files"
 msgstr "লুকোনো ফাইল প্রদর্শন করা হবে (_H)"
 
-#: ../gtk/gtkfilechooserdefault.c:4201
+#: ../bobgui/bobguifilechooserdefault.c:4201
 msgid "Show _Size Column"
 msgstr "মাপ শীর্ষক কলাম প্রদর্শিত হবে (_S)"
 
-#: ../gtk/gtkfilechooserdefault.c:4426
+#: ../bobgui/bobguifilechooserdefault.c:4426
 msgid "Files"
 msgstr "ফাইল"
 
-#: ../gtk/gtkfilechooserdefault.c:4477
+#: ../bobgui/bobguifilechooserdefault.c:4477
 msgid "Name"
 msgstr "নাম"
 
-#: ../gtk/gtkfilechooserdefault.c:4500
+#: ../bobgui/bobguifilechooserdefault.c:4500
 msgid "Size"
 msgstr "মাপ"
 
-#: ../gtk/gtkfilechooserdefault.c:4514
+#: ../bobgui/bobguifilechooserdefault.c:4514
 msgid "Modified"
 msgstr "সর্বশেষ পরিবর্তন"
 
 #. Label
-#: ../gtk/gtkfilechooserdefault.c:4607
+#: ../bobgui/bobguifilechooserdefault.c:4607
 msgid "_Name:"
 msgstr "নাম:(_N)"
 
-#: ../gtk/gtkfilechooserdefault.c:4838
+#: ../bobgui/bobguifilechooserdefault.c:4838
 msgid "Type a file name"
 msgstr "ফাইলের নাম টাইপ করুন"
 
-#: ../gtk/gtkfilechooserdefault.c:4885
-#: ../gtk/gtkfilechooserdefault.c:4896
+#: ../bobgui/bobguifilechooserdefault.c:4885
+#: ../bobgui/bobguifilechooserdefault.c:4896
 msgid "Please select a folder below"
 msgstr "অনুগ্রহ করে নীচে একটি ফোল্ডার নির্বাচন করুন"
 
-#: ../gtk/gtkfilechooserdefault.c:4891
+#: ../bobgui/bobguifilechooserdefault.c:4891
 msgid "Please type a file name"
 msgstr "অনুগ্রহ করে একটি ফাইলের নাম টাইপ করুন"
 
 #. Create Folder
-#: ../gtk/gtkfilechooserdefault.c:4962
+#: ../bobgui/bobguifilechooserdefault.c:4962
 msgid "Create Fo_lder"
 msgstr "ফোল্ডার নির্মাণ করুন (_l)"
 
-#: ../gtk/gtkfilechooserdefault.c:5010
+#: ../bobgui/bobguifilechooserdefault.c:5010
 msgid "Search:"
 msgstr "অনুসন্ধান:"
 
-#: ../gtk/gtkfilechooserdefault.c:5061
+#: ../bobgui/bobguifilechooserdefault.c:5061
 msgid "_Location:"
 msgstr "অবস্থান :(_L)"
 
-#: ../gtk/gtkfilechooserdefault.c:5511
+#: ../bobgui/bobguifilechooserdefault.c:5511
 msgid "Save in _folder:"
 msgstr "চিহ্নিত ফোল্ডারে সংরক্ষণ করুন:(_f)"
 
-#: ../gtk/gtkfilechooserdefault.c:5513
+#: ../bobgui/bobguifilechooserdefault.c:5513
 msgid "Create in _folder:"
 msgstr "চিহ্নিত ফোল্ডারে নির্মাণ করা করুন:(_f)"
 
-#: ../gtk/gtkfilechooserdefault.c:6534
+#: ../bobgui/bobguifilechooserdefault.c:6534
 #, c-format
 msgid "Could not read the contents of %s"
 msgstr "%s-র বিষয়বস্তু পড়তে ব্যর্থ"
 
 # FIXME
-#: ../gtk/gtkfilechooserdefault.c:6538
+#: ../bobgui/bobguifilechooserdefault.c:6538
 msgid "Could not read the contents of the folder"
 msgstr "ফোল্ডারের বিষয়বস্তু পড়তে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:6631
-#: ../gtk/gtkfilechooserdefault.c:6699
-#: ../gtk/gtkfilechooserdefault.c:6879
+#: ../bobgui/bobguifilechooserdefault.c:6631
+#: ../bobgui/bobguifilechooserdefault.c:6699
+#: ../bobgui/bobguifilechooserdefault.c:6879
 msgid "Unknown"
 msgstr "অজানা"
 
-#: ../gtk/gtkfilechooserdefault.c:6646
+#: ../bobgui/bobguifilechooserdefault.c:6646
 msgid "%H:%M"
 msgstr "%H:%M"
 
-#: ../gtk/gtkfilechooserdefault.c:6648
+#: ../bobgui/bobguifilechooserdefault.c:6648
 msgid "Yesterday at %H:%M"
 msgstr "গতকাল %H:%M"
 
-#: ../gtk/gtkfilechooserdefault.c:7350
+#: ../bobgui/bobguifilechooserdefault.c:7350
 msgid "Cannot change to folder because it is not local"
 msgstr "স্থানীয় অবস্থানে না হওয়ার ফলে ফোল্ডার পরিবর্তন করতে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:7947
-#: ../gtk/gtkfilechooserdefault.c:7968
+#: ../bobgui/bobguifilechooserdefault.c:7947
+#: ../bobgui/bobguifilechooserdefault.c:7968
 #, c-format
 msgid "Shortcut %s already exists"
 msgstr "%s শর্টকাট বর্তমানে উপস্থিত রয়েছে"
 
-#: ../gtk/gtkfilechooserdefault.c:8058
+#: ../bobgui/bobguifilechooserdefault.c:8058
 #, c-format
 msgid "Shortcut %s does not exist"
 msgstr "%s শর্টকাট বর্তমানে অনুপস্থিত"
 
-#: ../gtk/gtkfilechooserdefault.c:8305
-#: ../gtk/gtkprintunixdialog.c:548
+#: ../bobgui/bobguifilechooserdefault.c:8305
+#: ../bobgui/bobguiprintunixdialog.c:548
 #, c-format
 msgid "A file named \"%s\" already exists.  Do you want to replace it?"
 msgstr "\"%s\" নামক ফাইল বর্তমানে উপস্থিত রয়েছে। প্রতিস্থাপন করা হবে কি?"
 
-#: ../gtk/gtkfilechooserdefault.c:8308
-#: ../gtk/gtkprintunixdialog.c:552
+#: ../bobgui/bobguifilechooserdefault.c:8308
+#: ../bobgui/bobguiprintunixdialog.c:552
 #, c-format
 msgid ""
 "The file already exists in \"%s\".  Replacing it will overwrite its contents."
@@ -1814,16 +1814,16 @@ msgstr ""
 "ফাইল \"%s\"'র মধ্যে বর্তমানে উপস্থিত রয়েছে। নতুন ফাইল দ্বারা প্রতিস্থাপন করা "
 "হলে পূর্ববর্তী ফাইলের বিষয়বস্তু মুছে যাবে।"
 
-#: ../gtk/gtkfilechooserdefault.c:8313
-#: ../gtk/gtkprintunixdialog.c:559
+#: ../bobgui/bobguifilechooserdefault.c:8313
+#: ../bobgui/bobguiprintunixdialog.c:559
 msgid "_Replace"
 msgstr "প্রতিস্থাপন (_R)"
 
-#: ../gtk/gtkfilechooserdefault.c:9120
+#: ../bobgui/bobguifilechooserdefault.c:9120
 msgid "Could not start the search process"
 msgstr "অনুসন্ধান আরম্ভ করতে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:9121
+#: ../bobgui/bobguifilechooserdefault.c:9121
 msgid ""
 "The program was not able to create a connection to the indexer daemon.  "
 "Please make sure it is running."
@@ -1831,97 +1831,97 @@ msgstr ""
 "প্রোগ্রাম দ্বারা indexer ডেমনের সাথে সংযোগ স্থাপন করতে ব্যর্থ। অনুগ্রহ করে "
 "নিশ্চিত করুন এটি চলছে কি না।"
 
-#: ../gtk/gtkfilechooserdefault.c:9135
+#: ../bobgui/bobguifilechooserdefault.c:9135
 msgid "Could not send the search request"
 msgstr "অনুসন্ধানের অনুরোধ পাঠাতে ব্যর্থ"
 
-#: ../gtk/gtkfilechooserdefault.c:9745
+#: ../bobgui/bobguifilechooserdefault.c:9745
 #, c-format
 msgid "Could not mount %s"
 msgstr "%s মাউন্ট করতে ব্যর্থ"
 
-#. The pointers we return for a GtkFileSystemVolume are opaque tokens; they are
+#. The pointers we return for a BobguiFileSystemVolume are opaque tokens; they are
 #. * really pointers to GDrive, GVolume or GMount objects.  We need an extra
 #. * token for the fake "File System" volume.  So, we'll return a pointer to
 #. * this particular string.
-#: ../gtk/gtkfilesystem.c:47
+#: ../bobgui/bobguifilesystem.c:47
 msgid "File System"
 msgstr "ফাইল-সিস্টেম"
 
-#: ../gtk/gtkfontbutton.c:354
+#: ../bobgui/bobguifontbutton.c:354
 msgid "Sans 12"
 msgstr "Sans 12"
 
-#: ../gtk/gtkfontbutton.c:436
-#: ../gtk/gtkfontbutton.c:563
+#: ../bobgui/bobguifontbutton.c:436
+#: ../bobgui/bobguifontbutton.c:563
 msgid "Pick a Font"
 msgstr "একটি ফন্ট নির্বাচন করুন"
 
-#: ../gtk/gtkfontbutton.c:1121
+#: ../bobgui/bobguifontbutton.c:1121
 msgid "Font"
 msgstr "ফন্ট"
 
-#: ../gtk/gtkfontchooserwidget.c:110
+#: ../bobgui/bobguifontchooserwidget.c:110
 msgid ""
 "No fonts matched your search. You can revise your search and try again."
 msgstr ""
 "আপনার সন্ধান করা নামের সাথে মিলিয়ে কোনো ফন্ট পাওয়া যায়নি। অনুগ্রহ করে "
 "অনুসন্ধান পরিবর্তন করে পুনরায় প্রয়াস করুন।"
 
-#: ../gtk/gtkfontchooserwidget.c:557
+#: ../bobgui/bobguifontchooserwidget.c:557
 msgid "Search font name"
 msgstr "ফন্টের নাম সন্ধান করুন"
 
-#: ../gtk/gtkfontchooserwidget.c:891
+#: ../bobgui/bobguifontchooserwidget.c:891
 msgid "Font Family"
 msgstr "ফন্ট সংকলন"
 
-#: ../gtk/gtkicontheme.c:1943
+#: ../bobgui/bobguiicontheme.c:1943
 #, c-format
 msgid "Icon '%s' not present in theme"
 msgstr "থিমের মধ্যে আইকন '%s' অনুপস্থিত"
 
-#: ../gtk/gtkicontheme.c:3565
+#: ../bobgui/bobguiicontheme.c:3565
 msgid "Failed to load icon"
 msgstr "আইকন লোড করতে ব্যর্থ"
 
-#: ../gtk/gtkimmodule.c:515
+#: ../bobgui/bobguiimmodule.c:515
 msgid "Simple"
 msgstr "সাধারণ"
 
-#: ../gtk/gtkimmulticontext.c:608
+#: ../bobgui/bobguiimmulticontext.c:608
 msgctxt "input method menu"
 msgid "System"
 msgstr "সিস্টেম"
 
-#: ../gtk/gtkimmulticontext.c:618
+#: ../bobgui/bobguiimmulticontext.c:618
 msgctxt "input method menu"
 msgid "None"
 msgstr "শূণ্য"
 
-#: ../gtk/gtkimmulticontext.c:701
+#: ../bobgui/bobguiimmulticontext.c:701
 #, c-format
 msgctxt "input method menu"
 msgid "System (%s)"
 msgstr "সিস্টেম (%s)"
 
 #. Open Link
-#: ../gtk/gtklabel.c:6167
+#: ../bobgui/bobguilabel.c:6167
 msgid "_Open Link"
 msgstr "লিংক খুলুন (_O)"
 
 #. Copy Link Address
-#: ../gtk/gtklabel.c:6179
+#: ../bobgui/bobguilabel.c:6179
 msgid "Copy _Link Address"
 msgstr "লিংকের ঠিকানা কপি করুন (_L)"
 
-#: ../gtk/gtk-launch.c:71
+#: ../bobgui/bobgui-launch.c:71
 msgid "APPLICATION [URI…] — launch an APPLICATION with URI."
 msgstr "APPLICATION [URI…] — URI সমেত একটি অ্যাপ্লিকেশন লঞ্চ করুন।"
 
 #. Translators: this message will appear after the usage string
 #. and before the list of options.
-#: ../gtk/gtk-launch.c:75
+#: ../bobgui/bobgui-launch.c:75
 msgid ""
 "Launch specified application by its desktop file info\n"
 "optionally passing list of URIs as arguments."
@@ -1929,25 +1929,25 @@ msgstr ""
 "ডেস্কটপ ফাইলের তথ্য সহযোগে একটি অ্যাপ্লিকেশন আরম্ভ করুন\n"
 "প্রয়োজনে আর্গুমেন্ট রূপে URI তালিকা লিখুন।"
 
-#: ../gtk/gtk-launch.c:87
+#: ../bobgui/bobgui-launch.c:87
 #, c-format
 msgid "Error parsing commandline options: %s\n"
 msgstr "কমান্ড-লাইন বিকল্প পার্স করতে সমস্যা: %s\n"
 
-#: ../gtk/gtk-launch.c:89
-#: ../gtk/gtk-launch.c:102
+#: ../bobgui/bobgui-launch.c:89
+#: ../bobgui/bobgui-launch.c:102
 #, c-format
 msgid "Try \"%s --help\" for more information."
 msgstr "অধিক বিবরণের জন্য \"%s --help\" লিখুন।"
 
 #. Translators: the %s is the program name. This error message
-#. means the user is calling gtk-launch without any argument.
-#: ../gtk/gtk-launch.c:100
+#. means the user is calling bobgui-launch without any argument.
+#: ../bobgui/bobgui-launch.c:100
 #, c-format
 msgid "%s: missing application name"
 msgstr "%s: অ্যাপ্লিকেশনের নাম অনুপস্থিত"
 
-#: ../gtk/gtk-launch.c:121
+#: ../bobgui/bobgui-launch.c:121
 #, c-format
 msgid "Creating AppInfo from id not supported on non unix operating systems"
 msgstr ""
@@ -1955,213 +1955,213 @@ msgstr ""
 
 #. Translators: the first %s is the program name, the second one
 #. is the application name.
-#: ../gtk/gtk-launch.c:129
+#: ../bobgui/bobgui-launch.c:129
 #, c-format
 msgid "%s: no such application %s"
 msgstr "%s: %s ধরনের কোনো অ্যাপ্লিকেশন নেই"
 
 #. Translators: the first %s is the program name, the second one
 #. is the error message.
-#: ../gtk/gtk-launch.c:147
+#: ../bobgui/bobgui-launch.c:147
 #, c-format
 msgid "%s: error launching application: %s\n"
 msgstr "%s: অ্যাপ্লিকেশন আরম্ভ করে সমস্যা: %s\n"
 
-#: ../gtk/gtklinkbutton.c:499
+#: ../bobgui/bobguilinkbutton.c:499
 msgid "Copy URL"
 msgstr "URL কপি করুন"
 
-#: ../gtk/gtklinkbutton.c:665
+#: ../bobgui/bobguilinkbutton.c:665
 msgid "Invalid URI"
 msgstr "অবৈধ URI"
 
-#: ../gtk/gtklockbutton.c:290
+#: ../bobgui/bobguilockbutton.c:290
 msgid "Lock"
 msgstr "লক করুন"
 
-#: ../gtk/gtklockbutton.c:299
+#: ../bobgui/bobguilockbutton.c:299
 msgid "Unlock"
 msgstr "আন-লক করুন"
 
-#: ../gtk/gtklockbutton.c:308
+#: ../bobgui/bobguilockbutton.c:308
 msgid "Dialog is unlocked.\n"
 "Click to prevent further changes"
 msgstr "ডায়লগ আন-লক করা আছে।\n"
 "অতিরিক্ত পরিবর্তন প্রতিরোধ করার জন্য ক্লিক করুন"
 
-#: ../gtk/gtklockbutton.c:317
+#: ../bobgui/bobguilockbutton.c:317
 msgid "Dialog is locked.\n"
 "Click to make changes"
 msgstr "ডায়লগ লক করা আছে।\n"
 "পরিবর্তন করার জন্য ক্লিক করুন"
 
-#: ../gtk/gtklockbutton.c:326
+#: ../bobgui/bobguilockbutton.c:326
 msgid "System policy prevents changes.\n"
 "Contact your system administrator"
 msgstr ""
 "সিস্টেমের নীতি অনুযায়ী পরিবর্তন প্রতিরোধ করা হবে।\n"
 "সিস্টেম অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করুন"
 
-#. Description of --gtk-module=MODULES in --help output
-#: ../gtk/gtkmain.c:446
-msgid "Load additional GTK+ modules"
-msgstr "অতিরিক্ত GTK+ মডিউল লোড করুন"
+#. Description of --bobgui-module=MODULES in --help output
+#: ../bobgui/bobguimain.c:446
+msgid "Load additional BOBGUI+ modules"
+msgstr "অতিরিক্ত BOBGUI+ মডিউল লোড করুন"
 
-#. Placeholder in --gtk-module=MODULES in --help output
-#: ../gtk/gtkmain.c:447
+#. Placeholder in --bobgui-module=MODULES in --help output
+#: ../bobgui/bobguimain.c:447
 msgid "MODULES"
 msgstr "MODULES"
 
 #. Description of --g-fatal-warnings in --help output
-#: ../gtk/gtkmain.c:449
+#: ../bobgui/bobguimain.c:449
 msgid "Make all warnings fatal"
 msgstr "সকল সতর্কবার্তা গুরুতর হিসাবে চিহ্নিত হবে"
 
-#. Description of --gtk-debug=FLAGS in --help output
-#: ../gtk/gtkmain.c:452
-msgid "GTK+ debugging flags to set"
-msgstr "মান নির্ধারণের উদ্দেশ্যে চিহ্নিত GTK+ ডিবাগিং ফ্ল্যাগ"
+#. Description of --bobgui-debug=FLAGS in --help output
+#: ../bobgui/bobguimain.c:452
+msgid "BOBGUI+ debugging flags to set"
+msgstr "মান নির্ধারণের উদ্দেশ্যে চিহ্নিত BOBGUI+ ডিবাগিং ফ্ল্যাগ"
 
-#. Description of --gtk-no-debug=FLAGS in --help output
-#: ../gtk/gtkmain.c:455
-msgid "GTK+ debugging flags to unset"
-msgstr "মান মুছে ফেলার উদ্দেশ্যে চিহ্নিত GTK+ ডিবাগিং ফ্ল্যাগ"
+#. Description of --bobgui-no-debug=FLAGS in --help output
+#: ../bobgui/bobguimain.c:455
+msgid "BOBGUI+ debugging flags to unset"
+msgstr "মান মুছে ফেলার উদ্দেশ্যে চিহ্নিত BOBGUI+ ডিবাগিং ফ্ল্যাগ"
 
 #. Translate to default:RTL if you want your widgets
 #. * to be RTL, otherwise translate to default:LTR.
 #. * Do *not* translate it to "predefinito:LTR", if it
 #. * it isn't default:LTR or default:RTL it will not work
-#: ../gtk/gtkmain.c:703
+#: ../bobgui/bobguimain.c:703
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gtk/gtkmain.c:768
+#: ../bobgui/bobguimain.c:768
 #, c-format
 msgid "Cannot open display: %s"
 msgstr "ডিসপ্লে খুলতে ব্যর্থ: %s"
 
-#: ../gtk/gtkmain.c:834
-msgid "GTK+ Options"
-msgstr "GTK+ সংক্রান্ত বিকল্প"
+#: ../bobgui/bobguimain.c:834
+msgid "BOBGUI+ Options"
+msgstr "BOBGUI+ সংক্রান্ত বিকল্প"
 
-#: ../gtk/gtkmain.c:834
-msgid "Show GTK+ Options"
-msgstr "GTK+ সংক্রান্ত বিকল্প প্রদর্শন করা হবে"
+#: ../bobgui/bobguimain.c:834
+msgid "Show BOBGUI+ Options"
+msgstr "BOBGUI+ সংক্রান্ত বিকল্প প্রদর্শন করা হবে"
 
-#: ../gtk/gtkmountoperation.c:535
+#: ../bobgui/bobguimountoperation.c:535
 msgid "Co_nnect"
 msgstr "সংযোগ করুন (_n)"
 
-#: ../gtk/gtkmountoperation.c:609
+#: ../bobgui/bobguimountoperation.c:609
 msgid "Connect As"
 msgstr "চিহ্নিত রূপে সংযোগ করুন"
 
-#: ../gtk/gtkmountoperation.c:618
+#: ../bobgui/bobguimountoperation.c:618
 msgid "_Anonymous"
 msgstr "পরিচয়বিহীন (_A)"
 
-#: ../gtk/gtkmountoperation.c:627
+#: ../bobgui/bobguimountoperation.c:627
 msgid "Registered U_ser"
 msgstr "নিবন্ধিত ব্যবহারকারী (_s)"
 
-#: ../gtk/gtkmountoperation.c:638
+#: ../bobgui/bobguimountoperation.c:638
 msgid "_Username"
 msgstr "ব্যবহারকারীর নাম (_U)"
 
-#: ../gtk/gtkmountoperation.c:643
+#: ../bobgui/bobguimountoperation.c:643
 msgid "_Domain"
 msgstr "ডোমেইন (_D)"
 
-#: ../gtk/gtkmountoperation.c:649
+#: ../bobgui/bobguimountoperation.c:649
 msgid "_Password"
 msgstr "পাসওয়ার্ড (_P)"
 
-#: ../gtk/gtkmountoperation.c:671
+#: ../bobgui/bobguimountoperation.c:671
 msgid "Forget password _immediately"
 msgstr "পাসওয়ার্ড তৎক্ষনাৎ মুছে ফেলা হবে (_i)"
 
-#: ../gtk/gtkmountoperation.c:681
+#: ../bobgui/bobguimountoperation.c:681
 msgid "Remember password until you _logout"
 msgstr "লগ-আউট না করা অবধি পাসওয়ার্ড সংরক্ষণ করা হবে (_l)"
 
-#: ../gtk/gtkmountoperation.c:691
+#: ../bobgui/bobguimountoperation.c:691
 msgid "Remember _forever"
 msgstr "পাসওয়ার্ড স্থায়ীরূপে সংরক্ষণ করা হবে ( _f)"
 
-#: ../gtk/gtkmountoperation.c:1080
+#: ../bobgui/bobguimountoperation.c:1080
 #, c-format
 msgid "Unknown Application (PID %d)"
 msgstr "অজানা অ্যাপ্লিকেশন (PID %d)"
 
-#: ../gtk/gtkmountoperation.c:1263
+#: ../bobgui/bobguimountoperation.c:1263
 msgid "Unable to end process"
 msgstr "প্রসেস সমাপ্ত করতে ব্যর্থ"
 
-#: ../gtk/gtkmountoperation.c:1300
+#: ../bobgui/bobguimountoperation.c:1300
 msgid "_End Process"
 msgstr "প্রসেস সমাপ্তি (_E)"
 
-#: ../gtk/gtkmountoperation-stub.c:62
+#: ../bobgui/bobguimountoperation-stub.c:62
 #, c-format
 msgid "Cannot kill process with PID %d. Operation is not implemented."
 msgstr ""
 "PID %d বিশিষ্ট প্রসেস সমাপ্ত (kill) করতে ব্যর্থ। কর্ম বাস্তাবায়িত হয়নি।"
 
 #. translators: this string is a name for the 'less' command
-#: ../gtk/gtkmountoperation-x11.c:954
+#: ../bobgui/bobguimountoperation-x11.c:954
 msgid "Terminal Pager"
 msgstr "টার্মিন্যাল পেজার"
 
-#: ../gtk/gtkmountoperation-x11.c:955
+#: ../bobgui/bobguimountoperation-x11.c:955
 msgid "Top Command"
 msgstr "Top কমান্ড"
 
-#: ../gtk/gtkmountoperation-x11.c:956
+#: ../bobgui/bobguimountoperation-x11.c:956
 msgid "Bourne Again Shell"
 msgstr "বোর্ন এগেন শেল"
 
-#: ../gtk/gtkmountoperation-x11.c:957
+#: ../bobgui/bobguimountoperation-x11.c:957
 msgid "Bourne Shell"
 msgstr "বোর্ন শেল"
 
-#: ../gtk/gtkmountoperation-x11.c:958
+#: ../bobgui/bobguimountoperation-x11.c:958
 msgid "Z Shell"
 msgstr "Z শেল"
 
-#: ../gtk/gtkmountoperation-x11.c:1055
+#: ../bobgui/bobguimountoperation-x11.c:1055
 #, c-format
 msgid "Cannot end process with PID %d: %s"
 msgstr "PID %d বিশিষ্ট প্রসেস বন্ধ করতে ব্যর্থ: %s"
 
-#: ../gtk/gtknotebook.c:5069
-#: ../gtk/gtknotebook.c:7723
+#: ../bobgui/bobguinotebook.c:5069
+#: ../bobgui/bobguinotebook.c:7723
 #, c-format
 msgid "Page %u"
 msgstr "পৃষ্ঠা %u"
 
 #. Translators: the format here is used to build the string that will be rendered
 #. * in the number emblem.
-#: ../gtk/gtknumerableicon.c:482
+#: ../bobgui/bobguinumerableicon.c:482
 #, c-format
 msgctxt "Number format"
 msgid "%d"
 msgstr "%d"
 
-#: ../gtk/gtkpagesetup.c:646
-#: ../gtk/gtkpapersize.c:848
-#: ../gtk/gtkpapersize.c:888
+#: ../bobgui/bobguipagesetup.c:646
+#: ../bobgui/bobguipapersize.c:848
+#: ../bobgui/bobguipapersize.c:888
 msgid "Not a valid page setup file"
 msgstr "বৈধ পৃষ্ঠা প্রস্তুতি ফাইল নয়"
 
-#: ../gtk/gtkpagesetupunixdialog.c:167
+#: ../bobgui/bobguipagesetupunixdialog.c:167
 msgid "Any Printer"
 msgstr "যে কোনো প্রিন্টার"
 
-#: ../gtk/gtkpagesetupunixdialog.c:167
+#: ../bobgui/bobguipagesetupunixdialog.c:167
 msgid "For portable documents"
 msgstr "স্থানান্তরযোগ্য নথিপত্রের জন্য"
 
-#: ../gtk/gtkpagesetupunixdialog.c:796
+#: ../bobgui/bobguipagesetupunixdialog.c:796
 #, c-format
 msgid "Margins:\n"
 " Left: %s %s\n"
@@ -2174,436 +2174,436 @@ msgstr "প্রান্ত:\n"
 " উপর: %s %s\n"
 " নীচে: %s %s"
 
-#: ../gtk/gtkpagesetupunixdialog.c:845
-#: ../gtk/gtkprintunixdialog.c:3329
+#: ../bobgui/bobguipagesetupunixdialog.c:845
+#: ../bobgui/bobguiprintunixdialog.c:3329
 msgid "Manage Custom Sizes…"
 msgstr "স্বনির্বাচিত মাপ পরিচালনা করুন..."
 
-#: ../gtk/gtkpagesetupunixdialog.c:896
+#: ../bobgui/bobguipagesetupunixdialog.c:896
 msgid "_Format for:"
 msgstr "বিন্যাস করা হবে: (_F)"
 
-#: ../gtk/gtkpagesetupunixdialog.c:917
-#: ../gtk/gtkprintunixdialog.c:3477
+#: ../bobgui/bobguipagesetupunixdialog.c:917
+#: ../bobgui/bobguiprintunixdialog.c:3477
 msgid "_Paper size:"
 msgstr "কাগজের মাপ:(_P)"
 
-#: ../gtk/gtkpagesetupunixdialog.c:946
+#: ../bobgui/bobguipagesetupunixdialog.c:946
 msgid "_Orientation:"
 msgstr "দিশা:(_O)"
 
-#: ../gtk/gtkpagesetupunixdialog.c:1006
-#: ../gtk/gtkprintunixdialog.c:3531
+#: ../bobgui/bobguipagesetupunixdialog.c:1006
+#: ../bobgui/bobguiprintunixdialog.c:3531
 msgid "Page Setup"
 msgstr "পৃষ্ঠার বৈশিষ্ট্য"
 
-#: ../gtk/gtkpathbar.c:159
+#: ../bobgui/bobguipathbar.c:159
 msgid "Up Path"
 msgstr "উপরের পাথ"
 
-#: ../gtk/gtkpathbar.c:161
+#: ../bobgui/bobguipathbar.c:161
 msgid "Down Path"
 msgstr "নীচের পাথ"
 
-#: ../gtk/gtkpathbar.c:1644
+#: ../bobgui/bobguipathbar.c:1644
 msgid "File System Root"
 msgstr "ফাইল-সিস্টেমের Root"
 
-#: ../gtk/gtkprintbackend.c:750
+#: ../bobgui/bobguiprintbackend.c:750
 msgid "Authentication"
 msgstr "অনুমোদন ব্যবস্থা"
 
-#: ../gtk/gtkprinteroptionwidget.c:548
+#: ../bobgui/bobguiprinteroptionwidget.c:548
 msgid "Select a filename"
 msgstr "একটি ফাইলের নাম নির্বাচন করুন"
 
-#: ../gtk/gtkprinteroptionwidget.c:772
+#: ../bobgui/bobguiprinteroptionwidget.c:772
 msgid "Not available"
 msgstr "উপলব্ধ নেই"
 
 #. translators: this string is the default job title for print
 #. * jobs. %s gets replaced by the application name, %d gets replaced
 #. * by the job number.
-#: ../gtk/gtkprintoperation.c:260
+#: ../bobgui/bobguiprintoperation.c:260
 #, c-format
 msgid "%s job #%d"
 msgstr "%s job #%d"
 
-#: ../gtk/gtkprintoperation.c:1777
+#: ../bobgui/bobguiprintoperation.c:1777
 msgctxt "print operation status"
 msgid "Initial state"
 msgstr "প্রারম্ভিক অবস্থা"
 
-#: ../gtk/gtkprintoperation.c:1778
+#: ../bobgui/bobguiprintoperation.c:1778
 msgctxt "print operation status"
 msgid "Preparing to print"
 msgstr "প্রিন্টের প্রস্তুতি করা হচ্ছে"
 
-#: ../gtk/gtkprintoperation.c:1779
+#: ../bobgui/bobguiprintoperation.c:1779
 msgctxt "print operation status"
 msgid "Generating data"
 msgstr "তথ্য একত্রিত করা হচ্ছে"
 
-#: ../gtk/gtkprintoperation.c:1780
+#: ../bobgui/bobguiprintoperation.c:1780
 msgctxt "print operation status"
 msgid "Sending data"
 msgstr "তথ্যে প্রেরিত হচ্ছে"
 
-#: ../gtk/gtkprintoperation.c:1781
+#: ../bobgui/bobguiprintoperation.c:1781
 msgctxt "print operation status"
 msgid "Waiting"
 msgstr "অপেক্ষারত"
 
-#: ../gtk/gtkprintoperation.c:1782
+#: ../bobgui/bobguiprintoperation.c:1782
 msgctxt "print operation status"
 msgid "Blocking on issue"
 msgstr "কারণবসত অবরুদ্ধ"
 
-#: ../gtk/gtkprintoperation.c:1783
+#: ../bobgui/bobguiprintoperation.c:1783
 msgctxt "print operation status"
 msgid "Printing"
 msgstr "প্রিন্ট করা হচ্ছে"
 
-#: ../gtk/gtkprintoperation.c:1784
+#: ../bobgui/bobguiprintoperation.c:1784
 msgctxt "print operation status"
 msgid "Finished"
 msgstr "সমাপ্ত"
 
-#: ../gtk/gtkprintoperation.c:1785
+#: ../bobgui/bobguiprintoperation.c:1785
 msgctxt "print operation status"
 msgid "Finished with error"
 msgstr "ত্রুটিসহ কর্ম সমাপ্ত"
 
-#: ../gtk/gtkprintoperation.c:2349
+#: ../bobgui/bobguiprintoperation.c:2349
 #, c-format
 msgid "Preparing %d"
 msgstr "%d প্রস্তুত করা হচ্ছে"
 
-#: ../gtk/gtkprintoperation.c:2351
-#: ../gtk/gtkprintoperation.c:2983
+#: ../bobgui/bobguiprintoperation.c:2351
+#: ../bobgui/bobguiprintoperation.c:2983
 msgid "Preparing"
 msgstr "প্রস্তুতি"
 
-#: ../gtk/gtkprintoperation.c:2354
+#: ../bobgui/bobguiprintoperation.c:2354
 #, c-format
 msgid "Printing %d"
 msgstr "%d প্রিন্ট করা হচ্ছে"
 
-#: ../gtk/gtkprintoperation.c:3013
+#: ../bobgui/bobguiprintoperation.c:3013
 msgid "Error creating print preview"
 msgstr "প্রিন্টের পূর্বরূপ প্রদর্শন আরম্ভ করতে সমস্যা"
 
-#: ../gtk/gtkprintoperation.c:3016
+#: ../bobgui/bobguiprintoperation.c:3016
 msgid ""
 "The most probable reason is that a temporary file could not be created."
 msgstr "সম্ভবত অস্থায়ী ফাইল নির্মিত না হওয়া ফলে এটি হয়েছে"
 
-#: ../gtk/gtkprintoperation-unix.c:307
+#: ../bobgui/bobguiprintoperation-unix.c:307
 msgid "Error launching preview"
 msgstr "পূর্বরূপ প্রদর্শন আরম্ভ করতে সমস্যা"
 
-#: ../gtk/gtkprintoperation-win32.c:609
+#: ../bobgui/bobguiprintoperation-win32.c:609
 msgid "Printer offline"
 msgstr "প্রিন্টার অফলাইন অবস্থায়"
 
-#: ../gtk/gtkprintoperation-win32.c:611
+#: ../bobgui/bobguiprintoperation-win32.c:611
 msgid "Out of paper"
 msgstr "কাগজ ফুরিয়ে গেছে"
 
 #. Translators: this is a printer status.
-#: ../gtk/gtkprintoperation-win32.c:613
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2288
+#: ../bobgui/bobguiprintoperation-win32.c:613
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2288
 msgid "Paused"
 msgstr "স্থগিত"
 
-#: ../gtk/gtkprintoperation-win32.c:615
+#: ../bobgui/bobguiprintoperation-win32.c:615
 msgid "Need user intervention"
 msgstr "ব্যবহারকারীর সহায়তা প্রয়োজন"
 
-#: ../gtk/gtkprintoperation-win32.c:715
+#: ../bobgui/bobguiprintoperation-win32.c:715
 msgid "Custom size"
 msgstr "স্বনির্বাচিত মাপ"
 
-#: ../gtk/gtkprintoperation-win32.c:1537
+#: ../bobgui/bobguiprintoperation-win32.c:1537
 msgid "No printer found"
 msgstr "কোনো প্রিন্টার পাওয়া যায়নি"
 
-#: ../gtk/gtkprintoperation-win32.c:1564
+#: ../bobgui/bobguiprintoperation-win32.c:1564
 msgid "Invalid argument to CreateDC"
 msgstr "CreateDC-র ক্ষেত্রে অবৈধ আর্গুমেন্ট প্রেরিত"
 
-#: ../gtk/gtkprintoperation-win32.c:1600
-#: ../gtk/gtkprintoperation-win32.c:1827
+#: ../bobgui/bobguiprintoperation-win32.c:1600
+#: ../bobgui/bobguiprintoperation-win32.c:1827
 msgid "Error from StartDoc"
 msgstr "StartDoc'এ উত্‌পন্ন সমস্যা"
 
-#: ../gtk/gtkprintoperation-win32.c:1682
-#: ../gtk/gtkprintoperation-win32.c:1705
-#: ../gtk/gtkprintoperation-win32.c:1753
+#: ../bobgui/bobguiprintoperation-win32.c:1682
+#: ../bobgui/bobguiprintoperation-win32.c:1705
+#: ../bobgui/bobguiprintoperation-win32.c:1753
 msgid "Not enough free memory"
 msgstr "পর্যাপ্ত মেমরি অবশিষ্ট নেই"
 
-#: ../gtk/gtkprintoperation-win32.c:1758
+#: ../bobgui/bobguiprintoperation-win32.c:1758
 msgid "Invalid argument to PrintDlgEx"
 msgstr "PrintDlgEx'র ক্ষেত্রে অবৈধ আর্গুমেন্ট প্রেরিত"
 
-#: ../gtk/gtkprintoperation-win32.c:1763
+#: ../bobgui/bobguiprintoperation-win32.c:1763
 msgid "Invalid pointer to PrintDlgEx"
 msgstr "PrintDlgEx'র ক্ষেত্রে অবৈধ নির্দেশক"
 
-#: ../gtk/gtkprintoperation-win32.c:1768
+#: ../bobgui/bobguiprintoperation-win32.c:1768
 msgid "Invalid handle to PrintDlgEx"
 msgstr "PrintDlgEx'র জন্য অবৈধ হ্যান্ডেল"
 
-#: ../gtk/gtkprintoperation-win32.c:1773
+#: ../bobgui/bobguiprintoperation-win32.c:1773
 msgid "Unspecified error"
 msgstr "অনির্ধারিত ত্রুটি"
 
-#: ../gtk/gtkprintunixdialog.c:681
+#: ../bobgui/bobguiprintunixdialog.c:681
 msgid "Getting printer information failed"
 msgstr "প্রিন্টার সংক্রান্ত তথ্য প্রাপ্ত করতে পড়তে"
 
-#: ../gtk/gtkprintunixdialog.c:1916
+#: ../bobgui/bobguiprintunixdialog.c:1916
 msgid "Getting printer information…"
 msgstr "প্রিন্টার সংক্রান্ত তথ্য প্রাপ্ত করা হচ্ছে..."
 
-#: ../gtk/gtkprintunixdialog.c:2184
+#: ../bobgui/bobguiprintunixdialog.c:2184
 msgid "Printer"
 msgstr "প্রিন্টার"
 
 #. Translators: this is the header for the location column in the print dialog
-#: ../gtk/gtkprintunixdialog.c:2194
+#: ../bobgui/bobguiprintunixdialog.c:2194
 msgid "Location"
 msgstr "অবস্থান"
 
 #. Translators: this is the header for the printer status column in the print dialog
-#: ../gtk/gtkprintunixdialog.c:2205
+#: ../bobgui/bobguiprintunixdialog.c:2205
 msgid "Status"
 msgstr "অবস্থা"
 
-#: ../gtk/gtkprintunixdialog.c:2231
+#: ../bobgui/bobguiprintunixdialog.c:2231
 msgid "Range"
 msgstr "সুনির্দিষ্ট সীমা"
 
-#: ../gtk/gtkprintunixdialog.c:2235
+#: ../bobgui/bobguiprintunixdialog.c:2235
 msgid "_All Pages"
 msgstr "সমস্ত পাতা (_A)"
 
-#: ../gtk/gtkprintunixdialog.c:2240
+#: ../bobgui/bobguiprintunixdialog.c:2240
 msgid "C_urrent Page"
 msgstr "বর্তমান পৃষ্ঠা (_u)"
 
-#: ../gtk/gtkprintunixdialog.c:2248
+#: ../bobgui/bobguiprintunixdialog.c:2248
 msgid "Se_lection"
 msgstr "নির্বাচন:(_l)"
 
-#: ../gtk/gtkprintunixdialog.c:2254
+#: ../bobgui/bobguiprintunixdialog.c:2254
 msgid "Pag_es:"
 msgstr "পৃষ্ঠা: (_e)"
 
-#: ../gtk/gtkprintunixdialog.c:2255
+#: ../bobgui/bobguiprintunixdialog.c:2255
 msgid "Specify one or more page ranges,\n"
 " e.g. 1-3,7,11"
 msgstr "এক অথবা অধিক পৃষ্ঠার সীমা উল্লেখ করুন,\n"
 " উদাহরণস্বরূপ. 1-3,7,11"
 
-#: ../gtk/gtkprintunixdialog.c:2264
+#: ../bobgui/bobguiprintunixdialog.c:2264
 msgid "Pages"
 msgstr "পৃষ্ঠা"
 
-#: ../gtk/gtkprintunixdialog.c:2275
+#: ../bobgui/bobguiprintunixdialog.c:2275
 msgid "Copies"
 msgstr "প্রতিলিপি"
 
 #. FIXME chpe: too much space between Copies and spinbutton, put those 2 in a hbox and make it span 2 columns
-#: ../gtk/gtkprintunixdialog.c:2280
+#: ../bobgui/bobguiprintunixdialog.c:2280
 msgid "Copie_s:"
 msgstr "প্রতিলিপি :(_s)"
 
-#: ../gtk/gtkprintunixdialog.c:2296
+#: ../bobgui/bobguiprintunixdialog.c:2296
 msgid "C_ollate"
 msgstr "একত্রিত করুন (_o)"
 
-#: ../gtk/gtkprintunixdialog.c:2302
+#: ../bobgui/bobguiprintunixdialog.c:2302
 msgid "_Reverse"
 msgstr "বিপরীত দিশা (_R)"
 
-#: ../gtk/gtkprintunixdialog.c:2318
+#: ../bobgui/bobguiprintunixdialog.c:2318
 msgid "General"
 msgstr "সাধারণ"
 
 #. Translators: These strings name the possible arrangements of
-#. * multiple pages on a sheet when printing (same as in gtkprintbackendcups.c)
+#. * multiple pages on a sheet when printing (same as in bobguiprintbackendcups.c)
 #. Translators: These strings name the possible arrangements of
 #. * multiple pages on a sheet when printing
-#: ../gtk/gtkprintunixdialog.c:3058
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4634
+#: ../bobgui/bobguiprintunixdialog.c:3058
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4634
 msgid "Left to right, top to bottom"
 msgstr "বাঁদিক থেকে ডানদিকে, উপর থেকে নীচে"
 
-#: ../gtk/gtkprintunixdialog.c:3058
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4634
+#: ../bobgui/bobguiprintunixdialog.c:3058
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4634
 msgid "Left to right, bottom to top"
 msgstr "বাঁদিক থেকে ডানদিকে, নীচে থেকে উপরে"
 
-#: ../gtk/gtkprintunixdialog.c:3059
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4635
+#: ../bobgui/bobguiprintunixdialog.c:3059
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4635
 msgid "Right to left, top to bottom"
 msgstr "ডানদিক থেকে বাঁদিকে, উপর থেকে নীচে"
 
-#: ../gtk/gtkprintunixdialog.c:3059
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4635
+#: ../bobgui/bobguiprintunixdialog.c:3059
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4635
 msgid "Right to left, bottom to top"
 msgstr "ডানদিক থেকে বাঁদিকে, নীচে থেকে উপরে"
 
-#: ../gtk/gtkprintunixdialog.c:3060
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4636
+#: ../bobgui/bobguiprintunixdialog.c:3060
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4636
 msgid "Top to bottom, left to right"
 msgstr "উপর থেকে নীচে, বাঁদিক থেকে ডানদিকে"
 
-#: ../gtk/gtkprintunixdialog.c:3060
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4636
+#: ../bobgui/bobguiprintunixdialog.c:3060
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4636
 msgid "Top to bottom, right to left"
 msgstr "উপর থেকে নীচে, ডানদিক থেকে বাঁদিকে"
 
-#: ../gtk/gtkprintunixdialog.c:3061
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4637
+#: ../bobgui/bobguiprintunixdialog.c:3061
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4637
 msgid "Bottom to top, left to right"
 msgstr "নীচে থেকে উপরে, বাঁদিক থেকে ডানদিকে"
 
-#: ../gtk/gtkprintunixdialog.c:3061
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4637
+#: ../bobgui/bobguiprintunixdialog.c:3061
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4637
 msgid "Bottom to top, right to left"
 msgstr "নীচে থেকে উপরে, ডানদিক থেকে বাঁদিকে"
 
 #. Translators, this string is used to label the option in the print
 #. * dialog that controls in what order multiple pages are arranged
-#: ../gtk/gtkprintunixdialog.c:3065
-#: ../gtk/gtkprintunixdialog.c:3078
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4714
+#: ../bobgui/bobguiprintunixdialog.c:3065
+#: ../bobgui/bobguiprintunixdialog.c:3078
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4714
 msgid "Page Ordering"
 msgstr "পৃষ্ঠার অনুক্রম"
 
-#: ../gtk/gtkprintunixdialog.c:3094
+#: ../bobgui/bobguiprintunixdialog.c:3094
 msgid "Left to right"
 msgstr "বাঁদিক থেকে ডানদিকে"
 
-#: ../gtk/gtkprintunixdialog.c:3095
+#: ../bobgui/bobguiprintunixdialog.c:3095
 msgid "Right to left"
 msgstr "ডানদিক থেকে বাঁদিক"
 
-#: ../gtk/gtkprintunixdialog.c:3107
+#: ../bobgui/bobguiprintunixdialog.c:3107
 msgid "Top to bottom"
 msgstr "উপর থেকে নীচে"
 
-#: ../gtk/gtkprintunixdialog.c:3108
+#: ../bobgui/bobguiprintunixdialog.c:3108
 msgid "Bottom to top"
 msgstr "নীচে থেকে উপরে"
 
-#: ../gtk/gtkprintunixdialog.c:3352
+#: ../bobgui/bobguiprintunixdialog.c:3352
 msgid "Layout"
 msgstr "বিন্যাস"
 
-#: ../gtk/gtkprintunixdialog.c:3356
+#: ../bobgui/bobguiprintunixdialog.c:3356
 msgid "T_wo-sided:"
 msgstr "উভয় পৃষ্ঠ: (_w)"
 
-#: ../gtk/gtkprintunixdialog.c:3368
+#: ../bobgui/bobguiprintunixdialog.c:3368
 msgid "Pages per _side:"
 msgstr "প্রতি পার্শ্বে পৃষ্ঠার সংখ্যা:(_s)"
 
-#: ../gtk/gtkprintunixdialog.c:3382
+#: ../bobgui/bobguiprintunixdialog.c:3382
 msgid "Page or_dering:"
 msgstr "পৃষ্ঠার অনুক্রম: (_d)"
 
-#: ../gtk/gtkprintunixdialog.c:3395
+#: ../bobgui/bobguiprintunixdialog.c:3395
 msgid "_Only print:"
 msgstr "শুধুমাত্র প্রিন্ট করা হবে:(_O)"
 
 #. In enum order
-#: ../gtk/gtkprintunixdialog.c:3407
+#: ../bobgui/bobguiprintunixdialog.c:3407
 msgid "All sheets"
 msgstr "সমস্ত পাতা"
 
-#: ../gtk/gtkprintunixdialog.c:3408
+#: ../bobgui/bobguiprintunixdialog.c:3408
 msgid "Even sheets"
 msgstr "শুধুমাত্র জোড় সংখ্যক পাতায়"
 
-#: ../gtk/gtkprintunixdialog.c:3409
+#: ../bobgui/bobguiprintunixdialog.c:3409
 msgid "Odd sheets"
 msgstr "শুধুমাত্র বেজোড় সংখ্যক পাতায়"
 
-#: ../gtk/gtkprintunixdialog.c:3412
+#: ../bobgui/bobguiprintunixdialog.c:3412
 msgid "Sc_ale:"
 msgstr "মাপ: (_a)"
 
-#: ../gtk/gtkprintunixdialog.c:3436
+#: ../bobgui/bobguiprintunixdialog.c:3436
 msgid "Paper"
 msgstr "কাগজ"
 
-#: ../gtk/gtkprintunixdialog.c:3440
+#: ../bobgui/bobguiprintunixdialog.c:3440
 msgid "Paper _type:"
 msgstr "কাগজের বিন্যাস:(_t)"
 
-#: ../gtk/gtkprintunixdialog.c:3452
+#: ../bobgui/bobguiprintunixdialog.c:3452
 msgid "Paper _source:"
 msgstr "কাগজ সংগ্রহস্থল:(_s)"
 
-#: ../gtk/gtkprintunixdialog.c:3464
+#: ../bobgui/bobguiprintunixdialog.c:3464
 msgid "Output t_ray:"
 msgstr "আউটপুট ট্রে: (_r)"
 
-#: ../gtk/gtkprintunixdialog.c:3497
+#: ../bobgui/bobguiprintunixdialog.c:3497
 msgid "Or_ientation:"
 msgstr "দিশা: (_i)"
 
 #. In enum order
-#: ../gtk/gtkprintunixdialog.c:3509
+#: ../bobgui/bobguiprintunixdialog.c:3509
 msgid "Portrait"
 msgstr "প্রতিকৃতি"
 
-#: ../gtk/gtkprintunixdialog.c:3510
+#: ../bobgui/bobguiprintunixdialog.c:3510
 msgid "Landscape"
 msgstr "ভূদৃশ্য"
 
-#: ../gtk/gtkprintunixdialog.c:3511
+#: ../bobgui/bobguiprintunixdialog.c:3511
 msgid "Reverse portrait"
 msgstr "বিপরীত প্রতিকৃতি"
 
-#: ../gtk/gtkprintunixdialog.c:3512
+#: ../bobgui/bobguiprintunixdialog.c:3512
 msgid "Reverse landscape"
 msgstr "বিপরীত ভূদৃশ্য"
 
-#: ../gtk/gtkprintunixdialog.c:3556
+#: ../bobgui/bobguiprintunixdialog.c:3556
 msgid "Job Details"
 msgstr "কর্ম সংক্রান্ত বিবরণ"
 
-#: ../gtk/gtkprintunixdialog.c:3560
+#: ../bobgui/bobguiprintunixdialog.c:3560
 msgid "Pri_ority:"
 msgstr "গুরুত্ব:(_o)"
 
-#: ../gtk/gtkprintunixdialog.c:3572
+#: ../bobgui/bobguiprintunixdialog.c:3572
 msgid "_Billing info:"
 msgstr "বিল সংক্রান্ত তথ্য: (_B)"
 
-#: ../gtk/gtkprintunixdialog.c:3587
+#: ../bobgui/bobguiprintunixdialog.c:3587
 msgid "Print Document"
 msgstr "নথি প্রিন্ট করুন"
 
 #. Translators: this is one of the choices for the print at option
 #. * in the print dialog
-#: ../gtk/gtkprintunixdialog.c:3594
+#: ../bobgui/bobguiprintunixdialog.c:3594
 msgid "_Now"
 msgstr "এই মুহূর্তে(_N)"
 
-#: ../gtk/gtkprintunixdialog.c:3603
+#: ../bobgui/bobguiprintunixdialog.c:3603
 msgid "A_t:"
 msgstr "চিহ্নিত সময়ে:(_t)"
 
 #. Translators: Ability to parse the am/pm format depends on actual locale.
 #. * You can remove the am/pm values below for your locale if they are not
 #. * supported.
-#: ../gtk/gtkprintunixdialog.c:3609
+#: ../bobgui/bobguiprintunixdialog.c:3609
 msgid ""
 "Specify the time of print,\n"
 " e.g. 15:30, 2:35 pm, 14:15:20, 11:46:30 am, 4 pm"
@@ -2611,103 +2611,103 @@ msgstr ""
 "প্রিন্টের সময় নির্ধারণ করা হবে\n"
 " উদাহরণ ১৫:৩০, ২:৩৫ অপরাহ্ন, ১৪:১৫:২০, ১১:৪৬:৩০ পূর্বাহ্ন, ৪ অপরাহ্ন"
 
-#: ../gtk/gtkprintunixdialog.c:3617
+#: ../bobgui/bobguiprintunixdialog.c:3617
 msgid "Time of print"
 msgstr "প্রিন্টের সময়কাল"
 
-#: ../gtk/gtkprintunixdialog.c:3631
+#: ../bobgui/bobguiprintunixdialog.c:3631
 msgid "On _hold"
 msgstr "অপেক্ষারত:(_h)"
 
-#: ../gtk/gtkprintunixdialog.c:3632
+#: ../bobgui/bobguiprintunixdialog.c:3632
 msgid "Hold the job until it is explicitly released"
 msgstr "আরম্ভের সুনির্দিষ্ট নির্দেশ না দেওয়া অবধি কর্ম স্থগিত রাখা হবে"
 
-#: ../gtk/gtkprintunixdialog.c:3650
+#: ../bobgui/bobguiprintunixdialog.c:3650
 msgid "Add Cover Page"
 msgstr "প্রচ্ছদ পৃষ্ঠা সন্নিবেশ করা হবে"
 
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the front cover page.
-#: ../gtk/gtkprintunixdialog.c:3657
+#: ../bobgui/bobguiprintunixdialog.c:3657
 msgid "Be_fore:"
 msgstr "চিহ্নিত পৃষ্ঠার পূর্বে:(_f)"
 
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the back cover page.
-#: ../gtk/gtkprintunixdialog.c:3672
+#: ../bobgui/bobguiprintunixdialog.c:3672
 msgid "_After:"
 msgstr "চিহ্নিত পৃষ্ঠার পরে:(_A)"
 
 #. Translators: this is the tab label for the notebook tab containing
 #. * job-specific options in the print dialog
-#: ../gtk/gtkprintunixdialog.c:3687
+#: ../bobgui/bobguiprintunixdialog.c:3687
 msgid "Job"
 msgstr "কর্ম"
 
-#: ../gtk/gtkprintunixdialog.c:3751
+#: ../bobgui/bobguiprintunixdialog.c:3751
 msgid "Advanced"
 msgstr "উন্নত বৈশিষ্ট্য"
 
 #. Translators: this will appear as tab label in print dialog.
-#: ../gtk/gtkprintunixdialog.c:3789
+#: ../bobgui/bobguiprintunixdialog.c:3789
 msgid "Image Quality"
 msgstr "ছবির গুণমান"
 
 #. Translators: this will appear as tab label in print dialog.
-#: ../gtk/gtkprintunixdialog.c:3793
+#: ../bobgui/bobguiprintunixdialog.c:3793
 msgid "Color"
 msgstr "রং"
 
 #. Translators: this will appear as tab label in print dialog.
 #. It's a typographical term, as in "Binding and finishing"
-#: ../gtk/gtkprintunixdialog.c:3798
+#: ../bobgui/bobguiprintunixdialog.c:3798
 msgid "Finishing"
 msgstr "সমাপ্তি"
 
-#: ../gtk/gtkprintunixdialog.c:3808
+#: ../bobgui/bobguiprintunixdialog.c:3808
 msgid "Some of the settings in the dialog conflict"
 msgstr "ডায়লগ বক্সে নির্বাচিত কিছু মান পারস্পরবিরোধী"
 
-#: ../gtk/gtkprintunixdialog.c:3834
+#: ../bobgui/bobguiprintunixdialog.c:3834
 msgid "Print"
 msgstr "প্রিন্ট করুন"
 
-#: ../gtk/gtkrecentchooserdefault.c:480
+#: ../bobgui/bobguirecentchooserdefault.c:480
 msgid "Select which type of documents are shown"
 msgstr "প্রদর্শনের উদ্দেশ্যে বিভিন্ন ডকুমেন্টের বিন্যাস নির্বাচন করুন"
 
-#: ../gtk/gtkrecentchooserdefault.c:1129
-#: ../gtk/gtkrecentchooserdefault.c:1166
+#: ../bobgui/bobguirecentchooserdefault.c:1129
+#: ../bobgui/bobguirecentchooserdefault.c:1166
 #, c-format
 msgid "No item for URI '%s' found"
 msgstr "URI '%s'-র কোনো বস্তু পাওয়া যায়নি"
 
-#: ../gtk/gtkrecentchooserdefault.c:1293
+#: ../bobgui/bobguirecentchooserdefault.c:1293
 msgid "Untitled filter"
 msgstr "নামবিহীন ফিল্টার"
 
-#: ../gtk/gtkrecentchooserdefault.c:1646
+#: ../bobgui/bobguirecentchooserdefault.c:1646
 msgid "Could not remove item"
 msgstr "বস্তু মুছে ফেলতে ব্যর্থ"
 
-#: ../gtk/gtkrecentchooserdefault.c:1690
+#: ../bobgui/bobguirecentchooserdefault.c:1690
 msgid "Could not clear list"
 msgstr "তালিকা পরিশ্রুত করতে ব্যর্থ"
 
-#: ../gtk/gtkrecentchooserdefault.c:1774
+#: ../bobgui/bobguirecentchooserdefault.c:1774
 msgid "Copy _Location"
 msgstr "অবস্থান কপি করুন (_L)"
 
-#: ../gtk/gtkrecentchooserdefault.c:1787
+#: ../bobgui/bobguirecentchooserdefault.c:1787
 msgid "_Remove From List"
 msgstr "তালিকা থেকে মুছে ফেলুন (_R)"
 
-#: ../gtk/gtkrecentchooserdefault.c:1796
+#: ../bobgui/bobguirecentchooserdefault.c:1796
 msgid "_Clear List"
 msgstr "তালিকা পরিশ্রুত করুন (_C)"
 
-#: ../gtk/gtkrecentchooserdefault.c:1810
+#: ../bobgui/bobguirecentchooserdefault.c:1810
 msgid "Show _Private Resources"
 msgstr "ব্যক্তিগত রিসোর্স প্রদর্শন করা হবে (_P)"
 
@@ -2720,22 +2720,22 @@ msgstr "ব্যক্তিগত রিসোর্স প্রদর্শ�
 #. * right place when idly populating the menu in case the
 #. * user appended or prepended custom menu items to the
 #. * recent chooser menu widget.
-#: ../gtk/gtkrecentchoosermenu.c:360
+#: ../bobgui/bobguirecentchoosermenu.c:360
 msgid "No items found"
 msgstr "কোনো বস্তু পাওয়া যায়নি"
 
-#: ../gtk/gtkrecentchoosermenu.c:526
-#: ../gtk/gtkrecentchoosermenu.c:582
+#: ../bobgui/bobguirecentchoosermenu.c:526
+#: ../bobgui/bobguirecentchoosermenu.c:582
 #, c-format
 msgid "No recently used resource found with URI `%s'"
 msgstr "URI `%s''র সাথে সম্প্রতি ব্যবহৃথ কোনো রিসোর্স চিহ্নিত করা যায়নি"
 
-#: ../gtk/gtkrecentchoosermenu.c:792
+#: ../bobgui/bobguirecentchoosermenu.c:792
 #, c-format
 msgid "Open '%s'"
 msgstr "'%s' খুলুন"
 
-#: ../gtk/gtkrecentchoosermenu.c:822
+#: ../bobgui/bobguirecentchoosermenu.c:822
 msgid "Unknown item"
 msgstr "অজানা বস্তু"
 
@@ -2743,7 +2743,7 @@ msgstr "অজানা বস্তু"
 #. * in a recent files menu. The %d is the number of the item,
 #. * the %s is the name of the item. Please keep the _ in front
 #. * of the number to give these menu items a mnemonic.
-#: ../gtk/gtkrecentchoosermenu.c:833
+#: ../bobgui/bobguirecentchoosermenu.c:833
 #, c-format
 msgctxt "recent menu label"
 msgid "_%d. %s"
@@ -2751,529 +2751,529 @@ msgstr "_%d. %s"
 
 #. This is the format that is used for items in a recent files menu.
 #. * The %d is the number of the item, the %s is the name of the item.
-#: ../gtk/gtkrecentchoosermenu.c:838
+#: ../bobgui/bobguirecentchoosermenu.c:838
 #, c-format
 msgctxt "recent menu label"
 msgid "%d. %s"
 msgstr "%d. %s"
 
-#: ../gtk/gtkrecentmanager.c:1035
-#: ../gtk/gtkrecentmanager.c:1048
-#: ../gtk/gtkrecentmanager.c:1185
-#: ../gtk/gtkrecentmanager.c:1195
-#: ../gtk/gtkrecentmanager.c:1247
-#: ../gtk/gtkrecentmanager.c:1256
-#: ../gtk/gtkrecentmanager.c:1271
+#: ../bobgui/bobguirecentmanager.c:1035
+#: ../bobgui/bobguirecentmanager.c:1048
+#: ../bobgui/bobguirecentmanager.c:1185
+#: ../bobgui/bobguirecentmanager.c:1195
+#: ../bobgui/bobguirecentmanager.c:1247
+#: ../bobgui/bobguirecentmanager.c:1256
+#: ../bobgui/bobguirecentmanager.c:1271
 #, c-format
 msgid "Unable to find an item with URI '%s'"
 msgstr "URI '%s' সহ কোনো বস্তু অনুসন্ধানে ব্যর্থ"
 
-#: ../gtk/gtkrecentmanager.c:2471
+#: ../bobgui/bobguirecentmanager.c:2471
 #, c-format
 msgid "No registered application with name '%s' for item with URI '%s' found"
 msgstr ""
 "'%s' নামক কোনো নিবন্ধিত অ্যাপ্লিকেশন URI '%s' সহ সামগ্রীর জন্য পাওয়া যায়নি"
 
-#. KEEP IN SYNC with gtkiconfactory.c stock icons, when appropriate
-#: ../gtk/gtkstock.c:324
+#. KEEP IN SYNC with bobguiiconfactory.c stock icons, when appropriate
+#: ../bobgui/bobguistock.c:324
 msgctxt "Stock label"
 msgid "Information"
 msgstr "তথ্য"
 
-#: ../gtk/gtkstock.c:325
+#: ../bobgui/bobguistock.c:325
 msgctxt "Stock label"
 msgid "Warning"
 msgstr "সতর্কবার্তা"
 
-#: ../gtk/gtkstock.c:326
+#: ../bobgui/bobguistock.c:326
 msgctxt "Stock label"
 msgid "Error"
 msgstr "ত্রুটি"
 
-#: ../gtk/gtkstock.c:327
+#: ../bobgui/bobguistock.c:327
 msgctxt "Stock label"
 msgid "Question"
 msgstr "প্রশ্ন"
 
 #. FIXME these need accelerators when appropriate, and
 #. * need the mnemonics to be rationalized
-#: ../gtk/gtkstock.c:332
+#: ../bobgui/bobguistock.c:332
 msgctxt "Stock label"
 msgid "_About"
 msgstr "পরিচিতি (_A)"
 
-#: ../gtk/gtkstock.c:333
+#: ../bobgui/bobguistock.c:333
 msgctxt "Stock label"
 msgid "_Add"
 msgstr "যোগ করুন (_A)"
 
-#: ../gtk/gtkstock.c:334
+#: ../bobgui/bobguistock.c:334
 msgctxt "Stock label"
 msgid "_Apply"
 msgstr "প্রয়োগ করুন (_A)"
 
-#: ../gtk/gtkstock.c:335
+#: ../bobgui/bobguistock.c:335
 msgctxt "Stock label"
 msgid "_Bold"
 msgstr "উজ্জ্বল (_B)"
 
-#: ../gtk/gtkstock.c:336
+#: ../bobgui/bobguistock.c:336
 msgctxt "Stock label"
 msgid "_Cancel"
 msgstr "বাতিল (_C)"
 
-#: ../gtk/gtkstock.c:337
+#: ../bobgui/bobguistock.c:337
 msgctxt "Stock label"
 msgid "_CD-ROM"
 msgstr "_CD-ROM"
 
-#: ../gtk/gtkstock.c:338
+#: ../bobgui/bobguistock.c:338
 msgctxt "Stock label"
 msgid "_Clear"
 msgstr "পরিশ্রুত করুন (_C)"
 
-#: ../gtk/gtkstock.c:339
+#: ../bobgui/bobguistock.c:339
 msgctxt "Stock label"
 msgid "_Close"
 msgstr "বন্ধ করুন (_C)"
 
-#: ../gtk/gtkstock.c:340
+#: ../bobgui/bobguistock.c:340
 msgctxt "Stock label"
 msgid "C_onnect"
 msgstr "সংযোগ করুন (_o)"
 
-#: ../gtk/gtkstock.c:341
+#: ../bobgui/bobguistock.c:341
 msgctxt "Stock label"
 msgid "_Convert"
 msgstr "রূপান্তর করুন (_C)"
 
-#: ../gtk/gtkstock.c:342
+#: ../bobgui/bobguistock.c:342
 msgctxt "Stock label"
 msgid "_Copy"
 msgstr "কপি করুন (_C)"
 
-#: ../gtk/gtkstock.c:343
+#: ../bobgui/bobguistock.c:343
 msgctxt "Stock label"
 msgid "Cu_t"
 msgstr "কাট করুন (_t)"
 
-#: ../gtk/gtkstock.c:344
+#: ../bobgui/bobguistock.c:344
 msgctxt "Stock label"
 msgid "_Delete"
 msgstr "মুছে ফেলুন (_D)"
 
-#: ../gtk/gtkstock.c:345
+#: ../bobgui/bobguistock.c:345
 msgctxt "Stock label"
 msgid "_Discard"
 msgstr "বর্জন করুন (_D)"
 
-#: ../gtk/gtkstock.c:346
+#: ../bobgui/bobguistock.c:346
 msgctxt "Stock label"
 msgid "_Disconnect"
 msgstr "সংযোগ বিচ্ছিন্ন করুন (_D)"
 
-#: ../gtk/gtkstock.c:347
+#: ../bobgui/bobguistock.c:347
 msgctxt "Stock label"
 msgid "_Execute"
 msgstr "সঞ্চালন করুন (_E)"
 
-#: ../gtk/gtkstock.c:348
+#: ../bobgui/bobguistock.c:348
 msgctxt "Stock label"
 msgid "_Edit"
 msgstr "সম্পাদনা (_E)"
 
-#: ../gtk/gtkstock.c:349
+#: ../bobgui/bobguistock.c:349
 msgctxt "Stock label"
 msgid "_File"
 msgstr "ফাইল (_F)"
 
-#: ../gtk/gtkstock.c:350
+#: ../bobgui/bobguistock.c:350
 msgctxt "Stock label"
 msgid "_Find"
 msgstr "অনুসন্ধান (_F)"
 
-#: ../gtk/gtkstock.c:351
+#: ../bobgui/bobguistock.c:351
 msgctxt "Stock label"
 msgid "Find and _Replace"
 msgstr "অনুসন্ধান ও প্রতিস্থাপন (_R)"
 
-#: ../gtk/gtkstock.c:352
+#: ../bobgui/bobguistock.c:352
 msgctxt "Stock label"
 msgid "_Floppy"
 msgstr "ফ্লপি (_F)"
 
-#: ../gtk/gtkstock.c:353
+#: ../bobgui/bobguistock.c:353
 msgctxt "Stock label"
 msgid "_Fullscreen"
 msgstr "সম্পূর্ণ পর্দাজুড়ে প্রদর্শন (_F)"
 
-#: ../gtk/gtkstock.c:354
+#: ../bobgui/bobguistock.c:354
 msgctxt "Stock label"
 msgid "_Leave Fullscreen"
 msgstr "সম্পূর্ণ পর্দায় প্রদর্শন বন্ধ করা হবে (_L)"
 
 #. This is a navigation label as in "go to the bottom of the page"
-#: ../gtk/gtkstock.c:356
+#: ../bobgui/bobguistock.c:356
 msgctxt "Stock label, navigation"
 msgid "_Bottom"
 msgstr "নীচে (_B)"
 
 #. This is a navigation label as in "go to the first page"
-#: ../gtk/gtkstock.c:358
+#: ../bobgui/bobguistock.c:358
 msgctxt "Stock label, navigation"
 msgid "_First"
 msgstr "প্রথম (_F)"
 
 #. This is a navigation label as in "go to the last page"
-#: ../gtk/gtkstock.c:360
+#: ../bobgui/bobguistock.c:360
 msgctxt "Stock label, navigation"
 msgid "_Last"
 msgstr "সর্বশেষ (_L)"
 
 #. This is a navigation label as in "go to the top of the page"
-#: ../gtk/gtkstock.c:362
+#: ../bobgui/bobguistock.c:362
 msgctxt "Stock label, navigation"
 msgid "_Top"
 msgstr "উপরে (_T)"
 
 #. This is a navigation label as in "go back"
-#: ../gtk/gtkstock.c:364
+#: ../bobgui/bobguistock.c:364
 msgctxt "Stock label, navigation"
 msgid "_Back"
 msgstr "পূর্ববর্তী (_B)"
 
 #. This is a navigation label as in "go down"
-#: ../gtk/gtkstock.c:366
+#: ../bobgui/bobguistock.c:366
 msgctxt "Stock label, navigation"
 msgid "_Down"
 msgstr "নীচে (_D)"
 
 #. This is a navigation label as in "go forward"
-#: ../gtk/gtkstock.c:368
+#: ../bobgui/bobguistock.c:368
 msgctxt "Stock label, navigation"
 msgid "_Forward"
 msgstr "এগিয়ে চলুন (_F)"
 
 #. This is a navigation label as in "go up"
-#: ../gtk/gtkstock.c:370
+#: ../bobgui/bobguistock.c:370
 msgctxt "Stock label, navigation"
 msgid "_Up"
 msgstr "উপরে (_U)"
 
-#: ../gtk/gtkstock.c:371
+#: ../bobgui/bobguistock.c:371
 msgctxt "Stock label"
 msgid "_Hard Disk"
 msgstr "হার্ড-ডিস্ক (_H)"
 
-#: ../gtk/gtkstock.c:372
+#: ../bobgui/bobguistock.c:372
 msgctxt "Stock label"
 msgid "_Help"
 msgstr "সাহায্য (_H)"
 
-#: ../gtk/gtkstock.c:373
+#: ../bobgui/bobguistock.c:373
 msgctxt "Stock label"
 msgid "_Home"
 msgstr "ব্যক্তিগত ফোল্ডার (_H)"
 
-#: ../gtk/gtkstock.c:374
+#: ../bobgui/bobguistock.c:374
 msgctxt "Stock label"
 msgid "Increase Indent"
 msgstr "অবচ্ছেদের মাত্রা বৃদ্ধি করুন"
 
-#: ../gtk/gtkstock.c:375
+#: ../bobgui/bobguistock.c:375
 msgctxt "Stock label"
 msgid "Decrease Indent"
 msgstr "অবচ্ছেদের মাত্রা হ্রাস করুন"
 
-#: ../gtk/gtkstock.c:376
+#: ../bobgui/bobguistock.c:376
 msgctxt "Stock label"
 msgid "_Index"
 msgstr "সূচিপত্র (_I)"
 
-#: ../gtk/gtkstock.c:377
+#: ../bobgui/bobguistock.c:377
 msgctxt "Stock label"
 msgid "_Information"
 msgstr "তথ্য (_I)"
 
-#: ../gtk/gtkstock.c:378
+#: ../bobgui/bobguistock.c:378
 msgctxt "Stock label"
 msgid "_Italic"
 msgstr "তেরছা (_I)"
 
-#: ../gtk/gtkstock.c:379
+#: ../bobgui/bobguistock.c:379
 msgctxt "Stock label"
 msgid "_Jump to"
 msgstr "চিহ্নিত স্থানে চলুন (_J)"
 
 #. This is about text justification, "centered text"
-#: ../gtk/gtkstock.c:381
+#: ../bobgui/bobguistock.c:381
 msgctxt "Stock label"
 msgid "_Center"
 msgstr "কেন্দ্রস্থিত (_C)"
 
 #. This is about text justification
-#: ../gtk/gtkstock.c:383
+#: ../bobgui/bobguistock.c:383
 msgctxt "Stock label"
 msgid "_Fill"
 msgstr "পূরণ (_F)"
 
 #. This is about text justification, "left-justified text"
-#: ../gtk/gtkstock.c:385
+#: ../bobgui/bobguistock.c:385
 msgctxt "Stock label"
 msgid "_Left"
 msgstr "বাঁদিকে (_L)"
 
 #. This is about text justification, "right-justified text"
-#: ../gtk/gtkstock.c:387
+#: ../bobgui/bobguistock.c:387
 msgctxt "Stock label"
 msgid "_Right"
 msgstr "ডানদিকে (_R)"
 
 #. Media label, as in "fast forward"
-#: ../gtk/gtkstock.c:390
+#: ../bobgui/bobguistock.c:390
 msgctxt "Stock label, media"
 msgid "_Forward"
 msgstr "এগিয়ে চলুন (_F)"
 
 #. Media label, as in "next song"
-#: ../gtk/gtkstock.c:392
+#: ../bobgui/bobguistock.c:392
 msgctxt "Stock label, media"
 msgid "_Next"
 msgstr "পরবর্তী (_N)"
 
 #. Media label, as in "pause music"
-#: ../gtk/gtkstock.c:394
+#: ../bobgui/bobguistock.c:394
 msgctxt "Stock label, media"
 msgid "P_ause"
 msgstr "স্থগিত (_a)"
 
 #. Media label, as in "play music"
-#: ../gtk/gtkstock.c:396
+#: ../bobgui/bobguistock.c:396
 msgctxt "Stock label, media"
 msgid "_Play"
 msgstr "বাজানো হবে (_P)"
 
 #. Media label, as in  "previous song"
-#: ../gtk/gtkstock.c:398
+#: ../bobgui/bobguistock.c:398
 msgctxt "Stock label, media"
 msgid "Pre_vious"
 msgstr "পূর্ববর্তী (_v)"
 
 # FIXME: Translating in the context of sound recording.
 #. Media label
-#: ../gtk/gtkstock.c:400
+#: ../bobgui/bobguistock.c:400
 msgctxt "Stock label, media"
 msgid "_Record"
 msgstr "রেকর্ড করা হবে (_R)"
 
 #. Media label
-#: ../gtk/gtkstock.c:402
+#: ../bobgui/bobguistock.c:402
 msgctxt "Stock label, media"
 msgid "R_ewind"
 msgstr "বিপরীত দিশায় (_e)"
 
 #. Media label
-#: ../gtk/gtkstock.c:404
+#: ../bobgui/bobguistock.c:404
 msgctxt "Stock label, media"
 msgid "_Stop"
 msgstr "বন্ধ করুন (_S)"
 
-#: ../gtk/gtkstock.c:405
+#: ../bobgui/bobguistock.c:405
 msgctxt "Stock label"
 msgid "_Network"
 msgstr "নেটওয়ার্ক (_N)"
 
-#: ../gtk/gtkstock.c:406
+#: ../bobgui/bobguistock.c:406
 msgctxt "Stock label"
 msgid "_New"
 msgstr "নতুন (_N)"
 
-#: ../gtk/gtkstock.c:407
+#: ../bobgui/bobguistock.c:407
 msgctxt "Stock label"
 msgid "_No"
 msgstr "না (_N)"
 
-#: ../gtk/gtkstock.c:408
+#: ../bobgui/bobguistock.c:408
 msgctxt "Stock label"
 msgid "_OK"
 msgstr "ঠিক আছে (_O)"
 
-#: ../gtk/gtkstock.c:409
+#: ../bobgui/bobguistock.c:409
 msgctxt "Stock label"
 msgid "_Open"
 msgstr "খুলুন (_O)"
 
 #. Page orientation
-#: ../gtk/gtkstock.c:411
+#: ../bobgui/bobguistock.c:411
 msgctxt "Stock label"
 msgid "Landscape"
 msgstr "ভূদৃশ্য বিন্যাস"
 
 #. Page orientation
-#: ../gtk/gtkstock.c:413
+#: ../bobgui/bobguistock.c:413
 msgctxt "Stock label"
 msgid "Portrait"
 msgstr "প্রতিকৃতি বিন্যাস"
 
 #. Page orientation
-#: ../gtk/gtkstock.c:415
+#: ../bobgui/bobguistock.c:415
 msgctxt "Stock label"
 msgid "Reverse landscape"
 msgstr "বিপরীত ভূদৃশ্য বিন্যাস"
 
 #. Page orientation
-#: ../gtk/gtkstock.c:417
+#: ../bobgui/bobguistock.c:417
 msgctxt "Stock label"
 msgid "Reverse portrait"
 msgstr "বিপরীত প্রতিকৃতি বিন্যাস"
 
-#: ../gtk/gtkstock.c:418
+#: ../bobgui/bobguistock.c:418
 msgctxt "Stock label"
 msgid "Page Set_up"
 msgstr "পৃষ্ঠার বৈশিষ্ট্য (_u)"
 
-#: ../gtk/gtkstock.c:419
+#: ../bobgui/bobguistock.c:419
 msgctxt "Stock label"
 msgid "_Paste"
 msgstr "পেস্ট করুন (_P)"
 
-#: ../gtk/gtkstock.c:420
+#: ../bobgui/bobguistock.c:420
 msgctxt "Stock label"
 msgid "_Preferences"
 msgstr "পছন্দ (_P)"
 
-#: ../gtk/gtkstock.c:421
+#: ../bobgui/bobguistock.c:421
 msgctxt "Stock label"
 msgid "_Print"
 msgstr "প্রিন্ট করুন (_P)"
 
-#: ../gtk/gtkstock.c:422
+#: ../bobgui/bobguistock.c:422
 msgctxt "Stock label"
 msgid "Print Pre_view"
 msgstr "প্রিন্টের পূর্বরূপ (_v)"
 
-#: ../gtk/gtkstock.c:423
+#: ../bobgui/bobguistock.c:423
 msgctxt "Stock label"
 msgid "_Properties"
 msgstr "বিবিধ বৈশিষ্ট্য (_P)"
 
-#: ../gtk/gtkstock.c:424
+#: ../bobgui/bobguistock.c:424
 msgctxt "Stock label"
 msgid "_Quit"
 msgstr "প্রস্থান (_Q)"
 
-#: ../gtk/gtkstock.c:425
+#: ../bobgui/bobguistock.c:425
 msgctxt "Stock label"
 msgid "_Redo"
 msgstr "পুনরাবৃত্তি (_R)"
 
-#: ../gtk/gtkstock.c:426
+#: ../bobgui/bobguistock.c:426
 msgctxt "Stock label"
 msgid "_Refresh"
 msgstr "নতুন করে প্রদর্শন (_R)"
 
-#: ../gtk/gtkstock.c:427
+#: ../bobgui/bobguistock.c:427
 msgctxt "Stock label"
 msgid "_Remove"
 msgstr "মুছে ফেলুন (_R)"
 
-#: ../gtk/gtkstock.c:428
+#: ../bobgui/bobguistock.c:428
 msgctxt "Stock label"
 msgid "_Revert"
 msgstr "পূর্বাবস্থা (_R)"
 
-#: ../gtk/gtkstock.c:429
+#: ../bobgui/bobguistock.c:429
 msgctxt "Stock label"
 msgid "_Save"
 msgstr "সংরক্ষণ করুন (_S)"
 
-#: ../gtk/gtkstock.c:430
+#: ../bobgui/bobguistock.c:430
 msgctxt "Stock label"
 msgid "Save _As"
 msgstr "নতুন রূপে সংরক্ষণ (_A)"
 
-#: ../gtk/gtkstock.c:431
+#: ../bobgui/bobguistock.c:431
 msgctxt "Stock label"
 msgid "Select _All"
 msgstr "সমগ্র নির্বাচন করুন (_A)"
 
-#: ../gtk/gtkstock.c:432
+#: ../bobgui/bobguistock.c:432
 msgctxt "Stock label"
 msgid "_Color"
 msgstr "রং (_C)"
 
-#: ../gtk/gtkstock.c:433
+#: ../bobgui/bobguistock.c:433
 msgctxt "Stock label"
 msgid "_Font"
 msgstr "ফন্ট (_F)"
 
 #. Sorting direction
-#: ../gtk/gtkstock.c:435
+#: ../bobgui/bobguistock.c:435
 msgctxt "Stock label"
 msgid "_Ascending"
 msgstr "ঊর্ধ্ব ক্রমানুসারে (_A)"
 
 #. Sorting direction
-#: ../gtk/gtkstock.c:437
+#: ../bobgui/bobguistock.c:437
 msgctxt "Stock label"
 msgid "_Descending"
 msgstr "নিম্ন ক্রমানুসারে (_D)"
 
-#: ../gtk/gtkstock.c:438
+#: ../bobgui/bobguistock.c:438
 msgctxt "Stock label"
 msgid "_Spell Check"
 msgstr "বানান-পরীক্ষণ (_S)"
 
-#: ../gtk/gtkstock.c:439
+#: ../bobgui/bobguistock.c:439
 msgctxt "Stock label"
 msgid "_Stop"
 msgstr "বন্ধ করুন (_S)"
 
 #. Font variant
-#: ../gtk/gtkstock.c:441
+#: ../bobgui/bobguistock.c:441
 msgctxt "Stock label"
 msgid "_Strikethrough"
 msgstr "মধ্যরেখাঙ্কন (_S)"
 
-#: ../gtk/gtkstock.c:442
+#: ../bobgui/bobguistock.c:442
 msgctxt "Stock label"
 msgid "_Undelete"
 msgstr "পুনরুদ্ধার (_U)"
 
 #. Font variant
-#: ../gtk/gtkstock.c:444
+#: ../bobgui/bobguistock.c:444
 msgctxt "Stock label"
 msgid "_Underline"
 msgstr "নিম্নরেখাঙ্কন (_U)"
 
-#: ../gtk/gtkstock.c:445
+#: ../bobgui/bobguistock.c:445
 msgctxt "Stock label"
 msgid "_Undo"
 msgstr "পূর্বাবস্থা (_U)"
 
-#: ../gtk/gtkstock.c:446
+#: ../bobgui/bobguistock.c:446
 msgctxt "Stock label"
 msgid "_Yes"
 msgstr "হ্যাঁ (_Y)"
 
 #. Zoom
-#: ../gtk/gtkstock.c:448
+#: ../bobgui/bobguistock.c:448
 msgctxt "Stock label"
 msgid "_Normal Size"
 msgstr "স্বাভাবিক মাপ (_N)"
 
 #. Zoom
-#: ../gtk/gtkstock.c:450
+#: ../bobgui/bobguistock.c:450
 msgctxt "Stock label"
 msgid "Best _Fit"
 msgstr "সর্বোত্তম মাপ (_F)"
 
-#: ../gtk/gtkstock.c:451
+#: ../bobgui/bobguistock.c:451
 msgctxt "Stock label"
 msgid "Zoom _In"
 msgstr "বড় করে প্রদর্শন (_I)"
 
-#: ../gtk/gtkstock.c:452
+#: ../bobgui/bobguistock.c:452
 msgctxt "Stock label"
 msgid "Zoom _Out"
 msgstr "ছোট করে প্রদর্শন (_O)"
@@ -3281,238 +3281,238 @@ msgstr "ছোট করে প্রদর্শন (_O)"
 #. Translators: if the "on" state label requires more than three
 #. * glyphs then use MEDIUM VERTICAL BAR (U+2759) as the text for
 #. * the state
-#: ../gtk/gtkswitch.c:337
-#: ../gtk/gtkswitch.c:392
-#: ../gtk/gtkswitch.c:583
+#: ../bobgui/bobguiswitch.c:337
+#: ../bobgui/bobguiswitch.c:392
+#: ../bobgui/bobguiswitch.c:583
 msgctxt "switch"
 msgid "ON"
 msgstr "চালু"
 
 #. Translators: if the "off" state label requires more than three
 #. * glyphs then use WHITE CIRCLE (U+25CB) as the text for the state
-#: ../gtk/gtkswitch.c:345
-#: ../gtk/gtkswitch.c:393
-#: ../gtk/gtkswitch.c:598
+#: ../bobgui/bobguiswitch.c:345
+#: ../bobgui/bobguiswitch.c:393
+#: ../bobgui/bobguiswitch.c:598
 msgctxt "switch"
 msgid "OFF"
 msgstr "বন্ধ"
 
-#: ../gtk/gtktextbufferrichtext.c:649
+#: ../bobgui/bobguitextbufferrichtext.c:649
 #, c-format
 msgid "Unknown error when trying to deserialize %s"
 msgstr "%s ডি-সিরিয়েলাইজ করতে অজানা সমস্যা উত্‌পন্ন হয়েছে"
 
-#: ../gtk/gtktextbufferrichtext.c:708
+#: ../bobgui/bobguitextbufferrichtext.c:708
 #, c-format
 msgid "No deserialize function found for format %s"
 msgstr "%s বিন্যাসের জন্য ডি-সিরিয়েলাইজ ফাংশান পাওয়া যায়নি"
 
-#: ../gtk/gtktextbufferserialize.c:798
-#: ../gtk/gtktextbufferserialize.c:824
+#: ../bobgui/bobguitextbufferserialize.c:798
+#: ../bobgui/bobguitextbufferserialize.c:824
 #, c-format
 msgid "Both \"id\" and \"name\" were found on the <%s> element"
 msgstr "<%s> স্বত্বার মধ্যে \"id\" ও \"name\" উভয় উপস্থিত রয়েছে"
 
-#: ../gtk/gtktextbufferserialize.c:808
-#: ../gtk/gtktextbufferserialize.c:834
+#: ../bobgui/bobguitextbufferserialize.c:808
+#: ../bobgui/bobguitextbufferserialize.c:834
 #, c-format
 msgid "The attribute \"%s\" was found twice on the <%s> element"
 msgstr "\"%s\" নামক বৈশিষ্ট্য <%s> স্বত্বার মধ্যে দুইবার উপস্থিত রয়েছে"
 
-#: ../gtk/gtktextbufferserialize.c:850
+#: ../bobgui/bobguitextbufferserialize.c:850
 #, c-format
 msgid "<%s> element has invalid ID \"%s\""
 msgstr "<%s> সামগ্রীর অবৈধ ID \"%s\""
 
-#: ../gtk/gtktextbufferserialize.c:860
+#: ../bobgui/bobguitextbufferserialize.c:860
 #, c-format
 msgid "<%s> element has neither a \"name\" nor an \"id\" attribute"
 msgstr "<%s> স্বত্বার মধ্যে \"name\" ও \"id\" অনুপস্থিত"
 
-#: ../gtk/gtktextbufferserialize.c:947
+#: ../bobgui/bobguitextbufferserialize.c:947
 #, c-format
 msgid "Attribute \"%s\" repeated twice on the same <%s> element"
 msgstr "\"%s\" নামক বৈশিষ্ট্য <%s> স্বত্বার মধ্যে দুইবার উপস্থিত রয়েছে"
 
-#: ../gtk/gtktextbufferserialize.c:965
-#: ../gtk/gtktextbufferserialize.c:990
+#: ../bobgui/bobguitextbufferserialize.c:965
+#: ../bobgui/bobguitextbufferserialize.c:990
 #, c-format
 msgid "Attribute \"%s\" is invalid on <%s> element in this context"
 msgstr "এই প্রসঙ্গে \"%s\" বৈশিষ্ট্য <%s> স্বত্বার জন্য বৈধ নয়"
 
-#: ../gtk/gtktextbufferserialize.c:1029
+#: ../bobgui/bobguitextbufferserialize.c:1029
 #, c-format
 msgid "Tag \"%s\" has not been defined."
 msgstr "\"%s\" ট্যাগের ব্যাখ্যা করা হয়নি।"
 
-#: ../gtk/gtktextbufferserialize.c:1041
+#: ../bobgui/bobguitextbufferserialize.c:1041
 msgid "Anonymous tag found and tags can not be created."
 msgstr "নামবিহীন ট্যাগ সনাক্ত করা হয়েছে এবং ট্যাগ নির্মাণ করা সম্ভব নয়।"
 
-#: ../gtk/gtktextbufferserialize.c:1052
+#: ../bobgui/bobguitextbufferserialize.c:1052
 #, c-format
 msgid "Tag \"%s\" does not exist in buffer and tags can not be created."
 msgstr ""
 "\"%s\" নামক ট্যাত বাফারের মধ্যে অনুপস্থিত এবং ট্যাগ নির্মাণ করা সম্ভব নয়।"
 
-#: ../gtk/gtktextbufferserialize.c:1151
-#: ../gtk/gtktextbufferserialize.c:1226
-#: ../gtk/gtktextbufferserialize.c:1331
-#: ../gtk/gtktextbufferserialize.c:1405
+#: ../bobgui/bobguitextbufferserialize.c:1151
+#: ../bobgui/bobguitextbufferserialize.c:1226
+#: ../bobgui/bobguitextbufferserialize.c:1331
+#: ../bobgui/bobguitextbufferserialize.c:1405
 #, c-format
 msgid "Element <%s> is not allowed below <%s>"
 msgstr "<%s> স্বত্বাটি <%s>'র নীচে ব্যবহার করা যাবে না"
 
-#: ../gtk/gtktextbufferserialize.c:1182
+#: ../bobgui/bobguitextbufferserialize.c:1182
 #, c-format
 msgid "\"%s\" is not a valid attribute type"
 msgstr "\"%s\" বৈশিষ্ট্যের বৈধ ধরন নয়"
 
-#: ../gtk/gtktextbufferserialize.c:1190
+#: ../bobgui/bobguitextbufferserialize.c:1190
 #, c-format
 msgid "\"%s\" is not a valid attribute name"
 msgstr "\"%s\" বৈশিষ্ট্যের বৈধ নাম নয়"
 
-#: ../gtk/gtktextbufferserialize.c:1200
+#: ../bobgui/bobguitextbufferserialize.c:1200
 #, c-format
 msgid "\"%s\" could not be converted to a value of type \"%s\" for attribute \"%s\""
 msgstr ""
 "\"%s\" রূপান্তর করে \"%s\" ধরনের মানে পরিবর্তন করা সম্ভব হয়নি। \"%s\" "
 "অ্যাট্রিবিউটের ক্ষেত্রে"
 
-#: ../gtk/gtktextbufferserialize.c:1209
+#: ../bobgui/bobguitextbufferserialize.c:1209
 #, c-format
 msgid "\"%s\" is not a valid value for attribute \"%s\""
 msgstr "\"%s\", \"%s\" অ্যাট্রিবিউটের ক্ষেত্রে বৈধ মান নয়"
 
-#: ../gtk/gtktextbufferserialize.c:1294
+#: ../bobgui/bobguitextbufferserialize.c:1294
 #, c-format
 msgid "Tag \"%s\" already defined"
 msgstr "\"%s\" নামক ট্যাগ পূর্বে নির্ধারিত হয়েছে"
 
-#: ../gtk/gtktextbufferserialize.c:1307
+#: ../bobgui/bobguitextbufferserialize.c:1307
 #, c-format
 msgid "Tag \"%s\" has invalid priority \"%s\""
 msgstr "\"%s\" ট্যাগে অবৈধ গুরুত্বের অনুক্রম \"%s\" উপস্থিত"
 
-#: ../gtk/gtktextbufferserialize.c:1360
+#: ../bobgui/bobguitextbufferserialize.c:1360
 #, c-format
 msgid "Outermost element in text must be <text_view_markup> not <%s>"
 msgstr ""
 "টেক্সেটর সর্বাধিক বহিস্থিত প্রান্তে <text_view_markup> সত্ত্বা ব্যবহার করা "
 "আবশ্যক, <%s> নয়।"
 
-#: ../gtk/gtktextbufferserialize.c:1369
-#: ../gtk/gtktextbufferserialize.c:1385
+#: ../bobgui/bobguitextbufferserialize.c:1369
+#: ../bobgui/bobguitextbufferserialize.c:1385
 #, c-format
 msgid "A <%s> element has already been specified"
 msgstr "একটি <%s> স্বত্বা পূর্বে উল্লিখিত হয়েছে"
 
-#: ../gtk/gtktextbufferserialize.c:1391
+#: ../bobgui/bobguitextbufferserialize.c:1391
 msgid "A <text> element can't occur before a <tags> element"
 msgstr "<text> স্বত্বা <tags> স্বত্বার পূর্বে অবস্থিত হওয়া সম্ভব নয়"
 
-#: ../gtk/gtktextbufferserialize.c:1790
+#: ../bobgui/bobguitextbufferserialize.c:1790
 msgid "Serialized data is malformed"
 msgstr "সিরিয়েলাইজ করা তথ্য সঠিকরূপে গঠিত হয়নি"
 
-#: ../gtk/gtktextbufferserialize.c:1868
+#: ../bobgui/bobguitextbufferserialize.c:1868
 msgid ""
-"Serialized data is malformed. First section isn't GTKTEXTBUFFERCONTENTS-0001"
+"Serialized data is malformed. First section isn't BOBGUITEXTBUFFERCONTENTS-0001"
 msgstr ""
-"সিরিয়েলাইজ করা তথ্য সঠিকরূপে গঠিত হয়নি। প্রথম অংশ GTKTEXTBUFFERCONTENTS-0001 "
+"সিরিয়েলাইজ করা তথ্য সঠিকরূপে গঠিত হয়নি। প্রথম অংশ BOBGUITEXTBUFFERCONTENTS-0001 "
 "নয়"
 
-#: ../gtk/gtktextutil.c:58
+#: ../bobgui/bobguitextutil.c:58
 msgid "LRM _Left-to-right mark"
 msgstr "LRM বাঁদিক-থেকে-ডানদিকের চিহ্ন (_L)"
 
-#: ../gtk/gtktextutil.c:59
+#: ../bobgui/bobguitextutil.c:59
 msgid "RLM _Right-to-left mark"
 msgstr "RLM ডানরিক-থেকে-বাঁদিকের চিহ্ন (_R)"
 
-#: ../gtk/gtktextutil.c:60
+#: ../bobgui/bobguitextutil.c:60
 msgid "LRE Left-to-right _embedding"
 msgstr "LRE বাঁদিক-থেকে-ডানদিকের এমবেডিং (_e)"
 
-#: ../gtk/gtktextutil.c:61
+#: ../bobgui/bobguitextutil.c:61
 msgid "RLE Right-to-left e_mbedding"
 msgstr "RLE ডানদিক-থেকে-বাঁদিকের এমবেডিং (_m)"
 
-#: ../gtk/gtktextutil.c:62
+#: ../bobgui/bobguitextutil.c:62
 msgid "LRO Left-to-right _override"
 msgstr "LRO বাঁদিক-থেকে-ডানদিকের ওভার-রাইড (_o)"
 
-#: ../gtk/gtktextutil.c:63
+#: ../bobgui/bobguitextutil.c:63
 msgid "RLO Right-to-left o_verride"
 msgstr "RLO ডানদিক-থেকে-বাঁদিকের ওভার-রাইড (_v)"
 
-#: ../gtk/gtktextutil.c:64
+#: ../bobgui/bobguitextutil.c:64
 msgid "PDF _Pop directional formatting"
 msgstr "PDF পপ দিশার বিন্যাস (_P)"
 
-#: ../gtk/gtktextutil.c:65
+#: ../bobgui/bobguitextutil.c:65
 msgid "ZWS _Zero width space"
 msgstr "ZWS শূণ্য মাপের অন্তর্বর্তী স্থান (_Z)"
 
-#: ../gtk/gtktextutil.c:66
+#: ../bobgui/bobguitextutil.c:66
 msgid "ZWJ Zero width _joiner"
 msgstr "ZWJ শূণ্য মাপের সংযোজক (_j)"
 
-#: ../gtk/gtktextutil.c:67
+#: ../bobgui/bobguitextutil.c:67
 msgid "ZWNJ Zero width _non-joiner"
 msgstr "ZWNJ শূণ্য মাপের বিভাজক (_n)"
 
-#: ../gtk/gtkuimanager.c:1780
+#: ../bobgui/bobguiuimanager.c:1780
 #, c-format
 msgid "Unexpected start tag '%s' on line %d char %d"
 msgstr "অপ্রত্যাশিত প্রারম্ভিক ট্যাগ '%s', %d পংক্তির  %d অক্ষরে উপস্থিত"
 
 # FIXME
-#: ../gtk/gtkuimanager.c:1870
+#: ../bobgui/bobguiuimanager.c:1870
 #, c-format
 msgid "Unexpected character data on line %d char %d"
 msgstr "%d পংক্তির  %d অক্ষরে অপ্রত্যাশিত অক্ষরবিশিষ্ট তথ্য"
 
-#: ../gtk/gtkuimanager.c:2693
+#: ../bobgui/bobguiuimanager.c:2693
 msgid "Empty"
 msgstr "ফাঁকা"
 
-#: ../gtk/gtkvolumebutton.c:169
+#: ../bobgui/bobguivolumebutton.c:169
 msgid "Volume"
 msgstr "আওয়াজ"
 
-#: ../gtk/gtkvolumebutton.c:171
+#: ../bobgui/bobguivolumebutton.c:171
 msgid "Turns volume down or up"
 msgstr "আওয়াজ কম অথবা বেশি করতে ব্যবহৃত"
 
-#: ../gtk/gtkvolumebutton.c:174
+#: ../bobgui/bobguivolumebutton.c:174
 msgid "Adjusts the volume"
 msgstr "আওয়াজ পরিবর্তন করতে ব্যবহৃত"
 
-#: ../gtk/gtkvolumebutton.c:180
-#: ../gtk/gtkvolumebutton.c:183
+#: ../bobgui/bobguivolumebutton.c:180
+#: ../bobgui/bobguivolumebutton.c:183
 msgid "Volume Down"
 msgstr "আওয়াজ হ্রাস"
 
-#: ../gtk/gtkvolumebutton.c:182
+#: ../bobgui/bobguivolumebutton.c:182
 msgid "Decreases the volume"
 msgstr "আওয়াজ কম করতে ব্যবহৃত"
 
-#: ../gtk/gtkvolumebutton.c:186
-#: ../gtk/gtkvolumebutton.c:189
+#: ../bobgui/bobguivolumebutton.c:186
+#: ../bobgui/bobguivolumebutton.c:189
 msgid "Volume Up"
 msgstr "আওয়াজ বৃদ্ধি"
 
-#: ../gtk/gtkvolumebutton.c:188
+#: ../bobgui/bobguivolumebutton.c:188
 msgid "Increases the volume"
 msgstr "আওয়াজ বৃদ্ধি করতে ব্যবহৃত"
 
-#: ../gtk/gtkvolumebutton.c:246
+#: ../bobgui/bobguivolumebutton.c:246
 msgid "Muted"
 msgstr "নিঃশব্দ"
 
-#: ../gtk/gtkvolumebutton.c:250
+#: ../bobgui/bobguivolumebutton.c:250
 msgid "Full Volume"
 msgstr "সর্বাধিক আওয়াজ"
 
@@ -3520,929 +3520,929 @@ msgstr "সর্বাধিক আওয়াজ"
 #. * as used in the tooltip, eg. "49 %".
 #. * Translate the "%d" to "%Id" if you want to use localised digits,
 #. * or otherwise translate the "%d" to "%d".
-#: ../gtk/gtkvolumebutton.c:263
+#: ../bobgui/bobguivolumebutton.c:263
 #, c-format
 msgctxt "volume percentage"
 msgid "%d %%"
 msgstr "%d %%"
 
-#: ../gtk/paper_names_offsets.c:4
+#: ../bobgui/paper_names_offsets.c:4
 msgctxt "paper size"
 msgid "asme_f"
 msgstr "asme_f"
 
-#: ../gtk/paper_names_offsets.c:5
+#: ../bobgui/paper_names_offsets.c:5
 msgctxt "paper size"
 msgid "A0x2"
 msgstr "A0x2"
 
-#: ../gtk/paper_names_offsets.c:6
+#: ../bobgui/paper_names_offsets.c:6
 msgctxt "paper size"
 msgid "A0"
 msgstr "A0"
 
-#: ../gtk/paper_names_offsets.c:7
+#: ../bobgui/paper_names_offsets.c:7
 msgctxt "paper size"
 msgid "A0x3"
 msgstr "A0x3"
 
-#: ../gtk/paper_names_offsets.c:8
+#: ../bobgui/paper_names_offsets.c:8
 msgctxt "paper size"
 msgid "A1"
 msgstr "A1"
 
-#: ../gtk/paper_names_offsets.c:9
+#: ../bobgui/paper_names_offsets.c:9
 msgctxt "paper size"
 msgid "A10"
 msgstr "A10"
 
-#: ../gtk/paper_names_offsets.c:10
+#: ../bobgui/paper_names_offsets.c:10
 msgctxt "paper size"
 msgid "A1x3"
 msgstr "A1x3"
 
-#: ../gtk/paper_names_offsets.c:11
+#: ../bobgui/paper_names_offsets.c:11
 msgctxt "paper size"
 msgid "A1x4"
 msgstr "A1x4"
 
-#: ../gtk/paper_names_offsets.c:12
+#: ../bobgui/paper_names_offsets.c:12
 msgctxt "paper size"
 msgid "A2"
 msgstr "A2"
 
-#: ../gtk/paper_names_offsets.c:13
+#: ../bobgui/paper_names_offsets.c:13
 msgctxt "paper size"
 msgid "A2x3"
 msgstr "A2x3"
 
-#: ../gtk/paper_names_offsets.c:14
+#: ../bobgui/paper_names_offsets.c:14
 msgctxt "paper size"
 msgid "A2x4"
 msgstr "A2x4"
 
-#: ../gtk/paper_names_offsets.c:15
+#: ../bobgui/paper_names_offsets.c:15
 msgctxt "paper size"
 msgid "A2x5"
 msgstr "A2x5"
 
-#: ../gtk/paper_names_offsets.c:16
+#: ../bobgui/paper_names_offsets.c:16
 msgctxt "paper size"
 msgid "A3"
 msgstr "A3"
 
-#: ../gtk/paper_names_offsets.c:17
+#: ../bobgui/paper_names_offsets.c:17
 msgctxt "paper size"
 msgid "A3 Extra"
 msgstr "A3 এক্সট্রা"
 
-#: ../gtk/paper_names_offsets.c:18
+#: ../bobgui/paper_names_offsets.c:18
 msgctxt "paper size"
 msgid "A3x3"
 msgstr "A3x3"
 
-#: ../gtk/paper_names_offsets.c:19
+#: ../bobgui/paper_names_offsets.c:19
 msgctxt "paper size"
 msgid "A3x4"
 msgstr "A3x4"
 
-#: ../gtk/paper_names_offsets.c:20
+#: ../bobgui/paper_names_offsets.c:20
 msgctxt "paper size"
 msgid "A3x5"
 msgstr "A3x5"
 
-#: ../gtk/paper_names_offsets.c:21
+#: ../bobgui/paper_names_offsets.c:21
 msgctxt "paper size"
 msgid "A3x6"
 msgstr "A3x6"
 
-#: ../gtk/paper_names_offsets.c:22
+#: ../bobgui/paper_names_offsets.c:22
 msgctxt "paper size"
 msgid "A3x7"
 msgstr "A3x7"
 
-#: ../gtk/paper_names_offsets.c:23
+#: ../bobgui/paper_names_offsets.c:23
 msgctxt "paper size"
 msgid "A4"
 msgstr "A4"
 
-#: ../gtk/paper_names_offsets.c:24
+#: ../bobgui/paper_names_offsets.c:24
 msgctxt "paper size"
 msgid "A4 Extra"
 msgstr "A4 এক্সট্রা"
 
-#: ../gtk/paper_names_offsets.c:25
+#: ../bobgui/paper_names_offsets.c:25
 msgctxt "paper size"
 msgid "A4 Tab"
 msgstr "A4 ট্যাব"
 
-#: ../gtk/paper_names_offsets.c:26
+#: ../bobgui/paper_names_offsets.c:26
 msgctxt "paper size"
 msgid "A4x3"
 msgstr "A4x3"
 
-#: ../gtk/paper_names_offsets.c:27
+#: ../bobgui/paper_names_offsets.c:27
 msgctxt "paper size"
 msgid "A4x4"
 msgstr "A4x4"
 
-#: ../gtk/paper_names_offsets.c:28
+#: ../bobgui/paper_names_offsets.c:28
 msgctxt "paper size"
 msgid "A4x5"
 msgstr "A4x5"
 
-#: ../gtk/paper_names_offsets.c:29
+#: ../bobgui/paper_names_offsets.c:29
 msgctxt "paper size"
 msgid "A4x6"
 msgstr "A4x6"
 
-#: ../gtk/paper_names_offsets.c:30
+#: ../bobgui/paper_names_offsets.c:30
 msgctxt "paper size"
 msgid "A4x7"
 msgstr "A4x7"
 
-#: ../gtk/paper_names_offsets.c:31
+#: ../bobgui/paper_names_offsets.c:31
 msgctxt "paper size"
 msgid "A4x8"
 msgstr "A4x8"
 
-#: ../gtk/paper_names_offsets.c:32
+#: ../bobgui/paper_names_offsets.c:32
 msgctxt "paper size"
 msgid "A4x9"
 msgstr "A4x9"
 
-#: ../gtk/paper_names_offsets.c:33
+#: ../bobgui/paper_names_offsets.c:33
 msgctxt "paper size"
 msgid "A5"
 msgstr "A5"
 
-#: ../gtk/paper_names_offsets.c:34
+#: ../bobgui/paper_names_offsets.c:34
 msgctxt "paper size"
 msgid "A5 Extra"
 msgstr "A5 এক্সট্রা"
 
-#: ../gtk/paper_names_offsets.c:35
+#: ../bobgui/paper_names_offsets.c:35
 msgctxt "paper size"
 msgid "A6"
 msgstr "A6"
 
-#: ../gtk/paper_names_offsets.c:36
+#: ../bobgui/paper_names_offsets.c:36
 msgctxt "paper size"
 msgid "A7"
 msgstr "A7"
 
-#: ../gtk/paper_names_offsets.c:37
+#: ../bobgui/paper_names_offsets.c:37
 msgctxt "paper size"
 msgid "A8"
 msgstr "A8"
 
-#: ../gtk/paper_names_offsets.c:38
+#: ../bobgui/paper_names_offsets.c:38
 msgctxt "paper size"
 msgid "A9"
 msgstr "A9"
 
-#: ../gtk/paper_names_offsets.c:39
+#: ../bobgui/paper_names_offsets.c:39
 msgctxt "paper size"
 msgid "B0"
 msgstr "B0"
 
-#: ../gtk/paper_names_offsets.c:40
+#: ../bobgui/paper_names_offsets.c:40
 msgctxt "paper size"
 msgid "B1"
 msgstr "B1"
 
-#: ../gtk/paper_names_offsets.c:41
+#: ../bobgui/paper_names_offsets.c:41
 msgctxt "paper size"
 msgid "B10"
 msgstr "B10"
 
-#: ../gtk/paper_names_offsets.c:42
+#: ../bobgui/paper_names_offsets.c:42
 msgctxt "paper size"
 msgid "B2"
 msgstr "B2"
 
-#: ../gtk/paper_names_offsets.c:43
+#: ../bobgui/paper_names_offsets.c:43
 msgctxt "paper size"
 msgid "B3"
 msgstr "B3"
 
-#: ../gtk/paper_names_offsets.c:44
+#: ../bobgui/paper_names_offsets.c:44
 msgctxt "paper size"
 msgid "B4"
 msgstr "B4"
 
-#: ../gtk/paper_names_offsets.c:45
+#: ../bobgui/paper_names_offsets.c:45
 msgctxt "paper size"
 msgid "B5"
 msgstr "B5"
 
-#: ../gtk/paper_names_offsets.c:46
+#: ../bobgui/paper_names_offsets.c:46
 msgctxt "paper size"
 msgid "B5 Extra"
 msgstr "B5 এক্সট্রা"
 
-#: ../gtk/paper_names_offsets.c:47
+#: ../bobgui/paper_names_offsets.c:47
 msgctxt "paper size"
 msgid "B6"
 msgstr "B6"
 
-#: ../gtk/paper_names_offsets.c:48
+#: ../bobgui/paper_names_offsets.c:48
 msgctxt "paper size"
 msgid "B6/C4"
 msgstr "B6/C4"
 
-#: ../gtk/paper_names_offsets.c:49
+#: ../bobgui/paper_names_offsets.c:49
 msgctxt "paper size"
 msgid "B7"
 msgstr "B7"
 
-#: ../gtk/paper_names_offsets.c:50
+#: ../bobgui/paper_names_offsets.c:50
 msgctxt "paper size"
 msgid "B8"
 msgstr "B8"
 
-#: ../gtk/paper_names_offsets.c:51
+#: ../bobgui/paper_names_offsets.c:51
 msgctxt "paper size"
 msgid "B9"
 msgstr "B9"
 
-#: ../gtk/paper_names_offsets.c:52
+#: ../bobgui/paper_names_offsets.c:52
 msgctxt "paper size"
 msgid "C0"
 msgstr "C0"
 
-#: ../gtk/paper_names_offsets.c:53
+#: ../bobgui/paper_names_offsets.c:53
 msgctxt "paper size"
 msgid "C1"
 msgstr "C1"
 
-#: ../gtk/paper_names_offsets.c:54
+#: ../bobgui/paper_names_offsets.c:54
 msgctxt "paper size"
 msgid "C10"
 msgstr "C10"
 
-#: ../gtk/paper_names_offsets.c:55
+#: ../bobgui/paper_names_offsets.c:55
 msgctxt "paper size"
 msgid "C2"
 msgstr "C2"
 
-#: ../gtk/paper_names_offsets.c:56
+#: ../bobgui/paper_names_offsets.c:56
 msgctxt "paper size"
 msgid "C3"
 msgstr "C3"
 
-#: ../gtk/paper_names_offsets.c:57
+#: ../bobgui/paper_names_offsets.c:57
 msgctxt "paper size"
 msgid "C4"
 msgstr "C4"
 
-#: ../gtk/paper_names_offsets.c:58
+#: ../bobgui/paper_names_offsets.c:58
 msgctxt "paper size"
 msgid "C5"
 msgstr "C5"
 
-#: ../gtk/paper_names_offsets.c:59
+#: ../bobgui/paper_names_offsets.c:59
 msgctxt "paper size"
 msgid "C6"
 msgstr "C6"
 
-#: ../gtk/paper_names_offsets.c:60
+#: ../bobgui/paper_names_offsets.c:60
 msgctxt "paper size"
 msgid "C6/C5"
 msgstr "C6/C5"
 
-#: ../gtk/paper_names_offsets.c:61
+#: ../bobgui/paper_names_offsets.c:61
 msgctxt "paper size"
 msgid "C7"
 msgstr "C7"
 
-#: ../gtk/paper_names_offsets.c:62
+#: ../bobgui/paper_names_offsets.c:62
 msgctxt "paper size"
 msgid "C7/C6"
 msgstr "C7/C6"
 
-#: ../gtk/paper_names_offsets.c:63
+#: ../bobgui/paper_names_offsets.c:63
 msgctxt "paper size"
 msgid "C8"
 msgstr "C8"
 
-#: ../gtk/paper_names_offsets.c:64
+#: ../bobgui/paper_names_offsets.c:64
 msgctxt "paper size"
 msgid "C9"
 msgstr "C9"
 
-#: ../gtk/paper_names_offsets.c:65
+#: ../bobgui/paper_names_offsets.c:65
 msgctxt "paper size"
 msgid "DL Envelope"
 msgstr "DL খাম"
 
-#: ../gtk/paper_names_offsets.c:66
+#: ../bobgui/paper_names_offsets.c:66
 msgctxt "paper size"
 msgid "RA0"
 msgstr "RA0"
 
-#: ../gtk/paper_names_offsets.c:67
+#: ../bobgui/paper_names_offsets.c:67
 msgctxt "paper size"
 msgid "RA1"
 msgstr "RA1"
 
-#: ../gtk/paper_names_offsets.c:68
+#: ../bobgui/paper_names_offsets.c:68
 msgctxt "paper size"
 msgid "RA2"
 msgstr "RA2"
 
-#: ../gtk/paper_names_offsets.c:69
+#: ../bobgui/paper_names_offsets.c:69
 msgctxt "paper size"
 msgid "SRA0"
 msgstr "SRA0"
 
-#: ../gtk/paper_names_offsets.c:70
+#: ../bobgui/paper_names_offsets.c:70
 msgctxt "paper size"
 msgid "SRA1"
 msgstr "SRA1"
 
-#: ../gtk/paper_names_offsets.c:71
+#: ../bobgui/paper_names_offsets.c:71
 msgctxt "paper size"
 msgid "SRA2"
 msgstr "SRA2"
 
-#: ../gtk/paper_names_offsets.c:72
+#: ../bobgui/paper_names_offsets.c:72
 msgctxt "paper size"
 msgid "JB0"
 msgstr "JB0"
 
-#: ../gtk/paper_names_offsets.c:73
+#: ../bobgui/paper_names_offsets.c:73
 msgctxt "paper size"
 msgid "JB1"
 msgstr "JB1"
 
-#: ../gtk/paper_names_offsets.c:74
+#: ../bobgui/paper_names_offsets.c:74
 msgctxt "paper size"
 msgid "JB10"
 msgstr "JB10"
 
-#: ../gtk/paper_names_offsets.c:75
+#: ../bobgui/paper_names_offsets.c:75
 msgctxt "paper size"
 msgid "JB2"
 msgstr "JB2"
 
-#: ../gtk/paper_names_offsets.c:76
+#: ../bobgui/paper_names_offsets.c:76
 msgctxt "paper size"
 msgid "JB3"
 msgstr "JB3"
 
-#: ../gtk/paper_names_offsets.c:77
+#: ../bobgui/paper_names_offsets.c:77
 msgctxt "paper size"
 msgid "JB4"
 msgstr "JB4"
 
-#: ../gtk/paper_names_offsets.c:78
+#: ../bobgui/paper_names_offsets.c:78
 msgctxt "paper size"
 msgid "JB5"
 msgstr "JB5"
 
-#: ../gtk/paper_names_offsets.c:79
+#: ../bobgui/paper_names_offsets.c:79
 msgctxt "paper size"
 msgid "JB6"
 msgstr "JB6"
 
-#: ../gtk/paper_names_offsets.c:80
+#: ../bobgui/paper_names_offsets.c:80
 msgctxt "paper size"
 msgid "JB7"
 msgstr "JB7"
 
-#: ../gtk/paper_names_offsets.c:81
+#: ../bobgui/paper_names_offsets.c:81
 msgctxt "paper size"
 msgid "JB8"
 msgstr "JB8"
 
-#: ../gtk/paper_names_offsets.c:82
+#: ../bobgui/paper_names_offsets.c:82
 msgctxt "paper size"
 msgid "JB9"
 msgstr "JB9"
 
-#: ../gtk/paper_names_offsets.c:83
+#: ../bobgui/paper_names_offsets.c:83
 msgctxt "paper size"
 msgid "jis exec"
 msgstr "jis এক্সেক"
 
-#: ../gtk/paper_names_offsets.c:84
+#: ../bobgui/paper_names_offsets.c:84
 msgctxt "paper size"
 msgid "Choukei 2 Envelope"
 msgstr "Choukei 2 খাম"
 
-#: ../gtk/paper_names_offsets.c:85
+#: ../bobgui/paper_names_offsets.c:85
 msgctxt "paper size"
 msgid "Choukei 3 Envelope"
 msgstr "Choukei 3 খাম"
 
-#: ../gtk/paper_names_offsets.c:86
+#: ../bobgui/paper_names_offsets.c:86
 msgctxt "paper size"
 msgid "Choukei 4 Envelope"
 msgstr "Choukei 4 খাম"
 
-#: ../gtk/paper_names_offsets.c:87
+#: ../bobgui/paper_names_offsets.c:87
 msgctxt "paper size"
 msgid "hagaki (postcard)"
 msgstr "হাগাকি (পোস্টকার্ড)"
 
-#: ../gtk/paper_names_offsets.c:88
+#: ../bobgui/paper_names_offsets.c:88
 msgctxt "paper size"
 msgid "kahu Envelope"
 msgstr "kahu খাম"
 
-#: ../gtk/paper_names_offsets.c:89
+#: ../bobgui/paper_names_offsets.c:89
 msgctxt "paper size"
 msgid "kaku2 Envelope"
 msgstr "kaku2 খাম"
 
-#: ../gtk/paper_names_offsets.c:90
+#: ../bobgui/paper_names_offsets.c:90
 msgctxt "paper size"
 msgid "oufuku (reply postcard)"
 msgstr "oufuku (প্রত্যুত্তরের পোস্টকার্ড)"
 
-#: ../gtk/paper_names_offsets.c:91
+#: ../bobgui/paper_names_offsets.c:91
 msgctxt "paper size"
 msgid "you4 Envelope"
 msgstr "you4 খাম"
 
-#: ../gtk/paper_names_offsets.c:92
+#: ../bobgui/paper_names_offsets.c:92
 msgctxt "paper size"
 msgid "10x11"
 msgstr "১০x১১"
 
-#: ../gtk/paper_names_offsets.c:93
+#: ../bobgui/paper_names_offsets.c:93
 msgctxt "paper size"
 msgid "10x13"
 msgstr "১০x১৩"
 
-#: ../gtk/paper_names_offsets.c:94
+#: ../bobgui/paper_names_offsets.c:94
 msgctxt "paper size"
 msgid "10x14"
 msgstr "১০x১৪"
 
-#: ../gtk/paper_names_offsets.c:95
-#: ../gtk/paper_names_offsets.c:96
+#: ../bobgui/paper_names_offsets.c:95
+#: ../bobgui/paper_names_offsets.c:96
 msgctxt "paper size"
 msgid "10x15"
 msgstr "১০x১৫"
 
-#: ../gtk/paper_names_offsets.c:97
+#: ../bobgui/paper_names_offsets.c:97
 msgctxt "paper size"
 msgid "11x12"
 msgstr "১১x১২"
 
-#: ../gtk/paper_names_offsets.c:98
+#: ../bobgui/paper_names_offsets.c:98
 msgctxt "paper size"
 msgid "11x15"
 msgstr "১১x১৫"
 
-#: ../gtk/paper_names_offsets.c:99
+#: ../bobgui/paper_names_offsets.c:99
 msgctxt "paper size"
 msgid "12x19"
 msgstr "১২x১৯"
 
-#: ../gtk/paper_names_offsets.c:100
+#: ../bobgui/paper_names_offsets.c:100
 msgctxt "paper size"
 msgid "5x7"
 msgstr "৫x৭"
 
-#: ../gtk/paper_names_offsets.c:101
+#: ../bobgui/paper_names_offsets.c:101
 msgctxt "paper size"
 msgid "6x9 Envelope"
 msgstr "৬x৯ খাম"
 
-#: ../gtk/paper_names_offsets.c:102
+#: ../bobgui/paper_names_offsets.c:102
 msgctxt "paper size"
 msgid "7x9 Envelope"
 msgstr "৭x৯ খাম"
 
-#: ../gtk/paper_names_offsets.c:103
+#: ../bobgui/paper_names_offsets.c:103
 msgctxt "paper size"
 msgid "9x11 Envelope"
 msgstr "৯x১১ খাম"
 
-#: ../gtk/paper_names_offsets.c:104
+#: ../bobgui/paper_names_offsets.c:104
 msgctxt "paper size"
 msgid "a2 Envelope"
 msgstr "a2 খাম"
 
-#: ../gtk/paper_names_offsets.c:105
+#: ../bobgui/paper_names_offsets.c:105
 msgctxt "paper size"
 msgid "Arch A"
 msgstr "আর্চ A"
 
-#: ../gtk/paper_names_offsets.c:106
+#: ../bobgui/paper_names_offsets.c:106
 msgctxt "paper size"
 msgid "Arch B"
 msgstr "আর্চ B"
 
-#: ../gtk/paper_names_offsets.c:107
+#: ../bobgui/paper_names_offsets.c:107
 msgctxt "paper size"
 msgid "Arch C"
 msgstr "আর্চ C"
 
-#: ../gtk/paper_names_offsets.c:108
+#: ../bobgui/paper_names_offsets.c:108
 msgctxt "paper size"
 msgid "Arch D"
 msgstr "আর্চ D"
 
-#: ../gtk/paper_names_offsets.c:109
+#: ../bobgui/paper_names_offsets.c:109
 msgctxt "paper size"
 msgid "Arch E"
 msgstr "আর্চ E"
 
-#: ../gtk/paper_names_offsets.c:110
+#: ../bobgui/paper_names_offsets.c:110
 msgctxt "paper size"
 msgid "b-plus"
 msgstr "b-প্লাস"
 
-#: ../gtk/paper_names_offsets.c:111
+#: ../bobgui/paper_names_offsets.c:111
 msgctxt "paper size"
 msgid "c"
 msgstr "c"
 
-#: ../gtk/paper_names_offsets.c:112
+#: ../bobgui/paper_names_offsets.c:112
 msgctxt "paper size"
 msgid "c5 Envelope"
 msgstr "c5 খাম"
 
-#: ../gtk/paper_names_offsets.c:113
+#: ../bobgui/paper_names_offsets.c:113
 msgctxt "paper size"
 msgid "d"
 msgstr "d"
 
-#: ../gtk/paper_names_offsets.c:114
+#: ../bobgui/paper_names_offsets.c:114
 msgctxt "paper size"
 msgid "e"
 msgstr "e"
 
-#: ../gtk/paper_names_offsets.c:115
+#: ../bobgui/paper_names_offsets.c:115
 msgctxt "paper size"
 msgid "edp"
 msgstr "edp"
 
-#: ../gtk/paper_names_offsets.c:116
+#: ../bobgui/paper_names_offsets.c:116
 msgctxt "paper size"
 msgid "European edp"
 msgstr "ইউরোপিয়ান edp"
 
-#: ../gtk/paper_names_offsets.c:117
+#: ../bobgui/paper_names_offsets.c:117
 msgctxt "paper size"
 msgid "Executive"
 msgstr "এক্সেকিউটিভ"
 
-#: ../gtk/paper_names_offsets.c:118
+#: ../bobgui/paper_names_offsets.c:118
 msgctxt "paper size"
 msgid "f"
 msgstr "f"
 
-#: ../gtk/paper_names_offsets.c:119
+#: ../bobgui/paper_names_offsets.c:119
 msgctxt "paper size"
 msgid "FanFold European"
 msgstr "FanFold ইউরোপিয়ান"
 
-#: ../gtk/paper_names_offsets.c:120
+#: ../bobgui/paper_names_offsets.c:120
 msgctxt "paper size"
 msgid "FanFold US"
 msgstr "FanFold মার্কিন"
 
-#: ../gtk/paper_names_offsets.c:121
+#: ../bobgui/paper_names_offsets.c:121
 msgctxt "paper size"
 msgid "FanFold German Legal"
 msgstr "FanFold জার্মান লিগ্যাল"
 
-#: ../gtk/paper_names_offsets.c:122
+#: ../bobgui/paper_names_offsets.c:122
 msgctxt "paper size"
 msgid "Government Legal"
 msgstr "গভর্নমেন্ট লিগ্যাল"
 
-#: ../gtk/paper_names_offsets.c:123
+#: ../bobgui/paper_names_offsets.c:123
 msgctxt "paper size"
 msgid "Government Letter"
 msgstr "গভর্নমেন্ট লেটার"
 
-#: ../gtk/paper_names_offsets.c:124
+#: ../bobgui/paper_names_offsets.c:124
 msgctxt "paper size"
 msgid "Index 3x5"
 msgstr "ইন্ডেক্স ৩x৫"
 
-#: ../gtk/paper_names_offsets.c:125
+#: ../bobgui/paper_names_offsets.c:125
 msgctxt "paper size"
 msgid "Index 4x6 (postcard)"
 msgstr "ইন্ডেক্স ৪x৬ (পোস্টকার্ড)"
 
-#: ../gtk/paper_names_offsets.c:126
+#: ../bobgui/paper_names_offsets.c:126
 msgctxt "paper size"
 msgid "Index 4x6 ext"
 msgstr "ইন্ডেক্স ৪x৬ ext"
 
-#: ../gtk/paper_names_offsets.c:127
+#: ../bobgui/paper_names_offsets.c:127
 msgctxt "paper size"
 msgid "Index 5x8"
 msgstr "ইন্ডেক্স ৫x৮"
 
-#: ../gtk/paper_names_offsets.c:128
+#: ../bobgui/paper_names_offsets.c:128
 msgctxt "paper size"
 msgid "Invoice"
 msgstr "ইনভোয়েস"
 
-#: ../gtk/paper_names_offsets.c:129
+#: ../bobgui/paper_names_offsets.c:129
 msgctxt "paper size"
 msgid "Tabloid"
 msgstr "ট্যাবলয়েড"
 
-#: ../gtk/paper_names_offsets.c:130
+#: ../bobgui/paper_names_offsets.c:130
 msgctxt "paper size"
 msgid "US Legal"
 msgstr "মার্কিন লিগ্যাল"
 
-#: ../gtk/paper_names_offsets.c:131
+#: ../bobgui/paper_names_offsets.c:131
 msgctxt "paper size"
 msgid "US Legal Extra"
 msgstr "মার্কিন লিগ্যাল এক্সট্রা"
 
-#: ../gtk/paper_names_offsets.c:132
+#: ../bobgui/paper_names_offsets.c:132
 msgctxt "paper size"
 msgid "US Letter"
 msgstr "মার্কিন চিঠি"
 
-#: ../gtk/paper_names_offsets.c:133
+#: ../bobgui/paper_names_offsets.c:133
 msgctxt "paper size"
 msgid "US Letter Extra"
 msgstr "মার্কিন চিঠি এক্সট্রা"
 
-#: ../gtk/paper_names_offsets.c:134
+#: ../bobgui/paper_names_offsets.c:134
 msgctxt "paper size"
 msgid "US Letter Plus"
 msgstr "মার্কিন চিঠি প্লাস"
 
-#: ../gtk/paper_names_offsets.c:135
+#: ../bobgui/paper_names_offsets.c:135
 msgctxt "paper size"
 msgid "Monarch Envelope"
 msgstr "মোনার্ক খাম"
 
-#: ../gtk/paper_names_offsets.c:136
+#: ../bobgui/paper_names_offsets.c:136
 msgctxt "paper size"
 msgid "#10 Envelope"
 msgstr "#10 খাম"
 
-#: ../gtk/paper_names_offsets.c:137
+#: ../bobgui/paper_names_offsets.c:137
 msgctxt "paper size"
 msgid "#11 Envelope"
 msgstr "#11 খাম"
 
-#: ../gtk/paper_names_offsets.c:138
+#: ../bobgui/paper_names_offsets.c:138
 msgctxt "paper size"
 msgid "#12 Envelope"
 msgstr "#12 খাম"
 
-#: ../gtk/paper_names_offsets.c:139
+#: ../bobgui/paper_names_offsets.c:139
 msgctxt "paper size"
 msgid "#14 Envelope"
 msgstr "#14 খাম"
 
-#: ../gtk/paper_names_offsets.c:140
+#: ../bobgui/paper_names_offsets.c:140
 msgctxt "paper size"
 msgid "#9 Envelope"
 msgstr "#9 খাম"
 
-#: ../gtk/paper_names_offsets.c:141
+#: ../bobgui/paper_names_offsets.c:141
 msgctxt "paper size"
 msgid "Personal Envelope"
 msgstr "ব্যক্তিগত খাম"
 
-#: ../gtk/paper_names_offsets.c:142
+#: ../bobgui/paper_names_offsets.c:142
 msgctxt "paper size"
 msgid "Quarto"
 msgstr "কোয়ার্টো"
 
-#: ../gtk/paper_names_offsets.c:143
+#: ../bobgui/paper_names_offsets.c:143
 msgctxt "paper size"
 msgid "Super A"
 msgstr "সুপার A"
 
-#: ../gtk/paper_names_offsets.c:144
+#: ../bobgui/paper_names_offsets.c:144
 msgctxt "paper size"
 msgid "Super B"
 msgstr "সুপার B"
 
-#: ../gtk/paper_names_offsets.c:145
+#: ../bobgui/paper_names_offsets.c:145
 msgctxt "paper size"
 msgid "Wide Format"
 msgstr "প্রসারিত বিন্যাস"
 
-#: ../gtk/paper_names_offsets.c:146
+#: ../bobgui/paper_names_offsets.c:146
 msgctxt "paper size"
 msgid "Dai-pa-kai"
 msgstr "Dai-pa-kai"
 
-#: ../gtk/paper_names_offsets.c:147
+#: ../bobgui/paper_names_offsets.c:147
 msgctxt "paper size"
 msgid "Folio"
 msgstr "ফোলিও"
 
-#: ../gtk/paper_names_offsets.c:148
+#: ../bobgui/paper_names_offsets.c:148
 msgctxt "paper size"
 msgid "Folio sp"
 msgstr "ফোলিও sp"
 
-#: ../gtk/paper_names_offsets.c:149
+#: ../bobgui/paper_names_offsets.c:149
 msgctxt "paper size"
 msgid "Invite Envelope"
 msgstr "নিমন্ত্রণপত্রের খাম"
 
-#: ../gtk/paper_names_offsets.c:150
+#: ../bobgui/paper_names_offsets.c:150
 msgctxt "paper size"
 msgid "Italian Envelope"
 msgstr "ইটালিয়ান খাম"
 
-#: ../gtk/paper_names_offsets.c:151
+#: ../bobgui/paper_names_offsets.c:151
 msgctxt "paper size"
 msgid "juuro-ku-kai"
 msgstr "juuro-ku-kai"
 
-#: ../gtk/paper_names_offsets.c:152
+#: ../bobgui/paper_names_offsets.c:152
 msgctxt "paper size"
 msgid "pa-kai"
 msgstr "pa-kai"
 
-#: ../gtk/paper_names_offsets.c:153
+#: ../bobgui/paper_names_offsets.c:153
 msgctxt "paper size"
 msgid "Postfix Envelope"
 msgstr "পোস্ট-ফিক্স খাম"
 
-#: ../gtk/paper_names_offsets.c:154
+#: ../bobgui/paper_names_offsets.c:154
 msgctxt "paper size"
 msgid "Small Photo"
 msgstr "ছোট আকারের ছবি"
 
-#: ../gtk/paper_names_offsets.c:155
+#: ../bobgui/paper_names_offsets.c:155
 msgctxt "paper size"
 msgid "prc1 Envelope"
 msgstr "prc1 খাম"
 
-#: ../gtk/paper_names_offsets.c:156
+#: ../bobgui/paper_names_offsets.c:156
 msgctxt "paper size"
 msgid "prc10 Envelope"
 msgstr "prc10 খাম"
 
-#: ../gtk/paper_names_offsets.c:157
+#: ../bobgui/paper_names_offsets.c:157
 msgctxt "paper size"
 msgid "prc 16k"
 msgstr "prc 16k"
 
-#: ../gtk/paper_names_offsets.c:158
+#: ../bobgui/paper_names_offsets.c:158
 msgctxt "paper size"
 msgid "prc2 Envelope"
 msgstr "prc2 খাম"
 
-#: ../gtk/paper_names_offsets.c:159
+#: ../bobgui/paper_names_offsets.c:159
 msgctxt "paper size"
 msgid "prc3 Envelope"
 msgstr "prc3 খাম"
 
-#: ../gtk/paper_names_offsets.c:160
+#: ../bobgui/paper_names_offsets.c:160
 msgctxt "paper size"
 msgid "prc 32k"
 msgstr "prc 32k"
 
-#: ../gtk/paper_names_offsets.c:161
+#: ../bobgui/paper_names_offsets.c:161
 msgctxt "paper size"
 msgid "prc4 Envelope"
 msgstr "prc4 খাম"
 
-#: ../gtk/paper_names_offsets.c:162
+#: ../bobgui/paper_names_offsets.c:162
 msgctxt "paper size"
 msgid "prc5 Envelope"
 msgstr "prc5 খাম"
 
-#: ../gtk/paper_names_offsets.c:163
+#: ../bobgui/paper_names_offsets.c:163
 msgctxt "paper size"
 msgid "prc6 Envelope"
 msgstr "prc6 খাম"
 
-#: ../gtk/paper_names_offsets.c:164
+#: ../bobgui/paper_names_offsets.c:164
 msgctxt "paper size"
 msgid "prc7 Envelope"
 msgstr "prc7 খাম"
 
-#: ../gtk/paper_names_offsets.c:165
+#: ../bobgui/paper_names_offsets.c:165
 msgctxt "paper size"
 msgid "prc8 Envelope"
 msgstr "prc8 খাম"
 
-#: ../gtk/paper_names_offsets.c:166
+#: ../bobgui/paper_names_offsets.c:166
 msgctxt "paper size"
 msgid "prc9 Envelope"
 msgstr "prc9 খাম"
 
-#: ../gtk/paper_names_offsets.c:167
+#: ../bobgui/paper_names_offsets.c:167
 msgctxt "paper size"
 msgid "ROC 16k"
 msgstr "ROC 16k"
 
-#: ../gtk/paper_names_offsets.c:168
+#: ../bobgui/paper_names_offsets.c:168
 msgctxt "paper size"
 msgid "ROC 8k"
 msgstr "ROC 8k"
 
-#: ../gtk/updateiconcache.c:1386
+#: ../bobgui/updateiconcache.c:1386
 #, c-format
 msgid "Failed to write header\n"
 msgstr "হেডার লিখতে ব্যর্থ\n"
 
-#: ../gtk/updateiconcache.c:1392
+#: ../bobgui/updateiconcache.c:1392
 #, c-format
 msgid "Failed to write hash table\n"
 msgstr "হ্যাশ টেবিল লিখতে ব্যর্থ\n"
 
-#: ../gtk/updateiconcache.c:1398
+#: ../bobgui/updateiconcache.c:1398
 #, c-format
 msgid "Failed to write folder index\n"
 msgstr "ফোল্ডার ইন্ডেক্স লিখতে ব্যর্থ\n"
 
-#: ../gtk/updateiconcache.c:1406
+#: ../bobgui/updateiconcache.c:1406
 #, c-format
 msgid "Failed to rewrite header\n"
 msgstr "হেডার পুনরায় লিখতে ব্যর্থ\n"
 
-#: ../gtk/updateiconcache.c:1500
+#: ../bobgui/updateiconcache.c:1500
 #, c-format
 msgid "Failed to open file %s : %s\n"
 msgstr "%s ফাইল খুলতে ব্যর্থ : %s\n"
 
-#: ../gtk/updateiconcache.c:1508
-#: ../gtk/updateiconcache.c:1538
+#: ../bobgui/updateiconcache.c:1508
+#: ../bobgui/updateiconcache.c:1538
 #, c-format
 msgid "Failed to write cache file: %s\n"
 msgstr "ক্যাশে ফাইল লিখতে ব্যর্থ: %s\n"
 
-#: ../gtk/updateiconcache.c:1548
+#: ../bobgui/updateiconcache.c:1548
 #, c-format
 msgid "The generated cache was invalid.\n"
 msgstr "নির্মিত ক্যাশে বৈধ নয়।\n"
 
-#: ../gtk/updateiconcache.c:1562
+#: ../bobgui/updateiconcache.c:1562
 #, c-format
 msgid "Could not rename %s to %s: %s, removing %s then.\n"
 msgstr "%s'র নাম %s'এ পরিবর্তন করতে ব্যর্থ: %s, %s মুছে ফেলা হচ্ছে।\n"
 
-#: ../gtk/updateiconcache.c:1576
+#: ../bobgui/updateiconcache.c:1576
 #, c-format
 msgid "Could not rename %s to %s: %s\n"
 msgstr "%s'র নাম %s'এ পরিবর্তন করতে ব্যর্থ: %s\n"
 
-#: ../gtk/updateiconcache.c:1586
+#: ../bobgui/updateiconcache.c:1586
 #, c-format
 msgid "Could not rename %s back to %s: %s.\n"
 msgstr "%s-র নাম %s-এ প্রত্যাবর্তন করতে ব্যর্থ: %s।\n"
 
-#: ../gtk/updateiconcache.c:1613
+#: ../bobgui/updateiconcache.c:1613
 #, c-format
 msgid "Cache file created successfully.\n"
 msgstr "ক্যাশে ফাইল সাফল্যের সাথে নির্মিত হয়েছে।\n"
 
-#: ../gtk/updateiconcache.c:1652
+#: ../bobgui/updateiconcache.c:1652
 msgid "Overwrite an existing cache, even if up to date"
 msgstr "সাম্প্রতিক তথ্য ধারণ করলেও, উপস্থিত ক্যাশে মুছে নতুন করে লিখুন।"
 
-#: ../gtk/updateiconcache.c:1653
+#: ../bobgui/updateiconcache.c:1653
 msgid "Don't check for the existence of index.theme"
 msgstr "index.theme'র উপস্থিতি পরীক্ষা করা হবে না"
 
-#: ../gtk/updateiconcache.c:1654
+#: ../bobgui/updateiconcache.c:1654
 msgid "Don't include image data in the cache"
 msgstr "ক্যাশের মধ্যে ছবির তথ্য অন্তর্ভুক্ত করা হবে না"
 
-#: ../gtk/updateiconcache.c:1655
+#: ../bobgui/updateiconcache.c:1655
 msgid "Output a C header file"
 msgstr "একটি C হেডার ফাইল প্রস্তুত করা হবে"
 
-#: ../gtk/updateiconcache.c:1656
+#: ../bobgui/updateiconcache.c:1656
 msgid "Turn off verbose output"
 msgstr "ভারবোস আউটপুট বন্ধ করা হবে"
 
-#: ../gtk/updateiconcache.c:1657
+#: ../bobgui/updateiconcache.c:1657
 msgid "Validate existing icon cache"
 msgstr "উপস্থিত আইকন ক্যাশে পরীক্ষা করুন"
 
-#: ../gtk/updateiconcache.c:1724
+#: ../bobgui/updateiconcache.c:1724
 #, c-format
 msgid "File not found: %s\n"
 msgstr "ফাইল পাওয়া যায়নি: %s\n"
 
-#: ../gtk/updateiconcache.c:1730
+#: ../bobgui/updateiconcache.c:1730
 #, c-format
 msgid "Not a valid icon cache: %s\n"
 msgstr "বৈধ আইকন ক্যাশে নয়: %s\n"
 
-#: ../gtk/updateiconcache.c:1743
+#: ../bobgui/updateiconcache.c:1743
 #, c-format
 msgid "No theme index file.\n"
 msgstr "কোনো থিম ইন্ডেক্স ফাইল উপস্থিত নেই।\n"
 
-#: ../gtk/updateiconcache.c:1747
+#: ../bobgui/updateiconcache.c:1747
 #, c-format
 msgid ""
 "No theme index file in '%s'.\n"
@@ -4507,446 +4507,446 @@ msgstr "ভিয়েতনামিস (VIQR)"
 msgid "X Input Method"
 msgstr "X ইনপুট পদ্ধতি"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1004
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1219
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1004
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1219
 msgid "Username:"
 msgstr "ব্যবহারকারীর নাম:"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1005
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1228
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1005
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1228
 msgid "Password:"
 msgstr "পাসওয়ার্ড:"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1044
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1241
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1044
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1241
 #, c-format
 msgid "Authentication is required to print document '%s' on printer %s"
 msgstr ""
 "'%s' নথিটি %s প্রিন্টারের মধ্যে প্রিন্ট করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1046
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1046
 #, c-format
 msgid "Authentication is required to print a document on %s"
 msgstr "%s-র মধ্যে নথিপত্র প্রিন্ট করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1050
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1050
 #, c-format
 msgid "Authentication is required to get attributes of job '%s'"
 msgstr "'%s' কর্মের বৈশিষ্ট্য প্রাপ্ত করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1052
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1052
 msgid "Authentication is required to get attributes of a job"
 msgstr "কর্মের বৈশিষ্ট্য প্রাপ্ত করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1056
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1056
 #, c-format
 msgid "Authentication is required to get attributes of printer %s"
 msgstr "'%s' প্রিন্টারের বৈশিষ্ট্য প্রাপ্ত করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1058
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1058
 msgid "Authentication is required to get attributes of a printer"
 msgstr "প্রিন্টারের বৈশিষ্ট্য প্রাপ্ত করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1061
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1061
 #, c-format
 msgid "Authentication is required to get default printer of %s"
 msgstr ""
 "%s-র ডিফল্ট প্রিন্টার সংক্রান্ত তথ্য প্রাপ্ত করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1064
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1064
 #, c-format
 msgid "Authentication is required to get printers from %s"
 msgstr "%s-র প্রিন্টার সংক্রান্ত তথ্য প্রাপ্ত করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1069
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1069
 #, c-format
 msgid "Authentication is required to get a file from %s"
 msgstr "%s থেকে ফাইল প্রাপ্ত করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1071
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1071
 #, c-format
 msgid "Authentication is required on %s"
 msgstr "%s-র ক্ষেত্রে অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1213
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1213
 msgid "Domain:"
 msgstr "ডোমেইন:"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1243
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1243
 #, c-format
 msgid "Authentication is required to print document '%s'"
 msgstr "'%s' নথিটি প্রিন্ট করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1248
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1248
 #, c-format
 msgid "Authentication is required to print this document on printer %s"
 msgstr "%s প্রিন্টারের মধ্যে এই নথিটি প্রিন্ট করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1250
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1250
 msgid "Authentication is required to print this document"
 msgstr "এই নথিটি প্রিন্ট করার জন্য অনুমোদিত হওয়া আবশ্যক"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1812
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1812
 #, c-format
 msgid "Printer '%s' is low on toner."
 msgstr "'%s' প্রিন্টারে টোনারের মাত্রা হ্রাস হয়েছে।"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1813
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1813
 #, c-format
 msgid "Printer '%s' has no toner left."
 msgstr "'%s' প্রিন্টারে টোনার শেষ হয়ে গেছে।"
 
 #. Translators: "Developer" like on photo development context
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1815
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1815
 #, c-format
 msgid "Printer '%s' is low on developer."
 msgstr "'%s' প্রিন্টারে ডিভেলপর সামগ্রীর মাত্রা হ্রাস হয়েছে।"
 
 #. Translators: "Developer" like on photo development context
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1817
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1817
 #, c-format
 msgid "Printer '%s' is out of developer."
 msgstr "'%s' প্রিন্টারে ডিভেলপর সামগ্রী শেষ হয়ে গেছে।"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1819
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1819
 #, c-format
 msgid "Printer '%s' is low on at least one marker supply."
 msgstr ""
 "'%s' প্রিন্টারে অন্তত একটি মার্কার ধারণস্থলের সামগ্রীর মাত্রা হ্রাস হয়েছে।"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1821
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1821
 #, c-format
 msgid "Printer '%s' is out of at least one marker supply."
 msgstr "'%s' প্রিন্টারে অন্তত একটি মার্কার ধারণস্থলের সামগ্রী শেষ হয়ে গেছে।"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1822
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1822
 #, c-format
 msgid "The cover is open on printer '%s'."
 msgstr "'%s' প্রিন্টারের ঢাকনা খোলা।"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1823
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1823
 #, c-format
 msgid "The door is open on printer '%s'."
 msgstr "'%s' প্রিন্টারের দরজা খোলা।"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1824
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1824
 #, c-format
 msgid "Printer '%s' is low on paper."
 msgstr "'%s' প্রিন্টারে কাগজের পরিমাণ হ্রাস হয়েছে।"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1825
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1825
 #, c-format
 msgid "Printer '%s' is out of paper."
 msgstr "'%s' প্রিন্টারে কাগজ শেষ হয়েছে।"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1826
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1826
 #, c-format
 msgid "Printer '%s' is currently offline."
 msgstr "প্রিন্টার '%s' বর্তমান অফলাইন অবস্থায় রয়েছে।"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:1827
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:1827
 #, c-format
 msgid "There is a problem on printer '%s'."
 msgstr "'%s' প্রিন্টারে কিছু সমস্যা দেখা দিয়েছে।"
 
 #. Translators: this is a printer status.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2285
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2285
 msgid "Paused; Rejecting Jobs"
 msgstr "স্থগিত ; কাজ প্রত্যাখ্যান করা হচ্ছে"
 
 #. Translators: this is a printer status.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2291
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2291
 msgid "Rejecting Jobs"
 msgstr "কাজ প্রত্যাখ্যান করা হচ্ছে"
 
 #. Translators: this string connects multiple printer states together.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:2333
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:2333
 msgid "; "
 msgstr "; "
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3857
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3857
 msgid "Two Sided"
 msgstr "উভয়পৃষ্ঠ"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3858
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3858
 msgid "Paper Type"
 msgstr "কাগজের ধরন"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3859
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3859
 msgid "Paper Source"
 msgstr "কাগজের সংগ্রহস্থল"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3860
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3860
 msgid "Output Tray"
 msgstr "আউটপুট-ট্রে"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3861
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3861
 msgid "Resolution"
 msgstr "রেসলোলিউশন"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3862
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3862
 msgid "GhostScript pre-filtering"
 msgstr "GhostScript প্রি-ফিল্টারিং"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3871
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3871
 msgid "One Sided"
 msgstr "এক পৃষ্ঠ"
 
 #. Translators: this is an option of "Two Sided"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3873
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3873
 msgid "Long Edge (Standard)"
 msgstr "দীর্ঘ প্রান্ত (প্রমিত মান)"
 
 #. Translators: this is an option of "Two Sided"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3875
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3875
 msgid "Short Edge (Flip)"
 msgstr "ক্ষুদ্র প্রান্ত (উলট)"
 
 #. Translators: this is an option of "Paper Source"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3877
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3879
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3887
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3877
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3879
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3887
 msgid "Auto Select"
 msgstr "স্বয়ংক্রিয় নির্বাচন"
 
 #. Translators: this is an option of "Paper Source"
 #. Translators: this is an option of "Resolution"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3881
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3883
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3885
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3889
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4377
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3881
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3883
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3885
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3889
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4377
 msgid "Printer Default"
 msgstr "প্রিন্টারের ডিফল্ট মান"
 
 #. Translators: this is an option of "GhostScript"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3891
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3891
 msgid "Embed GhostScript fonts only"
 msgstr "শুধুমাত্র GhostScript ফন্ট এমবেড করা হবে"
 
 #. Translators: this is an option of "GhostScript"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3893
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3893
 msgid "Convert to PS level 1"
 msgstr "PS লেভেল ১-এ রূপান্তর করা হবে"
 
 #. Translators: this is an option of "GhostScript"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3895
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3895
 msgid "Convert to PS level 2"
 msgstr "PS লেভেল ২-এ রূপান্তর করা হবে"
 
 #. Translators: this is an option of "GhostScript"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3897
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3897
 msgid "No pre-filtering"
 msgstr "প্রি-ফিল্টারিং বিহীন"
 
 #. Translators: "Miscellaneous" is the label for a button, that opens
 #. up an extra panel of settings in a print dialog.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:3906
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:3906
 msgid "Miscellaneous"
 msgstr "বিবিধ বৈশিষ্ট্য"
 
 #. Translators: These strings name the possible values of the
 #. * job priority option in the print dialog
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4629
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4629
 msgid "Urgent"
 msgstr "জরুরী"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4629
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4629
 msgid "High"
 msgstr "উচ্চ"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4629
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4629
 msgid "Medium"
 msgstr "মাঝারি"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4629
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4629
 msgid "Low"
 msgstr "নিম্ন"
 
 #. Translators, this string is used to label the job priority option
 #. * in the print dialog
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4659
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4659
 msgid "Job Priority"
 msgstr "কাজের গুরুত্ব"
 
 #. Translators, this string is used to label the billing info entry
 #. * in the print dialog
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4670
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4670
 msgid "Billing Info"
 msgstr "বিল সংক্রান্ত তথ্য"
 
 #. Translators, these strings are names for various 'standard' cover
 #. * pages that the printing system may support.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4685
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4685
 msgid "None"
 msgstr "(শূণ্য)"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4685
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4685
 msgid "Classified"
 msgstr "শ্রেণীবদ্ধ"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4685
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4685
 msgid "Confidential"
 msgstr "গোপনীয়"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4685
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4685
 msgid "Secret"
 msgstr "গোপনীয়"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4685
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4685
 msgid "Standard"
 msgstr "প্রমিত মান"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4685
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4685
 msgid "Top Secret"
 msgstr "অতিমাত্রায় গোপনীয়"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4685
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4685
 msgid "Unclassified"
 msgstr "শ্রেণীবিহীন"
 
 #. Translators, this string is used to label the pages-per-sheet option
 #. * in the print dialog
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4696
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4696
 msgid "Pages per Sheet"
 msgstr "প্রতি পাতায় পৃষ্ঠা সংখ্যা"
 
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the front cover page.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4756
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4756
 msgid "Before"
 msgstr "প্রচ্ছদ"
 
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the back cover page.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4771
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4771
 msgid "After"
 msgstr "অন্তিম পৃষ্ঠ"
 
 #. Translators: this is the name of the option that controls when
 #. * a print job is printed. Possible values are 'now', a specified time,
 #. * or 'on hold'
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4791
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4791
 msgid "Print at"
 msgstr "প্রিন্ট করা হবে"
 
 #. Translators: this is the name of the option that allows the user
 #. * to specify a time when a print job will be printed.
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4802
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4802
 msgid "Print at time"
 msgstr "চিহ্নিত সময়ে প্রিন্ট করা হবে"
 
 #. Translators: this format is used to display a custom paper
 #. * size. The two placeholders are replaced with the width and height
 #. * in points. E.g: "Custom 230.4x142.9"
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4837
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4837
 #, c-format
 msgid "Custom %sx%s"
 msgstr "স্বনির্ধারিত %sx%s"
 
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4918
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4918
 msgid "Printer Profile"
 msgstr "প্রিন্টারের প্রোফাইল"
 
 #. TRANSLATORS: this is when color profile information is unavailable
-#: ../modules/printbackends/cups/gtkprintbackendcups.c:4925
+#: ../modules/printbackends/cups/bobguiprintbackendcups.c:4925
 msgid "Unavailable"
 msgstr "উপলব্ধ নেই"
 
 #. TRANSLATORS: when we're running an old CUPS, and
 #. * it hasn't registered the device with colord
-#: ../modules/printbackends/cups/gtkprintercups.c:241
+#: ../modules/printbackends/cups/bobguiprintercups.c:241
 msgid "Color management unavailable"
 msgstr "রং পরিচালনা ব্যবস্থা অনুপস্থিত"
 
 #. TRANSLATORS: when there is no color profile available
-#: ../modules/printbackends/cups/gtkprintercups.c:253
+#: ../modules/printbackends/cups/bobguiprintercups.c:253
 msgid "No profile available"
 msgstr "কোনো প্রোফাইল উপলব্ধ নেই"
 
 #. TRANSLATORS: when the color profile has no title
-#: ../modules/printbackends/cups/gtkprintercups.c:264
+#: ../modules/printbackends/cups/bobguiprintercups.c:264
 msgid "Unspecified profile"
 msgstr "অনির্ধারিত প্রোফাইল"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:249
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:249
 msgid "output"
 msgstr "আউটপুট"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:527
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:527
 msgid "Print to File"
 msgstr "ফাইলে প্রিন্ট করুন"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:653
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:653
 msgid "PDF"
 msgstr "PDF"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:653
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:653
 msgid "Postscript"
 msgstr "Postscript"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:653
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:653
 msgid "SVG"
 msgstr "SVG"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:666
-#: ../modules/printbackends/test/gtkprintbackendtest.c:501
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:666
+#: ../modules/printbackends/test/bobguiprintbackendtest.c:501
 msgid "Pages per _sheet:"
 msgstr "প্রতি পাতায় পৃষ্ঠার সংখ্যা:(_s)"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:725
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:725
 msgid "File"
 msgstr "ফাইল"
 
-#: ../modules/printbackends/file/gtkprintbackendfile.c:735
+#: ../modules/printbackends/file/bobguiprintbackendfile.c:735
 msgid "_Output format"
 msgstr "আউটপুটের বিন্যাস (_O)"
 
-#: ../modules/printbackends/lpr/gtkprintbackendlpr.c:393
+#: ../modules/printbackends/lpr/bobguiprintbackendlpr.c:393
 msgid "Print to LPR"
 msgstr "LPR'এ প্রিন্ট করা হবে"
 
-#: ../modules/printbackends/lpr/gtkprintbackendlpr.c:419
+#: ../modules/printbackends/lpr/bobguiprintbackendlpr.c:419
 msgid "Pages Per Sheet"
 msgstr "প্রতি পাতায় পৃষ্ঠা সংখ্যা"
 
-#: ../modules/printbackends/lpr/gtkprintbackendlpr.c:426
+#: ../modules/printbackends/lpr/bobguiprintbackendlpr.c:426
 msgid "Command Line"
 msgstr "কমান্ড-লাইন"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:809
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:809
 msgid "printer offline"
 msgstr "প্রিন্টার অফলাইন অবস্থায়"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:827
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:827
 msgid "ready to print"
 msgstr "প্রিন্টের প্রস্তুতি চলছে"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:830
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:830
 msgid "processing job"
 msgstr "কর্ম প্রক্রিয়াকরণ চলছে"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:834
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:834
 msgid "paused"
 msgstr "স্থগিত"
 
 #. SUN_BRANDING
-#: ../modules/printbackends/papi/gtkprintbackendpapi.c:837
+#: ../modules/printbackends/papi/bobguiprintbackendpapi.c:837
 msgid "unknown"
 msgstr "অজানা"
 
 #. default filename used for print-to-test
-#: ../modules/printbackends/test/gtkprintbackendtest.c:232
+#: ../modules/printbackends/test/bobguiprintbackendtest.c:232
 #, c-format
 msgid "test-output.%s"
 msgstr "test-output.%s"
 
-#: ../modules/printbackends/test/gtkprintbackendtest.c:465
+#: ../modules/printbackends/test/bobguiprintbackendtest.c:465
 msgid "Print to Test Printer"
 msgstr "পরীক্ষামূলক প্রিন্টারে প্রিন্ট করুন"

@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/. 
  */
 
 #include "config.h"
@@ -44,7 +44,7 @@
 
 #include <fribidi.h>
 
-/* GTK has a general architectural assumption that gsize is pointer-sized
+/* BOBGUI has a general architectural assumption that gsize is pointer-sized
  * (equivalent to uintptr_t), making it non-portable to architectures like
  * CHERI where that isn't true. If a future release relaxes that
  * assumption, changes will be needed in numerous places.

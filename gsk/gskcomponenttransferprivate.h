@@ -22,8 +22,8 @@
 
 #include "gskcomponenttransfer.h"
 
-#include <gtk/css/gtkcss.h>
-#include "gtk/css/gtkcssparserprivate.h"
+#include <bobgui/css/bobguicss.h>
+#include "bobgui/css/bobguicssparserprivate.h"
 
 
 G_BEGIN_DECLS
@@ -154,7 +154,7 @@ gsk_component_transfer_apply (const GskComponentTransfer *self,
 void gsk_component_transfer_print (const GskComponentTransfer *self,
                                    GString                    *str);
 
-gboolean gsk_component_transfer_parser_parse (GtkCssParser          *parser,
+gboolean gsk_component_transfer_parser_parse (BobguiCssParser          *parser,
                                               GskComponentTransfer **out);
 
 G_END_DECLS

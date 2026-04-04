@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if !defined (__GDKWIN32_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKWIN32_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdkwin32.h> can be included directly."
 #endif
 
@@ -32,7 +32,7 @@ G_BEGIN_DECLS
 #define GDK_IS_WIN32_DRAG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_WIN32_DRAG))
 #define GDK_WIN32_DRAG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_WIN32_DRAG, GdkWin32DragClass))
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkWin32Drag GdkWin32Drag;
 #else
 typedef GdkDrag GdkWin32Drag;

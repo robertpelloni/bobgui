@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkBox" id="box">
+      <object class="BobguiBox" id="box">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox" id="box0">
+          <object class="BobguiBox" id="box0">
             <property name="spacing">20</property>
             <child>
-              <object class="GtkLabel" id="one">
+              <object class="BobguiLabel" id="one">
                 <property name="label">One</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="two">
+              <object class="BobguiLabel" id="two">
                 <property name="label">Two</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="three">
+              <object class="BobguiLabel" id="three">
                 <property name="label">Three</property>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box1">
+          <object class="BobguiBox" id="box1">
             <property name="homogeneous">1</property>
             <child>
-              <object class="GtkLabel" id="long">
+              <object class="BobguiLabel" id="long">
                 <property name="label">Verylongtext</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="short">
+              <object class="BobguiLabel" id="short">
                 <property name="label">Short</property>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box2">
+          <object class="BobguiBox" id="box2">
             <child>
-              <object class="GtkLabel" id="a">
+              <object class="BobguiLabel" id="a">
                 <property name="label">A</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="b">
+              <object class="BobguiLabel" id="b">
                 <property name="label">B</property>
                 <property name="hexpand">1</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="c">
+              <object class="BobguiLabel" id="c">
                 <property name="label">C</property>
               </object>
             </child>

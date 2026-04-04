@@ -1,4 +1,4 @@
-/* GTK - The GIMP Toolkit
+/* BOBGUI - The GIMP Toolkit
  * Copyright (C) 2010 Red Hat, Inc.
  * Author: Matthias Clasen
  *
@@ -18,7 +18,7 @@
 
 
 #include <X11/Xlib.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "x11/gdkx.h"
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -136,7 +136,7 @@ main (int argc, char *argv[])
   GdkDisplay *gdk_display;
   GdkDisplay *extra_display;
 
-  gtk_init ();
+  bobgui_init ();
 
   gdk_display = gdk_display_get_default ();
   test_error_trapping (gdk_display);

@@ -79,11 +79,11 @@
 #include "gdk/gdkmemorytextureprivate.h"
 #include "gdk/gdkrgbaprivate.h"
 #include "gdk/gdktextureprivate.h"
-#include <gtk/css/gtkcss.h>
-#include "gtk/css/gtkcssdataurlprivate.h"
-#include "gtk/css/gtkcssparserprivate.h"
-#include "gtk/css/gtkcssserializerprivate.h"
-#include "gtk/gtkpopcountprivate.h"
+#include <bobgui/css/bobguicss.h>
+#include "bobgui/css/bobguicssdataurlprivate.h"
+#include "bobgui/css/bobguicssparserprivate.h"
+#include "bobgui/css/bobguicssserializerprivate.h"
+#include "bobgui/bobguipopcountprivate.h"
 
 #ifdef GDK_WINDOWING_WIN32
 #include "gdk/win32/gdkd3d12texturebuilder.h"
@@ -129,7 +129,7 @@ typedef struct _Declaration Declaration;
 struct _Declaration
 {
   const char *name;
-  gboolean (* parse_func) (GtkCssParser *parser, Context *context, gpointer result);
+  gboolean (* parse_func) (BobguiCssParser *parser, Context *context, gpointer result);
   void (* clear_func) (gpointer data);
   gpointer result;
 };
@@ -150,7 +150,7 @@ context_finish (Context *context)
 }
 
 static guint
-parse_declarations (GtkCssParser      *parser,
+parse_declarations (BobguiCssParser      *parser,
                     Context           *context,
                     const Declaration *declarations,
                     guint              n_declarations)
@@ -160,26 +160,26 @@ parse_declarations (GtkCssParser      *parser,
 
   g_assert (n_declarations < 8 * sizeof (guint));
 
-  while (!gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF))
+  while (!bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF))
     {
-      gtk_css_parser_start_semicolon_block (parser, GTK_CSS_TOKEN_OPEN_CURLY);
+      bobgui_css_parser_start_semicolon_block (parser, BOBGUI_CSS_TOKEN_OPEN_CURLY);
 
       for (i = 0; i < n_declarations; i++)
         {
-          if (gtk_css_parser_try_ident (parser, declarations[i].name))
+          if (bobgui_css_parser_try_ident (parser, declarations[i].name))
             {
               if (parsed & (1 << i))
                 {
-                  gtk_css_parser_warn_syntax (parser, "Variable \"%s\" defined multiple times", declarations[i].name);
+                  bobgui_css_parser_warn_syntax (parser, "Variable \"%s\" defined multiple times", declarations[i].name);
                   /* Unset, just to be sure */
                   parsed &= ~(1 << i);
                   if (declarations[i].clear_func)
                     declarations[i].clear_func (declarations[i].result);
                 }
 
-              if (!gtk_css_parser_try_token (parser, GTK_CSS_TOKEN_COLON))
+              if (!bobgui_css_parser_try_token (parser, BOBGUI_CSS_TOKEN_COLON))
                 {
-                  gtk_css_parser_error_syntax (parser, "Expected ':' after variable declaration");
+                  bobgui_css_parser_error_syntax (parser, "Expected ':' after variable declaration");
                 }
               else
                 {
@@ -187,9 +187,9 @@ parse_declarations (GtkCssParser      *parser,
                     {
                       /* nothing to do */
                     }
-                  else if (!gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF))
+                  else if (!bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF))
                     {
-                      gtk_css_parser_error_syntax (parser, "Expected ';' at end of statement");
+                      bobgui_css_parser_error_syntax (parser, "Expected ';' at end of statement");
                       if (declarations[i].clear_func)
                         declarations[i].clear_func (declarations[i].result);
                     }
@@ -203,81 +203,81 @@ parse_declarations (GtkCssParser      *parser,
         }
       if (i == n_declarations)
         {
-          if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_IDENT))
-            gtk_css_parser_error_syntax (parser, "No variable named \"%s\"",
-                                         gtk_css_token_get_string (gtk_css_parser_get_token (parser)));
+          if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_IDENT))
+            bobgui_css_parser_error_syntax (parser, "No variable named \"%s\"",
+                                         bobgui_css_token_get_string (bobgui_css_parser_get_token (parser)));
           else
-            gtk_css_parser_error_syntax (parser, "Expected a variable name");
+            bobgui_css_parser_error_syntax (parser, "Expected a variable name");
         }
 
-      gtk_css_parser_end_block (parser);
+      bobgui_css_parser_end_block (parser);
     }
 
   return parsed;
 }
 
 static gboolean
-parse_unsigned (GtkCssParser *parser,
+parse_unsigned (BobguiCssParser *parser,
                 Context      *context,
                 gpointer      out)
 {
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNLESS_INTEGER))
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNLESS_INTEGER))
     {
       double d;
 
-      if (!gtk_css_parser_consume_number (parser, &d))
+      if (!bobgui_css_parser_consume_number (parser, &d))
         return FALSE;
 
       *(unsigned *) out = d;
       return TRUE;
     }
 
-  gtk_css_parser_error_value (parser, "Not an allowed value here");
+  bobgui_css_parser_error_value (parser, "Not an allowed value here");
   return FALSE;
 }
 
 static gboolean
-parse_size (GtkCssParser *parser,
+parse_size (BobguiCssParser *parser,
             Context      *context,
             gpointer      out)
 {
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNLESS_INTEGER))
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNLESS_INTEGER))
     {
       double d;
 
-      if (!gtk_css_parser_consume_number (parser, &d))
+      if (!bobgui_css_parser_consume_number (parser, &d))
         return FALSE;
 
       *(gsize *) out = d;
       return TRUE;
     }
 
-  gtk_css_parser_error_value (parser, "Not an allowed value here");
+  bobgui_css_parser_error_value (parser, "Not an allowed value here");
   return FALSE;
 }
 
 static gboolean
-parse_boolean (GtkCssParser *parser,
+parse_boolean (BobguiCssParser *parser,
                Context      *context,
                gpointer      boolean)
 {
-  if (gtk_css_parser_try_ident (parser, "true"))
+  if (bobgui_css_parser_try_ident (parser, "true"))
     {
       *(gboolean *) boolean = TRUE;
       return TRUE;
     }
-  else if (gtk_css_parser_try_ident (parser, "false"))
+  else if (bobgui_css_parser_try_ident (parser, "false"))
     {
       *(gboolean *) boolean = FALSE;
       return TRUE;
     }
 
-  gtk_css_parser_error_syntax (parser, "Boolean value must be \"true\" or \"false\"");
+  bobgui_css_parser_error_syntax (parser, "Boolean value must be \"true\" or \"false\"");
   return FALSE;
 }
 
 static gboolean
-parse_enum (GtkCssParser *parser,
+parse_enum (BobguiCssParser *parser,
             GType         type,
             gpointer      out_value)
 {
@@ -285,7 +285,7 @@ parse_enum (GtkCssParser *parser,
   GEnumValue *v;
   char *enum_name;
 
-  enum_name = gtk_css_parser_consume_ident (parser);
+  enum_name = bobgui_css_parser_consume_ident (parser);
   if (enum_name == NULL)
     return FALSE;
 
@@ -294,7 +294,7 @@ parse_enum (GtkCssParser *parser,
   v = g_enum_get_value_by_nick (class, enum_name);
   if (v == NULL)
     {
-      gtk_css_parser_error_value (parser, "Unknown value \"%s\" for enum \"%s\"",
+      bobgui_css_parser_error_value (parser, "Unknown value \"%s\" for enum \"%s\"",
                                   enum_name, g_type_name (type));
       g_free (enum_name);
       g_type_class_unref (class);
@@ -310,16 +310,16 @@ parse_enum (GtkCssParser *parser,
 }
 
 static gboolean
-parse_rect (GtkCssParser    *parser,
+parse_rect (BobguiCssParser    *parser,
             Context         *context,
             gpointer         out_rect)
 {
   double numbers[4];
 
-  if (!gtk_css_parser_consume_number (parser, &numbers[0]) ||
-      !gtk_css_parser_consume_number (parser, &numbers[1]) ||
-      !gtk_css_parser_consume_number (parser, &numbers[2]) ||
-      !gtk_css_parser_consume_number (parser, &numbers[3]))
+  if (!bobgui_css_parser_consume_number (parser, &numbers[0]) ||
+      !bobgui_css_parser_consume_number (parser, &numbers[1]) ||
+      !bobgui_css_parser_consume_number (parser, &numbers[2]) ||
+      !bobgui_css_parser_consume_number (parser, &numbers[3]))
     return FALSE;
 
   graphene_rect_init (out_rect, numbers[0], numbers[1], numbers[2], numbers[3]);
@@ -328,16 +328,16 @@ parse_rect (GtkCssParser    *parser,
 }
 
 static gboolean
-parse_vec4 (GtkCssParser    *parser,
+parse_vec4 (BobguiCssParser    *parser,
             Context         *context,
             gpointer         out_vec4)
 {
   double numbers[4];
 
-  if (!gtk_css_parser_consume_number (parser, &numbers[0]) ||
-      !gtk_css_parser_consume_number (parser, &numbers[1]) ||
-      !gtk_css_parser_consume_number (parser, &numbers[2]) ||
-      !gtk_css_parser_consume_number (parser, &numbers[3]))
+  if (!bobgui_css_parser_consume_number (parser, &numbers[0]) ||
+      !bobgui_css_parser_consume_number (parser, &numbers[1]) ||
+      !bobgui_css_parser_consume_number (parser, &numbers[2]) ||
+      !bobgui_css_parser_consume_number (parser, &numbers[3]))
     return FALSE;
 
   graphene_vec4_init (out_vec4, numbers[0], numbers[1], numbers[2], numbers[3]);
@@ -346,28 +346,28 @@ parse_vec4 (GtkCssParser    *parser,
 }
 
 static GBytes *
-consume_bytes (GtkCssParser *parser)
+consume_bytes (BobguiCssParser *parser)
 {
-  GtkCssLocation start_location;
+  BobguiCssLocation start_location;
   GError *error = NULL;
   char *url, *scheme;
   GBytes *bytes;
 
-  start_location = *gtk_css_parser_get_start_location (parser);
-  url = gtk_css_parser_consume_url (parser);
+  start_location = *bobgui_css_parser_get_start_location (parser);
+  url = bobgui_css_parser_consume_url (parser);
   if (url == NULL)
     return NULL;
 
   scheme = g_uri_parse_scheme (url);
   if (scheme && g_ascii_strcasecmp (scheme, "data") == 0)
     {
-      bytes = gtk_css_data_url_parse (url, NULL, &error);
+      bytes = bobgui_css_data_url_parse (url, NULL, &error);
     }
   else
     {
       GFile *file;
 
-      file = gtk_css_parser_resolve_url (parser, url);
+      file = bobgui_css_parser_resolve_url (parser, url);
       if (file)
         {
           bytes = g_file_load_bytes (file, NULL, NULL, &error);
@@ -376,8 +376,8 @@ consume_bytes (GtkCssParser *parser)
       else
         {
           g_set_error (&error,
-                       GTK_CSS_PARSER_ERROR,
-                       GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                       BOBGUI_CSS_PARSER_ERROR,
+                       BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                        "Failed to resolve URL");
           bytes = NULL;
         }
@@ -388,9 +388,9 @@ consume_bytes (GtkCssParser *parser)
 
   if (bytes == NULL)
     {
-      gtk_css_parser_emit_error (parser,
+      bobgui_css_parser_emit_error (parser,
                                  &start_location,
-                                 gtk_css_parser_get_end_location (parser),
+                                 bobgui_css_parser_get_end_location (parser),
                                  error);
       g_clear_error (&error);
     }
@@ -405,7 +405,7 @@ clear_bytes (gpointer inout_bytes)
 }
 
 static gboolean
-parse_bytes (GtkCssParser *parser,
+parse_bytes (BobguiCssParser *parser,
              Context      *context,
              gpointer      out_data)
 {
@@ -422,7 +422,7 @@ parse_bytes (GtkCssParser *parser,
 }
 
 static gboolean
-parse_compressed_bytes (GtkCssParser *parser,
+parse_compressed_bytes (BobguiCssParser *parser,
                         Context      *context,
                         gpointer      out_data)
 {
@@ -439,9 +439,9 @@ parse_compressed_bytes (GtkCssParser *parser,
   g_bytes_unref (data_bytes);
   if (decompressed_bytes == NULL)
     {
-      gtk_css_parser_emit_error (parser,
-                                 gtk_css_parser_get_start_location (parser),
-                                 gtk_css_parser_get_end_location (parser),
+      bobgui_css_parser_emit_error (parser,
+                                 bobgui_css_parser_get_start_location (parser),
+                                 bobgui_css_parser_get_end_location (parser),
                                  error);
       g_clear_error (&error);
       return FALSE;
@@ -453,17 +453,17 @@ parse_compressed_bytes (GtkCssParser *parser,
 }
 
 static gboolean
-parse_texture_data (GtkCssParser *parser,
+parse_texture_data (BobguiCssParser *parser,
                     Context      *context,
                     gpointer      out_data)
 {
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_STRING))
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_STRING))
     {
       char *s;
       gsize i, j, len;
       guchar *data;
 
-      s = gtk_css_parser_consume_string (parser);
+      s = bobgui_css_parser_consume_string (parser);
       if (s == NULL)
         return FALSE;
 
@@ -481,14 +481,14 @@ parse_texture_data (GtkCssParser *parser,
           v1 = g_ascii_xdigit_value (s[i]);
           if (v1 < 0)
             {
-              gtk_css_parser_error_syntax (parser, "Invalid hex character at position %zu", i);
+              bobgui_css_parser_error_syntax (parser, "Invalid hex character at position %zu", i);
               continue;
             }
           i++;
           v2 = g_ascii_xdigit_value (s[i]);
           if (v2 < 0)
             {
-              gtk_css_parser_error_syntax (parser, "Invalid hex character at position %zu", i);
+              bobgui_css_parser_error_syntax (parser, "Invalid hex character at position %zu", i);
               continue;
             }
 
@@ -503,34 +503,34 @@ parse_texture_data (GtkCssParser *parser,
 }
 
 static gboolean
-parse_color_state (GtkCssParser *parser,
+parse_color_state (BobguiCssParser *parser,
                    Context      *context,
                    gpointer      color_state)
 {
   GdkColorState *cs = NULL;
 
-  if (gtk_css_parser_try_ident (parser, "srgb"))
+  if (bobgui_css_parser_try_ident (parser, "srgb"))
     cs = gdk_color_state_get_srgb ();
-  else if (gtk_css_parser_try_ident (parser, "srgb-linear"))
+  else if (bobgui_css_parser_try_ident (parser, "srgb-linear"))
     cs = gdk_color_state_get_srgb_linear ();
-  else if (gtk_css_parser_try_ident (parser, "rec2100-pq"))
+  else if (bobgui_css_parser_try_ident (parser, "rec2100-pq"))
     cs = gdk_color_state_get_rec2100_pq ();
-  else if (gtk_css_parser_try_ident (parser, "rec2100-linear"))
+  else if (bobgui_css_parser_try_ident (parser, "rec2100-linear"))
     cs = gdk_color_state_get_rec2100_linear ();
-  else if (gtk_css_parser_try_ident (parser, "oklab"))
+  else if (bobgui_css_parser_try_ident (parser, "oklab"))
     cs = gdk_color_state_get_oklab ();
-  else if (gtk_css_parser_try_ident (parser, "oklch"))
+  else if (bobgui_css_parser_try_ident (parser, "oklch"))
     cs = gdk_color_state_get_oklch ();
-  else if (gtk_css_token_is (gtk_css_parser_get_token (parser), GTK_CSS_TOKEN_STRING))
+  else if (bobgui_css_token_is (bobgui_css_parser_get_token (parser), BOBGUI_CSS_TOKEN_STRING))
     {
-      char *name = gtk_css_parser_consume_string (parser);
+      char *name = bobgui_css_parser_consume_string (parser);
 
       if (context->named_color_states)
         cs = g_hash_table_lookup (context->named_color_states, name);
 
       if (!cs)
         {
-          gtk_css_parser_error_value (parser, "No color state named \"%s\"", name);
+          bobgui_css_parser_error_value (parser, "No color state named \"%s\"", name);
           g_free (name);
           return FALSE;
         }
@@ -539,7 +539,7 @@ parse_color_state (GtkCssParser *parser,
     }
   else
     {
-      gtk_css_parser_error_syntax (parser, "Expected a valid color state");
+      bobgui_css_parser_error_syntax (parser, "Expected a valid color state");
       return FALSE;
     }
 
@@ -548,7 +548,7 @@ parse_color_state (GtkCssParser *parser,
 }
 
 static gboolean
-parse_default_color_state (GtkCssParser *parser,
+parse_default_color_state (BobguiCssParser *parser,
                            Context      *context,
                            gpointer      out_value)
 {
@@ -559,7 +559,7 @@ parse_default_color_state (GtkCssParser *parser,
 
   if (!GDK_IS_DEFAULT_COLOR_STATE (color_state))
     {
-      gtk_css_parser_error_value (parser, "The color state must be a default color state.");
+      bobgui_css_parser_error_value (parser, "The color state must be a default color state.");
       gdk_color_state_unref (color_state);
       return FALSE;
     }
@@ -581,19 +581,19 @@ clear_color_state (gpointer inout_color_state)
 }
 
 static gboolean
-parse_dmabuf_fourcc (GtkCssParser *parser,
+parse_dmabuf_fourcc (BobguiCssParser *parser,
                      Context      *context,
                      gpointer      data)
 {
   guint32 fourcc;
 
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_STRING))
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_STRING))
     {
-      char *fourcc_str = gtk_css_parser_consume_string (parser);
+      char *fourcc_str = bobgui_css_parser_consume_string (parser);
 
       if (strlen (fourcc_str) != 4)
         {
-          gtk_css_parser_error_value (parser, "fourccs must be 4 characters long");
+          bobgui_css_parser_error_value (parser, "fourccs must be 4 characters long");
           g_free (fourcc_str);
           return FALSE;
         }
@@ -604,17 +604,17 @@ parse_dmabuf_fourcc (GtkCssParser *parser,
                (fourcc_str[3] << 24);
       g_free (fourcc_str);
     }
-  else if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNLESS_INTEGER))
+  else if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNLESS_INTEGER))
     {
       double tmp;
-      if (!gtk_css_parser_consume_number (parser, &tmp))
+      if (!bobgui_css_parser_consume_number (parser, &tmp))
         return FALSE;
 
       fourcc = tmp;
     }
   else
     {
-      gtk_css_parser_error_value (parser, "fourccs must be specified as strings or integers");
+      bobgui_css_parser_error_value (parser, "fourccs must be specified as strings or integers");
       return FALSE;
     }
 
@@ -623,7 +623,7 @@ parse_dmabuf_fourcc (GtkCssParser *parser,
 }
 
 static gboolean
-parse_4_unsigned (GtkCssParser *parser,
+parse_4_unsigned (BobguiCssParser *parser,
                   Context      *context,
                   gpointer      data)
 {
@@ -631,15 +631,15 @@ parse_4_unsigned (GtkCssParser *parser,
 
   if (!parse_unsigned (parser, context, &u[0]))
     return FALSE;
-  if (!gtk_css_parser_try_token (parser, GTK_CSS_TOKEN_COMMA))
+  if (!bobgui_css_parser_try_token (parser, BOBGUI_CSS_TOKEN_COMMA))
     return TRUE;
   if (!parse_unsigned (parser, context, &u[1]))
     return FALSE;
-  if (!gtk_css_parser_try_token (parser, GTK_CSS_TOKEN_COMMA))
+  if (!bobgui_css_parser_try_token (parser, BOBGUI_CSS_TOKEN_COMMA))
     return TRUE;
   if (!parse_unsigned (parser, context, &u[2]))
     return FALSE;
-  if (!gtk_css_parser_try_token (parser, GTK_CSS_TOKEN_COMMA))
+  if (!bobgui_css_parser_try_token (parser, BOBGUI_CSS_TOKEN_COMMA))
     return TRUE;
   if (!parse_unsigned (parser, context, &u[3]))
     return FALSE;
@@ -656,13 +656,13 @@ destroy_fd (gpointer data)
 #endif
 
 static GdkTexture *
-parse_dmabuf_texture (GtkCssParser *parser,
+parse_dmabuf_texture (BobguiCssParser *parser,
                       Context      *context)
 {
   GBytes *bytes = NULL;
   GdkTexture *texture;
   GError *error = NULL;
-  GtkCssLocation start_location;
+  BobguiCssLocation start_location;
   guint width = 0;
   guint height = 0;
   GdkDmabuf dmabuf = { 0, };
@@ -684,14 +684,14 @@ parse_dmabuf_texture (GtkCssParser *parser,
   int dmabuf_fd;
 #endif
 
-  if (!gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF))
+  if (!bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF))
     {
-      gtk_css_parser_error_syntax (parser, "Expected '{' for \"dmabuf\"");
+      bobgui_css_parser_error_syntax (parser, "Expected '{' for \"dmabuf\"");
       return NULL;
     }
 
-  start_location = *gtk_css_parser_get_start_location (parser);
-  gtk_css_parser_end_block_prelude (parser);
+  start_location = *bobgui_css_parser_get_start_location (parser);
+  bobgui_css_parser_end_block_prelude (parser);
 
   parse_result = parse_declarations (parser, context, declarations, G_N_ELEMENTS (declarations));
 
@@ -707,43 +707,43 @@ parse_dmabuf_texture (GtkCssParser *parser,
   if (dmabuf.fourcc == 0)
     {
       g_set_error (&error,
-                   GTK_CSS_PARSER_ERROR,
-                   GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                   BOBGUI_CSS_PARSER_ERROR,
+                   BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                    "Cannot create a dmabuf texture without fourcc");
     }
   else if (dmabuf.n_planes == 0)
     {
       g_set_error (&error,
-                   GTK_CSS_PARSER_ERROR,
-                   GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                   BOBGUI_CSS_PARSER_ERROR,
+                   BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                    "No stride specified");
     }
   else if (bytes == NULL && !(parse_result & (1 << 0)))
     {
       g_set_error (&error,
-                   GTK_CSS_PARSER_ERROR,
-                   GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                   BOBGUI_CSS_PARSER_ERROR,
+                   BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                    "Cannot create a dmabuf texture without data");
     }
   else if (width == 0 && !(parse_result & (1 << 1)))
     {
       g_set_error (&error,
-                   GTK_CSS_PARSER_ERROR,
-                   GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                   BOBGUI_CSS_PARSER_ERROR,
+                   BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                    "No width specified");
     }
   else if (height == 0 && !(parse_result & (1 << 2)))
     {
       g_set_error (&error,
-                   GTK_CSS_PARSER_ERROR,
-                   GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                   BOBGUI_CSS_PARSER_ERROR,
+                   BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                    "No height specified");
     }
   if (error)
     {
-      gtk_css_parser_emit_error (parser,
+      bobgui_css_parser_emit_error (parser,
                                  &start_location,
-                                 gtk_css_parser_get_end_location (parser),
+                                 bobgui_css_parser_get_end_location (parser),
                                  error);
       g_clear_pointer (&bytes, g_bytes_unref);
       g_clear_pointer (&color_state, gdk_color_state_unref);
@@ -774,17 +774,17 @@ parse_dmabuf_texture (GtkCssParser *parser,
     texture = NULL;
   if (error)
     {
-      gtk_css_parser_emit_error (parser,
+      bobgui_css_parser_emit_error (parser,
                                  &start_location,
-                                 gtk_css_parser_get_end_location (parser),
+                                 bobgui_css_parser_get_end_location (parser),
                                  error);
       g_clear_error (&error);
     }
 #else
-  gtk_css_parser_warn (parser,
-                       GTK_CSS_PARSER_WARNING_UNIMPLEMENTED,
+  bobgui_css_parser_warn (parser,
+                       BOBGUI_CSS_PARSER_WARNING_UNIMPLEMENTED,
                        &start_location,
-                       gtk_css_parser_get_end_location (parser),
+                       bobgui_css_parser_get_end_location (parser),
                        "No dmabuf support available. Using fallback.");
   texture = NULL;
 #endif
@@ -807,10 +807,10 @@ parse_dmabuf_texture (GtkCssParser *parser,
         }
       else
         {
-          gtk_css_parser_error (parser,
-                                GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+          bobgui_css_parser_error (parser,
+                                BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                                 &start_location,
-                                gtk_css_parser_get_end_location (parser),
+                                bobgui_css_parser_get_end_location (parser),
                                 "Cannot create fallback texture for this fourcc");
         }
     }
@@ -822,7 +822,7 @@ parse_dmabuf_texture (GtkCssParser *parser,
 }
 
 static gboolean
-parse_memory_format (GtkCssParser *parser,
+parse_memory_format (BobguiCssParser *parser,
                      Context      *context,
                      gpointer      out)
 {
@@ -830,7 +830,7 @@ parse_memory_format (GtkCssParser *parser,
 
   for (i = 0; i < GDK_MEMORY_N_FORMATS; i++)
     {
-      if (gtk_css_parser_try_ident (parser, gdk_memory_format_get_name (i)))
+      if (bobgui_css_parser_try_ident (parser, gdk_memory_format_get_name (i)))
         {
           *(GdkMemoryFormat *) out = i;
           return TRUE;
@@ -841,13 +841,13 @@ parse_memory_format (GtkCssParser *parser,
 }
 
 static GdkTexture *
-parse_memory_texture (GtkCssParser *parser,
+parse_memory_texture (BobguiCssParser *parser,
                       Context      *context)
 {
   GBytes *bytes = NULL;
   GdkTexture *texture;
   GError *error = NULL;
-  GtkCssLocation start_location;
+  BobguiCssLocation start_location;
   GdkMemoryLayout layout = { 0, };
   GdkColorState *color_state = NULL;
   unsigned offsets[4] = { 0, }, strides[4] = { 0, };
@@ -863,14 +863,14 @@ parse_memory_texture (GtkCssParser *parser,
   guint parse_result;
   gsize i, n_planes;
 
-  if (!gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF))
+  if (!bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF))
     {
-      gtk_css_parser_error_syntax (parser, "Expected '{' for \"memory\"");
+      bobgui_css_parser_error_syntax (parser, "Expected '{' for \"memory\"");
       return NULL;
     }
 
-  start_location = *gtk_css_parser_get_start_location (parser);
-  gtk_css_parser_end_block_prelude (parser);
+  start_location = *bobgui_css_parser_get_start_location (parser);
+  bobgui_css_parser_end_block_prelude (parser);
 
   parse_result = parse_declarations (parser, context, declarations, G_N_ELEMENTS (declarations));
 
@@ -884,16 +884,16 @@ parse_memory_texture (GtkCssParser *parser,
   if (bytes == NULL)
     {
       if (!(parse_result & (1 << 0)))
-        gtk_css_parser_error_value (parser, "Cannot create a memory texture without data");
+        bobgui_css_parser_error_value (parser, "Cannot create a memory texture without data");
     }
   else
     layout.size = g_bytes_get_size (bytes);
 
   if (!gdk_memory_layout_is_valid (&layout, &error))
     {
-      gtk_css_parser_emit_error (parser,
+      bobgui_css_parser_emit_error (parser,
                                  &start_location,
-                                 gtk_css_parser_get_end_location (parser),
+                                 bobgui_css_parser_get_end_location (parser),
                                  error);
       g_clear_error (&error);
       g_clear_pointer (&bytes, g_bytes_unref);
@@ -916,7 +916,7 @@ parse_memory_texture (GtkCssParser *parser,
 }
 
 static gboolean
-parse_dxgi_format (GtkCssParser *parser,
+parse_dxgi_format (BobguiCssParser *parser,
                    Context      *context,
                    gpointer      out)
 {
@@ -929,7 +929,7 @@ parse_dxgi_format (GtkCssParser *parser,
   /* We can ignore premultiplied here, we just need to update the format later */
   if (!gdk_memory_format_find_by_dxgi_format (value, FALSE, &format))
     {
-      gtk_css_parser_error_value (parser, "Unhandled DXGI format");
+      bobgui_css_parser_error_value (parser, "Unhandled DXGI format");
       return FALSE;
     }
 
@@ -948,13 +948,13 @@ destroy_d3d12_resource (gpointer data)
 #endif
 
 static GdkTexture *
-parse_d3d12_texture (GtkCssParser *parser,
+parse_d3d12_texture (BobguiCssParser *parser,
                      Context      *context)
 {
   GBytes *bytes = NULL;
   GdkTexture *texture;
   GError *error = NULL;
-  GtkCssLocation start_location;
+  BobguiCssLocation start_location;
   GdkMemoryFormat format = GDK_MEMORY_N_FORMATS;
   guint width = 0;
   guint height = 0;
@@ -975,14 +975,14 @@ parse_d3d12_texture (GtkCssParser *parser,
   };
   guint parse_result;
 
-  if (!gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF))
+  if (!bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF))
     {
-      gtk_css_parser_error_syntax (parser, "Expected '{' for \"d3d12\"");
+      bobgui_css_parser_error_syntax (parser, "Expected '{' for \"d3d12\"");
       return NULL;
     }
 
-  start_location = *gtk_css_parser_get_start_location (parser);
-  gtk_css_parser_end_block_prelude (parser);
+  start_location = *bobgui_css_parser_get_start_location (parser);
+  bobgui_css_parser_end_block_prelude (parser);
 
   parse_result = parse_declarations (parser, context, declarations, G_N_ELEMENTS (declarations));
 
@@ -990,24 +990,24 @@ parse_d3d12_texture (GtkCssParser *parser,
     {
       if (!(parse_result & (1 << 3)))
         g_set_error (&error,
-                    GTK_CSS_PARSER_ERROR,
-                    GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                    BOBGUI_CSS_PARSER_ERROR,
+                    BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                     "Cannot create a dmabuf texture without data");
       g_clear_pointer (&bytes, g_bytes_unref);
     }
   else if (bytes == NULL && !(parse_result & (1 << 0)))
     {
       g_set_error (&error,
-                   GTK_CSS_PARSER_ERROR,
-                   GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                   BOBGUI_CSS_PARSER_ERROR,
+                   BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                    "Cannot create a dmabuf texture without data");
     }
   else if (width == 0)
     {
       if (!(parse_result & (1 << 1)))
         g_set_error (&error,
-                     GTK_CSS_PARSER_ERROR,
-                     GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                     BOBGUI_CSS_PARSER_ERROR,
+                     BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                      "No width specified");
       g_clear_pointer (&bytes, g_bytes_unref);
     }
@@ -1015,8 +1015,8 @@ parse_d3d12_texture (GtkCssParser *parser,
     {
       if (!(parse_result & (1 << 2)))
         g_set_error (&error,
-                     GTK_CSS_PARSER_ERROR,
-                     GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                     BOBGUI_CSS_PARSER_ERROR,
+                     BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                      "No height specified");
       g_clear_pointer (&bytes, g_bytes_unref);
     }
@@ -1026,8 +1026,8 @@ parse_d3d12_texture (GtkCssParser *parser,
       if (layout.size > g_bytes_get_size (bytes))
         {
           g_set_error (&error,
-                      GTK_CSS_PARSER_ERROR,
-                      GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                      BOBGUI_CSS_PARSER_ERROR,
+                      BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                       "Not enough data for texture. Expected %zu bytes, got %zu",
                       layout.size, g_bytes_get_size (bytes));
         }
@@ -1036,9 +1036,9 @@ parse_d3d12_texture (GtkCssParser *parser,
     {
       if (error)
         {
-          gtk_css_parser_emit_error (parser,
+          bobgui_css_parser_emit_error (parser,
                                     &start_location,
-                                    gtk_css_parser_get_end_location (parser),
+                                    bobgui_css_parser_get_end_location (parser),
                                     error);
           g_clear_error (&error);
         }
@@ -1058,9 +1058,9 @@ parse_d3d12_texture (GtkCssParser *parser,
                                                 &error);
   if (resource == NULL)
     {
-      gtk_css_parser_emit_error (parser,
+      bobgui_css_parser_emit_error (parser,
                                 &start_location,
-                                gtk_css_parser_get_end_location (parser),
+                                bobgui_css_parser_get_end_location (parser),
                                 error);
       g_bytes_unref (bytes);
       gdk_color_state_unref (color_state);
@@ -1079,16 +1079,16 @@ parse_d3d12_texture (GtkCssParser *parser,
       return texture;
     }
 
-  gtk_css_parser_emit_error (parser,
+  bobgui_css_parser_emit_error (parser,
                             &start_location,
-                            gtk_css_parser_get_end_location (parser),
+                            bobgui_css_parser_get_end_location (parser),
                             error);
   g_clear_error (&error);
 #else
-  gtk_css_parser_warn (parser,
-                       GTK_CSS_PARSER_WARNING_UNIMPLEMENTED,
+  bobgui_css_parser_warn (parser,
+                       BOBGUI_CSS_PARSER_WARNING_UNIMPLEMENTED,
                        &start_location,
-                       gtk_css_parser_get_end_location (parser),
+                       bobgui_css_parser_get_end_location (parser),
                        "No D3D12 support available. Using fallback.");
 #endif
 
@@ -1099,15 +1099,15 @@ parse_d3d12_texture (GtkCssParser *parser,
 }
 
 static GdkTexture *
-parse_default_texture (GtkCssParser *parser,
+parse_default_texture (BobguiCssParser *parser,
                        Context      *context)
 {
   GdkTexture *texture;
   GError *error = NULL;
-  GtkCssLocation start_location;
+  BobguiCssLocation start_location;
   GBytes *bytes;
 
-  start_location = *gtk_css_parser_get_start_location (parser);
+  start_location = *bobgui_css_parser_get_start_location (parser);
   bytes = consume_bytes (parser);
   if (bytes == NULL)
     return NULL;
@@ -1116,9 +1116,9 @@ parse_default_texture (GtkCssParser *parser,
   g_bytes_unref (bytes);
   if (texture == NULL)
     {
-      gtk_css_parser_emit_error (parser,
+      bobgui_css_parser_emit_error (parser,
                                  &start_location,
-                                 gtk_css_parser_get_end_location (parser),
+                                 bobgui_css_parser_get_end_location (parser),
                                  error);
       g_clear_error (&error);
       return NULL;
@@ -1128,16 +1128,16 @@ parse_default_texture (GtkCssParser *parser,
 }
 
 static gboolean
-parse_texture (GtkCssParser *parser,
+parse_texture (BobguiCssParser *parser,
                Context      *context,
                gpointer      out_data)
 {
   GdkTexture *texture;
   char *texture_name;
 
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_STRING))
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_STRING))
     {
-      texture_name = gtk_css_parser_consume_string (parser);
+      texture_name = bobgui_css_parser_consume_string (parser);
 
       if (context->named_textures)
         texture = g_hash_table_lookup (context->named_textures, texture_name);
@@ -1150,27 +1150,27 @@ parse_texture (GtkCssParser *parser,
           g_free (texture_name);
           return TRUE;
         }
-      else if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF))
+      else if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF))
         {
-          gtk_css_parser_error_value (parser, "No texture named \"%s\"", texture_name);
+          bobgui_css_parser_error_value (parser, "No texture named \"%s\"", texture_name);
           g_free (texture_name);
           return FALSE;
         }
 
       if (context->named_textures && g_hash_table_lookup (context->named_textures, texture_name))
         {
-          gtk_css_parser_error_value (parser, "A texture named \"%s\" already exists.", texture_name);
+          bobgui_css_parser_error_value (parser, "A texture named \"%s\" already exists.", texture_name);
           g_clear_pointer (&texture_name, g_free);
         }
     }
   else
     texture_name = NULL;
 
-  if (gtk_css_parser_try_ident (parser, "memory"))
+  if (bobgui_css_parser_try_ident (parser, "memory"))
     texture = parse_memory_texture (parser, context);
-  else if (gtk_css_parser_try_ident (parser, "dmabuf"))
+  else if (bobgui_css_parser_try_ident (parser, "dmabuf"))
     texture = parse_dmabuf_texture (parser, context);
-  else if (gtk_css_parser_try_ident (parser, "d3d12"))
+  else if (bobgui_css_parser_try_ident (parser, "d3d12"))
     texture = parse_d3d12_texture (parser, context);
   else
     texture = parse_default_texture (parser, context);
@@ -1202,7 +1202,7 @@ clear_texture (gpointer inout_texture)
 typedef struct _CairoHookData CairoHookData;
 struct _CairoHookData
 {
-  GtkCssParser *parser;
+  BobguiCssParser *parser;
   graphene_rect_t node_bounds;
   cairo_surface_t *surface;
 };
@@ -1226,10 +1226,10 @@ csi_hooks_surface_create (void            *closure,
 
   if (width != hook->node_bounds.size.width || height != hook->node_bounds.size.height)
     {
-      gtk_css_parser_error (hook->parser,
-                            GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
-                            gtk_css_parser_get_block_location (hook->parser),
-                            gtk_css_parser_get_start_location (hook->parser),
+      bobgui_css_parser_error (hook->parser,
+                            BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                            bobgui_css_parser_get_block_location (hook->parser),
+                            bobgui_css_parser_get_start_location (hook->parser),
                             "Node size %gx%g does not match script size %gx%g",
                             hook->node_bounds.size.width, hook->node_bounds.size.height,
                             width, height);
@@ -1247,7 +1247,7 @@ csi_hooks_surface_create (void            *closure,
 }
 
 static cairo_surface_t *
-interpret_cairo_script (GtkCssParser          *parser,
+interpret_cairo_script (BobguiCssParser          *parser,
                         const graphene_rect_t *bounds,
                         GBytes                *script)
 {
@@ -1264,33 +1264,33 @@ interpret_cairo_script (GtkCssParser          *parser,
   cairo_script_interpreter_feed_string (csi, g_bytes_get_data (script, NULL), g_bytes_get_size (script));
   if (hook.surface == NULL)
     {
-      gtk_css_parser_error_value (parser, "Cairo script did not create a surface");
+      bobgui_css_parser_error_value (parser, "Cairo script did not create a surface");
     }
   else if (cairo_surface_status (hook.surface) != CAIRO_STATUS_SUCCESS)
     {
-      gtk_css_parser_error_value (parser, "Invalid Cairo script: %s", cairo_status_to_string (cairo_surface_status (hook.surface)));
+      bobgui_css_parser_error_value (parser, "Invalid Cairo script: %s", cairo_status_to_string (cairo_surface_status (hook.surface)));
       cairo_script_interpreter_destroy (csi);
       g_clear_pointer (&hook.surface, cairo_surface_destroy);
     }
   if (cairo_script_interpreter_destroy (csi) != CAIRO_STATUS_SUCCESS)
     {
-      gtk_css_parser_error_value (parser, "Invalid Cairo script");
+      bobgui_css_parser_error_value (parser, "Invalid Cairo script");
       g_clear_pointer (&hook.surface, cairo_surface_destroy);
     }
 
   return hook.surface;
 #else
-  gtk_css_parser_warn (parser,
-                       GTK_CSS_PARSER_WARNING_UNIMPLEMENTED,
-                       gtk_css_parser_get_block_location (parser),
-                       gtk_css_parser_get_start_location (parser),
-                       "GTK was compiled without script interpreter support. Using fallback pixel data for Cairo node.");
+  bobgui_css_parser_warn (parser,
+                       BOBGUI_CSS_PARSER_WARNING_UNIMPLEMENTED,
+                       bobgui_css_parser_get_block_location (parser),
+                       bobgui_css_parser_get_start_location (parser),
+                       "BOBGUI was compiled without script interpreter support. Using fallback pixel data for Cairo node.");
   return NULL;
 #endif
 }
 
 static gboolean
-parse_rounded_rect (GtkCssParser *parser,
+parse_rounded_rect (BobguiCssParser *parser,
                     Context      *context,
                     gpointer      out_rect)
 {
@@ -1302,7 +1302,7 @@ parse_rounded_rect (GtkCssParser *parser,
   if (!parse_rect (parser, context, &r))
     return FALSE;
 
-  if (!gtk_css_parser_try_delim (parser, '/'))
+  if (!bobgui_css_parser_try_delim (parser, '/'))
     {
       gsk_rounded_rect_init_from_rect (out_rect, &r, 0);
       return TRUE;
@@ -1310,16 +1310,16 @@ parse_rounded_rect (GtkCssParser *parser,
 
   for (i = 0; i < 4; i++)
     {
-      if (!gtk_css_parser_has_number (parser))
+      if (!bobgui_css_parser_has_number (parser))
         break;
-      if (!gtk_css_parser_consume_number (parser, &d))
+      if (!bobgui_css_parser_consume_number (parser, &d))
         return FALSE;
       corners[i].width = d;
     }
 
   if (i == 0)
     {
-      gtk_css_parser_error_syntax (parser, "Expected a number");
+      bobgui_css_parser_error_syntax (parser, "Expected a number");
       return FALSE;
     }
 
@@ -1329,22 +1329,22 @@ parse_rounded_rect (GtkCssParser *parser,
   for (; i < 4; i++)
     corners[i].width = corners[(i - 1) >> 1].width;
 
-  if (gtk_css_parser_try_delim (parser, '/'))
+  if (bobgui_css_parser_try_delim (parser, '/'))
     {
-      gtk_css_parser_consume_token (parser);
+      bobgui_css_parser_consume_token (parser);
 
       for (i = 0; i < 4; i++)
         {
-          if (!gtk_css_parser_has_number (parser))
+          if (!bobgui_css_parser_has_number (parser))
             break;
-          if (!gtk_css_parser_consume_number (parser, &d))
+          if (!bobgui_css_parser_consume_number (parser, &d))
             return FALSE;
           corners[i].height = d;
         }
 
       if (i == 0)
         {
-          gtk_css_parser_error_syntax (parser, "Expected a number");
+          bobgui_css_parser_error_syntax (parser, "Expected a number");
           return FALSE;
         }
 
@@ -1363,48 +1363,48 @@ parse_rounded_rect (GtkCssParser *parser,
 }
 
 static gboolean
-parse_double (GtkCssParser *parser,
+parse_double (BobguiCssParser *parser,
               Context      *context,
               gpointer      out_double)
 {
-  return gtk_css_parser_consume_number (parser, out_double);
+  return bobgui_css_parser_consume_number (parser, out_double);
 }
 
 static gboolean
-parse_positive_double (GtkCssParser *parser,
+parse_positive_double (BobguiCssParser *parser,
                        Context      *context,
                        gpointer      out_double)
 {
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNED_NUMBER)
-      || gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNED_INTEGER))
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNED_NUMBER)
+      || bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNED_INTEGER))
     {
-      gtk_css_parser_error_syntax (parser, "Expected a positive number");
+      bobgui_css_parser_error_syntax (parser, "Expected a positive number");
       return FALSE;
     }
 
-  return gtk_css_parser_consume_number (parser, out_double);
+  return bobgui_css_parser_consume_number (parser, out_double);
 }
 
 static gboolean
-parse_strictly_positive_double (GtkCssParser *parser,
+parse_strictly_positive_double (BobguiCssParser *parser,
                                 Context      *context,
                                 gpointer      out_double)
 {
   double tmp;
 
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNED_NUMBER)
-      || gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNED_INTEGER))
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNED_NUMBER)
+      || bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNED_INTEGER))
     {
-      gtk_css_parser_error_syntax (parser, "Expected a strictly positive number");
+      bobgui_css_parser_error_syntax (parser, "Expected a strictly positive number");
       return FALSE;
     }
 
-  if (!gtk_css_parser_consume_number (parser, &tmp))
+  if (!bobgui_css_parser_consume_number (parser, &tmp))
     return FALSE;
 
   if (tmp == 0)
     {
-      gtk_css_parser_error_syntax (parser, "Expected a strictly positive number");
+      bobgui_css_parser_error_syntax (parser, "Expected a strictly positive number");
       return FALSE;
     }
 
@@ -1413,14 +1413,14 @@ parse_strictly_positive_double (GtkCssParser *parser,
 }
 
 static gboolean
-parse_point (GtkCssParser *parser,
+parse_point (BobguiCssParser *parser,
              Context      *context,
              gpointer      out_point)
 {
   double x, y;
 
-  if (!gtk_css_parser_consume_number (parser, &x) ||
-      !gtk_css_parser_consume_number (parser, &y))
+  if (!bobgui_css_parser_consume_number (parser, &x) ||
+      !bobgui_css_parser_consume_number (parser, &y))
     return FALSE;
 
   graphene_point_init (out_point, x, y);
@@ -1429,7 +1429,7 @@ parse_point (GtkCssParser *parser,
 }
 
 static gboolean
-parse_transform (GtkCssParser *parser,
+parse_transform (BobguiCssParser *parser,
                  Context      *context,
                  gpointer      out_transform)
 {
@@ -1453,22 +1453,22 @@ clear_transform (gpointer inout_transform)
 }
 
 static gboolean
-parse_string (GtkCssParser *parser,
+parse_string (BobguiCssParser *parser,
               Context      *context,
               gpointer      out_string)
 {
-  const GtkCssToken *token;
+  const BobguiCssToken *token;
   char *s;
 
-  token = gtk_css_parser_get_token (parser);
-  if (!gtk_css_token_is (token, GTK_CSS_TOKEN_STRING))
+  token = bobgui_css_parser_get_token (parser);
+  if (!bobgui_css_token_is (token, BOBGUI_CSS_TOKEN_STRING))
     {
-      gtk_css_parser_error_syntax (parser, "Expected a string");
+      bobgui_css_parser_error_syntax (parser, "Expected a string");
       return FALSE;
     }
 
-  s = g_strdup (gtk_css_token_get_string (token));
-  gtk_css_parser_consume_token (parser);
+  s = g_strdup (bobgui_css_token_get_string (token));
+  bobgui_css_parser_consume_token (parser);
 
   g_free (*(char **) out_string);
   *(char **) out_string = s;
@@ -1488,7 +1488,7 @@ typedef struct {
 } ColorArgData;
 
 static guint
-parse_color_arg (GtkCssParser *parser,
+parse_color_arg (BobguiCssParser *parser,
                  guint         arg,
                  gpointer      data)
 {
@@ -1503,17 +1503,17 @@ parse_color_arg (GtkCssParser *parser,
     {
       double number;
 
-      if (!gtk_css_parser_consume_number_or_percentage (parser, 0, 1, &number))
+      if (!bobgui_css_parser_consume_number_or_percentage (parser, 0, 1, &number))
         return 0;
 
       values[i] = number;
     }
 
-  if (gtk_css_parser_try_delim (parser, '/'))
+  if (bobgui_css_parser_try_delim (parser, '/'))
     {
       double number;
 
-      if (!gtk_css_parser_consume_number_or_percentage (parser, 0, 1, &number))
+      if (!bobgui_css_parser_consume_number_or_percentage (parser, 0, 1, &number))
         return 0;
 
       values[3] = number;
@@ -1528,17 +1528,17 @@ parse_color_arg (GtkCssParser *parser,
 }
 
 static gboolean
-parse_color (GtkCssParser *parser,
+parse_color (BobguiCssParser *parser,
              Context      *context,
              gpointer      color)
 {
   GdkRGBA rgba;
 
-  if (gtk_css_parser_has_function (parser, "color"))
+  if (bobgui_css_parser_has_function (parser, "color"))
     {
       ColorArgData data = { context, color };
 
-      if (!gtk_css_parser_consume_function (parser, 1, 1, parse_color_arg, &data))
+      if (!bobgui_css_parser_consume_function (parser, 1, 1, parse_color_arg, &data))
         return FALSE;
 
       return TRUE;
@@ -1553,7 +1553,7 @@ parse_color (GtkCssParser *parser,
 }
 
 static gboolean
-parse_stops (GtkCssParser *parser,
+parse_stops (BobguiCssParser *parser,
              Context      *context,
              gpointer      out_stops)
 {
@@ -1566,14 +1566,14 @@ parse_stops (GtkCssParser *parser,
     {
       double dval;
 
-      if (!gtk_css_parser_consume_number (parser, &dval))
+      if (!bobgui_css_parser_consume_number (parser, &dval))
         goto error;
 
       stop.offset = dval;
 
-      if (gtk_css_parser_has_number (parser))
+      if (bobgui_css_parser_has_number (parser))
         {
-          if (!gtk_css_parser_consume_number (parser, &dval))
+          if (!bobgui_css_parser_consume_number (parser, &dval))
             goto error;
 
           stop.transition_hint = dval;
@@ -1585,23 +1585,23 @@ parse_stops (GtkCssParser *parser,
         goto error;
 
       if (stops->len == 0 && stop.offset < 0)
-        gtk_css_parser_error_value (parser, "Color stop offset must be >= 0");
+        bobgui_css_parser_error_value (parser, "Color stop offset must be >= 0");
       else if (stops->len > 0 && stop.offset < g_array_index (stops, GskGradientStop, stops->len - 1).offset)
-        gtk_css_parser_error_value (parser, "Color stop offset must be >= previous value");
+        bobgui_css_parser_error_value (parser, "Color stop offset must be >= previous value");
       else if (stop.offset > 1)
-        gtk_css_parser_error_value (parser, "Color stop offset must be <= 1");
+        bobgui_css_parser_error_value (parser, "Color stop offset must be <= 1");
       else
         g_array_append_val (stops, stop);
 
-      if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_COMMA))
-        gtk_css_parser_skip (parser);
+      if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_COMMA))
+        bobgui_css_parser_skip (parser);
       else
         break;
   }
 
   if (stops->len < 2)
     {
-      gtk_css_parser_error_value (parser, "At least 2 color stops need to be specified");
+      bobgui_css_parser_error_value (parser, "At least 2 color stops need to be specified");
       goto error;
     }
 
@@ -1635,7 +1635,7 @@ clear_stops (gpointer inout_stops)
 }
 
 static gboolean
-parse_float4 (GtkCssParser *parser,
+parse_float4 (BobguiCssParser *parser,
               Context      *context,
               gpointer      out_floats)
 {
@@ -1643,14 +1643,14 @@ parse_float4 (GtkCssParser *parser,
   double d[4];
   int i;
 
-  for (i = 0; i < 4 && !gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF); i ++)
+  for (i = 0; i < 4 && !bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF); i ++)
     {
-      if (!gtk_css_parser_consume_number (parser, &d[i]))
+      if (!bobgui_css_parser_consume_number (parser, &d[i]))
         return FALSE;
     }
   if (i == 0)
     {
-      gtk_css_parser_error_syntax (parser, "Expected a color");
+      bobgui_css_parser_error_syntax (parser, "Expected a color");
       return FALSE;
     }
   for (; i < 4; i++)
@@ -1667,7 +1667,7 @@ parse_float4 (GtkCssParser *parser,
 }
 
 static gboolean
-parse_shadows (GtkCssParser *parser,
+parse_shadows (BobguiCssParser *parser,
                Context      *context,
                gpointer      out_shadows)
 {
@@ -1680,18 +1680,18 @@ parse_shadows (GtkCssParser *parser,
       double dx = 0, dy = 0, radius = 0;
 
       if (!parse_color (parser, context, &color))
-        gtk_css_parser_error_value (parser, "Expected shadow color");
+        bobgui_css_parser_error_value (parser, "Expected shadow color");
 
-      if (!gtk_css_parser_consume_number (parser, &dx))
-        gtk_css_parser_error_value (parser, "Expected shadow x offset");
+      if (!bobgui_css_parser_consume_number (parser, &dx))
+        bobgui_css_parser_error_value (parser, "Expected shadow x offset");
 
-      if (!gtk_css_parser_consume_number (parser, &dy))
-        gtk_css_parser_error_value (parser, "Expected shadow y offset");
+      if (!bobgui_css_parser_consume_number (parser, &dy))
+        bobgui_css_parser_error_value (parser, "Expected shadow y offset");
 
-      if (gtk_css_parser_has_number (parser))
+      if (bobgui_css_parser_has_number (parser))
         {
-          if (!gtk_css_parser_consume_number (parser, &radius))
-            gtk_css_parser_error_value (parser, "Expected shadow blur radius");
+          if (!bobgui_css_parser_consume_number (parser, &radius))
+            bobgui_css_parser_error_value (parser, "Expected shadow blur radius");
         }
 
       gdk_color_init_copy (&shadow.color, &color);
@@ -1702,7 +1702,7 @@ parse_shadows (GtkCssParser *parser,
 
       gdk_color_finish (&color);
     }
-  while (gtk_css_parser_try_token (parser, GTK_CSS_TOKEN_COMMA));
+  while (bobgui_css_parser_try_token (parser, BOBGUI_CSS_TOKEN_COMMA));
 
   return TRUE;
 }
@@ -1732,20 +1732,20 @@ static const struct
 };
 
 static gboolean
-parse_scaling_filter (GtkCssParser *parser,
+parse_scaling_filter (BobguiCssParser *parser,
                       Context      *context,
                       gpointer      out_filter)
 {
   for (unsigned int i = 0; i < G_N_ELEMENTS (scaling_filters); i++)
     {
-      if (gtk_css_parser_try_ident (parser, scaling_filters[i].name))
+      if (bobgui_css_parser_try_ident (parser, scaling_filters[i].name))
         {
           *(GskScalingFilter *) out_filter = scaling_filters[i].filter;
           return TRUE;
         }
     }
 
-  gtk_css_parser_error_syntax (parser, "Not a valid scaling filter.");
+  bobgui_css_parser_error_syntax (parser, "Not a valid scaling filter.");
 
   return FALSE;
 }
@@ -1786,7 +1786,7 @@ get_blend_mode_name (GskBlendMode mode)
 }
 
 static gboolean
-parse_blend_mode (GtkCssParser *parser,
+parse_blend_mode (BobguiCssParser *parser,
                   Context      *context,
                   gpointer      out_mode)
 {
@@ -1794,14 +1794,14 @@ parse_blend_mode (GtkCssParser *parser,
 
   for (i = 0; i < G_N_ELEMENTS (blend_modes); i++)
     {
-      if (gtk_css_parser_try_ident (parser, blend_modes[i].name))
+      if (bobgui_css_parser_try_ident (parser, blend_modes[i].name))
         {
           *(GskBlendMode *) out_mode = blend_modes[i].mode;
           return TRUE;
         }
     }
 
-  gtk_css_parser_error_syntax (parser, "Not a valid blend mode.");
+  bobgui_css_parser_error_syntax (parser, "Not a valid blend mode.");
 
   return FALSE;
 }
@@ -1830,7 +1830,7 @@ get_mask_mode_name (GskMaskMode mode)
 }
 
 static gboolean
-parse_mask_mode (GtkCssParser *parser,
+parse_mask_mode (BobguiCssParser *parser,
                  Context      *context,
                  gpointer      out_mode)
 {
@@ -1838,20 +1838,20 @@ parse_mask_mode (GtkCssParser *parser,
 
   for (i = 0; i < G_N_ELEMENTS (mask_modes); i++)
     {
-      if (gtk_css_parser_try_ident (parser, mask_modes[i].name))
+      if (bobgui_css_parser_try_ident (parser, mask_modes[i].name))
         {
           *(GskMaskMode *) out_mode = mask_modes[i].mode;
           return TRUE;
         }
     }
 
-  gtk_css_parser_error_syntax (parser, "Not a valid mask mode.");
+  bobgui_css_parser_error_syntax (parser, "Not a valid mask mode.");
 
   return FALSE;
 }
 
 static gboolean
-parse_porter_duff (GtkCssParser *parser,
+parse_porter_duff (BobguiCssParser *parser,
                    Context      *context,
                    gpointer      out_rule)
 {
@@ -2018,7 +2018,7 @@ add_font_from_bytes (Context  *context,
   GOutputStream *ostream;
   gboolean result;
 
-  file = g_file_new_tmp ("gtk4-font-XXXXXX.ttf", (GFileIOStream **) &iostream, error);
+  file = g_file_new_tmp ("bobgui4-font-XXXXXX.ttf", (GFileIOStream **) &iostream, error);
   if (!file)
     return FALSE;
 
@@ -2042,24 +2042,24 @@ add_font_from_bytes (Context  *context,
 }
 
 static gboolean
-parse_font (GtkCssParser *parser,
+parse_font (BobguiCssParser *parser,
             Context      *context,
             gpointer      out_font)
 {
   PangoFont *font = NULL;
   char *font_name;
 
-  font_name = gtk_css_parser_consume_string (parser);
+  font_name = bobgui_css_parser_consume_string (parser);
   if (font_name == NULL)
     return FALSE;
 
-  if (gtk_css_parser_has_url (parser))
+  if (bobgui_css_parser_has_url (parser))
     {
       GBytes *bytes;
       GError *error = NULL;
-      GtkCssLocation start_location;
+      BobguiCssLocation start_location;
 
-      start_location = *gtk_css_parser_get_start_location (parser);
+      start_location = *bobgui_css_parser_get_start_location (parser);
       bytes = consume_bytes (parser);
       if (bytes != NULL)
         {
@@ -2068,20 +2068,20 @@ parse_font (GtkCssParser *parser,
               font = font_from_string (context->fontmap, font_name, FALSE);
               if (!font)
                 {
-                  gtk_css_parser_error (parser,
-                                        GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+                  bobgui_css_parser_error (parser,
+                                        BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                                         &start_location,
-                                        gtk_css_parser_get_end_location (parser),
+                                        bobgui_css_parser_get_end_location (parser),
                                         "The given url does not define a font named \"%s\"",
                                         font_name);
                 }
             }
           else
             {
-              gtk_css_parser_error (parser,
-                                    GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+              bobgui_css_parser_error (parser,
+                                    BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                                     &start_location,
-                                    gtk_css_parser_get_end_location (parser),
+                                    bobgui_css_parser_get_end_location (parser),
                                     "%s", error->message);
               g_clear_error (&error);
             }
@@ -2098,7 +2098,7 @@ parse_font (GtkCssParser *parser,
         font = font_from_string (pango_cairo_font_map_get_default (), font_name, TRUE);
 
       if (!font)
-        gtk_css_parser_error_value (parser, "The font \"%s\" does not exist", font_name);
+        bobgui_css_parser_error_value (parser, "The font \"%s\" does not exist", font_name);
     }
 
   g_free (font_name);
@@ -2123,7 +2123,7 @@ clear_font (gpointer inout_font)
 #define GLYPH_NEEDS_WIDTH ((PangoGlyphUnit) -1)
 
 static gboolean
-parse_glyphs (GtkCssParser *parser,
+parse_glyphs (BobguiCssParser *parser,
               Context      *context,
               gpointer      out_glyphs)
 {
@@ -2137,15 +2137,15 @@ parse_glyphs (GtkCssParser *parser,
       double d, d2;
       int i;
 
-      if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_STRING))
+      if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_STRING))
         {
-          char *s = gtk_css_parser_consume_string (parser);
+          char *s = bobgui_css_parser_consume_string (parser);
 
           for (i = 0; s[i] != 0; i++)
             {
               if (s[i] < MIN_ASCII_GLYPH || s[i] >= MAX_ASCII_GLYPH)
                 {
-                  gtk_css_parser_error_value (parser, "Unsupported character %d in string", i);
+                  bobgui_css_parser_error_value (parser, "Unsupported character %d in string", i);
                 }
               gi.glyph = PANGO_GLYPH_INVALID_INPUT - MAX_ASCII_GLYPH + s[i];
               gi.geometry.width = GLYPH_NEEDS_WIDTH;
@@ -2157,16 +2157,16 @@ parse_glyphs (GtkCssParser *parser,
         }
       else
         {
-          if (!gtk_css_parser_consume_integer (parser, &i))
+          if (!bobgui_css_parser_consume_integer (parser, &i))
             {
               pango_glyph_string_free (glyph_string);
               return FALSE;
             }
           gi.glyph = i;
 
-          if (gtk_css_parser_has_number (parser))
+          if (bobgui_css_parser_has_number (parser))
             {
-              gtk_css_parser_consume_number (parser, &d);
+              bobgui_css_parser_consume_number (parser, &d);
               gi.geometry.width = (int) (d * PANGO_SCALE);
             }
           else
@@ -2174,10 +2174,10 @@ parse_glyphs (GtkCssParser *parser,
               gi.geometry.width = GLYPH_NEEDS_WIDTH;
             }
 
-          if (gtk_css_parser_has_number (parser))
+          if (bobgui_css_parser_has_number (parser))
             {
-              if (!gtk_css_parser_consume_number (parser, &d) ||
-                  !gtk_css_parser_consume_number (parser, &d2))
+              if (!bobgui_css_parser_consume_number (parser, &d) ||
+                  !bobgui_css_parser_consume_number (parser, &d2))
                 {
                   pango_glyph_string_free (glyph_string);
                   return FALSE;
@@ -2185,12 +2185,12 @@ parse_glyphs (GtkCssParser *parser,
               gi.geometry.x_offset = (int) round (d * PANGO_SCALE);
               gi.geometry.y_offset = (int) round (d2 * PANGO_SCALE);
 
-              if (gtk_css_parser_try_ident (parser, "same-cluster"))
+              if (bobgui_css_parser_try_ident (parser, "same-cluster"))
                 gi.attr.is_cluster_start = 0;
               else
                 gi.attr.is_cluster_start = 1;
 
-              if (gtk_css_parser_try_ident (parser, "color"))
+              if (bobgui_css_parser_try_ident (parser, "color"))
                 gi.attr.is_color = 1;
               else
                 gi.attr.is_color = 0;
@@ -2200,7 +2200,7 @@ parse_glyphs (GtkCssParser *parser,
           glyph_string->glyphs[glyph_string->num_glyphs - 1] = gi;
         }
     }
-  while (gtk_css_parser_try_token (parser, GTK_CSS_TOKEN_COMMA));
+  while (bobgui_css_parser_try_token (parser, BOBGUI_CSS_TOKEN_COMMA));
 
   *((PangoGlyphString **)out_glyphs) = glyph_string;
 
@@ -2214,7 +2214,7 @@ clear_glyphs (gpointer inout_glyphs)
 }
 
 static gboolean
-parse_node (GtkCssParser *parser, Context *context, gpointer out_node);
+parse_node (BobguiCssParser *parser, Context *context, gpointer out_node);
 
 static void
 clear_node (gpointer inout_node)
@@ -2223,29 +2223,29 @@ clear_node (gpointer inout_node)
 }
 
 static GskRenderNode *
-parse_container_node (GtkCssParser *parser,
+parse_container_node (BobguiCssParser *parser,
                       Context      *context)
 {
   GPtrArray *nodes;
-  const GtkCssToken *token;
+  const BobguiCssToken *token;
   GskRenderNode *node;
 
   nodes = g_ptr_array_new_with_free_func ((GDestroyNotify) gsk_render_node_unref);
 
-  for (token = gtk_css_parser_get_token (parser);
-       !gtk_css_token_is (token, GTK_CSS_TOKEN_EOF);
-       token = gtk_css_parser_get_token (parser))
+  for (token = bobgui_css_parser_get_token (parser);
+       !bobgui_css_token_is (token, BOBGUI_CSS_TOKEN_EOF);
+       token = bobgui_css_parser_get_token (parser))
     {
       node = NULL;
       /* We don't want a semicolon here, but the parse_node function will figure
        * that out itself and return an error if we encounter one.
        */
-      gtk_css_parser_start_semicolon_block (parser, GTK_CSS_TOKEN_OPEN_CURLY);
+      bobgui_css_parser_start_semicolon_block (parser, BOBGUI_CSS_TOKEN_OPEN_CURLY);
 
       if (parse_node (parser, context, &node))
         g_ptr_array_add (nodes, node);
 
-      gtk_css_parser_end_block (parser);
+      bobgui_css_parser_end_block (parser);
     }
 
   node = gsk_container_node_new ((GskRenderNode **) nodes->pdata, nodes->len);
@@ -2312,7 +2312,7 @@ create_default_path (void)
 }
 
 static gboolean
-parse_cicp_range (GtkCssParser *parser,
+parse_cicp_range (BobguiCssParser *parser,
                   Context      *context,
                   gpointer      out)
 {
@@ -2323,7 +2323,7 @@ parse_cicp_range (GtkCssParser *parser,
 }
 
 static gboolean
-parse_color_state_rule (GtkCssParser *parser,
+parse_color_state_rule (BobguiCssParser *parser,
                         Context      *context)
 {
   char *name = NULL;
@@ -2337,16 +2337,16 @@ parse_color_state_rule (GtkCssParser *parser,
   };
   const char *default_names[] = { "srgb", "srgb-linear", "rec2100-pq", "rec2100-linear", NULL};
   GError *error = NULL;
-  GtkCssLocation start;
-  GtkCssLocation end;
+  BobguiCssLocation start;
+  BobguiCssLocation end;
 
   /* We only return FALSE when we see the wrong @ keyword, since the caller
    * throws an error in this case.
    */
-  if (!gtk_css_parser_try_at_keyword (parser, "cicp"))
+  if (!bobgui_css_parser_try_at_keyword (parser, "cicp"))
     return FALSE;
 
-  name = gtk_css_parser_consume_string (parser);
+  name = bobgui_css_parser_consume_string (parser);
   if (name == NULL)
     return TRUE;
 
@@ -2354,15 +2354,15 @@ parse_color_state_rule (GtkCssParser *parser,
       (context->named_color_states &&
        g_hash_table_contains (context->named_color_states, name)))
     {
-      gtk_css_parser_error_value (parser, "A color state named \"%s\" already exists", name);
+      bobgui_css_parser_error_value (parser, "A color state named \"%s\" already exists", name);
       g_free (name);
       return TRUE;
     }
 
-  start = *gtk_css_parser_get_block_location (parser);
-  end = *gtk_css_parser_get_end_location (parser);
+  start = *bobgui_css_parser_get_block_location (parser);
+  end = *bobgui_css_parser_get_end_location (parser);
 
-  gtk_css_parser_end_block_prelude (parser);
+  bobgui_css_parser_end_block_prelude (parser);
 
   parse_declarations (parser, context, declarations, G_N_ELEMENTS (declarations));
 
@@ -2370,8 +2370,8 @@ parse_color_state_rule (GtkCssParser *parser,
 
   if (!cs)
     {
-      gtk_css_parser_error (parser,
-                            GTK_CSS_PARSER_ERROR_UNKNOWN_VALUE,
+      bobgui_css_parser_error (parser,
+                            BOBGUI_CSS_PARSER_ERROR_UNKNOWN_VALUE,
                             &start, &end,
                             "Not a valid cicp tuple: %s", error->message);
       g_error_free (error);
@@ -2388,23 +2388,23 @@ parse_color_state_rule (GtkCssParser *parser,
 }
 
 static gboolean
-parse_hue_interpolation (GtkCssParser *parser,
+parse_hue_interpolation (BobguiCssParser *parser,
                          Context      *context,
                          gpointer      out_value)
 {
   GskHueInterpolation interpolation;
 
-  if (gtk_css_parser_try_ident (parser, "shorter"))
+  if (bobgui_css_parser_try_ident (parser, "shorter"))
     interpolation = GSK_HUE_INTERPOLATION_SHORTER;
-  else if (gtk_css_parser_try_ident (parser, "longer"))
+  else if (bobgui_css_parser_try_ident (parser, "longer"))
     interpolation = GSK_HUE_INTERPOLATION_LONGER;
-  else if (gtk_css_parser_try_ident (parser, "increasing"))
+  else if (bobgui_css_parser_try_ident (parser, "increasing"))
     interpolation = GSK_HUE_INTERPOLATION_INCREASING;
-  else if (gtk_css_parser_try_ident (parser, "decreasing"))
+  else if (bobgui_css_parser_try_ident (parser, "decreasing"))
     interpolation = GSK_HUE_INTERPOLATION_DECREASING;
   else
     {
-      gtk_css_parser_error_value (parser, "Unknown value for hue interpolation");
+      bobgui_css_parser_error_value (parser, "Unknown value for hue interpolation");
       return FALSE;
     }
 
@@ -2413,21 +2413,21 @@ parse_hue_interpolation (GtkCssParser *parser,
 }
 
 static gboolean
-parse_colors4 (GtkCssParser *parser,
+parse_colors4 (BobguiCssParser *parser,
                Context      *context,
                gpointer      out_colors)
 {
   GdkColor colors[4];
   int i;
 
-  for (i = 0; i < 4 && !gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF); i ++)
+  for (i = 0; i < 4 && !bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF); i ++)
     {
       if (!parse_color (parser, context, &colors[i]))
         return FALSE;
     }
   if (i == 0)
     {
-      gtk_css_parser_error_syntax (parser, "Expected a color");
+      bobgui_css_parser_error_syntax (parser, "Expected a color");
       return FALSE;
     }
   for (; i < 4; i++)
@@ -2441,7 +2441,7 @@ parse_colors4 (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_color_node (GtkCssParser *parser,
+parse_color_node (BobguiCssParser *parser,
                   Context      *context)
 {
   graphene_rect_t bounds = GRAPHENE_RECT_INIT (0, 0, 50, 50);
@@ -2462,19 +2462,19 @@ parse_color_node (GtkCssParser *parser,
 }
 
 static gboolean
-parse_repeat (GtkCssParser *parser,
+parse_repeat (BobguiCssParser *parser,
               Context      *context,
               gpointer      out_val)
 {
   GskRepeat *ret = out_val;
 
-  if (gtk_css_parser_try_ident (parser, "none"))
+  if (bobgui_css_parser_try_ident (parser, "none"))
     *ret = GSK_REPEAT_NONE;
-  else if (gtk_css_parser_try_ident (parser, "pad"))
+  else if (bobgui_css_parser_try_ident (parser, "pad"))
     *ret = GSK_REPEAT_PAD;
-  else if (gtk_css_parser_try_ident (parser, "repeat"))
+  else if (bobgui_css_parser_try_ident (parser, "repeat"))
     *ret = GSK_REPEAT_REPEAT;
-  else if (gtk_css_parser_try_ident (parser, "reflect"))
+  else if (bobgui_css_parser_try_ident (parser, "reflect"))
     *ret = GSK_REPEAT_REFLECT;
   else
     return FALSE;
@@ -2483,7 +2483,7 @@ parse_repeat (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_linear_gradient_node_internal (GtkCssParser *parser,
+parse_linear_gradient_node_internal (BobguiCssParser *parser,
                                      Context      *context,
                                      gboolean      repeating)
 {
@@ -2559,14 +2559,14 @@ parse_linear_gradient_node_internal (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_linear_gradient_node (GtkCssParser *parser,
+parse_linear_gradient_node (BobguiCssParser *parser,
                             Context      *context)
 {
   return parse_linear_gradient_node_internal (parser, context, FALSE);
 }
 
 static GskRenderNode *
-parse_repeating_linear_gradient_node (GtkCssParser *parser,
+parse_repeating_linear_gradient_node (BobguiCssParser *parser,
                                       Context      *context)
 {
   return parse_linear_gradient_node_internal (parser, context, TRUE);
@@ -2581,20 +2581,20 @@ typedef struct
 } ParsedCircle;
 
 static gboolean
-parse_circle (GtkCssParser *parser,
+parse_circle (BobguiCssParser *parser,
               Context      *context,
               gpointer      out_circle)
 {
   ParsedCircle *circle = out_circle;
   double num[3];
 
-  if (!gtk_css_parser_consume_number (parser, &num[0]))
+  if (!bobgui_css_parser_consume_number (parser, &num[0]))
     return FALSE;
 
-  if (gtk_css_parser_has_number (parser))
+  if (bobgui_css_parser_has_number (parser))
     {
-      if (!gtk_css_parser_consume_number (parser, &num[1]) ||
-          !gtk_css_parser_consume_number (parser, &num[2]))
+      if (!bobgui_css_parser_consume_number (parser, &num[1]) ||
+          !bobgui_css_parser_consume_number (parser, &num[2]))
         return FALSE;
 
       circle->center.x = num[0];
@@ -2620,7 +2620,7 @@ typedef struct
 } ParsedNumber;
 
 static gboolean
-parse_positive_number (GtkCssParser *parser,
+parse_positive_number (BobguiCssParser *parser,
                        Context      *context,
                        gpointer      out_number)
 {
@@ -2634,7 +2634,7 @@ parse_positive_number (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_radial_gradient_node_internal (GtkCssParser *parser,
+parse_radial_gradient_node_internal (BobguiCssParser *parser,
                                      Context      *context,
                                      gboolean      repeating)
 {
@@ -2747,21 +2747,21 @@ parse_radial_gradient_node_internal (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_radial_gradient_node (GtkCssParser *parser,
+parse_radial_gradient_node (BobguiCssParser *parser,
                             Context      *context)
 {
   return parse_radial_gradient_node_internal (parser, context, FALSE);
 }
 
 static GskRenderNode *
-parse_repeating_radial_gradient_node (GtkCssParser *parser,
+parse_repeating_radial_gradient_node (BobguiCssParser *parser,
                                       Context      *context)
 {
   return parse_radial_gradient_node_internal (parser, context, TRUE);
 }
 
 static GskRenderNode *
-parse_conic_gradient_node (GtkCssParser *parser,
+parse_conic_gradient_node (BobguiCssParser *parser,
                            Context      *context)
 {
   graphene_rect_t bounds = GRAPHENE_RECT_INIT (0, 0, 50, 50);
@@ -2826,7 +2826,7 @@ parse_conic_gradient_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_inset_shadow_node (GtkCssParser *parser,
+parse_inset_shadow_node (BobguiCssParser *parser,
                          Context      *context)
 {
   GskRoundedRect outline = GSK_ROUNDED_RECT_INIT (0, 0, 50, 50);
@@ -2871,7 +2871,7 @@ clear_shader_info (gpointer data)
 }
 
 static gboolean
-parse_shader (GtkCssParser *parser,
+parse_shader (BobguiCssParser *parser,
               Context      *context,
               gpointer      out_shader_info)
 {
@@ -2882,7 +2882,7 @@ parse_shader (GtkCssParser *parser,
 
   if (!parse_string (parser, context, &sourcecode))
     {
-      gtk_css_parser_error_value (parser, "Not a string");
+      bobgui_css_parser_error_value (parser, "Not a string");
       return FALSE;
     }
 
@@ -2896,7 +2896,7 @@ parse_shader (GtkCssParser *parser,
 }
 
 static gboolean
-parse_uniform_value (GtkCssParser *parser,
+parse_uniform_value (BobguiCssParser *parser,
                      int           idx,
                      ShaderInfo   *shader_info)
 {
@@ -2905,7 +2905,7 @@ parse_uniform_value (GtkCssParser *parser,
     case GSK_GL_UNIFORM_TYPE_FLOAT:
       {
         double f;
-        if (!gtk_css_parser_consume_number (parser, &f))
+        if (!bobgui_css_parser_consume_number (parser, &f))
           return FALSE;
         gsk_shader_args_builder_set_float (shader_info->args, idx, f);
       }
@@ -2914,7 +2914,7 @@ parse_uniform_value (GtkCssParser *parser,
     case GSK_GL_UNIFORM_TYPE_INT:
       {
         int i;
-        if (!gtk_css_parser_consume_integer (parser, &i))
+        if (!bobgui_css_parser_consume_integer (parser, &i))
           return FALSE;
         gsk_shader_args_builder_set_int (shader_info->args, idx, i);
       }
@@ -2923,7 +2923,7 @@ parse_uniform_value (GtkCssParser *parser,
     case GSK_GL_UNIFORM_TYPE_UINT:
       {
         int i;
-        if (!gtk_css_parser_consume_integer (parser, &i) || i < 0)
+        if (!bobgui_css_parser_consume_integer (parser, &i) || i < 0)
           return FALSE;
         gsk_shader_args_builder_set_uint (shader_info->args, idx, i);
       }
@@ -2932,7 +2932,7 @@ parse_uniform_value (GtkCssParser *parser,
     case GSK_GL_UNIFORM_TYPE_BOOL:
       {
         int i;
-        if (!gtk_css_parser_consume_integer (parser, &i) || (i != 0 && i != 1))
+        if (!bobgui_css_parser_consume_integer (parser, &i) || (i != 0 && i != 1))
           return FALSE;
         gsk_shader_args_builder_set_bool (shader_info->args, idx, i);
       }
@@ -2942,8 +2942,8 @@ parse_uniform_value (GtkCssParser *parser,
       {
         double f0, f1;
         graphene_vec2_t v;
-        if (!gtk_css_parser_consume_number (parser, &f0) ||
-            !gtk_css_parser_consume_number (parser, &f1))
+        if (!bobgui_css_parser_consume_number (parser, &f0) ||
+            !bobgui_css_parser_consume_number (parser, &f1))
           return FALSE;
         graphene_vec2_init (&v, f0, f1);
         gsk_shader_args_builder_set_vec2 (shader_info->args, idx, &v);
@@ -2954,9 +2954,9 @@ parse_uniform_value (GtkCssParser *parser,
       {
         double f0, f1, f2;
         graphene_vec3_t v;
-        if (!gtk_css_parser_consume_number (parser, &f0) ||
-            !gtk_css_parser_consume_number (parser, &f1) ||
-            !gtk_css_parser_consume_number (parser, &f2))
+        if (!bobgui_css_parser_consume_number (parser, &f0) ||
+            !bobgui_css_parser_consume_number (parser, &f1) ||
+            !bobgui_css_parser_consume_number (parser, &f2))
           return FALSE;
         graphene_vec3_init (&v, f0, f1, f2);
         gsk_shader_args_builder_set_vec3 (shader_info->args, idx, &v);
@@ -2967,10 +2967,10 @@ parse_uniform_value (GtkCssParser *parser,
       {
         double f0, f1, f2, f3;
         graphene_vec4_t v;
-        if (!gtk_css_parser_consume_number (parser, &f0) ||
-            !gtk_css_parser_consume_number (parser, &f1) ||
-            !gtk_css_parser_consume_number (parser, &f2) ||
-            !gtk_css_parser_consume_number (parser, &f3))
+        if (!bobgui_css_parser_consume_number (parser, &f0) ||
+            !bobgui_css_parser_consume_number (parser, &f1) ||
+            !bobgui_css_parser_consume_number (parser, &f2) ||
+            !bobgui_css_parser_consume_number (parser, &f3))
           return FALSE;
         graphene_vec4_init (&v, f0, f1, f2, f3);
         gsk_shader_args_builder_set_vec4 (shader_info->args, idx, &v);
@@ -2985,7 +2985,7 @@ parse_uniform_value (GtkCssParser *parser,
 
   if (idx < gsk_gl_shader_get_n_uniforms (shader_info->shader))
     {
-      if (!gtk_css_parser_try_token (parser, GTK_CSS_TOKEN_COMMA))
+      if (!bobgui_css_parser_try_token (parser, BOBGUI_CSS_TOKEN_COMMA))
         return FALSE;
     }
 
@@ -2993,7 +2993,7 @@ parse_uniform_value (GtkCssParser *parser,
 }
 
 static gboolean
-parse_shader_args (GtkCssParser *parser,
+parse_shader_args (BobguiCssParser *parser,
                    Context      *context,
                    gpointer      data)
 {
@@ -3037,7 +3037,7 @@ get_default_glshader (void)
 }
 
 static GskRenderNode *
-parse_glshader_node (GtkCssParser *parser,
+parse_glshader_node (BobguiCssParser *parser,
                      Context      *context)
 {
   graphene_rect_t bounds = GRAPHENE_RECT_INIT (0, 0, 50, 50);
@@ -3097,7 +3097,7 @@ parse_glshader_node (GtkCssParser *parser,
 G_GNUC_END_IGNORE_DEPRECATIONS
 
 static GskRenderNode *
-parse_mask_node (GtkCssParser *parser,
+parse_mask_node (BobguiCssParser *parser,
                  Context      *context)
 {
   GskRenderNode *source = NULL;
@@ -3125,7 +3125,7 @@ parse_mask_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_border_node (GtkCssParser *parser,
+parse_border_node (BobguiCssParser *parser,
                    Context      *context)
 {
   GskRoundedRect outline = GSK_ROUNDED_RECT_INIT (0, 0, 50, 50);
@@ -3148,7 +3148,7 @@ parse_border_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_texture_node (GtkCssParser *parser,
+parse_texture_node (BobguiCssParser *parser,
                     Context      *context)
 {
   graphene_rect_t bounds = GRAPHENE_RECT_INIT (0, 0, 50, 50);
@@ -3171,7 +3171,7 @@ parse_texture_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_texture_scale_node (GtkCssParser *parser,
+parse_texture_scale_node (BobguiCssParser *parser,
                           Context      *context)
 {
   graphene_rect_t bounds = GRAPHENE_RECT_INIT (0, 0, 50, 50);
@@ -3196,7 +3196,7 @@ parse_texture_scale_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_cairo_node (GtkCssParser *parser,
+parse_cairo_node (BobguiCssParser *parser,
                   Context      *context)
 {
   graphene_rect_t bounds = GRAPHENE_RECT_INIT (0, 0, 50, 50);
@@ -3246,7 +3246,7 @@ parse_cairo_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_outset_shadow_node (GtkCssParser *parser,
+parse_outset_shadow_node (BobguiCssParser *parser,
                           Context      *context)
 {
   GskRoundedRect outline = GSK_ROUNDED_RECT_INIT (0, 0, 50, 50);
@@ -3272,7 +3272,7 @@ parse_outset_shadow_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_transform_node (GtkCssParser *parser,
+parse_transform_node (BobguiCssParser *parser,
                       Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3296,7 +3296,7 @@ parse_transform_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_opacity_node (GtkCssParser *parser,
+parse_opacity_node (BobguiCssParser *parser,
                     Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3319,7 +3319,7 @@ parse_opacity_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_color_matrix_node (GtkCssParser *parser,
+parse_color_matrix_node (BobguiCssParser *parser,
                          Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3353,7 +3353,7 @@ parse_color_matrix_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_cross_fade_node (GtkCssParser *parser,
+parse_cross_fade_node (BobguiCssParser *parser,
                        Context      *context)
 {
   GskRenderNode *start = NULL;
@@ -3381,7 +3381,7 @@ parse_cross_fade_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_blend_node (GtkCssParser *parser,
+parse_blend_node (BobguiCssParser *parser,
                   Context      *context)
 {
   GskRenderNode *bottom = NULL;
@@ -3413,7 +3413,7 @@ parse_blend_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_repeat_node (GtkCssParser *parser,
+parse_repeat_node (BobguiCssParser *parser,
                    Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3494,7 +3494,7 @@ unpack_glyphs (PangoFont        *font,
 }
 
 static gboolean
-parse_hint_style (GtkCssParser *parser,
+parse_hint_style (BobguiCssParser *parser,
                   Context      *context,
                   gpointer      out)
 {
@@ -3505,7 +3505,7 @@ parse_hint_style (GtkCssParser *parser,
       *(cairo_hint_style_t *) out != CAIRO_HINT_STYLE_SLIGHT &&
       *(cairo_hint_style_t *) out != CAIRO_HINT_STYLE_FULL)
     {
-      gtk_css_parser_error_value (parser, "Unsupported value for enum \"%s\"",
+      bobgui_css_parser_error_value (parser, "Unsupported value for enum \"%s\"",
                                   g_type_name (CAIRO_GOBJECT_TYPE_HINT_STYLE));
       return FALSE;
     }
@@ -3514,7 +3514,7 @@ parse_hint_style (GtkCssParser *parser,
 }
 
 static gboolean
-parse_antialias (GtkCssParser *parser,
+parse_antialias (BobguiCssParser *parser,
                  Context      *context,
                  gpointer      out)
 {
@@ -3524,7 +3524,7 @@ parse_antialias (GtkCssParser *parser,
   if (*(cairo_antialias_t *) out != CAIRO_ANTIALIAS_NONE &&
       *(cairo_antialias_t *) out != CAIRO_ANTIALIAS_GRAY)
     {
-      gtk_css_parser_error_value (parser, "Unsupported value for enum \"%s\"",
+      bobgui_css_parser_error_value (parser, "Unsupported value for enum \"%s\"",
                                   g_type_name (CAIRO_GOBJECT_TYPE_ANTIALIAS));
       return FALSE;
     }
@@ -3533,7 +3533,7 @@ parse_antialias (GtkCssParser *parser,
 }
 
 static gboolean
-parse_hint_metrics (GtkCssParser *parser,
+parse_hint_metrics (BobguiCssParser *parser,
                     Context      *context,
                     gpointer      out)
 {
@@ -3543,7 +3543,7 @@ parse_hint_metrics (GtkCssParser *parser,
   if (*(cairo_hint_metrics_t *) out != CAIRO_HINT_METRICS_OFF &&
       *(cairo_hint_metrics_t *) out != CAIRO_HINT_METRICS_ON)
     {
-      gtk_css_parser_error_value (parser, "Unsupported value for enum \"%s\"",
+      bobgui_css_parser_error_value (parser, "Unsupported value for enum \"%s\"",
                                   g_type_name (CAIRO_GOBJECT_TYPE_HINT_METRICS));
       return FALSE;
     }
@@ -3552,7 +3552,7 @@ parse_hint_metrics (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_text_node (GtkCssParser *parser,
+parse_text_node (BobguiCssParser *parser,
                  Context      *context)
 {
   PangoFont *font = NULL;
@@ -3604,7 +3604,7 @@ parse_text_node (GtkCssParser *parser,
 
   if (!unpack_glyphs (font, glyphs))
     {
-      gtk_css_parser_error_value (parser, "Given font cannot decode the glyph text");
+      bobgui_css_parser_error_value (parser, "Given font cannot decode the glyph text");
       result = NULL;
     }
   else
@@ -3612,7 +3612,7 @@ parse_text_node (GtkCssParser *parser,
       result = gsk_text_node_new2 (font, glyphs, &color, &offset);
       if (result == NULL)
         {
-          gtk_css_parser_error_value (parser, "Glyphs result in empty text");
+          bobgui_css_parser_error_value (parser, "Glyphs result in empty text");
         }
     }
 
@@ -3629,7 +3629,7 @@ parse_text_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_blur_node (GtkCssParser *parser,
+parse_blur_node (BobguiCssParser *parser,
                  Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3652,7 +3652,7 @@ parse_blur_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_clip_node (GtkCssParser *parser,
+parse_clip_node (BobguiCssParser *parser,
                  Context      *context)
 {
   GskRoundedRect clip = GSK_ROUNDED_RECT_INIT (0, 0, 50, 50);
@@ -3678,7 +3678,7 @@ parse_clip_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_rounded_clip_node (GtkCssParser *parser,
+parse_rounded_clip_node (BobguiCssParser *parser,
                          Context      *context)
 {
   GskRoundedRect clip = GSK_ROUNDED_RECT_INIT (0, 0, 50, 50);
@@ -3701,7 +3701,7 @@ parse_rounded_clip_node (GtkCssParser *parser,
 }
 
 static gboolean
-parse_path (GtkCssParser *parser,
+parse_path (BobguiCssParser *parser,
             Context      *context,
             gpointer      out_path)
 {
@@ -3716,7 +3716,7 @@ parse_path (GtkCssParser *parser,
 
   if (path == NULL)
     {
-      gtk_css_parser_error_value (parser, "Invalid path");
+      bobgui_css_parser_error_value (parser, "Invalid path");
       return FALSE;
     }
 
@@ -3732,7 +3732,7 @@ clear_path (gpointer inout_path)
 }
 
 static gboolean
-parse_dash (GtkCssParser *parser,
+parse_dash (BobguiCssParser *parser,
             Context      *context,
             gpointer      out_dash)
 {
@@ -3740,17 +3740,17 @@ parse_dash (GtkCssParser *parser,
   double d;
 
   /* because CSS does this, too */
-  if (gtk_css_parser_try_ident (parser, "none"))
+  if (bobgui_css_parser_try_ident (parser, "none"))
     {
       *((GArray **) out_dash) = NULL;
       return TRUE;
     }
 
   dash = g_array_new (FALSE, FALSE, sizeof (float));
-  while (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNLESS_NUMBER) ||
-         gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_SIGNLESS_INTEGER))
+  while (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNLESS_NUMBER) ||
+         bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_SIGNLESS_INTEGER))
     {
-      if (!gtk_css_parser_consume_number (parser, &d))
+      if (!bobgui_css_parser_consume_number (parser, &d))
         {
           g_array_free (dash, TRUE);
           return FALSE;
@@ -3761,7 +3761,7 @@ parse_dash (GtkCssParser *parser,
 
   if (dash->len == 0)
     {
-      gtk_css_parser_error_syntax (parser, "Empty dash array");
+      bobgui_css_parser_error_syntax (parser, "Empty dash array");
       g_array_free (dash, TRUE);
       return FALSE;
     }
@@ -3778,7 +3778,7 @@ clear_dash (gpointer inout_array)
 }
 
 static gboolean
-parse_fill_rule (GtkCssParser *parser,
+parse_fill_rule (BobguiCssParser *parser,
                  Context      *context,
                  gpointer      out_rule)
 {
@@ -3786,7 +3786,7 @@ parse_fill_rule (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_fill_node (GtkCssParser *parser,
+parse_fill_node (BobguiCssParser *parser,
                  Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3821,7 +3821,7 @@ parse_fill_node (GtkCssParser *parser,
 }
 
 static gboolean
-parse_line_cap (GtkCssParser *parser,
+parse_line_cap (BobguiCssParser *parser,
                 Context      *context,
                 gpointer      out)
 {
@@ -3829,7 +3829,7 @@ parse_line_cap (GtkCssParser *parser,
 }
 
 static gboolean
-parse_line_join (GtkCssParser *parser,
+parse_line_join (BobguiCssParser *parser,
                  Context      *context,
                  gpointer      out)
 {
@@ -3837,7 +3837,7 @@ parse_line_join (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_stroke_node (GtkCssParser *parser,
+parse_stroke_node (BobguiCssParser *parser,
                    Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3894,7 +3894,7 @@ parse_stroke_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_shadow_node (GtkCssParser *parser,
+parse_shadow_node (BobguiCssParser *parser,
                    Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3925,7 +3925,7 @@ parse_shadow_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_debug_node (GtkCssParser *parser,
+parse_debug_node (BobguiCssParser *parser,
                   Context      *context)
 {
   char *message = NULL;
@@ -3948,7 +3948,7 @@ parse_debug_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_subsurface_node (GtkCssParser *parser,
+parse_subsurface_node (BobguiCssParser *parser,
                        Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -3969,7 +3969,7 @@ parse_subsurface_node (GtkCssParser *parser,
 }
 
 static gboolean
-parse_component_transfer (GtkCssParser *parser,
+parse_component_transfer (BobguiCssParser *parser,
                           Context      *context,
                           gpointer      out_transfer)
 {
@@ -3983,7 +3983,7 @@ clear_component_transfer (gpointer inout_transfer)
 }
 
 static GskRenderNode *
-parse_component_transfer_node (GtkCssParser *parser,
+parse_component_transfer_node (BobguiCssParser *parser,
                                Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -4029,7 +4029,7 @@ parse_component_transfer_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_copy_node (GtkCssParser *parser,
+parse_copy_node (BobguiCssParser *parser,
                  Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -4050,7 +4050,7 @@ parse_copy_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_paste_node (GtkCssParser *parser,
+parse_paste_node (BobguiCssParser *parser,
                   Context      *context)
 {
   graphene_rect_t bounds = GRAPHENE_RECT_INIT (0, 0, 50, 50);
@@ -4069,7 +4069,7 @@ parse_paste_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_composite_node (GtkCssParser *parser,
+parse_composite_node (BobguiCssParser *parser,
                       Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -4105,7 +4105,7 @@ static struct {
 };
 
 static gboolean
-parse_isolation_flags (GtkCssParser *parser,
+parse_isolation_flags (BobguiCssParser *parser,
                        GskIsolation *out_result)
 {
   GskIsolation result = 0;
@@ -4115,11 +4115,11 @@ parse_isolation_flags (GtkCssParser *parser,
     {
       for (i = 0; i < G_N_ELEMENTS (isolation_flags); i++)
         {
-          if (gtk_css_parser_try_ident (parser, isolation_flags[i].name))
+          if (bobgui_css_parser_try_ident (parser, isolation_flags[i].name))
             {
               if (result & isolation_flags[i].value)
                 {
-                  gtk_css_parser_error_value (parser, "Duplicate value");
+                  bobgui_css_parser_error_value (parser, "Duplicate value");
                   return FALSE;
                 }
               result |= isolation_flags[i].value;
@@ -4131,7 +4131,7 @@ parse_isolation_flags (GtkCssParser *parser,
 
   if (result == 0)
     {
-      gtk_css_parser_error_value (parser, "Expected an isolation feature");
+      bobgui_css_parser_error_value (parser, "Expected an isolation feature");
       return FALSE;
     }
 
@@ -4140,21 +4140,21 @@ parse_isolation_flags (GtkCssParser *parser,
 }
 
 static gboolean
-parse_isolation (GtkCssParser *parser,
+parse_isolation (BobguiCssParser *parser,
                  Context      *context,
                  gpointer      out)
 {
   GskIsolation isolation;
 
-  if (gtk_css_parser_try_ident (parser, "none"))
+  if (bobgui_css_parser_try_ident (parser, "none"))
     {
       isolation = GSK_ISOLATION_NONE;
     }
-  else if (gtk_css_parser_try_ident (parser, "all"))
+  else if (bobgui_css_parser_try_ident (parser, "all"))
     {
       isolation = GSK_ISOLATION_ALL;
     }
-  else if (gtk_css_parser_try_ident (parser, "not"))
+  else if (bobgui_css_parser_try_ident (parser, "not"))
     {
       if (!parse_isolation_flags (parser, &isolation))
         return FALSE;
@@ -4171,7 +4171,7 @@ parse_isolation (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_isolation_node (GtkCssParser *parser,
+parse_isolation_node (BobguiCssParser *parser,
                       Context      *context)
 {
   GskRenderNode *child = NULL;
@@ -4194,18 +4194,18 @@ parse_isolation_node (GtkCssParser *parser,
 }
 
 static gboolean
-parse_scale (GtkCssParser *parser,
+parse_scale (BobguiCssParser *parser,
              Context      *context,
              gpointer      out)
 {
   double d1, d2;
 
-  if (!gtk_css_parser_consume_number (parser, &d1))
+  if (!bobgui_css_parser_consume_number (parser, &d1))
     return FALSE;
 
-  if (gtk_css_parser_has_number (parser))
+  if (bobgui_css_parser_has_number (parser))
     {
-      if (!gtk_css_parser_consume_number (parser, &d2))
+      if (!bobgui_css_parser_consume_number (parser, &d2))
         return FALSE;
     }
   else
@@ -4218,7 +4218,7 @@ parse_scale (GtkCssParser *parser,
 }
 
 static gboolean
-parse_four_floats (GtkCssParser *parser,
+parse_four_floats (BobguiCssParser *parser,
                    Context      *context,
                    gpointer      out)
 {
@@ -4226,7 +4226,7 @@ parse_four_floats (GtkCssParser *parser,
     {
       double n;
 
-      if (!gtk_css_parser_consume_number (parser, &n))
+      if (!bobgui_css_parser_consume_number (parser, &n))
         return FALSE;
 
       ((float *) out)[i] = n;
@@ -4238,7 +4238,7 @@ parse_four_floats (GtkCssParser *parser,
 static const char *channel_names[] = { "red", "green", "blue", "alpha" };
 
 static gboolean
-parse_channels (GtkCssParser *parser,
+parse_channels (BobguiCssParser *parser,
                 Context      *context,
                 gpointer      out)
 {
@@ -4250,7 +4250,7 @@ parse_channels (GtkCssParser *parser,
     {
       for (j = 0; j < G_N_ELEMENTS (channel_names); j++)
         {
-          if (gtk_css_parser_try_ident (parser, channel_names[j]))
+          if (bobgui_css_parser_try_ident (parser, channel_names[j]))
             {
               tmp[i] = j;
               break;
@@ -4258,7 +4258,7 @@ parse_channels (GtkCssParser *parser,
         }
       if (j == G_N_ELEMENTS (channel_names))
         {
-          gtk_css_parser_error_value (parser, "Not a valid channel name");
+          bobgui_css_parser_error_value (parser, "Not a valid channel name");
           return FALSE;
         }
     }
@@ -4270,7 +4270,7 @@ parse_channels (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_displacement_node (GtkCssParser *parser,
+parse_displacement_node (BobguiCssParser *parser,
                          Context      *context)
 {
   GskRenderNode *child = NULL, *displacement = NULL;
@@ -4312,7 +4312,7 @@ parse_displacement_node (GtkCssParser *parser,
 }
 
 static GskRenderNode *
-parse_arithmetic_node (GtkCssParser *parser,
+parse_arithmetic_node (BobguiCssParser *parser,
                        Context      *context)
 {
   graphene_rect_t bounds = GRAPHENE_RECT_INIT (0, 0, 50, 50);
@@ -4344,13 +4344,13 @@ parse_arithmetic_node (GtkCssParser *parser,
   return result;
 }
 static gboolean
-parse_node (GtkCssParser *parser,
+parse_node (BobguiCssParser *parser,
             Context      *context,
             gpointer      out_node)
 {
   static struct {
     const char *name;
-    GskRenderNode * (* func) (GtkCssParser *, Context *);
+    GskRenderNode * (* func) (BobguiCssParser *, Context *);
   } node_parsers[] = {
     { "blend", parse_blend_node },
     { "blur", parse_blur_node },
@@ -4393,12 +4393,12 @@ parse_node (GtkCssParser *parser,
   GskRenderNode **node_p = out_node;
   guint i;
 
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_STRING))
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_STRING))
     {
       GskRenderNode *node;
       char *node_name;
 
-      node_name = gtk_css_parser_consume_string (parser);
+      node_name = bobgui_css_parser_consume_string (parser);
 
       if (context->named_nodes)
         node = g_hash_table_lookup (context->named_nodes, node_name);
@@ -4413,7 +4413,7 @@ parse_node (GtkCssParser *parser,
         }
       else
         {
-          gtk_css_parser_error_value (parser, "No node named \"%s\"", node_name);
+          bobgui_css_parser_error_value (parser, "No node named \"%s\"", node_name);
           g_free (node_name);
           return FALSE;
         }
@@ -4421,33 +4421,33 @@ parse_node (GtkCssParser *parser,
 
   for (i = 0; i < G_N_ELEMENTS (node_parsers); i++)
     {
-      if (gtk_css_parser_try_ident (parser, node_parsers[i].name))
+      if (bobgui_css_parser_try_ident (parser, node_parsers[i].name))
         {
           GskRenderNode *node;
-          GtkCssLocation node_name_start_location, node_name_end_location;
+          BobguiCssLocation node_name_start_location, node_name_end_location;
           char *node_name;
 
-          if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_STRING))
+          if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_STRING))
             {
-              node_name_start_location = *gtk_css_parser_get_start_location (parser);
-              node_name_end_location = *gtk_css_parser_get_end_location (parser);
-              node_name = gtk_css_parser_consume_string (parser);
+              node_name_start_location = *bobgui_css_parser_get_start_location (parser);
+              node_name_end_location = *bobgui_css_parser_get_end_location (parser);
+              node_name = bobgui_css_parser_consume_string (parser);
             }
           else
             node_name = NULL;
 
-          if (!gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF))
+          if (!bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF))
             {
-              gtk_css_parser_error_syntax (parser, "Expected '{' after node name");
+              bobgui_css_parser_error_syntax (parser, "Expected '{' after node name");
               return FALSE;
             }
 
-          gtk_css_parser_end_block_prelude (parser);
+          bobgui_css_parser_end_block_prelude (parser);
           node = node_parsers[i].func (parser, context);
           if (node)
             {
-              if (!gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_EOF))
-                gtk_css_parser_error_syntax (parser, "Expected '}' at end of node definition");
+              if (!bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_EOF))
+                bobgui_css_parser_error_syntax (parser, "Expected '}' at end of node definition");
               g_clear_pointer (node_p, gsk_render_node_unref);
 
               if (node_name)
@@ -4457,8 +4457,8 @@ parse_node (GtkCssParser *parser,
                                                                   g_free, (GDestroyNotify) gsk_render_node_unref);
                   if (g_hash_table_lookup (context->named_nodes, node_name))
                     {
-                      gtk_css_parser_error (parser,
-                                            GTK_CSS_PARSER_ERROR_FAILED,
+                      bobgui_css_parser_error (parser,
+                                            BOBGUI_CSS_PARSER_ERROR_FAILED,
                                             &node_name_start_location,
                                             &node_name_end_location,
                                             "A node named \"%s\" already exists.", node_name);
@@ -4478,19 +4478,19 @@ parse_node (GtkCssParser *parser,
         }
     }
 
-  if (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_IDENT))
-    gtk_css_parser_error_value (parser, "\"%s\" is not a valid node name",
-                                gtk_css_token_get_string (gtk_css_parser_get_token (parser)));
+  if (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_IDENT))
+    bobgui_css_parser_error_value (parser, "\"%s\" is not a valid node name",
+                                bobgui_css_token_get_string (bobgui_css_parser_get_token (parser)));
   else
-    gtk_css_parser_error_syntax (parser, "Expected a node name");
+    bobgui_css_parser_error_syntax (parser, "Expected a node name");
 
   return FALSE;
 }
 
 static void
-gsk_render_node_parser_error (GtkCssParser         *parser,
-                              const GtkCssLocation *start,
-                              const GtkCssLocation *end,
+gsk_render_node_parser_error (BobguiCssParser         *parser,
+                              const BobguiCssLocation *start,
+                              const BobguiCssLocation *end,
                               const GError         *error,
                               gpointer              user_data)
 {
@@ -4512,25 +4512,25 @@ gsk_render_node_deserialize_from_bytes (GBytes            *bytes,
                                         gpointer           user_data)
 {
   GskRenderNode *root = NULL;
-  GtkCssParser *parser;
+  BobguiCssParser *parser;
   Context context;
   struct {
     GskParseErrorFunc error_func;
     gpointer user_data;
   } error_func_pair = { error_func, user_data };
 
-  parser = gtk_css_parser_new_for_bytes (bytes, NULL, gsk_render_node_parser_error,
+  parser = bobgui_css_parser_new_for_bytes (bytes, NULL, gsk_render_node_parser_error,
                                          &error_func_pair, NULL);
   context_init (&context);
 
-  while (gtk_css_parser_has_token (parser, GTK_CSS_TOKEN_AT_KEYWORD))
+  while (bobgui_css_parser_has_token (parser, BOBGUI_CSS_TOKEN_AT_KEYWORD))
     {
-      gtk_css_parser_start_semicolon_block (parser, GTK_CSS_TOKEN_OPEN_CURLY);
+      bobgui_css_parser_start_semicolon_block (parser, BOBGUI_CSS_TOKEN_OPEN_CURLY);
       if (!parse_color_state_rule (parser, &context))
         {
-          gtk_css_parser_error_syntax (parser, "Unknown @ rule");
+          bobgui_css_parser_error_syntax (parser, "Unknown @ rule");
         }
-      gtk_css_parser_end_block (parser);
+      bobgui_css_parser_end_block (parser);
     }
 
   root = parse_container_node (parser, &context);
@@ -4545,7 +4545,7 @@ gsk_render_node_deserialize_from_bytes (GBytes            *bytes,
     }
 
   context_finish (&context);
-  gtk_css_parser_unref (parser);
+  bobgui_css_parser_unref (parser);
 
   return root;
 }
@@ -4811,7 +4811,7 @@ start_node (Printer    *self,
   g_string_append_printf (self->str, "%s ", node_type);
   if (node_name)
     {
-      gtk_css_print_string (self->str, node_name, FALSE);
+      bobgui_css_print_string (self->str, node_name, FALSE);
       g_string_append_c (self->str, ' ');
     }
   g_string_append_printf (self->str, "{\n");
@@ -5113,7 +5113,7 @@ append_string_param (Printer    *p,
 {
   _indent (p);
   g_string_append_printf (p->str, "%s: ", param_name);
-  gtk_css_print_string (p->str, value, TRUE);
+  bobgui_css_print_string (p->str, value, TRUE);
   g_string_append_c (p->str, ';');
   g_string_append_c (p->str, '\n');
 }
@@ -5589,7 +5589,7 @@ append_texture_param (Printer    *p,
   else if (texture_name[0])
     {
       /* texture has been named already */
-      gtk_css_print_string (p->str, texture_name, TRUE);
+      bobgui_css_print_string (p->str, texture_name, TRUE);
       g_string_append (p->str, ";\n");
       return;
     }
@@ -5597,7 +5597,7 @@ append_texture_param (Printer    *p,
     {
       /* texture needs a name */
       char *new_name = g_strdup_printf ("texture%zu", ++p->named_texture_counter);
-      gtk_css_print_string (p->str, new_name, TRUE);
+      bobgui_css_print_string (p->str, new_name, TRUE);
       g_string_append_c (p->str, ' ');
       g_hash_table_insert (p->named_textures, texture, new_name);
     }
@@ -5919,7 +5919,7 @@ append_isolation_param (Printer      *p,
     {
       gsize i;
 
-      if (gtk_popcount (GSK_ISOLATION_ALL & ~isolation) < gtk_popcount (isolation))
+      if (bobgui_popcount (GSK_ISOLATION_ALL & ~isolation) < bobgui_popcount (isolation))
         {
           g_string_append (p->str, " not");
           isolation = GSK_ISOLATION_ALL & ~isolation;
@@ -6005,7 +6005,7 @@ render_node_print (Printer       *p,
   else if (node_name[0])
     {
       /* node has been named already */
-      gtk_css_print_string (p->str, node_name, TRUE);
+      bobgui_css_print_string (p->str, node_name, TRUE);
       g_string_append (p->str, ";\n");
       return;
     }
@@ -6825,10 +6825,10 @@ serialize_color_state (GString       *str,
  *
  * Serializes the @node for later deserialization via
  * gsk_render_node_deserialize(). No guarantees are made about the format
- * used other than that the same version of GTK will be able to deserialize
+ * used other than that the same version of BOBGUI will be able to deserialize
  * the result of a call to gsk_render_node_serialize() and
  * gsk_render_node_deserialize() will correctly reject files it cannot open
- * that were created with previous versions of GTK.
+ * that were created with previous versions of BOBGUI.
  *
  * The intended use of this functions is testing, benchmarking and debugging.
  * The format is not meant as a permanent storage format.

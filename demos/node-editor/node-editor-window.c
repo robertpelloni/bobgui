@@ -21,7 +21,7 @@
 
 #include "node-editor-window.h"
 
-#include "gtkrendererpaintableprivate.h"
+#include "bobguirendererpaintableprivate.h"
 
 #include "gsk/gskrendernodeparserprivate.h"
 #ifdef GDK_WINDOWING_BROADWAY
@@ -66,24 +66,24 @@ typedef struct
 
 struct _NodeEditorWindow
 {
-  GtkApplicationWindow parent;
+  BobguiApplicationWindow parent;
 
-  GtkWidget *picture;
-  GtkWidget *text_view;
-  GtkTextBuffer *text_buffer;
-  GtkTextTagTable *tag_table;
+  BobguiWidget *picture;
+  BobguiWidget *text_view;
+  BobguiTextBuffer *text_buffer;
+  BobguiTextTagTable *tag_table;
 
-  GtkWidget *testcase_popover;
-  GtkWidget *testcase_error_label;
-  GtkWidget *testcase_cairo_checkbutton;
-  GtkWidget *testcase_name_entry;
-  GtkWidget *testcase_save_button;
-  GtkWidget *zoom_in;
-  GtkWidget *zoom_out;
-  GtkWidget *zoom_label;
-  GtkWidget *crash_warning;
+  BobguiWidget *testcase_popover;
+  BobguiWidget *testcase_error_label;
+  BobguiWidget *testcase_cairo_checkbutton;
+  BobguiWidget *testcase_name_entry;
+  BobguiWidget *testcase_save_button;
+  BobguiWidget *zoom_in;
+  BobguiWidget *zoom_out;
+  BobguiWidget *zoom_label;
+  BobguiWidget *crash_warning;
 
-  GtkWidget *renderer_listbox;
+  BobguiWidget *renderer_listbox;
   GListStore *renderers;
   GskRenderNode *node;
 
@@ -103,7 +103,7 @@ struct _NodeEditorWindow
 
 struct _NodeEditorWindowClass
 {
-  GtkApplicationWindowClass parent_class;
+  BobguiApplicationWindowClass parent_class;
 };
 
 enum {
@@ -116,7 +116,7 @@ enum {
 
 static GParamSpec *properties[NUM_PROPERTIES] = { NULL, };
 
-G_DEFINE_TYPE(NodeEditorWindow, node_editor_window, GTK_TYPE_APPLICATION_WINDOW);
+G_DEFINE_TYPE(NodeEditorWindow, node_editor_window, BOBGUI_TYPE_APPLICATION_WINDOW);
 
 static void
 text_view_error_free (TextViewError *e)
@@ -125,24 +125,24 @@ text_view_error_free (TextViewError *e)
 }
 
 static char *
-get_current_text (GtkTextBuffer *buffer)
+get_current_text (BobguiTextBuffer *buffer)
 {
-  GtkTextIter start, end;
+  BobguiTextIter start, end;
 
-  gtk_text_buffer_get_start_iter (buffer, &start);
-  gtk_text_buffer_get_end_iter (buffer, &end);
+  bobgui_text_buffer_get_start_iter (buffer, &start);
+  bobgui_text_buffer_get_end_iter (buffer, &end);
 
-  return gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
+  return bobgui_text_buffer_get_text (buffer, &start, &end, FALSE);
 }
 
 static void
-text_buffer_remove_all_tags (GtkTextBuffer *buffer)
+text_buffer_remove_all_tags (BobguiTextBuffer *buffer)
 {
-  GtkTextIter start, end;
+  BobguiTextIter start, end;
 
-  gtk_text_buffer_get_start_iter (buffer, &start);
-  gtk_text_buffer_get_end_iter (buffer, &end);
-  gtk_text_buffer_remove_all_tags (buffer, &start, &end);
+  bobgui_text_buffer_get_start_iter (buffer, &start);
+  bobgui_text_buffer_get_end_iter (buffer, &end);
+  bobgui_text_buffer_remove_all_tags (buffer, &start, &end);
 }
 
 static void
@@ -152,17 +152,17 @@ deserialize_error_func (const GskParseLocation *start_location,
                         gpointer                user_data)
 {
   NodeEditorWindow *self = user_data;
-  GtkTextIter start_iter, end_iter;
+  BobguiTextIter start_iter, end_iter;
   TextViewError text_view_error;
 
-  gtk_text_buffer_get_iter_at_line_offset (self->text_buffer, &start_iter,
+  bobgui_text_buffer_get_iter_at_line_offset (self->text_buffer, &start_iter,
                                            start_location->lines,
                                            start_location->line_chars);
-  gtk_text_buffer_get_iter_at_line_offset (self->text_buffer, &end_iter,
+  bobgui_text_buffer_get_iter_at_line_offset (self->text_buffer, &end_iter,
                                            end_location->lines,
                                            end_location->line_chars);
 
-  gtk_text_buffer_apply_tag_by_name (self->text_buffer, "error",
+  bobgui_text_buffer_apply_tag_by_name (self->text_buffer, "error",
                                      &start_iter, &end_iter);
 
   text_view_error.start_chars = start_location->chars;
@@ -172,135 +172,135 @@ deserialize_error_func (const GskParseLocation *start_location,
 }
 
 static void
-text_iter_skip_alpha_backward (GtkTextIter *iter)
+text_iter_skip_alpha_backward (BobguiTextIter *iter)
 {
   /* Just skip to the previous non-whitespace char */
 
-  while (!gtk_text_iter_is_start (iter))
+  while (!bobgui_text_iter_is_start (iter))
     {
-      gunichar c = gtk_text_iter_get_char (iter);
+      gunichar c = bobgui_text_iter_get_char (iter);
 
       if (g_unichar_isspace (c))
         {
-          gtk_text_iter_forward_char (iter);
+          bobgui_text_iter_forward_char (iter);
           break;
         }
 
-      gtk_text_iter_backward_char (iter);
+      bobgui_text_iter_backward_char (iter);
     }
 }
 
 static void
-text_iter_skip_whitespace_backward (GtkTextIter *iter)
+text_iter_skip_whitespace_backward (BobguiTextIter *iter)
 {
-  while (!gtk_text_iter_is_start (iter))
+  while (!bobgui_text_iter_is_start (iter))
     {
-      gunichar c = gtk_text_iter_get_char (iter);
+      gunichar c = bobgui_text_iter_get_char (iter);
 
       if (g_unichar_isalpha (c))
         {
-          gtk_text_iter_forward_char (iter);
+          bobgui_text_iter_forward_char (iter);
           break;
         }
 
-      gtk_text_iter_backward_char (iter);
+      bobgui_text_iter_backward_char (iter);
     }
 }
 
 static void
 highlight_text (NodeEditorWindow *self)
 {
-  GtkTextIter iter;
-  GtkTextIter start, end;
+  BobguiTextIter iter;
+  BobguiTextIter start, end;
 
-  gtk_text_buffer_get_start_iter (self->text_buffer, &iter);
+  bobgui_text_buffer_get_start_iter (self->text_buffer, &iter);
 
-  while (!gtk_text_iter_is_end (&iter))
+  while (!bobgui_text_iter_is_end (&iter))
     {
-      gunichar c = gtk_text_iter_get_char (&iter);
+      gunichar c = bobgui_text_iter_get_char (&iter);
 
       if (c == '/')
         {
-          GtkTextIter comment_start = iter;
-          gtk_text_iter_forward_char (&iter);
+          BobguiTextIter comment_start = iter;
+          bobgui_text_iter_forward_char (&iter);
 
-          c = gtk_text_iter_get_char (&iter);
+          c = bobgui_text_iter_get_char (&iter);
           if (c == '*')
             {
-              gtk_text_iter_forward_char (&iter);
-              while (!gtk_text_iter_is_end (&iter))
+              bobgui_text_iter_forward_char (&iter);
+              while (!bobgui_text_iter_is_end (&iter))
                 {
-                  c = gtk_text_iter_get_char (&iter);
-                  gtk_text_iter_forward_char (&iter);
+                  c = bobgui_text_iter_get_char (&iter);
+                  bobgui_text_iter_forward_char (&iter);
 
                   if (c == '*')
                     {
-                      c = gtk_text_iter_get_char (&iter);
-                      gtk_text_iter_forward_char (&iter);
+                      c = bobgui_text_iter_get_char (&iter);
+                      bobgui_text_iter_forward_char (&iter);
                       if (c == '/')
                         break;
                     }
                 }
             }
 
-          gtk_text_buffer_apply_tag_by_name (self->text_buffer, "comment", &comment_start, &iter);
+          bobgui_text_buffer_apply_tag_by_name (self->text_buffer, "comment", &comment_start, &iter);
         }
       else if (c == '{')
         {
-          GtkTextIter word_end = iter;
-          GtkTextIter word_start;
+          BobguiTextIter word_end = iter;
+          BobguiTextIter word_start;
 
-          gtk_text_iter_backward_char (&word_end);
+          bobgui_text_iter_backward_char (&word_end);
           text_iter_skip_whitespace_backward (&word_end);
 
           word_start = word_end;
-          gtk_text_iter_backward_word_start (&word_start);
+          bobgui_text_iter_backward_word_start (&word_start);
           text_iter_skip_alpha_backward (&word_start);
 
-          gtk_text_buffer_apply_tag_by_name (self->text_buffer, "nodename", &word_start, &word_end);
+          bobgui_text_buffer_apply_tag_by_name (self->text_buffer, "nodename", &word_start, &word_end);
         }
       else if (c == ':')
         {
-          GtkTextIter word_end = iter;
-          GtkTextIter word_start;
+          BobguiTextIter word_end = iter;
+          BobguiTextIter word_start;
 
-          gtk_text_iter_backward_char (&word_end);
+          bobgui_text_iter_backward_char (&word_end);
           text_iter_skip_whitespace_backward (&word_end);
 
           word_start = word_end;
-          gtk_text_iter_backward_word_start (&word_start);
+          bobgui_text_iter_backward_word_start (&word_start);
           text_iter_skip_alpha_backward (&word_start);
 
-          gtk_text_buffer_apply_tag_by_name (self->text_buffer, "propname", &word_start, &word_end);
+          bobgui_text_buffer_apply_tag_by_name (self->text_buffer, "propname", &word_start, &word_end);
         }
       else if (c == '"')
         {
-          GtkTextIter string_start = iter;
-          GtkTextIter string_end = iter;
+          BobguiTextIter string_start = iter;
+          BobguiTextIter string_end = iter;
 
-          gtk_text_iter_forward_char (&iter);
-          while (!gtk_text_iter_is_end (&iter))
+          bobgui_text_iter_forward_char (&iter);
+          while (!bobgui_text_iter_is_end (&iter))
             {
-              c = gtk_text_iter_get_char (&iter);
+              c = bobgui_text_iter_get_char (&iter);
 
               if (c == '"')
                 {
-                  gtk_text_iter_forward_char (&iter);
+                  bobgui_text_iter_forward_char (&iter);
                   string_end = iter;
                   break;
                 }
 
-              gtk_text_iter_forward_char (&iter);
+              bobgui_text_iter_forward_char (&iter);
             }
 
-          gtk_text_buffer_apply_tag_by_name (self->text_buffer, "string", &string_start, &string_end);
+          bobgui_text_buffer_apply_tag_by_name (self->text_buffer, "string", &string_start, &string_end);
         }
 
-      gtk_text_iter_forward_char (&iter);
+      bobgui_text_iter_forward_char (&iter);
     }
 
-  gtk_text_buffer_get_bounds (self->text_buffer, &start, &end);
-  gtk_text_buffer_apply_tag_by_name (self->text_buffer, "no-hyphens", &start, &end);
+  bobgui_text_buffer_get_bounds (self->text_buffer, &start, &end);
+  bobgui_text_buffer_apply_tag_by_name (self->text_buffer, "no-hyphens", &start, &end);
 }
 
 static void
@@ -386,29 +386,29 @@ reload (NodeEditorWindow *self)
   if (self->node)
     {
       /* XXX: Is this code necessary or can we have API to turn nodes into paintables? */
-      GtkSnapshot *snapshot;
+      BobguiSnapshot *snapshot;
       GdkPaintable *paintable;
       graphene_rect_t bounds;
       guint i;
 
-      snapshot = gtk_snapshot_new ();
+      snapshot = bobgui_snapshot_new ();
       gsk_render_node_get_bounds (big_node, &bounds);
-      gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (- bounds.origin.x, - bounds.origin.y));
-      gtk_snapshot_append_node (snapshot, big_node);
-      paintable = gtk_snapshot_free_to_paintable (snapshot, &bounds.size);
-      gtk_picture_set_paintable (GTK_PICTURE (self->picture), paintable);
+      bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (- bounds.origin.x, - bounds.origin.y));
+      bobgui_snapshot_append_node (snapshot, big_node);
+      paintable = bobgui_snapshot_free_to_paintable (snapshot, &bounds.size);
+      bobgui_picture_set_paintable (BOBGUI_PICTURE (self->picture), paintable);
       g_clear_object (&paintable);
 
-      snapshot = gtk_snapshot_new ();
+      snapshot = bobgui_snapshot_new ();
       gsk_render_node_get_bounds (self->node, &bounds);
-      gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (- bounds.origin.x, - bounds.origin.y));
-      gtk_snapshot_append_node (snapshot, self->node);
-      paintable = gtk_snapshot_free_to_paintable (snapshot, &bounds.size);
+      bobgui_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (- bounds.origin.x, - bounds.origin.y));
+      bobgui_snapshot_append_node (snapshot, self->node);
+      paintable = bobgui_snapshot_free_to_paintable (snapshot, &bounds.size);
 
       for (i = 0; i < g_list_model_get_n_items (G_LIST_MODEL (self->renderers)); i++)
         {
           gpointer item = g_list_model_get_item (G_LIST_MODEL (self->renderers), i);
-          gtk_renderer_paintable_set_paintable (item, paintable);
+          bobgui_renderer_paintable_set_paintable (item, paintable);
           g_object_unref (item);
         }
 
@@ -416,7 +416,7 @@ reload (NodeEditorWindow *self)
     }
   else
     {
-      gtk_picture_set_paintable (GTK_PICTURE (self->picture), NULL);
+      bobgui_picture_set_paintable (BOBGUI_PICTURE (self->picture), NULL);
     }
 
   g_clear_pointer (&big_node, gsk_render_node_unref);
@@ -425,7 +425,7 @@ reload (NodeEditorWindow *self)
 }
 
 static void
-text_changed (GtkTextBuffer    *buffer,
+text_changed (BobguiTextBuffer    *buffer,
               NodeEditorWindow *self)
 {
   g_array_remove_range (self->errors, 0, self->errors->len);
@@ -438,14 +438,14 @@ text_changed (GtkTextBuffer    *buffer,
 }
 
 static gboolean
-text_view_query_tooltip_cb (GtkWidget        *widget,
+text_view_query_tooltip_cb (BobguiWidget        *widget,
                             int               x,
                             int               y,
                             gboolean          keyboard_tip,
-                            GtkTooltip       *tooltip,
+                            BobguiTooltip       *tooltip,
                             NodeEditorWindow *self)
 {
-  GtkTextIter iter;
+  BobguiTextIter iter;
   guint i;
   GString *text;
 
@@ -454,15 +454,15 @@ text_view_query_tooltip_cb (GtkWidget        *widget,
       int offset;
 
       g_object_get (self->text_buffer, "cursor-position", &offset, NULL);
-      gtk_text_buffer_get_iter_at_offset (self->text_buffer, &iter, offset);
+      bobgui_text_buffer_get_iter_at_offset (self->text_buffer, &iter, offset);
     }
   else
     {
       int bx, by, trailing;
 
-      gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (self->text_view), GTK_TEXT_WINDOW_TEXT,
+      bobgui_text_view_window_to_buffer_coords (BOBGUI_TEXT_VIEW (self->text_view), BOBGUI_TEXT_WINDOW_TEXT,
                                              x, y, &bx, &by);
-      gtk_text_view_get_iter_at_position (GTK_TEXT_VIEW (self->text_view), &iter, &trailing, bx, by);
+      bobgui_text_view_get_iter_at_position (BOBGUI_TEXT_VIEW (self->text_view), &iter, &trailing, bx, by);
     }
 
   text = g_string_new ("");
@@ -470,12 +470,12 @@ text_view_query_tooltip_cb (GtkWidget        *widget,
   for (i = 0; i < self->errors->len; i ++)
     {
       const TextViewError *e = &g_array_index (self->errors, TextViewError, i);
-      GtkTextIter start_iter, end_iter;
+      BobguiTextIter start_iter, end_iter;
 
-      gtk_text_buffer_get_iter_at_offset (self->text_buffer, &start_iter, e->start_chars);
-      gtk_text_buffer_get_iter_at_offset (self->text_buffer, &end_iter, e->end_chars);
+      bobgui_text_buffer_get_iter_at_offset (self->text_buffer, &start_iter, e->start_chars);
+      bobgui_text_buffer_get_iter_at_offset (self->text_buffer, &end_iter, e->end_chars);
 
-      if (gtk_text_iter_in_range (&iter, &start_iter, &end_iter))
+      if (bobgui_text_iter_in_range (&iter, &start_iter, &end_iter))
         {
           if (text->len > 0)
             g_string_append (text, "\n");
@@ -485,7 +485,7 @@ text_view_query_tooltip_cb (GtkWidget        *widget,
 
   if (text->len > 0)
     {
-      gtk_tooltip_set_text (tooltip, text->str);
+      bobgui_tooltip_set_text (tooltip, text->str);
       g_string_free (text, TRUE);
       return TRUE;
     }
@@ -505,15 +505,15 @@ load_error (NodeEditorWindow *self,
             const char        *error_message)
 {
   PangoLayout *layout;
-  GtkSnapshot *snapshot;
+  BobguiSnapshot *snapshot;
   GskRenderNode *node;
   GBytes *bytes;
 
-  layout = gtk_widget_create_pango_layout (GTK_WIDGET (self), error_message);
+  layout = bobgui_widget_create_pango_layout (BOBGUI_WIDGET (self), error_message);
   pango_layout_set_width (layout, 300 * PANGO_SCALE);
-  snapshot = gtk_snapshot_new ();
-  gtk_snapshot_append_layout (snapshot, layout, &(GdkRGBA) { 0.7, 0.13, 0.13, 1.0 });
-  node = gtk_snapshot_free_to_node (snapshot);
+  snapshot = bobgui_snapshot_new ();
+  bobgui_snapshot_append_layout (snapshot, layout, &(GdkRGBA) { 0.7, 0.13, 0.13, 1.0 });
+  node = bobgui_snapshot_free_to_node (snapshot);
   bytes = gsk_render_node_serialize (node);
 
   load_bytes (self, bytes);
@@ -533,7 +533,7 @@ load_bytes (NodeEditorWindow *self,
       return FALSE;
     }
 
-  gtk_text_buffer_set_text (self->text_buffer,
+  bobgui_text_buffer_set_text (self->text_buffer,
                             g_bytes_get_data (bytes, NULL),
                             g_bytes_get_size (bytes));
 
@@ -561,7 +561,7 @@ load_file_contents (NodeEditorWindow *self,
 }
 
 static GdkContentProvider *
-on_picture_drag_prepare_cb (GtkDragSource    *source,
+on_picture_drag_prepare_cb (BobguiDragSource    *source,
                             double            x,
                             double            y,
                             NodeEditorWindow *self)
@@ -630,14 +630,14 @@ on_picture_drop_read_cb (GObject      *source,
 }
 
 static gboolean
-on_picture_drop_cb (GtkDropTargetAsync *dest,
+on_picture_drop_cb (BobguiDropTargetAsync *dest,
                     GdkDrop            *drop,
                     double              x,
                     double              y,
                     NodeEditorWindow   *self)
 {
   gdk_drop_read_async (drop,
-                       (const char *[2]) { "application/x-gtk-render-node", NULL },
+                       (const char *[2]) { "application/x-bobgui-render-node", NULL },
                        G_PRIORITY_DEFAULT,
                        NULL,
                        on_picture_drop_read_cb,
@@ -693,11 +693,11 @@ open_response_cb (GObject *source,
                   GAsyncResult *result,
                   void *user_data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   NodeEditorWindow *self = user_data;
   GFile *file;
 
-  file = gtk_file_dialog_open_finish (dialog, result, NULL);
+  file = bobgui_file_dialog_open_finish (dialog, result, NULL);
   if (file)
     {
       node_editor_window_load (self, file);
@@ -708,29 +708,29 @@ open_response_cb (GObject *source,
 static void
 show_open_filechooser (NodeEditorWindow *self)
 {
-  GtkFileDialog *dialog;
+  BobguiFileDialog *dialog;
 
-  dialog = gtk_file_dialog_new ();
-  gtk_file_dialog_set_title (dialog, "Open node file");
+  dialog = bobgui_file_dialog_new ();
+  bobgui_file_dialog_set_title (dialog, "Open node file");
   if (self->file)
     {
-      gtk_file_dialog_set_initial_file (dialog, self->file);
+      bobgui_file_dialog_set_initial_file (dialog, self->file);
     }
   else
     {
       GFile *cwd;
       cwd = g_file_new_for_path (".");
-      gtk_file_dialog_set_initial_folder (dialog, cwd);
+      bobgui_file_dialog_set_initial_folder (dialog, cwd);
       g_object_unref (cwd);
     }
 
-  gtk_file_dialog_open (dialog, GTK_WINDOW (self),
+  bobgui_file_dialog_open (dialog, BOBGUI_WINDOW (self),
                         NULL, open_response_cb, self);
   g_object_unref (dialog);
 }
 
 static void
-open_cb (GtkWidget        *button,
+open_cb (BobguiWidget        *button,
          NodeEditorWindow *self)
 {
   show_open_filechooser (self);
@@ -741,11 +741,11 @@ save_response_cb (GObject *source,
                   GAsyncResult *result,
                   void *user_data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   NodeEditorWindow *self = user_data;
   GFile *file;
 
-  file = gtk_file_dialog_save_finish (dialog, result, NULL);
+  file = bobgui_file_dialog_save_finish (dialog, result, NULL);
   if (file)
     {
       char *text;
@@ -761,12 +761,12 @@ save_response_cb (GObject *source,
                                &error);
       if (error != NULL)
         {
-          GtkAlertDialog *alert;
+          BobguiAlertDialog *alert;
 
-          alert = gtk_alert_dialog_new ("Saving failed");
-          gtk_alert_dialog_set_detail (alert, error->message);
-          gtk_alert_dialog_show (alert,
-                                 GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (self))));
+          alert = bobgui_alert_dialog_new ("Saving failed");
+          bobgui_alert_dialog_set_detail (alert, error->message);
+          bobgui_alert_dialog_show (alert,
+                                 BOBGUI_WINDOW (bobgui_widget_get_root (BOBGUI_WIDGET (self))));
           g_object_unref (alert);
           g_error_free (error);
         }
@@ -777,27 +777,27 @@ save_response_cb (GObject *source,
 }
 
 static void
-save_cb (GtkWidget        *button,
+save_cb (BobguiWidget        *button,
          NodeEditorWindow *self)
 {
-  GtkFileDialog *dialog;
+  BobguiFileDialog *dialog;
 
-  dialog = gtk_file_dialog_new ();
-  gtk_file_dialog_set_title (dialog, "Save node");
+  dialog = bobgui_file_dialog_new ();
+  bobgui_file_dialog_set_title (dialog, "Save node");
   if (self->file)
     {
-      gtk_file_dialog_set_initial_file (dialog, self->file);
+      bobgui_file_dialog_set_initial_file (dialog, self->file);
     }
   else
     {
       GFile *cwd = g_file_new_for_path (".");
-      gtk_file_dialog_set_initial_folder (dialog, cwd);
-      gtk_file_dialog_set_initial_name (dialog, "demo.node");
+      bobgui_file_dialog_set_initial_folder (dialog, cwd);
+      bobgui_file_dialog_set_initial_name (dialog, "demo.node");
       g_object_unref (cwd);
     }
 
-  gtk_file_dialog_save (dialog,
-                        GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (button))),
+  bobgui_file_dialog_save (dialog,
+                        BOBGUI_WINDOW (bobgui_widget_get_root (BOBGUI_WIDGET (button))),
                         NULL,
                         save_response_cb, self);
   g_object_unref (dialog);
@@ -807,18 +807,18 @@ static GskRenderNode *
 create_node (NodeEditorWindow *self)
 {
   GdkPaintable *paintable;
-  GtkSnapshot *snapshot;
+  BobguiSnapshot *snapshot;
   GskRenderNode *node;
 
-  paintable = gtk_picture_get_paintable (GTK_PICTURE (self->picture));
+  paintable = bobgui_picture_get_paintable (BOBGUI_PICTURE (self->picture));
   if (paintable == NULL ||
       gdk_paintable_get_intrinsic_width (paintable) <= 0 ||
       gdk_paintable_get_intrinsic_height (paintable) <= 0)
     return NULL;
 
-  snapshot = gtk_snapshot_new ();
+  snapshot = bobgui_snapshot_new ();
   gdk_paintable_snapshot (paintable, snapshot, gdk_paintable_get_intrinsic_width (paintable), gdk_paintable_get_intrinsic_height (paintable));
-  node = gtk_snapshot_free_to_node (snapshot);
+  node = bobgui_snapshot_free_to_node (snapshot);
 
   return node;
 }
@@ -834,7 +834,7 @@ create_texture (NodeEditorWindow *self)
   if (node == NULL)
     return NULL;
 
-  renderer = gtk_native_get_renderer (gtk_widget_get_native (GTK_WIDGET (self)));
+  renderer = bobgui_native_get_renderer (bobgui_widget_get_native (BOBGUI_WIDGET (self)));
   texture = gsk_renderer_render_texture (renderer, node, NULL);
   gsk_render_node_unref (node);
 
@@ -897,24 +897,24 @@ static GdkTexture *
 create_cairo_texture (NodeEditorWindow *self)
 {
   GdkPaintable *paintable;
-  GtkSnapshot *snapshot;
+  BobguiSnapshot *snapshot;
   GskRenderer *renderer;
   GskRenderNode *node;
   GdkTexture *texture;
 
-  paintable = gtk_picture_get_paintable (GTK_PICTURE (self->picture));
+  paintable = bobgui_picture_get_paintable (BOBGUI_PICTURE (self->picture));
   if (paintable == NULL ||
       gdk_paintable_get_intrinsic_width (paintable) <= 0 ||
       gdk_paintable_get_intrinsic_height (paintable) <= 0)
     return NULL;
-  snapshot = gtk_snapshot_new ();
+  snapshot = bobgui_snapshot_new ();
   gdk_paintable_snapshot (paintable, snapshot, gdk_paintable_get_intrinsic_width (paintable), gdk_paintable_get_intrinsic_height (paintable));
-  node = gtk_snapshot_free_to_node (snapshot);
+  node = bobgui_snapshot_free_to_node (snapshot);
   if (node == NULL)
     return NULL;
 
   renderer = gsk_cairo_renderer_new ();
-  gsk_renderer_realize_for_display (renderer, gtk_widget_get_display (GTK_WIDGET (self)), NULL);
+  gsk_renderer_realize_for_display (renderer, bobgui_widget_get_display (BOBGUI_WIDGET (self)), NULL);
 
   texture = gsk_renderer_render_texture (renderer, node, NULL);
   gsk_render_node_unref (node);
@@ -933,11 +933,11 @@ export_image_saved_cb (GObject      *source,
 
   if (!g_file_replace_contents_finish (G_FILE (source), result, NULL, &error))
     {
-      GtkAlertDialog *alert;
+      BobguiAlertDialog *alert;
 
-      alert = gtk_alert_dialog_new ("Exporting to image failed");
-      gtk_alert_dialog_set_detail (alert, error->message);
-      gtk_alert_dialog_show (alert, NULL);
+      alert = bobgui_alert_dialog_new ("Exporting to image failed");
+      bobgui_alert_dialog_set_detail (alert, error->message);
+      bobgui_alert_dialog_show (alert, NULL);
       g_object_unref (alert);
       g_clear_error (&error);
     }
@@ -948,13 +948,13 @@ export_image_response_cb (GObject      *source,
                           GAsyncResult *result,
                           void         *user_data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   GskRenderNode *node = user_data;
   GFile *file;
   char *uri;
   GBytes *bytes;
 
-  file = gtk_file_dialog_save_finish (dialog, result, NULL);
+  file = bobgui_file_dialog_save_finish (dialog, result, NULL);
   if (file == NULL)
     {
       gsk_render_node_unref (node);
@@ -970,11 +970,11 @@ export_image_response_cb (GObject      *source,
       bytes = create_svg (node, &error);
       if (bytes == NULL)
         {
-          GtkAlertDialog *alert;
+          BobguiAlertDialog *alert;
 
-          alert = gtk_alert_dialog_new ("Exporting to image failed");
-          gtk_alert_dialog_set_detail (alert, error->message);
-          gtk_alert_dialog_show (alert, NULL);
+          alert = bobgui_alert_dialog_new ("Exporting to image failed");
+          bobgui_alert_dialog_set_detail (alert, error->message);
+          bobgui_alert_dialog_show (alert, NULL);
           g_object_unref (alert);
           g_clear_error (&error);
         }
@@ -1024,38 +1024,38 @@ export_image_response_cb (GObject      *source,
 }
 
 static void
-export_image_cb (GtkWidget        *button,
+export_image_cb (BobguiWidget        *button,
                  NodeEditorWindow *self)
 {
   GskRenderNode *node;
-  GtkFileDialog *dialog;
-  GtkFileFilter *filter;
+  BobguiFileDialog *dialog;
+  BobguiFileFilter *filter;
   GListStore *filters;
 
   node = create_node (self);
   if (node == NULL)
     return;
 
-  filters = g_list_store_new (GTK_TYPE_FILE_FILTER);
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_add_mime_type (filter, "image/png");
+  filters = g_list_store_new (BOBGUI_TYPE_FILE_FILTER);
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_add_mime_type (filter, "image/png");
   g_list_store_append (filters, filter);
   g_object_unref (filter);
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_add_mime_type (filter, "image/svg+xml");
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_add_mime_type (filter, "image/svg+xml");
   g_list_store_append (filters, filter);
   g_object_unref (filter);
-  filter = gtk_file_filter_new ();
-  gtk_file_filter_add_mime_type (filter, "image/tiff");
+  filter = bobgui_file_filter_new ();
+  bobgui_file_filter_add_mime_type (filter, "image/tiff");
   g_list_store_append (filters, filter);
   g_object_unref (filter);
 
-  dialog = gtk_file_dialog_new ();
-  gtk_file_dialog_set_title (dialog, "");
-  gtk_file_dialog_set_initial_name (dialog, "example.png");
-  gtk_file_dialog_set_filters (dialog, G_LIST_MODEL (filters));
-  gtk_file_dialog_save (dialog,
-                        GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (button))),
+  dialog = bobgui_file_dialog_new ();
+  bobgui_file_dialog_set_title (dialog, "");
+  bobgui_file_dialog_set_initial_name (dialog, "example.png");
+  bobgui_file_dialog_set_filters (dialog, G_LIST_MODEL (filters));
+  bobgui_file_dialog_save (dialog,
+                        BOBGUI_WINDOW (bobgui_widget_get_root (BOBGUI_WIDGET (button))),
                         NULL,
                         export_image_response_cb, node);
   g_object_unref (filters);
@@ -1064,7 +1064,7 @@ export_image_cb (GtkWidget        *button,
 
 
 static void
-clip_image_cb (GtkWidget        *button,
+clip_image_cb (BobguiWidget        *button,
                NodeEditorWindow *self)
 {
   GdkTexture *texture;
@@ -1074,7 +1074,7 @@ clip_image_cb (GtkWidget        *button,
   if (texture == NULL)
     return;
 
-  clipboard = gtk_widget_get_clipboard (GTK_WIDGET (self));
+  clipboard = bobgui_widget_get_clipboard (BOBGUI_WIDGET (self));
 
   gdk_clipboard_set_texture (clipboard, texture);
 
@@ -1082,24 +1082,24 @@ clip_image_cb (GtkWidget        *button,
 }
 
 static void
-testcase_name_entry_changed_cb (GtkWidget        *button,
+testcase_name_entry_changed_cb (BobguiWidget        *button,
                                 GParamSpec       *pspec,
                                 NodeEditorWindow *self)
 
 {
-  const char *text = gtk_editable_get_text (GTK_EDITABLE (self->testcase_name_entry));
+  const char *text = bobgui_editable_get_text (BOBGUI_EDITABLE (self->testcase_name_entry));
 
   if (strlen (text) > 0)
-    gtk_widget_set_sensitive (self->testcase_save_button, TRUE);
+    bobgui_widget_set_sensitive (self->testcase_save_button, TRUE);
   else
-    gtk_widget_set_sensitive (self->testcase_save_button, FALSE);
+    bobgui_widget_set_sensitive (self->testcase_save_button, FALSE);
 }
 
 /* Returns the location where gsk test cases are stored in
- * the GTK testsuite, if we can determine it.
+ * the BOBGUI testsuite, if we can determine it.
  *
- * When running node editor outside of a GTK build, you can
- * set GTK_SOURCE_DIR to point it at the checkout.
+ * When running node editor outside of a BOBGUI build, you can
+ * set BOBGUI_SOURCE_DIR to point it at the checkout.
  */
 static char *
 get_source_dir (void)
@@ -1109,7 +1109,7 @@ get_source_dir (void)
   char *current_dir;
   char *dir;
 
-  source_dir = g_getenv ("GTK_SOURCE_DIR");
+  source_dir = g_getenv ("BOBGUI_SOURCE_DIR");
   current_dir = g_get_current_dir ();
 
   if (source_dir)
@@ -1136,10 +1136,10 @@ get_source_dir (void)
 }
 
 static void
-testcase_save_clicked_cb (GtkWidget        *button,
+testcase_save_clicked_cb (BobguiWidget        *button,
                           NodeEditorWindow *self)
 {
-  const char *testcase_name = gtk_editable_get_text (GTK_EDITABLE (self->testcase_name_entry));
+  const char *testcase_name = bobgui_editable_get_text (BOBGUI_EDITABLE (self->testcase_name_entry));
   char *source_dir = get_source_dir ();
   char *node_file_name;
   char *node_file;
@@ -1159,14 +1159,14 @@ testcase_save_clicked_cb (GtkWidget        *button,
   png_file = g_build_filename (source_dir, png_file_name, NULL);
   g_free (png_file_name);
 
-  if (gtk_check_button_get_active (GTK_CHECK_BUTTON (self->testcase_cairo_checkbutton)))
+  if (bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (self->testcase_cairo_checkbutton)))
     texture = create_cairo_texture (self);
   else
     texture = create_texture (self);
 
   if (!gdk_texture_save_to_png (texture, png_file))
     {
-      gtk_label_set_label (GTK_LABEL (self->testcase_error_label),
+      bobgui_label_set_label (BOBGUI_LABEL (self->testcase_error_label),
                            "Could not save texture file");
       goto out;
     }
@@ -1187,13 +1187,13 @@ testcase_save_clicked_cb (GtkWidget        *button,
 
   if (!g_file_set_contents (node_file, text, -1, &error))
     {
-      gtk_label_set_label (GTK_LABEL (self->testcase_error_label), error->message);
+      bobgui_label_set_label (BOBGUI_LABEL (self->testcase_error_label), error->message);
       /* TODO: Remove texture file again? */
       goto out;
     }
 
-  gtk_editable_set_text (GTK_EDITABLE (self->testcase_name_entry), "");
-  gtk_popover_popdown (GTK_POPOVER (self->testcase_popover));
+  bobgui_editable_set_text (BOBGUI_EDITABLE (self->testcase_name_entry), "");
+  bobgui_popover_popdown (BOBGUI_POPOVER (self->testcase_popover));
 
 out:
   g_free (text);
@@ -1206,28 +1206,28 @@ static void
 set_dark_mode (NodeEditorWindow *self,
                gboolean          dark_mode)
 {
-  GtkSettings *settings;
+  BobguiSettings *settings;
 
   if (self->dark_mode == dark_mode)
     return;
 
   self->dark_mode = dark_mode;
 
-  settings = gtk_widget_get_settings (GTK_WIDGET (self));
+  settings = bobgui_widget_get_settings (BOBGUI_WIDGET (self));
 
   if (dark_mode)
     {
-      GtkInterfaceColorScheme color_scheme;
+      BobguiInterfaceColorScheme color_scheme;
 
-      g_object_get (settings, "gtk-interface-color-scheme", &color_scheme, NULL);
-      if (color_scheme == GTK_INTERFACE_COLOR_SCHEME_DARK)
-        color_scheme = GTK_INTERFACE_COLOR_SCHEME_LIGHT;
+      g_object_get (settings, "bobgui-interface-color-scheme", &color_scheme, NULL);
+      if (color_scheme == BOBGUI_INTERFACE_COLOR_SCHEME_DARK)
+        color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_LIGHT;
       else
-        color_scheme = GTK_INTERFACE_COLOR_SCHEME_DARK;
-      g_object_set (settings, "gtk-interface-color-scheme", color_scheme, NULL);
+        color_scheme = BOBGUI_INTERFACE_COLOR_SCHEME_DARK;
+      g_object_set (settings, "bobgui-interface-color-scheme", color_scheme, NULL);
     }
   else
-    gtk_settings_reset_property (settings, "gtk-interface-color-scheme");
+    bobgui_settings_reset_property (settings, "bobgui-interface-color-scheme");
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_DARK_MODE]);
 }
@@ -1235,7 +1235,7 @@ set_dark_mode (NodeEditorWindow *self,
 static void
 node_editor_window_dispose (GObject *object)
 {
-  gtk_widget_dispose_template (GTK_WIDGET (object), NODE_EDITOR_WINDOW_TYPE);
+  bobgui_widget_dispose_template (BOBGUI_WIDGET (object), NODE_EDITOR_WINDOW_TYPE);
 
   G_OBJECT_CLASS (node_editor_window_parent_class)->dispose (object);
 }
@@ -1263,11 +1263,11 @@ node_editor_window_add_renderer (NodeEditorWindow *self,
   GdkPaintable *paintable;
   GdkDisplay *display;
 
-  display = gtk_widget_get_display (GTK_WIDGET (self));
+  display = bobgui_widget_get_display (BOBGUI_WIDGET (self));
 
   if (!gsk_renderer_realize_for_display (renderer, display, NULL))
     {
-      GdkSurface *surface = gtk_native_get_surface (GTK_NATIVE (self));
+      GdkSurface *surface = bobgui_native_get_surface (BOBGUI_NATIVE (self));
       g_assert (surface != NULL);
 
       if (!gsk_renderer_realize (renderer, surface, NULL))
@@ -1277,7 +1277,7 @@ node_editor_window_add_renderer (NodeEditorWindow *self,
         }
     }
 
-  paintable = gtk_renderer_paintable_new (renderer, gtk_picture_get_paintable (GTK_PICTURE (self->picture)));
+  paintable = bobgui_renderer_paintable_new (renderer, bobgui_picture_get_paintable (BOBGUI_PICTURE (self->picture)));
   g_object_set_data_full (G_OBJECT (paintable), "description", g_strdup (description), g_free);
   g_clear_object (&renderer);
 
@@ -1290,21 +1290,21 @@ update_paste_action (GdkClipboard *clipboard,
                      GParamSpec   *pspec,
                      gpointer      data)
 {
-  GtkWidget *widget = GTK_WIDGET (data);
+  BobguiWidget *widget = BOBGUI_WIDGET (data);
   gboolean has_node;
 
-  has_node = gdk_content_formats_contain_mime_type (gdk_clipboard_get_formats (clipboard), "application/x-gtk-render-node");
+  has_node = gdk_content_formats_contain_mime_type (gdk_clipboard_get_formats (clipboard), "application/x-bobgui-render-node");
 
-  gtk_widget_action_set_enabled (widget, "paste-node", has_node);
+  bobgui_widget_action_set_enabled (widget, "paste-node", has_node);
 }
 
 static void
-node_editor_window_realize (GtkWidget *widget)
+node_editor_window_realize (BobguiWidget *widget)
 {
   NodeEditorWindow *self = NODE_EDITOR_WINDOW (widget);
   GdkFrameClock *frameclock;
 
-  GTK_WIDGET_CLASS (node_editor_window_parent_class)->realize (widget);
+  BOBGUI_WIDGET_CLASS (node_editor_window_parent_class)->realize (widget);
 
 #if 0
   node_editor_window_add_renderer (self,
@@ -1328,42 +1328,42 @@ G_GNUC_END_IGNORE_DEPRECATIONS
                                    gsk_cairo_renderer_new (),
                                    "Cairo");
 
-  frameclock = gtk_widget_get_frame_clock (widget);
+  frameclock = bobgui_widget_get_frame_clock (widget);
   self->after_paint_handler = g_signal_connect (frameclock, "after-paint",
                                                 G_CALLBACK (after_paint), self);
 
-  g_signal_connect (gtk_widget_get_clipboard (widget), "notify::formats", G_CALLBACK (update_paste_action), widget);
+  g_signal_connect (bobgui_widget_get_clipboard (widget), "notify::formats", G_CALLBACK (update_paste_action), widget);
 }
 
 static void
-node_editor_window_unrealize (GtkWidget *widget)
+node_editor_window_unrealize (BobguiWidget *widget)
 {
   NodeEditorWindow *self = NODE_EDITOR_WINDOW (widget);
   GdkFrameClock *frameclock;
   guint i;
 
-  g_signal_handlers_disconnect_by_func (gtk_widget_get_clipboard (widget), update_paste_action, widget);
+  g_signal_handlers_disconnect_by_func (bobgui_widget_get_clipboard (widget), update_paste_action, widget);
 
-  frameclock = gtk_widget_get_frame_clock (widget);
+  frameclock = bobgui_widget_get_frame_clock (widget);
   g_signal_handler_disconnect (frameclock, self->after_paint_handler);
   self->after_paint_handler = 0;
 
   for (i = 0; i < g_list_model_get_n_items (G_LIST_MODEL (self->renderers)); i ++)
     {
       gpointer item = g_list_model_get_item (G_LIST_MODEL (self->renderers), i);
-      gsk_renderer_unrealize (gtk_renderer_paintable_get_renderer (item));
+      gsk_renderer_unrealize (bobgui_renderer_paintable_get_renderer (item));
       g_object_unref (item);
     }
 
   g_list_store_remove_all (self->renderers);
 
-  GTK_WIDGET_CLASS (node_editor_window_parent_class)->unrealize (widget);
+  BOBGUI_WIDGET_CLASS (node_editor_window_parent_class)->unrealize (widget);
 }
 
 typedef struct
 {
   NodeEditorWindow *self;
-  GtkTextIter start, end;
+  BobguiTextIter start, end;
 } Selection;
 
 static void
@@ -1371,15 +1371,15 @@ color_cb (GObject *source,
           GAsyncResult *result,
           gpointer data)
 {
-  GtkColorDialog *dialog = GTK_COLOR_DIALOG (source);
+  BobguiColorDialog *dialog = BOBGUI_COLOR_DIALOG (source);
   Selection *selection = data;
   NodeEditorWindow *self = selection->self;
   GdkRGBA *color;
   char *text;
   GError *error = NULL;
-  GtkTextBuffer *buffer;
+  BobguiTextBuffer *buffer;
 
-  color = gtk_color_dialog_choose_rgba_finish (dialog, result, &error);
+  color = bobgui_color_dialog_choose_rgba_finish (dialog, result, &error);
   if (!color)
     {
       g_print ("%s\n", error->message);
@@ -1388,11 +1388,11 @@ color_cb (GObject *source,
       return;
     }
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self->text_view));
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (self->text_view));
 
   text = gdk_rgba_to_string (color);
-  gtk_text_buffer_delete (buffer, &selection->start, &selection->end);
-  gtk_text_buffer_insert (buffer, &selection->start, text, -1);
+  bobgui_text_buffer_delete (buffer, &selection->start, &selection->end);
+  bobgui_text_buffer_insert (buffer, &selection->start, text, -1);
 
   g_free (text);
   gdk_rgba_free (color);
@@ -1404,15 +1404,15 @@ font_cb (GObject *source,
           GAsyncResult *result,
           gpointer data)
 {
-  GtkFontDialog *dialog = GTK_FONT_DIALOG (source);
+  BobguiFontDialog *dialog = BOBGUI_FONT_DIALOG (source);
   Selection *selection = data;
   NodeEditorWindow *self = selection->self;
   GError *error = NULL;
   PangoFontDescription *desc;
-  GtkTextBuffer *buffer;
+  BobguiTextBuffer *buffer;
   char *text;
 
-  desc = gtk_font_dialog_choose_font_finish (dialog, result, &error);
+  desc = bobgui_font_dialog_choose_font_finish (dialog, result, &error);
   if (!desc)
     {
       g_print ("%s\n", error->message);
@@ -1421,11 +1421,11 @@ font_cb (GObject *source,
       return;
     }
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self->text_view));
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (self->text_view));
 
   text = pango_font_description_to_string (desc);
-  gtk_text_buffer_delete (buffer, &selection->start, &selection->end);
-  gtk_text_buffer_insert (buffer, &selection->start, text, -1);
+  bobgui_text_buffer_delete (buffer, &selection->start, &selection->end);
+  bobgui_text_buffer_insert (buffer, &selection->start, text, -1);
 
   g_free (text);
   pango_font_description_free (desc);
@@ -1437,15 +1437,15 @@ file_cb (GObject *source,
           GAsyncResult *result,
           gpointer data)
 {
-  GtkFileDialog *dialog = GTK_FILE_DIALOG (source);
+  BobguiFileDialog *dialog = BOBGUI_FILE_DIALOG (source);
   Selection *selection = data;
   NodeEditorWindow *self = selection->self;
   GError *error = NULL;
   GFile *file;
-  GtkTextBuffer *buffer;
+  BobguiTextBuffer *buffer;
   char *text;
 
-  file = gtk_file_dialog_open_finish (dialog, result, &error);
+  file = bobgui_file_dialog_open_finish (dialog, result, &error);
   if (!file)
     {
       g_print ("%s\n", error->message);
@@ -1454,11 +1454,11 @@ file_cb (GObject *source,
       return;
     }
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self->text_view));
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (self->text_view));
 
   text = g_file_get_uri (file);
-  gtk_text_buffer_delete (buffer, &selection->start, &selection->end);
-  gtk_text_buffer_insert (buffer, &selection->start, text, -1);
+  bobgui_text_buffer_delete (buffer, &selection->start, &selection->end);
+  bobgui_text_buffer_insert (buffer, &selection->start, text, -1);
 
   g_free (text);
   g_object_unref (file);
@@ -1466,61 +1466,61 @@ file_cb (GObject *source,
 }
 
 static void
-key_pressed (GtkEventControllerKey *controller,
+key_pressed (BobguiEventControllerKey *controller,
              unsigned int keyval,
              unsigned int keycode,
              GdkModifierType state,
              gpointer data)
 {
-  GtkWidget *dd = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (controller));
+  BobguiWidget *dd = bobgui_event_controller_get_widget (BOBGUI_EVENT_CONTROLLER (controller));
   Selection *selection = data;
   NodeEditorWindow *self = selection->self;
   unsigned int selected;
-  GtkStringList *strings;
-  GtkTextBuffer *buffer;
+  BobguiStringList *strings;
+  BobguiTextBuffer *buffer;
   const char *text;
 
   if (keyval != GDK_KEY_Escape)
     return;
 
-  strings = GTK_STRING_LIST (gtk_drop_down_get_model (GTK_DROP_DOWN (dd)));
-  selected = gtk_drop_down_get_selected (GTK_DROP_DOWN (dd));
-  text = gtk_string_list_get_string (strings, selected);
+  strings = BOBGUI_STRING_LIST (bobgui_drop_down_get_model (BOBGUI_DROP_DOWN (dd)));
+  selected = bobgui_drop_down_get_selected (BOBGUI_DROP_DOWN (dd));
+  text = bobgui_string_list_get_string (strings, selected);
 
-  gtk_text_view_remove (GTK_TEXT_VIEW (self->text_view), dd);
+  bobgui_text_view_remove (BOBGUI_TEXT_VIEW (self->text_view), dd);
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self->text_view));
-  gtk_text_iter_backward_search (&selection->start, "mode:", 0, NULL, &selection->start, NULL);
-  gtk_text_iter_forward_search (&selection->start, ";", 0, &selection->end, NULL, NULL);
-  gtk_text_buffer_delete (buffer, &selection->start, &selection->end);
-  gtk_text_buffer_insert (buffer, &selection->start, " ", -1);
-  gtk_text_buffer_insert (buffer, &selection->start, text, -1);
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (self->text_view));
+  bobgui_text_iter_backward_search (&selection->start, "mode:", 0, NULL, &selection->start, NULL);
+  bobgui_text_iter_forward_search (&selection->start, ";", 0, &selection->end, NULL, NULL);
+  bobgui_text_buffer_delete (buffer, &selection->start, &selection->end);
+  bobgui_text_buffer_insert (buffer, &selection->start, " ", -1);
+  bobgui_text_buffer_insert (buffer, &selection->start, text, -1);
 }
 
 static void
 node_editor_window_edit (NodeEditorWindow *self,
-                         GtkTextIter      *iter)
+                         BobguiTextIter      *iter)
 {
-  GtkTextIter start, end;
-  GtkTextBuffer *buffer;
+  BobguiTextIter start, end;
+  BobguiTextBuffer *buffer;
   Selection *selection;
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self->text_view));
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (self->text_view));
 
-  gtk_text_iter_set_line_offset (iter, 0);
+  bobgui_text_iter_set_line_offset (iter, 0);
 
-  if (gtk_text_iter_forward_search (iter, ";", 0, &end, NULL, NULL) &&
-      gtk_text_iter_forward_search (iter, "color:", 0, NULL, &start, &end))
+  if (bobgui_text_iter_forward_search (iter, ";", 0, &end, NULL, NULL) &&
+      bobgui_text_iter_forward_search (iter, "color:", 0, NULL, &start, &end))
     {
-      GtkColorDialog *dialog;
+      BobguiColorDialog *dialog;
       GdkRGBA color;
       char *text;
 
-      while (g_unichar_isspace (gtk_text_iter_get_char (&start)))
-        gtk_text_iter_forward_char (&start);
+      while (g_unichar_isspace (bobgui_text_iter_get_char (&start)))
+        bobgui_text_iter_forward_char (&start);
 
-      gtk_text_buffer_select_range (buffer, &start, &end);
-      text = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
+      bobgui_text_buffer_select_range (buffer, &start, &end);
+      text = bobgui_text_buffer_get_text (buffer, &start, &end, TRUE);
       gdk_rgba_parse (&color, text);
       g_free (text);
 
@@ -1529,26 +1529,26 @@ node_editor_window_edit (NodeEditorWindow *self,
       selection->start = start;
       selection->end = end;
 
-      dialog = gtk_color_dialog_new ();
-      gtk_color_dialog_choose_rgba (dialog, GTK_WINDOW (self), &color, NULL, color_cb, selection);
+      dialog = bobgui_color_dialog_new ();
+      bobgui_color_dialog_choose_rgba (dialog, BOBGUI_WINDOW (self), &color, NULL, color_cb, selection);
     }
-  else if (gtk_text_iter_forward_search (iter, ";", 0, &end, NULL, NULL) &&
-           gtk_text_iter_forward_search (iter, "font:", 0, NULL, &start, &end))
+  else if (bobgui_text_iter_forward_search (iter, ";", 0, &end, NULL, NULL) &&
+           bobgui_text_iter_forward_search (iter, "font:", 0, NULL, &start, &end))
     {
-      GtkFontDialog *dialog;
+      BobguiFontDialog *dialog;
       PangoFontDescription *desc;
       char *text;
 
-      while (g_unichar_isspace (gtk_text_iter_get_char (&start)))
-        gtk_text_iter_forward_char (&start);
+      while (g_unichar_isspace (bobgui_text_iter_get_char (&start)))
+        bobgui_text_iter_forward_char (&start);
 
       /* Skip the quotes */
-      gtk_text_iter_forward_char (&start);
-      gtk_text_iter_backward_char (&end);
+      bobgui_text_iter_forward_char (&start);
+      bobgui_text_iter_backward_char (&end);
 
-      gtk_text_buffer_select_range (buffer, &start, &end);
+      bobgui_text_buffer_select_range (buffer, &start, &end);
 
-      text = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
+      text = bobgui_text_buffer_get_text (buffer, &start, &end, TRUE);
       desc = pango_font_description_from_string (text);
       g_free (text);
 
@@ -1557,29 +1557,29 @@ node_editor_window_edit (NodeEditorWindow *self,
       selection->start = start;
       selection->end = end;
 
-      dialog = gtk_font_dialog_new ();
-      gtk_font_dialog_choose_font (dialog, GTK_WINDOW (self), desc, NULL, font_cb, selection);
+      dialog = bobgui_font_dialog_new ();
+      bobgui_font_dialog_choose_font (dialog, BOBGUI_WINDOW (self), desc, NULL, font_cb, selection);
       pango_font_description_free (desc);
     }
-  else if (gtk_text_iter_forward_search (iter, ";", 0, &end, NULL, NULL) &&
-           gtk_text_iter_forward_search (iter, "mode:", 0, NULL, &start, &end))
+  else if (bobgui_text_iter_forward_search (iter, ";", 0, &end, NULL, NULL) &&
+           bobgui_text_iter_forward_search (iter, "mode:", 0, NULL, &start, &end))
     {
       /* Assume we have a blend node, for now */
       GEnumClass *class;
-      GtkStringList *strings;
-      GtkWidget *dd;
-      GtkTextChildAnchor *anchor;
+      BobguiStringList *strings;
+      BobguiWidget *dd;
+      BobguiTextChildAnchor *anchor;
       unsigned int selected = 0;
-      GtkEventController *key_controller;
+      BobguiEventController *key_controller;
       gboolean is_blend_mode = FALSE;
       char *text;
 
-      while (g_unichar_isspace (gtk_text_iter_get_char (&start)))
-        gtk_text_iter_forward_char (&start);
+      while (g_unichar_isspace (bobgui_text_iter_get_char (&start)))
+        bobgui_text_iter_forward_char (&start);
 
-      text = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
+      text = bobgui_text_buffer_get_text (buffer, &start, &end, TRUE);
 
-      strings = gtk_string_list_new (NULL);
+      strings = bobgui_string_list_new (NULL);
       class = g_type_class_ref (GSK_TYPE_BLEND_MODE);
       for (unsigned int i = 0; i < class->n_values; i++)
         {
@@ -1596,45 +1596,45 @@ node_editor_window_edit (NodeEditorWindow *self,
        for (unsigned int i = 0; i < class->n_values; i++)
          {
            if (i == 0 && is_blend_mode)
-             gtk_string_list_append (strings, "normal");
+             bobgui_string_list_append (strings, "normal");
            else
-             gtk_string_list_append (strings, class->values[i].value_nick);
+             bobgui_string_list_append (strings, class->values[i].value_nick);
 
            if (strcmp (class->values[i].value_nick, text) == 0)
              selected = i;
          }
       g_type_class_unref (class);
 
-      gtk_text_buffer_delete (buffer, &start, &end);
+      bobgui_text_buffer_delete (buffer, &start, &end);
 
-      anchor = gtk_text_buffer_create_child_anchor (buffer, &start);
-      dd = gtk_drop_down_new (G_LIST_MODEL (strings), NULL);
-      gtk_drop_down_set_selected (GTK_DROP_DOWN (dd), selected);
-      gtk_text_view_add_child_at_anchor (GTK_TEXT_VIEW (self->text_view), dd, anchor);
+      anchor = bobgui_text_buffer_create_child_anchor (buffer, &start);
+      dd = bobgui_drop_down_new (G_LIST_MODEL (strings), NULL);
+      bobgui_drop_down_set_selected (BOBGUI_DROP_DOWN (dd), selected);
+      bobgui_text_view_add_child_at_anchor (BOBGUI_TEXT_VIEW (self->text_view), dd, anchor);
 
       selection = g_new0 (Selection, 1);
       selection->self = self;
       selection->start = start;
       selection->end = end;
 
-      key_controller = gtk_event_controller_key_new ();
+      key_controller = bobgui_event_controller_key_new ();
       g_signal_connect (key_controller, "key-pressed", G_CALLBACK (key_pressed), selection);
-      gtk_widget_add_controller (dd, key_controller);
+      bobgui_widget_add_controller (dd, key_controller);
     }
-  else if (gtk_text_iter_forward_search (iter, ";", 0, &end, NULL, NULL) &&
-           gtk_text_iter_forward_search (iter, "texture:", 0, NULL, &start, &end))
+  else if (bobgui_text_iter_forward_search (iter, ";", 0, &end, NULL, NULL) &&
+           bobgui_text_iter_forward_search (iter, "texture:", 0, NULL, &start, &end))
     {
-      GtkFileDialog *dialog;
-      GtkTextIter skip;
+      BobguiFileDialog *dialog;
+      BobguiTextIter skip;
       char *text;
       GFile *file;
 
-      while (g_unichar_isspace (gtk_text_iter_get_char (&start)))
-        gtk_text_iter_forward_char (&start);
+      while (g_unichar_isspace (bobgui_text_iter_get_char (&start)))
+        bobgui_text_iter_forward_char (&start);
 
       skip = start;
-      gtk_text_iter_forward_chars (&skip, strlen ("url(\""));
-      text = gtk_text_iter_get_text (&start, &skip);
+      bobgui_text_iter_forward_chars (&skip, strlen ("url(\""));
+      text = bobgui_text_iter_get_text (&start, &skip);
       if (strcmp (text, "url(\"") != 0)
         {
           g_free (text);
@@ -1644,8 +1644,8 @@ node_editor_window_edit (NodeEditorWindow *self,
       start = skip;
 
       skip = end;
-      gtk_text_iter_backward_chars (&skip, strlen ("\")"));
-      text = gtk_text_iter_get_text (&skip, &end);
+      bobgui_text_iter_backward_chars (&skip, strlen ("\")"));
+      text = bobgui_text_iter_get_text (&skip, &end);
       if (strcmp (text, "\")") != 0)
         {
           g_free (text);
@@ -1654,9 +1654,9 @@ node_editor_window_edit (NodeEditorWindow *self,
       g_free (text);
       end = skip;
 
-      gtk_text_buffer_select_range (buffer, &start, &end);
+      bobgui_text_buffer_select_range (buffer, &start, &end);
 
-      text = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
+      text = bobgui_text_buffer_get_text (buffer, &start, &end, TRUE);
       file = g_file_new_for_uri (text);
       g_free (text);
 
@@ -1665,45 +1665,45 @@ node_editor_window_edit (NodeEditorWindow *self,
       selection->start = start;
       selection->end = end;
 
-      dialog = gtk_file_dialog_new ();
-      gtk_file_dialog_set_initial_file (dialog, file);
-      gtk_file_dialog_open (dialog, GTK_WINDOW (self), NULL, file_cb, selection);
+      dialog = bobgui_file_dialog_new ();
+      bobgui_file_dialog_set_initial_file (dialog, file);
+      bobgui_file_dialog_open (dialog, BOBGUI_WINDOW (self), NULL, file_cb, selection);
       g_object_unref (file);
     }
 }
 
 static void
-click_gesture_pressed (GtkGestureClick  *gesture,
+click_gesture_pressed (BobguiGestureClick  *gesture,
                        int               n_press,
                        double            x,
                        double            y,
                        NodeEditorWindow *self)
 {
-  GtkTextIter iter;
+  BobguiTextIter iter;
   int bx, by, trailing;
   GdkModifierType state;
 
-  state = gtk_event_controller_get_current_event_state (GTK_EVENT_CONTROLLER (gesture));
+  state = bobgui_event_controller_get_current_event_state (BOBGUI_EVENT_CONTROLLER (gesture));
   if ((state & GDK_CONTROL_MASK) == 0)
     return;
 
-  gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (self->text_view), GTK_TEXT_WINDOW_TEXT, x, y, &bx, &by);
-  gtk_text_view_get_iter_at_position (GTK_TEXT_VIEW (self->text_view), &iter, &trailing, bx, by);
+  bobgui_text_view_window_to_buffer_coords (BOBGUI_TEXT_VIEW (self->text_view), BOBGUI_TEXT_WINDOW_TEXT, x, y, &bx, &by);
+  bobgui_text_view_get_iter_at_position (BOBGUI_TEXT_VIEW (self->text_view), &iter, &trailing, bx, by);
 
   node_editor_window_edit (self, &iter);
 }
 
 static void
-edit_action_cb (GtkWidget  *widget,
+edit_action_cb (BobguiWidget  *widget,
                 const char *action_name,
                 GVariant   *parameter)
 {
   NodeEditorWindow *self = NODE_EDITOR_WINDOW (widget);
-  GtkTextBuffer *buffer;
-  GtkTextIter start, end;
+  BobguiTextBuffer *buffer;
+  BobguiTextIter start, end;
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self->text_view));
-  gtk_text_buffer_get_selection_bounds (buffer, &start, &end);
+  buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (self->text_view));
+  bobgui_text_buffer_get_selection_bounds (buffer, &start, &end);
 
   node_editor_window_edit (self, &start);
 }
@@ -1720,25 +1720,25 @@ text_received (GObject      *source,
   text = gdk_clipboard_read_text_finish (clipboard, result, NULL);
   if (text)
     {
-      GtkTextBuffer *buffer;
-      GtkTextIter start, end;
+      BobguiTextBuffer *buffer;
+      BobguiTextIter start, end;
 
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self->text_view));
-      gtk_text_buffer_begin_user_action (buffer);
-      gtk_text_buffer_get_bounds (buffer, &start, &end);
-      gtk_text_buffer_delete (buffer, &start, &end);
-      gtk_text_buffer_insert (buffer, &start, text, -1);
-      gtk_text_buffer_end_user_action (buffer);
+      buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (self->text_view));
+      bobgui_text_buffer_begin_user_action (buffer);
+      bobgui_text_buffer_get_bounds (buffer, &start, &end);
+      bobgui_text_buffer_delete (buffer, &start, &end);
+      bobgui_text_buffer_insert (buffer, &start, text, -1);
+      bobgui_text_buffer_end_user_action (buffer);
       g_free (text);
     }
 }
 
 static void
-paste_node_cb (GtkWidget  *widget,
+paste_node_cb (BobguiWidget  *widget,
                const char *action_name,
                GVariant   *parameter)
 {
-  GdkClipboard *clipboard = gtk_widget_get_clipboard (widget);
+  GdkClipboard *clipboard = bobgui_widget_get_clipboard (widget);
 
   gdk_clipboard_read_text_async (clipboard, NULL, text_received, widget);
 }
@@ -1820,10 +1820,10 @@ node_editor_window_get_property (GObject    *object,
 }
 
 static void
-close_crash_warning (GtkButton        *button,
+close_crash_warning (BobguiButton        *button,
                      NodeEditorWindow *self)
 {
-  gtk_revealer_set_reveal_child (GTK_REVEALER (self->crash_warning), FALSE);
+  bobgui_revealer_set_reveal_child (BOBGUI_REVEALER (self->crash_warning), FALSE);
 }
 
 static void
@@ -1831,11 +1831,11 @@ update_zoom_buttons (NodeEditorWindow *self)
 {
   GString *s = g_string_new ("");
 
-  gtk_widget_set_sensitive (self->zoom_in, self->zoom_level < G_N_ELEMENTS (zoom_levels) - 1);
-  gtk_widget_set_sensitive (self->zoom_out, self->zoom_level > 0);
+  bobgui_widget_set_sensitive (self->zoom_in, self->zoom_level < G_N_ELEMENTS (zoom_levels) - 1);
+  bobgui_widget_set_sensitive (self->zoom_out, self->zoom_level > 0);
   g_string_append_printf (s, "%3d%%", (guint) round (100 * zoom_levels[self->zoom_level]));
   g_string_replace (s, " ", " ", 0); /* Replace ASCII space by U+2007 figure space */
-  gtk_label_set_text (GTK_LABEL (self->zoom_label), s->str);
+  bobgui_label_set_text (BOBGUI_LABEL (self->zoom_label), s->str);
   g_string_free (s, TRUE);
 }
 
@@ -1855,21 +1855,21 @@ set_zoom_level (NodeEditorWindow *self,
 }
 
 static void
-zoom_in_cb (GtkButton        *button,
+zoom_in_cb (BobguiButton        *button,
             NodeEditorWindow *self)
 {
   set_zoom_level (self, self->zoom_level + 1);
 }
 
 static void
-zoom_out_cb (GtkButton        *button,
+zoom_out_cb (BobguiButton        *button,
              NodeEditorWindow *self)
 {
   set_zoom_level (self, self->zoom_level - 1);
 }
 
 static gboolean
-node_editor_window_save_state (GtkApplicationWindow *win,
+node_editor_window_save_state (BobguiApplicationWindow *win,
                                GVariantDict         *state)
 {
   NodeEditorWindow *self = NODE_EDITOR_WINDOW (win);
@@ -1886,12 +1886,12 @@ static void
 node_editor_window_class_init (NodeEditorWindowClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
-  GtkApplicationWindowClass *appwin_class = GTK_APPLICATION_WINDOW_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
+  BobguiApplicationWindowClass *appwin_class = BOBGUI_APPLICATION_WINDOW_CLASS (class);
 
-  GtkShortcutTrigger *trigger;
-  GtkShortcutAction *action;
-  GtkShortcut *shortcut;
+  BobguiShortcutTrigger *trigger;
+  BobguiShortcutAction *action;
+  BobguiShortcut *shortcut;
 
   object_class->dispose = node_editor_window_dispose;
   object_class->finalize = node_editor_window_finalize;
@@ -1900,8 +1900,8 @@ node_editor_window_class_init (NodeEditorWindowClass *class)
 
   appwin_class->save_state = node_editor_window_save_state;
 
-  gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/org/gtk/gtk4/node-editor/node-editor-window.ui");
+  bobgui_widget_class_set_template_from_resource (widget_class,
+                                               "/org/bobgui/bobgui4/node-editor/node-editor-window.ui");
 
   widget_class->realize = node_editor_window_realize;
   widget_class->unrealize = node_editor_window_unrealize;
@@ -1924,72 +1924,72 @@ node_editor_window_class_init (NodeEditorWindowClass *class)
 
   g_object_class_install_properties (object_class, NUM_PROPERTIES, properties);
 
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, text_view);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, picture);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, renderer_listbox);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_popover);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_error_label);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_cairo_checkbutton);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_name_entry);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_save_button);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, crash_warning);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, zoom_in);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, zoom_out);
-  gtk_widget_class_bind_template_child (widget_class, NodeEditorWindow, zoom_label);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, text_view);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, picture);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, renderer_listbox);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_popover);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_error_label);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_cairo_checkbutton);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_name_entry);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, testcase_save_button);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, crash_warning);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, zoom_in);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, zoom_out);
+  bobgui_widget_class_bind_template_child (widget_class, NodeEditorWindow, zoom_label);
 
-  gtk_widget_class_bind_template_callback (widget_class, text_view_query_tooltip_cb);
-  gtk_widget_class_bind_template_callback (widget_class, open_cb);
-  gtk_widget_class_bind_template_callback (widget_class, save_cb);
-  gtk_widget_class_bind_template_callback (widget_class, export_image_cb);
-  gtk_widget_class_bind_template_callback (widget_class, clip_image_cb);
-  gtk_widget_class_bind_template_callback (widget_class, testcase_save_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, testcase_name_entry_changed_cb);
-  gtk_widget_class_bind_template_callback (widget_class, on_picture_drag_prepare_cb);
-  gtk_widget_class_bind_template_callback (widget_class, on_picture_drop_cb);
-  gtk_widget_class_bind_template_callback (widget_class, click_gesture_pressed);
-  gtk_widget_class_bind_template_callback (widget_class, close_crash_warning);
-  gtk_widget_class_bind_template_callback (widget_class, zoom_in_cb);
-  gtk_widget_class_bind_template_callback (widget_class, zoom_out_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, text_view_query_tooltip_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, open_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, save_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, export_image_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, clip_image_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, testcase_save_clicked_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, testcase_name_entry_changed_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, on_picture_drag_prepare_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, on_picture_drop_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, click_gesture_pressed);
+  bobgui_widget_class_bind_template_callback (widget_class, close_crash_warning);
+  bobgui_widget_class_bind_template_callback (widget_class, zoom_in_cb);
+  bobgui_widget_class_bind_template_callback (widget_class, zoom_out_cb);
 
-  gtk_widget_class_install_action (widget_class, "smart-edit", NULL, edit_action_cb);
+  bobgui_widget_class_install_action (widget_class, "smart-edit", NULL, edit_action_cb);
 
-  trigger = gtk_keyval_trigger_new (GDK_KEY_e, GDK_CONTROL_MASK);
-  action = gtk_named_action_new ("smart-edit");
-  shortcut = gtk_shortcut_new (trigger, action);
-  gtk_widget_class_add_shortcut (widget_class, shortcut);
+  trigger = bobgui_keyval_trigger_new (GDK_KEY_e, GDK_CONTROL_MASK);
+  action = bobgui_named_action_new ("smart-edit");
+  shortcut = bobgui_shortcut_new (trigger, action);
+  bobgui_widget_class_add_shortcut (widget_class, shortcut);
 
-  gtk_widget_class_install_action (widget_class, "paste-node", NULL, paste_node_cb);
+  bobgui_widget_class_install_action (widget_class, "paste-node", NULL, paste_node_cb);
 
-  trigger = gtk_keyval_trigger_new (GDK_KEY_v, GDK_CONTROL_MASK | GDK_SHIFT_MASK);
-  action = gtk_named_action_new ("paste-node");
-  shortcut = gtk_shortcut_new (trigger, action);
-  gtk_widget_class_add_shortcut (widget_class, shortcut);
+  trigger = bobgui_keyval_trigger_new (GDK_KEY_v, GDK_CONTROL_MASK | GDK_SHIFT_MASK);
+  action = bobgui_named_action_new ("paste-node");
+  shortcut = bobgui_shortcut_new (trigger, action);
+  bobgui_widget_class_add_shortcut (widget_class, shortcut);
 }
 
-static GtkWidget *
+static BobguiWidget *
 node_editor_window_create_renderer_widget (gpointer item,
                                            gpointer user_data)
 {
   GdkPaintable *paintable = item;
-  GtkWidget *box, *label, *picture;
-  GtkWidget *row;
+  BobguiWidget *box, *label, *picture;
+  BobguiWidget *row;
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_widget_set_size_request (box, 120, 90);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_widget_set_size_request (box, 120, 90);
 
-  label = gtk_label_new (g_object_get_data (G_OBJECT (paintable), "description"));
-  gtk_widget_add_css_class (label, "title-4");
-  gtk_box_append (GTK_BOX (box), label);
+  label = bobgui_label_new (g_object_get_data (G_OBJECT (paintable), "description"));
+  bobgui_widget_add_css_class (label, "title-4");
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  picture = gtk_picture_new_for_paintable (paintable);
+  picture = bobgui_picture_new_for_paintable (paintable);
   /* don't ever scale up, we want to be as accurate as possible */
-  gtk_widget_set_halign (picture, GTK_ALIGN_CENTER);
-  gtk_widget_set_valign (picture, GTK_ALIGN_CENTER);
-  gtk_box_append (GTK_BOX (box), picture);
+  bobgui_widget_set_halign (picture, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_valign (picture, BOBGUI_ALIGN_CENTER);
+  bobgui_box_append (BOBGUI_BOX (box), picture);
 
-  row = gtk_list_box_row_new ();
-  gtk_list_box_row_set_child (GTK_LIST_BOX_ROW (row), box);
-  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), FALSE);
+  row = bobgui_list_box_row_new ();
+  bobgui_list_box_row_set_child (BOBGUI_LIST_BOX_ROW (row), box);
+  bobgui_list_box_row_set_activatable (BOBGUI_LIST_BOX_ROW (row), FALSE);
 
   return row;
 }
@@ -2015,7 +2015,7 @@ get_autosave_path (const char *suffix)
   char *name;
 
   name = g_strconcat ("autosave", suffix, NULL);
-  path = g_build_filename (g_get_user_cache_dir (), "gtk4-node-editor", name, NULL);
+  path = g_build_filename (g_get_user_cache_dir (), "bobgui4-node-editor", name, NULL);
   g_free (name);
 
   return path;
@@ -2034,24 +2034,24 @@ set_initial_text (NodeEditorWindow *self)
   if (g_file_get_contents (path1, &initial_text, &len, NULL))
     {
       self->auto_reload = FALSE;
-      gtk_revealer_set_reveal_child (GTK_REVEALER (self->crash_warning), TRUE);
+      bobgui_revealer_set_reveal_child (BOBGUI_REVEALER (self->crash_warning), TRUE);
 
-      gtk_text_buffer_set_text (self->text_buffer, initial_text, len);
+      bobgui_text_buffer_set_text (self->text_buffer, initial_text, len);
       g_free (initial_text);
     }
   else if (g_file_get_contents (path, &initial_text, &len, NULL))
     {
-      gtk_text_buffer_set_text (self->text_buffer, initial_text, len);
+      bobgui_text_buffer_set_text (self->text_buffer, initial_text, len);
       g_free (initial_text);
     }
   else
     {
       /* Default */
-      gtk_text_buffer_set_text (self->text_buffer,
+      bobgui_text_buffer_set_text (self->text_buffer,
          "shadow {\n"
          "  child: texture {\n"
          "    bounds: 0 0 128 128;\n"
-         "    texture: url(\"resource:///org/gtk/gtk4/node-editor/icons/apps/org.gtk.gtk4.NodeEditor.svg\");\n"
+         "    texture: url(\"resource:///org/bobgui/bobgui4/node-editor/icons/apps/org.bobgui.bobgui4.NodeEditor.svg\");\n"
          "  }\n"
          "  shadows: rgba(0,0,0,0.5) 0 1 12;\n"
          "}\n"
@@ -2060,7 +2060,7 @@ set_initial_text (NodeEditorWindow *self)
          "  child: text {\n"
          "    color: rgb(46,52,54);\n"
          "    font: \"Sans Bold 14.6px\";\n"
-         "    glyphs: \"GTK Node Editor\";\n"
+         "    glyphs: \"BOBGUI Node Editor\";\n"
          "    offset: 8 14.418;\n"
          "  }\n"
          "  transform: translate(0, 140);\n"
@@ -2077,10 +2077,10 @@ autosave_contents (NodeEditorWindow *self)
   char *path = NULL;
   char *dir = NULL;
   char *contents;
-  GtkTextIter start, end;
+  BobguiTextIter start, end;
 
-  gtk_text_buffer_get_bounds (self->text_buffer, &start, &end);
-  contents = gtk_text_buffer_get_text (self->text_buffer, &start, &end, TRUE);
+  bobgui_text_buffer_get_bounds (self->text_buffer, &start, &end);
+  contents = bobgui_text_buffer_get_text (self->text_buffer, &start, &end, TRUE);
   path = get_autosave_path ("-unsafe");
   dir = g_path_get_dirname (path);
   g_mkdir_with_parents (dir, 0755);
@@ -2097,7 +2097,7 @@ node_editor_window_init (NodeEditorWindow *self)
   GAction *action;
   gsize i;
 
-  gtk_widget_init_template (GTK_WIDGET (self));
+  bobgui_widget_init_template (BOBGUI_WIDGET (self));
 
   for (i = 0; i < G_N_ELEMENTS (zoom_levels); i++)
     {
@@ -2110,7 +2110,7 @@ node_editor_window_init (NodeEditorWindow *self)
   self->auto_reload = TRUE;
 
   self->renderers = g_list_store_new (GDK_TYPE_PAINTABLE);
-  gtk_list_box_bind_model (GTK_LIST_BOX (self->renderer_listbox),
+  bobgui_list_box_bind_model (BOBGUI_LIST_BOX (self->renderer_listbox),
                            G_LIST_MODEL (self->renderers),
                            node_editor_window_create_renderer_widget,
                            self,
@@ -2125,46 +2125,46 @@ node_editor_window_init (NodeEditorWindow *self)
   g_action_map_add_action (G_ACTION_MAP (self), action);
   g_object_unref (action);
 
-  self->tag_table = gtk_text_tag_table_new ();
-  gtk_text_tag_table_add (self->tag_table,
-                          g_object_new (GTK_TYPE_TEXT_TAG,
+  self->tag_table = bobgui_text_tag_table_new ();
+  bobgui_text_tag_table_add (self->tag_table,
+                          g_object_new (BOBGUI_TYPE_TEXT_TAG,
                                         "name", "error",
                                         "underline", PANGO_UNDERLINE_ERROR,
                                         NULL));
-  gtk_text_tag_table_add (self->tag_table,
-                          g_object_new (GTK_TYPE_TEXT_TAG,
+  bobgui_text_tag_table_add (self->tag_table,
+                          g_object_new (BOBGUI_TYPE_TEXT_TAG,
                                         "name", "comment",
                                         "foreground-rgba", &(GdkRGBA) { 0.8, 0.52, 0.5, 1},
                                         NULL));
-  gtk_text_tag_table_add (self->tag_table,
-                          g_object_new (GTK_TYPE_TEXT_TAG,
+  bobgui_text_tag_table_add (self->tag_table,
+                          g_object_new (BOBGUI_TYPE_TEXT_TAG,
                                         "name", "nodename",
                                         "foreground-rgba", &(GdkRGBA) { 0.9, 0.78, 0.53, 1},
                                         NULL));
-  gtk_text_tag_table_add (self->tag_table,
-                          g_object_new (GTK_TYPE_TEXT_TAG,
+  bobgui_text_tag_table_add (self->tag_table,
+                          g_object_new (BOBGUI_TYPE_TEXT_TAG,
                                         "name", "propname",
                                         "foreground-rgba", &(GdkRGBA) { 0.7, 0.55, 0.67, 1},
                                         NULL));
-  gtk_text_tag_table_add (self->tag_table,
-                          g_object_new (GTK_TYPE_TEXT_TAG,
+  bobgui_text_tag_table_add (self->tag_table,
+                          g_object_new (BOBGUI_TYPE_TEXT_TAG,
                                         "name", "string",
                                         "foreground-rgba", &(GdkRGBA) { 0.63, 0.73, 0.54, 1},
                                         NULL));
-  gtk_text_tag_table_add (self->tag_table,
-                          g_object_new (GTK_TYPE_TEXT_TAG,
+  bobgui_text_tag_table_add (self->tag_table,
+                          g_object_new (BOBGUI_TYPE_TEXT_TAG,
                                         "name", "number",
                                         "foreground-rgba", &(GdkRGBA) { 0.8, 0.52, 0.43, 1},
                                         NULL));
-  gtk_text_tag_table_add (self->tag_table,
-                          g_object_new (GTK_TYPE_TEXT_TAG,
+  bobgui_text_tag_table_add (self->tag_table,
+                          g_object_new (BOBGUI_TYPE_TEXT_TAG,
                                         "name", "no-hyphens",
                                         "insert-hyphens", FALSE,
                                         NULL));
 
-  self->text_buffer = gtk_text_buffer_new (self->tag_table);
+  self->text_buffer = bobgui_text_buffer_new (self->tag_table);
   g_signal_connect (self->text_buffer, "changed", G_CALLBACK (text_changed), self);
-  gtk_text_view_set_buffer (GTK_TEXT_VIEW (self->text_view), self->text_buffer);
+  bobgui_text_view_set_buffer (BOBGUI_TEXT_VIEW (self->text_view), self->text_buffer);
 
   set_initial_text (self);
 
@@ -2172,8 +2172,8 @@ node_editor_window_init (NodeEditorWindow *self)
 
   if (g_getenv ("GSK_RENDERER"))
     {
-      char *new_title = g_strdup_printf ("GTK Node Editor - %s", g_getenv ("GSK_RENDERER"));
-      gtk_window_set_title (GTK_WINDOW (self), new_title);
+      char *new_title = g_strdup_printf ("BOBGUI Node Editor - %s", g_getenv ("GSK_RENDERER"));
+      bobgui_window_set_title (BOBGUI_WINDOW (self), new_title);
       g_free (new_title);
     }
 }

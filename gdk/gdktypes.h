@@ -16,19 +16,19 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #pragma once
 
-#if !defined (__GDK_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDK_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdk.h> can be included directly."
 #endif
 
-/* GDK uses "glib". (And so does GTK).
+/* GDK uses "glib". (And so does BOBGUI).
  */
 #include <glib.h>
 #include <glib-object.h>
@@ -37,9 +37,9 @@
 #include <pango/pango.h>
 
 /* The system specific file gdkconfig.h contains such configuration
- * settings that are needed not only when compiling GDK (or GTK)
+ * settings that are needed not only when compiling GDK (or BOBGUI)
  * itself, but also occasionally when compiling programs that use GDK
- * (or GTK). One such setting is what windowing API backend is in use.
+ * (or BOBGUI). One such setting is what windowing API backend is in use.
  */
 #include <gdk/gdkconfig.h>
 #include <gdk/gdkenums.h>
@@ -103,12 +103,12 @@ typedef struct _GdkDmabufTexture      GdkDmabufTexture;
 
 /*<private>
  * GDK_DECLARE_INTERNAL_TYPE:
- * @ModuleObjName: The name of the new type, in camel case (like GtkWidget)
+ * @ModuleObjName: The name of the new type, in camel case (like BobguiWidget)
  * @module_obj_name: The name of the new type in lowercase, with words
- *  separated by '_' (like 'gtk_widget')
- * @MODULE: The name of the module, in all caps (like 'GTK')
+ *  separated by '_' (like 'bobgui_widget')
+ * @MODULE: The name of the module, in all caps (like 'BOBGUI')
  * @OBJ_NAME: The bare name of the type, in all caps (like 'WIDGET')
- * @ParentName: the name of the parent type, in camel case (like GtkWidget)
+ * @ParentName: the name of the parent type, in camel case (like BobguiWidget)
  *
  * A convenience macro for emitting the usual declarations in the
  * header file for a type which is intended to be subclassed only

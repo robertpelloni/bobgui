@@ -43,7 +43,7 @@ gdk_macos_public_headers = files([
   'gdkmacossurface.h',
 ])
 
-install_headers(gdk_macos_public_headers, 'gdkmacos.h', subdir: 'gtk-4.0/gdk/macos/')
+install_headers(gdk_macos_public_headers, 'gdkmacos.h', subdir: 'bobgui-4.0/gdk/macos/')
 
 gdk_macos_frameworks = [
   'AppKit',

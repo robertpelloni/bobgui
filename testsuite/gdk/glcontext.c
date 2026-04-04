@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #define ALL_APIS (GDK_GL_API_GL | GDK_GL_API_GLES)
 
@@ -149,7 +149,7 @@ test_version (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_data_func ("/allowed-apis/none", GSIZE_TO_POINTER (0), test_allowed_backends);
   g_test_add_data_func ("/allowed-apis/gl", GSIZE_TO_POINTER (GDK_GL_API_GL), test_allowed_backends);

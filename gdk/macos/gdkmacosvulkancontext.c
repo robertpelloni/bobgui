@@ -104,8 +104,8 @@ gdk_macos_vulkan_context_surface_attach (GdkDrawContext  *context,
   [view setLayer:layer];
 
   /* This is a workaround to make sure a window is visible when
-   * gtk_widget_set_visible() is called on a window.
-   * Windows are presented normally with gtk_window_present().
+   * bobgui_widget_set_visible() is called on a window.
+   * Windows are presented normally with bobgui_window_present().
    */
   if ((window = GDK_MACOS_SURFACE (surface)->window))
     [window orderFront:window];

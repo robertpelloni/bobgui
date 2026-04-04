@@ -16,11 +16,11 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 typedef struct
 {
-  GtkWidget *picture;
+  BobguiWidget *picture;
   GdkDrop *drop;
   GFile *file;
 } DropData;
@@ -52,7 +52,7 @@ save_finish (GObject      *source,
       return;
     }
 
-  gtk_picture_set_file (GTK_PICTURE (data->picture), data->file);
+  bobgui_picture_set_file (BOBGUI_PICTURE (data->picture), data->file);
 
   gdk_drop_finish (data->drop, GDK_ACTION_COPY);
   drop_data_free (data);
@@ -64,7 +64,7 @@ drop_done (GObject      *source,
            gpointer      user_data)
 {
   GdkDrop *drop = GDK_DROP (source);
-  GtkWidget *picture = user_data;
+  BobguiWidget *picture = user_data;
   const char *mime_type;
   GInputStream *input;
   GFile *file;
@@ -127,7 +127,7 @@ static const char *mime_types[] = {
 };
 
 static gboolean
-drop_cb (GtkEventController *controller,
+drop_cb (BobguiEventController *controller,
          GdkDrop            *drop,
          double              x,
          double              y,
@@ -138,7 +138,7 @@ drop_cb (GtkEventController *controller,
                        G_PRIORITY_DEFAULT,
                        NULL,
                        drop_done,
-                       gtk_event_controller_get_widget (controller));
+                       bobgui_event_controller_get_widget (controller));
 
   return TRUE;
 }
@@ -146,33 +146,33 @@ drop_cb (GtkEventController *controller,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *picture;
+  BobguiWidget *window, *picture;
   gboolean done = FALSE;
   GdkContentFormats *formats;
-  GtkDropTargetAsync *target;
+  BobguiDropTargetAsync *target;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
+  window = bobgui_window_new ();
+  bobgui_window_set_resizable (BOBGUI_WINDOW (window), FALSE);
 
-  picture = gtk_picture_new_for_resource ("/org/gtk/libgtk/icons/16x16/status/image-missing.png");
+  picture = bobgui_picture_new_for_resource ("/org/bobgui/libbobgui/icons/16x16/status/image-missing.png");
 
   formats = gdk_content_formats_new (mime_types, G_N_ELEMENTS (mime_types) - 1);
-  target = gtk_drop_target_async_new (formats, GDK_ACTION_COPY);
+  target = bobgui_drop_target_async_new (formats, GDK_ACTION_COPY);
   gdk_content_formats_unref (formats);
 
   g_signal_connect (target, "drop", G_CALLBACK (drop_cb), NULL);
-  gtk_widget_add_controller (picture, GTK_EVENT_CONTROLLER (target));
+  bobgui_widget_add_controller (picture, BOBGUI_EVENT_CONTROLLER (target));
 
-  gtk_widget_set_margin_top (picture, 10);
-  gtk_widget_set_margin_bottom (picture, 10);
-  gtk_widget_set_margin_start (picture, 10);
-  gtk_widget_set_margin_end (picture, 10);
+  bobgui_widget_set_margin_top (picture, 10);
+  bobgui_widget_set_margin_bottom (picture, 10);
+  bobgui_widget_set_margin_start (picture, 10);
+  bobgui_widget_set_margin_end (picture, 10);
 
-  gtk_window_set_child (GTK_WINDOW (window), picture);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), picture);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

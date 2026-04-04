@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkImage" id="image1">
+      <object class="BobguiImage" id="image1">
         <property name="name">reference</property>
-        <property name="icon_name">gtk-test-foreground-symbolic</property>
+        <property name="icon_name">bobgui-test-foreground-symbolic</property>
       </object>
     </child>
   </object>

@@ -1,7 +1,7 @@
 #include "config.h"
 #include <string.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <stdlib.h>
 #include "../reftests/reftest-compare.h"
 
@@ -9,7 +9,7 @@
 static char *arg_output_dir = NULL;
 
 extern void
-replay_node (GskRenderNode *node, GtkSnapshot *snapshot);
+replay_node (GskRenderNode *node, BobguiSnapshot *snapshot);
 
 static const char *
 get_output_dir (void)
@@ -161,7 +161,7 @@ deserialize_error_func (const GskParseLocation *start,
       g_string_append_printf (string, "%zu", end->line_chars + 1);
     }
 
-  if (error->domain == GTK_CSS_PARSER_WARNING)
+  if (error->domain == BOBGUI_CSS_PARSER_WARNING)
     g_test_message ("Warning at %s: %s", string->str, error->message);
   else
     g_warning ("Error at %s: %s", string->str, error->message);
@@ -468,10 +468,10 @@ replay_create_test (GskRenderNode *node,
 {
   GskRenderNode *result;
   graphene_rect_t node_bounds, result_bounds;
-  GtkSnapshot *snapshot = gtk_snapshot_new ();
+  BobguiSnapshot *snapshot = bobgui_snapshot_new ();
 
   replay_node (node, snapshot);
-  result = gtk_snapshot_free_to_node (snapshot);
+  result = bobgui_snapshot_free_to_node (snapshot);
   /* If the whole render node tree got eliminated, make sure we have
      something to work with nevertheless.  */
   if (result == NULL)
@@ -978,7 +978,7 @@ main (int argc, char **argv)
   if (i >= G_N_ELEMENTS (test_enabled))
     test_enabled[0] = TRUE;
 
-  gtk_init ();
+  bobgui_init ();
 
   test = g_new0 (TestData, 1);
   test->node_file = g_canonicalize_filename (argv[1], NULL);

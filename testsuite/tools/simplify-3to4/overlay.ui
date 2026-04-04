@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.0"/>
-  <object class="GtkOverlay">
+  <requires lib="bobgui+" version="3.0"/>
+  <object class="BobguiOverlay">
     <property name="visible">1</property>
     <child type="overlay">
-      <object class="GtkButton" id="button">
+      <object class="BobguiButton" id="button">
         <property name="visible">1</property>
         <property name="icon-name">document-new</property>
       </object>
@@ -14,7 +14,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label"/>
+      <object class="BobguiLabel" id="label"/>
     </child>
   </object>
 </interface>

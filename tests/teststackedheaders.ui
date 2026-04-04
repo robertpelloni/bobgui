@@ -1,23 +1,23 @@
 <interface>
-  <object class="GtkWindow" id="window">
+  <object class="BobguiWindow" id="window">
     <property name="default-width">600</property>
     <property name="default-height">400</property>
     <property name="icon-name">preferences-desktop-font</property>
     <child type="titlebar">
-      <object class="GtkStack" id="header_stack">
+      <object class="BobguiStack" id="header_stack">
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">main</property>
             <property name="child">
-              <object class="GtkHeaderBar">
+              <object class="BobguiHeaderBar">
                 <child type="start">
-                  <object class="GtkButton" id="new_btn">
+                  <object class="BobguiButton" id="new_btn">
                     <property name="label">New</property>
                     <property name="valign">center</property>
                   </object>
                 </child>
                 <child type="title">
-                  <object class="GtkStackSwitcher">
+                  <object class="BobguiStackSwitcher">
                     <property name="stack">page_stack</property>
                   </object>
                 </child>
@@ -26,12 +26,12 @@
           </object>
         </child>
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">secondary</property>
             <property name="child">
-              <object class="GtkHeaderBar">
+              <object class="BobguiHeaderBar">
                 <child type="start">
-                  <object class="GtkButton" id="back_btn">
+                  <object class="BobguiButton" id="back_btn">
                     <property name="icon-name">go-previous-symbolic</property>
                     <property name="valign">center</property>
                   </object>
@@ -43,19 +43,19 @@
       </object>
     </child>
     <child>
-      <object class="GtkStack" id="page_stack">
+      <object class="BobguiStack" id="page_stack">
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">page1</property>
             <property name="title">Page 1</property>
             <property name="child">
-              <object class="GtkScrolledWindow">
+              <object class="BobguiScrolledWindow">
                 <property name="hexpand">1</property>
                 <property name="vexpand">1</property>
                 <property name="hscrollbar-policy">always</property>
                 <property name="vscrollbar-policy">always</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="BobguiLabel">
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="label">Page 1</property>
@@ -66,17 +66,17 @@
           </object>
         </child>
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">page2</property>
             <property name="title">Page 2</property>
             <property name="child">
-              <object class="GtkScrolledWindow">
+              <object class="BobguiScrolledWindow">
                 <property name="hexpand">1</property>
                 <property name="vexpand">1</property>
                 <property name="hscrollbar-policy">always</property>
                 <property name="vscrollbar-policy">always</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="BobguiLabel">
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="label">Page 2</property>
@@ -87,16 +87,16 @@
           </object>
         </child>
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">secondary</property>
             <property name="child">
-              <object class="GtkScrolledWindow">
+              <object class="BobguiScrolledWindow">
                 <property name="hexpand">1</property>
                 <property name="vexpand">1</property>
                 <property name="hscrollbar-policy">always</property>
                 <property name="vscrollbar-policy">always</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="BobguiLabel">
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="label">Secondary</property>

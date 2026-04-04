@@ -1198,7 +1198,7 @@ deliver_key_event (GdkWaylandSeat *seat,
 
   translated.keyval = xkb_state_key_get_one_sym (xkb_state, key);
   modifiers = xkb_state_serialize_mods (xkb_state, XKB_STATE_MODS_EFFECTIVE);
-  consumed = modifiers & xkb_state_key_get_consumed_mods2 (xkb_state, key, XKB_CONSUMED_MODE_GTK);
+  consumed = modifiers & xkb_state_key_get_consumed_mods2 (xkb_state, key, XKB_CONSUMED_MODE_BOBGUI);
   translated.consumed = gdk_wayland_keymap_get_gdk_modifiers (keymap, consumed);
   translated.layout = xkb_state_key_get_layout (xkb_state, key);
   translated.level = xkb_state_key_get_level (xkb_state, key, translated.layout);
@@ -1300,7 +1300,7 @@ deliver_key_event (GdkWaylandSeat *seat,
   timeout = (seat->repeat_deadline - now) / 1000L;
 
   seat->repeat_timer = g_timeout_add (timeout, keyboard_repeat, seat);
-  gdk_source_set_static_name_by_id (seat->repeat_timer, "[gtk] keyboard_repeat");
+  gdk_source_set_static_name_by_id (seat->repeat_timer, "[bobgui] keyboard_repeat");
 }
 
 static void

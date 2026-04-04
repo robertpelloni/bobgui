@@ -19,43 +19,43 @@
 #include "config.h"
 
 #include <stdlib.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
 #define CUSTOM_ITEM "custom-item"
 
-static GtkWidget *toplevel, *button, *box;
-static GtkWidget *sel_image, *sel_name;
+static BobguiWidget *toplevel, *button, *box;
+static BobguiWidget *sel_image, *sel_name;
 
 static void
-combo_changed_cb (GtkAppChooserButton *chooser_button,
+combo_changed_cb (BobguiAppChooserButton *chooser_button,
                   gpointer             user_data)
 {
   GAppInfo *app_info;
 
-  app_info = gtk_app_chooser_get_app_info (GTK_APP_CHOOSER (chooser_button));
+  app_info = bobgui_app_chooser_get_app_info (BOBGUI_APP_CHOOSER (chooser_button));
 
   if (app_info == NULL)
     return;
 
-  gtk_image_set_from_gicon (GTK_IMAGE (sel_image), g_app_info_get_icon (app_info));
-  gtk_label_set_text (GTK_LABEL (sel_name), g_app_info_get_display_name (app_info));
+  bobgui_image_set_from_gicon (BOBGUI_IMAGE (sel_image), g_app_info_get_icon (app_info));
+  bobgui_label_set_text (BOBGUI_LABEL (sel_name), g_app_info_get_display_name (app_info));
 
   g_object_unref (app_info);
 }
 
 static void
-special_item_activated_cb (GtkAppChooserButton *b,
+special_item_activated_cb (BobguiAppChooserButton *b,
                            const char *item_name,
                            gpointer user_data)
 {
-  gtk_image_set_from_gicon (GTK_IMAGE (sel_image), g_themed_icon_new ("face-smile"));
-  gtk_label_set_text (GTK_LABEL (sel_name), "Special Item");
+  bobgui_image_set_from_gicon (BOBGUI_IMAGE (sel_image), g_themed_icon_new ("face-smile"));
+  bobgui_label_set_text (BOBGUI_LABEL (sel_name), "Special Item");
 }
 
 static void
-action_cb (GtkAppChooserButton *b,
+action_cb (BobguiAppChooserButton *b,
            const char *item_name,
            gpointer user_data)
 {
@@ -63,7 +63,7 @@ action_cb (GtkAppChooserButton *b,
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -77,59 +77,59 @@ int
 main (int argc,
       char **argv)
 {
-  GtkWidget *w;
+  BobguiWidget *w;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  toplevel = gtk_window_new ();
+  toplevel = bobgui_window_new ();
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-  gtk_widget_set_margin_top (box, 12);
-  gtk_widget_set_margin_bottom (box, 12);
-  gtk_widget_set_margin_start (box, 12);
-  gtk_widget_set_margin_end (box, 12);
-  gtk_window_set_child (GTK_WINDOW (toplevel), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 6);
+  bobgui_widget_set_margin_top (box, 12);
+  bobgui_widget_set_margin_bottom (box, 12);
+  bobgui_widget_set_margin_start (box, 12);
+  bobgui_widget_set_margin_end (box, 12);
+  bobgui_window_set_child (BOBGUI_WINDOW (toplevel), box);
 
-  button = gtk_app_chooser_button_new ("image/jpeg");
-  gtk_widget_set_vexpand (button, TRUE);
-  gtk_box_append (GTK_BOX (box), button);
+  button = bobgui_app_chooser_button_new ("image/jpeg");
+  bobgui_widget_set_vexpand (button, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), button);
 
   g_signal_connect (button, "changed",
                     G_CALLBACK (combo_changed_cb), NULL);
 
-  w = gtk_label_new (NULL);
-  gtk_label_set_markup (GTK_LABEL (w), "<b>Selected app info</b>");
-  gtk_widget_set_vexpand (w, TRUE);
-  gtk_box_append (GTK_BOX (box), w);
+  w = bobgui_label_new (NULL);
+  bobgui_label_set_markup (BOBGUI_LABEL (w), "<b>Selected app info</b>");
+  bobgui_widget_set_vexpand (w, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), w);
 
-  w = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-  gtk_widget_set_vexpand (w, TRUE);
-  gtk_box_append (GTK_BOX (box), w);
+  w = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6);
+  bobgui_widget_set_vexpand (w, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), w);
 
-  sel_image = gtk_image_new ();
-  gtk_widget_set_hexpand (sel_image, TRUE);
-  gtk_box_append (GTK_BOX (w), sel_image);
-  sel_name = gtk_label_new (NULL);
-  gtk_widget_set_hexpand (sel_name, TRUE);
-  gtk_box_append (GTK_BOX (w), sel_name);
+  sel_image = bobgui_image_new ();
+  bobgui_widget_set_hexpand (sel_image, TRUE);
+  bobgui_box_append (BOBGUI_BOX (w), sel_image);
+  sel_name = bobgui_label_new (NULL);
+  bobgui_widget_set_hexpand (sel_name, TRUE);
+  bobgui_box_append (BOBGUI_BOX (w), sel_name);
 
-  gtk_app_chooser_button_set_heading (GTK_APP_CHOOSER_BUTTON (button), "Choose one, <i>not</i> two");
-  gtk_app_chooser_button_append_separator (GTK_APP_CHOOSER_BUTTON (button));
-  gtk_app_chooser_button_append_custom_item (GTK_APP_CHOOSER_BUTTON (button),
+  bobgui_app_chooser_button_set_heading (BOBGUI_APP_CHOOSER_BUTTON (button), "Choose one, <i>not</i> two");
+  bobgui_app_chooser_button_append_separator (BOBGUI_APP_CHOOSER_BUTTON (button));
+  bobgui_app_chooser_button_append_custom_item (BOBGUI_APP_CHOOSER_BUTTON (button),
                                              CUSTOM_ITEM,
                                              "Hey, I'm special!",
                                              g_themed_icon_new ("face-smile"));
 
   /* this one will trigger a warning, and will not be added */
-  gtk_app_chooser_button_append_custom_item (GTK_APP_CHOOSER_BUTTON (button),
+  bobgui_app_chooser_button_append_custom_item (BOBGUI_APP_CHOOSER_BUTTON (button),
                                              CUSTOM_ITEM,
                                              "Hey, I'm fake!",
                                              g_themed_icon_new ("face-evil"));
 
-  gtk_app_chooser_button_set_show_dialog_item (GTK_APP_CHOOSER_BUTTON (button),
+  bobgui_app_chooser_button_set_show_dialog_item (BOBGUI_APP_CHOOSER_BUTTON (button),
                                                TRUE);
-  gtk_app_chooser_button_set_show_default_item (GTK_APP_CHOOSER_BUTTON (button),
+  bobgui_app_chooser_button_set_show_default_item (BOBGUI_APP_CHOOSER_BUTTON (button),
                                                 TRUE);
 
   /* connect to the detailed signal */
@@ -141,13 +141,13 @@ main (int argc,
                     G_CALLBACK (action_cb), NULL);
 
   /* test refresh on a combo */
-  gtk_app_chooser_refresh (GTK_APP_CHOOSER (button));
+  bobgui_app_chooser_refresh (BOBGUI_APP_CHOOSER (button));
 
 #if 0
-  gtk_app_chooser_button_set_active_custom_item (GTK_APP_CHOOSER_BUTTON (button),
+  bobgui_app_chooser_button_set_active_custom_item (BOBGUI_APP_CHOOSER_BUTTON (button),
                                                  CUSTOM_ITEM);
 #endif
-  gtk_window_present (GTK_WINDOW (toplevel));
+  bobgui_window_present (BOBGUI_WINDOW (toplevel));
 
   g_signal_connect (toplevel, "destroy", G_CALLBACK (quit_cb), &done);
 

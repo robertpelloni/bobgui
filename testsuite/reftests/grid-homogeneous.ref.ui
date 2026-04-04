@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="BobguiGrid" id="grid1">
         <child>
-          <object class="GtkBox" id="box1">
+          <object class="BobguiBox" id="box1">
             <property name="name">red</property>
             <property name="width_request">30</property>
             <property name="height_request">30</property>
@@ -18,7 +18,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box2">
+          <object class="BobguiBox" id="box2">
             <property name="name">green</property>
             <property name="width_request">20</property>
             <property name="height_request">20</property>
@@ -31,7 +31,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box3">
+          <object class="BobguiBox" id="box3">
             <property name="name">red</property>
             <property name="width_request">30</property>
             <property name="height_request">30</property>
@@ -44,7 +44,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box4">
+          <object class="BobguiBox" id="box4">
             <property name="name">green</property>
             <property name="width_request">20</property>
             <property name="height_request">30</property>
@@ -57,7 +57,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box5">
+          <object class="BobguiBox" id="box5">
             <property name="name">red</property>
             <property name="width_request">30</property>
             <property name="height_request">30</property>
@@ -70,7 +70,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box6">
+          <object class="BobguiBox" id="box6">
             <property name="name">green</property>
             <property name="width_request">30</property>
             <property name="height_request">20</property>
@@ -83,7 +83,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box7">
+          <object class="BobguiBox" id="box7">
             <property name="name">red</property>
             <property name="width_request">30</property>
             <property name="height_request">30</property>
@@ -96,7 +96,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="box8">
+          <object class="BobguiBox" id="box8">
             <property name="name">green</property>
             <property name="width_request">30</property>
             <property name="height_request">30</property>

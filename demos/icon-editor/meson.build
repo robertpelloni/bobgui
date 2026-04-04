@@ -23,20 +23,20 @@ icon_editor_resources = gnome.compile_resources('icon_editor_resources',
 )
 
 
-executable('gtk4-icon-editor',
+executable('bobgui4-icon-editor',
   sources: [icon_editor_sources, icon_editor_resources],
-  c_args: common_cflags + ['-DGTK_COMPILATION'],
-  dependencies: [ libgtk_static_dep, gmodule_headers_dep, profile_conf_h ],
+  c_args: common_cflags + ['-DBOBGUI_COMPILATION'],
+  dependencies: [ libbobgui_static_dep, gmodule_headers_dep, profile_conf_h ],
   include_directories: confinc,
   win_subsystem: 'windows',
   link_args: extra_demo_ldflags,
   install: true,
 )
 
-install_data('org.gtk.Shaper.desktop', install_dir: gtk_applicationsdir)
+install_data('org.bobgui.Shaper.desktop', install_dir: bobgui_applicationsdir)
 
-icontheme_dir = join_paths(gtk_datadir, 'icons/hicolor')
+icontheme_dir = join_paths(bobgui_datadir, 'icons/hicolor')
 
-install_data('org.gtk.Shaper.svg', install_dir: join_paths(icontheme_dir, 'scalable/apps'))
-install_data('org.gtk.Shaper.Devel.svg', install_dir: join_paths(icontheme_dir, 'scalable/apps'))
-install_data('org.gtk.Shaper-symbolic.svg', install_dir: join_paths(icontheme_dir, 'symbolic/apps'))
+install_data('org.bobgui.Shaper.svg', install_dir: join_paths(icontheme_dir, 'scalable/apps'))
+install_data('org.bobgui.Shaper.Devel.svg', install_dir: join_paths(icontheme_dir, 'scalable/apps'))
+install_data('org.bobgui.Shaper-symbolic.svg', install_dir: join_paths(icontheme_dir, 'symbolic/apps'))

@@ -55,7 +55,7 @@
  *
  * Adds an event filter to @window, allowing you to intercept messages
  * before they reach GDK. This is a low-level operation and makes it
- * easy to break GDK and/or GTK, so you have to know what you're
+ * easy to break GDK and/or BOBGUI, so you have to know what you're
  * doing.
  **/
 void
@@ -338,9 +338,9 @@ gdk_win32_display_init_monitors (GdkWin32Display *win32_display)
  * If the windowing system supports it, existing cursors created
  * with [ctor@Gdk.Cursor.new_from_name] are updated to reflect the theme
  * change. Custom cursors constructed with [ctor@Gdk.Cursor.new_from_texture]
- * will have to be handled by the application (GTK applications can
+ * will have to be handled by the application (BOBGUI applications can
  * learn about cursor theme changes by listening for change notification
- * for the corresponding `GtkSetting`).
+ * for the corresponding `BobguiSetting`).
  */
 void
 gdk_win32_display_set_cursor_theme (GdkDisplay  *display,

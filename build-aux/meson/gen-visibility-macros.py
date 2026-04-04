@@ -55,7 +55,7 @@ def gen_versions_macros(args, current_major_version, current_minor_version, curr
                         /**
                          * GDK_VERSION_{current_major_version}_{minor}:
                          *
-                         * A macro that evaluates to the {current_major_version}.{minor} version of GTK, in a format
+                         * A macro that evaluates to the {current_major_version}.{minor} version of BOBGUI, in a format
                          * that can be used by the C pre-processor.
                          *
                          * Since: {current_major_version}.{minor}
@@ -70,7 +70,7 @@ def gen_versions_macros(args, current_major_version, current_minor_version, curr
 
 def gen_visibility_macros(args, current_major_version, current_minor_version, current_micro_version):
     """
-    Generates a set of macros for each minor stable version of GTK
+    Generates a set of macros for each minor stable version of BOBGUI
 
     - GDK_DEPRECATED
     - GDK_DEPRECATED_IN_…
@@ -106,7 +106,7 @@ def gen_visibility_macros(args, current_major_version, current_minor_version, cu
             #  define _{ns}_EXPORT
             #  define _{ns}_IMPORT
             #endif
-            #ifdef GTK_COMPILATION
+            #ifdef BOBGUI_COMPILATION
             #  define _{ns}_API _{ns}_EXPORT
             #else
             #  define _{ns}_API _{ns}_IMPORT
@@ -175,7 +175,7 @@ def gen_visibility_macros(args, current_major_version, current_minor_version, cu
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("gtk_version", help="Current GLib version")
+    parser.add_argument("bobgui_version", help="Current GLib version")
     subparsers = parser.add_subparsers()
 
     versions_parser = subparsers.add_parser(
@@ -193,7 +193,7 @@ def main():
     visibility_parser.set_defaults(func=gen_visibility_macros)
 
     args = parser.parse_args()
-    version = [int(i) for i in args.gtk_version.split(".")]
+    version = [int(i) for i in args.bobgui_version.split(".")]
     args.func(args, version[0], version[1], version[2])
 
 

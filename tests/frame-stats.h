@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 void frame_stats_add_options (GOptionGroup *group);
-void frame_stats_ensure      (GtkWindow    *window);
+void frame_stats_ensure      (BobguiWindow    *window);

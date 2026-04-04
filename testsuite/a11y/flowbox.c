@@ -1,16 +1,16 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 flowbox_role (void)
 {
-  GtkWidget *widget = gtk_flow_box_new ();
+  BobguiWidget *widget = bobgui_flow_box_new ();
 
   g_object_ref_sink (widget);
 
-  gtk_flow_box_insert (GTK_FLOW_BOX (widget), gtk_label_new ("a"), 0);
+  bobgui_flow_box_insert (BOBGUI_FLOW_BOX (widget), bobgui_label_new ("a"), 0);
 
-  gtk_test_accessible_assert_role (GTK_ACCESSIBLE (widget), GTK_ACCESSIBLE_ROLE_GRID);
-  gtk_test_accessible_assert_role (GTK_ACCESSIBLE (gtk_widget_get_first_child (widget)), GTK_ACCESSIBLE_ROLE_GRID_CELL);
+  bobgui_test_accessible_assert_role (BOBGUI_ACCESSIBLE (widget), BOBGUI_ACCESSIBLE_ROLE_GRID);
+  bobgui_test_accessible_assert_role (BOBGUI_ACCESSIBLE (bobgui_widget_get_first_child (widget)), BOBGUI_ACCESSIBLE_ROLE_GRID_CELL);
 
   g_object_unref (widget);
 }
@@ -18,37 +18,37 @@ flowbox_role (void)
 static void
 flowbox_state (void)
 {
-  GtkWidget *window = gtk_window_new ();
-  GtkWidget *widget = gtk_flow_box_new ();
+  BobguiWidget *window = bobgui_window_new ();
+  BobguiWidget *widget = bobgui_flow_box_new ();
 
-  gtk_window_set_child (GTK_WINDOW (window), widget);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), widget);
 
-  gtk_flow_box_insert (GTK_FLOW_BOX (widget), gtk_label_new ("a"), 0);
+  bobgui_flow_box_insert (BOBGUI_FLOW_BOX (widget), bobgui_label_new ("a"), 0);
 
-  gtk_test_accessible_assert_state (GTK_ACCESSIBLE (gtk_widget_get_first_child (widget)), GTK_ACCESSIBLE_STATE_SELECTED, FALSE);
+  bobgui_test_accessible_assert_state (BOBGUI_ACCESSIBLE (bobgui_widget_get_first_child (widget)), BOBGUI_ACCESSIBLE_STATE_SELECTED, FALSE);
 
-  gtk_flow_box_select_child (GTK_FLOW_BOX (widget),
-                             GTK_FLOW_BOX_CHILD (gtk_widget_get_first_child (widget)));
+  bobgui_flow_box_select_child (BOBGUI_FLOW_BOX (widget),
+                             BOBGUI_FLOW_BOX_CHILD (bobgui_widget_get_first_child (widget)));
 
-  gtk_test_accessible_assert_state (GTK_ACCESSIBLE (gtk_widget_get_first_child (widget)), GTK_ACCESSIBLE_STATE_SELECTED, TRUE);
+  bobgui_test_accessible_assert_state (BOBGUI_ACCESSIBLE (bobgui_widget_get_first_child (widget)), BOBGUI_ACCESSIBLE_STATE_SELECTED, TRUE);
 
-  gtk_window_destroy (GTK_WINDOW (window));
+  bobgui_window_destroy (BOBGUI_WINDOW (window));
 }
 
 static void
 flowbox_properties (void)
 {
-  GtkWidget *widget = gtk_flow_box_new ();
+  BobguiWidget *widget = bobgui_flow_box_new ();
 
   g_object_ref_sink (widget);
 
-  gtk_flow_box_insert (GTK_FLOW_BOX (widget), gtk_label_new ("a"), 0);
+  bobgui_flow_box_insert (BOBGUI_FLOW_BOX (widget), bobgui_label_new ("a"), 0);
 
-  gtk_test_accessible_assert_property (GTK_ACCESSIBLE (widget), GTK_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE, FALSE);
+  bobgui_test_accessible_assert_property (BOBGUI_ACCESSIBLE (widget), BOBGUI_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE, FALSE);
 
-  gtk_flow_box_set_selection_mode (GTK_FLOW_BOX (widget), GTK_SELECTION_MULTIPLE);
+  bobgui_flow_box_set_selection_mode (BOBGUI_FLOW_BOX (widget), BOBGUI_SELECTION_MULTIPLE);
 
-  gtk_test_accessible_assert_property (GTK_ACCESSIBLE (widget), GTK_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE, TRUE);
+  bobgui_test_accessible_assert_property (BOBGUI_ACCESSIBLE (widget), BOBGUI_ACCESSIBLE_PROPERTY_MULTI_SELECTABLE, TRUE);
 
   g_object_unref (widget);
 }
@@ -56,7 +56,7 @@ flowbox_properties (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/a11y/flowbox/role", flowbox_role);
   g_test_add_func ("/a11y/flowbox/state", flowbox_state);

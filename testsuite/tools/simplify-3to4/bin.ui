@@ -1,12 +1,12 @@
 <interface>
-  <object class="GtkFrame">
+  <object class="BobguiFrame">
     <property name="label">bla</property>
     <child>
-      <object class="GtkGestureClick">
+      <object class="BobguiGestureClick">
       </object>
     </child>
     <child>
-      <object class="GtkButton">
+      <object class="BobguiButton">
       </object>
     </child>
   </object>

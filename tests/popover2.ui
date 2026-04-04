@@ -1,18 +1,18 @@
 <interface>
-  <object class="GtkPopoverMenu" id="popover">
+  <object class="BobguiPopoverMenu" id="popover">
     <property name="autohide">True</property>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="orientation">vertical</property>
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">3</property>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">start</property>
                 <property name="label">Edit</property>
                 <style>
@@ -21,30 +21,30 @@
               </object>
             </child>
             <child>
-              <object class="GtkSeparator"/>
+              <object class="BobguiSeparator"/>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.cut</property>
             <property name="text">Cut</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.copy</property>
             <property name="text">Copy</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.paste</property>
             <property name="text">Paste</property>
           </object>
         </child>
         <child>
-          <object class="GtkSeparator">
+          <object class="BobguiSeparator">
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">3</property>
@@ -52,32 +52,32 @@
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">action1</property>
             <property name="text">No action</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action2</property>
             <property name="text">Toggle</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action2a</property>
             <property name="text">Another Toggle</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="orientation">vertical</property>
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">3</property>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">start</property>
                 <property name="label">Middle Section</property>
                 <style>
@@ -86,45 +86,45 @@
               </object>
             </child>
             <child>
-              <object class="GtkSeparator"/>
+              <object class="BobguiSeparator"/>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action3</property>
             <property name="action-target">&apos;three&apos;</property>
             <property name="text">Radio 1</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action3</property>
             <property name="action-target">&apos;four&apos;</property>
             <property name="text">Radio 2</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="text">Submenu 1</property>
             <property name="popover">submenu1</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="text">Submenu 2</property>
             <property name="popover">submenu2</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="orientation">vertical</property>
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">3</property>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">start</property>
                 <property name="label">End Section</property>
                 <style>
@@ -133,19 +133,19 @@
               </object>
             </child>
             <child>
-              <object class="GtkSeparator"/>
+              <object class="BobguiSeparator"/>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action9</property>
             <property name="text">Another Item 9</property>
             <property name="icon">icon9</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action10</property>
             <property name="text">Another Item 10</property>
           </object>
@@ -153,9 +153,9 @@
       </object>
     </child>
   </object>
-  <object class="GtkPopoverMenu" id="submenu1">
+  <object class="BobguiPopoverMenu" id="submenu1">
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="name">submenu1</property>
         <property name="orientation">vertical</property>
         <property name="margin-start">10</property>
@@ -163,14 +163,14 @@
         <property name="margin-top">10</property>
         <property name="margin-bottom">10</property>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="orientation">vertical</property>
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">3</property>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">start</property>
                 <property name="label">5555</property>
                 <style>
@@ -179,36 +179,36 @@
               </object>
             </child>
             <child>
-              <object class="GtkSeparator"/>
+              <object class="BobguiSeparator"/>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action5</property>
             <property name="text">Item 5</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action5</property>
             <property name="text">Item 5a</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action5</property>
             <property name="text">Item 5b</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="margin-top">10</property>
             <style>
               <class name="linked"/>
             </style>
             <child>
-              <object class="GtkModelButton">
+              <object class="BobguiModelButton">
                 <property name="text">List</property>
                 <property name="action-name">top.set-view</property>
                 <property name="action-target">&apos;list&apos;</property>
@@ -217,7 +217,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkModelButton">
+              <object class="BobguiModelButton">
                 <property name="text">Grid</property>
                 <property name="action-name">top.set-view</property>
                 <property name="action-target">&apos;grid&apos;</property>
@@ -228,26 +228,26 @@
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action5</property>
             <property name="text">Item 5c</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action5</property>
             <property name="text">Item 5d</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="orientation">vertical</property>
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">3</property>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">start</property>
                 <property name="label">Format</property>
                 <style>
@@ -256,25 +256,25 @@
               </object>
             </child>
             <child>
-              <object class="GtkSeparator"/>
+              <object class="BobguiSeparator"/>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="margin-top">10</property>
             <style>
               <class name="linked"/>
             </style>
             <child>
-              <object class="GtkModelButton">
+              <object class="BobguiModelButton">
                 <property name="text">Bold</property>
                 <property name="action-name">top.bold</property>
                 <property name="iconic">1</property>
               </object>
             </child>
             <child>
-              <object class="GtkModelButton">
+              <object class="BobguiModelButton">
                 <property name="text">Italic</property>
                 <property name="action-name">top.italic</property>
                 <property name="iconic">1</property>
@@ -282,7 +282,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkModelButton">
+              <object class="BobguiModelButton">
                 <property name="text">Strikethrough</property>
                 <property name="action-name">top.strikethrough</property>
                 <property name="iconic">1</property>
@@ -290,7 +290,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkModelButton">
+              <object class="BobguiModelButton">
                 <property name="text">Underline</property>
                 <property name="action-name">top.underline</property>
                 <property name="iconic">1</property>
@@ -300,14 +300,14 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="orientation">vertical</property>
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">3</property>
             <child>
-              <object class="GtkLabel">
+              <object class="BobguiLabel">
                 <property name="halign">start</property>
                 <property name="label">6666</property>
                 <style>
@@ -316,36 +316,36 @@
               </object>
             </child>
             <child>
-              <object class="GtkSeparator"/>
+              <object class="BobguiSeparator"/>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action6</property>
             <property name="text">Item 6</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action6</property>
             <property name="text">Item 6a</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action6</property>
             <property name="text">Item 6b</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action6</property>
             <property name="text">Item 6c</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action6</property>
             <property name="text">Item 6d</property>
           </object>
@@ -353,9 +353,9 @@
       </object>
     </child>
   </object>
-  <object class="GtkPopoverMenu" id="submenu2">
+  <object class="BobguiPopoverMenu" id="submenu2">
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="name">submenu2</property>
         <property name="orientation">vertical</property>
         <property name="margin-start">10</property>
@@ -363,19 +363,19 @@
         <property name="margin-top">10</property>
         <property name="margin-bottom">10</property>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action7</property>
             <property name="text">Item 7</property>
           </object>
         </child>
         <child>
-          <object class="GtkScale">
+          <object class="BobguiScale">
             <property name="draw-value">0</property>
             <property name="adjustment">adjustment</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="text">Subsubmenu</property>
             <property name="popover">subsubmenu</property>
           </object>
@@ -383,9 +383,9 @@
       </object>
     </child>
   </object>
-  <object class="GtkPopoverMenu" id="subsubmenu">
+  <object class="BobguiPopoverMenu" id="subsubmenu">
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="name">subsubmenu</property>
         <property name="orientation">vertical</property>
         <property name="margin-start">10</property>
@@ -393,13 +393,13 @@
         <property name="margin-top">10</property>
         <property name="margin-bottom">10</property>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">action8</property>
             <property name="text">Item 8</property>
           </object>
         </child>
         <child>
-          <object class="GtkSeparator">
+          <object class="BobguiSeparator">
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">3</property>
@@ -407,13 +407,13 @@
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action9</property>
             <property name="text">Item 9</property>
           </object>
         </child>
         <child>
-          <object class="GtkModelButton">
+          <object class="BobguiModelButton">
             <property name="action-name">top.action10</property>
             <property name="text">Item 10</property>
           </object>
@@ -439,7 +439,7 @@
   <object class="GThemedIcon" id="icon-underline">
     <property name="name">format-text-underline-symbolic</property>
   </object>
-  <object class="GtkAdjustment" id="adjustment">
+  <object class="BobguiAdjustment" id="adjustment">
     <property name="upper">100</property>
     <property name="value">50</property>
   </object>

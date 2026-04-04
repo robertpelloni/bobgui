@@ -202,17 +202,17 @@ _gdk_x11_screen_get_monitor_work_area (GdkX11Screen *x11_screen,
   int i;
 
   if (!gdk_x11_screen_supports_net_wm_hint (x11_screen,
-                                            g_intern_static_string ("_GTK_WORKAREAS")))
+                                            g_intern_static_string ("_BOBGUI_WORKAREAS")))
     return FALSE;
 
   xdisplay = gdk_x11_display_get_xdisplay (x11_screen->display);
-  net_workareas = XInternAtom (xdisplay, "_GTK_WORKAREAS", False);
+  net_workareas = XInternAtom (xdisplay, "_BOBGUI_WORKAREAS", False);
 
   if (net_workareas == None)
     return FALSE;
 
   current_desktop = get_current_desktop (x11_screen);
-  workareas_dn_name = g_strdup_printf ("_GTK_WORKAREAS_D%d", current_desktop);
+  workareas_dn_name = g_strdup_printf ("_BOBGUI_WORKAREAS_D%d", current_desktop);
   workareas_dn = XInternAtom (xdisplay, workareas_dn_name, True);
   g_free (workareas_dn_name);
 

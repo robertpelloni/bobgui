@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "exampleapp.h"
 #include "exampleappwin.h"
@@ -6,14 +6,14 @@
 
 struct _ExampleAppPrefs
 {
-  GtkDialog parent;
+  BobguiDialog parent;
 
   GSettings *settings;
-  GtkWidget *font;
-  GtkWidget *transition;
+  BobguiWidget *font;
+  BobguiWidget *transition;
 };
 
-G_DEFINE_TYPE (ExampleAppPrefs, example_app_prefs, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE (ExampleAppPrefs, example_app_prefs, BOBGUI_TYPE_DIALOG)
 
 static gboolean
 string_to_font_desc (GValue   *value,
@@ -72,8 +72,8 @@ pos_to_transition (const GValue       *value,
 static void
 example_app_prefs_init (ExampleAppPrefs *prefs)
 {
-  gtk_widget_init_template (GTK_WIDGET (prefs));
-  prefs->settings = g_settings_new ("org.gtk.exampleapp");
+  bobgui_widget_init_template (BOBGUI_WIDGET (prefs));
+  prefs->settings = g_settings_new ("org.bobgui.exampleapp");
 
   g_settings_bind_with_mapping (prefs->settings, "font",
                                 prefs->font, "font-desc",
@@ -106,10 +106,10 @@ example_app_prefs_class_init (ExampleAppPrefsClass *class)
 {
   G_OBJECT_CLASS (class)->dispose = example_app_prefs_dispose;
 
-  gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (class),
-                                               "/org/gtk/exampleapp/prefs.ui");
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppPrefs, font);
-  gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (class), ExampleAppPrefs, transition);
+  bobgui_widget_class_set_template_from_resource (BOBGUI_WIDGET_CLASS (class),
+                                               "/org/bobgui/exampleapp/prefs.ui");
+  bobgui_widget_class_bind_template_child (BOBGUI_WIDGET_CLASS (class), ExampleAppPrefs, font);
+  bobgui_widget_class_bind_template_child (BOBGUI_WIDGET_CLASS (class), ExampleAppPrefs, transition);
 }
 
 ExampleAppPrefs *

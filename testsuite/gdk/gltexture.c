@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #ifdef GDK_WINDOWING_WIN32
 /* epoxy needs this, see https://github.com/anholt/libepoxy/issues/299 */
 #include <windows.h>
@@ -241,7 +241,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/gltexture/same-context", test_gltexture_same_context);
   g_test_add_func ("/gltexture/no-context", test_gltexture_no_context);

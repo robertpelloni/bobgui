@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <object class="GtkWindow">
+  <requires lib="bobgui" version="4.0"/>
+  <object class="BobguiWindow">
     <property name="default-width">10</property>
     <property name="decorated">false</property>
 
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="orientation">vertical</property>
 
         <child>
-          <object class="GtkBox">
+          <object class="BobguiBox">
             <property name="orientation">horizontal</property>
 
             <child>
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <property name="orientation">vertical</property>
 
                 <child>
-                  <object class="GtkBox">
+                  <object class="BobguiBox">
                     <property name="orientation">horizontal</property>
 
                     <child>
-                      <object class="GtkBox">
+                      <object class="BobguiBox">
                         <property name="orientation">vertical</property>
 
                         <child>
-                          <object class="GtkBox">
+                          <object class="BobguiBox">
                             <property name="orientation">horizontal</property>
 
                             <child>
-                              <object class="GtkLabel">
+                              <object class="BobguiLabel">
                                 <property name="label">Taumatawhakatangihangakoauautamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu, Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch, Chargoggagoggmanchauggagoggchaubunagungamaugg, Tweebuffelsmeteenskootmorsdoodgeskietfontein, Äteritsiputeritsipuolilautatsijänkä, Pekwachnamaykoskwaskwaypinwanik, Nondraisilisilinayalewatonga, Andorijidoridaraemihansumbau, Venkatanarasimharajuvaripeta, Bovenendvankeelafsnysleegte, Mamungkukumpurangkuntjunya, Schmedeswurtherwesterdeich, Wereldtentoonstellingslaan, Haaldersbroekerdwarsstraat</property>
                                 <property name="wrap">true</property>
                                 <property name="hexpand">true</property>

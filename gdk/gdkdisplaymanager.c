@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -66,7 +66,7 @@
  *
  * You can use [func@Gdk.DisplayManager.get] to obtain the `GdkDisplayManager`
  * singleton, but that should be rarely necessary. Typically, initializing
- * GTK opens a display that you can work with without ever accessing the
+ * BOBGUI opens a display that you can work with without ever accessing the
  * `GdkDisplayManager`.
  *
  * The GDK library can be built with support for multiple backends.
@@ -75,7 +75,7 @@
  *
  * In the rare case that you need to influence which of the backends
  * is being used, you can use [func@Gdk.set_allowed_backends]. Note
- * that you need to call this function before initializing GTK.
+ * that you need to call this function before initializing BOBGUI.
  *
  * ## Backend-specific code
  *
@@ -244,7 +244,7 @@ static const char *allowed_backends;
  * You can also include a `*` in the list to try all remaining backends.
  *
  * This call must happen prior to functions that open a display, such
- * as [func@Gdk.Display.open], `gtk_init()`, or `gtk_init_check()`
+ * as [func@Gdk.Display.open], `bobgui_init()`, or `bobgui_init_check()`
  * in order to take effect.
  */
 void

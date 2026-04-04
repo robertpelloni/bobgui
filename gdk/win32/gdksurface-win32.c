@@ -19,10 +19,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -283,7 +283,7 @@ RegisterGdkClass (GType wtype)
 
           if (0 == hAppIcon && 0 == hAppIconSm)
             {
-              // fallback : load icon from GTK DLL
+              // fallback : load icon from BOBGUI DLL
               if (0 != GetModuleFileName (this_module (), sLoc, MAX_PATH))
 		{
 		  ExtractIconEx (sLoc, 0, &hAppIcon, &hAppIconSm, 1);
@@ -589,7 +589,7 @@ show_surface_internal (GdkSurface *surface,
       !already_mapped &&
       (surface->state & GDK_TOPLEVEL_STATE_MINIMIZED))
     {
-      GtkShowSurfaceHWND (surface, SW_SHOWMINNOACTIVE);
+      BobguiShowSurfaceHWND (surface, SW_SHOWMINNOACTIVE);
       return;
     }
 
@@ -731,26 +731,26 @@ show_surface_internal (GdkSurface *surface,
 
   if (surface->state & GDK_TOPLEVEL_STATE_MAXIMIZED)
     {
-      GtkShowSurfaceHWND (surface, SW_MAXIMIZE);
+      BobguiShowSurfaceHWND (surface, SW_MAXIMIZE);
     }
   else if (surface->state & GDK_TOPLEVEL_STATE_MINIMIZED)
     {
-      GtkShowSurfaceHWND (surface, SW_RESTORE);
+      BobguiShowSurfaceHWND (surface, SW_RESTORE);
     }
   else if (GDK_IS_DRAG_SURFACE (surface))
     {
       if (!IsWindowVisible (GDK_SURFACE_HWND (surface)))
-        GtkShowSurfaceHWND (surface, SW_SHOWNOACTIVATE);
+        BobguiShowSurfaceHWND (surface, SW_SHOWNOACTIVATE);
       else
-        GtkShowSurfaceHWND (surface, SW_SHOWNA);
+        BobguiShowSurfaceHWND (surface, SW_SHOWNA);
     }
   else if (!IsWindowVisible (GDK_SURFACE_HWND (surface)))
     {
-      GtkShowSurfaceHWND (surface, SW_SHOWNORMAL);
+      BobguiShowSurfaceHWND (surface, SW_SHOWNORMAL);
     }
   else
     {
-      GtkShowSurfaceHWND (surface, SW_SHOW);
+      BobguiShowSurfaceHWND (surface, SW_SHOW);
     }
 
   exstyle = GetWindowLong (GDK_SURFACE_HWND (surface), GWL_EXSTYLE);
@@ -791,7 +791,7 @@ gdk_win32_surface_hide (GdkSurface *surface)
 
   _gdk_surface_clear_update_area (surface);
 
-  GtkShowSurfaceHWND (surface, SW_HIDE);
+  BobguiShowSurfaceHWND (surface, SW_HIDE);
 }
 
 static void
@@ -1115,7 +1115,7 @@ gdk_win32_surface_raise (GdkSurface *surface)
       else
         /* Do not wrap this in an API_CALL macro as SetForegroundWindow might
          * fail when for example dragging a surface belonging to a different
-         * application at the time of a gtk_window_present() call due to focus
+         * application at the time of a bobgui_window_present() call due to focus
          * stealing prevention. */
         SetForegroundWindow (GDK_SURFACE_HWND (surface));
     }
@@ -1525,7 +1525,7 @@ update_single_bit (LONG    *style,
 
 /*
  * Returns TRUE if surface has no decorations.
- * Usually it means CSD windows, because GTK
+ * Usually it means CSD windows, because BOBGUI
  * calls gdk_surface_set_decorations (surface, 0);
  */
 gboolean
@@ -1540,7 +1540,7 @@ _gdk_win32_surface_lacks_wm_decorations (GdkSurface *surface)
 
   impl = GDK_WIN32_SURFACE (surface);
 
-  /* This is because GTK calls gdk_surface_set_decorations (surface, 0),
+  /* This is because BOBGUI calls gdk_surface_set_decorations (surface, 0),
    * even though GdkWMDecoration docs indicate that 0 does NOT mean
    * "no decorations".
    */
@@ -2301,7 +2301,7 @@ gdk_win32_surface_minimize (GdkSurface *surface)
   if (GDK_SURFACE_IS_MAPPED (surface))
     {
       old_active_hwnd = GetActiveWindow ();
-      GtkShowSurfaceHWND (surface, SW_MINIMIZE);
+      BobguiShowSurfaceHWND (surface, SW_MINIMIZE);
       if (old_active_hwnd != GDK_SURFACE_HWND (surface))
 	SetActiveWindow (old_active_hwnd);
     }
@@ -2332,7 +2332,7 @@ gdk_win32_surface_maximize (GdkSurface *surface)
   impl->force_recompute_size = FALSE;
 
   if (GDK_SURFACE_IS_MAPPED (surface))
-    GtkShowSurfaceHWND (surface, SW_MAXIMIZE);
+    BobguiShowSurfaceHWND (surface, SW_MAXIMIZE);
   else
     gdk_synthesize_surface_state (surface,
 				 0,
@@ -2354,7 +2354,7 @@ gdk_win32_surface_unmaximize (GdkSurface *surface)
 			   _gdk_win32_surface_state_to_string (surface->state)));
 
   if (GDK_SURFACE_IS_MAPPED (surface))
-    GtkShowSurfaceHWND (surface, SW_RESTORE);
+    BobguiShowSurfaceHWND (surface, SW_RESTORE);
   else
     gdk_synthesize_surface_state (surface,
 				 GDK_TOPLEVEL_STATE_MAXIMIZED,
@@ -2479,13 +2479,13 @@ gdk_win32_surface_focus (GdkSurface *surface,
 			   _gdk_win32_surface_state_to_string (surface->state)));
 
   if (surface->state & GDK_TOPLEVEL_STATE_MAXIMIZED)
-    GtkShowSurfaceHWND (surface, SW_SHOWMAXIMIZED);
+    BobguiShowSurfaceHWND (surface, SW_SHOWMAXIMIZED);
   else if (surface->state & GDK_TOPLEVEL_STATE_MINIMIZED)
-    GtkShowSurfaceHWND (surface, SW_RESTORE);
+    BobguiShowSurfaceHWND (surface, SW_RESTORE);
   else if (!IsWindowVisible (GDK_SURFACE_HWND (surface)))
-    GtkShowSurfaceHWND (surface, SW_SHOWNORMAL);
+    BobguiShowSurfaceHWND (surface, SW_SHOWNORMAL);
   else
-    GtkShowSurfaceHWND (surface, SW_SHOW);
+    BobguiShowSurfaceHWND (surface, SW_SHOW);
 
   SetFocus (GDK_SURFACE_HWND (surface));
 }
@@ -2568,7 +2568,7 @@ gdk_win32_surface_get_impl_hwnd (GdkSurface *surface)
 }
 
 BOOL WINAPI
-GtkShowSurfaceHWND (GdkSurface *surface,
+BobguiShowSurfaceHWND (GdkSurface *surface,
                     int         cmd_show)
 {
   GdkWin32Surface *impl = GDK_WIN32_SURFACE (surface);

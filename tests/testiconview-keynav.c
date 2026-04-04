@@ -23,157 +23,157 @@
  * grouping items.
  */
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
-static GtkTreeModel *
+static BobguiTreeModel *
 get_model (void)
 {
-  static GtkListStore *store;
-  GtkTreeIter iter;
+  static BobguiListStore *store;
+  BobguiTreeIter iter;
 
   if (store)
-    return (GtkTreeModel *) g_object_ref (store);
+    return (BobguiTreeModel *) g_object_ref (store);
 
-  store = gtk_list_store_new (1, G_TYPE_STRING);
+  store = bobgui_list_store_new (1, G_TYPE_STRING);
 
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, "One", -1);
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, "Two", -1);
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, "Three", -1);
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, "Four", -1);
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, "Five", -1);
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, "Six", -1);
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, "Seven", -1);
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, "Eight", -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, "One", -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, "Two", -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, "Three", -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, "Four", -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, "Five", -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, "Six", -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, "Seven", -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, "Eight", -1);
 
-  return (GtkTreeModel *) store;
+  return (BobguiTreeModel *) store;
 }
 
 static gboolean
-visible_func (GtkTreeModel *model,
-              GtkTreeIter  *iter,
+visible_func (BobguiTreeModel *model,
+              BobguiTreeIter  *iter,
               gpointer      data)
 {
   gboolean first = GPOINTER_TO_INT (data);
   gboolean visible;
-  GtkTreePath *path;
+  BobguiTreePath *path;
 
-  path = gtk_tree_model_get_path (model, iter);
+  path = bobgui_tree_model_get_path (model, iter);
 
-  if (gtk_tree_path_get_indices (path)[0] < 4)
+  if (bobgui_tree_path_get_indices (path)[0] < 4)
     visible = first;
   else
     visible = !first;
 
-  gtk_tree_path_free (path);
+  bobgui_tree_path_free (path);
 
   return visible;
 }
 
-static GtkTreeModel *
+static BobguiTreeModel *
 get_filter_model (gboolean first)
 {
-  GtkTreeModelFilter *model;
+  BobguiTreeModelFilter *model;
 
-  model = (GtkTreeModelFilter *)gtk_tree_model_filter_new (get_model (), NULL);
+  model = (BobguiTreeModelFilter *)bobgui_tree_model_filter_new (get_model (), NULL);
 
-  gtk_tree_model_filter_set_visible_func (model, visible_func, GINT_TO_POINTER (first), NULL);
+  bobgui_tree_model_filter_set_visible_func (model, visible_func, GINT_TO_POINTER (first), NULL);
 
-  return (GtkTreeModel *) model;
+  return (BobguiTreeModel *) model;
 }
 
-static GtkWidget *
+static BobguiWidget *
 get_view (gboolean first)
 {
-  GtkWidget *view;
+  BobguiWidget *view;
 
-  view = gtk_icon_view_new_with_model (get_filter_model (first));
-  gtk_icon_view_set_text_column (GTK_ICON_VIEW (view), 0);
-  gtk_widget_set_size_request (view, 0, -1);
+  view = bobgui_icon_view_new_with_model (get_filter_model (first));
+  bobgui_icon_view_set_text_column (BOBGUI_ICON_VIEW (view), 0);
+  bobgui_widget_set_size_request (view, 0, -1);
 
   return view;
 }
 
 typedef struct
 {
-  GtkWidget *header1;
-  GtkWidget *view1;
-  GtkWidget *header2;
-  GtkWidget *view2;
+  BobguiWidget *header1;
+  BobguiWidget *view1;
+  BobguiWidget *header2;
+  BobguiWidget *view2;
 } Views;
 
 static gboolean
-keynav_failed (GtkWidget        *view,
-               GtkDirectionType  direction,
+keynav_failed (BobguiWidget        *view,
+               BobguiDirectionType  direction,
                Views            *views)
 {
-  GtkTreePath *path;
-  GtkTreeModel *model;
-  GtkTreeIter iter;
+  BobguiTreePath *path;
+  BobguiTreeModel *model;
+  BobguiTreeIter iter;
   int col;
-  GtkTreePath *sel;
+  BobguiTreePath *sel;
 
-  if (view == views->view1 && direction == GTK_DIR_DOWN)
+  if (view == views->view1 && direction == BOBGUI_DIR_DOWN)
     {
-      if (gtk_icon_view_get_cursor (GTK_ICON_VIEW (views->view1), &path, NULL))
+      if (bobgui_icon_view_get_cursor (BOBGUI_ICON_VIEW (views->view1), &path, NULL))
         {
-          col = gtk_icon_view_get_item_column (GTK_ICON_VIEW (views->view1), path);
-          gtk_tree_path_free (path);
+          col = bobgui_icon_view_get_item_column (BOBGUI_ICON_VIEW (views->view1), path);
+          bobgui_tree_path_free (path);
 
           sel = NULL;
-          model = gtk_icon_view_get_model (GTK_ICON_VIEW (views->view2));
-          gtk_tree_model_get_iter_first (model, &iter);
+          model = bobgui_icon_view_get_model (BOBGUI_ICON_VIEW (views->view2));
+          bobgui_tree_model_get_iter_first (model, &iter);
           do {
-            path = gtk_tree_model_get_path (model, &iter);
-            if (gtk_icon_view_get_item_column (GTK_ICON_VIEW (views->view2), path) == col)
+            path = bobgui_tree_model_get_path (model, &iter);
+            if (bobgui_icon_view_get_item_column (BOBGUI_ICON_VIEW (views->view2), path) == col)
               {
                 sel = path;
                 break;
               }
-          } while (gtk_tree_model_iter_next (model, &iter));
+          } while (bobgui_tree_model_iter_next (model, &iter));
 
-          gtk_icon_view_set_cursor (GTK_ICON_VIEW (views->view2), sel, NULL, FALSE);
-          gtk_tree_path_free (sel);
+          bobgui_icon_view_set_cursor (BOBGUI_ICON_VIEW (views->view2), sel, NULL, FALSE);
+          bobgui_tree_path_free (sel);
         }
-      gtk_widget_grab_focus (views->view2);
+      bobgui_widget_grab_focus (views->view2);
       return TRUE;
     }
 
-  if (view == views->view2 && direction == GTK_DIR_UP)
+  if (view == views->view2 && direction == BOBGUI_DIR_UP)
     {
-      if (gtk_icon_view_get_cursor (GTK_ICON_VIEW (views->view2), &path, NULL))
+      if (bobgui_icon_view_get_cursor (BOBGUI_ICON_VIEW (views->view2), &path, NULL))
         {
-          col = gtk_icon_view_get_item_column (GTK_ICON_VIEW (views->view2), path);
-          gtk_tree_path_free (path);
+          col = bobgui_icon_view_get_item_column (BOBGUI_ICON_VIEW (views->view2), path);
+          bobgui_tree_path_free (path);
 
           sel = NULL;
-          model = gtk_icon_view_get_model (GTK_ICON_VIEW (views->view1));
-          gtk_tree_model_get_iter_first (model, &iter);
+          model = bobgui_icon_view_get_model (BOBGUI_ICON_VIEW (views->view1));
+          bobgui_tree_model_get_iter_first (model, &iter);
           do {
-            path = gtk_tree_model_get_path (model, &iter);
-            if (gtk_icon_view_get_item_column (GTK_ICON_VIEW (views->view1), path) == col)
+            path = bobgui_tree_model_get_path (model, &iter);
+            if (bobgui_icon_view_get_item_column (BOBGUI_ICON_VIEW (views->view1), path) == col)
               {
                 if (sel)
-                  gtk_tree_path_free (sel);
+                  bobgui_tree_path_free (sel);
                 sel = path;
               }
             else
-              gtk_tree_path_free (path);
-          } while (gtk_tree_model_iter_next (model, &iter));
+              bobgui_tree_path_free (path);
+          } while (bobgui_tree_model_iter_next (model, &iter));
 
-          gtk_icon_view_set_cursor (GTK_ICON_VIEW (views->view1), sel, NULL, FALSE);
-          gtk_tree_path_free (sel);
+          bobgui_icon_view_set_cursor (BOBGUI_ICON_VIEW (views->view1), sel, NULL, FALSE);
+          bobgui_tree_path_free (sel);
         }
-      gtk_widget_grab_focus (views->view1);
+      bobgui_widget_grab_focus (views->view1);
       return TRUE;
     }
 
@@ -181,70 +181,70 @@ keynav_failed (GtkWidget        *view,
 }
 
 static void
-focus_changed (GtkWidget  *view,
+focus_changed (BobguiWidget  *view,
                GParamSpec *pspec,
                 gpointer   data)
 {
-  if (gtk_widget_has_focus (view))
+  if (bobgui_widget_has_focus (view))
     {
-      GtkTreePath *path;
+      BobguiTreePath *path;
 
-      if (!gtk_icon_view_get_cursor (GTK_ICON_VIEW (view), &path, NULL))
+      if (!bobgui_icon_view_get_cursor (BOBGUI_ICON_VIEW (view), &path, NULL))
         {
-          path = gtk_tree_path_new_from_indices (0, -1);
-          gtk_icon_view_set_cursor (GTK_ICON_VIEW (view), path, NULL, FALSE);
+          path = bobgui_tree_path_new_from_indices (0, -1);
+          bobgui_icon_view_set_cursor (BOBGUI_ICON_VIEW (view), path, NULL, FALSE);
         }
 
-      gtk_icon_view_select_path (GTK_ICON_VIEW (view), path);
-      gtk_tree_path_free (path);
+      bobgui_icon_view_select_path (BOBGUI_ICON_VIEW (view), path);
+      bobgui_tree_path_free (path);
     }
   else
     {
-      gtk_icon_view_unselect_all (GTK_ICON_VIEW (view));
+      bobgui_icon_view_unselect_all (BOBGUI_ICON_VIEW (view));
     }
 }
 
 #define CSS \
-  "GtkWindow {\n" \
+  "BobguiWindow {\n" \
   "  background-color: @base_color;\n" \
   "}\n"
 
 static void
 set_styles (void)
 {
-  GtkCssProvider *provider;
+  BobguiCssProvider *provider;
 
-  provider = gtk_css_provider_new ();
+  provider = bobgui_css_provider_new ();
 
-  gtk_css_provider_load_from_data (provider, CSS, -1);
+  bobgui_css_provider_load_from_data (provider, CSS, -1);
 
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window;
-  GtkWidget *vbox;
+  BobguiWidget *window;
+  BobguiWidget *vbox;
   Views views;
 
-  gtk_init ();
+  bobgui_init ();
 
   set_styles ();
 
-  window = gtk_window_new ();
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  window = bobgui_window_new ();
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  views.header1 = g_object_new (GTK_TYPE_LABEL,
+  views.header1 = g_object_new (BOBGUI_TYPE_LABEL,
                                 "label", "<b>Group 1</b>",
                                 "use-markup", TRUE,
                                 "xalign", 0.0,
                                 NULL);
   views.view1 = get_view (TRUE);
-  views.header2 = g_object_new (GTK_TYPE_LABEL,
+  views.header2 = g_object_new (BOBGUI_TYPE_LABEL,
                                 "label", "<b>Group 2</b>",
                                 "use-markup", TRUE,
                                 "xalign", 0.0,
@@ -256,12 +256,12 @@ main (int argc, char *argv[])
   g_signal_connect (views.view1, "notify::has-focus", G_CALLBACK (focus_changed), &views);
   g_signal_connect (views.view2, "notify::has-focus", G_CALLBACK (focus_changed), &views);
 
-  gtk_box_append (GTK_BOX (vbox), views.header1);
-  gtk_box_append (GTK_BOX (vbox), views.view1);
-  gtk_box_append (GTK_BOX (vbox), views.header2);
-  gtk_box_append (GTK_BOX (vbox), views.view2);
+  bobgui_box_append (BOBGUI_BOX (vbox), views.header1);
+  bobgui_box_append (BOBGUI_BOX (vbox), views.view1);
+  bobgui_box_append (BOBGUI_BOX (vbox), views.header2);
+  bobgui_box_append (BOBGUI_BOX (vbox), views.view2);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

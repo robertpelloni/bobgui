@@ -1,4 +1,4 @@
-/* GTK - The GIMP Toolkit
+/* BOBGUI - The GIMP Toolkit
  * testprint.c: Print example
  * Copyright (C) 2006, Red Hat, Inc.
  *
@@ -19,40 +19,40 @@
 #include "config.h"
 #include <math.h>
 #include <pango/pangocairo.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "testprintfileoperation.h"
 
 static void
-request_page_setup (GtkPrintOperation *operation,
-		    GtkPrintContext *context,
+request_page_setup (BobguiPrintOperation *operation,
+		    BobguiPrintContext *context,
 		    int page_nr,
-		    GtkPageSetup *setup)
+		    BobguiPageSetup *setup)
 {
   /* Make the second page landscape mode a5 */
   if (page_nr == 1)
     {
-      GtkPaperSize *a5_size = gtk_paper_size_new ("iso_a5");
+      BobguiPaperSize *a5_size = bobgui_paper_size_new ("iso_a5");
       
-      gtk_page_setup_set_orientation (setup, GTK_PAGE_ORIENTATION_LANDSCAPE);
-      gtk_page_setup_set_paper_size (setup, a5_size);
-      gtk_paper_size_free (a5_size);
+      bobgui_page_setup_set_orientation (setup, BOBGUI_PAGE_ORIENTATION_LANDSCAPE);
+      bobgui_page_setup_set_paper_size (setup, a5_size);
+      bobgui_paper_size_free (a5_size);
     }
 }
 
 static void
-draw_page (GtkPrintOperation *operation,
-	   GtkPrintContext *context,
+draw_page (BobguiPrintOperation *operation,
+	   BobguiPrintContext *context,
 	   int page_nr)
 {
   cairo_t *cr;
   PangoLayout *layout;
   PangoFontDescription *desc;
   
-  cr = gtk_print_context_get_cairo_context (context);
+  cr = bobgui_print_context_get_cairo_context (context);
 
   /* Draw a red rectangle, as wide as the paper (inside the margins) */
   cairo_set_source_rgb (cr, 1.0, 0, 0);
-  cairo_rectangle (cr, 0, 0, gtk_print_context_get_width (context), 50);
+  cairo_rectangle (cr, 0, 0, bobgui_print_context_get_width (context), 50);
   
   cairo_fill (cr);
 
@@ -71,7 +71,7 @@ draw_page (GtkPrintOperation *operation,
 
   /* Draw some text */
   
-  layout = gtk_print_context_create_pango_layout (context);
+  layout = bobgui_print_context_create_pango_layout (context);
   pango_layout_set_text (layout, "Hello World! Printing is easy", -1);
   desc = pango_font_description_from_string ("sans 28");
   pango_layout_set_font_description (layout, desc);
@@ -95,25 +95,25 @@ draw_page (GtkPrintOperation *operation,
 int
 main (int argc, char **argv)
 {
-  GtkPrintOperation *print;
+  BobguiPrintOperation *print;
   TestPrintFileOperation *print_file;
 
-  gtk_init ();
+  bobgui_init ();
 
   /* Test some random drawing, with per-page paper settings */
-  print = gtk_print_operation_new ();
-  gtk_print_operation_set_n_pages (print, 2);
-  gtk_print_operation_set_unit (print, GTK_UNIT_MM);
-  gtk_print_operation_set_export_filename (print, "test.pdf");
+  print = bobgui_print_operation_new ();
+  bobgui_print_operation_set_n_pages (print, 2);
+  bobgui_print_operation_set_unit (print, BOBGUI_UNIT_MM);
+  bobgui_print_operation_set_export_filename (print, "test.pdf");
   g_signal_connect (print, "draw_page", G_CALLBACK (draw_page), NULL);
   g_signal_connect (print, "request_page_setup", G_CALLBACK (request_page_setup), NULL);
-  gtk_print_operation_run (print, GTK_PRINT_OPERATION_ACTION_EXPORT, NULL, NULL);
+  bobgui_print_operation_run (print, BOBGUI_PRINT_OPERATION_ACTION_EXPORT, NULL, NULL);
 
-  /* Test subclassing of GtkPrintOperation */
+  /* Test subclassing of BobguiPrintOperation */
   print_file = test_print_file_operation_new ("testprint.c");
   test_print_file_operation_set_font_size (print_file, 12.0);
-  gtk_print_operation_set_export_filename (GTK_PRINT_OPERATION (print_file), "test2.pdf");
-  gtk_print_operation_run (GTK_PRINT_OPERATION (print_file), GTK_PRINT_OPERATION_ACTION_EXPORT, NULL, NULL);
+  bobgui_print_operation_set_export_filename (BOBGUI_PRINT_OPERATION (print_file), "test2.pdf");
+  bobgui_print_operation_run (BOBGUI_PRINT_OPERATION (print_file), BOBGUI_PRINT_OPERATION_ACTION_EXPORT, NULL, NULL);
   
   return 0;
 }

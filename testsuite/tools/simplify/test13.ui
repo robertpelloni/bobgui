@@ -1,17 +1,17 @@
 <interface>
-  <object class="GtkCenterBox">
+  <object class="BobguiCenterBox">
     <child type="end">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">end</property>
       </object>
     </child>
     <child type="center">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">center</property>
       </object>
     </child>
     <child type="start">
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="label">start</property>
       </object>
     </child>

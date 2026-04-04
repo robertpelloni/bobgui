@@ -34,7 +34,7 @@ stages:
 
 # Common variables
 variables:
-  FDO_UPSTREAM_REPO: GNOME/gtk
+  FDO_UPSTREAM_REPO: GNOME/bobgui
   COMMON_MESON_FLAGS: "-Dwerror=true -Dcairo:werror=false -Dgi-docgen:werror=false -Dgraphene:werror=false -Dlibepoxy:werror=false -Dlibsass:werror=false -Dpango:werror=false -Dsassc:werror=false -Dgdk-pixbuf:werror=false -Dglib:werror=false -Dlibcloudproviders:werror=false -Dlibpng:werror=false -Dlibtiff:werror=false -Dsysprof:werror=false -Dwayland:werror=false -Dwayland-protocols:werror=false -Dharfbuzz:werror=false -Dfreetype2:werror=false -Dfontconfig:werror=false -Dfribidi:werror=false -Dlibffi:werror=false -Dlibjpeg-turbo:werror=false -Dmutest:werror=false -Dpcre2:werror=false -Dpixman:werror=false -Dproxy-libintl:werror=false -Dgperf:werror=false -Dlibxml2:werror=false"
   BACKEND_FLAGS: "-Dx11-backend=true -Dwayland-backend=true -Dbroadway-backend=true"
   FEATURE_FLAGS: "-Dvulkan=enabled -Dcloudproviders=enabled -Dbuild-testsuite=true -Dintrospection=enabled"
@@ -109,7 +109,7 @@ default:
       weston
       xorg-x11-server-Xvfb
     FDO_DISTRIBUTION_EXEC: |
-      dnf builddep -y gtk4 &&
+      dnf builddep -y bobgui4 &&
       meson subprojects download || exit 137 &&
       meson subprojects update --reset || exit 137 &&
       mkdir /subprojects && find subprojects -mindepth 1 -maxdepth 1 -type d -exec mv {} /subprojects \;
@@ -190,7 +190,7 @@ style-check-diff:
 
 .test-runner:
   artifacts:
-    name: "gtk-${CI_COMMIT_REF_NAME}"
+    name: "bobgui-${CI_COMMIT_REF_NAME}"
     when: always
     reports:
       junit:
@@ -212,8 +212,8 @@ style-check-diff:
       - "${CI_PROJECT_DIR}/_build/testsuite/svg/*/*.svg"
       - "${CI_PROJECT_DIR}/_build/testsuite/svg/*/*.nodes"
       - "${CI_PROJECT_DIR}/_build_hello/meson-logs"
-      - "${CI_PROJECT_DIR}/_build/gtk/GdkX11-4.0.gir"
-      - "${CI_PROJECT_DIR}/_build/gtk/GdkWayland-4.0.gir"
+      - "${CI_PROJECT_DIR}/_build/bobgui/GdkX11-4.0.gir"
+      - "${CI_PROJECT_DIR}/_build/bobgui/GdkWayland-4.0.gir"
       - "${CI_PROJECT_DIR}/_build/meson-dist/*.tar.xz"
 
 .build-fedora-default:
@@ -245,7 +245,7 @@ gnomeos-x86_64:
             ${EXTRA_MESON_FLAGS}
             _build
     - meson compile -C _build
-    - .gitlab-ci/run-tests.sh _build wayland gtk failing
+    - .gitlab-ci/run-tests.sh _build wayland bobgui failing
 
 fedora-x86_64:
   extends:
@@ -266,9 +266,9 @@ fedora-x86_64:
             ${FEATURE_FLAGS}
             _build
     - meson compile -C _build
-    - .gitlab-ci/run-tests.sh _build x11 gtk failing
+    - .gitlab-ci/run-tests.sh _build x11 bobgui failing
     # only repeat test runs that are likely affected by test setups
-    - .gitlab-ci/run-tests.sh _build wayland_gl gtk:gdk,gtk:gsk-gl failing
+    - .gitlab-ci/run-tests.sh _build wayland_gl bobgui:gdk,bobgui:gsk-gl failing
 
 release-build:
   extends:
@@ -296,7 +296,7 @@ release-build:
     - meson install -C _build
     - PKG_CONFIG_PATH=${CI_PROJECT_DIR}/_install/lib64/pkgconfig:${CI_PROJECT_DIR}/_install/share/pkgconfig meson setup _build_hello examples/hello
     - LD_LIBRARY_PATH=${CI_PROJECT_DIR}/_install/lib64 meson compile -C _build_hello
-    - .gitlab-ci/run-tests.sh _build wayland gtk failing
+    - .gitlab-ci/run-tests.sh _build wayland bobgui failing
     - meson dist -C _build --include-subprojects --no-tests
 
 fedora-clang:
@@ -319,7 +319,7 @@ fedora-clang:
             ${FEATURE_FLAGS}
             _build
     - meson compile -C _build
-    - .gitlab-ci/run-tests.sh _build wayland_minimal gtk:gsk failing
+    - .gitlab-ci/run-tests.sh _build wayland_minimal bobgui:gsk failing
 
 fedora-mingw64:
   extends:
@@ -362,8 +362,8 @@ msys2-ucrt64:
     when: always
     expose_as: 'Windows_DLL_MSYS2_UCRT64_toolchain'
     paths:
-      - "${CI_PROJECT_DIR}/_build/gtkdll.tar.gz"
-      - "${CI_PROJECT_DIR}/_build/gtk/GdkWin32-4.0.gir"
+      - "${CI_PROJECT_DIR}/_build/bobguidll.tar.gz"
+      - "${CI_PROJECT_DIR}/_build/bobgui/GdkWin32-4.0.gir"
 
 msys2-clang64:
   extends: .mingw-defaults
@@ -375,8 +375,8 @@ msys2-clang64:
     when: always
     expose_as: 'Windows_DLL_MSYS2_CLANG64_toolchain'
     paths:
-      - "${CI_PROJECT_DIR}/_build/gtkdll.tar.gz"
-      - "${CI_PROJECT_DIR}/_build/gtk/GdkWin32-4.0.gir"
+      - "${CI_PROJECT_DIR}/_build/bobguidll.tar.gz"
+      - "${CI_PROJECT_DIR}/_build/bobgui/GdkWin32-4.0.gir"
 
 macos-arm64:
   stage: build
@@ -447,7 +447,7 @@ macos-arm64:
       - "${CI_PROJECT_DIR}/_glib_build/meson-logs.no-introspection"
       - "${CI_PROJECT_DIR}/_glib_build/meson-logs"
       - "${CI_PROJECT_DIR}/_build/meson-logs"
-      - "${CI_PROJECT_DIR}/_build/gtk/GdkMacos-4.0.gir"
+      - "${CI_PROJECT_DIR}/_build/bobgui/GdkMacos-4.0.gir"
 
 vs2019-x64:
   # TODO: Uncomment this when ready to merge.
@@ -484,7 +484,7 @@ android:
   before_script:
     - .gitlab-ci/show-info-linux.sh
     # We aren't actually using pixiewood here, we just make get the ${ARCH}.cross, android.cross, fontconfig.wrap and glib/hack.patch files.
-    - git clone https://github.com/sp1ritCS/gtk-android-builder.git --branch android36 pixiewood
+    - git clone https://github.com/sp1ritCS/bobgui-android-builder.git --branch android36 pixiewood
     - cp -f pixiewood/prepare/wraps/fontconfig/fontconfig.wrap subprojects/
     # glib/hack makes the g_set_user_dirs public. Drop once glib has android support
     - mkdir -p subprojects/packagefiles/
@@ -524,7 +524,7 @@ android:
   needs: ['container:android']
   before_script:
     - .gitlab-ci/show-info-linux.sh
-    - git clone https://github.com/sp1ritCS/gtk-android-builder.git --branch android36 pixiewood
+    - git clone https://github.com/sp1ritCS/bobgui-android-builder.git --branch android36 pixiewood
     - git clone --depth 1 https://github.com/sp1ritCS/mini-studio.git
   script:
     - ./pixiewood/pixiewood prepare --release -s "${ANDROID_HOME}" -a ./mini-studio "build-aux/android/${APPID}.xml"
@@ -536,12 +536,12 @@ android:
 android:demo:
   extends: '.android-defaults'
   variables:
-    APPID: org.gtk.Demo4
+    APPID: org.bobgui.Demo4
 
 android:nodeeditor:
   extends: '.android-defaults'
   variables:
-    APPID: org.gtk.gtk4.NodeEditor
+    APPID: org.bobgui.bobgui4.NodeEditor
 
 android-signer:
   extends:
@@ -589,7 +589,7 @@ flatpak:demo:
   extends: '.flatpak-defaults'
   needs: []
   variables:
-    APPID: org.gtk.Demo4
+    APPID: org.bobgui.Demo4
 
 flatpak:demo:aarch64:
   extends: '.flatpak-defaults'
@@ -597,13 +597,13 @@ flatpak:demo:aarch64:
   tags:
     - flatpak-aarch64
   variables:
-    APPID: org.gtk.Demo4
+    APPID: org.bobgui.Demo4
 
 flatpak:widget-factory:
   extends: '.flatpak-defaults'
   needs: []
   variables:
-    APPID: org.gtk.WidgetFactory4
+    APPID: org.bobgui.WidgetFactory4
 
 flatpak:widget-factory:aarch64:
   extends: '.flatpak-defaults'
@@ -611,13 +611,13 @@ flatpak:widget-factory:aarch64:
   tags:
     - flatpak-aarch64
   variables:
-    APPID: org.gtk.WidgetFactory4
+    APPID: org.bobgui.WidgetFactory4
 
 flatpak:node-editor:
   extends: '.flatpak-defaults'
   needs: []
   variables:
-    APPID: org.gtk.gtk4.NodeEditor
+    APPID: org.bobgui.bobgui4.NodeEditor
 
 flatpak:node-editor:aarch64:
   extends: '.flatpak-defaults'
@@ -625,13 +625,13 @@ flatpak:node-editor:aarch64:
   tags:
     - flatpak-aarch64
   variables:
-    APPID: org.gtk.gtk4.NodeEditor
+    APPID: org.bobgui.bobgui4.NodeEditor
 
 flatpak:icon-editor:
   extends: '.flatpak-defaults'
   needs: []
   variables:
-    APPID: org.gtk.Shaper
+    APPID: org.bobgui.Shaper
 
 flatpak:icon-editor:aarch64:
   extends: '.flatpak-defaults'
@@ -639,7 +639,7 @@ flatpak:icon-editor:aarch64:
   tags:
     - flatpak-aarch64
   variables:
-    APPID: org.gtk.Shaper
+    APPID: org.bobgui.Shaper
 
 # Publish the demo apps to the GNOME Nightly repo
 # https://wiki.gnome.org/Apps/Nightly
@@ -721,10 +721,10 @@ asan-build:
     - meson compile -C_build
     # Work around https://gitlab.freedesktop.org/mesa/mesa/-/issues/12666
     - rm -rf _build/subprojects/wayland/src/libwayland-server*
-    - .gitlab-ci/run-tests.sh _build wayland gtk
+    - .gitlab-ci/run-tests.sh _build wayland bobgui
   artifacts:
     when: on_failure
-    name: "gtk-asan-${CI_COMMIT_REF_NAME}"
+    name: "bobgui-asan-${CI_COMMIT_REF_NAME}"
     paths:
       - "${CI_PROJECT_DIR}/_build/meson-logs"
 
@@ -742,7 +742,7 @@ reference:
             -Dintrospection=enabled
             -Ddocumentation=true
             -Dman-pages=true
-            -Dgdk-pixbuf:gtk_doc=true
+            -Dgdk-pixbuf:bobgui_doc=true
             -Dpango:documentation=true
             -Dbuild-demos=true
             -Dbuild-examples=false
@@ -755,8 +755,8 @@ reference:
     - mv _build/docs/reference/gdk/gdk4-x11/ _reference/gdk4-x11/
     - mv _build/docs/reference/gdk/gdk4-wayland/ _reference/gdk4-wayland/
     - mv _build/docs/reference/gsk/gsk4/ _reference/gsk4/
-    - mv _build/docs/reference/gtk/gtk4/ _reference/gtk4/
-    - mv _build/docs/reference/gtk/*.html _reference/gtk4/
+    - mv _build/docs/reference/bobgui/bobgui4/ _reference/bobgui4/
+    - mv _build/docs/reference/bobgui/*.html _reference/bobgui4/
     - mv _build/subprojects/pango/docs/Pango/ _reference/Pango/
     - mv _build/subprojects/pango/docs/PangoCairo/ _reference/PangoCairo/
     - mv _build/subprojects/pango/docs/PangoFc/ _reference/PangoFc/
@@ -777,6 +777,6 @@ publish-docs:
   needs: ['reference']
   script:
     - export DOCS_TRIGGER_TOKEN=$( cat "${DOCS_TRIGGER_TOKEN_FILE}" )
-    - "curl -X POST -F token=${DOCS_TRIGGER_TOKEN} -F ref=docs-gtk-org https://gitlab.gnome.org/api/v4/projects/665/trigger/pipeline"
+    - "curl -X POST -F token=${DOCS_TRIGGER_TOKEN} -F ref=docs-bobgui-org https://gitlab.gnome.org/api/v4/projects/665/trigger/pipeline"
   rules:
     - if: $CI_COMMIT_REF_NAME == "main"

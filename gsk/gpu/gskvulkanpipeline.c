@@ -255,11 +255,11 @@ gsk_vulkan_pipeline_get (GskVulkanDevice           *device,
 
   display = gsk_gpu_device_get_display (GSK_GPU_DEVICE (device));
 
-  vertex_shader_name = g_strconcat ("/org/gtk/libgsk/shaders/vulkan/",
+  vertex_shader_name = g_strconcat ("/org/bobgui/libgsk/shaders/vulkan/",
                                     op_class->shader_name,
                                     ".vert.spv",
                                     NULL);
-  fragment_shader_name = g_strconcat ("/org/gtk/libgsk/shaders/vulkan/",
+  fragment_shader_name = g_strconcat ("/org/bobgui/libgsk/shaders/vulkan/",
                                       op_class->shader_name,
                                       gsk_gpu_shader_flags_has_clip_mask (flags) ? "-clipmask" : "",
                                       ".frag.spv",

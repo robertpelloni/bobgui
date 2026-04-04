@@ -16,15 +16,15 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #pragma once
 
-#if !defined (__GDKWIN32_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKWIN32_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/gdkwin32.h> can be included directly."
 #endif
 
@@ -55,7 +55,7 @@ struct _GdkWin32HCursorFake
 
 #define gdk_win32_hcursor_get_handle_fast(x) (((struct _GdkWin32HCursorFake *) x)->readonly_handle)
 
-#if defined (GTK_COMPILATION)
+#if defined (BOBGUI_COMPILATION)
 #define          gdk_win32_hcursor_get_handle gdk_win32_hcursor_get_handle_fast
 #else
 GDK_AVAILABLE_IN_ALL

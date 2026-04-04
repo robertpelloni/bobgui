@@ -1,4 +1,4 @@
-#include <gtk.h>
+#include <bobgui.h>
 
 #include "gdk/gdkmemorytextureprivate.h"
 #include "gdk/gdktextureprivate.h"
@@ -105,7 +105,7 @@ test_texture_from_pixbuf (void)
   cairo_surface_t *surface;
   cairo_t *cr;
 
-  pixbuf = gdk_pixbuf_new_from_resource ("/org/gtk/libgdk/cursor/text", &error);
+  pixbuf = gdk_pixbuf_new_from_resource ("/org/bobgui/libgdk/cursor/text", &error);
   g_assert_no_error (error);
   g_assert_nonnull (pixbuf);
   g_assert_true (gdk_pixbuf_get_has_alpha (pixbuf));
@@ -152,7 +152,7 @@ test_texture_from_resource (void)
   GdkColorState *color_state;
   int width, height;
 
-  texture = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
+  texture = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
 
   g_assert_nonnull (texture);
   g_object_get (texture,
@@ -176,7 +176,7 @@ test_texture_save_to_png (void)
   GFile *file;
   GdkTexture *texture2;
 
-  texture = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
+  texture = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
 
   g_assert_true (gdk_texture_save_to_png (texture, "test.png"));
   file = g_file_new_for_path ("test.png");
@@ -202,7 +202,7 @@ test_texture_save_to_tiff (void)
   GFile *file;
   GdkTexture *texture2;
 
-  texture = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
+  texture = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
 
   gdk_texture_save_to_tiff (texture, "test.tiff");
   file = g_file_new_for_path ("test.tiff");
@@ -277,7 +277,7 @@ test_texture_icon (void)
   GdkPixbuf *pixbuf;
   GError *error = NULL;
 
-  texture = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
+  texture = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
 
   stream = g_loadable_icon_load (G_LOADABLE_ICON (texture), 16, NULL, NULL, &error);
   g_assert_no_error (error);
@@ -339,7 +339,7 @@ test_texture_icon_async (void)
   GdkTexture *texture;
   gboolean done = FALSE;
 
-  texture = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
+  texture = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
 
   g_loadable_icon_load_async (G_LOADABLE_ICON (texture), 16, NULL, icon_loaded, &done);
 
@@ -354,7 +354,7 @@ test_texture_icon_serialize (void)
   GVariant *data;
   GIcon *icon;
 
-  texture = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
+  texture = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
 
   data = g_icon_serialize (G_ICON (texture));
   g_assert_nonnull (data);
@@ -378,9 +378,9 @@ test_texture_diff (void)
   cairo_region_t *left;
   cairo_region_t *left_center;
 
-  texture0 = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
-  texture = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
-  texture2 = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
+  texture0 = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
+  texture = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
+  texture2 = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
 
   empty = cairo_region_create();
   full = cairo_region_create_rectangle (&(cairo_rectangle_int_t) { 0, 0, 32, 32 });
@@ -426,8 +426,8 @@ test_texture_downloader (void)
   guchar *data;
   guint width, height;
 
-  texture = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
-  texture2 = gdk_texture_new_from_resource ("/org/gtk/libgdk/cursor/text");
+  texture = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
+  texture2 = gdk_texture_new_from_resource ("/org/bobgui/libgdk/cursor/text");
 
   downloader = gdk_texture_downloader_new (texture);
 
@@ -462,8 +462,8 @@ test_texture_downloader (void)
 int
 main (int argc, char *argv[])
 {
-  /* We want to use resources from libgtk, so we need gtk initialized */
-  gtk_test_init (&argc, &argv, NULL);
+  /* We want to use resources from libbobgui, so we need bobgui initialized */
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/texture/from-pixbuf", test_texture_from_pixbuf);
   g_test_add_func ("/texture/from-resource", test_texture_from_resource);

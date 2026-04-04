@@ -428,9 +428,9 @@ get_distance (PIXELFORMATDESCRIPTOR *pfd,
 }
 
 /* ChoosePixelFormat ignores some fields and flags, which makes it
- * less useful for GTK. In particular, it ignores the PFD_SWAP flags,
+ * less useful for BOBGUI. In particular, it ignores the PFD_SWAP flags,
  * which are very important for GUI toolkits. Here we implement an
- * analog function which is tied to the needs of GTK.
+ * analog function which is tied to the needs of BOBGUI.
  *
  * Note that ChoosePixelFormat is not implemented by the ICD, it's
  * implemented in OpenGL32.DLL (though the driver can influence the

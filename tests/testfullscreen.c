@@ -17,10 +17,10 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
-set_fullscreen_monitor_cb (GtkWidget *widget, gpointer user_data)
+set_fullscreen_monitor_cb (BobguiWidget *widget, gpointer user_data)
 {
   GdkFullscreenMode mode = GPOINTER_TO_INT (user_data);
   GdkDisplay *display;
@@ -28,8 +28,8 @@ set_fullscreen_monitor_cb (GtkWidget *widget, gpointer user_data)
   GdkMonitor *monitor;
   GdkToplevelLayout *layout;
 
-  display = gtk_widget_get_display (widget);
-  surface = gtk_native_get_surface (gtk_widget_get_native (widget));
+  display = bobgui_widget_get_display (widget);
+  surface = bobgui_native_get_surface (bobgui_widget_get_native (widget));
   if (mode == GDK_FULLSCREEN_ON_CURRENT_MONITOR)
     monitor = gdk_display_get_monitor_at_surface (display, surface);
   else
@@ -42,12 +42,12 @@ set_fullscreen_monitor_cb (GtkWidget *widget, gpointer user_data)
 }
 
 static void
-remove_fullscreen_cb (GtkWidget *widget, gpointer user_data)
+remove_fullscreen_cb (BobguiWidget *widget, gpointer user_data)
 {
   GdkSurface *surface;
   GdkToplevelLayout *layout;
 
-  surface = gtk_native_get_surface (gtk_widget_get_native (widget));
+  surface = bobgui_native_get_surface (bobgui_widget_get_native (widget));
   layout = gdk_toplevel_layout_new ();
   gdk_toplevel_layout_set_resizable (layout, TRUE);
   gdk_toplevel_layout_set_fullscreen (layout, FALSE, NULL);
@@ -58,31 +58,31 @@ remove_fullscreen_cb (GtkWidget *widget, gpointer user_data)
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *vbox, *button;
+  BobguiWidget *window, *vbox, *button;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
+  window = bobgui_window_new ();
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
-  gtk_widget_set_valign (vbox, GTK_ALIGN_CENTER);
-  gtk_widget_set_halign (vbox, GTK_ALIGN_CENTER);
-  gtk_box_set_homogeneous (GTK_BOX (vbox), TRUE);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 5);
+  bobgui_widget_set_valign (vbox, BOBGUI_ALIGN_CENTER);
+  bobgui_widget_set_halign (vbox, BOBGUI_ALIGN_CENTER);
+  bobgui_box_set_homogeneous (BOBGUI_BOX (vbox), TRUE);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  button = gtk_button_new_with_label ("Fullscreen on current monitor");
+  button = bobgui_button_new_with_label ("Fullscreen on current monitor");
   g_signal_connect (button, "clicked", G_CALLBACK (set_fullscreen_monitor_cb), GINT_TO_POINTER (GDK_FULLSCREEN_ON_CURRENT_MONITOR));
-  gtk_box_append (GTK_BOX (vbox), button);
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
 
-  button = gtk_button_new_with_label ("Fullscreen on all monitors");
+  button = bobgui_button_new_with_label ("Fullscreen on all monitors");
   g_signal_connect (button, "clicked", G_CALLBACK (set_fullscreen_monitor_cb), GINT_TO_POINTER (GDK_FULLSCREEN_ON_ALL_MONITORS));
-  gtk_box_append (GTK_BOX (vbox), button);
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
 
-  button = gtk_button_new_with_label ("Un-fullscreen");
+  button = bobgui_button_new_with_label ("Un-fullscreen");
   g_signal_connect (button, "clicked", G_CALLBACK (remove_fullscreen_cb), NULL);
-  gtk_box_append (GTK_BOX (vbox), button);
+  bobgui_box_append (BOBGUI_BOX (vbox), button);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (TRUE)
     g_main_context_iteration (NULL, TRUE);

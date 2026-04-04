@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="BobguiGrid" id="grid1">
         <child>
-          <object class="GtkImage" id="image1">
+          <object class="BobguiImage" id="image1">
             <property name="width_request">16</property>
             <property name="height_request">16</property>
             <property name="halign">center</property>
@@ -16,7 +16,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkImage" id="image2">
+          <object class="BobguiImage" id="image2">
             <property name="width_request">16</property>
             <property name="height_request">16</property>
             <property name="halign">center</property>
@@ -28,7 +28,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkImage" id="image3">
+          <object class="BobguiImage" id="image3">
             <property name="width_request">16</property>
             <property name="height_request">16</property>
             <property name="halign">center</property>
@@ -40,7 +40,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkImage" id="image4">
+          <object class="BobguiImage" id="image4">
             <property name="width_request">16</property>
             <property name="height_request">16</property>
             <property name="halign">center</property>
@@ -52,7 +52,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkImage" id="image5">
+          <object class="BobguiImage" id="image5">
             <property name="width_request">16</property>
             <property name="height_request">16</property>
             <property name="halign">center</property>

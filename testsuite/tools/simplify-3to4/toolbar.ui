@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.0"/>
-  <object class="GtkToolbar">
+  <requires lib="bobgui+" version="3.0"/>
+  <object class="BobguiToolbar">
     <property name="visible">1</property>
     <property name="toolbar_style">both</property>
     <child>
-      <object class="GtkToolButton">
+      <object class="BobguiToolButton">
         <property name="visible">1</property>
         <property name="label" translatable="yes">New</property>
         <property name="icon-name">document-new</property>
@@ -16,12 +16,12 @@
       </packing>
    </child>
    <child>
-     <object class="GtkSeparatorToolItem">
+     <object class="BobguiSeparatorToolItem">
         <property name="visible">1</property>
      </object>
    </child>
    <child>
-     <object class="GtkToggleToolButton">
+     <object class="BobguiToggleToolButton">
      </object>
    </child>
   </object>

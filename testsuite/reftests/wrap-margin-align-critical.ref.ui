@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface domain="gtk40">
-  <object class="GtkWindow">
+<interface domain="bobgui40">
+  <object class="BobguiWindow">
     <property name="default-width">300</property>
     <property name="default-height">300</property>
     <property name="decorated">0</property>
     <child>
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="halign">center</property>
         <property name="label">Hello World</property>
         <property name="wrap">True</property>

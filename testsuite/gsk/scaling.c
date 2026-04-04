@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include "gdk/gdkmemoryformatprivate.h"
 #include "gsk/gl/fp16private.h"
@@ -460,7 +460,7 @@ main (int argc, char *argv[])
 {
   int result;
 
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
   create_renderers ();
 
   add_format_test ("/scaling/linear-filtering", test_linear_filtering_2x2);

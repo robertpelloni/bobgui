@@ -1,12 +1,12 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 check_button_role (void)
 {
-  GtkWidget *button = gtk_check_button_new ();
+  BobguiWidget *button = bobgui_check_button_new ();
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_role (button, GTK_ACCESSIBLE_ROLE_CHECKBOX);
+  bobgui_test_accessible_assert_role (button, BOBGUI_ACCESSIBLE_ROLE_CHECKBOX);
 
   g_object_unref (button);
 }
@@ -14,18 +14,18 @@ check_button_role (void)
 static void
 check_button_checked (void)
 {
-  GtkWidget *button = gtk_check_button_new ();
+  BobguiWidget *button = bobgui_check_button_new ();
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_state (button, GTK_ACCESSIBLE_STATE_CHECKED, GTK_ACCESSIBLE_TRISTATE_FALSE);
+  bobgui_test_accessible_assert_state (button, BOBGUI_ACCESSIBLE_STATE_CHECKED, BOBGUI_ACCESSIBLE_TRISTATE_FALSE);
 
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (button), TRUE);
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (button), TRUE);
 
-  gtk_test_accessible_assert_state (button, GTK_ACCESSIBLE_STATE_CHECKED, GTK_ACCESSIBLE_TRISTATE_TRUE);
+  bobgui_test_accessible_assert_state (button, BOBGUI_ACCESSIBLE_STATE_CHECKED, BOBGUI_ACCESSIBLE_TRISTATE_TRUE);
 
-  gtk_check_button_set_inconsistent (GTK_CHECK_BUTTON (button), TRUE);
+  bobgui_check_button_set_inconsistent (BOBGUI_CHECK_BUTTON (button), TRUE);
 
-  gtk_test_accessible_assert_state (button, GTK_ACCESSIBLE_STATE_CHECKED, GTK_ACCESSIBLE_TRISTATE_MIXED);
+  bobgui_test_accessible_assert_state (button, BOBGUI_ACCESSIBLE_STATE_CHECKED, BOBGUI_ACCESSIBLE_TRISTATE_MIXED);
 
   g_object_unref (button);
 }
@@ -33,10 +33,10 @@ check_button_checked (void)
 static void
 check_button_label (void)
 {
-  GtkWidget *button = gtk_check_button_new_with_label ("Hello");
+  BobguiWidget *button = bobgui_check_button_new_with_label ("Hello");
   g_object_ref_sink (button);
 
-  gtk_test_accessible_assert_property (button, GTK_ACCESSIBLE_PROPERTY_LABEL, "Hello");
+  bobgui_test_accessible_assert_property (button, BOBGUI_ACCESSIBLE_PROPERTY_LABEL, "Hello");
 
   g_object_unref (button);
 }
@@ -44,7 +44,7 @@ check_button_label (void)
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/a11y/checkbutton/role", check_button_role);
   g_test_add_func ("/a11y/checkbutton/checked", check_button_checked);

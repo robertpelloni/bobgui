@@ -1,9 +1,9 @@
-#include <gtk/gtk.h>
-#define GTK_COMPILATION
-#include "gtk/gtkplacesviewprivate.h"
+#include <bobgui/bobgui.h>
+#define BOBGUI_COMPILATION
+#include "bobgui/bobguiplacesviewprivate.h"
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -16,19 +16,19 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *win;
-  GtkWidget *view;
+  BobguiWidget *win;
+  BobguiWidget *view;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  win = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (win), 400, 600);
+  win = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (win), 400, 600);
 
-  view = gtk_places_view_new ();
+  view = bobgui_places_view_new ();
 
-  gtk_window_set_child (GTK_WINDOW (win), view);
-  gtk_window_present (GTK_WINDOW (win));
+  bobgui_window_set_child (BOBGUI_WINDOW (win), view);
+  bobgui_window_present (BOBGUI_WINDOW (win));
 
   g_signal_connect (win, "destroy", G_CALLBACK (quit_cb), &done);
 

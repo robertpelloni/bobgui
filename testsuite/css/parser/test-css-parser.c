@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#undef GTK_DISABLE_DEPRECATED
+#undef BOBGUI_DISABLE_DEPRECATED
 
 #include <string.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "testsuite/testutils.h"
 
 #ifdef G_OS_WIN32
@@ -90,24 +90,24 @@ append_error_value (GString *string,
 }
 
 static void
-parsing_error_cb (GtkCssProvider *provider,
-                  GtkCssSection  *section,
+parsing_error_cb (BobguiCssProvider *provider,
+                  BobguiCssSection  *section,
                   const GError   *error,
                   GString        *errors)
 {
   char *section_string;
 
-  section_string = gtk_css_section_to_string (section);
+  section_string = bobgui_css_section_to_string (section);
 
   g_string_append_printf (errors,
                           "%s: error: ",
                           section_string);
   g_free (section_string);
 
-  if (error->domain == GTK_CSS_PARSER_ERROR)
-    append_error_value (errors, GTK_TYPE_CSS_PARSER_ERROR, error->code);
-  else if (error->domain == GTK_CSS_PARSER_WARNING)
-    append_error_value (errors, GTK_TYPE_CSS_PARSER_WARNING, error->code);
+  if (error->domain == BOBGUI_CSS_PARSER_ERROR)
+    append_error_value (errors, BOBGUI_TYPE_CSS_PARSER_ERROR, error->code);
+  else if (error->domain == BOBGUI_CSS_PARSER_WARNING)
+    append_error_value (errors, BOBGUI_TYPE_CSS_PARSER_WARNING, error->code);
   else
     g_string_append_printf (errors,
                             "%s %u",
@@ -120,7 +120,7 @@ parsing_error_cb (GtkCssProvider *provider,
 static void
 parse_css_file (GFile *file, gboolean generate)
 {
-  GtkCssProvider *provider;
+  BobguiCssProvider *provider;
   char *css, *css_file, *reference_file, *errors_file;
   GString *errors;
   char *diff;
@@ -129,18 +129,18 @@ parse_css_file (GFile *file, gboolean generate)
   css_file = g_file_get_path (file);
   errors = g_string_new ("");
 
-  provider = gtk_css_provider_new ();
+  provider = bobgui_css_provider_new ();
   g_object_set (provider,
-                "prefers-color-scheme", GTK_INTERFACE_COLOR_SCHEME_LIGHT,
+                "prefers-color-scheme", BOBGUI_INTERFACE_COLOR_SCHEME_LIGHT,
                 NULL);
 
   g_signal_connect (provider,
                     "parsing-error",
                     G_CALLBACK (parsing_error_cb),
                     errors);
-  gtk_css_provider_load_from_path (provider, css_file);
+  bobgui_css_provider_load_from_path (provider, css_file);
 
-  css = gtk_css_provider_to_string (provider);
+  css = bobgui_css_provider_to_string (provider);
 
   if (generate)
     {
@@ -284,7 +284,7 @@ main (int argc, char **argv)
       return 0;
     }
 
-  gtk_test_init (&argc, &argv);
+  bobgui_test_init (&argc, &argv);
 
   if (argc < 2)
     {

@@ -1,25 +1,25 @@
 <interface>
-  <template class="PathEditor" parent="GtkWidget">
+  <template class="PathEditor" parent="BobguiWidget">
     <child>
-      <object class="GtkStack" id="path_cmds_stack">
+      <object class="BobguiStack" id="path_cmds_stack">
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">label</property>
             <property name="child">
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <property name="hexpand">0</property>
                 <child>
-                  <object class="GtkLabel" id="path_cmds_label">
+                  <object class="BobguiLabel" id="path_cmds_label">
                     <property name="ellipsize">end</property>
                     <child>
-                      <object class="GtkGestureClick">
+                      <object class="BobguiGestureClick">
                         <signal name="pressed" handler="path_cmds_clicked" swapped="yes"/>
                       </object>
                     </child>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton" id="external_edit_button">
+                  <object class="BobguiButton" id="external_edit_button">
                     <style>
                       <class name="circular"/>
                       <class name="small"/>
@@ -30,10 +30,10 @@
                     <property name="has-frame">0</property>
                     <property name="tooltip-text" translatable="yes">Edit path geometry</property>
                     <property name="child">
-                      <object class="GtkImage">
+                      <object class="BobguiImage">
                         <property name="paintable">
-                          <object class="GtkIconPaintable">
-                            <property name="file">resource:///org/gtk/Shaper/document-edit-symbolic.svg</property>
+                          <object class="BobguiIconPaintable">
+                            <property name="file">resource:///org/bobgui/Shaper/document-edit-symbolic.svg</property>
                           </object>
                         </property>
                       </object>
@@ -46,24 +46,24 @@
           </object>
         </child>
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">entry</property>
             <property name="child">
-              <object class="GtkBox">
+              <object class="BobguiBox">
                 <property name="hexpand">0</property>
                 <child>
-                  <object class="GtkEntry" id="path_cmds_entry">
+                  <object class="BobguiEntry" id="path_cmds_entry">
                     <property name="hexpand">1</property>
                     <signal name="activate" handler="path_cmds_activated" swapped="yes"/>
                     <child>
-                      <object class="GtkEventControllerKey">
+                      <object class="BobguiEventControllerKey">
                         <signal name="key-pressed" handler="path_cmds_key" swapped="yes"/>
                       </object>
                     </child>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkMenuButton" id="id_dropdown">
+                  <object class="BobguiMenuButton" id="id_dropdown">
                     <property name="visible">0</property>
                     <property name="menu-model">
                       <menu>

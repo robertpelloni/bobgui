@@ -1,6 +1,6 @@
 /*  Copyright 2023 Red Hat, Inc.
  *
- * GTK+ is free software; you can redistribute it and/or modify it
+ * BOBGUI+ is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2 of the
  * License, or (at your option) any later version.
@@ -11,7 +11,7 @@
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with GTK+; see the file COPYING.  If not,
+ * License along with BOBGUI+; see the file COPYING.  If not,
  * see <http://www.gnu.org/licenses/>.
  *
  * Author: Matthias Clasen
@@ -20,11 +20,11 @@
 #include "config.h"
 
 #include "path-view.h"
-#include "gtk-path-tool.h"
+#include "bobgui-path-tool.h"
 
 struct _PathView
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   GskPath *path1;
   GskPath *path2;
@@ -70,15 +70,15 @@ static GParamSpec *properties[N_PROPERTIES] = { NULL, };
 
 struct _PathViewClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
-G_DEFINE_TYPE (PathView, path_view, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (PathView, path_view, BOBGUI_TYPE_WIDGET)
 
 static void
 path_view_init (PathView *self)
 {
-  gtk_widget_set_focusable (GTK_WIDGET (self), TRUE);
+  bobgui_widget_set_focusable (BOBGUI_WIDGET (self), TRUE);
   self->do_fill = TRUE;
   self->stroke = gsk_stroke_new (1);
   self->fill_rule = GSK_FILL_RULE_WINDING;
@@ -205,7 +205,7 @@ update_bounds (PathView *self)
         graphene_rect_union (&bounds, &self->bounds, &self->bounds);
     }
 
-  gtk_widget_queue_resize (GTK_WIDGET (self));
+  bobgui_widget_queue_resize (BOBGUI_WIDGET (self));
 }
 
 static void
@@ -238,7 +238,7 @@ update_intersections (PathView *self)
                            &self->intersection_line_path,
                            &self->intersection_point_path);
 
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+  bobgui_widget_queue_draw (BOBGUI_WIDGET (self));
 }
 
 static void
@@ -249,7 +249,7 @@ path_view_set_fill_rule (PathView    *self,
     return;
 
   self->fill_rule = fill_rule;
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+  bobgui_widget_queue_draw (BOBGUI_WIDGET (self));
 }
 
 static void
@@ -325,12 +325,12 @@ path_view_set_property (GObject      *object,
 
     case PROP_FG_COLOR:
       self->fg = *(GdkRGBA *) g_value_get_boxed (value);
-      gtk_widget_queue_draw (GTK_WIDGET (self));
+      bobgui_widget_queue_draw (BOBGUI_WIDGET (self));
       break;
 
     case PROP_BG_COLOR:
       self->bg = *(GdkRGBA *) g_value_get_boxed (value);
-      gtk_widget_queue_draw (GTK_WIDGET (self));
+      bobgui_widget_queue_draw (BOBGUI_WIDGET (self));
       break;
 
     case PROP_SHOW_POINTS:
@@ -350,12 +350,12 @@ path_view_set_property (GObject      *object,
 
     case PROP_POINT_COLOR:
       self->point_color = *(GdkRGBA *) g_value_get_boxed (value);
-      gtk_widget_queue_draw (GTK_WIDGET (self));
+      bobgui_widget_queue_draw (BOBGUI_WIDGET (self));
       break;
 
     case PROP_INTERSECTION_COLOR:
       self->intersection_color = *(GdkRGBA *) g_value_get_boxed (value);
-      gtk_widget_queue_draw (GTK_WIDGET (self));
+      bobgui_widget_queue_draw (BOBGUI_WIDGET (self));
       break;
 
    case PROP_ZOOM:
@@ -369,8 +369,8 @@ path_view_set_property (GObject      *object,
 }
 
 static void
-path_view_measure (GtkWidget      *widget,
-                   GtkOrientation  orientation,
+path_view_measure (BobguiWidget      *widget,
+                   BobguiOrientation  orientation,
                    int             for_size,
                    int            *minimum,
                    int            *natural,
@@ -379,36 +379,36 @@ path_view_measure (GtkWidget      *widget,
 {
   PathView *self = PATH_VIEW (widget);
 
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+  if (orientation == BOBGUI_ORIENTATION_HORIZONTAL)
     *minimum = *natural = (int) ceilf (self->bounds.origin.x + self->bounds.size.width) + 2 * self->padding;
   else
     *minimum = *natural = (int) ceilf (self->bounds.origin.y + self->bounds.size.height) + 2 * self->padding;
 }
 
 static void
-path_view_snapshot (GtkWidget   *widget,
-                    GtkSnapshot *snapshot)
+path_view_snapshot (BobguiWidget   *widget,
+                    BobguiSnapshot *snapshot)
 {
   PathView *self = PATH_VIEW (widget);
   graphene_rect_t bounds = self->bounds;
 
   graphene_rect_inset (&bounds, - self->padding, - self->padding);
 
-  gtk_snapshot_save (snapshot);
+  bobgui_snapshot_save (snapshot);
 
-  gtk_snapshot_append_color (snapshot, &self->bg, &bounds);
+  bobgui_snapshot_append_color (snapshot, &self->bg, &bounds);
 
   if (self->do_fill)
-    gtk_snapshot_append_fill (snapshot, self->scaled_path, self->fill_rule, &self->fg);
+    bobgui_snapshot_append_fill (snapshot, self->scaled_path, self->fill_rule, &self->fg);
   else
-    gtk_snapshot_append_stroke (snapshot, self->scaled_path, self->stroke, &self->fg);
+    bobgui_snapshot_append_stroke (snapshot, self->scaled_path, self->stroke, &self->fg);
 
   if (self->line_path)
     {
       GskStroke *stroke = gsk_stroke_new (1);
 
       gsk_stroke_set_dash (stroke, (const float[]) { 1, 1 }, 2);
-      gtk_snapshot_append_stroke (snapshot, self->line_path, stroke, &self->fg);
+      bobgui_snapshot_append_stroke (snapshot, self->line_path, stroke, &self->fg);
 
       gsk_stroke_free (stroke);
     }
@@ -417,8 +417,8 @@ path_view_snapshot (GtkWidget   *widget,
     {
       GskStroke *stroke = gsk_stroke_new (1);
 
-      gtk_snapshot_append_fill (snapshot, self->point_path, GSK_FILL_RULE_WINDING, &self->point_color);
-      gtk_snapshot_append_stroke (snapshot, self->point_path, stroke, &self->fg);
+      bobgui_snapshot_append_fill (snapshot, self->point_path, GSK_FILL_RULE_WINDING, &self->point_color);
+      bobgui_snapshot_append_stroke (snapshot, self->point_path, stroke, &self->fg);
 
       gsk_stroke_free (stroke);
     }
@@ -427,21 +427,21 @@ path_view_snapshot (GtkWidget   *widget,
     {
       GskStroke *stroke = gsk_stroke_new (gsk_stroke_get_line_width (self->stroke));
 
-      gtk_snapshot_append_stroke (snapshot, self->intersection_line_path, stroke, &self->intersection_color);
+      bobgui_snapshot_append_stroke (snapshot, self->intersection_line_path, stroke, &self->intersection_color);
 
       gsk_stroke_free (stroke);
     }
 
   if (self->intersection_point_path)
     {
-      gtk_snapshot_append_fill (snapshot, self->intersection_point_path, GSK_FILL_RULE_WINDING, &self->intersection_color);
+      bobgui_snapshot_append_fill (snapshot, self->intersection_point_path, GSK_FILL_RULE_WINDING, &self->intersection_color);
     }
 
-  gtk_snapshot_restore (snapshot);
+  bobgui_snapshot_restore (snapshot);
 }
 
 static void
-path_view_change_zoom (GtkWidget  *widget,
+path_view_change_zoom (BobguiWidget  *widget,
                        const char *action_name,
                        GVariant   *parameter)
 {
@@ -454,7 +454,7 @@ path_view_change_zoom (GtkWidget  *widget,
 }
 
 static void
-path_view_toggle_fill_rule (GtkWidget  *widget,
+path_view_toggle_fill_rule (BobguiWidget  *widget,
                             const char *action_name,
                             GVariant   *parameter)
 {
@@ -468,7 +468,7 @@ static void
 path_view_class_init (PathViewClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->dispose = path_view_dispose;
   object_class->get_property = path_view_get_property;
@@ -545,25 +545,25 @@ path_view_class_init (PathViewClass *class)
 
   g_object_class_install_properties (object_class, N_PROPERTIES, properties);
 
-  gtk_widget_class_install_action (widget_class, "zoom", "d",
+  bobgui_widget_class_install_action (widget_class, "zoom", "d",
                                    path_view_change_zoom);
 
-  gtk_widget_class_install_property_action (widget_class, "points", "show-points");
-  gtk_widget_class_install_property_action (widget_class, "controls", "show-controls");
-  gtk_widget_class_install_property_action (widget_class, "intersections", "show-intersections");
+  bobgui_widget_class_install_property_action (widget_class, "points", "show-points");
+  bobgui_widget_class_install_property_action (widget_class, "controls", "show-controls");
+  bobgui_widget_class_install_property_action (widget_class, "intersections", "show-intersections");
 
-  gtk_widget_class_install_action (widget_class, "fill-rule", NULL,
+  bobgui_widget_class_install_action (widget_class, "fill-rule", NULL,
                                    path_view_toggle_fill_rule);
 
-  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_plus, 0, "zoom", "d", 1.2);
-  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_minus, 0, "zoom", "d", 1/1.2);
-  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_p, 0, "points", NULL);
-  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_c, 0, "controls", NULL);
-  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_i, 0, "intersections", NULL);
-  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_f, 0, "fill-rule", NULL);
+  bobgui_widget_class_add_binding_action (widget_class, GDK_KEY_plus, 0, "zoom", "d", 1.2);
+  bobgui_widget_class_add_binding_action (widget_class, GDK_KEY_minus, 0, "zoom", "d", 1/1.2);
+  bobgui_widget_class_add_binding_action (widget_class, GDK_KEY_p, 0, "points", NULL);
+  bobgui_widget_class_add_binding_action (widget_class, GDK_KEY_c, 0, "controls", NULL);
+  bobgui_widget_class_add_binding_action (widget_class, GDK_KEY_i, 0, "intersections", NULL);
+  bobgui_widget_class_add_binding_action (widget_class, GDK_KEY_f, 0, "fill-rule", NULL);
 }
 
-GtkWidget *
+BobguiWidget *
 path_view_new (GskPath *path1,
                GskPath *path2)
 {

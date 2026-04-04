@@ -223,7 +223,7 @@ typedef enum GdkWin32CursorLoadType {
   GDK_WIN32_CURSOR_LOAD_FROM_RESOURCE_NULL = 1,
   GDK_WIN32_CURSOR_LOAD_FROM_RESOURCE_THIS = 2,
   GDK_WIN32_CURSOR_CREATE = 3,
-  GDK_WIN32_CURSOR_LOAD_FROM_RESOURCE_GTK = 4,
+  GDK_WIN32_CURSOR_LOAD_FROM_RESOURCE_BOBGUI = 4,
 } GdkWin32CursorLoadType;
 
 typedef struct _Win32Cursor Win32Cursor;
@@ -312,7 +312,7 @@ void gdk_win32_surface_resize (GdkSurface *surface,
                                int         width,
                                int         height);
 
-BOOL WINAPI GtkShowSurfaceHWND (GdkSurface *surface,
+BOOL WINAPI BobguiShowSurfaceHWND (GdkSurface *surface,
                                 int        cmd_show);
 
 /* Session management */
@@ -336,10 +336,10 @@ typedef enum _GdkWin32ProcessorCheckType
 
 gboolean _gdk_win32_check_processor (GdkWin32ProcessorCheckType check_type);
 
-GdkPixbuf    *gdk_win32_icon_to_pixbuf_libgtk_only (HICON hicon,
+GdkPixbuf    *gdk_win32_icon_to_pixbuf_libbobgui_only (HICON hicon,
                                                     double *x_hot,
                                                     double *y_hot);
-void          gdk_win32_set_modal_dialog_libgtk_only (HWND hwnd);
+void          gdk_win32_set_modal_dialog_libbobgui_only (HWND hwnd);
 
 extern IMAGE_DOS_HEADER __ImageBase;
 

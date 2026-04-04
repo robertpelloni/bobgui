@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #ifdef GDK_WINDOWING_WAYLAND
 #include "wayland/gdkwayland.h"
@@ -346,7 +346,7 @@ main (int argc, char *argv[])
   else
     g_error ("can only set or get");
 
-  gtk_init ();
+  bobgui_init ();
 
   /* Don't wait for a window manager to give us focus when
    * we may be running on bare wm-less X.
@@ -354,10 +354,10 @@ main (int argc, char *argv[])
 #ifdef GDK_WINDOWING_WAYLAND
   if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ()))
     {
-      GtkWidget *window;
+      BobguiWidget *window;
 
-      window = gtk_window_new ();
-      gtk_window_present (GTK_WINDOW (window));
+      window = bobgui_window_new ();
+      bobgui_window_present (BOBGUI_WINDOW (window));
       handler = g_signal_connect (window, "notify::is-active", G_CALLBACK (do_it), NULL);
     }
   else

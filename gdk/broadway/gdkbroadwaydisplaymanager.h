@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined(__GDKBROADWAY_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined(__GDKBROADWAY_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/broadway/gdkbroadway.h> can be included directly."
 #endif
 
@@ -30,7 +30,7 @@ G_BEGIN_DECLS
 #define GDK_TYPE_BROADWAY_DISPLAY_MANAGER    (gdk_broadway_display_manager_get_type ())
 #define GDK_BROADWAY_DISPLAY_MANAGER(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), GDK_TYPE_BROADWAY_DISPLAY_MANAGER, GdkBroadwayDisplayManager))
 
-#ifdef GTK_COMPILATION
+#ifdef BOBGUI_COMPILATION
 typedef struct _GdkBroadwayDisplayManager GdkBroadwayDisplayManager;
 #else
 typedef GdkDisplayManager _GdkBroadwayDisplayManager;

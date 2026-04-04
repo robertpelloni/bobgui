@@ -4,9 +4,9 @@ import subprocess
 import gi
 
 gi.require_version('Gdk', '4.0')
-gi.require_version('Gtk', '4.0')
+gi.require_version('Bobgui', '4.0')
 
-from gi.repository import GLib, GObject, Gdk, Gtk
+from gi.repository import GLib, GObject, Gdk, Bobgui
 from pydbus import SessionBus
 
 verbose = True
@@ -200,22 +200,22 @@ def launch_observer():
     if display == None:
         display = Gdk.Display.open(os.getenv('WAYLAND_DISPLAY'))
 
-    window = Gtk.Window.new()
+    window = Bobgui.Window.new()
 
-    controller = Gtk.EventControllerKey.new()
-    controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+    controller = Bobgui.EventControllerKey.new()
+    controller.set_propagation_phase(Bobgui.PropagationPhase.CAPTURE)
     controller.connect('key-pressed', key_pressed_cb)
     controller.connect('key-released', key_released_cb)
     window.add_controller(controller)
 
-    controller = Gtk.EventControllerMotion.new()
-    controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+    controller = Bobgui.EventControllerMotion.new()
+    controller.set_propagation_phase(Bobgui.PropagationPhase.CAPTURE)
     controller.connect('enter', enter_cb)
     controller.connect('motion', motion_cb)
     window.add_controller(controller)
 
-    controller = Gtk.GestureClick.new()
-    controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+    controller = Bobgui.GestureClick.new()
+    controller.set_propagation_phase(Bobgui.PropagationPhase.CAPTURE)
     controller.connect('pressed', pressed_cb)
     controller.connect('released', released_cb)
     window.add_controller(controller)
@@ -244,9 +244,9 @@ def launch_entry():
     if display == None:
         display = Gdk.Display.open(os.getenv('WAYLAND_DISPLAY'))
 
-    window = Gtk.Window.new()
+    window = Bobgui.Window.new()
 
-    entry = Gtk.Entry.new()
+    entry = Bobgui.Entry.new()
 
     window.set_child(entry)
 
@@ -408,16 +408,16 @@ def launch_drag_source(value):
     if display == None:
         display = Gdk.Display.open(os.getenv('WAYLAND_DISPLAY'))
 
-    ds_window = Gtk.Window.new()
+    ds_window = Bobgui.Window.new()
     ds_window.set_title('Drag Source')
 
-    ds = Gtk.DragSource.new()
+    ds = Bobgui.DragSource.new()
     ds.set_content(Gdk.ContentProvider.new_for_value(value))
     ds_window.add_controller(ds)
     ds.connect('drag-begin', drag_begin)
 
-    controller = Gtk.GestureClick.new()
-    controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE)
+    controller = Bobgui.GestureClick.new()
+    controller.set_propagation_phase(Bobgui.PropagationPhase.CAPTURE)
     controller.connect('pressed', pressed_cb)
     controller.connect('released', released_cb)
     ds_window.add_controller(controller)
@@ -465,10 +465,10 @@ def launch_drop_target():
     if display == None:
         display = Gdk.Display.open(os.getenv('WAYLAND_DISPLAY'))
 
-    dt_window = Gtk.Window.new()
+    dt_window = Bobgui.Window.new()
     dt_window.set_title('Drop Target')
 
-    controller = Gtk.DropTarget.new(GObject.TYPE_STRING, Gdk.DragAction.COPY)
+    controller = Bobgui.DropTarget.new(GObject.TYPE_STRING, Gdk.DragAction.COPY)
     dt_window.add_controller(controller)
     controller.connect('drop', do_drop)
 

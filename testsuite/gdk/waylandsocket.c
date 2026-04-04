@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <locale.h>
 #include <wayland-client.h>
 
@@ -58,7 +58,7 @@ test_wayland_connect_to_socket (void)
   struct wl_display *wl_display;
   struct wl_registry *wl_registry;
 
-  g_assert_false (gtk_is_initialized ());
+  g_assert_false (bobgui_is_initialized ());
 
   connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
   g_assert_no_error (error);
@@ -88,7 +88,7 @@ test_wayland_connect_to_socket (void)
   fd_string = g_strdup_printf ("%d", fd);
   setenv ("WAYLAND_SOCKET", fd_string, 1);
 
-  g_assert_true (gtk_init_check ());
+  g_assert_true (bobgui_init_check ());
   display = gdk_display_get_default ();
   g_assert_nonnull (display);
   g_assert_true (saw_gst_init);
@@ -108,9 +108,9 @@ int
 main (int argc, char *argv[])
 {
   g_test_init (&argc, &argv, NULL);
-  g_setenv ("GTK_MODULES", "", TRUE);
-  g_setenv ("GTK_MEDIA", "help", TRUE);
-  gtk_disable_setlocale();
+  g_setenv ("BOBGUI_MODULES", "", TRUE);
+  g_setenv ("BOBGUI_MEDIA", "help", TRUE);
+  bobgui_disable_setlocale();
   setlocale (LC_ALL, "C");
 
   g_test_add_func ("/wayland/connect-to-socket/basic", test_wayland_connect_to_socket);

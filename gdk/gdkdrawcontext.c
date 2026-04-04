@@ -342,7 +342,7 @@ gdk_draw_context_get_surface (GdkDrawContext *context)
  * implementation must use [method@Gdk.DrawContext.get_frame_region] to
  * query the region that must be drawn.
  *
- * When using GTK, the widget system automatically places calls to
+ * When using BOBGUI, the widget system automatically places calls to
  * gdk_draw_context_begin_frame() and gdk_draw_context_end_frame() via the
  * use of [GskRenderer](../gsk4/class.Renderer.html)s, so application code
  * does not need to call these functions explicitly.

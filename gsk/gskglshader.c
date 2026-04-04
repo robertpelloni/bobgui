@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  *
  * Copyright 2020, Red Hat Inc
  *
@@ -28,7 +28,7 @@
  * each instance of use). A shader can also receive up to 4
  * textures that it can use as input when producing the pixel data.
  *
- * `GskGLShader` is usually used with gtk_snapshot_push_gl_shader()
+ * `GskGLShader` is usually used with bobgui_snapshot_push_gl_shader()
  * to produce a [class@Gsk.GLShaderNode] in the rendering hierarchy,
  * and then its input textures are constructed by rendering the child
  * nodes to textures before rendering the shader node itself. (You can
@@ -38,7 +38,7 @@
  * The actual shader code is GLSL code that gets combined with
  * some other code into the fragment shader. Since the exact
  * capabilities of the GPU driver differs between different OpenGL
- * drivers and hardware, GTK adds some defines that you can use
+ * drivers and hardware, BOBGUI adds some defines that you can use
  * to ensure your GLSL code runs on as many drivers as it can.
  *
  * If the OpenGL driver is GLES, then the shader language version
@@ -64,7 +64,7 @@
  * Where the input @fragCoord is the coordinate of the pixel we're
  * currently rendering, relative to the boundary rectangle that was
  * specified in the `GskGLShaderNode`, and @resolution is the width and
- * height of that rectangle. This is in the typical GTK coordinate
+ * height of that rectangle. This is in the typical BOBGUI coordinate
  * system with the origin in the top left. @uv contains the u and v
  * coordinates that can be used to index a texture at the
  * corresponding point. These coordinates are in the [0..1]x[0..1]
@@ -85,7 +85,7 @@
  * there are outer sources of colors there is a gsk_premultiply() helper
  * to compute premultiplication when needed.
  *
- * Note that GTK parses the uniform declarations, so each uniform has to
+ * Note that BOBGUI parses the uniform declarations, so each uniform has to
  * be on a line by itself with no other code, like so:
  *
  * ```glsl
@@ -95,7 +95,7 @@
  * uniform sampler2D u_texture2;
  * ```
  *
- * GTK uses the "gsk" namespace in the symbols it uses in the
+ * BOBGUI uses the "gsk" namespace in the symbols it uses in the
  * shader, so your code should not use any symbols with the prefix gsk
  * or GSK. There are some helper functions declared that you can use:
  *
@@ -132,11 +132,11 @@
  * }
  * ```
  *
- * Deprecated: 4.16: This feature was deprecated in GTK 4.16 after the new
+ * Deprecated: 4.16: This feature was deprecated in BOBGUI 4.16 after the new
  * rendering infrastructure introduced in 4.14 did not support it. The lack
  * of Vulkan integration would have made it a very hard feature to support.
  * If you want to use OpenGL directly, you should look at
- * [GtkGLArea](../gtk4/class.GLArea.html), which uses a different approach
+ * [BobguiGLArea](../bobgui4/class.GLArea.html), which uses a different approach
  * and is still well-supported.
  */
 
@@ -488,8 +488,8 @@ gsk_gl_shader_init (GskGLShader *shader)
  *
  * Returns: (transfer full): A new `GskGLShader`
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GskGLShader *
@@ -511,8 +511,8 @@ gsk_gl_shader_new_from_bytes (GBytes *sourcecode)
  *
  * Returns: (transfer full): A new `GskGLShader`
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GskGLShader *
@@ -546,8 +546,8 @@ gsk_gl_shader_new_from_resource (const char *resource_path)
  *
  * Returns: %TRUE on success, %FALSE if an error occurred
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 gboolean
@@ -571,8 +571,8 @@ gsk_gl_shader_compile (GskGLShader  *shader,
  *
  * Returns: (transfer none): The source code for the shader
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GBytes *
@@ -592,8 +592,8 @@ gsk_gl_shader_get_source (GskGLShader *shader)
  *
  * Returns: (transfer none) (nullable): The resource path for the shader
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 const char *
@@ -616,8 +616,8 @@ gsk_gl_shader_get_resource (GskGLShader *shader)
  *
  * Returns: The number of texture inputs required by @shader
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 int
@@ -636,8 +636,8 @@ gsk_gl_shader_get_n_textures (GskGLShader *shader)
  *
  * Returns: The number of declared uniforms
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 int
@@ -657,8 +657,8 @@ gsk_gl_shader_get_n_uniforms (GskGLShader *shader)
  *
  * Returns: (transfer none): The name of the declared uniform
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 const char *
@@ -681,8 +681,8 @@ gsk_gl_shader_get_uniform_name (GskGLShader *shader,
  *
  * Returns: The index of the uniform, or -1
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 int
@@ -710,8 +710,8 @@ gsk_gl_shader_find_uniform_by_name (GskGLShader *shader,
  *
  * Returns: The type of the declared uniform
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GskGLUniformType
@@ -733,8 +733,8 @@ gsk_gl_shader_get_uniform_type (GskGLShader *shader,
  *
  * Returns: The data offset
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 int
@@ -763,8 +763,8 @@ gsk_gl_shader_get_uniforms (GskGLShader *shader,
  *
  * Returns: The size of the data block
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 gsize
@@ -801,8 +801,8 @@ gsk_gl_shader_find_uniform (GskGLShader *shader,
  *
  * Returns: The value
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 float
@@ -838,8 +838,8 @@ gsk_gl_shader_get_arg_float (GskGLShader *shader,
  *
  * Returns: The value
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 gint32
@@ -875,8 +875,8 @@ gsk_gl_shader_get_arg_int (GskGLShader *shader,
  *
  * Returns: The value
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 guint32
@@ -912,8 +912,8 @@ gsk_gl_shader_get_arg_uint (GskGLShader *shader,
  *
  * Returns: The value
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 gboolean
@@ -948,8 +948,8 @@ gsk_gl_shader_get_arg_bool (GskGLShader *shader,
  *
  * The uniform must be of vec2 type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -985,8 +985,8 @@ gsk_gl_shader_get_arg_vec2 (GskGLShader     *shader,
  *
  * The uniform must be of vec3 type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -1022,8 +1022,8 @@ gsk_gl_shader_get_arg_vec3 (GskGLShader     *shader,
  *
  * The uniform must be of vec4 type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -1069,8 +1069,8 @@ gsk_gl_shader_get_arg_vec4 (GskGLShader     *shader,
  * Returns: (transfer full): A newly allocated block of data which can be
  *     passed to [ctor@Gsk.GLShaderNode.new].
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GBytes *
@@ -1157,8 +1157,8 @@ gsk_gl_shader_format_args_va (GskGLShader *shader,
  * Returns: (transfer full): A newly allocated block of data which can be
  *     passed to [ctor@Gsk.GLShaderNode.new].
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GBytes *
@@ -1197,8 +1197,8 @@ G_DEFINE_BOXED_TYPE (GskShaderArgsBuilder, gsk_shader_args_builder,
  * Returns: (transfer full): The newly allocated builder, free with
  *     [method@Gsk.ShaderArgsBuilder.unref]
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GskShaderArgsBuilder *
@@ -1241,8 +1241,8 @@ gsk_shader_args_builder_new (GskGLShader *shader,
  * Returns: (transfer full): the newly allocated buffer with
  *   all the args added to @builder
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GBytes *
@@ -1265,8 +1265,8 @@ gsk_shader_args_builder_to_args (GskShaderArgsBuilder *builder)
  * Returns: (transfer full): the newly allocated buffer with
  *   all the args added to @builder
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GBytes *
@@ -1292,8 +1292,8 @@ gsk_shader_args_builder_free_to_args (GskShaderArgsBuilder *builder)
  *
  * If the resulting reference count is zero, frees the builder.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -1320,8 +1320,8 @@ gsk_shader_args_builder_unref (GskShaderArgsBuilder *builder)
  *
  * Returns: the passed in `GskShaderArgsBuilder`
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 GskShaderArgsBuilder *
@@ -1371,8 +1371,8 @@ gsk_shader_args_builder_set_float (GskShaderArgsBuilder *builder,
  *
  * The uniform must be of int type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -1403,8 +1403,8 @@ gsk_shader_args_builder_set_int (GskShaderArgsBuilder *builder,
  *
  * The uniform must be of uint type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -1435,8 +1435,8 @@ gsk_shader_args_builder_set_uint (GskShaderArgsBuilder *builder,
  *
  * The uniform must be of bool type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -1467,8 +1467,8 @@ gsk_shader_args_builder_set_bool (GskShaderArgsBuilder *builder,
  *
  * The uniform must be of vec2 type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -1499,8 +1499,8 @@ gsk_shader_args_builder_set_vec2 (GskShaderArgsBuilder  *builder,
  *
  * The uniform must be of vec3 type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void
@@ -1531,8 +1531,8 @@ gsk_shader_args_builder_set_vec3 (GskShaderArgsBuilder  *builder,
  *
  * The uniform must be of vec4 type.
  *
- * Deprecated: 4.16: GTK's new Vulkan-focused rendering
- *   does not support this feature. Use [GtkGLArea](../gtk4/class.GLArea.html)
+ * Deprecated: 4.16: BOBGUI's new Vulkan-focused rendering
+ *   does not support this feature. Use [BobguiGLArea](../bobgui4/class.GLArea.html)
  *   for OpenGL rendering.
  */
 void

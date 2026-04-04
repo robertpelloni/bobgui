@@ -1,4 +1,4 @@
-/* GSK - The GTK Scene Kit
+/* GSK - The BOBGUI Scene Kit
  * Copyright 2016  Endless 
  *
  * This library is free software; you can redistribute it and/or

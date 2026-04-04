@@ -2,7 +2,7 @@
 
 #include "gdk/gdktypes.h"
 
-/* Private API for use in GTK+ */
+/* Private API for use in BOBGUI+ */
 
 void            gdk_pre_parse                   (void);
 gboolean        gdk_is_initialized              (void);
@@ -10,7 +10,7 @@ gboolean        gdk_is_initialized              (void);
 #define gdk_ensure_initialized() \
 G_STMT_START { \
   if (!gdk_is_initialized ()) \
-    g_error ("%s() was called before gtk_init()", G_STRFUNC); \
+    g_error ("%s() was called before bobgui_init()", G_STRFUNC); \
 } G_STMT_END
 
 gboolean gdk_running_in_sandbox (void);

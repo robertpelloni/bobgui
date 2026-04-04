@@ -17,10 +17,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/. 
  */
 
 #include "config.h"
@@ -238,7 +238,7 @@ update_shadow_size (GdkSurface *surface,
   data[3] = shadow_bottom * impl->surface_scale;
 
   frame_extents = gdk_x11_get_xatom_by_name_for_display (gdk_surface_get_display (surface),
-                                                         "_GTK_FRAME_EXTENTS");
+                                                         "_BOBGUI_FRAME_EXTENTS");
   XChangeProperty (GDK_SURFACE_XDISPLAY (surface),
                    GDK_SURFACE_XID (surface),
                    frame_extents, XA_CARDINAL,
@@ -461,7 +461,7 @@ gboolean
 gdk_x11_surface_supports_edge_constraints (GdkSurface *surface)
 {
   return gdk_x11_screen_supports_net_wm_hint (GDK_SURFACE_SCREEN (surface),
-                                              g_intern_static_string ("_GTK_EDGE_CONSTRAINTS"));
+                                              g_intern_static_string ("_BOBGUI_EDGE_CONSTRAINTS"));
 }
 
 static void
@@ -3133,14 +3133,14 @@ gdk_x11_surface_set_utf8_property  (GdkSurface *surface,
  * @surface: (type GdkX11Surface): a `GdkSurface`
  * @variant: the theme variant to export
  *
- * GTK applications can request a dark theme variant. In order to
- * make other applications - namely window managers using GTK for
- * themeing - aware of this choice, GTK uses this function to
- * export the requested theme variant as _GTK_THEME_VARIANT property
+ * BOBGUI applications can request a dark theme variant. In order to
+ * make other applications - namely window managers using BOBGUI for
+ * themeing - aware of this choice, BOBGUI uses this function to
+ * export the requested theme variant as _BOBGUI_THEME_VARIANT property
  * on toplevel surfaces.
  *
- * Note that this property is automatically updated by GTK, so this
- * function should only be used by applications which do not use GTK
+ * Note that this property is automatically updated by BOBGUI, so this
+ * function should only be used by applications which do not use BOBGUI
  * to create toplevel surfaces.
  *
  * Deprecated: 4.18
@@ -3149,7 +3149,7 @@ void
 gdk_x11_surface_set_theme_variant (GdkSurface  *surface,
                                   const char *variant)
 {
-  gdk_x11_surface_set_utf8_property (surface, "_GTK_THEME_VARIANT",
+  gdk_x11_surface_set_utf8_property (surface, "_BOBGUI_THEME_VARIANT",
                                     variant ? variant : "");
 }
 
@@ -4822,7 +4822,7 @@ gdk_x11_surface_show_window_menu (GdkSurface *surface,
     }
 
   if (!gdk_x11_screen_supports_net_wm_hint (GDK_SURFACE_SCREEN (surface),
-                                            g_intern_static_string ("_GTK_SHOW_WINDOW_MENU")))
+                                            g_intern_static_string ("_BOBGUI_SHOW_WINDOW_MENU")))
     return FALSE;
 
   gdk_event_get_position (event, &x, &y);
@@ -4837,7 +4837,7 @@ gdk_x11_surface_show_window_menu (GdkSurface *surface,
 
   xclient.type = ClientMessage;
   xclient.window = GDK_SURFACE_XID (surface);
-  xclient.message_type = gdk_x11_get_xatom_by_name_for_display (display, "_GTK_SHOW_WINDOW_MENU");
+  xclient.message_type = gdk_x11_get_xatom_by_name_for_display (display, "_BOBGUI_SHOW_WINDOW_MENU");
   xclient.data.l[0] = device_id;
   xclient.data.l[1] = x_root * impl->surface_scale;
   xclient.data.l[2] = y_root * impl->surface_scale;
@@ -5288,7 +5288,7 @@ gdk_x11_toplevel_get_property (GObject    *object,
                                   ? GDK_TOPLEVEL_CAPABILITIES_EDGE_CONSTRAINTS : 0) |
                                 GDK_TOPLEVEL_CAPABILITIES_INHIBIT_SHORTCUTS |
                                 (gdk_x11_screen_supports_net_wm_hint (GDK_SURFACE_SCREEN (surface),
-                                                                      g_intern_static_string ("_GTK_SHOW_WINDOW_MENU"))
+                                                                      g_intern_static_string ("_BOBGUI_SHOW_WINDOW_MENU"))
                                   ? GDK_TOPLEVEL_CAPABILITIES_WINDOW_MENU : 0) |
                                 GDK_TOPLEVEL_CAPABILITIES_MAXIMIZE |
                                 GDK_TOPLEVEL_CAPABILITIES_FULLSCREEN |

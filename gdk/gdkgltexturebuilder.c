@@ -289,7 +289,7 @@ gdk_gl_texture_builder_class_init (GdkGLTextureBuilderClass *klass)
    *
    * An optional `GLSync` object.
    *
-   * If this is set, GTK will wait on it before using the texture.
+   * If this is set, BOBGUI will wait on it before using the texture.
    *
    * Since: 4.12
    */
@@ -617,7 +617,7 @@ gdk_gl_texture_builder_get_sync (GdkGLTextureBuilder *self)
  *
  * Sets the GLSync object to use for the texture.
  *
- * GTK will wait on this object before using the created `GdkTexture`.
+ * BOBGUI will wait on this object before using the created `GdkTexture`.
  *
  * The `destroy` function that is passed to [method@Gdk.GLTextureBuilder.build]
  * is responsible for freeing the sync object when it is no longer needed.
@@ -814,7 +814,7 @@ gdk_gl_texture_builder_get_update_region (GdkGLTextureBuilder *self)
  * When rendering animations of large textures, it is possible that
  * consecutive textures are only updating contents in parts of the texture.
  * It is then possible to describe this update via these two properties,
- * so that GTK can avoid rerendering parts that did not change.
+ * so that BOBGUI can avoid rerendering parts that did not change.
  *
  * An example would be a screen recording where only the mouse pointer moves.
  *

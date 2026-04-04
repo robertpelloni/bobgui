@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2010.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2010.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"
@@ -171,7 +171,7 @@ gdk_frame_clock_class_init (GdkFrameClockClass *klass)
    *
    * Animations should be updated using [method@Gdk.FrameClock.get_frame_time].
    * Applications can connect directly to this signal, or use
-   * [gtk_widget_add_tick_callback()](../gtk4/method.Widget.add_tick_callback.html)
+   * [bobgui_widget_add_tick_callback()](../bobgui4/method.Widget.add_tick_callback.html)
    * as a more convenient interface.
    */
   signals[UPDATE] =
@@ -190,7 +190,7 @@ gdk_frame_clock_class_init (GdkFrameClockClass *klass)
    * of the frame.
    *
    * Any work to update sizes and positions of application elements
-   * should be performed. GTK normally handles this internally.
+   * should be performed. BOBGUI normally handles this internally.
    */
   signals[LAYOUT] =
     g_signal_new (g_intern_static_string ("layout"),
@@ -209,8 +209,8 @@ gdk_frame_clock_class_init (GdkFrameClockClass *klass)
    *
    * The frame is repainted. GDK normally handles this internally and
    * emits [signal@Gdk.Surface::render] signals which are turned into
-   * [GtkWidget::snapshot](../gtk4/signal.Widget.snapshot.html) signals
-   * by GTK.
+   * [BobguiWidget::snapshot](../bobgui4/signal.Widget.snapshot.html) signals
+   * by BOBGUI.
    */
   signals[PAINT] =
     g_signal_new (g_intern_static_string ("paint"),
@@ -242,7 +242,7 @@ gdk_frame_clock_class_init (GdkFrameClockClass *klass)
    *
    * Emitted after processing of the frame is finished.
    *
-   * This signal is handled internally by GTK to resume normal
+   * This signal is handled internally by BOBGUI to resume normal
    * event processing. Applications should not handle this signal.
    */
   signals[RESUME_EVENTS] =
@@ -306,7 +306,7 @@ gdk_frame_clock_get_frame_time (GdkFrameClock *frame_clock)
  * content and want to continually request the
  * %GDK_FRAME_CLOCK_PHASE_UPDATE phase for a period of time,
  * you should use [method@Gdk.FrameClock.begin_updating] instead,
- * since this allows GTK to adjust system parameters to get maximally
+ * since this allows BOBGUI to adjust system parameters to get maximally
  * smooth animations.
  */
 void

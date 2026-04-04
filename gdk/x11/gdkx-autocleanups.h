@@ -1,4 +1,4 @@
-/* GTK - The GIMP Toolkit
+/* BOBGUI - The GIMP Toolkit
  * Copyright (C) 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
  *
  * This library is free software; you can redistribute it and/or
@@ -15,7 +15,7 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__GDKX_H_INSIDE__) && !defined (GTK_COMPILATION)
+#if !defined (__GDKX_H_INSIDE__) && !defined (BOBGUI_COMPILATION)
 #error "Only <gdk/x11/gdkx.h> can be included directly."
 #endif
 

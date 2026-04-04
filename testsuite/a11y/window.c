@@ -1,50 +1,50 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 window_role (void)
 {
-  GtkWidget *window = gtk_window_new ();
+  BobguiWidget *window = bobgui_window_new ();
 
-  gtk_test_accessible_assert_role (window, GTK_ACCESSIBLE_ROLE_WINDOW);
+  bobgui_test_accessible_assert_role (window, BOBGUI_ACCESSIBLE_ROLE_WINDOW);
 
-  gtk_window_destroy (GTK_WINDOW (window));
+  bobgui_window_destroy (BOBGUI_WINDOW (window));
 }
 
 static void
 window_state (void)
 {
-  GtkWidget *window = gtk_window_new ();
+  BobguiWidget *window = bobgui_window_new ();
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  gtk_test_accessible_assert_state (window, GTK_ACCESSIBLE_STATE_HIDDEN, FALSE);
+  bobgui_test_accessible_assert_state (window, BOBGUI_ACCESSIBLE_STATE_HIDDEN, FALSE);
 
-  gtk_widget_set_visible (window, FALSE);
+  bobgui_widget_set_visible (window, FALSE);
 
-  gtk_test_accessible_assert_state (window, GTK_ACCESSIBLE_STATE_HIDDEN, TRUE);
+  bobgui_test_accessible_assert_state (window, BOBGUI_ACCESSIBLE_STATE_HIDDEN, TRUE);
 
-  gtk_window_destroy (GTK_WINDOW (window));
+  bobgui_window_destroy (BOBGUI_WINDOW (window));
 }
 
 static void
 window_properties (void)
 {
-  GtkWidget *window = gtk_window_new ();
+  BobguiWidget *window = bobgui_window_new ();
 
-  gtk_window_set_modal (GTK_WINDOW (window), TRUE);
+  bobgui_window_set_modal (BOBGUI_WINDOW (window), TRUE);
 
-  gtk_test_accessible_assert_property (window, GTK_ACCESSIBLE_PROPERTY_MODAL, TRUE);
-  gtk_window_set_modal (GTK_WINDOW (window), FALSE);
+  bobgui_test_accessible_assert_property (window, BOBGUI_ACCESSIBLE_PROPERTY_MODAL, TRUE);
+  bobgui_window_set_modal (BOBGUI_WINDOW (window), FALSE);
 
-  gtk_test_accessible_assert_property (window, GTK_ACCESSIBLE_PROPERTY_MODAL, FALSE);
+  bobgui_test_accessible_assert_property (window, BOBGUI_ACCESSIBLE_PROPERTY_MODAL, FALSE);
 
-  gtk_window_destroy (GTK_WINDOW (window));
+  bobgui_window_destroy (BOBGUI_WINDOW (window));
 }
 
 int
 main (int argc, char *argv[])
 {
-  gtk_test_init (&argc, &argv, NULL);
+  bobgui_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/a11y/window/role", window_role);
   g_test_add_func ("/a11y/window/state", window_state);

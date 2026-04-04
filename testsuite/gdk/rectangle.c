@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <cairo-gobject.h>
 
 static void
@@ -113,7 +113,7 @@ main (int argc, char *argv[])
 {
   (g_test_init) (&argc, &argv, NULL);
 
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/rectangle/equal", test_rectangle_equal);
   g_test_add_func ("/rectangle/intersect", test_rectangle_intersect);

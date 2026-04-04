@@ -1185,7 +1185,7 @@ gdk_gl_context_get_matching_version (GdkGLContext *context,
  * Setting @major and @minor to zero will use the default values.
  *
  * Setting @major and @minor lower than the minimum versions required
- * by GTK will result in the context choosing the minimum version.
+ * by BOBGUI will result in the context choosing the minimum version.
  *
  * The @context must not be realized or made current prior to calling
  * this function.
@@ -1681,7 +1681,7 @@ gdk_gl_context_init_memory_flags (GdkGLContext *self)
   priv->memory_flags[GDK_MEMORY_R8G8B8A8_PREMULTIPLIED] = GDK_GL_FORMAT_USABLE | GDK_GL_FORMAT_FILTERABLE;
   priv->memory_flags[GDK_MEMORY_R8G8B8A8] = GDK_GL_FORMAT_USABLE | GDK_GL_FORMAT_FILTERABLE;
 #if 0
-  /* GLES2 can do these, but GTK can't */
+  /* GLES2 can do these, but BOBGUI can't */
   priv->memory_flags[GDK_MEMORY_A8] = GDK_GL_FORMAT_USABLE | GDK_GL_FORMAT_FILTERABLE;
   priv->memory_flags[GDK_MEMORY_G8] = GDK_GL_FORMAT_USABLE | GDK_GL_FORMAT_FILTERABLE;
   priv->memory_flags[GDK_MEMORY_G8A8_PREMULTIPLIED] = GDK_GL_FORMAT_USABLE | GDK_GL_FORMAT_FILTERABLE;

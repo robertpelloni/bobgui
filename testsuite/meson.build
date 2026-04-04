@@ -13,9 +13,9 @@ testutils_lib = static_library('testutils', 'testutils.c', 'diff/diffreg.c',
   install: false
 )
 
-gtk_libexecdir = join_paths(gtk_prefix, get_option('libexecdir'))
-installed_test_bindir = join_paths(gtk_libexecdir, 'installed-tests', 'gtk-4.0')
-installed_test_datadir = join_paths(gtk_datadir, 'installed-tests', 'gtk-4.0')
+bobgui_libexecdir = join_paths(bobgui_prefix, get_option('libexecdir'))
+installed_test_bindir = join_paths(bobgui_libexecdir, 'installed-tests', 'bobgui-4.0')
+installed_test_datadir = join_paths(bobgui_datadir, 'installed-tests', 'bobgui-4.0')
 
 test_wrappers = []
 catch = find_program('catch', required: false)
@@ -26,11 +26,11 @@ endif
 common_env = [
   'GIO_USE_VFS=local',
   'GSETTINGS_BACKEND=memory',
-  'GTK_CSD=1',
+  'BOBGUI_CSD=1',
   'G_ENABLE_DIAGNOSTIC=0',
-  'GSETTINGS_SCHEMA_DIR=@0@'.format(gtk_schema_build_dir),
+  'GSETTINGS_SCHEMA_DIR=@0@'.format(bobgui_schema_build_dir),
   'GDK_DEBUG=default-settings,no-portals',
-  'GTK_DEBUG=css',
+  'BOBGUI_DEBUG=css',
 ]
 exclude_unstable = ['flaky', 'failing']
 
@@ -92,7 +92,7 @@ endforeach
 
 subdir('gdk')
 subdir('gsk')
-subdir('gtk')
+subdir('bobgui')
 subdir('css')
 subdir('a11y')
 subdir('tools')

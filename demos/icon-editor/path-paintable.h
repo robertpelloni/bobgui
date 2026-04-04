@@ -21,16 +21,16 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
-#include "gtk/svg/gtksvgprivate.h"
+#include <bobgui/bobgui.h>
+#include "bobgui/svg/bobguisvgprivate.h"
 #include <stdint.h>
 
 typedef enum
 {
-  GTK_4_0,
-  GTK_4_20,
-  GTK_4_22,
-} GtkCompatibility;
+  BOBGUI_4_0,
+  BOBGUI_4_20,
+  BOBGUI_4_22,
+} BobguiCompatibility;
 
 #define NO_STATES 0
 #define ALL_STATES G_MAXUINT64
@@ -46,7 +46,7 @@ PathPaintable * path_paintable_new_from_bytes      (GBytes         *bytes,
                                                     GError        **error);
 PathPaintable * path_paintable_new_from_resource   (const char     *resource);
 void            path_paintable_set_svg             (PathPaintable  *self,
-                                                    GtkSvg         *svg);
+                                                    BobguiSvg         *svg);
 
 PathPaintable * path_paintable_copy                (PathPaintable   *self);
 
@@ -129,7 +129,7 @@ void            path_paintable_get_attach_path_for_shape
                                                     SvgElement         **to,
                                                     double         *pos);
 
-GtkCompatibility
+BobguiCompatibility
                 path_paintable_get_compatibility   (PathPaintable   *self);
 
 SvgElement *         path_paintable_get_shape           (PathPaintable   *self,
@@ -155,9 +155,9 @@ gboolean        shape_has_ancestor                 (SvgElement *shape,
                                                     SvgElement *ancestor);
 
 GdkPaintable *  shape_get_path_image               (SvgElement  *shape,
-                                                    GtkSvg *svg);
+                                                    BobguiSvg *svg);
 
-GtkIconPaintable *
+BobguiIconPaintable *
                 path_paintable_get_icon_paintable  (PathPaintable *self);
 
 void            path_paintable_set_playing         (PathPaintable *self,
@@ -167,7 +167,7 @@ gboolean        path_paintable_get_playing         (PathPaintable *self);
 void            path_paintable_set_frame_clock     (PathPaintable *self,
                                                     GdkFrameClock *clock);
 
-GtkSvg *        path_paintable_get_svg             (PathPaintable *self);
+BobguiSvg *        path_paintable_get_svg             (PathPaintable *self);
 
 char *          path_paintable_find_unused_id      (PathPaintable *self,
                                                     const char    *prefix);

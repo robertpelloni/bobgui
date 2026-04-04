@@ -19,19 +19,19 @@
 #include "config.h"
 
 #include <stdlib.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
-static GtkWidget *toplevel;
+static BobguiWidget *toplevel;
 static GFile *file;
-static GtkWidget *grid, *file_l, *open;
-static GtkWidget *radio_file, *radio_content, *dialog;
-static GtkWidget *app_chooser_widget;
-static GtkWidget *def, *recommended, *fallback, *other, *all;
+static BobguiWidget *grid, *file_l, *open;
+static BobguiWidget *radio_file, *radio_content, *dialog;
+static BobguiWidget *app_chooser_widget;
+static BobguiWidget *def, *recommended, *fallback, *other, *all;
 
 static void
-dialog_response (GtkDialog *d,
+dialog_response (BobguiDialog *d,
                  int        response_id,
                  gpointer   user_data)
 {
@@ -40,9 +40,9 @@ dialog_response (GtkDialog *d,
 
   g_print ("Response: %d\n", response_id);
 
-  if (response_id == GTK_RESPONSE_OK)
+  if (response_id == BOBGUI_RESPONSE_OK)
     {
-      app_info = gtk_app_chooser_get_app_info (GTK_APP_CHOOSER (d));
+      app_info = bobgui_app_chooser_get_app_info (BOBGUI_APP_CHOOSER (d));
       if (app_info)
         {
           name = g_app_info_get_name (app_info);
@@ -53,7 +53,7 @@ dialog_response (GtkDialog *d,
         g_print ("No application selected\n");
     }
 
-  gtk_window_destroy (GTK_WINDOW (d));
+  bobgui_window_destroy (BOBGUI_WINDOW (d));
   dialog = NULL;
 }
 
@@ -83,14 +83,14 @@ prepare_dialog (void)
   gboolean use_file = FALSE;
   char *content_type = NULL;
 
-  if (gtk_check_button_get_active (GTK_CHECK_BUTTON (radio_file)))
+  if (bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (radio_file)))
     use_file = TRUE;
-  else if (gtk_check_button_get_active (GTK_CHECK_BUTTON (radio_content)))
+  else if (bobgui_check_button_get_active (BOBGUI_CHECK_BUTTON (radio_content)))
     use_file = FALSE;
 
   if (use_file)
     {
-      dialog = gtk_app_chooser_dialog_new (GTK_WINDOW (toplevel), 0, file);
+      dialog = bobgui_app_chooser_dialog_new (BOBGUI_WINDOW (toplevel), 0, file);
     }
   else
     {
@@ -103,18 +103,18 @@ prepare_dialog (void)
 
       g_object_unref (info);
 
-      dialog = gtk_app_chooser_dialog_new_for_content_type (GTK_WINDOW (toplevel),
+      dialog = bobgui_app_chooser_dialog_new_for_content_type (BOBGUI_WINDOW (toplevel),
                                                             0, content_type);
     }
 
-  gtk_app_chooser_dialog_set_heading (GTK_APP_CHOOSER_DIALOG (dialog), "Select one already, you <i>fool</i>");
+  bobgui_app_chooser_dialog_set_heading (BOBGUI_APP_CHOOSER_DIALOG (dialog), "Select one already, you <i>fool</i>");
 
   g_signal_connect (dialog, "response",
                     G_CALLBACK (dialog_response), NULL);
 
   g_free (content_type);
 
-  app_chooser_widget = gtk_app_chooser_dialog_get_widget (GTK_APP_CHOOSER_DIALOG (dialog));
+  app_chooser_widget = bobgui_app_chooser_dialog_get_widget (BOBGUI_APP_CHOOSER_DIALOG (dialog));
   bind_props ();
 }
 
@@ -124,54 +124,54 @@ display_dialog (void)
   if (dialog == NULL)
     prepare_dialog ();
 
-  gtk_window_present (GTK_WINDOW (dialog));
+  bobgui_window_present (BOBGUI_WINDOW (dialog));
 }
 
 static void
-on_open_response (GtkWidget *file_chooser,
+on_open_response (BobguiWidget *file_chooser,
                   int        response)
 {
-  if (response == GTK_RESPONSE_ACCEPT)
+  if (response == BOBGUI_RESPONSE_ACCEPT)
     {
       char *path;
 
-      file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (file_chooser));
+      file = bobgui_file_chooser_get_file (BOBGUI_FILE_CHOOSER (file_chooser));
       path = g_file_get_path (file);
 
-      gtk_button_set_label (GTK_BUTTON (file_l), path);
+      bobgui_button_set_label (BOBGUI_BUTTON (file_l), path);
 
       g_free (path);
     }
 
-  gtk_window_destroy (GTK_WINDOW (file_chooser));
+  bobgui_window_destroy (BOBGUI_WINDOW (file_chooser));
 
-  gtk_widget_set_sensitive (open, TRUE);
+  bobgui_widget_set_sensitive (open, TRUE);
 }
 
 static void
-button_clicked (GtkButton *b,
+button_clicked (BobguiButton *b,
                 gpointer   user_data)
 {
-  GtkWidget *w;
+  BobguiWidget *w;
 
-  w = gtk_file_chooser_dialog_new ("Select file",
-                                   GTK_WINDOW (toplevel),
-                                   GTK_FILE_CHOOSER_ACTION_OPEN,
-                                   "_Cancel", GTK_RESPONSE_CANCEL,
-                                   "_Open", GTK_RESPONSE_ACCEPT,
+  w = bobgui_file_chooser_dialog_new ("Select file",
+                                   BOBGUI_WINDOW (toplevel),
+                                   BOBGUI_FILE_CHOOSER_ACTION_OPEN,
+                                   "_Cancel", BOBGUI_RESPONSE_CANCEL,
+                                   "_Open", BOBGUI_RESPONSE_ACCEPT,
                                    NULL);
 
-  gtk_window_set_modal (GTK_WINDOW (w), TRUE);
+  bobgui_window_set_modal (BOBGUI_WINDOW (w), TRUE);
 
   g_signal_connect (w, "response",
                     G_CALLBACK (on_open_response),
                     NULL);
 
-  gtk_window_present (GTK_WINDOW (w));
+  bobgui_window_present (BOBGUI_WINDOW (w));
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -184,75 +184,75 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char **argv)
 {
-  GtkWidget *w1;
+  BobguiWidget *w1;
   char *path;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  toplevel = gtk_window_new ();
-  grid = gtk_grid_new ();
+  toplevel = bobgui_window_new ();
+  grid = bobgui_grid_new ();
 
-  w1 = gtk_label_new ("File:");
-  gtk_widget_set_halign (w1, GTK_ALIGN_START);
-  gtk_grid_attach (GTK_GRID (grid),
+  w1 = bobgui_label_new ("File:");
+  bobgui_widget_set_halign (w1, BOBGUI_ALIGN_START);
+  bobgui_grid_attach (BOBGUI_GRID (grid),
                    w1, 0, 0, 1, 1);
 
-  file_l = gtk_button_new ();
-  path = g_build_filename (GTK_SRCDIR, "apple-red.png", NULL);
+  file_l = bobgui_button_new ();
+  path = g_build_filename (BOBGUI_SRCDIR, "apple-red.png", NULL);
   file = g_file_new_for_path (path);
-  gtk_button_set_label (GTK_BUTTON (file_l), path);
+  bobgui_button_set_label (BOBGUI_BUTTON (file_l), path);
   g_free (path);
 
-  gtk_widget_set_halign (file_l, GTK_ALIGN_START);
-  gtk_grid_attach_next_to (GTK_GRID (grid), file_l,
-                           w1, GTK_POS_RIGHT, 3, 1);
+  bobgui_widget_set_halign (file_l, BOBGUI_ALIGN_START);
+  bobgui_grid_attach_next_to (BOBGUI_GRID (grid), file_l,
+                           w1, BOBGUI_POS_RIGHT, 3, 1);
   g_signal_connect (file_l, "clicked",
                     G_CALLBACK (button_clicked), NULL);
 
-  radio_file = gtk_check_button_new_with_label ("Use GFile");
-  radio_content = gtk_check_button_new_with_label ("Use content type");
-  gtk_check_button_set_group (GTK_CHECK_BUTTON (radio_content), GTK_CHECK_BUTTON (radio_file));
-  gtk_check_button_set_active (GTK_CHECK_BUTTON (radio_file), TRUE);
+  radio_file = bobgui_check_button_new_with_label ("Use GFile");
+  radio_content = bobgui_check_button_new_with_label ("Use content type");
+  bobgui_check_button_set_group (BOBGUI_CHECK_BUTTON (radio_content), BOBGUI_CHECK_BUTTON (radio_file));
+  bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (radio_file), TRUE);
 
-  gtk_grid_attach (GTK_GRID (grid), radio_file,
+  bobgui_grid_attach (BOBGUI_GRID (grid), radio_file,
                    0, 1, 1, 1);
-  gtk_grid_attach_next_to (GTK_GRID (grid), radio_content,
-                           radio_file, GTK_POS_BOTTOM, 1, 1);
+  bobgui_grid_attach_next_to (BOBGUI_GRID (grid), radio_content,
+                           radio_file, BOBGUI_POS_BOTTOM, 1, 1);
 
-  open = gtk_button_new_with_label ("Trigger App Chooser dialog");
-  gtk_grid_attach_next_to (GTK_GRID (grid), open,
-                           radio_content, GTK_POS_BOTTOM, 1, 1);
+  open = bobgui_button_new_with_label ("Trigger App Chooser dialog");
+  bobgui_grid_attach_next_to (BOBGUI_GRID (grid), open,
+                           radio_content, BOBGUI_POS_BOTTOM, 1, 1);
 
-  recommended = gtk_check_button_new_with_label ("Show recommended");
-  gtk_grid_attach_next_to (GTK_GRID (grid), recommended,
-                           open, GTK_POS_BOTTOM, 1, 1);
+  recommended = bobgui_check_button_new_with_label ("Show recommended");
+  bobgui_grid_attach_next_to (BOBGUI_GRID (grid), recommended,
+                           open, BOBGUI_POS_BOTTOM, 1, 1);
   g_object_set (recommended, "active", TRUE, NULL);
 
-  fallback = gtk_check_button_new_with_label ("Show fallback");
-  gtk_grid_attach_next_to (GTK_GRID (grid), fallback,
-                           recommended, GTK_POS_RIGHT, 1, 1);
+  fallback = bobgui_check_button_new_with_label ("Show fallback");
+  bobgui_grid_attach_next_to (BOBGUI_GRID (grid), fallback,
+                           recommended, BOBGUI_POS_RIGHT, 1, 1);
 
-  other = gtk_check_button_new_with_label ("Show other");
-  gtk_grid_attach_next_to (GTK_GRID (grid), other,
-                           fallback, GTK_POS_RIGHT, 1, 1);
+  other = bobgui_check_button_new_with_label ("Show other");
+  bobgui_grid_attach_next_to (BOBGUI_GRID (grid), other,
+                           fallback, BOBGUI_POS_RIGHT, 1, 1);
 
-  all = gtk_check_button_new_with_label ("Show all");
-  gtk_grid_attach_next_to (GTK_GRID (grid), all,
-                           other, GTK_POS_RIGHT, 1, 1);
+  all = bobgui_check_button_new_with_label ("Show all");
+  bobgui_grid_attach_next_to (BOBGUI_GRID (grid), all,
+                           other, BOBGUI_POS_RIGHT, 1, 1);
 
-  def = gtk_check_button_new_with_label ("Show default");
-  gtk_grid_attach_next_to (GTK_GRID (grid), def,
-                           all, GTK_POS_RIGHT, 1, 1);
+  def = bobgui_check_button_new_with_label ("Show default");
+  bobgui_grid_attach_next_to (BOBGUI_GRID (grid), def,
+                           all, BOBGUI_POS_RIGHT, 1, 1);
 
   g_object_set (recommended, "active", TRUE, NULL);
   prepare_dialog ();
   g_signal_connect (open, "clicked",
                     G_CALLBACK (display_dialog), NULL);
 
-  gtk_window_set_child (GTK_WINDOW (toplevel), grid);
+  bobgui_window_set_child (BOBGUI_WINDOW (toplevel), grid);
 
-  gtk_window_present (GTK_WINDOW (toplevel));
+  bobgui_window_present (BOBGUI_WINDOW (toplevel));
   g_signal_connect (toplevel, "destroy", G_CALLBACK (quit_cb), &done);
 
   while (!done)

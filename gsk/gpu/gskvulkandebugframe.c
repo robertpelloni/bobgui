@@ -7,7 +7,7 @@
 #include "gskrendernodeprivate.h"
 #include "gskrenderreplay.h"
 
-#include "gtk/inspector/window.h"
+#include "bobgui/inspector/window.h"
 
 typedef struct _GskVulkanDebugEntry GskVulkanDebugEntry;
 
@@ -280,7 +280,7 @@ gsk_vulkan_debug_frame_process (GskVulkanDebugFrame *self)
   result = gsk_render_replay_filter_node (replay, self->node);
   gsk_render_replay_free (replay);
 
-  gtk_inspector_add_profile_node (gsk_gpu_device_get_display (gsk_gpu_frame_get_device (GSK_GPU_FRAME (self))),
+  bobgui_inspector_add_profile_node (gsk_gpu_device_get_display (gsk_gpu_frame_get_device (GSK_GPU_FRAME (self))),
                                   self->node,
                                   result);
 

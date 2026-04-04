@@ -23,7 +23,7 @@
 #include <malloc.h>
 #endif
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
@@ -37,69 +37,69 @@ static GOptionEntry entries[] = {
 };
 
 
-typedef void (ClearFunc)(GtkTreeModel *model);
-typedef void (InsertFunc)(GtkTreeModel *model,
+typedef void (ClearFunc)(BobguiTreeModel *model);
+typedef void (InsertFunc)(BobguiTreeModel *model,
 			  int           items,
 			  int           i);
 
 static void
-list_store_append (GtkTreeModel *model,
+list_store_append (BobguiTreeModel *model,
 		   int           items,
 		   int           i)
 {
-  GtkListStore *store = GTK_LIST_STORE (model);
-  GtkTreeIter iter;
+  BobguiListStore *store = BOBGUI_LIST_STORE (model);
+  BobguiTreeIter iter;
   char *text;
 
   text = g_strdup_printf ("row %d", i);
-  gtk_list_store_append (store, &iter);
-  gtk_list_store_set (store, &iter, 0, i, 1, text, -1);
+  bobgui_list_store_append (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, i, 1, text, -1);
   g_free (text);
 }
 
 static void
-list_store_prepend (GtkTreeModel *model,
+list_store_prepend (BobguiTreeModel *model,
 		    int           items,
 		    int           i)
 {
-  GtkListStore *store = GTK_LIST_STORE (model);
-  GtkTreeIter iter;
+  BobguiListStore *store = BOBGUI_LIST_STORE (model);
+  BobguiTreeIter iter;
   char *text;
 
   text = g_strdup_printf ("row %d", i);
-  gtk_list_store_prepend (store, &iter);
-  gtk_list_store_set (store, &iter, 0, i, 1, text, -1);
+  bobgui_list_store_prepend (store, &iter);
+  bobgui_list_store_set (store, &iter, 0, i, 1, text, -1);
   g_free (text);
 }
 
 static void
-list_store_insert (GtkTreeModel *model,
+list_store_insert (BobguiTreeModel *model,
 		   int           items,
 		   int           i)
 {
-  GtkListStore *store = GTK_LIST_STORE (model);
-  GtkTreeIter iter;
+  BobguiListStore *store = BOBGUI_LIST_STORE (model);
+  BobguiTreeIter iter;
   char *text;
   int n;
 
   text = g_strdup_printf ("row %d", i);
   n = g_random_int_range (0, i + 1);
-  gtk_list_store_insert (store, &iter, n);
-  gtk_list_store_set (store, &iter, 0, i, 1, text, -1);
+  bobgui_list_store_insert (store, &iter, n);
+  bobgui_list_store_set (store, &iter, 0, i, 1, text, -1);
   g_free (text);
 }
 
 static int
-compare (GtkTreeModel *model,
-	 GtkTreeIter  *a,
-	 GtkTreeIter  *b,
+compare (BobguiTreeModel *model,
+	 BobguiTreeIter  *a,
+	 BobguiTreeIter  *b,
 	 gpointer      data)
 {
   char *str_a, *str_b;
   int result;
 
-  gtk_tree_model_get (model, a, 1, &str_a, -1);
-  gtk_tree_model_get (model, b, 1, &str_b, -1);
+  bobgui_tree_model_get (model, a, 1, &str_a, -1);
+  bobgui_tree_model_get (model, b, 1, &str_b, -1);
   
   result = strcmp (str_a, str_b);
 
@@ -110,49 +110,49 @@ compare (GtkTreeModel *model,
 }
 
 static void
-tree_store_append (GtkTreeModel *model,
+tree_store_append (BobguiTreeModel *model,
 		   int           items,
 		   int           i)
 {
-  GtkTreeStore *store = GTK_TREE_STORE (model);
-  GtkTreeIter iter;
+  BobguiTreeStore *store = BOBGUI_TREE_STORE (model);
+  BobguiTreeIter iter;
   char *text;
 
   text = g_strdup_printf ("row %d", i);
-  gtk_tree_store_append (store, &iter, NULL);
-  gtk_tree_store_set (store, &iter, 0, i, 1, text, -1);
+  bobgui_tree_store_append (store, &iter, NULL);
+  bobgui_tree_store_set (store, &iter, 0, i, 1, text, -1);
   g_free (text);
 }
 
 static void
-tree_store_prepend (GtkTreeModel *model,
+tree_store_prepend (BobguiTreeModel *model,
 		    int           items,
 		    int           i)
 {
-  GtkTreeStore *store = GTK_TREE_STORE (model);
-  GtkTreeIter iter;
+  BobguiTreeStore *store = BOBGUI_TREE_STORE (model);
+  BobguiTreeIter iter;
   char *text;
 
   text = g_strdup_printf ("row %d", i);
-  gtk_tree_store_prepend (store, &iter, NULL);
-  gtk_tree_store_set (store, &iter, 0, i, 1, text, -1);
+  bobgui_tree_store_prepend (store, &iter, NULL);
+  bobgui_tree_store_set (store, &iter, 0, i, 1, text, -1);
   g_free (text);
 }
 
 static void
-tree_store_insert_flat (GtkTreeModel *model,
+tree_store_insert_flat (BobguiTreeModel *model,
 			int           items,
 			int           i)
 {
-  GtkTreeStore *store = GTK_TREE_STORE (model);
-  GtkTreeIter iter;
+  BobguiTreeStore *store = BOBGUI_TREE_STORE (model);
+  BobguiTreeIter iter;
   char *text;
   int n;
 
   text = g_strdup_printf ("row %d", i);
   n = g_random_int_range (0, i + 1);
-  gtk_tree_store_insert (store, &iter, NULL, n);
-  gtk_tree_store_set (store, &iter, 0, i, 1, text, -1);
+  bobgui_tree_store_insert (store, &iter, NULL, n);
+  bobgui_tree_store_set (store, &iter, 0, i, 1, text, -1);
   g_free (text);
 }
 
@@ -160,13 +160,13 @@ typedef struct {
   int i;
   int n;
   gboolean found;
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
 } FindData;
 
 static gboolean
-find_nth (GtkTreeModel *model,
-	  GtkTreePath  *path,
-	  GtkTreeIter  *iter,
+find_nth (BobguiTreeModel *model,
+	  BobguiTreePath  *path,
+	  BobguiTreeIter  *iter,
 	  gpointer      data)
 {
   FindData *fdata = (FindData *)data; 
@@ -184,12 +184,12 @@ find_nth (GtkTreeModel *model,
 }
 
 static void
-tree_store_insert_deep (GtkTreeModel *model,
+tree_store_insert_deep (BobguiTreeModel *model,
 			int           items,
 			int           i)
 {
-  GtkTreeStore *store = GTK_TREE_STORE (model);
-  GtkTreeIter iter;
+  BobguiTreeStore *store = BOBGUI_TREE_STORE (model);
+  BobguiTreeIter iter;
   char *text;
   FindData data;
 
@@ -198,16 +198,16 @@ tree_store_insert_deep (GtkTreeModel *model,
   data.i = 0;
   data.found = FALSE;
   if (data.n < i)
-    gtk_tree_model_foreach (model, find_nth, &data);
-  gtk_tree_store_insert (store, &iter, data.found ? &(data.iter) : NULL, data.n);
-  gtk_tree_store_set (store, &iter, 0, i, 1, text, -1);
+    bobgui_tree_model_foreach (model, find_nth, &data);
+  bobgui_tree_store_insert (store, &iter, data.found ? &(data.iter) : NULL, data.n);
+  bobgui_tree_store_set (store, &iter, 0, i, 1, text, -1);
   g_free (text);
 }
 
 
 static void
 test_run (const char        *title,
-	  GtkTreeModel *store,
+	  BobguiTreeModel *store,
 	  ClearFunc    *clear,
 	  InsertFunc   *insert)
 {
@@ -257,80 +257,80 @@ test_run (const char        *title,
 int
 main (int argc, char *argv[])
 {
-  GtkTreeModel *model;
+  BobguiTreeModel *model;
   GOptionContext *context;
 
   context = g_option_context_new ("");
   g_option_context_add_main_entries (context, entries, NULL);
   g_option_context_parse (context, &argc, &argv, NULL);
-  gtk_init ();
+  bobgui_init ();
 
-  model = GTK_TREE_MODEL (gtk_list_store_new (2, G_TYPE_INT, G_TYPE_STRING));
+  model = BOBGUI_TREE_MODEL (bobgui_list_store_new (2, G_TYPE_INT, G_TYPE_STRING));
   
   test_run ("list store append", 
 	    model, 
-	    (ClearFunc*)gtk_list_store_clear, 
+	    (ClearFunc*)bobgui_list_store_clear, 
 	    (InsertFunc*)list_store_append);
 
   test_run ("list store prepend", 
 	    model, 
-	    (ClearFunc*)gtk_list_store_clear, 
+	    (ClearFunc*)bobgui_list_store_clear, 
 	    (InsertFunc*)list_store_prepend);
 
   test_run ("list store insert", 
 	    model, 
-	    (ClearFunc*)gtk_list_store_clear, 
+	    (ClearFunc*)bobgui_list_store_clear, 
 	    (InsertFunc*)list_store_insert);
 
-  gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (model), 
+  bobgui_tree_sortable_set_default_sort_func (BOBGUI_TREE_SORTABLE (model), 
 					   compare, NULL, NULL);
-  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (model), 
-					GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
-					GTK_SORT_ASCENDING);
+  bobgui_tree_sortable_set_sort_column_id (BOBGUI_TREE_SORTABLE (model), 
+					BOBGUI_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
+					BOBGUI_SORT_ASCENDING);
 
   test_run ("list store insert (sorted)", 
 	    model, 
-	    (ClearFunc*)gtk_list_store_clear, 
+	    (ClearFunc*)bobgui_list_store_clear, 
 	    (InsertFunc*)list_store_insert);
 
   g_object_unref (model);
   
-  model = GTK_TREE_MODEL (gtk_tree_store_new (2, G_TYPE_INT, G_TYPE_STRING));
+  model = BOBGUI_TREE_MODEL (bobgui_tree_store_new (2, G_TYPE_INT, G_TYPE_STRING));
 
   test_run ("tree store append", 
 	    model, 
-	    (ClearFunc*)gtk_tree_store_clear, 
+	    (ClearFunc*)bobgui_tree_store_clear, 
 	    (InsertFunc*)tree_store_append);
 
   test_run ("tree store prepend", 
 	    model, 
-	    (ClearFunc*)gtk_tree_store_clear, 
+	    (ClearFunc*)bobgui_tree_store_clear, 
 	    (InsertFunc*)tree_store_prepend);
 
   test_run ("tree store insert (flat)", 
 	    model, 
-	    (ClearFunc*)gtk_tree_store_clear, 
+	    (ClearFunc*)bobgui_tree_store_clear, 
 	    (InsertFunc*)tree_store_insert_flat);
 
   test_run ("tree store insert (deep)", 
 	    model, 
-	    (ClearFunc*)gtk_tree_store_clear, 
+	    (ClearFunc*)bobgui_tree_store_clear, 
 	    (InsertFunc*)tree_store_insert_deep);
 
-  gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (model), 
+  bobgui_tree_sortable_set_default_sort_func (BOBGUI_TREE_SORTABLE (model), 
 					   compare, NULL, NULL);
-  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (model), 
-					GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
-					GTK_SORT_ASCENDING);
+  bobgui_tree_sortable_set_sort_column_id (BOBGUI_TREE_SORTABLE (model), 
+					BOBGUI_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
+					BOBGUI_SORT_ASCENDING);
 
   test_run ("tree store insert (flat, sorted)", 
 	    model, 
-	    (ClearFunc*)gtk_tree_store_clear, 
+	    (ClearFunc*)bobgui_tree_store_clear, 
 	    (InsertFunc*)tree_store_insert_flat);
 
   test_run ("tree store insert (deep, sorted)", 
 	    model, 
-	    (ClearFunc*)gtk_tree_store_clear, 
+	    (ClearFunc*)bobgui_tree_store_clear, 
 	    (InsertFunc*)tree_store_insert_deep);
 
   return 0;

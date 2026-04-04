@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="BobguiGrid" id="grid1">
         <property name="visible">True</property>
         <child>
-          <object class="GtkToggleButton" id="button1">
+          <object class="BobguiToggleButton" id="button1">
             <property name="label" translatable="yes">Hello World!</property>
             <property name="visible">True</property>
             <property name="active">True</property>
@@ -19,7 +19,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="button2">
+          <object class="BobguiCheckButton" id="button2">
             <property name="label" translatable="yes">Hello World!</property>
             <property name="visible">True</property>
             <property name="active">False</property>
@@ -31,7 +31,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="button3">
+          <object class="BobguiRadioButton" id="button3">
             <property name="label" translatable="yes">Hello World!</property>
             <property name="visible">True</property>
             <property name="active">False</property>
@@ -43,7 +43,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="button4">
+          <object class="BobguiRadioButton" id="button4">
             <property name="label" translatable="yes">Hello World!</property>
             <property name="visible">True</property>
             <property name="active">True</property>
@@ -57,7 +57,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="button4a">
+          <object class="BobguiRadioButton" id="button4a">
             <property name="label" translatable="yes">Hello World!</property>
             <property name="visible">True</property>
             <property name="group">button4</property>
@@ -70,7 +70,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkSwitch" id="button5">
+          <object class="BobguiSwitch" id="button5">
             <property name="visible">True</property>
             <property name="active">True</property>
             <property name="can_focus">True</property>
@@ -82,7 +82,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkSwitch" id="button6">
+          <object class="BobguiSwitch" id="button6">
             <property name="visible">True</property>
             <property name="active">False</property>
             <property name="can_focus">True</property>
@@ -95,7 +95,7 @@
         </child>
 
         <child>
-          <object class="GtkButton" id="button7">
+          <object class="BobguiButton" id="button7">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -107,7 +107,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button8">
+          <object class="BobguiButton" id="button8">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -122,7 +122,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button9">
+          <object class="BobguiButton" id="button9">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>

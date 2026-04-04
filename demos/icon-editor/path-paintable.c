@@ -20,18 +20,18 @@
  */
 
 #include "path-paintable.h"
-#include "gtk/svg/gtksvgvalueprivate.h"
-#include "svg/gtksvgnumberprivate.h"
-#include "svg/gtksvgnumbersprivate.h"
-#include "svg/gtksvgenumprivate.h"
-#include "svg/gtksvgpaintprivate.h"
-#include "svg/gtksvgpathprivate.h"
-#include "svg/gtksvgviewboxprivate.h"
-#include "svg/gtksvgfilterfunctionsprivate.h"
-#include "svg/gtksvgtransformprivate.h"
-#include "svg/gtksvgclipprivate.h"
-#include "svg/gtksvgelementprivate.h"
-#include "svg/gtksvgpaintprivate.h"
+#include "bobgui/svg/bobguisvgvalueprivate.h"
+#include "svg/bobguisvgnumberprivate.h"
+#include "svg/bobguisvgnumbersprivate.h"
+#include "svg/bobguisvgenumprivate.h"
+#include "svg/bobguisvgpaintprivate.h"
+#include "svg/bobguisvgpathprivate.h"
+#include "svg/bobguisvgviewboxprivate.h"
+#include "svg/bobguisvgfilterfunctionsprivate.h"
+#include "svg/bobguisvgtransformprivate.h"
+#include "svg/bobguisvgclipprivate.h"
+#include "svg/bobguisvgelementprivate.h"
+#include "svg/bobguisvgpaintprivate.h"
 
 
 #define BIT(n) (G_GUINT64_CONSTANT (1) << (n))
@@ -40,7 +40,7 @@ struct _PathPaintable
 {
   GObject parent_instance;
 
-  GtkSvg *svg;
+  BobguiSvg *svg;
   graphene_rect_t viewport;
   GdkPaintable *render_paintable;
   GdkFrameClock *clock;
@@ -80,13 +80,13 @@ ensure_render_paintable (PathPaintable *self)
     {
       g_autoptr (GBytes) bytes = NULL;
 
-      bytes = gtk_svg_serialize (self->svg);
+      bytes = bobgui_svg_serialize (self->svg);
 
-      self->render_paintable = GDK_PAINTABLE (gtk_svg_new_from_bytes (bytes));
-      gtk_svg_set_weight (GTK_SVG (self->render_paintable), gtk_svg_get_weight (self->svg));
-      gtk_svg_set_state (GTK_SVG (self->render_paintable), gtk_svg_get_state (self->svg));
+      self->render_paintable = GDK_PAINTABLE (bobgui_svg_new_from_bytes (bytes));
+      bobgui_svg_set_weight (BOBGUI_SVG (self->render_paintable), bobgui_svg_get_weight (self->svg));
+      bobgui_svg_set_state (BOBGUI_SVG (self->render_paintable), bobgui_svg_get_state (self->svg));
 
-      gtk_svg_set_frame_clock (GTK_SVG (self->render_paintable), self->clock);
+      bobgui_svg_set_frame_clock (BOBGUI_SVG (self->render_paintable), self->clock);
 
       g_object_bind_property (self->svg, "playing",
                               self->render_paintable, "playing",
@@ -110,7 +110,7 @@ ensure_render_paintable (PathPaintable *self)
 
 void
 path_paintable_set_svg (PathPaintable *self,
-                        GtkSvg        *svg)
+                        BobguiSvg        *svg)
 {
   gboolean playing = FALSE;
 
@@ -132,7 +132,7 @@ parse_symbolic_svg (PathPaintable  *paintable,
                     GBytes         *bytes,
                     GError        **error)
 {
-  g_autoptr (GtkSvg) svg = gtk_svg_new_from_bytes (bytes);
+  g_autoptr (BobguiSvg) svg = bobgui_svg_new_from_bytes (bytes);
 
   path_paintable_set_svg (paintable, svg);
 
@@ -140,18 +140,18 @@ parse_symbolic_svg (PathPaintable  *paintable,
 }
 
 /* }}} */
-/* {{{ GtkSymbolicPaintable implementation */
+/* {{{ BobguiSymbolicPaintable implementation */
 
 static void
-path_paintable_snapshot_with_weight (GtkSymbolicPaintable *paintable,
-                                     GtkSnapshot          *snapshot,
+path_paintable_snapshot_with_weight (BobguiSymbolicPaintable *paintable,
+                                     BobguiSnapshot          *snapshot,
                                      double                width,
                                      double                height,
                                      const GdkRGBA        *colors,
                                      size_t                n_colors,
                                      double                weight)
 {
-  gtk_symbolic_paintable_snapshot_with_weight (GTK_SYMBOLIC_PAINTABLE (ensure_render_paintable (PATH_PAINTABLE (paintable))),
+  bobgui_symbolic_paintable_snapshot_with_weight (BOBGUI_SYMBOLIC_PAINTABLE (ensure_render_paintable (PATH_PAINTABLE (paintable))),
                                                snapshot,
                                                width, height,
                                                colors, n_colors,
@@ -159,8 +159,8 @@ path_paintable_snapshot_with_weight (GtkSymbolicPaintable *paintable,
 }
 
 static void
-path_paintable_snapshot_symbolic (GtkSymbolicPaintable  *paintable,
-                                  GtkSnapshot           *snapshot,
+path_paintable_snapshot_symbolic (BobguiSymbolicPaintable  *paintable,
+                                  BobguiSnapshot           *snapshot,
                                   double                 width,
                                   double                 height,
                                   const GdkRGBA         *colors,
@@ -173,7 +173,7 @@ path_paintable_snapshot_symbolic (GtkSymbolicPaintable  *paintable,
 }
 
 static void
-path_paintable_init_symbolic_paintable_interface (GtkSymbolicPaintableInterface *iface)
+path_paintable_init_symbolic_paintable_interface (BobguiSymbolicPaintableInterface *iface)
 {
   iface->snapshot_symbolic = path_paintable_snapshot_symbolic;
   iface->snapshot_with_weight = path_paintable_snapshot_with_weight;
@@ -184,7 +184,7 @@ path_paintable_init_symbolic_paintable_interface (GtkSymbolicPaintableInterface 
 
 static void
 path_paintable_snapshot (GdkPaintable  *paintable,
-                         GtkSnapshot   *snapshot,
+                         BobguiSnapshot   *snapshot,
                          double         width,
                          double         height)
 {
@@ -219,15 +219,15 @@ path_paintable_init_paintable_interface (GdkPaintableInterface *iface)
 G_DEFINE_TYPE_WITH_CODE (PathPaintable, path_paintable, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (GDK_TYPE_PAINTABLE,
                                                 path_paintable_init_paintable_interface)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SYMBOLIC_PAINTABLE,
+                         G_IMPLEMENT_INTERFACE (BOBGUI_TYPE_SYMBOLIC_PAINTABLE,
                                                 path_paintable_init_symbolic_paintable_interface))
 
 static void
 path_paintable_init (PathPaintable *self)
 {
-  self->svg = gtk_svg_new ();
+  self->svg = bobgui_svg_new ();
   self->svg->gpa_version = 1;
-  gtk_svg_set_state (self->svg, 0);
+  bobgui_svg_set_state (self->svg, 0);
 }
 
 static void
@@ -454,7 +454,7 @@ shape_set_default_attrs (SvgElement *shape)
   svg_element_set_gpa_origin (shape, 0);
 
   svg_element_take_base_value (shape, SVG_PROPERTY_FILL, svg_paint_new_none ());
-  svg_element_take_base_value (shape, SVG_PROPERTY_STROKE, svg_paint_new_symbolic (GTK_SYMBOLIC_COLOR_FOREGROUND));
+  svg_element_take_base_value (shape, SVG_PROPERTY_STROKE, svg_paint_new_symbolic (BOBGUI_SYMBOLIC_COLOR_FOREGROUND));
   svg_element_take_base_value (shape, SVG_PROPERTY_STROKE_WIDTH, svg_number_new (2));
   svg_element_take_base_value (shape, SVG_PROPERTY_STROKE_MINWIDTH, svg_number_new (0.5));
   svg_element_take_base_value (shape, SVG_PROPERTY_STROKE_MAXWIDTH, svg_number_new (3));
@@ -726,13 +726,13 @@ path_paintable_copy (PathPaintable *self)
   g_autoptr (GBytes) bytes = NULL;
   PathPaintable *other;
 
-  bytes = gtk_svg_serialize (self->svg);
+  bytes = bobgui_svg_serialize (self->svg);
   other = path_paintable_new_from_bytes (bytes, NULL);
 
   return other;
 }
 
-GtkCompatibility
+BobguiCompatibility
 path_paintable_get_compatibility (PathPaintable *self)
 {
   /* Compatible with 4.0:
@@ -751,9 +751,9 @@ path_paintable_get_compatibility (PathPaintable *self)
    * - Anything else
    *
    * This is informational.
-   * Icons may still render (in a degraded fashion) with older GTK.
+   * Icons may still render (in a degraded fashion) with older BOBGUI.
    */
-  GtkCompatibility compat = GTK_4_0;
+  BobguiCompatibility compat = BOBGUI_4_0;
   PaintOrder paint_order;
   const char *ref;
   GpaTransition transition;
@@ -767,7 +767,7 @@ path_paintable_get_compatibility (PathPaintable *self)
       switch (svg_element_get_type (shape))
         {
         case SVG_ELEMENT_PATH:
-          compat = MAX (compat, GTK_4_0);
+          compat = MAX (compat, BOBGUI_4_0);
           break;
         case SVG_ELEMENT_LINE:
         case SVG_ELEMENT_POLYLINE:
@@ -775,7 +775,7 @@ path_paintable_get_compatibility (PathPaintable *self)
         case SVG_ELEMENT_RECT:
         case SVG_ELEMENT_CIRCLE:
         case SVG_ELEMENT_ELLIPSE:
-          compat = MAX (compat, GTK_4_22);
+          compat = MAX (compat, BOBGUI_4_22);
           break;
         case SVG_ELEMENT_GROUP:
         case SVG_ELEMENT_CLIP_PATH:
@@ -794,7 +794,7 @@ path_paintable_get_compatibility (PathPaintable *self)
         case SVG_ELEMENT_SYMBOL:
         case SVG_ELEMENT_SWITCH:
         case SVG_ELEMENT_LINK:
-          compat = MAX (compat, GTK_4_22);
+          compat = MAX (compat, BOBGUI_4_22);
           continue;
         default:
           g_assert_not_reached ();
@@ -802,7 +802,7 @@ path_paintable_get_compatibility (PathPaintable *self)
 
       value = svg_element_get_base_value (shape, SVG_PROPERTY_STROKE);
       if (svg_paint_get_kind (value) != PAINT_NONE)
-        compat = MAX (compat, GTK_4_20);
+        compat = MAX (compat, BOBGUI_4_20);
 
       svg_element_get_gpa_transition (shape, &transition, NULL, NULL, NULL);
       svg_element_get_gpa_animation (shape, &animation, NULL, NULL, NULL, NULL);
@@ -810,37 +810,37 @@ path_paintable_get_compatibility (PathPaintable *self)
       if (transition != GPA_TRANSITION_NONE ||
           animation != GPA_ANIMATION_NONE ||
           ref != NULL)
-        compat = MAX (compat, GTK_4_22);
+        compat = MAX (compat, BOBGUI_4_22);
 
       paint_order = svg_enum_get (svg_element_get_base_value (shape, SVG_PROPERTY_PAINT_ORDER));
       if (paint_order != PAINT_ORDER_FILL_STROKE_MARKERS)
-        compat = MAX (compat, GTK_4_22);
+        compat = MAX (compat, BOBGUI_4_22);
 
       if (svg_number_get (svg_element_get_base_value (shape, SVG_PROPERTY_OPACITY), 100) != 1)
-        compat = MAX (compat, GTK_4_22);
+        compat = MAX (compat, BOBGUI_4_22);
 
       if (svg_number_get (svg_element_get_base_value (shape, SVG_PROPERTY_STROKE_MITERLIMIT), 100) != 4)
-        compat = MAX (compat, GTK_4_22);
+        compat = MAX (compat, BOBGUI_4_22);
 
       value = svg_element_get_base_value (shape, SVG_PROPERTY_CLIP_PATH);
       initial = svg_clip_new_none ();
       if (!svg_value_equal (value, initial))
-        compat = MAX (compat, GTK_4_22);
+        compat = MAX (compat, BOBGUI_4_22);
       svg_value_unref (initial);
 
       value = svg_element_get_base_value (shape, SVG_PROPERTY_TRANSFORM);
       initial = svg_transform_new_none ();
       if (!svg_value_equal (value, initial))
-        compat = MAX (compat, GTK_4_22);
+        compat = MAX (compat, BOBGUI_4_22);
       svg_value_unref (initial);
 
       value = svg_element_get_base_value (shape, SVG_PROPERTY_FILTER);
       initial = svg_filter_functions_new_none ();
       if (!svg_value_equal (value, initial))
-        compat = MAX (compat, GTK_4_22);
+        compat = MAX (compat, BOBGUI_4_22);
       svg_value_unref (initial);
 
-      if (compat == GTK_4_22)
+      if (compat == BOBGUI_4_22)
         break;
     }
 
@@ -903,13 +903,13 @@ void
 path_paintable_set_state (PathPaintable *self,
                           unsigned int   state)
 {
-  if (gtk_svg_get_state (self->svg) == state)
+  if (bobgui_svg_get_state (self->svg) == state)
     return;
 
-  gtk_svg_set_state (self->svg, state);
+  bobgui_svg_set_state (self->svg, state);
 
   if (self->render_paintable)
-    gtk_svg_set_state (GTK_SVG (self->render_paintable), state);
+    bobgui_svg_set_state (BOBGUI_SVG (self->render_paintable), state);
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_STATE]);
 }
@@ -917,20 +917,20 @@ path_paintable_set_state (PathPaintable *self,
 unsigned int
 path_paintable_get_state (PathPaintable *self)
 {
-  return gtk_svg_get_state (self->svg);
+  return bobgui_svg_get_state (self->svg);
 }
 
 void
 path_paintable_set_weight (PathPaintable *self,
                            double         weight)
 {
-  if (gtk_svg_get_weight (self->svg) == weight)
+  if (bobgui_svg_get_weight (self->svg) == weight)
     return;
 
-  gtk_svg_set_weight (self->svg, weight);
+  bobgui_svg_set_weight (self->svg, weight);
 
   if (self->render_paintable)
-    gtk_svg_set_weight (GTK_SVG (self->render_paintable), weight);
+    bobgui_svg_set_weight (BOBGUI_SVG (self->render_paintable), weight);
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_WEIGHT]);
 }
@@ -938,7 +938,7 @@ path_paintable_set_weight (PathPaintable *self,
 double
 path_paintable_get_weight (PathPaintable *self)
 {
-  return gtk_svg_get_weight (self->svg);
+  return bobgui_svg_get_weight (self->svg);
 }
 
 static unsigned int
@@ -980,7 +980,7 @@ path_paintable_get_max_state (PathPaintable *self)
 
   state = shape_get_max_state (self->svg->content);
 
-  gtk_svg_get_state_names (self->svg, &n_names);
+  bobgui_svg_get_state_names (self->svg, &n_names);
   if (n_names > 0)
     return MAX (state, n_names - 1);
 
@@ -991,7 +991,7 @@ const char **
 path_paintable_get_state_names (PathPaintable *self,
                                 unsigned int  *length)
 {
-  return gtk_svg_get_state_names (self->svg, length);
+  return bobgui_svg_get_state_names (self->svg, length);
 }
 
 gboolean
@@ -1000,14 +1000,14 @@ path_paintable_set_state_names (PathPaintable  *self,
 {
   g_signal_emit (self, signals[CHANGED], 0);
 
-  return gtk_svg_set_state_names (self->svg, names);
+  return bobgui_svg_set_state_names (self->svg, names);
 }
 
 gboolean
 path_paintable_equal (PathPaintable *self,
                       PathPaintable *other)
 {
-  return gtk_svg_equal (self->svg, other->svg);
+  return bobgui_svg_equal (self->svg, other->svg);
 }
 
 PathPaintable *
@@ -1089,9 +1089,9 @@ shape_has_ancestor (SvgElement *shape,
 
 GdkPaintable *
 shape_get_path_image (SvgElement *shape,
-                      GtkSvg     *orig)
+                      BobguiSvg     *orig)
 {
-  GtkSvg *svg = gtk_svg_new ();
+  BobguiSvg *svg = bobgui_svg_new ();
   g_autoptr (GBytes) bytes = NULL;
   SvgValue *value;
 
@@ -1114,10 +1114,10 @@ shape_get_path_image (SvgElement *shape,
       svg_element_set_base_value (clone, SVG_PROPERTY_DISPLAY, NULL);
       svg_element_add_child (svg->content, clone);
     }
-  bytes = gtk_svg_serialize (svg);
+  bytes = bobgui_svg_serialize (svg);
   g_object_unref (svg);
-  svg = gtk_svg_new_from_bytes (bytes);
-  gtk_svg_play (svg);
+  svg = bobgui_svg_new_from_bytes (bytes);
+  bobgui_svg_play (svg);
 
   return GDK_PAINTABLE (svg);
 }
@@ -1189,10 +1189,10 @@ clear_tempfile (gpointer data)
   g_object_unref (file);
 }
 
-GtkIconPaintable *
+BobguiIconPaintable *
 path_paintable_get_icon_paintable (PathPaintable *self)
 {
-  GtkIconPaintable *paintable;
+  BobguiIconPaintable *paintable;
   GFile *file;
   GIOStream *iostream;
   GOutputStream *ostream;
@@ -1200,7 +1200,7 @@ path_paintable_get_icon_paintable (PathPaintable *self)
   GBytes *bytes;
   GError *error = NULL;
 
-  file = g_file_new_tmp ("gtkXXXXXX-symbolic.svg", (GFileIOStream **) &iostream, &error);
+  file = g_file_new_tmp ("bobguiXXXXXX-symbolic.svg", (GFileIOStream **) &iostream, &error);
   if (error)
     {
       g_warning ("%s", error->message);
@@ -1209,7 +1209,7 @@ path_paintable_get_icon_paintable (PathPaintable *self)
     }
 
   ostream = g_io_stream_get_output_stream (iostream);
-  bytes = gtk_svg_serialize (self->svg);
+  bytes = bobgui_svg_serialize (self->svg);
   istream = g_memory_input_stream_new_from_bytes (bytes);
 
   g_output_stream_splice (ostream, istream, 0, NULL, &error);
@@ -1223,7 +1223,7 @@ path_paintable_get_icon_paintable (PathPaintable *self)
       return NULL;
     }
 
-  paintable = gtk_icon_paintable_new_for_file (file, 64, 1);
+  paintable = bobgui_icon_paintable_new_for_file (file, 64, 1);
 
   g_object_set_data_full (G_OBJECT (paintable), "file", file, clear_tempfile);
 
@@ -1258,10 +1258,10 @@ path_paintable_set_frame_clock (PathPaintable *self,
   g_set_object (&self->clock, clock);
 
   if (self->render_paintable)
-    gtk_svg_set_frame_clock (GTK_SVG (self->render_paintable), clock);
+    bobgui_svg_set_frame_clock (BOBGUI_SVG (self->render_paintable), clock);
 }
 
-GtkSvg *
+BobguiSvg *
 path_paintable_get_svg (PathPaintable *self)
 {
   return self->svg;

@@ -1,7 +1,7 @@
 <interface>
-  <object class="GtkWindow" id="window">
+  <object class="BobguiWindow" id="window">
     <child>
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <property name="xalign">0.0</property>
         <binding name="label">
           <lookup name="label">label2</lookup>
@@ -12,7 +12,7 @@
       </object>
     </child>
   </object>
-  <object class="GtkLabel" id="label2">
+  <object class="BobguiLabel" id="label2">
     <property name="label">Bla</property>
   </object>
 </interface>

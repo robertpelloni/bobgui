@@ -1,4 +1,4 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 static void
 test_basic (void)
@@ -56,7 +56,7 @@ main (int argc, char *argv[])
   (g_test_init) (&argc, &argv, NULL);
 
   /* Open default display */
-  gtk_init ();
+  bobgui_init ();
 
   g_test_add_func ("/display/basic", test_display_basic);
   g_test_add_func ("/displaymanager/basic", test_basic);

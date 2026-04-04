@@ -27,7 +27,7 @@
 #include <wayland-client.h>
 #include <wayland-egl.h>
 #include <gdk/wayland/tablet-v2-client-protocol.h>
-#include <gdk/wayland/gtk-shell-client-protocol.h>
+#include <gdk/wayland/bobgui-shell-client-protocol.h>
 #include <gdk/wayland/xdg-shell-client-protocol.h>
 #include <gdk/wayland/xdg-shell-unstable-v6-client-protocol.h>
 #include <gdk/wayland/xdg-foreign-unstable-v1-client-protocol.h>
@@ -109,7 +109,7 @@ struct _GdkWaylandDisplay
   struct xdg_wm_base *xdg_wm_base;
   struct zxdg_shell_v6 *zxdg_shell_v6;
   struct xdg_wm_dialog_v1 *xdg_wm_dialog;
-  struct gtk_shell1 *gtk_shell;
+  struct bobgui_shell1 *bobgui_shell;
   struct xdg_system_bell_v1 *system_bell;
   struct wl_data_device_manager *data_device_manager;
   struct wl_subcompositor *subcompositor;

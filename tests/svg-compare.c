@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "svgpaintable.h"
 
 
@@ -24,23 +24,23 @@
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *sw, *grid;
+  BobguiWidget *window, *sw, *grid;
   GFile *file;
   GFileEnumerator *dir;
   int row;
-  GtkWidget *label;
+  BobguiWidget *label;
   GPtrArray *files;
   GOptionContext *context;
   gboolean allow_shrink = FALSE;
   gboolean show_rsvg = TRUE;
-  gboolean show_gtk = TRUE;
+  gboolean show_bobgui = TRUE;
   gboolean show_sym = TRUE;
   gboolean show_png = TRUE;
   int size = 24;
   const GOptionEntry entries[] = {
     { "no-rsvg", 0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &show_rsvg, "Don't show rsvg rendering", NULL },
-    { "no-gtk", 0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &show_gtk, "Don't show gtk svg rendering", NULL },
-    { "no-symbolic", 0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &show_sym, "Don't show gtk symbolic rendering", NULL },
+    { "no-bobgui", 0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &show_bobgui, "Don't show bobgui svg rendering", NULL },
+    { "no-symbolic", 0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &show_sym, "Don't show bobgui symbolic rendering", NULL },
     { "no-png", 0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &show_png, "Don't show reference image", NULL },
     { "allow-shrink", 0, 0, G_OPTION_ARG_NONE, &allow_shrink, "Allow to shrink rendering", NULL },
     { "size", 0, 0, G_OPTION_ARG_INT, &size, "Minimum size" },
@@ -51,7 +51,7 @@ main (int argc, char *argv[])
   g_set_prgname ("svg-compare");
   context = g_option_context_new (NULL);
   g_option_context_add_main_entries (context, entries, NULL);
-  g_option_context_set_summary (context, "Compare svg rendering between gtk and rsvg.");
+  g_option_context_set_summary (context, "Compare svg rendering between bobgui and rsvg.");
 
   if (!g_option_context_parse (context, &argc, &argv, &error))
     {
@@ -60,10 +60,10 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 600, 400);
 
   if (argc < 2)
     {
@@ -76,10 +76,10 @@ main (int argc, char *argv[])
       file = g_file_new_for_commandline_arg (argv[1]);
     }
 
-  sw = gtk_scrolled_window_new ();
-  gtk_window_set_child (GTK_WINDOW (window), sw);
-  grid = gtk_grid_new ();
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (sw), grid);
+  sw = bobgui_scrolled_window_new ();
+  bobgui_window_set_child (BOBGUI_WINDOW (window), sw);
+  grid = bobgui_grid_new ();
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (sw), grid);
 
   files = g_ptr_array_new_with_free_func (g_free);
 
@@ -122,30 +122,30 @@ main (int argc, char *argv[])
 
   if (show_rsvg)
     {
-      label = gtk_label_new ("rsvg");
-      gtk_label_set_xalign (GTK_LABEL (label), 0.5);
-      gtk_grid_attach (GTK_GRID (grid), label, 1, -1, 1, 1);
+      label = bobgui_label_new ("rsvg");
+      bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.5);
+      bobgui_grid_attach (BOBGUI_GRID (grid), label, 1, -1, 1, 1);
     }
 
-  if (show_gtk)
+  if (show_bobgui)
     {
-      label = gtk_label_new ("GtkSvg");
-      gtk_label_set_xalign (GTK_LABEL (label), 0.5);
-      gtk_grid_attach (GTK_GRID (grid), label, 2, -1, 1, 1);
+      label = bobgui_label_new ("BobguiSvg");
+      bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.5);
+      bobgui_grid_attach (BOBGUI_GRID (grid), label, 2, -1, 1, 1);
     }
 
   if (show_sym)
     {
-      label = gtk_label_new ("GtkIconPaintable");
-      gtk_label_set_xalign (GTK_LABEL (label), 0.5);
-      gtk_grid_attach (GTK_GRID (grid), label, 3, -1, 1, 1);
+      label = bobgui_label_new ("BobguiIconPaintable");
+      bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.5);
+      bobgui_grid_attach (BOBGUI_GRID (grid), label, 3, -1, 1, 1);
     }
 
   if (show_png)
     {
-      label = gtk_label_new ("png");
-      gtk_label_set_xalign (GTK_LABEL (label), 0.5);
-      gtk_grid_attach (GTK_GRID (grid), label, 4, -1, 1, 1);
+      label = bobgui_label_new ("png");
+      bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.5);
+      bobgui_grid_attach (BOBGUI_GRID (grid), label, 4, -1, 1, 1);
     }
 
   row = 0;
@@ -156,7 +156,7 @@ main (int argc, char *argv[])
       char *basename;
       GdkPaintable *svg;
       GBytes *bytes;
-      GtkWidget *img;
+      BobguiWidget *img;
 
       path = g_ptr_array_index (files, i);
 
@@ -164,34 +164,34 @@ main (int argc, char *argv[])
 
       basename = g_file_get_basename (child);
 
-      label = gtk_label_new (basename);
-      gtk_label_set_xalign (GTK_LABEL (label), 0);
-      gtk_grid_attach (GTK_GRID (grid), label, 0, row, 1, 1);
+      label = bobgui_label_new (basename);
+      bobgui_label_set_xalign (BOBGUI_LABEL (label), 0);
+      bobgui_grid_attach (BOBGUI_GRID (grid), label, 0, row, 1, 1);
 
       if (show_rsvg)
         {
           svg = GDK_PAINTABLE (svg_paintable_new (child));
           if (svg)
             {
-              img = gtk_picture_new_for_paintable (svg);
-              gtk_picture_set_can_shrink (GTK_PICTURE (img), allow_shrink);
-              gtk_widget_set_size_request (img, size, size);
-              gtk_grid_attach (GTK_GRID (grid), img, 1, row, 1, 1);
+              img = bobgui_picture_new_for_paintable (svg);
+              bobgui_picture_set_can_shrink (BOBGUI_PICTURE (img), allow_shrink);
+              bobgui_widget_set_size_request (img, size, size);
+              bobgui_grid_attach (BOBGUI_GRID (grid), img, 1, row, 1, 1);
               g_object_unref (svg);
             }
       }
 
-      if (show_gtk)
+      if (show_bobgui)
         {
           bytes = g_file_load_bytes (child, NULL, NULL, NULL);
-          svg = GDK_PAINTABLE (gtk_svg_new_from_bytes (bytes));
+          svg = GDK_PAINTABLE (bobgui_svg_new_from_bytes (bytes));
           if (svg)
             {
-              img = gtk_picture_new_for_paintable (svg);
-              gtk_svg_play (GTK_SVG (svg));
-              gtk_picture_set_can_shrink (GTK_PICTURE (img), allow_shrink);
-              gtk_widget_set_size_request (img, size, size);
-              gtk_grid_attach (GTK_GRID (grid), img, 2, row, 1, 1);
+              img = bobgui_picture_new_for_paintable (svg);
+              bobgui_svg_play (BOBGUI_SVG (svg));
+              bobgui_picture_set_can_shrink (BOBGUI_PICTURE (img), allow_shrink);
+              bobgui_widget_set_size_request (img, size, size);
+              bobgui_grid_attach (BOBGUI_GRID (grid), img, 2, row, 1, 1);
               g_object_unref (svg);
               g_bytes_unref (bytes);
             }
@@ -206,13 +206,13 @@ main (int argc, char *argv[])
         {
           GdkPaintable *sym;
 
-          sym = GDK_PAINTABLE (gtk_icon_paintable_new_for_file (child, size, 1));
+          sym = GDK_PAINTABLE (bobgui_icon_paintable_new_for_file (child, size, 1));
           if (sym)
             {
-              img = gtk_picture_new_for_paintable (sym);
-              gtk_picture_set_can_shrink (GTK_PICTURE (img), allow_shrink);
-              gtk_widget_set_size_request (img, size, size);
-              gtk_grid_attach (GTK_GRID (grid), img, 3, row, 1, 1);
+              img = bobgui_picture_new_for_paintable (sym);
+              bobgui_picture_set_can_shrink (BOBGUI_PICTURE (img), allow_shrink);
+              bobgui_widget_set_size_request (img, size, size);
+              bobgui_grid_attach (BOBGUI_GRID (grid), img, 3, row, 1, 1);
               g_object_unref (sym);
             }
         }
@@ -229,11 +229,11 @@ main (int argc, char *argv[])
           paintable = GDK_PAINTABLE (gdk_texture_new_from_filename (png_path, NULL));
           if (paintable)
             {
-              img = gtk_picture_new_for_paintable (paintable);
-              gtk_picture_set_can_shrink (GTK_PICTURE (img), allow_shrink);
-              gtk_widget_set_size_request (img, size, size);
-              gtk_widget_set_halign (img, GTK_ALIGN_START);
-              gtk_grid_attach (GTK_GRID (grid), img, 4, row, 1, 1);
+              img = bobgui_picture_new_for_paintable (paintable);
+              bobgui_picture_set_can_shrink (BOBGUI_PICTURE (img), allow_shrink);
+              bobgui_widget_set_size_request (img, size, size);
+              bobgui_widget_set_halign (img, BOBGUI_ALIGN_START);
+              bobgui_grid_attach (BOBGUI_GRID (grid), img, 4, row, 1, 1);
               g_object_unref (paintable);
             }
 
@@ -248,9 +248,9 @@ main (int argc, char *argv[])
   g_ptr_array_unref (files);
   g_object_unref (file);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
-  while (g_list_model_get_n_items (gtk_window_get_toplevels ()) > 0)
+  while (g_list_model_get_n_items (bobgui_window_get_toplevels ()) > 0)
     g_main_context_iteration (NULL, TRUE);
 
   return 0;

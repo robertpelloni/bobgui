@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkAdjustment" id="adjustment1">
+  <object class="BobguiAdjustment" id="adjustment1">
     <property name="lower">0</property>
     <property name="upper">100</property>
     <property name="page-size">0</property>
@@ -8,17 +8,17 @@
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="can_focus">False</property>
     <property name="decorated">0</property>
     <property name="default-width">100</property>
     <child>
-      <object class="GtkBox">
+      <object class="BobguiBox">
         <property name="visible">True</property>
         <property name="name">scales</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkScale">
+          <object class="BobguiScale">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="adjustment">adjustment1</property>
@@ -26,7 +26,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkScale">
+          <object class="BobguiScale">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="adjustment">adjustment1</property>
@@ -35,7 +35,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkScale">
+          <object class="BobguiScale">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="adjustment">adjustment1</property>
@@ -45,7 +45,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkScale">
+          <object class="BobguiScale">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="adjustment">adjustment1</property>
@@ -54,7 +54,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkScale">
+          <object class="BobguiScale">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="adjustment">adjustment1</property>
@@ -66,7 +66,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkScale">
+          <object class="BobguiScale">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="adjustment">adjustment1</property>
@@ -78,7 +78,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkScale">
+          <object class="BobguiScale">
             <property name="visible">True</property>
             <property name="orientation">horizontal</property>
             <property name="adjustment">adjustment1</property>

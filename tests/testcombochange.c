@@ -17,13 +17,13 @@
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <stdarg.h>
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
-GtkWidget *text_view;
-GtkListStore *model;
+BobguiWidget *text_view;
+BobguiListStore *model;
 GArray *contents;
 
 static char next_value = 'A';
@@ -32,20 +32,20 @@ G_GNUC_PRINTF (1, 2) static void
 combochange_log (const char *fmt,
                  ...)
 {
-  GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_view));
-  GtkTextIter iter;
+  BobguiTextBuffer *buffer = bobgui_text_view_get_buffer (BOBGUI_TEXT_VIEW (text_view));
+  BobguiTextIter iter;
   va_list vap;
   char *msg;
   GString *order_string;
-  GtkTextMark *tmp_mark;
+  BobguiTextMark *tmp_mark;
   int i;
 
   va_start (vap, fmt);
   
   msg = g_strdup_vprintf (fmt, vap);
 
-  gtk_text_buffer_get_end_iter (buffer, &iter);
-  gtk_text_buffer_insert (buffer, &iter, msg, -1);
+  bobgui_text_buffer_get_end_iter (buffer, &iter);
+  bobgui_text_buffer_insert (buffer, &iter, msg, -1);
 
   order_string = g_string_new ("\n  ");
   for (i = 0; i < contents->len; i++)
@@ -55,12 +55,12 @@ combochange_log (const char *fmt,
       g_string_append_c (order_string, g_array_index (contents, char, i));
     }
   g_string_append_c (order_string, '\n');
-  gtk_text_buffer_insert (buffer, &iter, order_string->str, -1);
+  bobgui_text_buffer_insert (buffer, &iter, order_string->str, -1);
   g_string_free (order_string, TRUE);
 
-  tmp_mark = gtk_text_buffer_create_mark (buffer, NULL, &iter, FALSE);
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (text_view), tmp_mark);
-  gtk_text_buffer_delete_mark (buffer, tmp_mark);
+  tmp_mark = bobgui_text_buffer_create_mark (buffer, NULL, &iter, FALSE);
+  bobgui_text_view_scroll_mark_onscreen (BOBGUI_TEXT_VIEW (text_view), tmp_mark);
+  bobgui_text_buffer_delete_mark (buffer, tmp_mark);
 
   g_free (msg);
 }
@@ -68,7 +68,7 @@ combochange_log (const char *fmt,
 static void
 on_insert (void)
 {
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
   
   int insert_pos;
   char new_value[2];
@@ -84,8 +84,8 @@ on_insert (void)
   else
     insert_pos = 0;
   
-  gtk_list_store_insert (model, &iter, insert_pos);
-  gtk_list_store_set (model, &iter, 0, new_value, -1);
+  bobgui_list_store_insert (model, &iter, insert_pos);
+  bobgui_list_store_set (model, &iter, 0, new_value, -1);
 
   g_array_insert_val (contents, insert_pos, new_value);
 
@@ -95,7 +95,7 @@ on_insert (void)
 static void
 on_delete (void)
 {
-  GtkTreeIter iter;
+  BobguiTreeIter iter;
   
   int delete_pos;
   char old_val;
@@ -104,9 +104,9 @@ on_delete (void)
     return;
   
   delete_pos = g_random_int_range (0, contents->len);
-  gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (model), &iter, NULL, delete_pos);
+  bobgui_tree_model_iter_nth_child (BOBGUI_TREE_MODEL (model), &iter, NULL, delete_pos);
   
-  gtk_list_store_remove (model, &iter);
+  bobgui_list_store_remove (model, &iter);
 
   old_val = g_array_index (contents, char, delete_pos);
   g_array_remove_index (contents, delete_pos);
@@ -135,7 +135,7 @@ on_reorder (void)
       shuffle_array[pos] = tmp;
     }
 
-  gtk_list_store_reorder (model, shuffle_array);
+  bobgui_list_store_reorder (model, shuffle_array);
 
   new_contents = g_array_new (FALSE, FALSE, sizeof (char));
   for (i = 0; i < contents->len; i++)
@@ -185,84 +185,84 @@ on_animate (void)
 int
 main (int argc, char **argv)
 {
-  GtkWidget *content_area;
-  GtkWidget *window;
-  GtkWidget *scrolled_window;
-  GtkWidget *hbox;
-  GtkWidget *button_vbox;
-  GtkWidget *combo_vbox;
-  GtkWidget *button;
-  GtkWidget *combo;
-  GtkCellRenderer *cell_renderer;
+  BobguiWidget *content_area;
+  BobguiWidget *window;
+  BobguiWidget *scrolled_window;
+  BobguiWidget *hbox;
+  BobguiWidget *button_vbox;
+  BobguiWidget *combo_vbox;
+  BobguiWidget *button;
+  BobguiWidget *combo;
+  BobguiCellRenderer *cell_renderer;
 
-  gtk_init ();
+  bobgui_init ();
 
-  model = gtk_list_store_new (1, G_TYPE_STRING);
+  model = bobgui_list_store_new (1, G_TYPE_STRING);
   contents = g_array_new (FALSE, FALSE, sizeof (char));
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "ComboBox Change");
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "ComboBox Change");
 
-  content_area = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
-  gtk_window_set_child (GTK_WINDOW (window), content_area);
+  content_area = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 12);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), content_area);
 
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-  gtk_box_append (GTK_BOX (content_area), hbox);
+  hbox = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 12);
+  bobgui_box_append (BOBGUI_BOX (content_area), hbox);
 
-  combo_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_box_append (GTK_BOX (hbox), combo_vbox);
+  combo_vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 8);
+  bobgui_box_append (BOBGUI_BOX (hbox), combo_vbox);
 
-  combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (model));
-  cell_renderer = gtk_cell_renderer_text_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo), cell_renderer, TRUE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo), cell_renderer,
+  combo = bobgui_combo_box_new_with_model (BOBGUI_TREE_MODEL (model));
+  cell_renderer = bobgui_cell_renderer_text_new ();
+  bobgui_cell_layout_pack_start (BOBGUI_CELL_LAYOUT (combo), cell_renderer, TRUE);
+  bobgui_cell_layout_set_attributes (BOBGUI_CELL_LAYOUT (combo), cell_renderer,
                                   "text", 0, NULL);
-  gtk_widget_set_margin_start (combo, 12);
-  gtk_box_append (GTK_BOX (combo_vbox), combo);
+  bobgui_widget_set_margin_start (combo, 12);
+  bobgui_box_append (BOBGUI_BOX (combo_vbox), combo);
 
-  scrolled_window = gtk_scrolled_window_new ();
-  gtk_widget_set_hexpand (scrolled_window, TRUE);
-  gtk_box_append (GTK_BOX (hbox), scrolled_window);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  scrolled_window = bobgui_scrolled_window_new ();
+  bobgui_widget_set_hexpand (scrolled_window, TRUE);
+  bobgui_box_append (BOBGUI_BOX (hbox), scrolled_window);
+  bobgui_scrolled_window_set_policy (BOBGUI_SCROLLED_WINDOW (scrolled_window),
+                                  BOBGUI_POLICY_AUTOMATIC, BOBGUI_POLICY_AUTOMATIC);
 
-  text_view = gtk_text_view_new ();
-  gtk_text_view_set_editable (GTK_TEXT_VIEW (text_view), FALSE);
-  gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (text_view), FALSE);
+  text_view = bobgui_text_view_new ();
+  bobgui_text_view_set_editable (BOBGUI_TEXT_VIEW (text_view), FALSE);
+  bobgui_text_view_set_cursor_visible (BOBGUI_TEXT_VIEW (text_view), FALSE);
 
-  gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (scrolled_window), text_view);
+  bobgui_scrolled_window_set_child (BOBGUI_SCROLLED_WINDOW (scrolled_window), text_view);
 
-  button_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 8);
-  gtk_box_append (GTK_BOX (hbox), button_vbox);
+  button_vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 8);
+  bobgui_box_append (BOBGUI_BOX (hbox), button_vbox);
 
-  gtk_window_set_default_size (GTK_WINDOW (window), 500, 300);
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 500, 300);
 
-  button = gtk_button_new_with_label ("Insert");
-  gtk_box_append (GTK_BOX (button_vbox), button);
+  button = bobgui_button_new_with_label ("Insert");
+  bobgui_box_append (BOBGUI_BOX (button_vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (on_insert), NULL);
 
-  button = gtk_button_new_with_label ("Delete");
-  gtk_box_append (GTK_BOX (button_vbox), button);
+  button = bobgui_button_new_with_label ("Delete");
+  bobgui_box_append (BOBGUI_BOX (button_vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (on_delete), NULL);
 
-  button = gtk_button_new_with_label ("Reorder");
-  gtk_box_append (GTK_BOX (button_vbox), button);
+  button = bobgui_button_new_with_label ("Reorder");
+  bobgui_box_append (BOBGUI_BOX (button_vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (on_reorder), NULL);
 
-  button = gtk_button_new_with_label ("Animate");
-  gtk_box_append (GTK_BOX (button_vbox), button);
+  button = bobgui_button_new_with_label ("Animate");
+  bobgui_box_append (BOBGUI_BOX (button_vbox), button);
   g_signal_connect (button, "clicked", G_CALLBACK (on_animate), NULL);
 
-  GtkWidget *close_button = gtk_button_new_with_mnemonic ("_Close");
-  gtk_widget_set_hexpand (close_button, TRUE);
-  gtk_box_append (GTK_BOX (content_area), close_button);
+  BobguiWidget *close_button = bobgui_button_new_with_mnemonic ("_Close");
+  bobgui_widget_set_hexpand (close_button, TRUE);
+  bobgui_box_append (BOBGUI_BOX (content_area), close_button);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   GMainLoop *loop = g_main_loop_new (NULL, FALSE);
 
   g_signal_connect_swapped (close_button, "clicked",
-                            G_CALLBACK (gtk_window_destroy),
+                            G_CALLBACK (bobgui_window_destroy),
                             window);
   g_signal_connect_swapped (window, "destroy",
                             G_CALLBACK (g_main_loop_quit),

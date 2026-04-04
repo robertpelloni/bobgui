@@ -1,25 +1,25 @@
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include <math.h>
 
-GtkAdjustment *adjustment;
+BobguiAdjustment *adjustment;
 int cursor_x, cursor_y;
 
 static void
-motion_cb (GtkEventControllerMotion *motion,
+motion_cb (BobguiEventControllerMotion *motion,
            double                    x,
            double                    y,
-           GtkWidget                *widget)
+           BobguiWidget                *widget)
 {
-  float processing_ms = gtk_adjustment_get_value (adjustment);
+  float processing_ms = bobgui_adjustment_get_value (adjustment);
   g_usleep (processing_ms * 1000);
 
   cursor_x = x;
   cursor_y = y;
-  gtk_widget_queue_draw (widget);
+  bobgui_widget_queue_draw (widget);
 }
 
 static void
-on_draw (GtkDrawingArea *da,
+on_draw (BobguiDrawingArea *da,
          cairo_t        *cr,
          int             width,
          int             height,
@@ -35,7 +35,7 @@ on_draw (GtkDrawingArea *da,
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -48,44 +48,44 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char **argv)
 {
-  GtkWidget *window;
-  GtkWidget *vbox;
-  GtkWidget *label;
-  GtkWidget *scale;
-  GtkWidget *da;
-  GtkEventController *controller;
+  BobguiWidget *window;
+  BobguiWidget *vbox;
+  BobguiWidget *label;
+  BobguiWidget *scale;
+  BobguiWidget *da;
+  BobguiEventController *controller;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
-  window = gtk_window_new ();
-  gtk_window_set_default_size (GTK_WINDOW (window), 300, 300);
+  window = bobgui_window_new ();
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 300, 300);
 
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  gtk_window_set_child (GTK_WINDOW (window), vbox);
+  vbox = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
 
-  da = gtk_drawing_area_new ();
-  gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (da), on_draw, NULL, NULL);
-  gtk_widget_set_vexpand (da, TRUE);
-  gtk_box_append (GTK_BOX (vbox), da);
+  da = bobgui_drawing_area_new ();
+  bobgui_drawing_area_set_draw_func (BOBGUI_DRAWING_AREA (da), on_draw, NULL, NULL);
+  bobgui_widget_set_vexpand (da, TRUE);
+  bobgui_box_append (BOBGUI_BOX (vbox), da);
 
-  label = gtk_label_new ("Event processing time (ms):");
-  gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
-  gtk_box_append (GTK_BOX (vbox), label);
+  label = bobgui_label_new ("Event processing time (ms):");
+  bobgui_widget_set_halign (label, BOBGUI_ALIGN_CENTER);
+  bobgui_box_append (BOBGUI_BOX (vbox), label);
 
-  adjustment = gtk_adjustment_new (20, 0, 200, 1, 10, 0);
-  scale = gtk_scale_new (GTK_ORIENTATION_HORIZONTAL, adjustment);
-  gtk_box_append (GTK_BOX (vbox), scale);
+  adjustment = bobgui_adjustment_new (20, 0, 200, 1, 10, 0);
+  scale = bobgui_scale_new (BOBGUI_ORIENTATION_HORIZONTAL, adjustment);
+  bobgui_box_append (BOBGUI_BOX (vbox), scale);
 
-  controller = gtk_event_controller_motion_new ();
+  controller = bobgui_event_controller_motion_new ();
   g_signal_connect (controller, "motion",
                     G_CALLBACK (motion_cb), da);
-  gtk_widget_add_controller (da, controller);
+  bobgui_widget_add_controller (da, controller);
 
   g_signal_connect (window, "destroy",
                     G_CALLBACK (quit_cb), &done);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
   while (!done)
     g_main_context_iteration (NULL, TRUE); 
 

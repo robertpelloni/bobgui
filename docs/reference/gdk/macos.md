@@ -4,7 +4,7 @@ Title: macOS Interaction
 
 The functions in this section are specific to the GDK macOS backend.
 To use them, you need to include the `<gdk/macos/gdkmacos.h>` header and
-use the macOS-specific pkg-config `gtk4-macos` file to build your
+use the macOS-specific pkg-config `bobgui4-macos` file to build your
 application.
 
 ## Checking for the macOS backend

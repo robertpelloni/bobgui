@@ -358,7 +358,7 @@ gdk_dmabuf_sanitize (GdkDmabuf        *dest,
     {
       g_set_error (error,
                    GDK_DMABUF_ERROR, GDK_DMABUF_ERROR_UNSUPPORTED_FORMAT,
-                   "GTK only support dmabufs with %u planes, not %u",
+                   "BOBGUI only support dmabufs with %u planes, not %u",
                    GDK_DMABUF_MAX_PLANES, src->n_planes);
       return FALSE;
     }
@@ -573,7 +573,7 @@ gdk_dmabuf_new_for_bytes (GBytes  *bytes,
   size = align (g_bytes_get_size (bytes), alignment);
 
 #ifdef HAVE_MEMFD_CREATE
-  mem_fd = memfd_create ("gtk", MFD_ALLOW_SEALING);
+  mem_fd = memfd_create ("bobgui", MFD_ALLOW_SEALING);
 #endif
   if (mem_fd == -1)
     {

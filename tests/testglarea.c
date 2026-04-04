@@ -1,6 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 #include <epoxy/gl.h>
 
@@ -14,7 +14,7 @@ enum {
 
 static float rotation_angles[N_AXIS] = { 0.0 };
 
-static GtkWidget *gl_area;
+static BobguiWidget *gl_area;
 
 static const GLfloat vertex_data[] = {
  0.f, 0.5f, 0.f, 1.f,
@@ -246,17 +246,17 @@ static GLuint program;
 static GLuint mvp_location;
 
 static void
-realize (GtkWidget *widget)
+realize (BobguiWidget *widget)
 {
   const char *fragment, *vertex;
   GdkGLContext *context;
 
-  gtk_gl_area_make_current (GTK_GL_AREA (widget));
+  bobgui_gl_area_make_current (BOBGUI_GL_AREA (widget));
 
-  if (gtk_gl_area_get_error (GTK_GL_AREA (widget)) != NULL)
+  if (bobgui_gl_area_get_error (BOBGUI_GL_AREA (widget)) != NULL)
     return;
 
-  context = gtk_gl_area_get_context (GTK_GL_AREA (widget));
+  context = bobgui_gl_area_get_context (BOBGUI_GL_AREA (widget));
   if (gdk_gl_context_get_use_es (context))
     {
       vertex = vertex_shader_code_gles;
@@ -281,11 +281,11 @@ realize (GtkWidget *widget)
 }
 
 static void
-unrealize (GtkWidget *widget)
+unrealize (BobguiWidget *widget)
 {
-  gtk_gl_area_make_current (GTK_GL_AREA (widget));
+  bobgui_gl_area_make_current (BOBGUI_GL_AREA (widget));
 
-  if (gtk_gl_area_get_error (GTK_GL_AREA (widget)) != NULL)
+  if (bobgui_gl_area_get_error (BOBGUI_GL_AREA (widget)) != NULL)
     return;
 
   glDeleteBuffers (1, &position_buffer);
@@ -319,7 +319,7 @@ draw_triangle (void)
 }
 
 static gboolean
-render (GtkGLArea    *area,
+render (BobguiGLArea    *area,
         GdkGLContext *context)
 {
   glClearColor (0.5, 0.5, 0.5, 1.0);
@@ -333,7 +333,7 @@ render (GtkGLArea    *area,
 }
 
 static void
-on_axis_value_change (GtkAdjustment *adjustment,
+on_axis_value_change (BobguiAdjustment *adjustment,
                       gpointer       data)
 {
   int axis = GPOINTER_TO_INT (data);
@@ -341,19 +341,19 @@ on_axis_value_change (GtkAdjustment *adjustment,
   if (axis < 0 || axis >= N_AXIS)
     return;
 
-  rotation_angles[axis] = gtk_adjustment_get_value (adjustment);
+  rotation_angles[axis] = bobgui_adjustment_get_value (adjustment);
 
-  gtk_widget_queue_draw (gl_area);
+  bobgui_widget_queue_draw (gl_area);
 }
 
-static GtkWidget *
+static BobguiWidget *
 create_axis_slider (int axis)
 {
-  GtkWidget *box, *label, *slider;
-  GtkAdjustment *adj;
+  BobguiWidget *box, *label, *slider;
+  BobguiAdjustment *adj;
   const char *text;
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, FALSE);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, FALSE);
 
   switch (axis)
     {
@@ -373,22 +373,22 @@ create_axis_slider (int axis)
       g_assert_not_reached ();
     }
 
-  label = gtk_label_new (text);
-  gtk_box_append (GTK_BOX (box), label);
+  label = bobgui_label_new (text);
+  bobgui_box_append (BOBGUI_BOX (box), label);
 
-  adj = gtk_adjustment_new (0.0, 0.0, 360.0, 1.0, 12.0, 0.0);
+  adj = bobgui_adjustment_new (0.0, 0.0, 360.0, 1.0, 12.0, 0.0);
   g_signal_connect (adj, "value-changed",
                     G_CALLBACK (on_axis_value_change),
                     GINT_TO_POINTER (axis));
-  slider = gtk_scale_new (GTK_ORIENTATION_HORIZONTAL, adj);
-  gtk_box_append (GTK_BOX (box), slider);
-  gtk_widget_set_hexpand (slider, TRUE);
+  slider = bobgui_scale_new (BOBGUI_ORIENTATION_HORIZONTAL, adj);
+  bobgui_box_append (BOBGUI_BOX (box), slider);
+  bobgui_widget_set_hexpand (slider, TRUE);
 
   return box;
 }
 
 static void
-quit_cb (GtkWidget *widget,
+quit_cb (BobguiWidget *widget,
          gpointer   data)
 {
   gboolean *done = data;
@@ -401,50 +401,50 @@ quit_cb (GtkWidget *widget,
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window, *box, *button, *controls;
+  BobguiWidget *window, *box, *button, *controls;
   int i;
   gboolean done = FALSE;
 
-  gtk_init ();
+  bobgui_init ();
 
   /* create a new pixel format; we use this to configure the
    * GL context, and to check for features
    */
 
-  window = gtk_window_new ();
-  gtk_window_set_title (GTK_WINDOW (window), "GtkGLArea - Triangle");
-  gtk_window_set_default_size (GTK_WINDOW (window), 400, 600);
+  window = bobgui_window_new ();
+  bobgui_window_set_title (BOBGUI_WINDOW (window), "BobguiGLArea - Triangle");
+  bobgui_window_set_default_size (BOBGUI_WINDOW (window), 400, 600);
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
-  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, FALSE);
-  gtk_widget_set_margin_start (box, 12);
-  gtk_widget_set_margin_end (box, 12);
-  gtk_widget_set_margin_top (box, 12);
-  gtk_widget_set_margin_bottom (box, 12);
-  gtk_box_set_spacing (GTK_BOX (box), 6);
-  gtk_window_set_child (GTK_WINDOW (window), box);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, FALSE);
+  bobgui_widget_set_margin_start (box, 12);
+  bobgui_widget_set_margin_end (box, 12);
+  bobgui_widget_set_margin_top (box, 12);
+  bobgui_widget_set_margin_bottom (box, 12);
+  bobgui_box_set_spacing (BOBGUI_BOX (box), 6);
+  bobgui_window_set_child (BOBGUI_WINDOW (window), box);
 
-  gl_area = gtk_gl_area_new ();
-  gtk_widget_set_hexpand (gl_area, TRUE);
-  gtk_widget_set_vexpand (gl_area, TRUE);
-  gtk_box_append (GTK_BOX (box), gl_area);
+  gl_area = bobgui_gl_area_new ();
+  bobgui_widget_set_hexpand (gl_area, TRUE);
+  bobgui_widget_set_vexpand (gl_area, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), gl_area);
   g_signal_connect (gl_area, "realize", G_CALLBACK (realize), NULL);
   g_signal_connect (gl_area, "unrealize", G_CALLBACK (unrealize), NULL);
   g_signal_connect (gl_area, "render", G_CALLBACK (render), NULL);
 
-  controls = gtk_box_new (GTK_ORIENTATION_VERTICAL, FALSE);
-  gtk_box_append (GTK_BOX (box), controls);
-  gtk_widget_set_hexpand (controls, TRUE);
+  controls = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, FALSE);
+  bobgui_box_append (BOBGUI_BOX (box), controls);
+  bobgui_widget_set_hexpand (controls, TRUE);
 
   for (i = 0; i < N_AXIS; i++)
-    gtk_box_append (GTK_BOX (controls), create_axis_slider (i));
+    bobgui_box_append (BOBGUI_BOX (controls), create_axis_slider (i));
 
-  button = gtk_button_new_with_label ("Quit");
-  gtk_widget_set_hexpand (button, TRUE);
-  gtk_box_append (GTK_BOX (box), button);
-  g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_window_destroy), window);
+  button = bobgui_button_new_with_label ("Quit");
+  bobgui_widget_set_hexpand (button, TRUE);
+  bobgui_box_append (BOBGUI_BOX (box), button);
+  g_signal_connect_swapped (button, "clicked", G_CALLBACK (bobgui_window_destroy), window);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

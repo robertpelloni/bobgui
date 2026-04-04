@@ -270,7 +270,7 @@ gdk_macos_gl_context_allocate (GdkMacosGLContext *self)
        * video playing correctly. Something, somewhere, might have
        * changed the context without touching GdkGLContext.
        *
-       * Without this, video_player often breaks in gtk-demo when using
+       * Without this, video_player often breaks in bobgui-demo when using
        * the GStreamer backend.
        */
       CGLSetCurrentContext (self->cgl_context);

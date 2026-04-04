@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
+ * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/. 
  */
 
 #include "config.h"
@@ -834,7 +834,7 @@ static const struct {
   { 0x20ac, 0x20ac }, /*                    EuroSign € EURO SIGN */
 
 
-  /* Following items added to GTK, not in the xterm table */
+  /* Following items added to BOBGUI, not in the xterm table */
 
   /* A few ASCII control characters */
 

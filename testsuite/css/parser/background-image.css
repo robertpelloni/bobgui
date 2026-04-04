@@ -68,9 +68,9 @@ q {
 }
 
 r {
-  background-image: -gtk-icontheme("object-select-symbolic");
+  background-image: -bobgui-icontheme("object-select-symbolic");
 }
 
 s {
-  background-image: -gtk-scaled(-gtk-icontheme("object-select-symbolic"),linear-gradient(yellow, blue));
+  background-image: -bobgui-scaled(-bobgui-icontheme("object-select-symbolic"),linear-gradient(yellow, blue));
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <gresources>
-  <gresource prefix="/org/gtk/bloatpad">
-    <file preprocess="xml-stripblanks">gtk/menus.ui</file>
-    <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
+  <gresource prefix="/org/bobgui/bloatpad">
+    <file preprocess="xml-stripblanks">bobgui/menus.ui</file>
+    <file preprocess="xml-stripblanks">bobgui/help-overlay.ui</file>
     <file>icons/scalable/actions/format-justify-center-symbolic.svg</file>
     <file>icons/scalable/actions/format-justify-left-symbolic.svg</file>
     <file>icons/scalable/actions/format-justify-right-symbolic.svg</file>

@@ -20,7 +20,7 @@
 
 #include <string.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 #include "testsuite/testutils.h"
 
 #ifdef G_OS_WIN32
@@ -30,7 +30,7 @@
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
 /* There shall be no other styles */
-#define GTK_STYLE_PROVIDER_PRIORITY_FORCE G_MAXUINT
+#define BOBGUI_STYLE_PROVIDER_PRIORITY_FORCE G_MAXUINT
 
 static char *
 test_get_other_file (const char *ui_file, const char *extension)
@@ -68,15 +68,15 @@ fixup_style_differences (const char *str)
 }
 
 static void
-style_context_changed (GtkWidget *window, const char **output)
+style_context_changed (BobguiWidget *window, const char **output)
 {
-  GtkStyleContext *context;
+  BobguiStyleContext *context;
   char *str;
 
-  context = gtk_widget_get_style_context (window);
+  context = bobgui_widget_get_style_context (window);
 
-  str = gtk_style_context_to_string (context, GTK_STYLE_CONTEXT_PRINT_RECURSE |
-                                              GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE);
+  str = bobgui_style_context_to_string (context, BOBGUI_STYLE_CONTEXT_PRINT_RECURSE |
+                                              BOBGUI_STYLE_CONTEXT_PRINT_SHOW_STYLE);
 
   *output = fixup_style_differences (str);
 
@@ -88,12 +88,12 @@ style_context_changed (GtkWidget *window, const char **output)
 static void
 load_ui_file (GFile *file, gboolean generate)
 {
-  GtkBuilder *builder;
-  GtkWidget *window;
+  BobguiBuilder *builder;
+  BobguiWidget *window;
   char *output;
   char *diff;
   char *ui_file, *css_file, *reference_file;
-  GtkCssProvider *provider;
+  BobguiCssProvider *provider;
   GError *error = NULL;
 
   ui_file = g_file_get_path (file);
@@ -101,21 +101,21 @@ load_ui_file (GFile *file, gboolean generate)
   css_file = test_get_other_file (ui_file, ".css");
   g_assert_nonnull (css_file);
 
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_path (provider, css_file);
-  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
-                                              GTK_STYLE_PROVIDER (provider),
-                                              GTK_STYLE_PROVIDER_PRIORITY_FORCE);
+  provider = bobgui_css_provider_new ();
+  bobgui_css_provider_load_from_path (provider, css_file);
+  bobgui_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              BOBGUI_STYLE_PROVIDER (provider),
+                                              BOBGUI_STYLE_PROVIDER_PRIORITY_FORCE);
 
-  builder = gtk_builder_new_from_file (ui_file);
-  window = GTK_WIDGET (gtk_builder_get_object (builder, "window1"));
+  builder = bobgui_builder_new_from_file (ui_file);
+  window = BOBGUI_WIDGET (bobgui_builder_get_object (builder, "window1"));
 
   g_assert_nonnull (window);
 
   output = NULL;
   g_signal_connect (window, "map", G_CALLBACK (style_context_changed), &output);
 
-  gtk_window_present (GTK_WINDOW (window));
+  bobgui_window_present (BOBGUI_WINDOW (window));
 
   while (!output)
     g_main_context_iteration (NULL, FALSE);
@@ -141,8 +141,8 @@ load_ui_file (GFile *file, gboolean generate)
   g_free (diff);
 
 out:
-  gtk_style_context_remove_provider_for_display (gdk_display_get_default (),
-                                                 GTK_STYLE_PROVIDER (provider));
+  bobgui_style_context_remove_provider_for_display (gdk_display_get_default (),
+                                                 BOBGUI_STYLE_PROVIDER (provider));
   g_object_unref (provider);
 
   g_free (output);
@@ -234,16 +234,16 @@ add_tests_for_files_in_directory (GFile *dir)
 int
 main (int argc, char **argv)
 {
-  g_setenv ("GTK_CSS_DEBUG", "1", TRUE);
-  g_setenv ("GTK_THEME", "Empty", TRUE);
+  g_setenv ("BOBGUI_CSS_DEBUG", "1", TRUE);
+  g_setenv ("BOBGUI_THEME", "Empty", TRUE);
 
   if (argc >= 3 && strcmp (argv[1], "--generate") == 0)
     {
       GFile *file = g_file_new_for_commandline_arg (argv[2]);
 
-      gtk_init ();
+      bobgui_init ();
 
-      g_object_set (gtk_settings_get_default (), "gtk-font-name", "Sans", NULL);
+      g_object_set (bobgui_settings_get_default (), "bobgui-font-name", "Sans", NULL);
 
       load_ui_file (file, TRUE);
 
@@ -252,8 +252,8 @@ main (int argc, char **argv)
       return 0;
     }
 
-  gtk_test_init (&argc, &argv);
-  g_object_set (gtk_settings_get_default (), "gtk-font-name", "Sans", NULL);
+  bobgui_test_init (&argc, &argv);
+  g_object_set (bobgui_settings_get_default (), "bobgui-font-name", "Sans", NULL);
 
   if (argc < 2)
     {

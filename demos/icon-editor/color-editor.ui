@@ -1,14 +1,14 @@
 <interface>
-  <template class="ColorEditor" parent="GtkWidget">
+  <template class="ColorEditor" parent="BobguiWidget">
     <property name="alpha" bind-source="indicator" bind-property="alpha" bind-flags="bidirectional | sync-create"/>
     <child>
-      <object class="GtkDropDown" id="paint">
+      <object class="BobguiDropDown" id="paint">
         <accessibility>
           <property name="label" translatable="yes">Color</property>
         </accessibility>
         <property name="hexpand">1</property>
         <property name="model">
-          <object class="GtkStringList">
+          <object class="BobguiStringList">
             <items>
               <item>None</item>
               <item>Foreground</item>
@@ -24,32 +24,32 @@
       </object>
     </child>
     <child>
-      <object class="GtkStack" id="stack">
+      <object class="BobguiStack" id="stack">
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">none</property>
             <property name="child">
-              <object class="GtkBox"/>
+              <object class="BobguiBox"/>
             </property>
           </object>
         </child>
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">indicator</property>
             <property name="child">
-              <object class="GtkMenuButton">
+              <object class="BobguiMenuButton">
                 <property name="direction">left</property>
                 <style><class name="alpha"/></style>
                 <accessibility>
                   <property name="label" translatable="yes">Alpha</property>
                 </accessibility>
                 <property name="popover">
-                  <object class="GtkPopover">
+                  <object class="BobguiPopover">
                     <property name="child">
-                      <object class="GtkBox">
+                      <object class="BobguiBox">
                         <property name="orientation">horizontal</property>
                         <child>
-                          <object class="GtkLabel" id="alpha_label">
+                          <object class="BobguiLabel" id="alpha_label">
                             <property name="label" translatable="yes">_Alpha</property>
                             <property name="use-underline">1</property>
                             <property name="mnemonic-widget">alpha_editor</property>
@@ -65,7 +65,7 @@
                   </object>
                 </property>
                 <property name="child">
-                  <object class="GtkPicture">
+                  <object class="BobguiPicture">
                     <property name="paintable">
                       <object class="ColorPaintable" id="indicator">
                         <property name="symbolic" bind-source="ColorEditor" bind-property="symbolic" bind-flags="sync-create"/>
@@ -79,15 +79,15 @@
           </object>
         </child>
         <child>
-          <object class="GtkStackPage">
+          <object class="BobguiStackPage">
             <property name="name">custom</property>
             <property name="child">
-              <object class="GtkColorDialogButton" id="custom">
+              <object class="BobguiColorDialogButton" id="custom">
                 <accessibility>
                   <property name="label" translatable="yes">Custom color</property>
                 </accessibility>
                 <property name="dialog">
-                  <object class="GtkColorDialog"/>
+                  <object class="BobguiColorDialog"/>
                 </property>
                 <property name="rgba" bind-source="ColorEditor" bind-property="color" bind-flags="bidirectional | sync-create"/>
               </object>

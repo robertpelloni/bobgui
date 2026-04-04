@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="ExampleAppPrefs" parent="GtkDialog">
+  <template class="ExampleAppPrefs" parent="BobguiDialog">
     <property name="title" translatable="yes">Preferences</property>
     <property name="resizable">0</property>
     <property name="modal">1</property>
     <child internal-child="content_area">
-      <object class="GtkBox" id="content_area">
+      <object class="BobguiBox" id="content_area">
         <child>
-          <object class="GtkGrid" id="grid">
+          <object class="BobguiGrid" id="grid">
             <property name="margin-start">12</property>
             <property name="margin-end">12</property>
             <property name="margin-top">12</property>
@@ -15,7 +15,7 @@
             <property name="row-spacing">12</property>
             <property name="column-spacing">12</property>
             <child>
-              <object class="GtkLabel" id="fontlabel">
+              <object class="BobguiLabel" id="fontlabel">
                 <property name="label">_Font:</property>
                 <property name="use-underline">1</property>
                 <property name="mnemonic-widget">font</property>
@@ -27,9 +27,9 @@
               </object>
             </child>
             <child>
-              <object class="GtkFontDialogButton" id="font">
+              <object class="BobguiFontDialogButton" id="font">
                 <property name="dialog">
-                  <object class="GtkFontDialog"/>
+                  <object class="BobguiFontDialog"/>
                 </property>
                 <layout>
                   <property name="column">1</property>
@@ -38,7 +38,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="transitionlabel">
+              <object class="BobguiLabel" id="transitionlabel">
                 <property name="label">_Transition:</property>
                 <property name="use-underline">1</property>
                 <property name="mnemonic-widget">transition</property>
@@ -50,9 +50,9 @@
               </object>
             </child>
             <child>
-              <object class="GtkDropDown" id="transition">
+              <object class="BobguiDropDown" id="transition">
                 <property name="model">
-                  <object class="GtkStringList">
+                  <object class="BobguiStringList">
                     <items>
                       <item translatable="yes">None</item>
                       <item translatable="yes">Fade</item>

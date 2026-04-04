@@ -19,9 +19,9 @@
 
 #include "gdkrgba.h"
 
-#include <gtk/css/gtkcss.h>
+#include <bobgui/css/bobguicss.h>
 
-#include "gtk/css/gtkcssparserprivate.h"
+#include "bobgui/css/bobguicssparserprivate.h"
 
 #define _GDK_RGBA_DECODE(c) ((unsigned)(((c) >= 'A' && (c) <= 'F') ? ((c)-'A'+10) : \
                                         ((c) >= 'a' && (c) <= 'f') ? ((c)-'a'+10) : \
@@ -40,7 +40,7 @@
 #define GDK_RGBA_BLACK ((GdkRGBA) { 0, 0, 0, 1 })
 #define GDK_RGBA_WHITE ((GdkRGBA) { 1, 1, 1, 1 })
 
-gboolean               gdk_rgba_parser_parse                    (GtkCssParser           *parser,
+gboolean               gdk_rgba_parser_parse                    (BobguiCssParser           *parser,
                                                                  GdkRGBA                *rgba);
 
 #define gdk_rgba_is_clear(rgba) _gdk_rgba_is_clear (rgba)

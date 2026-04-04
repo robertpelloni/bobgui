@@ -182,12 +182,12 @@ gdk_android_display_get_setting (GdkDisplay *display,
                                  GValue     *value)
 {
   GdkAndroidDisplay *self = (GdkAndroidDisplay *) display;
-  if (g_strcmp0 (name, "gtk-application-prefer-dark-theme") == 0)
+  if (g_strcmp0 (name, "bobgui-application-prefer-dark-theme") == 0)
     {
       g_value_set_boolean (value, self->night_mode == GDK_ANDROID_DISPLAY_NIGHT_YES);
       return TRUE;
     }
-  else if (g_strcmp0 (name, "gtk-decoration-layout") == 0)
+  else if (g_strcmp0 (name, "bobgui-decoration-layout") == 0)
     {
       g_value_set_string (value, ":");
       return TRUE;
@@ -368,6 +368,6 @@ gdk_android_display_update_night_mode (GdkAndroidDisplay *self, jobject context)
     return;
   self->night_mode = night_mode;
   g_debug ("night mode changed");
-  gdk_display_setting_changed ((GdkDisplay *) self, "gtk-application-prefer-dark-theme");
+  gdk_display_setting_changed ((GdkDisplay *) self, "bobgui-application-prefer-dark-theme");
   g_object_notify_by_pspec ((GObject *) self, obj_properties[PROP_NIGHT_MODE]);
 }

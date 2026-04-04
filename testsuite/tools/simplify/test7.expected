@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkGrid">
+  <object class="BobguiGrid">
     <child>
-      <object class="GtkLabel">
+      <object class="BobguiLabel">
         <layout>
           <property name="row-span">2</property>
         </layout>

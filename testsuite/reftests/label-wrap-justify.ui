@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkWindow" id="window1">
+  <object class="BobguiWindow" id="window1">
     <property name="decorated">0</property>
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="BobguiGrid" id="grid1">
         <child>
-          <object class="GtkLabel" id="label1">
+          <object class="BobguiLabel" id="label1">
             <property name="label" translatable="yes">&lt;tt&gt;left
 aligning&lt;/tt&gt;</property>
             <property name="use_markup">1</property>
@@ -19,7 +19,7 @@ aligning&lt;/tt&gt;</property>
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label2">
+          <object class="BobguiLabel" id="label2">
             <property name="label" translatable="yes">&lt;tt&gt;center
 aligning&lt;/tt&gt;</property>
             <property name="use_markup">1</property>
@@ -34,7 +34,7 @@ aligning&lt;/tt&gt;</property>
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label3">
+          <object class="BobguiLabel" id="label3">
             <property name="label" translatable="yes">&lt;tt&gt;right
 aligning&lt;/tt&gt;</property>
             <property name="use_markup">1</property>
@@ -49,7 +49,7 @@ aligning&lt;/tt&gt;</property>
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label4">
+          <object class="BobguiLabel" id="label4">
             <property name="label" translatable="yes">&lt;tt&gt;Make the widget wide enough&lt;/tt&gt;</property>
             <property name="use_markup">1</property>
             <layout>

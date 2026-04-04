@@ -47,7 +47,7 @@ apply_easing_params (float *params,
 
 struct _MiniGraph
 {
-  GtkWidget parent_instance;
+  BobguiWidget parent_instance;
 
   GpaEasing easing;
 
@@ -110,28 +110,28 @@ ensure_path (MiniGraph *self,
 }
 
 static void
-mini_graph_snapshot (GtkWidget   *widget,
-                     GtkSnapshot *snapshot)
+mini_graph_snapshot (BobguiWidget   *widget,
+                     BobguiSnapshot *snapshot)
 {
   MiniGraph *self = MINI_GRAPH (widget);
   int width, height, size;
   GskPath *path;
   GskStroke *stroke;
 
-  width = gtk_widget_get_width (widget);
-  height = gtk_widget_get_height (widget);
+  width = bobgui_widget_get_width (widget);
+  height = bobgui_widget_get_height (widget);
 
   size = MIN (width, height);
 
-  gtk_snapshot_save (snapshot);
-  gtk_snapshot_translate (snapshot,
+  bobgui_snapshot_save (snapshot);
+  bobgui_snapshot_translate (snapshot,
                           &GRAPHENE_POINT_INIT ((width - size) / 2,
                                                 (height - size) / 2));
 
-  gtk_snapshot_append_color (snapshot,
+  bobgui_snapshot_append_color (snapshot,
                              &(GdkRGBA) { 1, 1, 1, 1 },
                              &GRAPHENE_RECT_INIT (0, 0, size, size));
-  gtk_snapshot_append_border (snapshot,
+  bobgui_snapshot_append_border (snapshot,
                               &GSK_ROUNDED_RECT_INIT (0, 0, size, size),
                               (float [4]) { 1, 1, 1, 1 },
                               (GdkRGBA[4]) {
@@ -145,16 +145,16 @@ mini_graph_snapshot (GtkWidget   *widget,
 
   stroke = gsk_stroke_new (2);
 
-  gtk_snapshot_append_stroke (snapshot, path, stroke, &(GdkRGBA) { 0, 0, 1, 1 });
+  bobgui_snapshot_append_stroke (snapshot, path, stroke, &(GdkRGBA) { 0, 0, 1, 1 });
 
   gsk_stroke_free (stroke);
 
-  gtk_snapshot_restore (snapshot);
+  bobgui_snapshot_restore (snapshot);
 }
 
 struct _MiniGraphClass
 {
-  GtkWidgetClass parent_class;
+  BobguiWidgetClass parent_class;
 };
 
 enum {
@@ -164,7 +164,7 @@ enum {
 
 static GParamSpec *properties[NUM_PROPERTIES] = { NULL, };
 
-G_DEFINE_TYPE (MiniGraph, mini_graph, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE (MiniGraph, mini_graph, BOBGUI_TYPE_WIDGET)
 
 static void
 mini_graph_init (MiniGraph *self)
@@ -226,7 +226,7 @@ static void
 mini_graph_class_init (MiniGraphClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+  BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
   object_class->finalize = mini_graph_finalize;
   object_class->set_property = mini_graph_set_property;
@@ -242,7 +242,7 @@ mini_graph_class_init (MiniGraphClass *class)
   widget_class->snapshot = mini_graph_snapshot;
 }
 
-GtkWidget *
+BobguiWidget *
 mini_graph_new (void)
 {
   return g_object_new (mini_graph_get_type (), NULL);
@@ -258,7 +258,7 @@ mini_graph_set_easing (MiniGraph *self,
   self->easing = easing;
 
   g_clear_pointer (&self->path, gsk_path_unref);
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+  bobgui_widget_queue_draw (BOBGUI_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_EASING]);
 }

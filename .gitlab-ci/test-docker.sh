@@ -33,21 +33,21 @@ xvfb-run -a -s "-screen 0 1024x768x24" \
     meson test \
         --timeout-multiplier 2 \
         --print-errorlogs \
-        --suite=gtk \
-        --no-suite=gtk:a11y
+        --suite=bobgui \
+        --no-suite=bobgui:a11y
 
 # Save the exit code
 exit_code=$?
 
 # We always want to run the report generators
 $srcdir/.gitlab-ci/meson-junit-report.py \
-        --project-name=gtk \
+        --project-name=bobgui \
         --job-id="${CI_JOB_NAME}" \
         --output=report.xml \
         meson-logs/testlog.json
 
 $srcdir/.gitlab-ci/meson-html-report.py \
-        --project-name=GTK \
+        --project-name=BOBGUI \
         --job-id="${CI_JOB_NAME}" \
         --reftest-output-dir="testsuite/reftests/output" \
         --output=report.html \

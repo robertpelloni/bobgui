@@ -21,11 +21,11 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <bobgui/bobgui.h>
 
 
 #define COLOR_EDITOR_TYPE (color_editor_get_type ())
-G_DECLARE_FINAL_TYPE (ColorEditor, color_editor, COLOR, EDITOR, GtkWidget)
+G_DECLARE_FINAL_TYPE (ColorEditor, color_editor, COLOR, EDITOR, BobguiWidget)
 
 
 ColorEditor *    color_editor_new          (void);
