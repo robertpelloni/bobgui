@@ -431,6 +431,10 @@ bobgui_public_sources = files([
   'modules/script/bobguiscript.c',
   'modules/sync/bobguisync.c',
   'modules/test/bobguitest.c',
+  'modules/timeline/bobguitimeline.c',
+  'modules/cloud/bobguicloud.c',
+  'modules/vfs/bobguivfs.c',
+  'modules/robust_stubs.c',
 ])
 
 bobgui_public_sources += bobgui_print_sources
@@ -676,6 +680,9 @@ bobgui_public_headers = files([
   'modules/script/bobguiscript.h',
   'modules/sync/bobguisync.h',
   'modules/test/bobguitest.h',
+  'modules/timeline/bobguitimeline.h',
+  'modules/cloud/bobguicloud.h',
+  'modules/vfs/bobguivfs.h',
   'bobgui.h',
 ])
 
