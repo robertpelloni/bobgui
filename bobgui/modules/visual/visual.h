@@ -8,5 +8,6 @@
 #include "graph/bobguigraph.h"
 #include "imgui/bobguiimgui.h"
 #include "rhi/bobguirhi.h"
+#include "workbench/bobguiworkbench.h"
 
 #endif
