@@ -438,7 +438,10 @@ bobgui_public_sources = files([
   'modules/chart/bobguichart.c',
   'modules/iot/bobguiiot.c',
   'modules/dock/bobguidock.c',
-  'modules/robust_stubs.c',
+  'modules/shell/bobguishell.c',
+  'modules/i18n/bobguii18n.c',
+  'modules/report/bobguireport.c',
+  'modules/package/bobguipackage.c',
 ])
 
 bobgui_public_sources += bobgui_print_sources
@@ -691,6 +694,10 @@ bobgui_public_headers = files([
   'modules/chart/bobguichart.h',
   'modules/iot/bobguiiot.h',
   'modules/dock/bobguidock.h',
+  'modules/shell/bobguishell.h',
+  'modules/i18n/bobguii18n.h',
+  'modules/report/bobguireport.h',
+  'modules/package/bobguipackage.h',
   'bobgui.h',
 ])
 
