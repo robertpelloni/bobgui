@@ -3,7 +3,7 @@
 #define BOBGUI_SYNC_H
 
 #include <bobgui/bobgui.h>
-#include <bobgui/modules/state/bobguistate.h>
+#include <bobgui/modules/core/state/bobguistate.h>
 
 G_BEGIN_DECLS
 
