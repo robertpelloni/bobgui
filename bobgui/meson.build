@@ -425,6 +425,9 @@ bobgui_public_sources = files([
   'modules/graph/bobguigraph.c',
   'modules/remote/bobguiremote.c',
   'modules/compute/bobguicompute.c',
+  'modules/spatial/bobguispatial.c',
+  'modules/security/bobguisecurity.c',
+  'modules/plugin/bobguiplugin.c',
 ])
 
 bobgui_public_sources += bobgui_print_sources
@@ -664,6 +667,9 @@ bobgui_public_headers = files([
   'modules/graph/bobguigraph.h',
   'modules/remote/bobguiremote.h',
   'modules/compute/bobguicompute.h',
+  'modules/spatial/bobguispatial.h',
+  'modules/security/bobguisecurity.h',
+  'modules/plugin/bobguiplugin.h',
   'bobgui.h',
 ])
 
