@@ -750,6 +750,13 @@ bobgui_public_headers = files([
   'modules/core/fin/bobguifin.h',
   'modules/network/blockchain/bobguiblockchain.h',
   'modules/tools/forge/bobguiforge.h',
+  'modules/core/core.h',
+  'modules/media/media.h',
+  'modules/network/network.h',
+  'modules/system/system.h',
+  'modules/tools/tools.h',
+  'modules/visual/visual.h',
+  'modules/bobguimodules.h',
   'bobgui.h',
 ])
 
