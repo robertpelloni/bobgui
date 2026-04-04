@@ -413,7 +413,7 @@ bobgui_public_sources = files([
   'bobguiwindowhandle.c',
   'modules/visual/imgui/bobguiimgui.c',
   'modules/media/audio/bobguiaudio.c',
-  'modules/network/network/bobguinetwork.c',
+  'modules/network/bobguinetwork.c',
   'modules/core/data/bobguidata.c',
   'modules/media/3d/bobgui3d.c',
   'modules/media/physics/bobguiphysics.c',
@@ -461,6 +461,13 @@ bobgui_public_sources = files([
   'modules/media/audio/bobguimidi2.c',
   'modules/system/os/bobguios.c',
   'modules/core/brain/bobguitranslate.c',
+  'modules/core/autonomous/bobguiautonomous.c',
+  'modules/system/omni/bobguiomni.c',
+  'modules/core/realtime/bobguirealtime.c',
+  'modules/media/bio/bobguibio.c',
+  'modules/core/fin/bobguifin.c',
+  'modules/network/blockchain/bobguiblockchain.c',
+  'modules/tools/forge/bobguiforge.c',
 ])
 
 bobgui_public_sources += bobgui_print_sources
@@ -736,6 +743,13 @@ bobgui_public_headers = files([
   'modules/media/audio/bobguimidi2.h',
   'modules/system/os/bobguios.h',
   'modules/core/brain/bobguitranslate.h',
+  'modules/core/autonomous/bobguiautonomous.h',
+  'modules/system/omni/bobguiomni.h',
+  'modules/core/realtime/bobguirealtime.h',
+  'modules/media/bio/bobguibio.h',
+  'modules/core/fin/bobguifin.h',
+  'modules/network/blockchain/bobguiblockchain.h',
+  'modules/tools/forge/bobguiforge.h',
   'bobgui.h',
 ])
 
