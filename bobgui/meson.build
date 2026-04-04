@@ -457,6 +457,10 @@ bobgui_public_sources = files([
   'modules/system/input/bobguiinput.c',
   'modules/media/audio/bobguiaudiowidgets.c',
   'modules/system/ipc/bobguiipc.c',
+  'modules/media/audio/bobguipluginhost.c',
+  'modules/media/audio/bobguimidi2.c',
+  'modules/system/os/bobguios.c',
+  'modules/core/brain/bobguitranslate.c',
 ])
 
 bobgui_public_sources += bobgui_print_sources
@@ -728,6 +732,10 @@ bobgui_public_headers = files([
   'modules/system/input/bobguiinput.h',
   'modules/media/audio/bobguiaudiowidgets.h',
   'modules/system/ipc/bobguiipc.h',
+  'modules/media/audio/bobguipluginhost.h',
+  'modules/media/audio/bobguimidi2.h',
+  'modules/system/os/bobguios.h',
+  'modules/core/brain/bobguitranslate.h',
   'bobgui.h',
 ])
 
