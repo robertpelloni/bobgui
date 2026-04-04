@@ -442,6 +442,9 @@ bobgui_public_sources = files([
   'modules/i18n/bobguii18n.c',
   'modules/report/bobguireport.c',
   'modules/package/bobguipackage.c',
+  'modules/gis/bobguigis.c',
+  'modules/shader/bobguishader.c',
+  'modules/quantum/bobguiquantum.c',
 ])
 
 bobgui_public_sources += bobgui_print_sources
@@ -698,6 +701,9 @@ bobgui_public_headers = files([
   'modules/i18n/bobguii18n.h',
   'modules/report/bobguireport.h',
   'modules/package/bobguipackage.h',
+  'modules/gis/bobguigis.h',
+  'modules/shader/bobguishader.h',
+  'modules/quantum/bobguiquantum.h',
   'bobgui.h',
 ])
 
