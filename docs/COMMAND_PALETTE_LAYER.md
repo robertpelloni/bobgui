@@ -36,8 +36,9 @@ That makes the palette feel much more like a modern command launcher rather than
 ### Workbench integration
 `BobguiWorkbench` was extended with:
 - `bobgui_workbench_set_command_palette()`
+- `bobgui_workbench_add_command()`
 
-This makes it easy to attach a command palette to a workbench shell and expose it through a header action.
+This makes it easy to attach a command palette to a workbench shell, register commands through the workbench API, and expose it through a header action.
 
 ## Design direction
 This is intentionally **Qt-like but not Qt**:
@@ -52,7 +53,7 @@ This is a strong example of the direction bobgui should keep taking:
 - more framework-level affordances that make building a real app easier
 
 ## Recommended next steps
-1. add keyboard shortcut activation for the command palette
-2. improve ranking beyond substring matching (scored fuzzy match)
+1. improve ranking beyond substring matching (scored fuzzy match)
+2. add keyboard row navigation and default selection behavior
 3. integrate command palette entries with workbench/dock/actions
 4. add a small demo application showing the full workbench + command palette flow

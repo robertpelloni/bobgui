@@ -32,7 +32,17 @@ GTK-derived APIs are powerful but often feel low-level and assembly-oriented for
 - `bobgui_workbench_set_right_sidebar()`
 - `bobgui_workbench_set_status()`
 - `bobgui_workbench_add_header_action()`
+- `bobgui_workbench_set_command_palette()`
+- `bobgui_workbench_add_command()`
 - `bobgui_workbench_present()`
+
+## Current usability improvements
+This pass adds a more Qt-like interaction loop for command-driven apps:
+- a workbench can own a command palette directly
+- commands can be registered through the workbench API
+- the palette can be opened with `Ctrl+Shift+P`
+
+That starts to move bobgui toward a more opinionated application framework experience instead of only a raw widget toolkit.
 
 ## Why this is "more like Qt but not Qt"
 This is intentionally not a copy of `QMainWindow`.
@@ -50,7 +60,7 @@ Instead, it follows a bobgui-native direction:
 
 ## Recommended next step
 The most valuable follow-up would be:
-1. add a command-palette API
+1. add scored fuzzy matching and keyboard row selection inside the command palette
 2. add workbench-managed dock registration
 3. integrate status updates with shell/progress APIs
 4. provide a small demo app using the workbench shell

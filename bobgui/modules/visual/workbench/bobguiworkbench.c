@@ -1,5 +1,6 @@
 #include "bobguiworkbench.h"
 #include "bobguicommandpalette.h"
+#include <gdk/gdk.h>
 
 struct _BobguiWorkbench
 {
@@ -43,10 +44,35 @@ bobgui_workbench_init (BobguiWorkbench *self)
 {
 }
 
+static gboolean
+bobgui_workbench_key_pressed (BobguiEventControllerKey *controller,
+                              guint                     keyval,
+                              guint                     keycode,
+                              GdkModifierType           state,
+                              gpointer                  user_data)
+{
+  BobguiWorkbench *self = BOBGUI_WORKBENCH (user_data);
+
+  (void) controller;
+  (void) keycode;
+
+  if ((state & GDK_CONTROL_MASK) != 0 &&
+      (state & GDK_SHIFT_MASK) != 0 &&
+      (keyval == GDK_KEY_P || keyval == GDK_KEY_p))
+    {
+      if (self->command_palette)
+        bobgui_command_palette_present (self->command_palette);
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
 BobguiWorkbench *
 bobgui_workbench_new (BobguiApplication *application)
 {
   BobguiWorkbench *self = g_object_new (BOBGUI_TYPE_WORKBENCH, NULL);
+  BobguiEventController *key_controller;
   BobguiWidget *title_box;
 
   self->window = g_object_new (BOBGUI_TYPE_APPLICATION_WINDOW,
@@ -72,6 +98,11 @@ bobgui_workbench_new (BobguiApplication *application)
   bobgui_paned_set_end_child (self->outer_paned, BOBGUI_WIDGET (self->inner_paned));
   bobgui_window_set_titlebar (BOBGUI_WINDOW (self->window), BOBGUI_WIDGET (self->header_bar));
   bobgui_window_set_child (BOBGUI_WINDOW (self->window), BOBGUI_WIDGET (self->root_box));
+
+  key_controller = bobgui_event_controller_key_new ();
+  g_signal_connect (key_controller, "key-pressed",
+                    G_CALLBACK (bobgui_workbench_key_pressed), self);
+  bobgui_widget_add_controller (BOBGUI_WIDGET (self->window), key_controller);
 
   return self;
 }
@@ -179,6 +210,25 @@ bobgui_workbench_set_command_palette (BobguiWorkbench      *self,
                                       "Commands",
                                       bobgui_workbench_open_command_palette,
                                       self);
+}
+
+void
+bobgui_workbench_add_command (BobguiWorkbench                *self,
+                              const char                     *command_id,
+                              const char                     *title,
+                              const char                     *subtitle,
+                              BobguiWorkbenchCommandCallback  callback,
+                              gpointer                        user_data)
+{
+  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
+  g_return_if_fail (BOBGUI_IS_COMMAND_PALETTE (self->command_palette));
+
+  bobgui_command_palette_add_command (self->command_palette,
+                                      command_id,
+                                      title,
+                                      subtitle,
+                                      callback,
+                                      user_data);
 }
 
 void
