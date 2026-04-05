@@ -16,6 +16,8 @@ The action model also now carries an icon-name slot so higher-level action surfa
 - menus
 - command launchers
 
+This pass continues that direction by feeding icon metadata into command palette row rendering as well.
+
 This allows the same action model to represent stateful commands like:
 - sidebar visibility
 - panel toggles

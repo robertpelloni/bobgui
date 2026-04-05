@@ -325,11 +325,12 @@ bobgui_action_registry_populate_palette (BobguiActionRegistry *self,
       else if (item->subtitle)
         subtitle = g_strdup (item->subtitle);
 
-      bobgui_command_palette_add_command (palette,
-                                          item->id,
-                                          item->title,
-                                          subtitle,
-                                          item->callback,
-                                          item->user_data);
+      bobgui_command_palette_add_command_visual (palette,
+                                                 item->id,
+                                                 item->title,
+                                                 subtitle,
+                                                 item->icon_name,
+                                                 item->callback,
+                                                 item->user_data);
     }
 }

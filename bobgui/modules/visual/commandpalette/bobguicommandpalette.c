@@ -5,6 +5,7 @@ typedef struct
   char *id;
   char *title;
   char *subtitle;
+  char *icon_name;
   BobguiCommandPaletteFunc callback;
   gpointer user_data;
 } BobguiCommandPaletteItem;
@@ -34,6 +35,7 @@ bobgui_command_palette_item_free (BobguiCommandPaletteItem *item)
   g_free (item->id);
   g_free (item->title);
   g_free (item->subtitle);
+  g_free (item->icon_name);
   g_free (item);
 }
 
@@ -109,18 +111,29 @@ bobgui_command_palette_build_row (BobguiCommandPaletteItem *item)
 {
   BobguiWidget *row;
   BobguiWidget *box;
+  BobguiWidget *content_box;
+  BobguiWidget *icon;
   BobguiWidget *title;
   BobguiWidget *subtitle;
 
   row = bobgui_list_box_row_new ();
-  box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 2);
+  box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 8);
+  content_box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 2);
   title = bobgui_label_new (item->title ? item->title : item->id);
   subtitle = bobgui_label_new (item->subtitle ? item->subtitle : "");
 
   bobgui_label_set_xalign (BOBGUI_LABEL (title), 0.0f);
   bobgui_label_set_xalign (BOBGUI_LABEL (subtitle), 0.0f);
-  bobgui_box_append (BOBGUI_BOX (box), title);
-  bobgui_box_append (BOBGUI_BOX (box), subtitle);
+
+  if (item->icon_name && *item->icon_name)
+    {
+      icon = bobgui_image_new_from_icon_name (item->icon_name);
+      bobgui_box_append (BOBGUI_BOX (box), icon);
+    }
+
+  bobgui_box_append (BOBGUI_BOX (content_box), title);
+  bobgui_box_append (BOBGUI_BOX (content_box), subtitle);
+  bobgui_box_append (BOBGUI_BOX (box), content_box);
   bobgui_list_box_row_set_child (BOBGUI_LIST_BOX_ROW (row), box);
   g_object_set_data (G_OBJECT (row), "bobgui-command-palette-item", item);
 
@@ -485,12 +498,13 @@ bobgui_command_palette_clear (BobguiCommandPalette *self)
 }
 
 void
-bobgui_command_palette_add_command (BobguiCommandPalette     *self,
-                                    const char               *command_id,
-                                    const char               *title,
-                                    const char               *subtitle,
-                                    BobguiCommandPaletteFunc  callback,
-                                    gpointer                  user_data)
+bobgui_command_palette_add_command_visual (BobguiCommandPalette     *self,
+                                           const char               *command_id,
+                                           const char               *title,
+                                           const char               *subtitle,
+                                           const char               *icon_name,
+                                           BobguiCommandPaletteFunc  callback,
+                                           gpointer                  user_data)
 {
   BobguiCommandPaletteItem *item;
 
@@ -500,11 +514,29 @@ bobgui_command_palette_add_command (BobguiCommandPalette     *self,
   item->id = g_strdup (command_id);
   item->title = g_strdup (title);
   item->subtitle = g_strdup (subtitle);
+  item->icon_name = g_strdup (icon_name);
   item->callback = callback;
   item->user_data = user_data;
 
   g_ptr_array_add (self->items, item);
   bobgui_command_palette_rebuild (self);
+}
+
+void
+bobgui_command_palette_add_command (BobguiCommandPalette     *self,
+                                    const char               *command_id,
+                                    const char               *title,
+                                    const char               *subtitle,
+                                    BobguiCommandPaletteFunc  callback,
+                                    gpointer                  user_data)
+{
+  bobgui_command_palette_add_command_visual (self,
+                                             command_id,
+                                             title,
+                                             subtitle,
+                                             NULL,
+                                             callback,
+                                             user_data);
 }
 
 void

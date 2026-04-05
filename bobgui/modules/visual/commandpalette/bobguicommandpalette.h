@@ -23,6 +23,13 @@ int                    bobgui_command_palette_get_recent_count  (BobguiCommandPa
 void                   bobgui_command_palette_mark_used         (BobguiCommandPalette     *self,
                                                                 const char               *command_id);
 void                   bobgui_command_palette_clear_history     (BobguiCommandPalette     *self);
+void                   bobgui_command_palette_add_command_visual(BobguiCommandPalette     *self,
+                                                                const char               *command_id,
+                                                                const char               *title,
+                                                                const char               *subtitle,
+                                                                const char               *icon_name,
+                                                                BobguiCommandPaletteFunc  callback,
+                                                                gpointer                  user_data);
 void                   bobgui_command_palette_add_command       (BobguiCommandPalette     *self,
                                                                 const char               *command_id,
                                                                 const char               *title,

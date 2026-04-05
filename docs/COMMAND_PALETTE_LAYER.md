@@ -20,6 +20,7 @@ It improves:
 ### Core API
 - `bobgui_command_palette_new()`
 - `bobgui_command_palette_clear()`
+- `bobgui_command_palette_add_command_visual()`
 - `bobgui_command_palette_add_command()`
 - `bobgui_command_palette_set_pinned()`
 - `bobgui_command_palette_get_pinned()`
@@ -40,6 +41,7 @@ This pass also added built-in filtering behavior:
 - recently used commands are boosted and can also be marked programmatically
 - pinned and recent commands can surface under explicit section rows
 - category-aware section rows can be inserted when metadata is present
+- command rows can now render icon-aware visual entries when icon metadata is present
 - the top result is auto-selected after rebuild
 - keyboard navigation works from the search field:
   - `Down` / `Up` to move selection
