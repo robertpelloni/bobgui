@@ -28,14 +28,15 @@ Without that, every feature ends up inventing its own callback list.
 `BobguiWorkbench` was extended with:
 - `bobgui_workbench_set_action_registry()`
 - improved `bobgui_workbench_add_command()` behavior
+- `bobgui_workbench_add_header_action_for_command()`
 
-If a workbench has an action registry and a command palette, adding commands through the workbench now updates the shared action model and repopulates the palette from that source.
+If a workbench has an action registry and a command palette, adding commands through the workbench now updates the shared action model and repopulates the palette from that source. Header buttons can also be bound directly to action identifiers.
 
 ## Strategic value
 This is an important architecture step because it turns workbench + command palette from a set of connected widgets into a more reusable application-command system.
 
 ## Recommended next steps
 1. menus/toolbars should read from the same action registry
-2. workbench header actions should optionally be action-registry backed
-3. dock/workspace actions should register through the same model
-4. add demo app wiring all of this together
+2. dock/workspace actions should register through the same model
+3. add demo app wiring all of this together
+4. add command grouping and recent actions on top of the same registry

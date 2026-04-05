@@ -188,6 +188,57 @@ bobgui_workbench_add_header_action (BobguiWorkbench                 *self,
   bobgui_box_append (self->header_actions, button);
 }
 
+typedef struct
+{
+  BobguiWorkbench *workbench;
+  char *command_id;
+} BobguiWorkbenchHeaderCommand;
+
+static void
+bobgui_workbench_header_command_free (BobguiWorkbenchHeaderCommand *header_command)
+{
+  g_free (header_command->command_id);
+  g_free (header_command);
+}
+
+static void
+bobgui_workbench_header_command_clicked (BobguiButton *button,
+                                         gpointer      user_data)
+{
+  BobguiWorkbenchHeaderCommand *header_command = user_data;
+
+  (void) button;
+
+  if (header_command->workbench->action_registry)
+    bobgui_action_registry_activate (header_command->workbench->action_registry,
+                                     header_command->command_id);
+}
+
+void
+bobgui_workbench_add_header_action_for_command (BobguiWorkbench *self,
+                                                const char      *label,
+                                                const char      *command_id)
+{
+  BobguiWorkbenchHeaderCommand *header_command;
+  BobguiWidget *button;
+
+  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
+  g_return_if_fail (command_id != NULL);
+
+  button = bobgui_button_new_with_label (label);
+  header_command = g_new0 (BobguiWorkbenchHeaderCommand, 1);
+  header_command->workbench = self;
+  header_command->command_id = g_strdup (command_id);
+
+  g_signal_connect_data (button,
+                         "clicked",
+                         G_CALLBACK (bobgui_workbench_header_command_clicked),
+                         header_command,
+                         (GClosureNotify) bobgui_workbench_header_command_free,
+                         0);
+  bobgui_box_append (self->header_actions, button);
+}
+
 static void
 bobgui_workbench_open_command_palette (BobguiButton *button,
                                        gpointer      user_data)

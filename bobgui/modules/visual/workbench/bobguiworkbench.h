@@ -34,6 +34,10 @@ void             bobgui_workbench_add_header_action  (BobguiWorkbench   *self,
                                                       const char        *label,
                                                       BobguiWorkbenchActionCallback callback,
                                                       gpointer           user_data);
+void             bobgui_workbench_add_header_action_for_command
+                                                     (BobguiWorkbench   *self,
+                                                      const char        *label,
+                                                      const char        *command_id);
 void             bobgui_workbench_set_command_palette(BobguiWorkbench   *self,
                                                       BobguiCommandPalette *palette);
 void             bobgui_workbench_set_action_registry(BobguiWorkbench   *self,
