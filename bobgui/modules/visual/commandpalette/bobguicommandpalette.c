@@ -5,6 +5,7 @@ typedef struct
   char *id;
   char *title;
   char *subtitle;
+  char *section;
   char *icon_name;
   BobguiCommandPaletteFunc callback;
   gpointer user_data;
@@ -35,6 +36,7 @@ bobgui_command_palette_item_free (BobguiCommandPaletteItem *item)
   g_free (item->id);
   g_free (item->title);
   g_free (item->subtitle);
+  g_free (item->section);
   g_free (item->icon_name);
   g_free (item);
 }
@@ -71,23 +73,6 @@ bobgui_command_palette_get_recent_internal (BobguiCommandPalette *self,
                                             const char           *command_id)
 {
   return GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, command_id));
-}
-
-static char *
-bobgui_command_palette_extract_category (BobguiCommandPaletteItem *item)
-{
-  const char *start;
-  const char *end;
-
-  if (item->subtitle == NULL || item->subtitle[0] != '[')
-    return NULL;
-
-  start = item->subtitle + 1;
-  end = strchr (start, ']');
-  if (end == NULL || end == start)
-    return NULL;
-
-  return g_strndup (start, end - start);
 }
 
 static BobguiWidget *
@@ -249,15 +234,14 @@ bobgui_command_palette_rebuild (BobguiCommandPalette *self)
   for (i = 0; i < matches->len; i++)
     {
       BobguiCommandPaletteMatch *match = &g_array_index (matches, BobguiCommandPaletteMatch, i);
-      g_autofree char *category = bobgui_command_palette_extract_category (match->item);
       const char *section_name = NULL;
 
       if (g_hash_table_contains (self->pinned_ids, match->item->id))
         section_name = "Pinned";
       else if (bobgui_command_palette_get_recent_internal (self, match->item->id) > 0)
         section_name = "Recent";
-      else if (category)
-        section_name = category;
+      else if (match->item->section)
+        section_name = match->item->section;
 
       if (section_name && g_strcmp0 (last_category, section_name) != 0)
         {
@@ -502,6 +486,7 @@ bobgui_command_palette_add_command_visual (BobguiCommandPalette     *self,
                                            const char               *command_id,
                                            const char               *title,
                                            const char               *subtitle,
+                                           const char               *section,
                                            const char               *icon_name,
                                            BobguiCommandPaletteFunc  callback,
                                            gpointer                  user_data)
@@ -514,6 +499,7 @@ bobgui_command_palette_add_command_visual (BobguiCommandPalette     *self,
   item->id = g_strdup (command_id);
   item->title = g_strdup (title);
   item->subtitle = g_strdup (subtitle);
+  item->section = g_strdup (section);
   item->icon_name = g_strdup (icon_name);
   item->callback = callback;
   item->user_data = user_data;
@@ -534,6 +520,7 @@ bobgui_command_palette_add_command (BobguiCommandPalette     *self,
                                              command_id,
                                              title,
                                              subtitle,
+                                             NULL,
                                              NULL,
                                              callback,
                                              user_data);

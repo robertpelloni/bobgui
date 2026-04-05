@@ -27,6 +27,7 @@ void                   bobgui_command_palette_add_command_visual(BobguiCommandPa
                                                                 const char               *command_id,
                                                                 const char               *title,
                                                                 const char               *subtitle,
+                                                                const char               *section,
                                                                 const char               *icon_name,
                                                                 BobguiCommandPaletteFunc  callback,
                                                                 gpointer                  user_data);

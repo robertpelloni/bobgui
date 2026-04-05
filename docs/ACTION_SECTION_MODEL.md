@@ -24,7 +24,7 @@ This means action presentation can now distinguish between:
 - semantic category
 - visual section/grouping
 
-That gives bobgui more room to evolve toward richer menu and toolbar composition without overloading one field with too many responsibilities.
+That gives bobgui more room to evolve toward richer menu, toolbar, and command-palette composition without overloading one field with too many responsibilities.
 
 ## Direction
 This is another step toward making bobgui feel like a coherent application framework:

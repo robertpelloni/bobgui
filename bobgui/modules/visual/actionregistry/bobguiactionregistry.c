@@ -359,6 +359,7 @@ bobgui_action_registry_populate_palette (BobguiActionRegistry *self,
                                                  item->id,
                                                  item->title,
                                                  subtitle,
+                                                 item->section,
                                                  item->icon_name,
                                                  item->callback,
                                                  item->user_data);
