@@ -14,9 +14,12 @@ The workbench and command palette are especially important because they target o
 The command palette now has:
 - dynamic query-driven rebuilds
 - ranked results
+- pinned-command prioritization
+- recent-command prioritization
 - automatic selection of the best match
 - keyboard navigation from the search entry
 - Enter-based activation of the selected command
+- public APIs to mark usage and clear history
 
 ### Why this matters
 This is a concrete ergonomics improvement, not just another abstract subsystem:

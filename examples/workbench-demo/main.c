@@ -39,6 +39,7 @@ on_activate (BobguiApplication *application,
 
   bobgui_workbench_set_action_registry (workbench, registry);
   bobgui_workbench_set_command_palette (workbench, palette);
+  bobgui_command_palette_set_pinned (palette, "app.about", TRUE);
   bobgui_workbench_set_title (workbench, "Bobgui Workbench Demo");
 
   editor = bobgui_text_view_new ();

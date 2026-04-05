@@ -19,7 +19,12 @@ It improves:
 
 ### Core API
 - `bobgui_command_palette_new()`
+- `bobgui_command_palette_clear()`
 - `bobgui_command_palette_add_command()`
+- `bobgui_command_palette_set_pinned()`
+- `bobgui_command_palette_get_pinned()`
+- `bobgui_command_palette_mark_used()`
+- `bobgui_command_palette_clear_history()`
 - `bobgui_command_palette_attach_to_window()`
 - `bobgui_command_palette_present()`
 
@@ -30,6 +35,8 @@ This pass also added built-in filtering behavior:
   - command id
   - title
   - subtitle
+- pinned commands are strongly boosted
+- recently used commands are boosted and can also be marked programmatically
 - the top result is auto-selected after rebuild
 - keyboard navigation works from the search field:
   - `Down` / `Up` to move selection

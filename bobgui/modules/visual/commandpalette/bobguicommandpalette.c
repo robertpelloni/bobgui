@@ -55,10 +55,7 @@ bobgui_command_palette_on_row_activated (BobguiListBox *box,
 
   if (item)
     {
-      int recent = GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, item->id));
-      g_hash_table_replace (self->recent_counts,
-                            g_strdup (item->id),
-                            GINT_TO_POINTER (recent + 1));
+      bobgui_command_palette_mark_used (self, item->id);
 
       if (item->callback)
         item->callback (item->id, item->user_data);
@@ -343,6 +340,41 @@ bobgui_command_palette_set_pinned (BobguiCommandPalette *self,
   else
     g_hash_table_remove (self->pinned_ids, command_id);
 
+  bobgui_command_palette_rebuild (self);
+}
+
+gboolean
+bobgui_command_palette_get_pinned (BobguiCommandPalette *self,
+                                   const char           *command_id)
+{
+  g_return_val_if_fail (BOBGUI_IS_COMMAND_PALETTE (self), FALSE);
+  g_return_val_if_fail (command_id != NULL, FALSE);
+
+  return g_hash_table_contains (self->pinned_ids, command_id);
+}
+
+void
+bobgui_command_palette_mark_used (BobguiCommandPalette *self,
+                                  const char           *command_id)
+{
+  int recent;
+
+  g_return_if_fail (BOBGUI_IS_COMMAND_PALETTE (self));
+  g_return_if_fail (command_id != NULL);
+
+  recent = GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, command_id));
+  g_hash_table_replace (self->recent_counts,
+                        g_strdup (command_id),
+                        GINT_TO_POINTER (recent + 1));
+  bobgui_command_palette_rebuild (self);
+}
+
+void
+bobgui_command_palette_clear_history (BobguiCommandPalette *self)
+{
+  g_return_if_fail (BOBGUI_IS_COMMAND_PALETTE (self));
+
+  g_hash_table_remove_all (self->recent_counts);
   bobgui_command_palette_rebuild (self);
 }
 
