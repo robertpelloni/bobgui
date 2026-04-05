@@ -34,28 +34,35 @@ main (int argc, char **argv)
     workbench->set_left_sidebar (sidebar);
     workbench->set_central (editor);
 
-    workbench->add_sectioned_command ("app.about",
-                                     "About",
-                                     "Show application information",
-                                     "Help",
-                                     "Application",
-                                     "Ctrl+Shift+A",
-                                     "help-about-symbolic",
-                                     [&] (const std::string &) {
-                                       workbench->set_status ("About action triggered");
-                                     });
+    Workbench::CommandOptions about_options;
+    Workbench::CommandOptions sidebar_options;
 
-    workbench->add_toggle_sectioned_command ("view.toggle-left-sidebar",
-                                            "Toggle Left Sidebar",
-                                            "Show or hide the project sidebar",
-                                            "Panels",
-                                            "View",
-                                            "Ctrl+B",
-                                            "sidebar-show-right-symbolic",
-                                            true,
-                                            [&] (const std::string &) {
-                                              workbench->set_status ("Sidebar toggle action triggered");
-                                            });
+    about_options.section = "Help";
+    about_options.category = "Application";
+    about_options.shortcut = "Ctrl+Shift+A";
+    about_options.icon_name = "help-about-symbolic";
+
+    sidebar_options.section = "Panels";
+    sidebar_options.category = "View";
+    sidebar_options.shortcut = "Ctrl+B";
+    sidebar_options.icon_name = "sidebar-show-right-symbolic";
+
+    workbench->add_command ("app.about",
+                            "About",
+                            "Show application information",
+                            about_options,
+                            [&] (const std::string &) {
+                              workbench->set_status ("About action triggered");
+                            });
+
+    workbench->add_toggle_command ("view.toggle-left-sidebar",
+                                   "Toggle Left Sidebar",
+                                   "Show or hide the project sidebar",
+                                   sidebar_options,
+                                   true,
+                                   [&] (const std::string &) {
+                                     workbench->set_status ("Sidebar toggle action triggered");
+                                   });
 
     workbench->add_header_action_for_command ("About", "app.about");
     workbench->add_header_action_for_command ("Sidebar", "view.toggle-left-sidebar");

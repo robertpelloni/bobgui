@@ -45,6 +45,7 @@ The current wrapper focuses on:
 - action-registry attachment
 - command-palette attachment
 - section-aware command registration
+- option-struct-based command registration to avoid long parameter lists
 - lambda-friendly command handlers via `std::function`
 
 ## Why this is a better step than a rewrite
@@ -73,7 +74,7 @@ The new C++ example shows a workbench shell that:
 - builds a workbench
 - attaches an action registry
 - attaches a command palette
-- registers section-aware commands
+- registers commands through a `Workbench::CommandOptions` struct
 - enables menubar and toolbar generation
 
 ## Rename audit note
@@ -87,5 +88,5 @@ A real compile-validation pass was attempted after this refactor, but the curren
 ## Recommended next steps
 1. add more wrapper coverage around actions, menus, and status helpers
 2. introduce a small `MainWindow`/`Dock` style C++ convenience layer on top of workbench
-3. add a build-wired C++ example once the current shell APIs settle a little more
-4. continue eliminating naming drift only where it improves clarity without destabilizing inherited lower-level internals
+3. add build-wired C++ examples once the current shell APIs settle a little more
+4. continue modernizing the most visible inherited branding/comments in public entry points

@@ -21,6 +21,22 @@ class Workbench
 public:
   typedef std::function<void(const std::string &)> CommandHandler;
 
+  struct CommandOptions
+  {
+    const char *section;
+    const char *category;
+    const char *shortcut;
+    const char *icon_name;
+
+    CommandOptions ()
+    : section (NULL),
+      category (NULL),
+      shortcut (NULL),
+      icon_name (NULL)
+    {
+    }
+  };
+
   explicit Workbench (Application &application)
   : workbench_ (bobgui_workbench_new (application.native ()))
   {
@@ -87,6 +103,26 @@ public:
     bobgui_workbench_enable_toolbar (workbench_.get (), enabled);
   }
 
+  void add_command (const char         *command_id,
+                    const char         *title,
+                    const char         *subtitle,
+                    const CommandOptions &options,
+                    CommandHandler      handler)
+  {
+    CommandBinding *binding = add_binding (std::move (handler));
+
+    bobgui_workbench_add_command_sectioned_visual (workbench_.get (),
+                                                   command_id,
+                                                   title,
+                                                   subtitle,
+                                                   options.section,
+                                                   options.category,
+                                                   options.shortcut,
+                                                   options.icon_name,
+                                                   &Workbench::command_trampoline,
+                                                   binding);
+  }
+
   void add_sectioned_command (const char *command_id,
                               const char *title,
                               const char *subtitle,
@@ -96,18 +132,14 @@ public:
                               const char *icon_name,
                               CommandHandler handler)
   {
-    CommandBinding *binding = add_binding (std::move (handler));
+    CommandOptions options;
 
-    bobgui_workbench_add_command_sectioned_visual (workbench_.get (),
-                                                   command_id,
-                                                   title,
-                                                   subtitle,
-                                                   section,
-                                                   category,
-                                                   shortcut,
-                                                   icon_name,
-                                                   &Workbench::command_trampoline,
-                                                   binding);
+    options.section = section;
+    options.category = category;
+    options.shortcut = shortcut;
+    options.icon_name = icon_name;
+
+    add_command (command_id, title, subtitle, options, std::move (handler));
   }
 
   void add_command (const char *command_id,
@@ -128,6 +160,28 @@ public:
                            std::move (handler));
   }
 
+  void add_toggle_command (const char          *command_id,
+                           const char          *title,
+                           const char          *subtitle,
+                           const CommandOptions &options,
+                           bool                 checked,
+                           CommandHandler       handler)
+  {
+    CommandBinding *binding = add_binding (std::move (handler));
+
+    bobgui_workbench_add_toggle_command_sectioned_visual (workbench_.get (),
+                                                          command_id,
+                                                          title,
+                                                          subtitle,
+                                                          options.section,
+                                                          options.category,
+                                                          options.shortcut,
+                                                          options.icon_name,
+                                                          checked,
+                                                          &Workbench::command_trampoline,
+                                                          binding);
+  }
+
   void add_toggle_sectioned_command (const char *command_id,
                                      const char *title,
                                      const char *subtitle,
@@ -138,19 +192,14 @@ public:
                                      bool        checked,
                                      CommandHandler handler)
   {
-    CommandBinding *binding = add_binding (std::move (handler));
+    CommandOptions options;
 
-    bobgui_workbench_add_toggle_command_sectioned_visual (workbench_.get (),
-                                                          command_id,
-                                                          title,
-                                                          subtitle,
-                                                          section,
-                                                          category,
-                                                          shortcut,
-                                                          icon_name,
-                                                          checked,
-                                                          &Workbench::command_trampoline,
-                                                          binding);
+    options.section = section;
+    options.category = category;
+    options.shortcut = shortcut;
+    options.icon_name = icon_name;
+
+    add_toggle_command (command_id, title, subtitle, options, checked, std::move (handler));
   }
 
   void add_toggle_command (const char *command_id,

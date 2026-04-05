@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - A modern native application and UI framework
 
    Copyright (C) 2001 CodeFactory AB
    Copyright (C) 2001 Anders Carlsson <andersca@codefactory.se>
