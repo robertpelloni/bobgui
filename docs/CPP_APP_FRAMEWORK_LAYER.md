@@ -13,6 +13,7 @@ New headers:
 - `bobgui/cpp/app_shell.hpp`
 - `bobgui/cpp/dock_manager.hpp`
 - `bobgui/cpp/studio_shell.hpp`
+- `bobgui/cpp/tool_surface.hpp`
 
 New example:
 - `examples/workbench-demo/main.cpp`
@@ -44,6 +45,7 @@ The first wrapper pass introduces small C++ objects for:
 - `AppShell`
 - `DockManager`
 - `StudioShell`
+- `ToolSurfaceModel`
 
 The current wrapper focuses on:
 - ownership of GObject-based instances
@@ -52,10 +54,11 @@ The current wrapper focuses on:
 - command-palette attachment
 - section-aware command registration
 - option-struct-based command registration to avoid long parameter lists
-- action visiting, action listing, and menu-model access from C++
+- action visiting, action listing, grouped-section listing, and menu-model access from C++
 - a simple `AppShell` preset that wires workbench + action registry + command palette together
 - lazy dock-manager access through the shell preset
 - a more opinionated `StudioShell` preset for multi-pane tool-style apps
+- tool-surface modeling on top of grouped actions
 - lambda-friendly command handlers via `std::function`
 
 ## Why this is a better step than a rewrite
@@ -87,6 +90,7 @@ The new C++ example now shows a studio-oriented shell that:
 - assigns navigation, document, and inspector panels explicitly
 - registers commands through a `Workbench::CommandOptions` struct
 - inspects grouped action sections through the shell helper layer
+- derives a `ToolSurfaceModel` from grouped actions
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer
 

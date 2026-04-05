@@ -63,8 +63,10 @@ main (int argc, char **argv)
                                });
 
     {
-      std::vector<bobgui::cpp::ActionRegistry::ActionSection> sections = shell->list_tool_sections ();
-      std::string status = "Ready: " + std::to_string (sections.size ()) + " action sections";
+      bobgui::cpp::ToolSurfaceModel tool_surface = shell->tool_surface_model ();
+      std::string status = "Ready: " + std::to_string (tool_surface.section_count ()) +
+                           " sections / " + std::to_string (tool_surface.item_count ()) +
+                           " tools";
       shell->set_status (status.c_str ());
     }
 

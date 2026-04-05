@@ -2,6 +2,7 @@
 #define BOBGUI_CPP_APP_SHELL_HPP
 
 #include "dock_manager.hpp"
+#include "tool_surface.hpp"
 #include "workbench.hpp"
 
 #include <memory>
@@ -99,6 +100,11 @@ public:
   std::vector<ActionRegistry::ActionSection> list_action_sections () const
   {
     return action_registry_.list_sections ();
+  }
+
+  ToolSurfaceModel tool_surface_model () const
+  {
+    return ToolSurfaceModel::from_action_sections (list_action_sections ());
   }
 
   void add_header_action_for_command (const char *label,

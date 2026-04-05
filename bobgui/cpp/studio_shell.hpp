@@ -137,6 +137,11 @@ public:
     return shell_.list_action_sections ();
   }
 
+  ToolSurfaceModel tool_surface_model () const
+  {
+    return shell_.tool_surface_model ();
+  }
+
   void present ()
   {
     shell_.present ();

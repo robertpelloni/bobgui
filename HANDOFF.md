@@ -6,7 +6,7 @@ This session continued the bobgui refactor with a focus on making the thin C++ l
 The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
 - add stronger C++ helpers for action-driven toolbar/tool work
-- strengthen the studio-style shell preset with grouped action inspection
+- strengthen the studio-style shell preset with explicit tool-surface modeling
 - continue documenting the framework direction clearly
 
 ## Changes made
@@ -33,26 +33,39 @@ Expanded `bobgui/cpp/action_registry.hpp` so it now provides:
 
 This makes the C++ action wrapper much more useful for real application composition and grouped tool-surface inspection.
 
+### Explicit tool-surface model
+Added:
+- `bobgui/cpp/tool_surface.hpp`
+
+This introduces:
+- `ToolSurfaceModel`
+- `ToolSurfaceModel::ToolSection`
+- `ToolSurfaceModel::ToolItem`
+
+The model can be derived from grouped action sections and exposes convenient counts for sections and items.
+
 ### AppShell helper expansion
 Expanded `bobgui/cpp/app_shell.hpp` so it now provides:
 - `menu_model()`
 - `visit_actions()`
 - `list_actions()`
 - `list_action_sections()`
+- `tool_surface_model()`
 - lazy dock-manager creation support
 
 ### StudioShell helper expansion
 Expanded `bobgui/cpp/studio_shell.hpp` so it now provides:
 - `list_tool_sections()`
+- `tool_surface_model()`
 
 This gives the studio-style preset a more direct path toward action-driven tool surfaces.
 
 ### Example update
-- Updated `examples/workbench-demo/main.cpp` to read grouped action-section information from the shell.
-- The example now sets an initial status message based on the number of action sections, which demonstrates read-side shell inspection rather than only write-side command registration.
+- Updated `examples/workbench-demo/main.cpp` to derive a `ToolSurfaceModel` from the shell.
+- The example now sets an initial status message based on section count and total tool count, which demonstrates read-side shell inspection rather than only write-side command registration.
 
 ### C++ umbrella/install updates
-- Updated `bobgui/cpp/bobgui.hpp` to include `studio_shell.hpp`.
+- Updated `bobgui/cpp/bobgui.hpp` to include `tool_surface.hpp`.
 - Updated `bobgui/meson.build` to install the new header set.
 
 ### Documentation
@@ -60,7 +73,7 @@ Updated:
 - `docs/CPP_APP_FRAMEWORK_LAYER.md`
 
 Added:
-- `docs/CPP_TOOL_SURFACE_HELPERS_2026-04-05.md`
+- `docs/CPP_TOOL_SURFACE_MODEL_2026-04-05.md`
 
 ## Validation notes
 - A literal grep audit still returns no matches for the legacy toolkit spellings in the working tree.
@@ -68,7 +81,7 @@ Added:
 - Real compile validation remains blocked by missing environment tools from the earlier validation attempt (`meson`, Python `mesonbuild`, and `g++`).
 
 ## Recommended next steps
-1. Add richer C++ helpers for action-driven toolbar and command-surface generation.
+1. Add actual toolbar/tool-surface builder helpers on top of `ToolSurfaceModel`.
 2. Continue deepening dock/workspace-oriented shell behavior once the C dock layer matures.
 3. Continue modernizing the highest-visibility inherited public header comments.
 4. Run full Meson/configure/build validation immediately when tool availability exists.
