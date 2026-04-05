@@ -356,6 +356,7 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
       void build_button (const char *action_id,
                          const char *title,
                          const char *subtitle,
+                         const char *section,
                          const char *category,
                          const char *shortcut,
                          const char *icon_name,
@@ -370,9 +371,15 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
         (void) shortcut;
         (void) icon_name;
 
-        if (category && g_strcmp0 (d->last_category, category) != 0)
+        if ((section ? section : category) && g_strcmp0 (d->last_category, section ? section : category) != 0)
           {
-            label = bobgui_label_new (category);
+            label = bobgui_label_new (section ? section : category);
+             bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.0f);
+             bobgui_box_append (d->self->toolbar_box, label);
+             g_free (d->last_category);
+-            d->last_category = g_strdup (category);
++            d->last_category = g_strdup (section ? section : category);
+           }
             bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.0f);
             bobgui_box_append (d->self->toolbar_box, label);
             g_free (d->last_category);
@@ -568,6 +575,7 @@ bobgui_workbench_add_toggle_command_visual (BobguiWorkbench                *self
                                          command_id,
                                          title,
                                          subtitle,
+                                         NULL,
                                          category,
                                          shortcut,
                                          icon_name,

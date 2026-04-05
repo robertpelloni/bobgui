@@ -10,6 +10,7 @@ typedef void (*BobguiActionRegistryFunc) (const char *action_id,
 typedef void (*BobguiActionRegistryVisitFunc) (const char *action_id,
                                                const char *title,
                                                const char *subtitle,
+                                               const char *section,
                                                const char *category,
                                                const char *shortcut,
                                                const char *icon_name,
@@ -23,6 +24,16 @@ typedef struct _BobguiCommandPalette BobguiCommandPalette;
 G_DECLARE_FINAL_TYPE (BobguiActionRegistry, bobgui_action_registry, BOBGUI, ACTION_REGISTRY, GObject)
 
 BobguiActionRegistry * bobgui_action_registry_new              (void);
+void                   bobgui_action_registry_add_sectioned    (BobguiActionRegistry     *self,
+                                                               const char               *action_id,
+                                                               const char               *title,
+                                                               const char               *subtitle,
+                                                               const char               *section,
+                                                               const char               *category,
+                                                               const char               *shortcut,
+                                                               const char               *icon_name,
+                                                               BobguiActionRegistryFunc  callback,
+                                                               gpointer                  user_data);
 void                   bobgui_action_registry_add_detailed     (BobguiActionRegistry     *self,
                                                                const char               *action_id,
                                                                const char               *title,
@@ -42,6 +53,7 @@ void                   bobgui_action_registry_add_toggle       (BobguiActionRegi
                                                                const char               *action_id,
                                                                const char               *title,
                                                                const char               *subtitle,
+                                                               const char               *section,
                                                                const char               *category,
                                                                const char               *shortcut,
                                                                const char               *icon_name,
