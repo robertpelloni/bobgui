@@ -26,8 +26,13 @@ Toolbar rebuilding now prefers:
 This aligns the toolbar with the newer action-section model already introduced in the action registry and command palette.
 
 ### 4. Thin C++ wrapper layer
-Added:
-- `bobgui/cpp/bobgui.hpp`
+Added a header family under `bobgui/cpp/`:
+- `object_handle.hpp`
+- `application.hpp`
+- `action_registry.hpp`
+- `command_palette.hpp`
+- `workbench.hpp`
+- `bobgui.hpp` as the umbrella include
 
 The wrapper is header-only and intentionally thin. It currently exposes small C++ convenience objects for:
 - application bootstrapping
@@ -54,20 +59,15 @@ Updated:
 - `docs/ACTION_REGISTRY_LAYER.md`
 
 ## Rename audit result
-Whole-word searches for:
-- `gtk`
-- `Gtk`
-- `GTK_`
-
-returned no matches in the working tree during this pass.
+Targeted searches for common legacy toolkit spellings returned no matches in the working tree during this pass.
 
 ## Validation performed
 - `git diff --check`
 - targeted grep verification for new API names and call sites
 
 ## Validation still needed
-- real Meson configure/build validation
-- compile verification for the new thin C++ example if/when it is wired into the build
+- real Meson configure/build validation once Meson tooling is available
+- compile verification for the new thin C++ example once a C++ compiler is available and the example is wired into the build
 
 ## Recommended continuation
 1. Run build validation immediately and repair any API drift.

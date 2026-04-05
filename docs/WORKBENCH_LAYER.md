@@ -12,7 +12,7 @@ One of Qt's strongest advantages is not just widgets, but the ease of building a
 - bottom status area
 - straightforward app-shell composition
 
-GTK-derived APIs are powerful but often feel low-level and assembly-oriented for app-shell work. The new `BobguiWorkbench` layer is intended to reduce that friction.
+Lower-level toolkit-style APIs are powerful but often feel assembly-oriented for app-shell work. The new `BobguiWorkbench` layer is intended to reduce that friction.
 
 ## What `BobguiWorkbench` provides
 `BobguiWorkbench` offers a higher-level application shell abstraction with:

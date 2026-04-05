@@ -769,7 +769,12 @@ bobgui_public_headers = files([
 install_headers(bobgui_public_headers, subdir: 'bobgui-4.0/bobgui/')
 
 bobgui_cpp_headers = files([
+  'cpp/action_registry.hpp',
+  'cpp/application.hpp',
   'cpp/bobgui.hpp',
+  'cpp/command_palette.hpp',
+  'cpp/object_handle.hpp',
+  'cpp/workbench.hpp',
 ])
 install_headers(bobgui_cpp_headers, subdir: 'bobgui-4.0/bobgui/cpp')
 

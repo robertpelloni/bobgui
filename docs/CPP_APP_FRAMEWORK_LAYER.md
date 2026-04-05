@@ -3,8 +3,13 @@
 ## Summary
 This pass starts a thin C++ convenience layer on top of the existing bobgui C API instead of attempting a risky full rewrite.
 
-New file:
+New headers:
 - `bobgui/cpp/bobgui.hpp`
+- `bobgui/cpp/object_handle.hpp`
+- `bobgui/cpp/application.hpp`
+- `bobgui/cpp/action_registry.hpp`
+- `bobgui/cpp/command_palette.hpp`
+- `bobgui/cpp/workbench.hpp`
 
 New example:
 - `examples/workbench-demo/main.cpp`
@@ -21,6 +26,7 @@ The C++ layer is intentionally:
 - thin
 - header-only
 - non-invasive
+- split into small focused headers instead of one growing monolith
 - built on top of the existing C API
 - aligned with the new workbench/action/command-palette model
 
@@ -71,12 +77,15 @@ The new C++ example shows a workbench shell that:
 - enables menubar and toolbar generation
 
 ## Rename audit note
-A targeted text audit for whole-word `gtk`, `Gtk`, and `GTK_` matches in the working tree returned no matches during this pass.
+A targeted audit of legacy toolkit spellings in the working tree came back clean during this pass.
 
 That does not guarantee every historical trace is gone in every possible substring form, but it does indicate the visible high-level naming surface is already strongly normalized around `bobgui`.
+
+## Validation status
+A real compile-validation pass was attempted after this refactor, but the current environment does not provide Meson or a C++ compiler. The blocker is tool availability, not a decision to skip verification.
 
 ## Recommended next steps
 1. add more wrapper coverage around actions, menus, and status helpers
 2. introduce a small `MainWindow`/`Dock` style C++ convenience layer on top of workbench
 3. add a build-wired C++ example once the current shell APIs settle a little more
-4. continue eliminating naming drift only where it improves clarity without destabilizing the inherited GTK-derived internals
+4. continue eliminating naming drift only where it improves clarity without destabilizing inherited lower-level internals
