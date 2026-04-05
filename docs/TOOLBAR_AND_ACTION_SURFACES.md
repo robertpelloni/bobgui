@@ -29,8 +29,8 @@ From there, actions can be exposed through:
 
 ## Remaining gap
 Toolbars are currently generated in a simple way and should evolve toward:
-- optional icons
-- toggle/stateful actions
+- full icon-aware rendering beyond basic icon-name forwarding
+- stronger toggle/stateful visual treatment
 - overflow behavior
 - stronger visual separation than plain labels
 

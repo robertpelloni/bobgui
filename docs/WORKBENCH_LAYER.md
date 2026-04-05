@@ -37,7 +37,9 @@ GTK-derived APIs are powerful but often feel low-level and assembly-oriented for
 - `bobgui_workbench_set_action_registry()`
 - `bobgui_workbench_enable_menubar()`
 - `bobgui_workbench_enable_toolbar()`
+- `bobgui_workbench_add_command_visual()`
 - `bobgui_workbench_add_command()`
+- `bobgui_workbench_add_toggle_command_visual()`
 - `bobgui_workbench_add_toggle_command()`
 - `bobgui_workbench_present()`
 

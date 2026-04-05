@@ -46,6 +46,15 @@ void             bobgui_workbench_enable_menubar    (BobguiWorkbench   *self,
                                                       gboolean           enabled);
 void             bobgui_workbench_enable_toolbar    (BobguiWorkbench   *self,
                                                       gboolean           enabled);
+void             bobgui_workbench_add_command_visual(BobguiWorkbench   *self,
+                                                      const char        *command_id,
+                                                      const char        *title,
+                                                      const char        *subtitle,
+                                                      const char        *category,
+                                                      const char        *shortcut,
+                                                      const char        *icon_name,
+                                                      BobguiWorkbenchCommandCallback callback,
+                                                      gpointer           user_data);
 void             bobgui_workbench_add_command_detailed
                                                      (BobguiWorkbench   *self,
                                                       const char        *command_id,
@@ -53,6 +62,17 @@ void             bobgui_workbench_add_command_detailed
                                                       const char        *subtitle,
                                                       const char        *category,
                                                       const char        *shortcut,
+                                                      BobguiWorkbenchCommandCallback callback,
+                                                      gpointer           user_data);
+void             bobgui_workbench_add_toggle_command_visual
+                                                     (BobguiWorkbench   *self,
+                                                      const char        *command_id,
+                                                      const char        *title,
+                                                      const char        *subtitle,
+                                                      const char        *category,
+                                                      const char        *shortcut,
+                                                      const char        *icon_name,
+                                                      gboolean           checked,
                                                       BobguiWorkbenchCommandCallback callback,
                                                       gpointer           user_data);
 void             bobgui_workbench_add_toggle_command(BobguiWorkbench   *self,

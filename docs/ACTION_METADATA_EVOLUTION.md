@@ -10,6 +10,12 @@ The action registry now supports explicit toggle-style actions via:
 - `bobgui_action_registry_set_checked()`
 - `bobgui_action_registry_get_checked()`
 
+### Icon-aware metadata
+The action model also now carries an icon-name slot so higher-level action surfaces can evolve toward richer rendering in:
+- toolbars
+- menus
+- command launchers
+
 This allows the same action model to represent stateful commands like:
 - sidebar visibility
 - panel toggles
@@ -32,7 +38,7 @@ This is important because a modern application framework needs one action model 
 - future dock/workspace controls
 
 ## Demo impact
-The workbench demo now updates toggle checked state through the action registry instead of only changing status text.
+The workbench demo now updates toggle checked state through the action registry instead of only changing status text, and it uses icon-aware command registration for representative actions.
 
 ## Why this matters
 This is another step toward making bobgui feel like a coherent framework rather than a bag of widgets and callbacks.

@@ -64,23 +64,25 @@ on_activate (BobguiApplication *application,
   bobgui_workbench_set_left_sidebar (workbench, sidebar);
   bobgui_workbench_set_central (workbench, editor);
 
-  bobgui_workbench_add_command_detailed (workbench,
-                                         "app.about",
-                                         "About",
-                                         "Show application information",
-                                         "Application",
-                                         "Ctrl+Shift+A",
-                                         on_show_about,
-                                         context);
-  bobgui_workbench_add_toggle_command (workbench,
-                                       "view.toggle-left-sidebar",
-                                       "Toggle Left Sidebar",
-                                       "Show or hide the project sidebar",
-                                       "View",
-                                       "Ctrl+B",
-                                       TRUE,
-                                       on_toggle_left,
+  bobgui_workbench_add_command_visual (workbench,
+                                       "app.about",
+                                       "About",
+                                       "Show application information",
+                                       "Application",
+                                       "Ctrl+Shift+A",
+                                       "help-about-symbolic",
+                                       on_show_about,
                                        context);
+  bobgui_workbench_add_toggle_command_visual (workbench,
+                                              "view.toggle-left-sidebar",
+                                              "Toggle Left Sidebar",
+                                              "Show or hide the project sidebar",
+                                              "View",
+                                              "Ctrl+B",
+                                              "sidebar-show-right-symbolic",
+                                              TRUE,
+                                              on_toggle_left,
+                                              context);
 
   bobgui_workbench_add_header_action_for_command (workbench, "About", "app.about");
   bobgui_workbench_add_header_action_for_command (workbench, "Sidebar", "view.toggle-left-sidebar");

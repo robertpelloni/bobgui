@@ -263,12 +263,15 @@ static void
 bobgui_workbench_append_command_button (BobguiWorkbench *self,
                                         BobguiBox       *box,
                                         const char      *label,
-                                        const char      *command_id)
+                                        const char      *command_id,
+                                        const char      *icon_name)
 {
   BobguiWorkbenchHeaderCommand *header_command;
   BobguiWidget *button;
 
   button = bobgui_button_new_with_label (label);
+  if (icon_name && *icon_name)
+    bobgui_button_set_icon_name (BOBGUI_BUTTON (button), icon_name);
   header_command = g_new0 (BobguiWorkbenchHeaderCommand, 1);
   header_command->workbench = self;
   header_command->command_id = g_strdup (command_id);
@@ -293,7 +296,8 @@ bobgui_workbench_add_header_action_for_command (BobguiWorkbench *self,
   bobgui_workbench_append_command_button (self,
                                           self->header_actions,
                                           label,
-                                          command_id);
+                                          command_id,
+                                          NULL);
 }
 
 static void
@@ -383,7 +387,8 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
         bobgui_workbench_append_command_button (d->self,
                                                 d->self->toolbar_box,
                                                 button_title,
-                                                action_id);
+                                                action_id,
+                                                icon_name);
       }
 
       bobgui_action_registry_visit (self->action_registry, build_button, &data);
@@ -438,14 +443,15 @@ bobgui_workbench_enable_toolbar (BobguiWorkbench *self,
 }
 
 void
-bobgui_workbench_add_command_detailed (BobguiWorkbench                *self,
-                                       const char                     *command_id,
-                                       const char                     *title,
-                                       const char                     *subtitle,
-                                       const char                     *category,
-                                       const char                     *shortcut,
-                                       BobguiWorkbenchCommandCallback  callback,
-                                       gpointer                        user_data)
+bobgui_workbench_add_command_visual (BobguiWorkbench                *self,
+                                     const char                     *command_id,
+                                     const char                     *title,
+                                     const char                     *subtitle,
+                                     const char                     *category,
+                                     const char                     *shortcut,
+                                     const char                     *icon_name,
+                                     BobguiWorkbenchCommandCallback  callback,
+                                     gpointer                        user_data)
 {
   g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
 
@@ -475,7 +481,7 @@ bobgui_workbench_add_command_detailed (BobguiWorkbench                *self,
                                            subtitle,
                                            category,
                                            shortcut,
-                                           NULL,
+                                           icon_name,
                                            callback,
                                            user_data);
 
@@ -495,7 +501,38 @@ bobgui_workbench_add_command_detailed (BobguiWorkbench                *self,
 }
 
 void
-bobgui_workbench_add_toggle_command (BobguiWorkbench                *self,
+bobgui_workbench_add_command_detailed (BobguiWorkbench                *self,
+                                       const char                     *command_id,
+                                       const char                     *title,
+                                       const char                     *subtitle,
+                                       const char                     *category,
+                                       const char                     *shortcut,
+                                       BobguiWorkbenchCommandCallback  callback,
+                                       gpointer                        user_data)
+{
+  bobgui_workbench_add_command_visual (self,
+                                       command_id,
+                                       title,
+                                       subtitle,
+                                       category,
+                                       shortcut,
+                                       NULL,
+                                       callback,
+                                       user_data);
+}
+
+void
+bobgui_workbench_add_toggle_command_visual (BobguiWorkbench                *self,
+                                            const char                     *command_id,
+                                            const char                     *title,
+                                            const char                     *subtitle,
+                                            const char                     *category,
+                                            const char                     *shortcut,
+                                            const char                     *icon_name,
+                                            gboolean                        checked,
+                                            BobguiWorkbenchCommandCallback  callback,
+                                            gpointer                        user_data)
+{
                                      const char                     *command_id,
                                      const char                     *title,
                                      const char                     *subtitle,
@@ -533,7 +570,7 @@ bobgui_workbench_add_toggle_command (BobguiWorkbench                *self,
                                          subtitle,
                                          category,
                                          shortcut,
-                                         NULL,
+                                         icon_name,
                                          checked,
                                          callback,
                                          user_data);
@@ -542,6 +579,29 @@ bobgui_workbench_add_toggle_command (BobguiWorkbench                *self,
         bobgui_action_registry_populate_palette (self->action_registry,
                                                  self->command_palette);
     }
+}
+
+void
+bobgui_workbench_add_toggle_command (BobguiWorkbench                *self,
+                                     const char                     *command_id,
+                                     const char                     *title,
+                                     const char                     *subtitle,
+                                     const char                     *category,
+                                     const char                     *shortcut,
+                                     gboolean                        checked,
+                                     BobguiWorkbenchCommandCallback  callback,
+                                     gpointer                        user_data)
+{
+  bobgui_workbench_add_toggle_command_visual (self,
+                                              command_id,
+                                              title,
+                                              subtitle,
+                                              category,
+                                              shortcut,
+                                              NULL,
+                                              checked,
+                                              callback,
+                                              user_data);
 }
 
 void
