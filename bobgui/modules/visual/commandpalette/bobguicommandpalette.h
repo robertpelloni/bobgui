@@ -13,6 +13,9 @@ G_DECLARE_FINAL_TYPE (BobguiCommandPalette, bobgui_command_palette, BOBGUI, COMM
 
 BobguiCommandPalette * bobgui_command_palette_new               (BobguiApplication *application);
 void                   bobgui_command_palette_clear             (BobguiCommandPalette     *self);
+void                   bobgui_command_palette_set_pinned        (BobguiCommandPalette     *self,
+                                                                const char               *command_id,
+                                                                gboolean                  pinned);
 void                   bobgui_command_palette_add_command       (BobguiCommandPalette     *self,
                                                                 const char               *command_id,
                                                                 const char               *title,

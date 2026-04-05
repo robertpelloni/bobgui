@@ -7,6 +7,12 @@ G_BEGIN_DECLS
 
 typedef void (*BobguiActionRegistryFunc) (const char *action_id,
                                           gpointer    user_data);
+typedef void (*BobguiActionRegistryVisitFunc) (const char *action_id,
+                                               const char *title,
+                                               const char *subtitle,
+                                               const char *category,
+                                               const char *shortcut,
+                                               gpointer    user_data);
 
 typedef struct _BobguiCommandPalette BobguiCommandPalette;
 
@@ -31,6 +37,9 @@ void                   bobgui_action_registry_add              (BobguiActionRegi
 void                   bobgui_action_registry_activate         (BobguiActionRegistry     *self,
                                                                const char               *action_id);
 GMenuModel *           bobgui_action_registry_create_menu_model(BobguiActionRegistry     *self);
+void                   bobgui_action_registry_visit            (BobguiActionRegistry     *self,
+                                                               BobguiActionRegistryVisitFunc func,
+                                                               gpointer                  user_data);
 void                   bobgui_action_registry_populate_palette (BobguiActionRegistry     *self,
                                                                BobguiCommandPalette     *palette);
 

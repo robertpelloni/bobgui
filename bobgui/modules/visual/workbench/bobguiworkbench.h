@@ -44,6 +44,8 @@ void             bobgui_workbench_set_action_registry(BobguiWorkbench   *self,
                                                       BobguiActionRegistry *registry);
 void             bobgui_workbench_enable_menubar    (BobguiWorkbench   *self,
                                                       gboolean           enabled);
+void             bobgui_workbench_enable_toolbar    (BobguiWorkbench   *self,
+                                                      gboolean           enabled);
 void             bobgui_workbench_add_command_detailed
                                                      (BobguiWorkbench   *self,
                                                       const char        *command_id,

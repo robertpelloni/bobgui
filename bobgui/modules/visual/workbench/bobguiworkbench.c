@@ -11,6 +11,7 @@ struct _BobguiWorkbench
   BobguiApplicationWindow *window;
   BobguiHeaderBar *header_bar;
   BobguiBox *root_box;
+  BobguiBox *toolbar_box;
   BobguiPaned *outer_paned;
   BobguiPaned *inner_paned;
   BobguiBox *header_actions;
@@ -128,6 +129,7 @@ bobgui_workbench_new (BobguiApplication *application)
   self->title_label = BOBGUI_LABEL (bobgui_label_new ("Bobgui Workbench"));
   self->status_label = BOBGUI_LABEL (bobgui_label_new ("Ready"));
   self->root_box = BOBGUI_BOX (bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 0));
+  self->toolbar_box = BOBGUI_BOX (bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6));
   self->outer_paned = BOBGUI_PANED (bobgui_paned_new (BOBGUI_ORIENTATION_HORIZONTAL));
   self->inner_paned = BOBGUI_PANED (bobgui_paned_new (BOBGUI_ORIENTATION_HORIZONTAL));
 
@@ -136,6 +138,8 @@ bobgui_workbench_new (BobguiApplication *application)
   bobgui_header_bar_set_title_widget (self->header_bar, title_box);
   bobgui_header_bar_pack_end (self->header_bar, BOBGUI_WIDGET (self->header_actions));
 
+  bobgui_widget_set_visible (BOBGUI_WIDGET (self->toolbar_box), FALSE);
+  bobgui_box_append (self->root_box, BOBGUI_WIDGET (self->toolbar_box));
   bobgui_box_append (self->root_box, BOBGUI_WIDGET (self->outer_paned));
   bobgui_box_append (self->root_box, BOBGUI_WIDGET (self->status_label));
 
@@ -255,16 +259,14 @@ bobgui_workbench_header_command_clicked (BobguiButton *button,
                                      header_command->command_id);
 }
 
-void
-bobgui_workbench_add_header_action_for_command (BobguiWorkbench *self,
-                                                const char      *label,
-                                                const char      *command_id)
+static void
+bobgui_workbench_append_command_button (BobguiWorkbench *self,
+                                        BobguiBox       *box,
+                                        const char      *label,
+                                        const char      *command_id)
 {
   BobguiWorkbenchHeaderCommand *header_command;
   BobguiWidget *button;
-
-  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
-  g_return_if_fail (command_id != NULL);
 
   button = bobgui_button_new_with_label (label);
   header_command = g_new0 (BobguiWorkbenchHeaderCommand, 1);
@@ -277,7 +279,21 @@ bobgui_workbench_add_header_action_for_command (BobguiWorkbench *self,
                          header_command,
                          (GClosureNotify) bobgui_workbench_header_command_free,
                          0);
-  bobgui_box_append (self->header_actions, button);
+  bobgui_box_append (box, button);
+}
+
+void
+bobgui_workbench_add_header_action_for_command (BobguiWorkbench *self,
+                                                const char      *label,
+                                                const char      *command_id)
+{
+  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
+  g_return_if_fail (command_id != NULL);
+
+  bobgui_workbench_append_command_button (self,
+                                          self->header_actions,
+                                          label,
+                                          command_id);
 }
 
 static void
@@ -311,6 +327,48 @@ bobgui_workbench_set_command_palette (BobguiWorkbench      *self,
                                       self);
 }
 
+static void
+bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
+{
+  BobguiWidget *child;
+  BobguiWidget *next;
+
+  child = bobgui_widget_get_first_child (BOBGUI_WIDGET (self->toolbar_box));
+  while (child)
+    {
+      next = bobgui_widget_get_next_sibling (child);
+      bobgui_box_remove (self->toolbar_box, child);
+      child = next;
+    }
+
+  if (self->action_registry)
+    {
+      typedef struct {
+        BobguiWorkbench *self;
+      } ToolbarBuildData;
+      ToolbarBuildData data = { self };
+
+      void build_button (const char *action_id,
+                         const char *title,
+                         const char *subtitle,
+                         const char *category,
+                         const char *shortcut,
+                         gpointer    user_data)
+      {
+        ToolbarBuildData *d = user_data;
+        (void) subtitle;
+        (void) category;
+        (void) shortcut;
+        bobgui_workbench_append_command_button (d->self,
+                                                d->self->toolbar_box,
+                                                title ? title : action_id,
+                                                action_id);
+      }
+
+      bobgui_action_registry_visit (self->action_registry, build_button, &data);
+    }
+}
+
 void
 bobgui_workbench_set_action_registry (BobguiWorkbench      *self,
                                       BobguiActionRegistry *registry)
@@ -322,6 +380,8 @@ bobgui_workbench_set_action_registry (BobguiWorkbench      *self,
 
   if (self->command_palette)
     bobgui_action_registry_populate_palette (registry, self->command_palette);
+
+  bobgui_workbench_rebuild_toolbar (self);
 }
 
 void
@@ -342,6 +402,17 @@ bobgui_workbench_enable_menubar (BobguiWorkbench *self,
   menu_model = bobgui_action_registry_create_menu_model (self->action_registry);
   bobgui_application_set_menubar (self->application, menu_model);
   bobgui_application_window_set_show_menubar (self->window, TRUE);
+}
+
+void
+bobgui_workbench_enable_toolbar (BobguiWorkbench *self,
+                                 gboolean         enabled)
+{
+  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
+
+  bobgui_widget_set_visible (BOBGUI_WIDGET (self->toolbar_box), enabled);
+  if (enabled)
+    bobgui_workbench_rebuild_toolbar (self);
 }
 
 void

@@ -173,6 +173,28 @@ bobgui_action_registry_create_menu_model (BobguiActionRegistry *self)
 }
 
 void
+bobgui_action_registry_visit (BobguiActionRegistry          *self,
+                              BobguiActionRegistryVisitFunc  func,
+                              gpointer                       user_data)
+{
+  guint i;
+
+  g_return_if_fail (BOBGUI_IS_ACTION_REGISTRY (self));
+  g_return_if_fail (func != NULL);
+
+  for (i = 0; i < self->items->len; i++)
+    {
+      BobguiActionRegistryItem *item = g_ptr_array_index (self->items, i);
+      func (item->id,
+            item->title,
+            item->subtitle,
+            item->category,
+            item->shortcut,
+            user_data);
+    }
+}
+
+void
 bobgui_action_registry_populate_palette (BobguiActionRegistry *self,
                                          BobguiCommandPalette *palette)
 {

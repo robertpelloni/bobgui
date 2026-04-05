@@ -22,6 +22,8 @@ struct _BobguiCommandPalette
   BobguiSearchEntry *search_entry;
   BobguiListBox *list_box;
   GPtrArray *items;
+  GHashTable *recent_counts;
+  GHashTable *pinned_ids;
 };
 
 G_DEFINE_TYPE (BobguiCommandPalette, bobgui_command_palette, G_TYPE_OBJECT)
@@ -51,8 +53,16 @@ bobgui_command_palette_on_row_activated (BobguiListBox *box,
 
   (void) box;
 
-  if (item && item->callback)
-    item->callback (item->id, item->user_data);
+  if (item)
+    {
+      int recent = GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, item->id));
+      g_hash_table_replace (self->recent_counts,
+                            g_strdup (item->id),
+                            GINT_TO_POINTER (recent + 1));
+
+      if (item->callback)
+        item->callback (item->id, item->user_data);
+    }
 
   bobgui_window_close (self->window);
 }
@@ -100,7 +110,8 @@ bobgui_command_palette_score_text (const char *haystack,
 }
 
 static int
-bobgui_command_palette_score_item (BobguiCommandPaletteItem *item,
+bobgui_command_palette_score_item (BobguiCommandPalette     *self,
+                                   BobguiCommandPaletteItem *item,
                                    const char               *query)
 {
   char *id_lower;
@@ -111,7 +122,13 @@ bobgui_command_palette_score_item (BobguiCommandPaletteItem *item,
   int current;
 
   if (query == NULL || *query == '\0')
-    return 0;
+    {
+      score = 0;
+      if (g_hash_table_contains (self->pinned_ids, item->id))
+        score += 1000;
+      score += GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, item->id)) * 10;
+      return score;
+    }
 
   query_lower = g_utf8_strdown (query, -1);
   id_lower = g_utf8_strdown (item->id ? item->id : "", -1);
@@ -134,6 +151,11 @@ bobgui_command_palette_score_item (BobguiCommandPaletteItem *item,
   g_free (id_lower);
   g_free (title_lower);
   g_free (subtitle_lower);
+
+  if (g_hash_table_contains (self->pinned_ids, item->id))
+    score += 1000;
+
+  score += GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, item->id)) * 10;
 
   return score;
 }
@@ -165,7 +187,7 @@ bobgui_command_palette_rebuild (BobguiCommandPalette *self)
       BobguiCommandPaletteMatch match = { 0, };
 
       match.item = item;
-      match.score = bobgui_command_palette_score_item (item, query);
+      match.score = bobgui_command_palette_score_item (self, item, query);
 
       if (query == NULL || *query == '\0' || match.score >= 0)
         g_array_append_val (matches, match);
@@ -250,6 +272,8 @@ bobgui_command_palette_dispose (GObject *object)
       g_ptr_array_unref (self->items);
       self->items = NULL;
     }
+  g_clear_pointer (&self->recent_counts, g_hash_table_unref);
+  g_clear_pointer (&self->pinned_ids, g_hash_table_unref);
 
   G_OBJECT_CLASS (bobgui_command_palette_parent_class)->dispose (object);
 }
@@ -265,6 +289,8 @@ static void
 bobgui_command_palette_init (BobguiCommandPalette *self)
 {
   self->items = g_ptr_array_new_with_free_func ((GDestroyNotify) bobgui_command_palette_item_free);
+  self->recent_counts = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+  self->pinned_ids = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 }
 
 BobguiCommandPalette *
@@ -302,6 +328,22 @@ bobgui_command_palette_new (BobguiApplication *application)
   bobgui_widget_add_controller (BOBGUI_WIDGET (self->search_entry), key_controller);
 
   return self;
+}
+
+void
+bobgui_command_palette_set_pinned (BobguiCommandPalette *self,
+                                   const char           *command_id,
+                                   gboolean              pinned)
+{
+  g_return_if_fail (BOBGUI_IS_COMMAND_PALETTE (self));
+  g_return_if_fail (command_id != NULL);
+
+  if (pinned)
+    g_hash_table_replace (self->pinned_ids, g_strdup (command_id), GINT_TO_POINTER (1));
+  else
+    g_hash_table_remove (self->pinned_ids, command_id);
+
+  bobgui_command_palette_rebuild (self);
 }
 
 void
