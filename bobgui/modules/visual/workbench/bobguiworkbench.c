@@ -354,10 +354,13 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
                          const char *subtitle,
                          const char *category,
                          const char *shortcut,
+                         gboolean    checkable,
+                         gboolean    checked,
                          gpointer    user_data)
       {
         ToolbarBuildData *d = user_data;
         BobguiWidget *label;
+        g_autofree char *button_title = NULL;
         (void) subtitle;
         (void) shortcut;
 
@@ -370,9 +373,14 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
             d->last_category = g_strdup (category);
           }
 
+        if (checkable && checked)
+          button_title = g_strdup_printf ("✓ %s", title ? title : action_id);
+        else
+          button_title = g_strdup (title ? title : action_id);
+
         bobgui_workbench_append_command_button (d->self,
                                                 d->self->toolbar_box,
-                                                title ? title : action_id,
+                                                button_title,
                                                 action_id);
       }
 
@@ -480,6 +488,55 @@ bobgui_workbench_add_command_detailed (BobguiWorkbench                *self,
                                           subtitle,
                                           callback,
                                           user_data);
+    }
+}
+
+void
+bobgui_workbench_add_toggle_command (BobguiWorkbench                *self,
+                                     const char                     *command_id,
+                                     const char                     *title,
+                                     const char                     *subtitle,
+                                     const char                     *category,
+                                     const char                     *shortcut,
+                                     gboolean                        checked,
+                                     BobguiWorkbenchCommandCallback  callback,
+                                     gpointer                        user_data)
+{
+  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
+
+  if (self->action_registry)
+    {
+      g_autofree char *action_name = bobgui_workbench_to_action_name (command_id);
+      BobguiWorkbenchRegisteredAction *registered = g_new0 (BobguiWorkbenchRegisteredAction, 1);
+      GSimpleAction *action;
+
+      registered->callback = callback;
+      registered->user_data = user_data;
+      registered->command_id = g_strdup (command_id);
+
+      action = g_simple_action_new (action_name, NULL);
+      g_signal_connect_data (action,
+                             "activate",
+                             G_CALLBACK (bobgui_workbench_application_action_activate),
+                             registered,
+                             (GClosureNotify) bobgui_workbench_registered_action_free,
+                             0);
+      g_action_map_add_action (G_ACTION_MAP (self->application), G_ACTION (action));
+      g_object_unref (action);
+
+      bobgui_action_registry_add_toggle (self->action_registry,
+                                         command_id,
+                                         title,
+                                         subtitle,
+                                         category,
+                                         shortcut,
+                                         checked,
+                                         callback,
+                                         user_data);
+
+      if (self->command_palette)
+        bobgui_action_registry_populate_palette (self->action_registry,
+                                                 self->command_palette);
     }
 }
 

@@ -22,8 +22,12 @@ Without that, every feature ends up inventing its own callback list.
 - `bobgui_action_registry_new()`
 - `bobgui_action_registry_add()`
 - `bobgui_action_registry_add_detailed()`
+- `bobgui_action_registry_add_toggle()`
+- `bobgui_action_registry_set_checked()`
+- `bobgui_action_registry_get_checked()`
 - `bobgui_action_registry_activate()`
 - `bobgui_action_registry_create_menu_model()`
+- `bobgui_action_registry_visit()`
 - `bobgui_action_registry_populate_palette()`
 
 ## Workbench integration
@@ -39,7 +43,7 @@ If a workbench has an action registry and a command palette, adding commands thr
 This is an important architecture step because it turns workbench + command palette from a set of connected widgets into a more reusable application-command system.
 
 ## Recommended next steps
-1. add toolbar generation from the same action registry
-2. dock/workspace actions should register through the same model
-3. add recent/pinned actions on top of the same registry
-4. expand menu structure from sections into richer submenus where appropriate
+1. dock/workspace actions should register through the same model
+2. add recent/pinned actions on top of the same registry
+3. expand menu structure from sections into richer submenus where appropriate
+4. support icons and richer checked/toggle presentation across all action surfaces

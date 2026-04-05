@@ -12,6 +12,8 @@ typedef void (*BobguiActionRegistryVisitFunc) (const char *action_id,
                                                const char *subtitle,
                                                const char *category,
                                                const char *shortcut,
+                                               gboolean    checkable,
+                                               gboolean    checked,
                                                gpointer    user_data);
 
 typedef struct _BobguiCommandPalette BobguiCommandPalette;
@@ -34,6 +36,20 @@ void                   bobgui_action_registry_add              (BobguiActionRegi
                                                                const char               *subtitle,
                                                                BobguiActionRegistryFunc  callback,
                                                                gpointer                  user_data);
+void                   bobgui_action_registry_add_toggle       (BobguiActionRegistry     *self,
+                                                               const char               *action_id,
+                                                               const char               *title,
+                                                               const char               *subtitle,
+                                                               const char               *category,
+                                                               const char               *shortcut,
+                                                               gboolean                  checked,
+                                                               BobguiActionRegistryFunc  callback,
+                                                               gpointer                  user_data);
+void                   bobgui_action_registry_set_checked      (BobguiActionRegistry     *self,
+                                                               const char               *action_id,
+                                                               gboolean                  checked);
+gboolean               bobgui_action_registry_get_checked      (BobguiActionRegistry     *self,
+                                                               const char               *action_id);
 void                   bobgui_action_registry_activate         (BobguiActionRegistry     *self,
                                                                const char               *action_id);
 GMenuModel *           bobgui_action_registry_create_menu_model(BobguiActionRegistry     *self);

@@ -55,6 +55,15 @@ void             bobgui_workbench_add_command_detailed
                                                       const char        *shortcut,
                                                       BobguiWorkbenchCommandCallback callback,
                                                       gpointer           user_data);
+void             bobgui_workbench_add_toggle_command(BobguiWorkbench   *self,
+                                                      const char        *command_id,
+                                                      const char        *title,
+                                                      const char        *subtitle,
+                                                      const char        *category,
+                                                      const char        *shortcut,
+                                                      gboolean           checked,
+                                                      BobguiWorkbenchCommandCallback callback,
+                                                      gpointer           user_data);
 void             bobgui_workbench_add_command        (BobguiWorkbench   *self,
                                                       const char        *command_id,
                                                       const char        *title,

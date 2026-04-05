@@ -30,6 +30,8 @@ The demo now shows the shape of a real bobgui application framework layer:
 - command palette
 - command-backed header buttons
 - menubar generation
+- toolbar generation
+- toggle-style command registration
 
 ## Strategic value
 This is the type of example that starts turning bobgui from a toolkit people inspect into a framework people can imitate and build on.

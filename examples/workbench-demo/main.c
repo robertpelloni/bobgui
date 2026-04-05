@@ -16,9 +16,12 @@ on_toggle_left (const char *command_id,
                 gpointer    user_data)
 {
   BobguiWorkbench *workbench = user_data;
+  static gboolean enabled = TRUE;
 
   (void) command_id;
-  bobgui_workbench_set_status (workbench, "Toggle sidebar action triggered");
+  enabled = !enabled;
+  bobgui_workbench_set_status (workbench,
+                               enabled ? "Sidebar enabled" : "Sidebar disabled");
 }
 
 static void
@@ -58,14 +61,15 @@ on_activate (BobguiApplication *application,
                                          "Ctrl+Shift+A",
                                          on_show_about,
                                          workbench);
-  bobgui_workbench_add_command_detailed (workbench,
-                                         "view.toggle-left-sidebar",
-                                         "Toggle Left Sidebar",
-                                         "Show or hide the project sidebar",
-                                         "View",
-                                         "Ctrl+B",
-                                         on_toggle_left,
-                                         workbench);
+  bobgui_workbench_add_toggle_command (workbench,
+                                       "view.toggle-left-sidebar",
+                                       "Toggle Left Sidebar",
+                                       "Show or hide the project sidebar",
+                                       "View",
+                                       "Ctrl+B",
+                                       TRUE,
+                                       on_toggle_left,
+                                       workbench);
 
   bobgui_workbench_add_header_action_for_command (workbench, "About", "app.about");
   bobgui_workbench_add_header_action_for_command (workbench, "Sidebar", "view.toggle-left-sidebar");

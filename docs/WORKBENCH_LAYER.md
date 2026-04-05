@@ -38,6 +38,7 @@ GTK-derived APIs are powerful but often feel low-level and assembly-oriented for
 - `bobgui_workbench_enable_menubar()`
 - `bobgui_workbench_enable_toolbar()`
 - `bobgui_workbench_add_command()`
+- `bobgui_workbench_add_toggle_command()`
 - `bobgui_workbench_present()`
 
 ## Current usability improvements
@@ -49,6 +50,7 @@ This pass adds a more Qt-like interaction loop for command-driven apps:
 - header buttons can be bound directly to registered commands
 - menubar generation can come from the shared action model
 - toolbar buttons can be generated from the same action model
+- toggle-style commands can be registered through the same shell layer
 
 That starts to move bobgui toward a more opinionated application framework experience instead of only a raw widget toolkit.
 

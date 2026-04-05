@@ -8,6 +8,8 @@ typedef struct
   char *subtitle;
   char *category;
   char *shortcut;
+  gboolean checkable;
+  gboolean checked;
   BobguiActionRegistryFunc callback;
   gpointer user_data;
 } BobguiActionRegistryItem;
@@ -97,6 +99,35 @@ bobgui_action_registry_add_detailed (BobguiActionRegistry      *self,
 }
 
 void
+bobgui_action_registry_add_toggle (BobguiActionRegistry      *self,
+                                   const char                *action_id,
+                                   const char                *title,
+                                   const char                *subtitle,
+                                   const char                *category,
+                                   const char                *shortcut,
+                                   gboolean                   checked,
+                                   BobguiActionRegistryFunc   callback,
+                                   gpointer                   user_data)
+{
+  BobguiActionRegistryItem *item;
+
+  g_return_if_fail (BOBGUI_IS_ACTION_REGISTRY (self));
+  g_return_if_fail (action_id != NULL);
+
+  item = g_new0 (BobguiActionRegistryItem, 1);
+  item->id = g_strdup (action_id);
+  item->title = g_strdup (title);
+  item->subtitle = g_strdup (subtitle);
+  item->category = g_strdup (category);
+  item->shortcut = g_strdup (shortcut);
+  item->checkable = TRUE;
+  item->checked = checked;
+  item->callback = callback;
+  item->user_data = user_data;
+  g_ptr_array_add (self->items, item);
+}
+
+void
 bobgui_action_registry_add (BobguiActionRegistry      *self,
                             const char                *action_id,
                             const char                *title,
@@ -112,6 +143,46 @@ bobgui_action_registry_add (BobguiActionRegistry      *self,
                                        NULL,
                                        callback,
                                        user_data);
+}
+
+void
+bobgui_action_registry_set_checked (BobguiActionRegistry *self,
+                                    const char           *action_id,
+                                    gboolean              checked)
+{
+  guint i;
+
+  g_return_if_fail (BOBGUI_IS_ACTION_REGISTRY (self));
+  g_return_if_fail (action_id != NULL);
+
+  for (i = 0; i < self->items->len; i++)
+    {
+      BobguiActionRegistryItem *item = g_ptr_array_index (self->items, i);
+      if (g_strcmp0 (item->id, action_id) == 0)
+        {
+          item->checked = checked;
+          return;
+        }
+    }
+}
+
+gboolean
+bobgui_action_registry_get_checked (BobguiActionRegistry *self,
+                                    const char           *action_id)
+{
+  guint i;
+
+  g_return_val_if_fail (BOBGUI_IS_ACTION_REGISTRY (self), FALSE);
+  g_return_val_if_fail (action_id != NULL, FALSE);
+
+  for (i = 0; i < self->items->len; i++)
+    {
+      BobguiActionRegistryItem *item = g_ptr_array_index (self->items, i);
+      if (g_strcmp0 (item->id, action_id) == 0)
+        return item->checked;
+    }
+
+  return FALSE;
 }
 
 void
@@ -163,8 +234,15 @@ bobgui_action_registry_create_menu_model (BobguiActionRegistry *self)
           g_menu_append_section (menu, category, G_MENU_MODEL (section));
         }
 
+      g_autofree char *label = NULL;
+
+      if (item->checkable && item->checked)
+        label = g_strdup_printf ("✓ %s", item->title ? item->title : item->id);
+      else
+        label = g_strdup (item->title ? item->title : item->id);
+
       g_menu_append (section,
-                     item->title ? item->title : item->id,
+                     label,
                      detailed);
     }
 
@@ -190,6 +268,8 @@ bobgui_action_registry_visit (BobguiActionRegistry          *self,
             item->subtitle,
             item->category,
             item->shortcut,
+            item->checkable,
+            item->checked,
             user_data);
     }
 }
@@ -210,7 +290,15 @@ bobgui_action_registry_populate_palette (BobguiActionRegistry *self,
       BobguiActionRegistryItem *item = g_ptr_array_index (self->items, i);
       g_autofree char *subtitle = NULL;
 
-      if (item->category && item->shortcut && item->subtitle)
+      if (item->checkable && item->checked && item->category && item->shortcut && item->subtitle)
+        subtitle = g_strdup_printf ("✓ [%s] %s — %s", item->category, item->shortcut, item->subtitle);
+      else if (item->checkable && item->checked && item->category && item->shortcut)
+        subtitle = g_strdup_printf ("✓ [%s] %s", item->category, item->shortcut);
+      else if (item->checkable && item->checked && item->subtitle)
+        subtitle = g_strdup_printf ("✓ %s", item->subtitle);
+      else if (item->checkable && item->checked)
+        subtitle = g_strdup ("✓ Enabled");
+      else if (item->category && item->shortcut && item->subtitle)
         subtitle = g_strdup_printf ("[%s] %s — %s", item->category, item->shortcut, item->subtitle);
       else if (item->category && item->shortcut)
         subtitle = g_strdup_printf ("[%s] %s", item->category, item->shortcut);
