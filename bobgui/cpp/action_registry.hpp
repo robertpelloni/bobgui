@@ -19,6 +19,21 @@ class ActionRegistry
 public:
   typedef std::function<void(const std::string &)> ActionHandler;
 
+  struct ActionInfo
+  {
+    std::string id;
+    std::string title;
+    std::string subtitle;
+    std::string section;
+    std::string category;
+    std::string shortcut;
+    std::string icon_name;
+    bool checkable;
+    bool checked;
+  };
+
+  typedef std::function<void(const ActionInfo &)> ActionVisitor;
+
   struct ActionOptions
   {
     const char *section;
@@ -108,10 +123,24 @@ public:
     return ObjectHandle<GMenuModel> (bobgui_action_registry_create_menu_model (registry_.get ()));
   }
 
+  void visit (ActionVisitor visitor) const
+  {
+    VisitState state = { &visitor };
+
+    bobgui_action_registry_visit (registry_.get (),
+                                  &ActionRegistry::visit_trampoline,
+                                  &state);
+  }
+
 private:
   struct ActionBinding
   {
     ActionHandler handler;
+  };
+
+  struct VisitState
+  {
+    ActionVisitor *visitor;
   };
 
   static void action_trampoline (const char *action_id,
@@ -121,6 +150,34 @@ private:
 
     if (binding->handler)
       binding->handler (action_id != nullptr ? std::string (action_id) : std::string ());
+  }
+
+  static void visit_trampoline (const char *action_id,
+                                const char *title,
+                                const char *subtitle,
+                                const char *section,
+                                const char *category,
+                                const char *shortcut,
+                                const char *icon_name,
+                                gboolean    checkable,
+                                gboolean    checked,
+                                gpointer    user_data)
+  {
+    VisitState *state = static_cast<VisitState *> (user_data);
+    ActionInfo info;
+
+    info.id = action_id != NULL ? action_id : "";
+    info.title = title != NULL ? title : "";
+    info.subtitle = subtitle != NULL ? subtitle : "";
+    info.section = section != NULL ? section : "";
+    info.category = category != NULL ? category : "";
+    info.shortcut = shortcut != NULL ? shortcut : "";
+    info.icon_name = icon_name != NULL ? icon_name : "";
+    info.checkable = checkable;
+    info.checked = checked;
+
+    if (state->visitor != NULL && *state->visitor)
+      (*state->visitor) (info);
   }
 
   ActionBinding *add_binding (ActionHandler handler)

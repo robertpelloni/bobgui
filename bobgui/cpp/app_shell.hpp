@@ -1,8 +1,10 @@
 #ifndef BOBGUI_CPP_APP_SHELL_HPP
 #define BOBGUI_CPP_APP_SHELL_HPP
 
+#include "dock_manager.hpp"
 #include "workbench.hpp"
 
+#include <memory>
 #include <utility>
 
 namespace bobgui {
@@ -33,6 +35,19 @@ public:
   CommandPalette &palette ()
   {
     return command_palette_;
+  }
+
+  bool has_dock_manager () const
+  {
+    return dock_manager_.get () != NULL;
+  }
+
+  DockManager &dock_manager ()
+  {
+    if (!dock_manager_)
+      dock_manager_.reset (new DockManager (workbench_.window ()));
+
+    return *dock_manager_;
   }
 
   void set_title (const char *title)
@@ -119,6 +134,7 @@ private:
   Workbench workbench_;
   ActionRegistry action_registry_;
   CommandPalette command_palette_;
+  std::unique_ptr<DockManager> dock_manager_;
 };
 
 } /* namespace cpp */

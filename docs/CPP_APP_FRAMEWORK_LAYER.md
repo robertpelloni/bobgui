@@ -11,6 +11,7 @@ New headers:
 - `bobgui/cpp/command_palette.hpp`
 - `bobgui/cpp/workbench.hpp`
 - `bobgui/cpp/app_shell.hpp`
+- `bobgui/cpp/dock_manager.hpp`
 
 New example:
 - `examples/workbench-demo/main.cpp`
@@ -40,6 +41,7 @@ The first wrapper pass introduces small C++ objects for:
 - `CommandPalette`
 - `Workbench`
 - `AppShell`
+- `DockManager`
 
 The current wrapper focuses on:
 - ownership of GObject-based instances
@@ -48,7 +50,9 @@ The current wrapper focuses on:
 - command-palette attachment
 - section-aware command registration
 - option-struct-based command registration to avoid long parameter lists
+- action visiting and menu-model access from C++
 - a simple `AppShell` preset that wires workbench + action registry + command palette together
+- lazy dock-manager access through the shell preset
 - lambda-friendly command handlers via `std::function`
 
 ## Why this is a better step than a rewrite
@@ -79,6 +83,7 @@ The new C++ example shows an app shell that:
 - registers commands through a `Workbench::CommandOptions` struct
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer
+- leaves room for future dock/workspace setup through the same shell object
 
 ## Rename audit note
 A targeted audit of legacy toolkit spellings in the working tree came back clean during this pass.
@@ -90,6 +95,6 @@ A real compile-validation pass was attempted after this refactor, but the curren
 
 ## Recommended next steps
 1. add richer wrapper coverage around action visiting and menu composition
-2. introduce a small `MainWindow`/`Dock` style C++ convenience layer on top of workbench/app shell
+2. deepen dock/workspace-oriented shell helpers on top of workbench/app shell
 3. add build-wired C++ examples once the current shell APIs settle a little more
 4. continue modernizing the most visible inherited branding/comments in public entry points

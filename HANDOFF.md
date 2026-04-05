@@ -5,8 +5,8 @@ This session continued the bobgui refactor with a focus on making the thin C++ l
 
 The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
-- add stronger C++ action/menu ergonomics
-- add a higher-level C++ app-shell preset for the common desktop-app path
+- add stronger C++ action inspection and menu-oriented ergonomics
+- extend the C++ shell preset toward future dock/workspace usage
 - continue documenting the framework direction clearly
 
 ## Changes made
@@ -18,44 +18,45 @@ The main goals were:
 ### C++ action-registry wrapper expansion
 Expanded `bobgui/cpp/action_registry.hpp` so it now provides:
 - `ActionRegistry::ActionOptions`
+- `ActionRegistry::ActionInfo`
+- `ActionRegistry::ActionVisitor`
 - `add_action()`
 - `add_toggle_action()`
 - `activate()`
 - `set_checked()`
 - `is_checked()`
 - `create_menu_model()`
+- `visit()`
 
-This turns the C++ action wrapper into something more useful for real application composition.
+This turns the C++ action wrapper into something much more useful for real application composition and inspection.
 
 ### C++ workbench cleanup
 - `Workbench::CommandOptions` now aliases the shared action-options model instead of defining a separate duplicate metadata struct.
-- This reduces conceptual duplication and makes the C++ metadata story cleaner.
+- This keeps the C++ metadata story cleaner across shared actions and workbench commands.
 
-### New C++ app-shell preset
+### Dock-oriented C++ wrapper work
 Added:
+- `bobgui/cpp/dock_manager.hpp`
+
+Expanded:
 - `bobgui/cpp/app_shell.hpp`
 
-`AppShell` owns and wires together:
-- `Workbench`
-- `ActionRegistry`
-- `CommandPalette`
+`AppShell` now supports lazy dock-manager creation through:
+- `has_dock_manager()`
+- `dock_manager()`
 
-It provides a simpler C++ happy path for the most common application-shell setup.
+This is an early but important step toward a fuller dock/workspace shell story.
 
 ### C++ umbrella/install updates
-- Updated `bobgui/cpp/bobgui.hpp` to include `app_shell.hpp`.
+- Updated `bobgui/cpp/bobgui.hpp` to include `dock_manager.hpp`.
 - Updated `bobgui/meson.build` to install the new header.
-
-### Example update
-- Updated `examples/workbench-demo/main.cpp` to use `AppShell` plus `Workbench::CommandOptions`.
-- The example is now shorter, clearer, and more representative of the intended C++ API style.
 
 ### Documentation
 Updated:
 - `docs/CPP_APP_FRAMEWORK_LAYER.md`
 
 Added:
-- `docs/CPP_APP_SHELL_PRESET_2026-04-05.md`
+- `docs/CPP_ACTION_VISITORS_AND_DOCK_PRESET_2026-04-05.md`
 
 ## Validation notes
 - A literal grep audit still returns no matches for the legacy toolkit spellings in the working tree.
@@ -63,11 +64,11 @@ Added:
 - Real compile validation remains blocked by missing environment tools from the earlier validation attempt (`meson`, Python `mesonbuild`, and `g++`).
 
 ## Recommended next steps
-1. Add C++ action visiting helpers so C++ callers can inspect registry contents without dropping to C.
-2. Add dock/workspace-oriented shell helpers on top of `AppShell`/`Workbench`.
+1. Add C++ helpers for action-driven menu/tool surfaces.
+2. Add more opinionated multi-pane or studio-style shell presets on top of `AppShell`.
 3. Continue modernizing the highest-visibility inherited public header comments.
 4. Run full Meson/configure/build validation immediately when tool availability exists.
-5. Consider whether the next preset should target studio/tool apps, document apps, or multi-pane workbench apps.
+5. Expand the dock/workspace direction as soon as the underlying C dock layer becomes less skeletal.
 
 ## Notes
 - No processes were killed.
