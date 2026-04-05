@@ -6,6 +6,8 @@ typedef struct
   char *id;
   char *title;
   char *subtitle;
+  char *category;
+  char *shortcut;
   BobguiActionRegistryFunc callback;
   gpointer user_data;
 } BobguiActionRegistryItem;
@@ -24,6 +26,8 @@ bobgui_action_registry_item_free (BobguiActionRegistryItem *item)
   g_free (item->id);
   g_free (item->title);
   g_free (item->subtitle);
+  g_free (item->category);
+  g_free (item->shortcut);
   g_free (item);
 }
 
@@ -67,12 +71,14 @@ bobgui_action_registry_new (void)
 }
 
 void
-bobgui_action_registry_add (BobguiActionRegistry      *self,
-                            const char                *action_id,
-                            const char                *title,
-                            const char                *subtitle,
-                            BobguiActionRegistryFunc   callback,
-                            gpointer                   user_data)
+bobgui_action_registry_add_detailed (BobguiActionRegistry      *self,
+                                     const char                *action_id,
+                                     const char                *title,
+                                     const char                *subtitle,
+                                     const char                *category,
+                                     const char                *shortcut,
+                                     BobguiActionRegistryFunc   callback,
+                                     gpointer                   user_data)
 {
   BobguiActionRegistryItem *item;
 
@@ -83,9 +89,29 @@ bobgui_action_registry_add (BobguiActionRegistry      *self,
   item->id = g_strdup (action_id);
   item->title = g_strdup (title);
   item->subtitle = g_strdup (subtitle);
+  item->category = g_strdup (category);
+  item->shortcut = g_strdup (shortcut);
   item->callback = callback;
   item->user_data = user_data;
   g_ptr_array_add (self->items, item);
+}
+
+void
+bobgui_action_registry_add (BobguiActionRegistry      *self,
+                            const char                *action_id,
+                            const char                *title,
+                            const char                *subtitle,
+                            BobguiActionRegistryFunc   callback,
+                            gpointer                   user_data)
+{
+  bobgui_action_registry_add_detailed (self,
+                                       action_id,
+                                       title,
+                                       subtitle,
+                                       NULL,
+                                       NULL,
+                                       callback,
+                                       user_data);
 }
 
 void
@@ -114,23 +140,35 @@ GMenuModel *
 bobgui_action_registry_create_menu_model (BobguiActionRegistry *self)
 {
   GMenu *menu;
+  GHashTable *sections;
   guint i;
 
   g_return_val_if_fail (BOBGUI_IS_ACTION_REGISTRY (self), NULL);
 
   menu = g_menu_new ();
+  sections = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
 
   for (i = 0; i < self->items->len; i++)
     {
       BobguiActionRegistryItem *item = g_ptr_array_index (self->items, i);
+      const char *category = item->category ? item->category : "General";
+      GMenu *section = g_hash_table_lookup (sections, category);
       g_autofree char *action_name = bobgui_action_registry_to_action_name (item->id);
       g_autofree char *detailed = g_strdup_printf ("app.%s", action_name);
 
-      g_menu_append (menu,
+      if (section == NULL)
+        {
+          section = g_menu_new ();
+          g_hash_table_insert (sections, g_strdup (category), section);
+          g_menu_append_section (menu, category, G_MENU_MODEL (section));
+        }
+
+      g_menu_append (section,
                      item->title ? item->title : item->id,
                      detailed);
     }
 
+  g_hash_table_unref (sections);
   return G_MENU_MODEL (menu);
 }
 
@@ -148,10 +186,27 @@ bobgui_action_registry_populate_palette (BobguiActionRegistry *self,
   for (i = 0; i < self->items->len; i++)
     {
       BobguiActionRegistryItem *item = g_ptr_array_index (self->items, i);
+      g_autofree char *subtitle = NULL;
+
+      if (item->category && item->shortcut && item->subtitle)
+        subtitle = g_strdup_printf ("[%s] %s — %s", item->category, item->shortcut, item->subtitle);
+      else if (item->category && item->shortcut)
+        subtitle = g_strdup_printf ("[%s] %s", item->category, item->shortcut);
+      else if (item->category && item->subtitle)
+        subtitle = g_strdup_printf ("[%s] %s", item->category, item->subtitle);
+      else if (item->shortcut && item->subtitle)
+        subtitle = g_strdup_printf ("%s — %s", item->shortcut, item->subtitle);
+      else if (item->category)
+        subtitle = g_strdup_printf ("[%s]", item->category);
+      else if (item->shortcut)
+        subtitle = g_strdup (item->shortcut);
+      else if (item->subtitle)
+        subtitle = g_strdup (item->subtitle);
+
       bobgui_command_palette_add_command (palette,
                                           item->id,
                                           item->title,
-                                          item->subtitle,
+                                          subtitle,
                                           item->callback,
                                           item->user_data);
     }

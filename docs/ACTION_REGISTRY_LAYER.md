@@ -21,7 +21,9 @@ Without that, every feature ends up inventing its own callback list.
 ### Core API
 - `bobgui_action_registry_new()`
 - `bobgui_action_registry_add()`
+- `bobgui_action_registry_add_detailed()`
 - `bobgui_action_registry_activate()`
+- `bobgui_action_registry_create_menu_model()`
 - `bobgui_action_registry_populate_palette()`
 
 ## Workbench integration
@@ -39,5 +41,5 @@ This is an important architecture step because it turns workbench + command pale
 ## Recommended next steps
 1. add toolbar generation from the same action registry
 2. dock/workspace actions should register through the same model
-3. add command grouping and recent actions on top of the same registry
-4. add richer menu structure (sections/submenus) instead of a single flat menu
+3. add recent/pinned actions on top of the same registry
+4. expand menu structure from sections into richer submenus where appropriate

@@ -14,6 +14,14 @@ typedef struct _BobguiCommandPalette BobguiCommandPalette;
 G_DECLARE_FINAL_TYPE (BobguiActionRegistry, bobgui_action_registry, BOBGUI, ACTION_REGISTRY, GObject)
 
 BobguiActionRegistry * bobgui_action_registry_new              (void);
+void                   bobgui_action_registry_add_detailed     (BobguiActionRegistry     *self,
+                                                               const char               *action_id,
+                                                               const char               *title,
+                                                               const char               *subtitle,
+                                                               const char               *category,
+                                                               const char               *shortcut,
+                                                               BobguiActionRegistryFunc  callback,
+                                                               gpointer                  user_data);
 void                   bobgui_action_registry_add              (BobguiActionRegistry     *self,
                                                                const char               *action_id,
                                                                const char               *title,

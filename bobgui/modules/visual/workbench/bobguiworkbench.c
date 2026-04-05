@@ -345,12 +345,14 @@ bobgui_workbench_enable_menubar (BobguiWorkbench *self,
 }
 
 void
-bobgui_workbench_add_command (BobguiWorkbench                *self,
-                              const char                     *command_id,
-                              const char                     *title,
-                              const char                     *subtitle,
-                              BobguiWorkbenchCommandCallback  callback,
-                              gpointer                        user_data)
+bobgui_workbench_add_command_detailed (BobguiWorkbench                *self,
+                                       const char                     *command_id,
+                                       const char                     *title,
+                                       const char                     *subtitle,
+                                       const char                     *category,
+                                       const char                     *shortcut,
+                                       BobguiWorkbenchCommandCallback  callback,
+                                       gpointer                        user_data)
 {
   g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
 
@@ -374,12 +376,14 @@ bobgui_workbench_add_command (BobguiWorkbench                *self,
       g_action_map_add_action (G_ACTION_MAP (self->application), G_ACTION (action));
       g_object_unref (action);
 
-      bobgui_action_registry_add (self->action_registry,
-                                  command_id,
-                                  title,
-                                  subtitle,
-                                  callback,
-                                  user_data);
+      bobgui_action_registry_add_detailed (self->action_registry,
+                                           command_id,
+                                           title,
+                                           subtitle,
+                                           category,
+                                           shortcut,
+                                           callback,
+                                           user_data);
 
       if (self->command_palette)
         bobgui_action_registry_populate_palette (self->action_registry,
@@ -394,6 +398,24 @@ bobgui_workbench_add_command (BobguiWorkbench                *self,
                                           callback,
                                           user_data);
     }
+}
+
+void
+bobgui_workbench_add_command (BobguiWorkbench                *self,
+                              const char                     *command_id,
+                              const char                     *title,
+                              const char                     *subtitle,
+                              BobguiWorkbenchCommandCallback  callback,
+                              gpointer                        user_data)
+{
+  bobgui_workbench_add_command_detailed (self,
+                                         command_id,
+                                         title,
+                                         subtitle,
+                                         NULL,
+                                         NULL,
+                                         callback,
+                                         user_data);
 }
 
 void

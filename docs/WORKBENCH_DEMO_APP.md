@@ -20,10 +20,16 @@ It is easier to evaluate whether bobgui is becoming "more like Qt but not Qt" wh
 - creating and attaching a `BobguiCommandPalette`
 - registering commands through the workbench
 - binding header actions directly to those command identifiers
+- generating a menubar from the same shared action registry
 - presenting a coherent shell with a left sidebar and central editor area
 
-## Next expected enhancement
-The natural next step for the demo is to enable a generated menubar from the shared action registry so the example shows a complete action-driven shell, not just palette + header buttons.
+## Current direction
+The demo now shows the shape of a real bobgui application framework layer:
+- shell
+- action registry
+- command palette
+- command-backed header buttons
+- menubar generation
 
 ## Strategic value
 This is the type of example that starts turning bobgui from a toolkit people inspect into a framework people can imitate and build on.
