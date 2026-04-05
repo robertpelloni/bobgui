@@ -9,6 +9,12 @@ typedef struct
   gpointer user_data;
 } BobguiCommandPaletteItem;
 
+typedef struct
+{
+  BobguiCommandPaletteItem *item;
+  int score;
+} BobguiCommandPaletteMatch;
+
 struct _BobguiCommandPalette
 {
   GObject parent_instance;
@@ -74,52 +80,113 @@ bobgui_command_palette_build_row (BobguiCommandPaletteItem *item)
   return row;
 }
 
-static gboolean
-bobgui_command_palette_item_matches (BobguiCommandPaletteItem *item,
-                                     const char               *query)
+static int
+bobgui_command_palette_score_text (const char *haystack,
+                                   const char *needle)
+{
+  const char *match;
+
+  if (haystack == NULL || needle == NULL || *needle == '\0')
+    return 0;
+
+  match = strstr (haystack, needle);
+  if (match == NULL)
+    return -1;
+
+  if (match == haystack)
+    return 100;
+
+  return 50 - (int) (match - haystack);
+}
+
+static int
+bobgui_command_palette_score_item (BobguiCommandPaletteItem *item,
+                                   const char               *query)
 {
   char *id_lower;
   char *title_lower;
   char *subtitle_lower;
   char *query_lower;
-  gboolean matches;
+  int score = -1;
+  int current;
 
   if (query == NULL || *query == '\0')
-    return TRUE;
+    return 0;
 
   query_lower = g_utf8_strdown (query, -1);
   id_lower = g_utf8_strdown (item->id ? item->id : "", -1);
   title_lower = g_utf8_strdown (item->title ? item->title : "", -1);
   subtitle_lower = g_utf8_strdown (item->subtitle ? item->subtitle : "", -1);
 
-  matches = strstr (id_lower, query_lower) != NULL ||
-            strstr (title_lower, query_lower) != NULL ||
-            strstr (subtitle_lower, query_lower) != NULL;
+  current = bobgui_command_palette_score_text (id_lower, query_lower);
+  if (current > score)
+    score = current;
+
+  current = bobgui_command_palette_score_text (title_lower, query_lower);
+  if (current > score)
+    score = current + 25;
+
+  current = bobgui_command_palette_score_text (subtitle_lower, query_lower);
+  if (current > score)
+    score = current;
 
   g_free (query_lower);
   g_free (id_lower);
   g_free (title_lower);
   g_free (subtitle_lower);
 
-  return matches;
+  return score;
+}
+
+static gint
+bobgui_command_palette_compare_match (gconstpointer a,
+                                      gconstpointer b)
+{
+  const BobguiCommandPaletteMatch *ma = a;
+  const BobguiCommandPaletteMatch *mb = b;
+
+  return mb->score - ma->score;
 }
 
 static void
 bobgui_command_palette_rebuild (BobguiCommandPalette *self)
 {
   const char *query;
+  GArray *matches;
   guint i;
 
   bobgui_list_box_remove_all (self->list_box);
   query = bobgui_editable_get_text (BOBGUI_EDITABLE (self->search_entry));
+  matches = g_array_new (FALSE, FALSE, sizeof (BobguiCommandPaletteMatch));
 
   for (i = 0; i < self->items->len; i++)
     {
       BobguiCommandPaletteItem *item = g_ptr_array_index (self->items, i);
+      BobguiCommandPaletteMatch match = { 0, };
 
-      if (bobgui_command_palette_item_matches (item, query))
-        bobgui_list_box_append (self->list_box, bobgui_command_palette_build_row (item));
+      match.item = item;
+      match.score = bobgui_command_palette_score_item (item, query);
+
+      if (query == NULL || *query == '\0' || match.score >= 0)
+        g_array_append_val (matches, match);
     }
+
+  g_array_sort (matches, bobgui_command_palette_compare_match);
+
+  for (i = 0; i < matches->len; i++)
+    {
+      BobguiCommandPaletteMatch *match = &g_array_index (matches, BobguiCommandPaletteMatch, i);
+      bobgui_list_box_append (self->list_box, bobgui_command_palette_build_row (match->item));
+    }
+
+  if (matches->len > 0)
+    {
+      BobguiListBoxRow *row = bobgui_list_box_get_row_at_index (self->list_box, 0);
+      if (row)
+        bobgui_list_box_select_row (self->list_box, row);
+    }
+
+  g_array_unref (matches);
 }
 
 static void
@@ -128,6 +195,48 @@ bobgui_command_palette_on_search_changed (BobguiSearchEntry     *entry,
 {
   (void) entry;
   bobgui_command_palette_rebuild (self);
+}
+
+static gboolean
+bobgui_command_palette_on_search_key_pressed (BobguiEventControllerKey *controller,
+                                              guint                     keyval,
+                                              guint                     keycode,
+                                              GdkModifierType           state,
+                                              gpointer                  user_data)
+{
+  BobguiCommandPalette *self = BOBGUI_COMMAND_PALETTE (user_data);
+  BobguiListBoxRow *row;
+  int index;
+
+  (void) controller;
+  (void) keycode;
+  (void) state;
+
+  row = bobgui_list_box_get_selected_row (self->list_box);
+  index = row ? bobgui_list_box_row_get_index (row) : -1;
+
+  if (keyval == GDK_KEY_Down)
+    {
+      BobguiListBoxRow *next = bobgui_list_box_get_row_at_index (self->list_box, index + 1);
+      if (next)
+        bobgui_list_box_select_row (self->list_box, next);
+      return TRUE;
+    }
+  else if (keyval == GDK_KEY_Up)
+    {
+      BobguiListBoxRow *prev = bobgui_list_box_get_row_at_index (self->list_box, index > 0 ? index - 1 : 0);
+      if (prev)
+        bobgui_list_box_select_row (self->list_box, prev);
+      return TRUE;
+    }
+  else if (keyval == GDK_KEY_Return || keyval == GDK_KEY_KP_Enter)
+    {
+      if (row)
+        g_signal_emit_by_name (self->list_box, "row-activated", row);
+      return TRUE;
+    }
+
+  return FALSE;
 }
 
 static void
@@ -162,6 +271,7 @@ BobguiCommandPalette *
 bobgui_command_palette_new (BobguiApplication *application)
 {
   BobguiCommandPalette *self = g_object_new (BOBGUI_TYPE_COMMAND_PALETTE, NULL);
+  BobguiEventController *key_controller;
   BobguiWidget *root;
   BobguiWidget *scroller;
 
@@ -185,6 +295,11 @@ bobgui_command_palette_new (BobguiApplication *application)
                     G_CALLBACK (bobgui_command_palette_on_row_activated), self);
   g_signal_connect (self->search_entry, "search-changed",
                     G_CALLBACK (bobgui_command_palette_on_search_changed), self);
+
+  key_controller = bobgui_event_controller_key_new ();
+  g_signal_connect (key_controller, "key-pressed",
+                    G_CALLBACK (bobgui_command_palette_on_search_key_pressed), self);
+  bobgui_widget_add_controller (BOBGUI_WIDGET (self->search_entry), key_controller);
 
   return self;
 }

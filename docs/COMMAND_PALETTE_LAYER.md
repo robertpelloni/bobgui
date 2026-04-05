@@ -26,10 +26,14 @@ It improves:
 ## Current behavior improvements
 This pass also added built-in filtering behavior:
 - the palette listens to `BobguiSearchEntry::search-changed`
-- commands are filtered by substring match against:
+- commands are filtered and ranked against:
   - command id
   - title
   - subtitle
+- the top result is auto-selected after rebuild
+- keyboard navigation works from the search field:
+  - `Down` / `Up` to move selection
+  - `Enter` to activate the selected command
 
 That makes the palette feel much more like a modern command launcher rather than a static dialog.
 
@@ -53,7 +57,7 @@ This is a strong example of the direction bobgui should keep taking:
 - more framework-level affordances that make building a real app easier
 
 ## Recommended next steps
-1. improve ranking beyond substring matching (scored fuzzy match)
-2. add keyboard row navigation and default selection behavior
-3. integrate command palette entries with workbench/dock/actions
-4. add a small demo application showing the full workbench + command palette flow
+1. improve ranking beyond simple scored substring matching toward true fuzzy match
+2. integrate command palette entries with workbench/dock/actions
+3. add a small demo application showing the full workbench + command palette flow
+4. add command grouping, recent commands, and pinned commands
