@@ -20,22 +20,7 @@ class Workbench
 {
 public:
   typedef std::function<void(const std::string &)> CommandHandler;
-
-  struct CommandOptions
-  {
-    const char *section;
-    const char *category;
-    const char *shortcut;
-    const char *icon_name;
-
-    CommandOptions ()
-    : section (NULL),
-      category (NULL),
-      shortcut (NULL),
-      icon_name (NULL)
-    {
-    }
-  };
+  typedef ActionRegistry::ActionOptions CommandOptions;
 
   explicit Workbench (Application &application)
   : workbench_ (bobgui_workbench_new (application.native ()))

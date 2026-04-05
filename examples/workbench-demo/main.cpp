@@ -2,23 +2,18 @@
 
 #include <memory>
 
-using bobgui::cpp::ActionRegistry;
+using bobgui::cpp::AppShell;
 using bobgui::cpp::Application;
-using bobgui::cpp::CommandPalette;
 using bobgui::cpp::Workbench;
 
 int
 main (int argc, char **argv)
 {
   Application app ("org.bobgui.WorkbenchDemoCpp");
-  std::unique_ptr<Workbench> workbench;
-  std::unique_ptr<ActionRegistry> actions;
-  std::unique_ptr<CommandPalette> palette;
+  std::unique_ptr<AppShell> shell;
 
   app.on_activate ([&] (Application &application) {
-    workbench.reset (new Workbench (application));
-    actions.reset (new ActionRegistry ());
-    palette.reset (new CommandPalette (application));
+    shell.reset (new AppShell (application));
 
     BobguiWidget *editor = bobgui_text_view_new ();
     BobguiWidget *sidebar = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 6);
@@ -26,13 +21,11 @@ main (int argc, char **argv)
     bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Project"));
     bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Files"));
 
-    workbench->set_action_registry (*actions);
-    workbench->set_command_palette (*palette);
-    palette->set_pinned ("app.about", true);
+    shell->pin_command ("app.about", true);
 
-    workbench->set_title ("Bobgui Workbench Demo (C++)");
-    workbench->set_left_sidebar (sidebar);
-    workbench->set_central (editor);
+    shell->set_title ("Bobgui Workbench Demo (C++)");
+    shell->set_left_sidebar (sidebar);
+    shell->set_central (editor);
 
     Workbench::CommandOptions about_options;
     Workbench::CommandOptions sidebar_options;
@@ -47,28 +40,28 @@ main (int argc, char **argv)
     sidebar_options.shortcut = "Ctrl+B";
     sidebar_options.icon_name = "sidebar-show-right-symbolic";
 
-    workbench->add_command ("app.about",
-                            "About",
-                            "Show application information",
-                            about_options,
-                            [&] (const std::string &) {
-                              workbench->set_status ("About action triggered");
-                            });
+    shell->add_command ("app.about",
+                        "About",
+                        "Show application information",
+                        about_options,
+                        [&] (const std::string &) {
+                          shell->set_status ("About action triggered");
+                        });
 
-    workbench->add_toggle_command ("view.toggle-left-sidebar",
-                                   "Toggle Left Sidebar",
-                                   "Show or hide the project sidebar",
-                                   sidebar_options,
-                                   true,
-                                   [&] (const std::string &) {
-                                     workbench->set_status ("Sidebar toggle action triggered");
-                                   });
+    shell->add_toggle_command ("view.toggle-left-sidebar",
+                               "Toggle Left Sidebar",
+                               "Show or hide the project sidebar",
+                               sidebar_options,
+                               true,
+                               [&] (const std::string &) {
+                                 shell->set_status ("Sidebar toggle action triggered");
+                               });
 
-    workbench->add_header_action_for_command ("About", "app.about");
-    workbench->add_header_action_for_command ("Sidebar", "view.toggle-left-sidebar");
-    workbench->enable_menubar (true);
-    workbench->enable_toolbar (true);
-    workbench->present ();
+    shell->add_header_action_for_command ("About", "app.about");
+    shell->add_header_action_for_command ("Sidebar", "view.toggle-left-sidebar");
+    shell->enable_menubar (true);
+    shell->enable_toolbar (true);
+    shell->present ();
   });
 
   return app.run (argc, argv);

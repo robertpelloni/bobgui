@@ -10,6 +10,7 @@ New headers:
 - `bobgui/cpp/action_registry.hpp`
 - `bobgui/cpp/command_palette.hpp`
 - `bobgui/cpp/workbench.hpp`
+- `bobgui/cpp/app_shell.hpp`
 
 New example:
 - `examples/workbench-demo/main.cpp`
@@ -38,6 +39,7 @@ The first wrapper pass introduces small C++ objects for:
 - `ActionRegistry`
 - `CommandPalette`
 - `Workbench`
+- `AppShell`
 
 The current wrapper focuses on:
 - ownership of GObject-based instances
@@ -46,6 +48,7 @@ The current wrapper focuses on:
 - command-palette attachment
 - section-aware command registration
 - option-struct-based command registration to avoid long parameter lists
+- a simple `AppShell` preset that wires workbench + action registry + command palette together
 - lambda-friendly command handlers via `std::function`
 
 ## Why this is a better step than a rewrite
@@ -69,13 +72,13 @@ That is important because wrapper APIs need stable semantics for:
 By making those concepts explicit in the C layer first, the C++ API can stay simple instead of encoding fragile heuristics.
 
 ## Example direction
-The new C++ example shows a workbench shell that:
+The new C++ example shows an app shell that:
 - creates an application
-- builds a workbench
-- attaches an action registry
-- attaches a command palette
+- builds an `AppShell`
+- gets a pre-wired workbench + action registry + command palette stack
 - registers commands through a `Workbench::CommandOptions` struct
 - enables menubar and toolbar generation
+- pins palette commands through the shell convenience layer
 
 ## Rename audit note
 A targeted audit of legacy toolkit spellings in the working tree came back clean during this pass.
@@ -86,7 +89,7 @@ That does not guarantee every historical trace is gone in every possible substri
 A real compile-validation pass was attempted after this refactor, but the current environment does not provide Meson or a C++ compiler. The blocker is tool availability, not a decision to skip verification.
 
 ## Recommended next steps
-1. add more wrapper coverage around actions, menus, and status helpers
-2. introduce a small `MainWindow`/`Dock` style C++ convenience layer on top of workbench
+1. add richer wrapper coverage around action visiting and menu composition
+2. introduce a small `MainWindow`/`Dock` style C++ convenience layer on top of workbench/app shell
 3. add build-wired C++ examples once the current shell APIs settle a little more
 4. continue modernizing the most visible inherited branding/comments in public entry points

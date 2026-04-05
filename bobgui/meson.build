@@ -770,6 +770,7 @@ install_headers(bobgui_public_headers, subdir: 'bobgui-4.0/bobgui/')
 
 bobgui_cpp_headers = files([
   'cpp/action_registry.hpp',
+  'cpp/app_shell.hpp',
   'cpp/application.hpp',
   'cpp/bobgui.hpp',
   'cpp/command_palette.hpp',
