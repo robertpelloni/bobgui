@@ -64,6 +64,13 @@ bobgui_command_palette_on_row_activated (BobguiListBox *box,
   bobgui_window_close (self->window);
 }
 
+static int
+bobgui_command_palette_get_recent_internal (BobguiCommandPalette *self,
+                                            const char           *command_id)
+{
+  return GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, command_id));
+}
+
 static char *
 bobgui_command_palette_extract_category (BobguiCommandPaletteItem *item)
 {
@@ -156,7 +163,7 @@ bobgui_command_palette_score_item (BobguiCommandPalette     *self,
       score = 0;
       if (g_hash_table_contains (self->pinned_ids, item->id))
         score += 1000;
-      score += GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, item->id)) * 10;
+      score += bobgui_command_palette_get_recent_internal (self, item->id) * 10;
       return score;
     }
 
@@ -185,7 +192,7 @@ bobgui_command_palette_score_item (BobguiCommandPalette     *self,
   if (g_hash_table_contains (self->pinned_ids, item->id))
     score += 1000;
 
-  score += GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, item->id)) * 10;
+  score += bobgui_command_palette_get_recent_internal (self, item->id) * 10;
 
   return score;
 }
@@ -230,13 +237,21 @@ bobgui_command_palette_rebuild (BobguiCommandPalette *self)
     {
       BobguiCommandPaletteMatch *match = &g_array_index (matches, BobguiCommandPaletteMatch, i);
       g_autofree char *category = bobgui_command_palette_extract_category (match->item);
+      const char *section_name = NULL;
 
-      if (category && g_strcmp0 (last_category, category) != 0)
+      if (g_hash_table_contains (self->pinned_ids, match->item->id))
+        section_name = "Pinned";
+      else if (bobgui_command_palette_get_recent_internal (self, match->item->id) > 0)
+        section_name = "Recent";
+      else if (category)
+        section_name = category;
+
+      if (section_name && g_strcmp0 (last_category, section_name) != 0)
         {
           bobgui_list_box_append (self->list_box,
-                                  bobgui_command_palette_build_section_row (category));
+                                  bobgui_command_palette_build_section_row (section_name));
           g_free (last_category);
-          last_category = g_strdup (category);
+          last_category = g_strdup (section_name);
         }
 
       bobgui_list_box_append (self->list_box, bobgui_command_palette_build_row (match->item));
@@ -425,6 +440,16 @@ bobgui_command_palette_get_pinned (BobguiCommandPalette *self,
   return g_hash_table_contains (self->pinned_ids, command_id);
 }
 
+int
+bobgui_command_palette_get_recent_count (BobguiCommandPalette *self,
+                                         const char           *command_id)
+{
+  g_return_val_if_fail (BOBGUI_IS_COMMAND_PALETTE (self), 0);
+  g_return_val_if_fail (command_id != NULL, 0);
+
+  return bobgui_command_palette_get_recent_internal (self, command_id);
+}
+
 void
 bobgui_command_palette_mark_used (BobguiCommandPalette *self,
                                   const char           *command_id)
@@ -434,7 +459,7 @@ bobgui_command_palette_mark_used (BobguiCommandPalette *self,
   g_return_if_fail (BOBGUI_IS_COMMAND_PALETTE (self));
   g_return_if_fail (command_id != NULL);
 
-  recent = GPOINTER_TO_INT (g_hash_table_lookup (self->recent_counts, command_id));
+  recent = bobgui_command_palette_get_recent_internal (self, command_id);
   g_hash_table_replace (self->recent_counts,
                         g_strdup (command_id),
                         GINT_TO_POINTER (recent + 1));

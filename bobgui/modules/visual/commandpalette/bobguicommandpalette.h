@@ -18,6 +18,8 @@ void                   bobgui_command_palette_set_pinned        (BobguiCommandPa
                                                                 gboolean                  pinned);
 gboolean               bobgui_command_palette_get_pinned        (BobguiCommandPalette     *self,
                                                                 const char               *command_id);
+int                    bobgui_command_palette_get_recent_count  (BobguiCommandPalette     *self,
+                                                                const char               *command_id);
 void                   bobgui_command_palette_mark_used         (BobguiCommandPalette     *self,
                                                                 const char               *command_id);
 void                   bobgui_command_palette_clear_history     (BobguiCommandPalette     *self);
