@@ -345,8 +345,9 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
     {
       typedef struct {
         BobguiWorkbench *self;
+        char *last_category;
       } ToolbarBuildData;
-      ToolbarBuildData data = { self };
+      ToolbarBuildData data = { self, NULL };
 
       void build_button (const char *action_id,
                          const char *title,
@@ -356,9 +357,19 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
                          gpointer    user_data)
       {
         ToolbarBuildData *d = user_data;
+        BobguiWidget *label;
         (void) subtitle;
-        (void) category;
         (void) shortcut;
+
+        if (category && g_strcmp0 (d->last_category, category) != 0)
+          {
+            label = bobgui_label_new (category);
+            bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.0f);
+            bobgui_box_append (d->self->toolbar_box, label);
+            g_free (d->last_category);
+            d->last_category = g_strdup (category);
+          }
+
         bobgui_workbench_append_command_button (d->self,
                                                 d->self->toolbar_box,
                                                 title ? title : action_id,
@@ -366,6 +377,7 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
       }
 
       bobgui_action_registry_visit (self->action_registry, build_button, &data);
+      g_free (data.last_category);
     }
 }
 

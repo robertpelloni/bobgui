@@ -37,6 +37,7 @@ This pass also added built-in filtering behavior:
   - subtitle
 - pinned commands are strongly boosted
 - recently used commands are boosted and can also be marked programmatically
+- category-aware section rows can be inserted when metadata is present
 - the top result is auto-selected after rebuild
 - keyboard navigation works from the search field:
   - `Down` / `Up` to move selection
@@ -67,4 +68,4 @@ This is a strong example of the direction bobgui should keep taking:
 1. improve ranking beyond simple scored substring matching toward true fuzzy match
 2. integrate command palette entries with workbench/dock/actions
 3. add a small demo application showing the full workbench + command palette flow
-4. add command grouping, recent commands, and pinned commands
+4. add stronger visual section treatment and explicit public grouping APIs

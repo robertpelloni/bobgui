@@ -64,6 +64,39 @@ bobgui_command_palette_on_row_activated (BobguiListBox *box,
   bobgui_window_close (self->window);
 }
 
+static char *
+bobgui_command_palette_extract_category (BobguiCommandPaletteItem *item)
+{
+  const char *start;
+  const char *end;
+
+  if (item->subtitle == NULL || item->subtitle[0] != '[')
+    return NULL;
+
+  start = item->subtitle + 1;
+  end = strchr (start, ']');
+  if (end == NULL || end == start)
+    return NULL;
+
+  return g_strndup (start, end - start);
+}
+
+static BobguiWidget *
+bobgui_command_palette_build_section_row (const char *title)
+{
+  BobguiWidget *row;
+  BobguiWidget *label;
+
+  row = bobgui_list_box_row_new ();
+  label = bobgui_label_new (title);
+  bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.0f);
+  bobgui_list_box_row_set_child (BOBGUI_LIST_BOX_ROW (row), label);
+  bobgui_list_box_row_set_activatable (BOBGUI_LIST_BOX_ROW (row), FALSE);
+  bobgui_list_box_row_set_selectable (BOBGUI_LIST_BOX_ROW (row), FALSE);
+
+  return row;
+}
+
 static BobguiWidget *
 bobgui_command_palette_build_row (BobguiCommandPaletteItem *item)
 {
@@ -172,6 +205,7 @@ bobgui_command_palette_rebuild (BobguiCommandPalette *self)
 {
   const char *query;
   GArray *matches;
+  char *last_category = NULL;
   guint i;
 
   bobgui_list_box_remove_all (self->list_box);
@@ -195,14 +229,34 @@ bobgui_command_palette_rebuild (BobguiCommandPalette *self)
   for (i = 0; i < matches->len; i++)
     {
       BobguiCommandPaletteMatch *match = &g_array_index (matches, BobguiCommandPaletteMatch, i);
+      g_autofree char *category = bobgui_command_palette_extract_category (match->item);
+
+      if (category && g_strcmp0 (last_category, category) != 0)
+        {
+          bobgui_list_box_append (self->list_box,
+                                  bobgui_command_palette_build_section_row (category));
+          g_free (last_category);
+          last_category = g_strdup (category);
+        }
+
       bobgui_list_box_append (self->list_box, bobgui_command_palette_build_row (match->item));
     }
 
+  g_clear_pointer (&last_category, g_free);
+
   if (matches->len > 0)
     {
-      BobguiListBoxRow *row = bobgui_list_box_get_row_at_index (self->list_box, 0);
-      if (row)
-        bobgui_list_box_select_row (self->list_box, row);
+      BobguiListBoxRow *row = NULL;
+      int index = 0;
+
+      while ((row = bobgui_list_box_get_row_at_index (self->list_box, index++)) != NULL)
+        {
+          if (bobgui_list_box_row_get_activatable (row))
+            {
+              bobgui_list_box_select_row (self->list_box, row);
+              break;
+            }
+        }
     }
 
   g_array_unref (matches);
@@ -214,6 +268,24 @@ bobgui_command_palette_on_search_changed (BobguiSearchEntry     *entry,
 {
   (void) entry;
   bobgui_command_palette_rebuild (self);
+}
+
+static BobguiListBoxRow *
+bobgui_command_palette_find_selectable_row (BobguiCommandPalette *self,
+                                            int                   start_index,
+                                            int                   step)
+{
+  BobguiListBoxRow *row;
+  int index = start_index;
+
+  while (index >= 0 && (row = bobgui_list_box_get_row_at_index (self->list_box, index)) != NULL)
+    {
+      if (bobgui_list_box_row_get_activatable (row))
+        return row;
+      index += step;
+    }
+
+  return NULL;
 }
 
 static gboolean
@@ -236,21 +308,21 @@ bobgui_command_palette_on_search_key_pressed (BobguiEventControllerKey *controll
 
   if (keyval == GDK_KEY_Down)
     {
-      BobguiListBoxRow *next = bobgui_list_box_get_row_at_index (self->list_box, index + 1);
+      BobguiListBoxRow *next = bobgui_command_palette_find_selectable_row (self, index + 1, 1);
       if (next)
         bobgui_list_box_select_row (self->list_box, next);
       return TRUE;
     }
   else if (keyval == GDK_KEY_Up)
     {
-      BobguiListBoxRow *prev = bobgui_list_box_get_row_at_index (self->list_box, index > 0 ? index - 1 : 0);
+      BobguiListBoxRow *prev = bobgui_command_palette_find_selectable_row (self, index > 0 ? index - 1 : 0, -1);
       if (prev)
         bobgui_list_box_select_row (self->list_box, prev);
       return TRUE;
     }
   else if (keyval == GDK_KEY_Return || keyval == GDK_KEY_KP_Enter)
     {
-      if (row)
+      if (row && bobgui_list_box_row_get_activatable (row))
         g_signal_emit_by_name (self->list_box, "row-activated", row);
       return TRUE;
     }

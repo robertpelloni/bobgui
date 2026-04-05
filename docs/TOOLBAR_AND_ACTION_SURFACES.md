@@ -10,6 +10,10 @@ The action model can now drive multiple surfaces:
 - generated menubar
 - generated toolbar buttons
 
+This pass also pushes two improvements:
+- command palette grouping via section rows inferred from action metadata
+- toolbar grouping via category labels inferred from action metadata
+
 ## Why this matters
 A framework feels "Qt-like" not because it has the same class names, but because a single action can appear in multiple places consistently.
 
@@ -25,10 +29,10 @@ From there, actions can be exposed through:
 
 ## Remaining gap
 Toolbars are currently generated in a simple way and should evolve toward:
-- category-aware grouping
 - optional icons
 - toggle/stateful actions
 - overflow behavior
+- stronger visual separation than plain labels
 
 ## Recommended next step
 1. add icons and shortcuts as richer toolbar metadata
