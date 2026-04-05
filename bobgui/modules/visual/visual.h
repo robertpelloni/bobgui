@@ -2,6 +2,7 @@
 #define BOBGUI_MODULES_VISUAL_H
 
 #include "chart/bobguichart.h"
+#include "commandpalette/bobguicommandpalette.h"
 #include "design/bobguidesign.h"
 #include "dock/bobguidock.h"
 #include "dsl/bobguidsl.h"

@@ -1,4 +1,5 @@
 #include "bobguiworkbench.h"
+#include "bobguicommandpalette.h"
 
 struct _BobguiWorkbench
 {
@@ -14,6 +15,7 @@ struct _BobguiWorkbench
   BobguiWidget *central;
   BobguiWidget *left_sidebar;
   BobguiWidget *right_sidebar;
+  BobguiCommandPalette *command_palette;
 };
 
 G_DEFINE_TYPE (BobguiWorkbench, bobgui_workbench, G_TYPE_OBJECT)
@@ -24,6 +26,7 @@ bobgui_workbench_dispose (GObject *object)
   BobguiWorkbench *self = BOBGUI_WORKBENCH (object);
 
   g_clear_object (&self->window);
+  g_clear_object (&self->command_palette);
 
   G_OBJECT_CLASS (bobgui_workbench_parent_class)->dispose (object);
 }
@@ -149,6 +152,33 @@ bobgui_workbench_add_header_action (BobguiWorkbench                 *self,
   if (callback)
     g_signal_connect (button, "clicked", G_CALLBACK (callback), user_data);
   bobgui_box_append (self->header_actions, button);
+}
+
+static void
+bobgui_workbench_open_command_palette (BobguiButton *button,
+                                       gpointer      user_data)
+{
+  BobguiWorkbench *self = BOBGUI_WORKBENCH (user_data);
+
+  (void) button;
+
+  if (self->command_palette)
+    bobgui_command_palette_present (self->command_palette);
+}
+
+void
+bobgui_workbench_set_command_palette (BobguiWorkbench      *self,
+                                      BobguiCommandPalette *palette)
+{
+  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
+  g_return_if_fail (BOBGUI_IS_COMMAND_PALETTE (palette));
+
+  g_set_object (&self->command_palette, palette);
+  bobgui_command_palette_attach_to_window (palette, BOBGUI_WINDOW (self->window));
+  bobgui_workbench_add_header_action (self,
+                                      "Commands",
+                                      bobgui_workbench_open_command_palette,
+                                      self);
 }
 
 void
