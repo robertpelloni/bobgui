@@ -23,6 +23,16 @@ It improves:
 - `bobgui_command_palette_attach_to_window()`
 - `bobgui_command_palette_present()`
 
+## Current behavior improvements
+This pass also added built-in filtering behavior:
+- the palette listens to `BobguiSearchEntry::search-changed`
+- commands are filtered by substring match against:
+  - command id
+  - title
+  - subtitle
+
+That makes the palette feel much more like a modern command launcher rather than a static dialog.
+
 ### Workbench integration
 `BobguiWorkbench` was extended with:
 - `bobgui_workbench_set_command_palette()`
@@ -43,6 +53,6 @@ This is a strong example of the direction bobgui should keep taking:
 
 ## Recommended next steps
 1. add keyboard shortcut activation for the command palette
-2. add filtering/search behavior over registered commands
+2. improve ranking beyond substring matching (scored fuzzy match)
 3. integrate command palette entries with workbench/dock/actions
 4. add a small demo application showing the full workbench + command palette flow

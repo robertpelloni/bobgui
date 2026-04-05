@@ -74,18 +74,60 @@ bobgui_command_palette_build_row (BobguiCommandPaletteItem *item)
   return row;
 }
 
+static gboolean
+bobgui_command_palette_item_matches (BobguiCommandPaletteItem *item,
+                                     const char               *query)
+{
+  char *id_lower;
+  char *title_lower;
+  char *subtitle_lower;
+  char *query_lower;
+  gboolean matches;
+
+  if (query == NULL || *query == '\0')
+    return TRUE;
+
+  query_lower = g_utf8_strdown (query, -1);
+  id_lower = g_utf8_strdown (item->id ? item->id : "", -1);
+  title_lower = g_utf8_strdown (item->title ? item->title : "", -1);
+  subtitle_lower = g_utf8_strdown (item->subtitle ? item->subtitle : "", -1);
+
+  matches = strstr (id_lower, query_lower) != NULL ||
+            strstr (title_lower, query_lower) != NULL ||
+            strstr (subtitle_lower, query_lower) != NULL;
+
+  g_free (query_lower);
+  g_free (id_lower);
+  g_free (title_lower);
+  g_free (subtitle_lower);
+
+  return matches;
+}
+
 static void
 bobgui_command_palette_rebuild (BobguiCommandPalette *self)
 {
+  const char *query;
   guint i;
 
   bobgui_list_box_remove_all (self->list_box);
+  query = bobgui_editable_get_text (BOBGUI_EDITABLE (self->search_entry));
 
   for (i = 0; i < self->items->len; i++)
     {
       BobguiCommandPaletteItem *item = g_ptr_array_index (self->items, i);
-      bobgui_list_box_append (self->list_box, bobgui_command_palette_build_row (item));
+
+      if (bobgui_command_palette_item_matches (item, query))
+        bobgui_list_box_append (self->list_box, bobgui_command_palette_build_row (item));
     }
+}
+
+static void
+bobgui_command_palette_on_search_changed (BobguiSearchEntry     *entry,
+                                          BobguiCommandPalette  *self)
+{
+  (void) entry;
+  bobgui_command_palette_rebuild (self);
 }
 
 static void
@@ -141,6 +183,8 @@ bobgui_command_palette_new (BobguiApplication *application)
 
   g_signal_connect (self->list_box, "row-activated",
                     G_CALLBACK (bobgui_command_palette_on_row_activated), self);
+  g_signal_connect (self->search_entry, "search-changed",
+                    G_CALLBACK (bobgui_command_palette_on_search_changed), self);
 
   return self;
 }
