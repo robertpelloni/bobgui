@@ -132,6 +132,17 @@ public:
                                   &state);
   }
 
+  std::vector<ActionInfo> list_actions () const
+  {
+    std::vector<ActionInfo> actions;
+
+    visit ([&actions] (const ActionInfo &info) {
+      actions.push_back (info);
+    });
+
+    return actions;
+  }
+
 private:
   struct ActionBinding
   {

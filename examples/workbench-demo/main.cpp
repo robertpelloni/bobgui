@@ -2,30 +2,34 @@
 
 #include <memory>
 
-using bobgui::cpp::AppShell;
 using bobgui::cpp::Application;
+using bobgui::cpp::StudioShell;
 using bobgui::cpp::Workbench;
 
 int
 main (int argc, char **argv)
 {
   Application app ("org.bobgui.WorkbenchDemoCpp");
-  std::unique_ptr<AppShell> shell;
+  std::unique_ptr<StudioShell> shell;
 
   app.on_activate ([&] (Application &application) {
-    shell.reset (new AppShell (application));
+    shell.reset (new StudioShell (application));
 
     BobguiWidget *editor = bobgui_text_view_new ();
     BobguiWidget *sidebar = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 6);
+    BobguiWidget *inspector = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 6);
 
     bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Project"));
     bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Files"));
+    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Inspector"));
+    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Properties"));
 
     shell->pin_command ("app.about", true);
 
     shell->set_title ("Bobgui Workbench Demo (C++)");
-    shell->set_left_sidebar (sidebar);
-    shell->set_central (editor);
+    shell->set_navigation_panel (sidebar);
+    shell->set_document_view (editor);
+    shell->set_inspector_panel (inspector);
 
     Workbench::CommandOptions about_options;
     Workbench::CommandOptions sidebar_options;

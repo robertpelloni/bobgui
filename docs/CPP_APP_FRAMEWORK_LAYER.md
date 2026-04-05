@@ -12,6 +12,7 @@ New headers:
 - `bobgui/cpp/workbench.hpp`
 - `bobgui/cpp/app_shell.hpp`
 - `bobgui/cpp/dock_manager.hpp`
+- `bobgui/cpp/studio_shell.hpp`
 
 New example:
 - `examples/workbench-demo/main.cpp`
@@ -42,6 +43,7 @@ The first wrapper pass introduces small C++ objects for:
 - `Workbench`
 - `AppShell`
 - `DockManager`
+- `StudioShell`
 
 The current wrapper focuses on:
 - ownership of GObject-based instances
@@ -53,6 +55,7 @@ The current wrapper focuses on:
 - action visiting and menu-model access from C++
 - a simple `AppShell` preset that wires workbench + action registry + command palette together
 - lazy dock-manager access through the shell preset
+- a more opinionated `StudioShell` preset for multi-pane tool-style apps
 - lambda-friendly command handlers via `std::function`
 
 ## Why this is a better step than a rewrite
@@ -76,14 +79,15 @@ That is important because wrapper APIs need stable semantics for:
 By making those concepts explicit in the C layer first, the C++ API can stay simple instead of encoding fragile heuristics.
 
 ## Example direction
-The new C++ example shows an app shell that:
+The new C++ example now shows a studio-oriented shell that:
 - creates an application
-- builds an `AppShell`
+- builds a `StudioShell`
 - gets a pre-wired workbench + action registry + command palette stack
+- initializes dock support through the preset path
+- assigns navigation, document, and inspector panels explicitly
 - registers commands through a `Workbench::CommandOptions` struct
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer
-- leaves room for future dock/workspace setup through the same shell object
 
 ## Rename audit note
 A targeted audit of legacy toolkit spellings in the working tree came back clean during this pass.
@@ -94,7 +98,7 @@ That does not guarantee every historical trace is gone in every possible substri
 A real compile-validation pass was attempted after this refactor, but the current environment does not provide Meson or a C++ compiler. The blocker is tool availability, not a decision to skip verification.
 
 ## Recommended next steps
-1. add richer wrapper coverage around action visiting and menu composition
-2. deepen dock/workspace-oriented shell helpers on top of workbench/app shell
+1. add richer wrapper coverage around action-driven menu/tool surfaces
+2. deepen dock/workspace-oriented shell helpers on top of app/studio shell presets
 3. add build-wired C++ examples once the current shell APIs settle a little more
 4. continue modernizing the most visible inherited branding/comments in public entry points

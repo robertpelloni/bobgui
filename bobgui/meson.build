@@ -776,6 +776,7 @@ bobgui_cpp_headers = files([
   'cpp/command_palette.hpp',
   'cpp/dock_manager.hpp',
   'cpp/object_handle.hpp',
+  'cpp/studio_shell.hpp',
   'cpp/workbench.hpp',
 ])
 install_headers(bobgui_cpp_headers, subdir: 'bobgui-4.0/bobgui/cpp')

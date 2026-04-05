@@ -7,6 +7,7 @@
 #include "command_palette.hpp"
 #include "dock_manager.hpp"
 #include "object_handle.hpp"
+#include "studio_shell.hpp"
 #include "workbench.hpp"
 
 #endif

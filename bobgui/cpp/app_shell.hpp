@@ -81,6 +81,21 @@ public:
     command_palette_.set_pinned (command_id, pinned);
   }
 
+  ObjectHandle<GMenuModel> menu_model () const
+  {
+    return action_registry_.create_menu_model ();
+  }
+
+  void visit_actions (ActionRegistry::ActionVisitor visitor) const
+  {
+    action_registry_.visit (std::move (visitor));
+  }
+
+  std::vector<ActionRegistry::ActionInfo> list_actions () const
+  {
+    return action_registry_.list_actions ();
+  }
+
   void add_header_action_for_command (const char *label,
                                       const char *command_id)
   {
