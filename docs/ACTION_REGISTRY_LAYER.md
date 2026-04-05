@@ -13,6 +13,8 @@ A polished desktop framework usually has a central action concept that can be re
 
 Without that, every feature ends up inventing its own callback list.
 
+This also matters for a more C++-friendly layer because wrappers need one stable command model to project into higher-level application objects.
+
 ## What was added
 ### New module
 - `bobgui/modules/visual/actionregistry/bobguiactionregistry.h`
@@ -22,6 +24,7 @@ Without that, every feature ends up inventing its own callback list.
 - `bobgui_action_registry_new()`
 - `bobgui_action_registry_add()`
 - `bobgui_action_registry_add_detailed()`
+- `bobgui_action_registry_add_sectioned()`
 - `bobgui_action_registry_add_toggle()`
 - `bobgui_action_registry_set_checked()`
 - `bobgui_action_registry_get_checked()`
@@ -49,3 +52,4 @@ This is an important architecture step because it turns workbench + command pale
 2. add recent/pinned actions on top of the same registry
 3. expand menu structure from sections into richer submenus where appropriate
 4. support icons and richer checked/toggle presentation across all action surfaces
+5. keep the action registry as the semantic core for the thin C++ wrapper layer

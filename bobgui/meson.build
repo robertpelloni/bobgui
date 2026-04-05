@@ -767,6 +767,12 @@ bobgui_public_headers = files([
 ])
 
 install_headers(bobgui_public_headers, subdir: 'bobgui-4.0/bobgui/')
+
+bobgui_cpp_headers = files([
+  'cpp/bobgui.hpp',
+])
+install_headers(bobgui_cpp_headers, subdir: 'bobgui-4.0/bobgui/cpp')
+
 install_headers(bobgui_deprecated_headers, subdir: 'bobgui-4.0/bobgui/deprecated')
 install_headers(bobgui_print_headers, subdir: 'bobgui-4.0/bobgui/print')
 

@@ -347,9 +347,10 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
 
   if (self->action_registry)
     {
-      typedef struct {
+      typedef struct
+      {
         BobguiWorkbench *self;
-        char *last_category;
+        char *last_group;
       } ToolbarBuildData;
       ToolbarBuildData data = { self, NULL };
 
@@ -365,25 +366,20 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
                          gpointer    user_data)
       {
         ToolbarBuildData *d = user_data;
+        const char *group_title = section ? section : category;
         BobguiWidget *label;
         g_autofree char *button_title = NULL;
+
         (void) subtitle;
         (void) shortcut;
-        (void) icon_name;
 
-        if ((section ? section : category) && g_strcmp0 (d->last_category, section ? section : category) != 0)
+        if (group_title && g_strcmp0 (d->last_group, group_title) != 0)
           {
-            label = bobgui_label_new (section ? section : category);
-             bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.0f);
-             bobgui_box_append (d->self->toolbar_box, label);
-             g_free (d->last_category);
--            d->last_category = g_strdup (category);
-+            d->last_category = g_strdup (section ? section : category);
-           }
+            label = bobgui_label_new (group_title);
             bobgui_label_set_xalign (BOBGUI_LABEL (label), 0.0f);
             bobgui_box_append (d->self->toolbar_box, label);
-            g_free (d->last_category);
-            d->last_category = g_strdup (category);
+            g_free (d->last_group);
+            d->last_group = g_strdup (group_title);
           }
 
         if (checkable && checked)
@@ -399,7 +395,7 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
       }
 
       bobgui_action_registry_visit (self->action_registry, build_button, &data);
-      g_free (data.last_category);
+      g_free (data.last_group);
     }
 }
 
@@ -450,15 +446,16 @@ bobgui_workbench_enable_toolbar (BobguiWorkbench *self,
 }
 
 void
-bobgui_workbench_add_command_visual (BobguiWorkbench                *self,
-                                     const char                     *command_id,
-                                     const char                     *title,
-                                     const char                     *subtitle,
-                                     const char                     *category,
-                                     const char                     *shortcut,
-                                     const char                     *icon_name,
-                                     BobguiWorkbenchCommandCallback  callback,
-                                     gpointer                        user_data)
+bobgui_workbench_add_command_sectioned_visual (BobguiWorkbench                *self,
+                                               const char                     *command_id,
+                                               const char                     *title,
+                                               const char                     *subtitle,
+                                               const char                     *section,
+                                               const char                     *category,
+                                               const char                     *shortcut,
+                                               const char                     *icon_name,
+                                               BobguiWorkbenchCommandCallback  callback,
+                                               gpointer                        user_data)
 {
   g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
 
@@ -482,15 +479,16 @@ bobgui_workbench_add_command_visual (BobguiWorkbench                *self,
       g_action_map_add_action (G_ACTION_MAP (self->application), G_ACTION (action));
       g_object_unref (action);
 
-      bobgui_action_registry_add_detailed (self->action_registry,
-                                           command_id,
-                                           title,
-                                           subtitle,
-                                           category,
-                                           shortcut,
-                                           icon_name,
-                                           callback,
-                                           user_data);
+      bobgui_action_registry_add_sectioned (self->action_registry,
+                                            command_id,
+                                            title,
+                                            subtitle,
+                                            section,
+                                            category,
+                                            shortcut,
+                                            icon_name,
+                                            callback,
+                                            user_data);
 
       if (self->command_palette)
         bobgui_action_registry_populate_palette (self->action_registry,
@@ -498,13 +496,38 @@ bobgui_workbench_add_command_visual (BobguiWorkbench                *self,
     }
   else if (self->command_palette)
     {
-      bobgui_command_palette_add_command (self->command_palette,
-                                          command_id,
-                                          title,
-                                          subtitle,
-                                          callback,
-                                          user_data);
+      bobgui_command_palette_add_command_visual (self->command_palette,
+                                                 command_id,
+                                                 title,
+                                                 subtitle,
+                                                 section,
+                                                 icon_name,
+                                                 callback,
+                                                 user_data);
     }
+}
+
+void
+bobgui_workbench_add_command_visual (BobguiWorkbench                *self,
+                                     const char                     *command_id,
+                                     const char                     *title,
+                                     const char                     *subtitle,
+                                     const char                     *category,
+                                     const char                     *shortcut,
+                                     const char                     *icon_name,
+                                     BobguiWorkbenchCommandCallback  callback,
+                                     gpointer                        user_data)
+{
+  bobgui_workbench_add_command_sectioned_visual (self,
+                                                 command_id,
+                                                 title,
+                                                 subtitle,
+                                                 NULL,
+                                                 category,
+                                                 shortcut,
+                                                 icon_name,
+                                                 callback,
+                                                 user_data);
 }
 
 void
@@ -529,25 +552,17 @@ bobgui_workbench_add_command_detailed (BobguiWorkbench                *self,
 }
 
 void
-bobgui_workbench_add_toggle_command_visual (BobguiWorkbench                *self,
-                                            const char                     *command_id,
-                                            const char                     *title,
-                                            const char                     *subtitle,
-                                            const char                     *category,
-                                            const char                     *shortcut,
-                                            const char                     *icon_name,
-                                            gboolean                        checked,
-                                            BobguiWorkbenchCommandCallback  callback,
-                                            gpointer                        user_data)
-{
-                                     const char                     *command_id,
-                                     const char                     *title,
-                                     const char                     *subtitle,
-                                     const char                     *category,
-                                     const char                     *shortcut,
-                                     gboolean                        checked,
-                                     BobguiWorkbenchCommandCallback  callback,
-                                     gpointer                        user_data)
+bobgui_workbench_add_toggle_command_sectioned_visual (BobguiWorkbench                *self,
+                                                      const char                     *command_id,
+                                                      const char                     *title,
+                                                      const char                     *subtitle,
+                                                      const char                     *section,
+                                                      const char                     *category,
+                                                      const char                     *shortcut,
+                                                      const char                     *icon_name,
+                                                      gboolean                        checked,
+                                                      BobguiWorkbenchCommandCallback  callback,
+                                                      gpointer                        user_data)
 {
   g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
 
@@ -575,7 +590,7 @@ bobgui_workbench_add_toggle_command_visual (BobguiWorkbench                *self
                                          command_id,
                                          title,
                                          subtitle,
-                                         NULL,
+                                         section,
                                          category,
                                          shortcut,
                                          icon_name,
@@ -587,6 +602,31 @@ bobgui_workbench_add_toggle_command_visual (BobguiWorkbench                *self
         bobgui_action_registry_populate_palette (self->action_registry,
                                                  self->command_palette);
     }
+}
+
+void
+bobgui_workbench_add_toggle_command_visual (BobguiWorkbench                *self,
+                                            const char                     *command_id,
+                                            const char                     *title,
+                                            const char                     *subtitle,
+                                            const char                     *category,
+                                            const char                     *shortcut,
+                                            const char                     *icon_name,
+                                            gboolean                        checked,
+                                            BobguiWorkbenchCommandCallback  callback,
+                                            gpointer                        user_data)
+{
+  bobgui_workbench_add_toggle_command_sectioned_visual (self,
+                                                        command_id,
+                                                        title,
+                                                        subtitle,
+                                                        NULL,
+                                                        category,
+                                                        shortcut,
+                                                        icon_name,
+                                                        checked,
+                                                        callback,
+                                                        user_data);
 }
 
 void

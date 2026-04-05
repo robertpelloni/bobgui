@@ -37,8 +37,10 @@ GTK-derived APIs are powerful but often feel low-level and assembly-oriented for
 - `bobgui_workbench_set_action_registry()`
 - `bobgui_workbench_enable_menubar()`
 - `bobgui_workbench_enable_toolbar()`
+- `bobgui_workbench_add_command_sectioned_visual()`
 - `bobgui_workbench_add_command_visual()`
 - `bobgui_workbench_add_command()`
+- `bobgui_workbench_add_toggle_command_sectioned_visual()`
 - `bobgui_workbench_add_toggle_command_visual()`
 - `bobgui_workbench_add_toggle_command()`
 - `bobgui_workbench_present()`
@@ -48,6 +50,7 @@ This pass adds a more Qt-like interaction loop for command-driven apps:
 - a workbench can own a command palette directly
 - a workbench can own an action registry
 - commands can be registered through the workbench API
+- commands can now carry explicit section metadata for cleaner menu/toolbar/palette grouping
 - the palette can be opened with `Ctrl+Shift+P`
 - header buttons can be bound directly to registered commands
 - menubar generation can come from the shared action model
@@ -72,7 +75,7 @@ Instead, it follows a bobgui-native direction:
 
 ## Recommended next step
 The most valuable follow-up would be:
-1. generate menu/toolbar structures from the action registry
+1. improve toolbar presentation beyond plain labels into clearer grouped surfaces with stronger toggle/icon affordances
 2. add workbench-managed dock registration
 3. integrate status updates with shell/progress APIs
-4. provide a small demo app using the workbench shell
+4. provide both C and thin C++ demo apps using the workbench shell
