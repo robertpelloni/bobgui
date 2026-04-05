@@ -64,6 +64,7 @@ on_activate (BobguiApplication *application,
 
   bobgui_workbench_add_header_action_for_command (workbench, "About", "app.about");
   bobgui_workbench_add_header_action_for_command (workbench, "Sidebar", "view.toggle-left-sidebar");
+  bobgui_workbench_enable_menubar (workbench, TRUE);
   bobgui_workbench_present (workbench);
 }
 

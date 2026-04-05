@@ -1,7 +1,7 @@
 #ifndef BOBGUI_ACTION_REGISTRY_H
 #define BOBGUI_ACTION_REGISTRY_H
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -22,6 +22,7 @@ void                   bobgui_action_registry_add              (BobguiActionRegi
                                                                gpointer                  user_data);
 void                   bobgui_action_registry_activate         (BobguiActionRegistry     *self,
                                                                const char               *action_id);
+GMenuModel *           bobgui_action_registry_create_menu_model(BobguiActionRegistry     *self);
 void                   bobgui_action_registry_populate_palette (BobguiActionRegistry     *self,
                                                                BobguiCommandPalette     *palette);
 

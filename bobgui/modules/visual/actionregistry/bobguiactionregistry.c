@@ -27,6 +27,16 @@ bobgui_action_registry_item_free (BobguiActionRegistryItem *item)
   g_free (item);
 }
 
+static char *
+bobgui_action_registry_to_action_name (const char *action_id)
+{
+  char *name = g_strdup (action_id);
+  for (char *p = name; p && *p; p++)
+    if (*p == '.')
+      *p = '-';
+  return name;
+}
+
 static void
 bobgui_action_registry_dispose (GObject *object)
 {
@@ -98,6 +108,30 @@ bobgui_action_registry_activate (BobguiActionRegistry *self,
           return;
         }
     }
+}
+
+GMenuModel *
+bobgui_action_registry_create_menu_model (BobguiActionRegistry *self)
+{
+  GMenu *menu;
+  guint i;
+
+  g_return_val_if_fail (BOBGUI_IS_ACTION_REGISTRY (self), NULL);
+
+  menu = g_menu_new ();
+
+  for (i = 0; i < self->items->len; i++)
+    {
+      BobguiActionRegistryItem *item = g_ptr_array_index (self->items, i);
+      g_autofree char *action_name = bobgui_action_registry_to_action_name (item->id);
+      g_autofree char *detailed = g_strdup_printf ("app.%s", action_name);
+
+      g_menu_append (menu,
+                     item->title ? item->title : item->id,
+                     detailed);
+    }
+
+  return G_MENU_MODEL (menu);
 }
 
 void

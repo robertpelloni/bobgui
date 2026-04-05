@@ -22,6 +22,9 @@ It is easier to evaluate whether bobgui is becoming "more like Qt but not Qt" wh
 - binding header actions directly to those command identifiers
 - presenting a coherent shell with a left sidebar and central editor area
 
+## Next expected enhancement
+The natural next step for the demo is to enable a generated menubar from the shared action registry so the example shows a complete action-driven shell, not just palette + header buttons.
+
 ## Strategic value
 This is the type of example that starts turning bobgui from a toolkit people inspect into a framework people can imitate and build on.
 

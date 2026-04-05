@@ -2,10 +2,12 @@
 #include "bobguiactionregistry.h"
 #include "bobguicommandpalette.h"
 #include <gdk/gdk.h>
+#include <gio/gio.h>
 
 struct _BobguiWorkbench
 {
   GObject parent_instance;
+  BobguiApplication *application;
   BobguiApplicationWindow *window;
   BobguiHeaderBar *header_bar;
   BobguiBox *root_box;
@@ -47,6 +49,44 @@ bobgui_workbench_init (BobguiWorkbench *self)
 {
 }
 
+static char *
+bobgui_workbench_to_action_name (const char *command_id)
+{
+  char *name = g_strdup (command_id);
+  for (char *p = name; p && *p; p++)
+    if (*p == '.')
+      *p = '-';
+  return name;
+}
+
+typedef struct
+{
+  BobguiWorkbenchCommandCallback callback;
+  gpointer user_data;
+  char *command_id;
+} BobguiWorkbenchRegisteredAction;
+
+static void
+bobgui_workbench_registered_action_free (BobguiWorkbenchRegisteredAction *registered)
+{
+  g_free (registered->command_id);
+  g_free (registered);
+}
+
+static void
+bobgui_workbench_application_action_activate (GSimpleAction *action,
+                                              GVariant      *parameter,
+                                              gpointer       user_data)
+{
+  BobguiWorkbenchRegisteredAction *registered = user_data;
+
+  (void) action;
+  (void) parameter;
+
+  if (registered->callback)
+    registered->callback (registered->command_id, registered->user_data);
+}
+
 static gboolean
 bobgui_workbench_key_pressed (BobguiEventControllerKey *controller,
                               guint                     keyval,
@@ -78,6 +118,7 @@ bobgui_workbench_new (BobguiApplication *application)
   BobguiEventController *key_controller;
   BobguiWidget *title_box;
 
+  self->application = application;
   self->window = g_object_new (BOBGUI_TYPE_APPLICATION_WINDOW,
                                "application", application,
                                NULL);
@@ -284,6 +325,26 @@ bobgui_workbench_set_action_registry (BobguiWorkbench      *self,
 }
 
 void
+bobgui_workbench_enable_menubar (BobguiWorkbench *self,
+                                 gboolean         enabled)
+{
+  g_autoptr(GMenuModel) menu_model = NULL;
+
+  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
+
+  if (!enabled || self->action_registry == NULL)
+    {
+      bobgui_application_set_menubar (self->application, NULL);
+      bobgui_application_window_set_show_menubar (self->window, FALSE);
+      return;
+    }
+
+  menu_model = bobgui_action_registry_create_menu_model (self->action_registry);
+  bobgui_application_set_menubar (self->application, menu_model);
+  bobgui_application_window_set_show_menubar (self->window, TRUE);
+}
+
+void
 bobgui_workbench_add_command (BobguiWorkbench                *self,
                               const char                     *command_id,
                               const char                     *title,
@@ -295,6 +356,24 @@ bobgui_workbench_add_command (BobguiWorkbench                *self,
 
   if (self->action_registry)
     {
+      g_autofree char *action_name = bobgui_workbench_to_action_name (command_id);
+      BobguiWorkbenchRegisteredAction *registered = g_new0 (BobguiWorkbenchRegisteredAction, 1);
+      GSimpleAction *action;
+
+      registered->callback = callback;
+      registered->user_data = user_data;
+      registered->command_id = g_strdup (command_id);
+
+      action = g_simple_action_new (action_name, NULL);
+      g_signal_connect_data (action,
+                             "activate",
+                             G_CALLBACK (bobgui_workbench_application_action_activate),
+                             registered,
+                             (GClosureNotify) bobgui_workbench_registered_action_free,
+                             0);
+      g_action_map_add_action (G_ACTION_MAP (self->application), G_ACTION (action));
+      g_object_unref (action);
+
       bobgui_action_registry_add (self->action_registry,
                                   command_id,
                                   title,
