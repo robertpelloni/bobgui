@@ -1,6 +1,7 @@
 #include <bobgui/cpp/bobgui.hpp>
 
 #include <memory>
+#include <string>
 
 using bobgui::cpp::Application;
 using bobgui::cpp::StudioShell;
@@ -60,6 +61,12 @@ main (int argc, char **argv)
                                [&] (const std::string &) {
                                  shell->set_status ("Sidebar toggle action triggered");
                                });
+
+    {
+      std::vector<bobgui::cpp::ActionRegistry::ActionSection> sections = shell->list_tool_sections ();
+      std::string status = "Ready: " + std::to_string (sections.size ()) + " action sections";
+      shell->set_status (status.c_str ());
+    }
 
     shell->add_header_action_for_command ("About", "app.about");
     shell->add_header_action_for_command ("Sidebar", "view.toggle-left-sidebar");

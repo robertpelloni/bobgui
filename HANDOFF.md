@@ -5,8 +5,8 @@ This session continued the bobgui refactor with a focus on making the thin C++ l
 
 The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
-- add stronger C++ helpers for action-driven menu/tool work
-- add a more opinionated studio-style C++ shell preset
+- add stronger C++ helpers for action-driven toolbar/tool work
+- strengthen the studio-style shell preset with grouped action inspection
 - continue documenting the framework direction clearly
 
 ## Changes made
@@ -19,6 +19,7 @@ The main goals were:
 Expanded `bobgui/cpp/action_registry.hpp` so it now provides:
 - `ActionRegistry::ActionOptions`
 - `ActionRegistry::ActionInfo`
+- `ActionRegistry::ActionSection`
 - `ActionRegistry::ActionVisitor`
 - `add_action()`
 - `add_toggle_action()`
@@ -28,43 +29,38 @@ Expanded `bobgui/cpp/action_registry.hpp` so it now provides:
 - `create_menu_model()`
 - `visit()`
 - `list_actions()`
+- `list_sections()`
 
-This makes the C++ action wrapper much more useful for real application composition and inspection.
+This makes the C++ action wrapper much more useful for real application composition and grouped tool-surface inspection.
 
 ### AppShell helper expansion
 Expanded `bobgui/cpp/app_shell.hpp` so it now provides:
 - `menu_model()`
 - `visit_actions()`
 - `list_actions()`
+- `list_action_sections()`
 - lazy dock-manager creation support
 
-This gives the shell preset stronger action/menu-oriented convenience.
+### StudioShell helper expansion
+Expanded `bobgui/cpp/studio_shell.hpp` so it now provides:
+- `list_tool_sections()`
 
-### New studio-style shell preset
-Added:
-- `bobgui/cpp/studio_shell.hpp`
+This gives the studio-style preset a more direct path toward action-driven tool surfaces.
 
-`StudioShell` builds on top of `AppShell` and provides a more intentional multi-pane tool-app vocabulary:
-- `set_navigation_panel()`
-- `set_document_view()`
-- `set_inspector_panel()`
-
-It also initializes dock support through the preset path.
+### Example update
+- Updated `examples/workbench-demo/main.cpp` to read grouped action-section information from the shell.
+- The example now sets an initial status message based on the number of action sections, which demonstrates read-side shell inspection rather than only write-side command registration.
 
 ### C++ umbrella/install updates
 - Updated `bobgui/cpp/bobgui.hpp` to include `studio_shell.hpp`.
-- Updated `bobgui/meson.build` to install the new header.
-
-### Example update
-- Updated `examples/workbench-demo/main.cpp` to use `StudioShell`.
-- The example now demonstrates a more opinionated tool-style shell instead of only a generic app shell.
+- Updated `bobgui/meson.build` to install the new header set.
 
 ### Documentation
 Updated:
 - `docs/CPP_APP_FRAMEWORK_LAYER.md`
 
 Added:
-- `docs/CPP_STUDIO_SHELL_PRESET_2026-04-05.md`
+- `docs/CPP_TOOL_SURFACE_HELPERS_2026-04-05.md`
 
 ## Validation notes
 - A literal grep audit still returns no matches for the legacy toolkit spellings in the working tree.

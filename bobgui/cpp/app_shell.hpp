@@ -96,6 +96,11 @@ public:
     return action_registry_.list_actions ();
   }
 
+  std::vector<ActionRegistry::ActionSection> list_action_sections () const
+  {
+    return action_registry_.list_sections ();
+  }
+
   void add_header_action_for_command (const char *label,
                                       const char *command_id)
   {

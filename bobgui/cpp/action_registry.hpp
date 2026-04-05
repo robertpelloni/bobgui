@@ -32,6 +32,12 @@ public:
     bool checked;
   };
 
+  struct ActionSection
+  {
+    std::string title;
+    std::vector<ActionInfo> actions;
+  };
+
   typedef std::function<void(const ActionInfo &)> ActionVisitor;
 
   struct ActionOptions
@@ -143,6 +149,39 @@ public:
     return actions;
   }
 
+  std::vector<ActionSection> list_sections () const
+  {
+    std::vector<ActionSection> sections;
+    std::vector<ActionInfo> actions = list_actions ();
+
+    for (std::vector<ActionInfo>::const_iterator it = actions.begin (); it != actions.end (); ++it)
+      {
+        std::string title = section_title (*it);
+        bool found = false;
+
+        for (std::vector<ActionSection>::iterator section = sections.begin (); section != sections.end (); ++section)
+          {
+            if (section->title == title)
+              {
+                section->actions.push_back (*it);
+                found = true;
+                break;
+              }
+          }
+
+        if (!found)
+          {
+            ActionSection section;
+
+            section.title = title;
+            section.actions.push_back (*it);
+            sections.push_back (section);
+          }
+      }
+
+    return sections;
+  }
+
 private:
   struct ActionBinding
   {
@@ -189,6 +228,17 @@ private:
 
     if (state->visitor != NULL && *state->visitor)
       (*state->visitor) (info);
+  }
+
+  static std::string section_title (const ActionInfo &info)
+  {
+    if (!info.section.empty ())
+      return info.section;
+
+    if (!info.category.empty ())
+      return info.category;
+
+    return "General";
   }
 
   ActionBinding *add_binding (ActionHandler handler)

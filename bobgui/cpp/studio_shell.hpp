@@ -132,6 +132,11 @@ public:
     return shell_.list_actions ();
   }
 
+  std::vector<ActionRegistry::ActionSection> list_tool_sections () const
+  {
+    return shell_.list_action_sections ();
+  }
+
   void present ()
   {
     shell_.present ();

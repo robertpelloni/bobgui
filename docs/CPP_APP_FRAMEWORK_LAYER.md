@@ -52,7 +52,7 @@ The current wrapper focuses on:
 - command-palette attachment
 - section-aware command registration
 - option-struct-based command registration to avoid long parameter lists
-- action visiting and menu-model access from C++
+- action visiting, action listing, and menu-model access from C++
 - a simple `AppShell` preset that wires workbench + action registry + command palette together
 - lazy dock-manager access through the shell preset
 - a more opinionated `StudioShell` preset for multi-pane tool-style apps
@@ -86,6 +86,7 @@ The new C++ example now shows a studio-oriented shell that:
 - initializes dock support through the preset path
 - assigns navigation, document, and inspector panels explicitly
 - registers commands through a `Workbench::CommandOptions` struct
+- inspects grouped action sections through the shell helper layer
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer
 
@@ -98,7 +99,7 @@ That does not guarantee every historical trace is gone in every possible substri
 A real compile-validation pass was attempted after this refactor, but the current environment does not provide Meson or a C++ compiler. The blocker is tool availability, not a decision to skip verification.
 
 ## Recommended next steps
-1. add richer wrapper coverage around action-driven menu/tool surfaces
+1. add richer wrapper coverage around action-driven toolbar/tool surfaces
 2. deepen dock/workspace-oriented shell helpers on top of app/studio shell presets
 3. add build-wired C++ examples once the current shell APIs settle a little more
 4. continue modernizing the most visible inherited branding/comments in public entry points
