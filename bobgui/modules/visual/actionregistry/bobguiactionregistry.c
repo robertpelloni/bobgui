@@ -8,6 +8,7 @@ typedef struct
   char *subtitle;
   char *category;
   char *shortcut;
+  char *icon_name;
   gboolean checkable;
   gboolean checked;
   BobguiActionRegistryFunc callback;
@@ -30,6 +31,7 @@ bobgui_action_registry_item_free (BobguiActionRegistryItem *item)
   g_free (item->subtitle);
   g_free (item->category);
   g_free (item->shortcut);
+  g_free (item->icon_name);
   g_free (item);
 }
 
@@ -79,6 +81,7 @@ bobgui_action_registry_add_detailed (BobguiActionRegistry      *self,
                                      const char                *subtitle,
                                      const char                *category,
                                      const char                *shortcut,
+                                     const char                *icon_name,
                                      BobguiActionRegistryFunc   callback,
                                      gpointer                   user_data)
 {
@@ -93,6 +96,7 @@ bobgui_action_registry_add_detailed (BobguiActionRegistry      *self,
   item->subtitle = g_strdup (subtitle);
   item->category = g_strdup (category);
   item->shortcut = g_strdup (shortcut);
+  item->icon_name = g_strdup (icon_name);
   item->callback = callback;
   item->user_data = user_data;
   g_ptr_array_add (self->items, item);
@@ -105,6 +109,7 @@ bobgui_action_registry_add_toggle (BobguiActionRegistry      *self,
                                    const char                *subtitle,
                                    const char                *category,
                                    const char                *shortcut,
+                                   const char                *icon_name,
                                    gboolean                   checked,
                                    BobguiActionRegistryFunc   callback,
                                    gpointer                   user_data)
@@ -120,6 +125,7 @@ bobgui_action_registry_add_toggle (BobguiActionRegistry      *self,
   item->subtitle = g_strdup (subtitle);
   item->category = g_strdup (category);
   item->shortcut = g_strdup (shortcut);
+  item->icon_name = g_strdup (icon_name);
   item->checkable = TRUE;
   item->checked = checked;
   item->callback = callback;
@@ -139,6 +145,7 @@ bobgui_action_registry_add (BobguiActionRegistry      *self,
                                        action_id,
                                        title,
                                        subtitle,
+                                       NULL,
                                        NULL,
                                        NULL,
                                        callback,
@@ -268,6 +275,7 @@ bobgui_action_registry_visit (BobguiActionRegistry          *self,
             item->subtitle,
             item->category,
             item->shortcut,
+            item->icon_name,
             item->checkable,
             item->checked,
             user_data);
@@ -290,7 +298,11 @@ bobgui_action_registry_populate_palette (BobguiActionRegistry *self,
       BobguiActionRegistryItem *item = g_ptr_array_index (self->items, i);
       g_autofree char *subtitle = NULL;
 
-      if (item->checkable && item->checked && item->category && item->shortcut && item->subtitle)
+      if (item->icon_name && item->checkable && item->checked && item->category && item->shortcut && item->subtitle)
+        subtitle = g_strdup_printf ("★ %s [%s] %s — %s", item->icon_name, item->category, item->shortcut, item->subtitle);
+      else if (item->icon_name && item->category && item->shortcut && item->subtitle)
+        subtitle = g_strdup_printf ("★ %s [%s] %s — %s", item->icon_name, item->category, item->shortcut, item->subtitle);
+      else if (item->checkable && item->checked && item->category && item->shortcut && item->subtitle)
         subtitle = g_strdup_printf ("✓ [%s] %s — %s", item->category, item->shortcut, item->subtitle);
       else if (item->checkable && item->checked && item->category && item->shortcut)
         subtitle = g_strdup_printf ("✓ [%s] %s", item->category, item->shortcut);

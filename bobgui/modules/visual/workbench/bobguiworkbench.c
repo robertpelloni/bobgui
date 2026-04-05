@@ -354,6 +354,7 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
                          const char *subtitle,
                          const char *category,
                          const char *shortcut,
+                         const char *icon_name,
                          gboolean    checkable,
                          gboolean    checked,
                          gpointer    user_data)
@@ -363,6 +364,7 @@ bobgui_workbench_rebuild_toolbar (BobguiWorkbench *self)
         g_autofree char *button_title = NULL;
         (void) subtitle;
         (void) shortcut;
+        (void) icon_name;
 
         if (category && g_strcmp0 (d->last_category, category) != 0)
           {
@@ -473,6 +475,7 @@ bobgui_workbench_add_command_detailed (BobguiWorkbench                *self,
                                            subtitle,
                                            category,
                                            shortcut,
+                                           NULL,
                                            callback,
                                            user_data);
 
@@ -530,6 +533,7 @@ bobgui_workbench_add_toggle_command (BobguiWorkbench                *self,
                                          subtitle,
                                          category,
                                          shortcut,
+                                         NULL,
                                          checked,
                                          callback,
                                          user_data);

@@ -12,6 +12,7 @@ typedef void (*BobguiActionRegistryVisitFunc) (const char *action_id,
                                                const char *subtitle,
                                                const char *category,
                                                const char *shortcut,
+                                               const char *icon_name,
                                                gboolean    checkable,
                                                gboolean    checked,
                                                gpointer    user_data);
@@ -28,6 +29,7 @@ void                   bobgui_action_registry_add_detailed     (BobguiActionRegi
                                                                const char               *subtitle,
                                                                const char               *category,
                                                                const char               *shortcut,
+                                                               const char               *icon_name,
                                                                BobguiActionRegistryFunc  callback,
                                                                gpointer                  user_data);
 void                   bobgui_action_registry_add              (BobguiActionRegistry     *self,
@@ -42,6 +44,7 @@ void                   bobgui_action_registry_add_toggle       (BobguiActionRegi
                                                                const char               *subtitle,
                                                                const char               *category,
                                                                const char               *shortcut,
+                                                               const char               *icon_name,
                                                                gboolean                  checked,
                                                                BobguiActionRegistryFunc  callback,
                                                                gpointer                  user_data);

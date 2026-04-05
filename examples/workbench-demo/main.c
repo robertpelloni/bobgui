@@ -1,26 +1,32 @@
 #include <bobgui/bobgui.h>
 #include <bobgui/modules/visual/visual.h>
 
+typedef struct
+{
+  BobguiWorkbench *workbench;
+  BobguiActionRegistry *registry;
+} DemoContext;
+
 static void
 on_show_about (const char *command_id,
                gpointer    user_data)
 {
-  BobguiWorkbench *workbench = user_data;
+  DemoContext *context = user_data;
 
   (void) command_id;
-  bobgui_workbench_set_status (workbench, "About action triggered");
+  bobgui_workbench_set_status (context->workbench, "About action triggered");
 }
 
 static void
 on_toggle_left (const char *command_id,
                 gpointer    user_data)
 {
-  BobguiWorkbench *workbench = user_data;
-  static gboolean enabled = TRUE;
+  DemoContext *context = user_data;
+  gboolean enabled;
 
-  (void) command_id;
-  enabled = !enabled;
-  bobgui_workbench_set_status (workbench,
+  enabled = !bobgui_action_registry_get_checked (context->registry, command_id);
+  bobgui_action_registry_set_checked (context->registry, command_id, enabled);
+  bobgui_workbench_set_status (context->workbench,
                                enabled ? "Sidebar enabled" : "Sidebar disabled");
 }
 
@@ -28,6 +34,7 @@ static void
 on_activate (BobguiApplication *application,
              gpointer           user_data)
 {
+  DemoContext *context;
   BobguiWorkbench *workbench;
   BobguiActionRegistry *registry;
   BobguiCommandPalette *palette;
@@ -39,6 +46,10 @@ on_activate (BobguiApplication *application,
   workbench = bobgui_workbench_new (application);
   registry = bobgui_action_registry_new ();
   palette = bobgui_command_palette_new (application);
+
+  context = g_new0 (DemoContext, 1);
+  context->workbench = workbench;
+  context->registry = registry;
 
   bobgui_workbench_set_action_registry (workbench, registry);
   bobgui_workbench_set_command_palette (workbench, palette);
@@ -60,7 +71,7 @@ on_activate (BobguiApplication *application,
                                          "Application",
                                          "Ctrl+Shift+A",
                                          on_show_about,
-                                         workbench);
+                                         context);
   bobgui_workbench_add_toggle_command (workbench,
                                        "view.toggle-left-sidebar",
                                        "Toggle Left Sidebar",
@@ -69,7 +80,7 @@ on_activate (BobguiApplication *application,
                                        "Ctrl+B",
                                        TRUE,
                                        on_toggle_left,
-                                       workbench);
+                                       context);
 
   bobgui_workbench_add_header_action_for_command (workbench, "About", "app.about");
   bobgui_workbench_add_header_action_for_command (workbench, "Sidebar", "view.toggle-left-sidebar");

@@ -34,8 +34,10 @@ Without that, every feature ends up inventing its own callback list.
 `BobguiWorkbench` was extended with:
 - `bobgui_workbench_set_action_registry()`
 - improved `bobgui_workbench_add_command()` behavior
+- `bobgui_workbench_add_toggle_command()`
 - `bobgui_workbench_add_header_action_for_command()`
 - `bobgui_workbench_enable_menubar()`
+- `bobgui_workbench_enable_toolbar()`
 
 If a workbench has an action registry and a command palette, adding commands through the workbench now updates the shared action model and repopulates the palette from that source. Header buttons can also be bound directly to action identifiers. In this pass, workbench command registration also installs application actions and can export the action registry into a real application menubar.
 
