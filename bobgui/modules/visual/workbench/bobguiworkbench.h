@@ -5,6 +5,7 @@
 
 G_BEGIN_DECLS
 
+typedef struct _BobguiActionRegistry BobguiActionRegistry;
 typedef struct _BobguiCommandPalette BobguiCommandPalette;
 
 typedef void (*BobguiWorkbenchActionCallback) (BobguiButton *button,
@@ -35,6 +36,8 @@ void             bobgui_workbench_add_header_action  (BobguiWorkbench   *self,
                                                       gpointer           user_data);
 void             bobgui_workbench_set_command_palette(BobguiWorkbench   *self,
                                                       BobguiCommandPalette *palette);
+void             bobgui_workbench_set_action_registry(BobguiWorkbench   *self,
+                                                      BobguiActionRegistry *registry);
 void             bobgui_workbench_add_command        (BobguiWorkbench   *self,
                                                       const char        *command_id,
                                                       const char        *title,

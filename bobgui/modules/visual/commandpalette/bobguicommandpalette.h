@@ -12,6 +12,7 @@ typedef void (*BobguiCommandPaletteFunc) (const char *command_id,
 G_DECLARE_FINAL_TYPE (BobguiCommandPalette, bobgui_command_palette, BOBGUI, COMMAND_PALETTE, GObject)
 
 BobguiCommandPalette * bobgui_command_palette_new               (BobguiApplication *application);
+void                   bobgui_command_palette_clear             (BobguiCommandPalette     *self);
 void                   bobgui_command_palette_add_command       (BobguiCommandPalette     *self,
                                                                 const char               *command_id,
                                                                 const char               *title,

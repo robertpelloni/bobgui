@@ -305,6 +305,15 @@ bobgui_command_palette_new (BobguiApplication *application)
 }
 
 void
+bobgui_command_palette_clear (BobguiCommandPalette *self)
+{
+  g_return_if_fail (BOBGUI_IS_COMMAND_PALETTE (self));
+
+  g_ptr_array_set_size (self->items, 0);
+  bobgui_command_palette_rebuild (self);
+}
+
+void
 bobgui_command_palette_add_command (BobguiCommandPalette     *self,
                                     const char               *command_id,
                                     const char               *title,

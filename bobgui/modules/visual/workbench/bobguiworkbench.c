@@ -1,4 +1,5 @@
 #include "bobguiworkbench.h"
+#include "bobguiactionregistry.h"
 #include "bobguicommandpalette.h"
 #include <gdk/gdk.h>
 
@@ -16,6 +17,7 @@ struct _BobguiWorkbench
   BobguiWidget *central;
   BobguiWidget *left_sidebar;
   BobguiWidget *right_sidebar;
+  BobguiActionRegistry *action_registry;
   BobguiCommandPalette *command_palette;
 };
 
@@ -27,6 +29,7 @@ bobgui_workbench_dispose (GObject *object)
   BobguiWorkbench *self = BOBGUI_WORKBENCH (object);
 
   g_clear_object (&self->window);
+  g_clear_object (&self->action_registry);
   g_clear_object (&self->command_palette);
 
   G_OBJECT_CLASS (bobgui_workbench_parent_class)->dispose (object);
@@ -206,10 +209,27 @@ bobgui_workbench_set_command_palette (BobguiWorkbench      *self,
 
   g_set_object (&self->command_palette, palette);
   bobgui_command_palette_attach_to_window (palette, BOBGUI_WINDOW (self->window));
+
+  if (self->action_registry)
+    bobgui_action_registry_populate_palette (self->action_registry, palette);
+
   bobgui_workbench_add_header_action (self,
                                       "Commands",
                                       bobgui_workbench_open_command_palette,
                                       self);
+}
+
+void
+bobgui_workbench_set_action_registry (BobguiWorkbench      *self,
+                                      BobguiActionRegistry *registry)
+{
+  g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
+  g_return_if_fail (BOBGUI_IS_ACTION_REGISTRY (registry));
+
+  g_set_object (&self->action_registry, registry);
+
+  if (self->command_palette)
+    bobgui_action_registry_populate_palette (registry, self->command_palette);
 }
 
 void
@@ -221,14 +241,29 @@ bobgui_workbench_add_command (BobguiWorkbench                *self,
                               gpointer                        user_data)
 {
   g_return_if_fail (BOBGUI_IS_WORKBENCH (self));
-  g_return_if_fail (BOBGUI_IS_COMMAND_PALETTE (self->command_palette));
 
-  bobgui_command_palette_add_command (self->command_palette,
-                                      command_id,
-                                      title,
-                                      subtitle,
-                                      callback,
-                                      user_data);
+  if (self->action_registry)
+    {
+      bobgui_action_registry_add (self->action_registry,
+                                  command_id,
+                                  title,
+                                  subtitle,
+                                  callback,
+                                  user_data);
+
+      if (self->command_palette)
+        bobgui_action_registry_populate_palette (self->action_registry,
+                                                 self->command_palette);
+    }
+  else if (self->command_palette)
+    {
+      bobgui_command_palette_add_command (self->command_palette,
+                                          command_id,
+                                          title,
+                                          subtitle,
+                                          callback,
+                                          user_data);
+    }
 }
 
 void
