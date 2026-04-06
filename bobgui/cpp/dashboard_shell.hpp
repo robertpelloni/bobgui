@@ -138,7 +138,12 @@ public:
 
   BobguiWidget *build_dashboard_toolbar_widget ()
   {
-    return shell_.build_labeled_toolbar_widget ();
+    return shell_.build_workspace_toolbar_preset ();
+  }
+
+  BobguiWidget *build_dashboard_panel_toolbar_widget ()
+  {
+    return shell_.build_panel_toolbar_preset ();
   }
 
   BobguiWidget *build_dashboard_tools_widget ()

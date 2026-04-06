@@ -199,6 +199,16 @@ public:
     return shell_.build_compact_toolbar_widget ();
   }
 
+  BobguiWidget *build_workspace_toolbar_preset ()
+  {
+    return shell_.build_workspace_toolbar_preset ();
+  }
+
+  BobguiWidget *build_panel_toolbar_preset ()
+  {
+    return shell_.build_panel_toolbar_preset ();
+  }
+
   void present ()
   {
     shell_.present ();

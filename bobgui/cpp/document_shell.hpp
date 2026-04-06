@@ -117,7 +117,12 @@ public:
 
   BobguiWidget *build_document_toolbar_widget ()
   {
-    return shell_.build_labeled_toolbar_widget ();
+    return shell_.build_workspace_toolbar_preset ();
+  }
+
+  BobguiWidget *build_document_panel_toolbar_widget ()
+  {
+    return shell_.build_panel_toolbar_preset ();
   }
 
   BobguiWidget *build_document_tools_widget ()

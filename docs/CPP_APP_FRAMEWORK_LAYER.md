@@ -65,6 +65,7 @@ The current wrapper focuses on:
 - action visiting, action listing, grouped-section listing, and menu-model access from C++
 - a simple `AppShell` preset that wires workbench + action registry + command palette together
 - shell-level workspace/panel action helpers layered on the shared action model
+- shell-level workspace/panel toolbar presets derived from the same grouped action state
 - lazy dock-manager access through the shell preset
 - a more opinionated `StudioShell` preset for multi-pane tool-style apps
 - a `DocumentShell` preset for outline/content/details document-style apps
@@ -109,6 +110,7 @@ The new C++ example now shows a studio-oriented shell that:
 - builds a quick-actions toolbar widget from a dedicated compact preset path
 - builds a labeled command-strip toolbar from a dedicated labeled preset path
 - demonstrates workspace/panel action helpers on top of the shared action model
+- demonstrates workspace/panel-specific toolbar presets derived from grouped action state
 - demonstrates different presentation policies from the same shared action model
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer

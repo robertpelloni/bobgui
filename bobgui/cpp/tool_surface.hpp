@@ -68,6 +68,25 @@ public:
     return sections_;
   }
 
+  ToolSurfaceModel filter_sections (const std::vector<std::string> &titles) const
+  {
+    ToolSurfaceModel filtered;
+
+    for (std::vector<ToolSection>::const_iterator section = sections_.begin (); section != sections_.end (); ++section)
+      {
+        for (std::vector<std::string>::const_iterator title = titles.begin (); title != titles.end (); ++title)
+          {
+            if (section->title == *title)
+              {
+                filtered.sections_.push_back (*section);
+                break;
+              }
+          }
+      }
+
+    return filtered;
+  }
+
   std::size_t section_count () const
   {
     return sections_.size ();

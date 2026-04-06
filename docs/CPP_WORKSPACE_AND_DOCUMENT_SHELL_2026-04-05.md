@@ -30,6 +30,7 @@ Added:
 - `set_content_view()`
 - `set_details_panel()`
 - `build_document_toolbar_widget()`
+- `build_document_panel_toolbar_widget()`
 - `build_document_tools_widget()`
 
 ## Why this matters
@@ -41,9 +42,11 @@ A document-style preset gives the framework a cleaner path for:
 - detail/outline workflows
 
 ## Example effect
-The current C++ demo still uses `StudioShell`, but it now demonstrates the new shell-level helpers for:
+The current C++ demo still uses `StudioShell`, but it now demonstrates the new shell-level helpers and preset-specific toolbar surfaces for:
 - panel toggles
 - workspace actions
+- workspace toolbar surfaces
+- panel toolbar surfaces
 
 That keeps the demo aligned with the shared action model while also making the shell API easier to use.
 

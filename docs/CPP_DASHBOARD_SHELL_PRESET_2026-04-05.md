@@ -12,6 +12,7 @@ The goal is to give bobgui a clearer path for dashboard-style and monitoring-sty
 - `set_dashboard_view()`
 - `set_context_panel()`
 - `build_dashboard_toolbar_widget()`
+- `build_dashboard_panel_toolbar_widget()`
 - `build_dashboard_tools_widget()`
 
 It also exposes shell-level helpers for:
@@ -37,7 +38,7 @@ That is important for usability because developers can choose an entry point tha
 `DashboardShell` still uses the same shared action/section/surface pipeline:
 - register actions
 - group them into sections
-- derive surface models
+- derive workspace/panel-specific surface models
 - build toolbars and tool surfaces
 
 So the architecture remains unified even as the shell vocabulary becomes more specific.

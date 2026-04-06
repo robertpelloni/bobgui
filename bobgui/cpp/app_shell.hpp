@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <utility>
+#include <vector>
 
 namespace bobgui {
 namespace cpp {
@@ -109,6 +110,23 @@ public:
     return ToolSurfaceModel::from_action_sections (list_action_sections ());
   }
 
+  ToolSurfaceModel workspace_tool_surface_model () const
+  {
+    std::vector<std::string> titles;
+
+    titles.push_back ("Workspace");
+    return tool_surface_model ().filter_sections (titles);
+  }
+
+  ToolSurfaceModel panel_tool_surface_model () const
+  {
+    std::vector<std::string> titles;
+
+    titles.push_back ("Panels");
+    titles.push_back ("View");
+    return tool_surface_model ().filter_sections (titles);
+  }
+
   BobguiWidget *build_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
   {
     ToolSurfaceBuilder builder (action_registry_);
@@ -126,6 +144,18 @@ public:
     return builder.build_widget (tool_surface_model (), options);
   }
 
+  BobguiWidget *build_workspace_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
+  {
+    ToolbarBuilder builder (action_registry_);
+    return builder.build_widget (workspace_tool_surface_model (), options);
+  }
+
+  BobguiWidget *build_panel_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
+  {
+    ToolbarBuilder builder (action_registry_);
+    return builder.build_widget (panel_tool_surface_model (), options);
+  }
+
   BobguiWidget *build_labeled_toolbar_widget ()
   {
     return build_toolbar_widget (ToolbarBuilder::Options::labeled ());
@@ -134,6 +164,16 @@ public:
   BobguiWidget *build_compact_toolbar_widget ()
   {
     return build_toolbar_widget (ToolbarBuilder::Options::compact ());
+  }
+
+  BobguiWidget *build_workspace_toolbar_preset ()
+  {
+    return build_workspace_toolbar_widget (ToolbarBuilder::Options::labeled ());
+  }
+
+  BobguiWidget *build_panel_toolbar_preset ()
+  {
+    return build_panel_toolbar_widget (ToolbarBuilder::Options::compact ());
   }
 
   void add_header_action_for_command (const char *label,
