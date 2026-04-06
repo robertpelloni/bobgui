@@ -15,6 +15,10 @@ and builds a toolbar-like widget surface using grouped action data.
 `ToolbarBuilder::Options` currently supports:
 - `show_section_labels`
 - `show_button_labels`
+- `show_shortcuts`
+- `show_checked_prefix`
+- `section_spacing`
+- `item_spacing`
 
 This provides a simple policy layer for deciding how compact or descriptive the generated toolbar should be.
 
@@ -45,7 +49,7 @@ This means the higher-level shell presets can now generate both:
 from the same shared action state.
 
 ## Example effect
-The C++ demo now adds a "Quick Actions" toolbar-like widget into the navigation panel while still rendering the fuller grouped tool surface in the inspector panel.
+The C++ demo now adds a compact icon-oriented "Quick Actions" toolbar-like widget into the navigation panel while still rendering the fuller grouped tool surface in the inspector panel.
 
 That gives the example a stronger story around multiple action-derived surfaces coming from the same shared model.
 
@@ -58,7 +62,7 @@ This is another important step toward a more complete application-framework faç
 - toolbar-specific builder and policy layer
 
 ## Next recommended step
-1. deepen the visual policy layer for generated toolbar and tool surfaces
+1. keep deepening the visual policy layer for generated toolbar and tool surfaces
 2. integrate dock/workspace-oriented actions more deeply into the same shell path
 3. continue modernizing high-visibility public header comments
 4. validate the whole stack with a real toolchain when available

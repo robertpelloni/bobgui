@@ -6,7 +6,7 @@ This session continued the bobgui refactor with a focus on making the thin C++ l
 The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
 - add stronger C++ helpers for action-driven toolbar/tool work
-- strengthen the studio-style shell preset with toolbar-specific builder support
+- deepen the visual policy layer for generated action surfaces
 - continue documenting the framework direction clearly
 
 ## Changes made
@@ -15,51 +15,55 @@ The main goals were:
 - Re-ran a literal audit for legacy toolkit spellings in the working tree.
 - The working tree still returns no matches for those spellings.
 
-### ToolSurfaceBuilder baseline retained
-The existing C++ tool-surface path remains in place:
-- grouped action sections
-- `ToolSurfaceModel`
-- `ToolSurfaceBuilder`
+### Visual policy expansion for generated surfaces
+The generated action-surface layer is now more configurable.
 
-### ToolbarBuilder
-Added:
-- `bobgui/cpp/toolbar_builder.hpp`
+#### ToolSurfaceBuilder
+Expanded `bobgui/cpp/tool_surface_builder.hpp` with:
+- `ToolSurfaceBuilder::Options`
 
-This introduces:
-- `ToolbarBuilder`
-- `ToolbarBuilder::Options`
+Current policy controls include:
+- `show_section_labels`
+- `show_subtitles`
+- `show_shortcuts`
+- `show_checked_prefix`
+- `section_spacing`
+- `item_spacing`
 
-Current policy options include:
+#### ToolbarBuilder
+Expanded `bobgui/cpp/toolbar_builder.hpp` with richer `ToolbarBuilder::Options` support:
 - `show_section_labels`
 - `show_button_labels`
+- `show_shortcuts`
+- `show_checked_prefix`
+- `section_spacing`
+- `item_spacing`
 
-The builder turns a shared action registry plus a `ToolSurfaceModel` into a more toolbar-like grouped widget surface.
+This makes the generated surfaces more adaptable to compact and descriptive UI contexts.
 
-### AppShell helper expansion
-Expanded `bobgui/cpp/app_shell.hpp` so it now provides:
-- `build_toolbar_widget()`
-
-### StudioShell helper expansion
-Expanded `bobgui/cpp/studio_shell.hpp` so it now provides:
-- `build_toolbar_widget()`
-
-This gives the higher-level shell presets a more direct path to compact action-driven UI surfaces in addition to the fuller grouped tool surface.
+### AppShell / StudioShell helper continuity
+The shell presets continue to provide:
+- grouped action inspection
+- tool-surface modeling
+- tool-surface widget generation
+- toolbar widget generation
 
 ### Example update
-- Updated `examples/workbench-demo/main.cpp` to add a generated "Quick Actions" toolbar-like widget to the navigation panel.
-- The example still renders the fuller grouped tool surface in the inspector panel.
-- This demonstrates multiple action-derived UI surfaces coming from the same shared action model.
+- Updated `examples/workbench-demo/main.cpp` to use different visual policies for different generated surfaces.
+- The navigation panel now shows a more compact quick-actions toolbar style.
+- The inspector panel now shows a fuller descriptive tool surface style with subtitle/shortcut detail.
+- This demonstrates multiple presentation policies driven from the same shared action model.
 
-### C++ umbrella/install updates
-- Updated `bobgui/cpp/bobgui.hpp` to include `toolbar_builder.hpp`.
-- Updated `bobgui/meson.build` to install the new header set.
+### C++ umbrella/install continuity
+- The umbrella header and Meson install metadata continue to include the generated-surface builder headers.
 
 ### Documentation
 Updated:
 - `docs/CPP_APP_FRAMEWORK_LAYER.md`
+- `docs/CPP_TOOLBAR_BUILDERS_2026-04-05.md`
 
 Added:
-- `docs/CPP_TOOLBAR_BUILDERS_2026-04-05.md`
+- `docs/CPP_VISUAL_POLICY_LAYER_2026-04-05.md`
 
 ## Validation notes
 - A literal grep audit still returns no matches for the legacy toolkit spellings in the working tree.
@@ -67,7 +71,7 @@ Added:
 - Real compile validation remains blocked by missing environment tools from the earlier validation attempt (`meson`, Python `mesonbuild`, and `g++`).
 
 ## Recommended next steps
-1. Deepen the visual policy layer for generated toolbar and tool surfaces.
+1. Add stronger toolbar-specific semantics beyond generic grouped boxes and labels.
 2. Integrate dock/workspace-oriented actions more deeply into the same shell path.
 3. Continue modernizing the highest-visibility inherited public header comments.
 4. Run full Meson/configure/build validation immediately when tool availability exists.

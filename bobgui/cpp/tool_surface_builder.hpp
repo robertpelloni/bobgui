@@ -14,30 +14,54 @@ namespace cpp {
 class ToolSurfaceBuilder
 {
 public:
+  struct Options
+  {
+    bool show_section_labels;
+    bool show_subtitles;
+    bool show_shortcuts;
+    bool show_checked_prefix;
+    int section_spacing;
+    int item_spacing;
+
+    Options ()
+    : show_section_labels (true),
+      show_subtitles (true),
+      show_shortcuts (true),
+      show_checked_prefix (true),
+      section_spacing (8),
+      item_spacing (4)
+    {
+    }
+  };
+
   explicit ToolSurfaceBuilder (ActionRegistry &registry)
   : registry_ (registry)
   {
   }
 
-  BobguiWidget *build_widget (const ToolSurfaceModel &model)
+  BobguiWidget *build_widget (const ToolSurfaceModel &model,
+                              const Options          &options = Options ())
   {
-    BobguiWidget *root = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 8);
+    BobguiWidget *root = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, options.section_spacing);
 
     for (std::vector<ToolSurfaceModel::ToolSection>::const_iterator section = model.sections ().begin ();
          section != model.sections ().end ();
          ++section)
       {
-        BobguiWidget *section_box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 4);
-        BobguiWidget *section_label = bobgui_label_new (section->title.c_str ());
-        BobguiWidget *items_box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 4);
+        BobguiWidget *section_box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, options.item_spacing);
+        BobguiWidget *items_box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, options.item_spacing);
 
-        bobgui_label_set_xalign (BOBGUI_LABEL (section_label), 0.0f);
-        bobgui_box_append (BOBGUI_BOX (section_box), section_label);
+        if (options.show_section_labels)
+          {
+            BobguiWidget *section_label = bobgui_label_new (section->title.c_str ());
+            bobgui_label_set_xalign (BOBGUI_LABEL (section_label), 0.0f);
+            bobgui_box_append (BOBGUI_BOX (section_box), section_label);
+          }
 
         for (std::vector<ToolSurfaceModel::ToolItem>::const_iterator item = section->items.begin ();
              item != section->items.end ();
              ++item)
-          bobgui_box_append (BOBGUI_BOX (items_box), build_button (*item));
+          bobgui_box_append (BOBGUI_BOX (items_box), build_item (*item, options));
 
         bobgui_box_append (BOBGUI_BOX (section_box), items_box);
         bobgui_box_append (BOBGUI_BOX (root), section_box);
@@ -71,7 +95,41 @@ private:
     delete static_cast<ButtonBinding *> (data);
   }
 
-  BobguiWidget *build_button (const ToolSurfaceModel::ToolItem &item)
+  BobguiWidget *build_item (const ToolSurfaceModel::ToolItem &item,
+                            const Options                    &options)
+  {
+    BobguiWidget *item_box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 2);
+    BobguiWidget *button = build_button (item, options);
+
+    bobgui_box_append (BOBGUI_BOX (item_box), button);
+
+    if (options.show_subtitles)
+      {
+        std::string details;
+
+        if (!item.subtitle.empty ())
+          details = item.subtitle;
+
+        if (options.show_shortcuts && !item.shortcut.empty ())
+          {
+            if (!details.empty ())
+              details += " — ";
+            details += item.shortcut;
+          }
+
+        if (!details.empty ())
+          {
+            BobguiWidget *subtitle = bobgui_label_new (details.c_str ());
+            bobgui_label_set_xalign (BOBGUI_LABEL (subtitle), 0.0f);
+            bobgui_box_append (BOBGUI_BOX (item_box), subtitle);
+          }
+      }
+
+    return item_box;
+  }
+
+  BobguiWidget *build_button (const ToolSurfaceModel::ToolItem &item,
+                              const Options                    &options)
   {
     ButtonBinding *binding = new ButtonBinding;
     BobguiWidget *button;
@@ -80,7 +138,7 @@ private:
     binding->registry = &registry_;
     binding->action_id = item.action_id;
 
-    if (item.checkable && item.checked)
+    if (options.show_checked_prefix && item.checkable && item.checked)
       label = std::string ("✓ ") + label;
 
     button = bobgui_button_new_with_label (label.c_str ());

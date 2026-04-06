@@ -142,9 +142,9 @@ public:
     return shell_.tool_surface_model ();
   }
 
-  BobguiWidget *build_tool_surface_widget ()
+  BobguiWidget *build_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
   {
-    return shell_.build_tool_surface_widget ();
+    return shell_.build_tool_surface_widget (options);
   }
 
   BobguiWidget *build_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())

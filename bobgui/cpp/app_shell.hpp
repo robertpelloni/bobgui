@@ -109,10 +109,10 @@ public:
     return ToolSurfaceModel::from_action_sections (list_action_sections ());
   }
 
-  BobguiWidget *build_tool_surface_widget ()
+  BobguiWidget *build_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
   {
     ToolSurfaceBuilder builder (action_registry_);
-    return builder.build_widget (tool_surface_model ());
+    return builder.build_widget (tool_surface_model (), options);
   }
 
   BobguiWidget *build_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())

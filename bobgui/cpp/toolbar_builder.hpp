@@ -18,10 +18,18 @@ public:
   {
     bool show_section_labels;
     bool show_button_labels;
+    bool show_shortcuts;
+    bool show_checked_prefix;
+    int section_spacing;
+    int item_spacing;
 
     Options ()
     : show_section_labels (true),
-      show_button_labels (true)
+      show_button_labels (true),
+      show_shortcuts (false),
+      show_checked_prefix (true),
+      section_spacing (8),
+      item_spacing (4)
     {
     }
   };
@@ -34,14 +42,14 @@ public:
   BobguiWidget *build_widget (const ToolSurfaceModel &model,
                               const Options          &options = Options ())
   {
-    BobguiWidget *root = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 8);
+    BobguiWidget *root = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, options.section_spacing);
 
     for (std::vector<ToolSurfaceModel::ToolSection>::const_iterator section = model.sections ().begin ();
          section != model.sections ().end ();
          ++section)
       {
-        BobguiWidget *section_box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 4);
-        BobguiWidget *items_box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 4);
+        BobguiWidget *section_box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, options.item_spacing);
+        BobguiWidget *items_box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, options.item_spacing);
 
         if (options.show_section_labels)
           {
@@ -104,9 +112,17 @@ private:
     else
       label = item.title;
 
-    if (item.checkable && item.checked && !label.empty ())
+    if (options.show_shortcuts && !item.shortcut.empty ())
+      {
+        if (!label.empty ())
+          label += " (" + item.shortcut + ")";
+        else
+          label = item.shortcut;
+      }
+
+    if (options.show_checked_prefix && item.checkable && item.checked && !label.empty ())
       label = std::string ("✓ ") + label;
-    else if (item.checkable && item.checked && label.empty ())
+    else if (options.show_checked_prefix && item.checkable && item.checked && label.empty ())
       label = "✓";
 
     button = bobgui_button_new_with_label (label.c_str ());

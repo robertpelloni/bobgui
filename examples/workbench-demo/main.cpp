@@ -64,16 +64,22 @@ main (int argc, char **argv)
 
     {
       bobgui::cpp::ToolbarBuilder::Options toolbar_options;
+      bobgui::cpp::ToolSurfaceBuilder::Options tool_surface_options;
 
       toolbar_options.show_section_labels = false;
-      toolbar_options.show_button_labels = true;
+      toolbar_options.show_button_labels = false;
+      toolbar_options.show_shortcuts = false;
+
+      tool_surface_options.show_section_labels = true;
+      tool_surface_options.show_subtitles = true;
+      tool_surface_options.show_shortcuts = true;
 
       bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Quick Actions"));
       bobgui_box_append (BOBGUI_BOX (sidebar), shell->build_toolbar_widget (toolbar_options));
-    }
 
-    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Tools"));
-    bobgui_box_append (BOBGUI_BOX (inspector), shell->build_tool_surface_widget ());
+      bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Tools"));
+      bobgui_box_append (BOBGUI_BOX (inspector), shell->build_tool_surface_widget (tool_surface_options));
+    }
 
     {
       bobgui::cpp::ToolSurfaceModel tool_surface = shell->tool_surface_model ();
