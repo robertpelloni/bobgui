@@ -29,6 +29,7 @@ Giving each of those a concrete example makes the framework easier to understand
 - document-oriented toolbar and tool surfaces
 - panel toggle and workspace command helpers
 - document command helpers feeding document-specific surfaces
+- document action counts exposed through the shell
 
 ### Dashboard example
 - navigation/dashboard/context composition
@@ -36,6 +37,7 @@ Giving each of those a concrete example makes the framework easier to understand
 - panel toggle and workspace command helpers
 - dashboard and panel surface generation
 - dashboard-specific tools built from dashboard action sections
+- dashboard action counts exposed through the shell
 
 ## Strategic value
 Examples are part of API design.

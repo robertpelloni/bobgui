@@ -15,6 +15,7 @@ The goal is to give bobgui a clearer path for dashboard-style and monitoring-sty
 - `build_dashboard_panel_toolbar_widget()`
 - `build_dashboard_tools_widget()`
 - `build_dashboard_panel_tools_widget()`
+- `dashboard_action_count()`
 
 It also exposes shell-level helpers for:
 - dashboard commands
@@ -52,6 +53,7 @@ The dashboard example now demonstrates:
 - dashboard toolbar surfaces
 - dashboard tool surfaces
 - panel toolbar/tool surfaces
+- dashboard action counts exposed through the shell
 
 That gives the preset a much more concrete usage story.
 

@@ -37,6 +37,11 @@ public:
     return shell_.palette ();
   }
 
+  void ensure_dock_manager ()
+  {
+    shell_.ensure_dock_manager ();
+  }
+
   DockManager &dock_manager ()
   {
     return shell_.dock_manager ();
@@ -172,6 +177,16 @@ public:
   ToolSurfaceModel tool_surface_model () const
   {
     return shell_.tool_surface_model ();
+  }
+
+  std::size_t workspace_action_count () const
+  {
+    return shell_.workspace_action_count ();
+  }
+
+  std::size_t panel_action_count () const
+  {
+    return shell_.panel_action_count ();
   }
 
   BobguiWidget *build_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())

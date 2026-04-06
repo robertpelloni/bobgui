@@ -74,7 +74,13 @@ main (int argc, char **argv)
     shell->add_header_action_for_command ("Outline", "document.outline.toggle");
     shell->enable_menubar (true);
     shell->enable_toolbar (true);
-    shell->set_status ("Document shell ready");
+
+    {
+      std::string status = "Document shell ready: " + std::to_string (shell->document_action_count ()) +
+                           " document actions";
+      shell->set_status (status.c_str ());
+    }
+
     shell->present ();
   });
 

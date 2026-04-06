@@ -68,6 +68,11 @@ public:
     shell_.pin_command (command_id, pinned);
   }
 
+  void ensure_dock_manager ()
+  {
+    shell_.ensure_dock_manager ();
+  }
+
   void add_header_action_for_command (const char *label,
                                       const char *command_id)
   {
@@ -160,6 +165,11 @@ public:
   {
     return shell_.build_filtered_tool_surface_widget (std::vector<std::string> (1, "Dashboard"),
                                                       ToolSurfaceBuilder::Options::detailed ());
+  }
+
+  std::size_t dashboard_action_count () const
+  {
+    return dashboard_tool_surface_model ().item_count ();
   }
 
   BobguiWidget *build_dashboard_panel_tools_widget ()

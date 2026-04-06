@@ -81,7 +81,9 @@ main (int argc, char **argv)
       bobgui::cpp::ToolSurfaceModel tool_surface = shell->tool_surface_model ();
       std::string status = "Ready: " + std::to_string (tool_surface.section_count ()) +
                            " sections / " + std::to_string (tool_surface.item_count ()) +
-                           " tools";
+                           " tools / " + std::to_string (shell->workspace_action_count ()) +
+                           " workspace / " + std::to_string (shell->panel_action_count ()) +
+                           " panel";
       shell->set_status (status.c_str ());
     }
 

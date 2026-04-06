@@ -33,6 +33,7 @@ Added:
 - `build_document_panel_toolbar_widget()`
 - `build_document_tools_widget()`
 - `build_document_panel_tools_widget()`
+- `document_action_count()`
 
 ## Why this matters
 Not every application is a studio tool.
@@ -51,6 +52,7 @@ The document example now demonstrates:
 - panel toolbar surfaces
 - workspace tool surfaces
 - panel tool surfaces
+- document action counts exposed through the shell
 
 That gives the preset a much clearer and more concrete usage story.
 

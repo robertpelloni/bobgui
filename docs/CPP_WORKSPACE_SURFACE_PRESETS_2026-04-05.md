@@ -5,8 +5,13 @@ This pass deepens shell-level dock/workspace semantics by giving `AppShell` and 
 
 ## New shell-level helpers
 `bobgui::cpp::AppShell` now provides:
+- `ensure_dock_manager()`
 - `workspace_tool_surface_model()`
 - `panel_tool_surface_model()`
+- `workspace_action_count()`
+- `panel_action_count()`
+- `has_workspace_actions()`
+- `has_panel_actions()`
 - `build_workspace_toolbar_widget()`
 - `build_panel_toolbar_widget()`
 - `build_workspace_toolbar_preset()`
@@ -40,6 +45,8 @@ The C++ demo now renders:
 - a panel-oriented toolbar preset in the inspector panel
 - a panel-oriented tool surface beneath that
 - a fuller descriptive tool surface beneath that
+
+The examples also now report focused action counts through the shell-level helpers, which shows that the shell can reason about workspace and panel action families instead of only rendering them.
 
 That gives the example a stronger shell-specific semantics story instead of only showing generic action-surface generation.
 

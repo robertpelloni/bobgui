@@ -83,7 +83,13 @@ main (int argc, char **argv)
     shell->add_header_action_for_command ("Context", "dashboard.context.toggle");
     shell->enable_menubar (true);
     shell->enable_toolbar (true);
-    shell->set_status ("Dashboard shell ready");
+
+    {
+      std::string status = "Dashboard shell ready: " + std::to_string (shell->dashboard_action_count ()) +
+                           " dashboard actions";
+      shell->set_status (status.c_str ());
+    }
+
     shell->present ();
   });
 

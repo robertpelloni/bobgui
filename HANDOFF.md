@@ -22,25 +22,36 @@ The shell-helper direction remains central:
 - focused workspace/panel toolbar surfaces
 - focused workspace/panel tool surfaces
 - shell-level preset helpers built on top of the shared action model
+- focused action counts and readiness-oriented helpers
 
-### Example expansion
-The C++ example family was expanded and strengthened.
+### AppShell focused metrics
+Expanded `bobgui/cpp/app_shell.hpp` with:
+- `ensure_dock_manager()`
+- `workspace_action_count()`
+- `panel_action_count()`
+- `has_workspace_actions()`
+- `has_panel_actions()`
+
+This gives the shell more introspection value in addition to surface generation.
+
+### Example expansion and refinement
+The C++ example family was further strengthened.
 
 #### Document example
-Added/updated:
+Updated:
 - `examples/document-demo/main.cpp`
 
 The document example now demonstrates:
-- document-oriented shell composition
 - document commands
 - workspace commands
 - panel toggles
 - document-specific toolbar surfaces
 - document-specific tool surfaces
 - panel-specific toolbar/tool surfaces
+- document action counts exposed through the shell
 
 #### Dashboard example
-Added/updated:
+Updated:
 - `examples/dashboard-demo/main.cpp`
 
 The dashboard example now demonstrates:
@@ -51,13 +62,16 @@ The dashboard example now demonstrates:
 - dashboard-specific toolbar surfaces
 - dashboard-specific tool surfaces
 - panel-specific toolbar/tool surfaces
+- dashboard action counts exposed through the shell
 
 ### Documentation
 Updated:
-- `docs/CPP_APP_FRAMEWORK_LAYER.md`
-- `docs/CPP_WORKSPACE_AND_DOCUMENT_SHELL_2026-04-05.md`
 - `docs/CPP_DASHBOARD_SHELL_PRESET_2026-04-05.md`
+- `docs/CPP_WORKSPACE_AND_DOCUMENT_SHELL_2026-04-05.md`
 - `docs/CPP_EXAMPLE_PRESETS_2026-04-05.md`
+
+Added:
+- `docs/CPP_FOCUSED_ACTION_METRICS_2026-04-05.md`
 
 ## Validation notes
 - A literal grep audit still returns no matches for the legacy toolkit spellings in the working tree.

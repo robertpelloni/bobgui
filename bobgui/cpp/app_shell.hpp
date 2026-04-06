@@ -46,6 +46,11 @@ public:
     return dock_manager_.get () != NULL;
   }
 
+  void ensure_dock_manager ()
+  {
+    dock_manager ();
+  }
+
   DockManager &dock_manager ()
   {
     if (!dock_manager_)
@@ -130,6 +135,26 @@ public:
     titles.push_back ("Panels");
     titles.push_back ("View");
     return filtered_tool_surface_model (titles);
+  }
+
+  std::size_t workspace_action_count () const
+  {
+    return workspace_tool_surface_model ().item_count ();
+  }
+
+  std::size_t panel_action_count () const
+  {
+    return panel_tool_surface_model ().item_count ();
+  }
+
+  bool has_workspace_actions () const
+  {
+    return workspace_action_count () > 0;
+  }
+
+  bool has_panel_actions () const
+  {
+    return panel_action_count () > 0;
   }
 
   BobguiWidget *build_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
