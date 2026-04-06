@@ -17,29 +17,46 @@ The main goals were:
 - The working tree still returns no matches for those spellings.
 
 ### Workspace/panel-focused shell helpers
-The previously added shell-helper direction remains central:
+The shell-helper direction remains central:
 - focused workspace/panel action families
 - focused workspace/panel toolbar surfaces
 - focused workspace/panel tool surfaces
 - shell-level preset helpers built on top of the shared action model
 
 ### Example expansion
-Added new C++ examples:
+The C++ example family was expanded and strengthened.
+
+#### Document example
+Added/updated:
 - `examples/document-demo/main.cpp`
+
+The document example now demonstrates:
+- document-oriented shell composition
+- document commands
+- workspace commands
+- panel toggles
+- document-specific toolbar surfaces
+- document-specific tool surfaces
+- panel-specific toolbar/tool surfaces
+
+#### Dashboard example
+Added/updated:
 - `examples/dashboard-demo/main.cpp`
 
-These expand the example family beyond the existing studio/workbench example and demonstrate:
-- document-oriented shell composition
+The dashboard example now demonstrates:
 - dashboard-oriented shell composition
-- workspace command helpers
-- panel toggle helpers
-- shell-specific toolbar/tool surface generation
+- dashboard commands
+- workspace commands
+- panel toggles
+- dashboard-specific toolbar surfaces
+- dashboard-specific tool surfaces
+- panel-specific toolbar/tool surfaces
 
 ### Documentation
 Updated:
 - `docs/CPP_APP_FRAMEWORK_LAYER.md`
-
-Added:
+- `docs/CPP_WORKSPACE_AND_DOCUMENT_SHELL_2026-04-05.md`
+- `docs/CPP_DASHBOARD_SHELL_PRESET_2026-04-05.md`
 - `docs/CPP_EXAMPLE_PRESETS_2026-04-05.md`
 
 ## Validation notes

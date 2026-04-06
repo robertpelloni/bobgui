@@ -40,6 +40,15 @@ main (int argc, char **argv)
                                     shell->set_status ("Dashboard refresh triggered");
                                   });
 
+    shell->add_dashboard_command ("dashboard.alerts",
+                                  "Open Alerts",
+                                  "Jump to the dashboard alerts overview",
+                                  "Ctrl+2",
+                                  "dialog-warning-symbolic",
+                                  [&] (const std::string &) {
+                                    shell->set_status ("Dashboard alerts triggered");
+                                  });
+
     shell->add_workspace_command ("dashboard.focus-main",
                                   "Focus Main Dashboard",
                                   "Jump to the primary dashboard view",
@@ -61,6 +70,8 @@ main (int argc, char **argv)
 
     bobgui_box_append (BOBGUI_BOX (navigation), bobgui_label_new ("Dashboard Actions"));
     bobgui_box_append (BOBGUI_BOX (navigation), shell->build_dashboard_toolbar_widget ());
+    bobgui_box_append (BOBGUI_BOX (navigation), bobgui_label_new ("Dashboard Tools"));
+    bobgui_box_append (BOBGUI_BOX (navigation), shell->build_dashboard_tools_widget ());
 
     bobgui_box_append (BOBGUI_BOX (context), bobgui_label_new ("Panel Actions"));
     bobgui_box_append (BOBGUI_BOX (context), shell->build_dashboard_panel_toolbar_widget ());
@@ -68,6 +79,7 @@ main (int argc, char **argv)
     bobgui_box_append (BOBGUI_BOX (context), shell->build_dashboard_panel_tools_widget ());
 
     shell->add_header_action_for_command ("Refresh", "dashboard.refresh");
+    shell->add_header_action_for_command ("Alerts", "dashboard.alerts");
     shell->add_header_action_for_command ("Context", "dashboard.context.toggle");
     shell->enable_menubar (true);
     shell->enable_toolbar (true);

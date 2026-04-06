@@ -44,6 +44,17 @@ That is important for usability because developers can choose an entry point tha
 
 So the architecture remains unified even as the shell vocabulary becomes more specific.
 
+## Example effect
+The dashboard example now demonstrates:
+- dashboard commands
+- workspace commands
+- panel toggles
+- dashboard toolbar surfaces
+- dashboard tool surfaces
+- panel toolbar/tool surfaces
+
+That gives the preset a much more concrete usage story.
+
 ## Next recommended step
 1. continue deepening dock/workspace semantics across all shell presets
 2. consider build-wiring multiple C++ examples once toolchain support exists

@@ -4,6 +4,7 @@
 #include "app_shell.hpp"
 
 #include <utility>
+#include <vector>
 
 namespace bobgui {
 namespace cpp {
@@ -83,6 +84,27 @@ public:
     shell_.enable_toolbar (enabled);
   }
 
+  void add_document_command (const char               *command_id,
+                             const char               *title,
+                             const char               *subtitle,
+                             const char               *shortcut,
+                             const char               *icon_name,
+                             Workbench::CommandHandler handler)
+  {
+    Workbench::CommandOptions options;
+
+    options.section = "Document";
+    options.category = "Document";
+    options.shortcut = shortcut;
+    options.icon_name = icon_name;
+
+    shell_.add_command (command_id,
+                        title,
+                        subtitle,
+                        options,
+                        std::move (handler));
+  }
+
   void add_workspace_command (const char               *command_id,
                               const char               *title,
                               const char               *subtitle,
@@ -115,9 +137,18 @@ public:
                                      std::move (handler));
   }
 
+  ToolSurfaceModel document_tool_surface_model () const
+  {
+    std::vector<std::string> titles;
+
+    titles.push_back ("Document");
+    return shell_.filtered_tool_surface_model (titles);
+  }
+
   BobguiWidget *build_document_toolbar_widget ()
   {
-    return shell_.build_workspace_toolbar_preset ();
+    return shell_.build_filtered_toolbar_widget (std::vector<std::string> (1, "Document"),
+                                                 ToolbarBuilder::Options::labeled ());
   }
 
   BobguiWidget *build_document_panel_toolbar_widget ()
@@ -127,7 +158,8 @@ public:
 
   BobguiWidget *build_document_tools_widget ()
   {
-    return shell_.build_workspace_tool_surface_preset ();
+    return shell_.build_filtered_tool_surface_widget (std::vector<std::string> (1, "Document"),
+                                                      ToolSurfaceBuilder::Options::detailed ());
   }
 
   BobguiWidget *build_document_panel_tools_widget ()

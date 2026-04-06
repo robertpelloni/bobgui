@@ -110,12 +110,17 @@ public:
     return ToolSurfaceModel::from_action_sections (list_action_sections ());
   }
 
+  ToolSurfaceModel filtered_tool_surface_model (const std::vector<std::string> &titles) const
+  {
+    return tool_surface_model ().filter_sections (titles);
+  }
+
   ToolSurfaceModel workspace_tool_surface_model () const
   {
     std::vector<std::string> titles;
 
     titles.push_back ("Workspace");
-    return tool_surface_model ().filter_sections (titles);
+    return filtered_tool_surface_model (titles);
   }
 
   ToolSurfaceModel panel_tool_surface_model () const
@@ -124,13 +129,20 @@ public:
 
     titles.push_back ("Panels");
     titles.push_back ("View");
-    return tool_surface_model ().filter_sections (titles);
+    return filtered_tool_surface_model (titles);
   }
 
   BobguiWidget *build_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
   {
     ToolSurfaceBuilder builder (action_registry_);
     return builder.build_widget (tool_surface_model (), options);
+  }
+
+  BobguiWidget *build_filtered_tool_surface_widget (const std::vector<std::string> &titles,
+                                                    const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
+  {
+    ToolSurfaceBuilder builder (action_registry_);
+    return builder.build_widget (filtered_tool_surface_model (titles), options);
   }
 
   BobguiWidget *build_workspace_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
@@ -164,6 +176,13 @@ public:
   {
     ToolbarBuilder builder (action_registry_);
     return builder.build_widget (tool_surface_model (), options);
+  }
+
+  BobguiWidget *build_filtered_toolbar_widget (const std::vector<std::string> &titles,
+                                               const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
+  {
+    ToolbarBuilder builder (action_registry_);
+    return builder.build_widget (filtered_tool_surface_model (titles), options);
   }
 
   BobguiWidget *build_workspace_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())

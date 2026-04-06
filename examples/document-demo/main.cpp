@@ -31,6 +31,15 @@ main (int argc, char **argv)
     shell->set_details_panel (details);
     shell->pin_command ("document.outline.toggle", true);
 
+    shell->add_document_command ("document.save",
+                                 "Save Document",
+                                 "Write the active document to disk",
+                                 "Ctrl+S",
+                                 "document-save-symbolic",
+                                 [&] (const std::string &) {
+                                   shell->set_status ("Document save triggered");
+                                 });
+
     shell->add_workspace_command ("document.focus-content",
                                   "Focus Content",
                                   "Jump to the main document editor",
@@ -55,9 +64,12 @@ main (int argc, char **argv)
 
     bobgui_box_append (BOBGUI_BOX (details), bobgui_label_new ("Detail Actions"));
     bobgui_box_append (BOBGUI_BOX (details), shell->build_document_panel_toolbar_widget ());
+    bobgui_box_append (BOBGUI_BOX (details), bobgui_label_new ("Document Tools"));
+    bobgui_box_append (BOBGUI_BOX (details), shell->build_document_tools_widget ());
     bobgui_box_append (BOBGUI_BOX (details), bobgui_label_new ("Detail Tools"));
     bobgui_box_append (BOBGUI_BOX (details), shell->build_document_panel_tools_widget ());
 
+    shell->add_header_action_for_command ("Save", "document.save");
     shell->add_header_action_for_command ("Content", "document.focus-content");
     shell->add_header_action_for_command ("Outline", "document.outline.toggle");
     shell->enable_menubar (true);

@@ -28,12 +28,14 @@ Giving each of those a concrete example makes the framework easier to understand
 - outline/content/details composition
 - document-oriented toolbar and tool surfaces
 - panel toggle and workspace command helpers
+- document command helpers feeding document-specific surfaces
 
 ### Dashboard example
 - navigation/dashboard/context composition
 - dashboard-specific action helpers
 - panel toggle and workspace command helpers
 - dashboard and panel surface generation
+- dashboard-specific tools built from dashboard action sections
 
 ## Strategic value
 Examples are part of API design.

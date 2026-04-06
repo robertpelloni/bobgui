@@ -4,6 +4,7 @@
 #include "app_shell.hpp"
 
 #include <utility>
+#include <vector>
 
 namespace bobgui {
 namespace cpp {
@@ -136,9 +137,18 @@ public:
                                      std::move (handler));
   }
 
+  ToolSurfaceModel dashboard_tool_surface_model () const
+  {
+    std::vector<std::string> titles;
+
+    titles.push_back ("Dashboard");
+    return shell_.filtered_tool_surface_model (titles);
+  }
+
   BobguiWidget *build_dashboard_toolbar_widget ()
   {
-    return shell_.build_workspace_toolbar_preset ();
+    return shell_.build_filtered_toolbar_widget (std::vector<std::string> (1, "Dashboard"),
+                                                 ToolbarBuilder::Options::labeled ());
   }
 
   BobguiWidget *build_dashboard_panel_toolbar_widget ()
@@ -148,7 +158,8 @@ public:
 
   BobguiWidget *build_dashboard_tools_widget ()
   {
-    return shell_.build_workspace_tool_surface_preset ();
+    return shell_.build_filtered_tool_surface_widget (std::vector<std::string> (1, "Dashboard"),
+                                                      ToolSurfaceBuilder::Options::detailed ());
   }
 
   BobguiWidget *build_dashboard_panel_tools_widget ()

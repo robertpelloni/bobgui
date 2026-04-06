@@ -43,13 +43,16 @@ A document-style preset gives the framework a cleaner path for:
 - detail/outline workflows
 
 ## Example effect
-The current C++ demo still uses `StudioShell`, but it now demonstrates the new shell-level helpers and preset-specific toolbar surfaces for:
+The document example now demonstrates:
 - panel toggles
 - workspace actions
+- document commands
 - workspace toolbar surfaces
 - panel toolbar surfaces
+- workspace tool surfaces
+- panel tool surfaces
 
-That keeps the demo aligned with the shared action model while also making the shell API easier to use.
+That gives the preset a much clearer and more concrete usage story.
 
 ## Strategic value
 This continues the same architectural pattern:
