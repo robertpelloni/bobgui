@@ -65,6 +65,9 @@ main (int argc, char **argv)
     bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Quick Actions"));
     bobgui_box_append (BOBGUI_BOX (sidebar), shell->build_compact_toolbar_widget ());
 
+    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Command Strip"));
+    bobgui_box_append (BOBGUI_BOX (inspector), shell->build_labeled_toolbar_widget ());
+
     bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Tools"));
     bobgui_box_append (BOBGUI_BOX (inspector), shell->build_descriptive_tool_surface_widget ());
 

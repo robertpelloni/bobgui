@@ -64,7 +64,7 @@ The current wrapper focuses on:
 - a more opinionated `StudioShell` preset for multi-pane tool-style apps
 - tool-surface modeling on top of grouped actions
 - actual tool-surface widget building on top of the model
-- toolbar-specific widget building with evolving visual policy options including tooltips, separators, and framed section grouping
+- toolbar-specific widget building with evolving visual policy options including tooltips, separators, framed section grouping, and toggle-control semantics
 - tool-surface widget building with evolving visual policy options including subtitles, shortcuts, tooltips, and framed section grouping
 - lambda-friendly command handlers via `std::function`
 
@@ -100,6 +100,7 @@ The new C++ example now shows a studio-oriented shell that:
 - derives a `ToolSurfaceModel` from grouped actions
 - builds an actual tool-surface widget from the model and appends it to the inspector panel
 - builds a quick-actions toolbar widget from a dedicated compact preset path
+- builds a labeled command-strip toolbar from a dedicated labeled preset path
 - demonstrates different presentation policies from the same shared action model
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer

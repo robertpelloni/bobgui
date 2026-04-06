@@ -157,6 +157,11 @@ public:
     return shell_.build_toolbar_widget (options);
   }
 
+  BobguiWidget *build_labeled_toolbar_widget ()
+  {
+    return shell_.build_labeled_toolbar_widget ();
+  }
+
   BobguiWidget *build_compact_toolbar_widget ()
   {
     return shell_.build_compact_toolbar_widget ();

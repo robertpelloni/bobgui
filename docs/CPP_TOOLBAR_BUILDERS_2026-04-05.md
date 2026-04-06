@@ -20,6 +20,7 @@ and builds a toolbar-like widget surface using grouped action data.
 - `show_tooltips`
 - `frame_sections`
 - `show_section_separators`
+- `prefer_toggle_controls`
 - `section_spacing`
 - `item_spacing`
 
@@ -42,10 +43,12 @@ Buttons can:
 ## Shell integration
 `AppShell` now adds:
 - `build_toolbar_widget()`
+- `build_labeled_toolbar_widget()`
 - `build_compact_toolbar_widget()`
 
 `StudioShell` now adds:
 - `build_toolbar_widget()`
+- `build_labeled_toolbar_widget()`
 - `build_compact_toolbar_widget()`
 
 This means the higher-level shell presets can now generate both:
@@ -55,7 +58,7 @@ This means the higher-level shell presets can now generate both:
 from the same shared action state.
 
 ## Example effect
-The C++ demo now adds a compact icon-oriented "Quick Actions" toolbar-like widget into the navigation panel while still rendering the fuller grouped tool surface in the inspector panel. The quick-actions surface now comes from a dedicated compact-toolbar preset path and demonstrates framed section grouping, separators, and tooltip-oriented compact interaction.
+The C++ demo now adds a compact icon-oriented "Quick Actions" toolbar-like widget into the navigation panel while also showing a labeled toolbar-style command strip in the inspector panel before the fuller grouped tool surface. The compact surface comes from a dedicated preset path and demonstrates framed section grouping, separators, and tooltip-oriented compact interaction.
 
 That gives the example a stronger story around multiple action-derived surfaces coming from the same shared model.
 

@@ -126,6 +126,11 @@ public:
     return builder.build_widget (tool_surface_model (), options);
   }
 
+  BobguiWidget *build_labeled_toolbar_widget ()
+  {
+    return build_toolbar_widget (ToolbarBuilder::Options::labeled ());
+  }
+
   BobguiWidget *build_compact_toolbar_widget ()
   {
     return build_toolbar_widget (ToolbarBuilder::Options::compact ());

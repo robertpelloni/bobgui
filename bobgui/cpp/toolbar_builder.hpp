@@ -23,6 +23,7 @@ public:
     bool show_tooltips;
     bool frame_sections;
     bool show_section_separators;
+    bool prefer_toggle_controls;
     int section_spacing;
     int item_spacing;
 
@@ -34,9 +35,25 @@ public:
       show_tooltips (true),
       frame_sections (false),
       show_section_separators (false),
+      prefer_toggle_controls (true),
       section_spacing (8),
       item_spacing (4)
     {
+    }
+
+    static Options labeled ()
+    {
+      Options options;
+
+      options.show_section_labels = true;
+      options.show_button_labels = true;
+      options.show_shortcuts = false;
+      options.show_checked_prefix = true;
+      options.show_tooltips = true;
+      options.frame_sections = false;
+      options.show_section_separators = false;
+      options.prefer_toggle_controls = true;
+      return options;
     }
 
     static Options compact ()
@@ -50,6 +67,7 @@ public:
       options.show_tooltips = true;
       options.frame_sections = true;
       options.show_section_separators = true;
+      options.prefer_toggle_controls = false;
       return options;
     }
   };
@@ -160,10 +178,18 @@ private:
     else if (options.show_checked_prefix && item.checkable && item.checked && label.empty ())
       label = "✓";
 
-    button = bobgui_button_new_with_label (label.c_str ());
+    if (item.checkable && options.prefer_toggle_controls && !label.empty ())
+      {
+        button = bobgui_check_button_new_with_label (label.c_str ());
+        bobgui_check_button_set_active (BOBGUI_CHECK_BUTTON (button), item.checked);
+      }
+    else
+      {
+        button = bobgui_button_new_with_label (label.c_str ());
 
-    if (!item.icon_name.empty ())
-      bobgui_button_set_icon_name (BOBGUI_BUTTON (button), item.icon_name.c_str ());
+        if (!item.icon_name.empty ())
+          bobgui_button_set_icon_name (BOBGUI_BUTTON (button), item.icon_name.c_str ());
+      }
 
     if (options.show_tooltips)
       {

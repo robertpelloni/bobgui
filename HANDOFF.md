@@ -42,21 +42,25 @@ Expanded `bobgui/cpp/toolbar_builder.hpp` with richer `ToolbarBuilder::Options` 
 - `show_tooltips`
 - `frame_sections`
 - `show_section_separators`
+- `prefer_toggle_controls`
 - `section_spacing`
 - `item_spacing`
 
-Also added a convenience preset factory:
+Also added convenience preset factories:
 - `ToolbarBuilder::Options::compact()`
+- `ToolbarBuilder::Options::labeled()`
 
-This makes compact generated toolbar-like surfaces more adaptable to icon-oriented or tooltip-oriented quick-action contexts.
+This makes compact generated toolbar-like surfaces more adaptable to icon-oriented, label-oriented, or tooltip-oriented quick-action contexts.
 
 ### Shell-level preset helpers
 Expanded `bobgui/cpp/app_shell.hpp` with:
 - `build_descriptive_tool_surface_widget()`
+- `build_labeled_toolbar_widget()`
 - `build_compact_toolbar_widget()`
 
 Expanded `bobgui/cpp/studio_shell.hpp` with:
 - `build_descriptive_tool_surface_widget()`
+- `build_labeled_toolbar_widget()`
 - `build_compact_toolbar_widget()`
 
 This gives the shell presets a cleaner, more opinionated API for the most common generated surface styles.
@@ -64,7 +68,7 @@ This gives the shell presets a cleaner, more opinionated API for the most common
 ### Example update
 - Updated `examples/workbench-demo/main.cpp` to use the new shell-level preset helpers.
 - The navigation panel now uses the compact-toolbar preset path.
-- The inspector panel now uses the descriptive tool-surface preset path.
+- The inspector panel now uses both a labeled command-strip toolbar preset and the descriptive tool-surface preset path.
 - This keeps the example cleaner and reinforces the framework direction toward higher-level app-shell helpers.
 
 ### Documentation
