@@ -1,5 +1,6 @@
 #include <bobgui/cpp/bobgui.hpp>
 
+#include <iostream>
 #include <memory>
 #include <string>
 
@@ -11,6 +12,10 @@ main (int argc, char **argv)
 {
   Application app ("org.bobgui.WorkbenchDemoCpp");
   std::unique_ptr<StudioShell> shell;
+
+  app.on_startup ([&] (Application &) {
+    std::cout << "Application starting up..." << std::endl;
+  });
 
   app.on_activate ([&] (Application &application) {
     shell.reset (new StudioShell (application));
@@ -95,6 +100,11 @@ main (int argc, char **argv)
     shell->enable_menubar (true);
     shell->enable_toolbar (true);
     shell->present ();
+  });
+
+  app.on_shutdown ([&] (Application &) {
+    std::cout << "Application shutting down..." << std::endl;
+    shell.reset ();
   });
 
   return app.run (argc, argv);

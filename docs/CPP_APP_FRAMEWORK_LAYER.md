@@ -59,6 +59,7 @@ The first wrapper pass introduces small C++ objects for:
 
 The current wrapper focuses on:
 - ownership of GObject-based instances
+- Application lifecycle hooks (`on_startup`, `on_activate`, `on_shutdown`) modeled after JUCE/Ultimate++
 - straightforward workbench construction
 - action-registry attachment
 - command-palette attachment
@@ -100,10 +101,11 @@ That is important because wrapper APIs need stable semantics for:
 By making those concepts explicit in the C layer first, the C++ API can stay simple instead of encoding fragile heuristics.
 
 ## Example direction
-The current C++ examples now cover multiple shell styles.
+The current C++ examples now cover multiple shell styles and leverage the new application lifecycle hooks.
 
 ### Studio-oriented example
 The main studio-style example shows a shell that:
+- binds to application startup, activation, and shutdown lifecycles
 - creates an application
 - builds a `StudioShell`
 - gets a pre-wired workbench + action registry + command palette stack
@@ -124,6 +126,7 @@ The main studio-style example shows a shell that:
 
 ### Document-oriented example
 The document example shows:
+- application lifecycle hooks for structured initialization/teardown
 - outline/content/details shell composition
 - workspace-oriented commands
 - panel toggles
@@ -131,6 +134,7 @@ The document example shows:
 
 ### Dashboard-oriented example
 The dashboard example shows:
+- application lifecycle hooks for structured initialization/teardown
 - navigation/dashboard/context shell composition
 - dashboard commands
 - workspace commands

@@ -1,5 +1,6 @@
 #include <bobgui/cpp/bobgui.hpp>
 
+#include <iostream>
 #include <memory>
 #include <string>
 
@@ -11,6 +12,10 @@ main (int argc, char **argv)
 {
   Application app ("org.bobgui.DashboardDemoCpp");
   std::unique_ptr<DashboardShell> shell;
+
+  app.on_startup ([&] (Application &) {
+    std::cout << "Dashboard application starting up..." << std::endl;
+  });
 
   app.on_activate ([&] (Application &application) {
     shell.reset (new DashboardShell (application));
@@ -94,6 +99,11 @@ main (int argc, char **argv)
     }
 
     shell->present ();
+  });
+
+  app.on_shutdown ([&] (Application &) {
+    std::cout << "Dashboard application shutting down..." << std::endl;
+    shell.reset ();
   });
 
   return app.run (argc, argv);

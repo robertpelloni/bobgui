@@ -1,5 +1,6 @@
 #include <bobgui/cpp/bobgui.hpp>
 
+#include <iostream>
 #include <memory>
 #include <string>
 
@@ -11,6 +12,10 @@ main (int argc, char **argv)
 {
   Application app ("org.bobgui.DocumentDemoCpp");
   std::unique_ptr<DocumentShell> shell;
+
+  app.on_startup ([&] (Application &) {
+    std::cout << "Document application starting up..." << std::endl;
+  });
 
   app.on_activate ([&] (Application &application) {
     shell.reset (new DocumentShell (application));
@@ -85,6 +90,11 @@ main (int argc, char **argv)
     }
 
     shell->present ();
+  });
+
+  app.on_shutdown ([&] (Application &) {
+    std::cout << "Document application shutting down..." << std::endl;
+    shell.reset ();
   });
 
   return app.run (argc, argv);
