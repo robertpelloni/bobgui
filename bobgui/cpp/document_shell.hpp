@@ -57,6 +57,16 @@ public:
     shell_.set_right_sidebar (widget);
   }
 
+  void set_outline_panel_visible (bool visible)
+  {
+    shell_.set_left_sidebar_visible (visible);
+  }
+
+  void set_details_panel_visible (bool visible)
+  {
+    shell_.set_right_sidebar_visible (visible);
+  }
+
   void set_status (const char *message)
   {
     shell_.set_status (message);

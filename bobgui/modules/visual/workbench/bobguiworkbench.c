@@ -169,6 +169,27 @@ bobgui_workbench_get_content (BobguiWorkbench *self)
   return BOBGUI_WIDGET (self->inner_paned);
 }
 
+BobguiWidget *
+bobgui_workbench_get_left_sidebar (BobguiWorkbench *self)
+{
+  g_return_val_if_fail (BOBGUI_IS_WORKBENCH (self), NULL);
+  return self->left_sidebar;
+}
+
+BobguiWidget *
+bobgui_workbench_get_right_sidebar (BobguiWorkbench *self)
+{
+  g_return_val_if_fail (BOBGUI_IS_WORKBENCH (self), NULL);
+  return self->right_sidebar;
+}
+
+BobguiWidget *
+bobgui_workbench_get_central (BobguiWorkbench *self)
+{
+  g_return_val_if_fail (BOBGUI_IS_WORKBENCH (self), NULL);
+  return self->central;
+}
+
 void
 bobgui_workbench_set_title (BobguiWorkbench *self,
                             const char      *title)

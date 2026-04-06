@@ -5,8 +5,8 @@ This session continued the bobgui refactor with a focus on making the thin C++ l
 
 The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
-- deepen dock/workspace-oriented shell helpers
-- make shell presets expose more purposeful workspace/panel surface builders
+- implement live panel visibility toggles driven by the shared action model
+- wire C++ shell visibility logic into the existing C-level workbench
 - add broader example coverage for the growing shell family
 - continue documenting the framework direction clearly
 
@@ -16,62 +16,42 @@ The main goals were:
 - Re-ran a literal audit for legacy toolkit spellings in the working tree.
 - The working tree still returns no matches for those spellings.
 
-### Workspace/panel-focused shell helpers
-The shell-helper direction remains central:
-- focused workspace/panel action families
-- focused workspace/panel toolbar surfaces
-- focused workspace/panel tool surfaces
-- shell-level preset helpers built on top of the shared action model
-- focused action counts and readiness-oriented helpers
+### Live panel visibility toggles
+The shell-helper direction was extended from metadata construction into real UI state management.
 
-### AppShell focused metrics
-Expanded `bobgui/cpp/app_shell.hpp` with:
-- `ensure_dock_manager()`
-- `workspace_action_count()`
-- `panel_action_count()`
-- `has_workspace_actions()`
-- `has_panel_actions()`
+#### Workbench C API
+Added new getter methods to `bobgui_workbench`:
+- `bobgui_workbench_get_left_sidebar()`
+- `bobgui_workbench_get_right_sidebar()`
+- `bobgui_workbench_get_central()`
 
-This gives the shell more introspection value in addition to surface generation.
+#### AppShell
+Expanded `bobgui/cpp/app_shell.hpp` with visibility helpers:
+- `set_left_sidebar_visible()`
+- `set_right_sidebar_visible()`
+- `set_toolbar_visible()`
+- `set_menubar_visible()`
 
-### Example expansion and refinement
-The C++ example family was further strengthened.
+#### Preset integration
+The more opinionated presets now forward these visibility helpers with domain-specific naming:
+- `StudioShell`: `set_navigation_panel_visible()`, `set_inspector_panel_visible()`
+- `DocumentShell`: `set_outline_panel_visible()`, `set_details_panel_visible()`
+- `DashboardShell`: `set_navigation_panel_visible()`, `set_context_panel_visible()`
 
-#### Document example
-Updated:
-- `examples/document-demo/main.cpp`
-
-The document example now demonstrates:
-- document commands
-- workspace commands
-- panel toggles
-- document-specific toolbar surfaces
-- document-specific tool surfaces
-- panel-specific toolbar/tool surfaces
-- document action counts exposed through the shell
-
-#### Dashboard example
-Updated:
-- `examples/dashboard-demo/main.cpp`
-
-The dashboard example now demonstrates:
-- dashboard-oriented shell composition
-- dashboard commands
-- workspace commands
-- panel toggles
-- dashboard-specific toolbar surfaces
-- dashboard-specific tool surfaces
-- panel-specific toolbar/tool surfaces
-- dashboard action counts exposed through the shell
+### Example updates
+- Updated `examples/workbench-demo/main.cpp`, `examples/document-demo/main.cpp`, and `examples/dashboard-demo/main.cpp`.
+- The panel toggle commands in all demos now:
+  1. read their current checked state from the `ActionRegistry`
+  2. toggle the checked state in the registry
+  3. use the shell-level visibility helpers to actually show/hide the corresponding sidebar widget
+  4. update the status bar with the new state
 
 ### Documentation
 Updated:
-- `docs/CPP_DASHBOARD_SHELL_PRESET_2026-04-05.md`
-- `docs/CPP_WORKSPACE_AND_DOCUMENT_SHELL_2026-04-05.md`
-- `docs/CPP_EXAMPLE_PRESETS_2026-04-05.md`
+- `docs/CPP_APP_FRAMEWORK_LAYER.md`
 
 Added:
-- `docs/CPP_FOCUSED_ACTION_METRICS_2026-04-05.md`
+- `docs/CPP_PANEL_VISIBILITY_2026-04-05.md`
 
 ## Validation notes
 - A literal grep audit still returns no matches for the legacy toolkit spellings in the working tree.
@@ -79,7 +59,7 @@ Added:
 - Real compile validation remains blocked by missing environment tools from the earlier validation attempt (`meson`, Python `mesonbuild`, and `g++`).
 
 ## Recommended next steps
-1. Continue deepening dock/workspace behavior across all shell presets.
+1. Deepen dock/workspace-oriented shell helpers on top of app/studio/document/dashboard shell presets.
 2. Consider build-wiring multiple C++ examples once toolchain support exists.
 3. Continue modernizing the highest-visibility inherited public header comments.
 4. Run full Meson/configure/build validation immediately when tool availability exists.

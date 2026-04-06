@@ -53,7 +53,10 @@ main (int argc, char **argv)
                                      "sidebar-show-right-symbolic",
                                      true,
                                      [&] (const std::string &) {
-                                       shell->set_status ("Sidebar toggle action triggered");
+                                       bool is_visible = !shell->actions ().is_checked ("view.toggle-left-sidebar");
+                                       shell->actions ().set_checked ("view.toggle-left-sidebar", is_visible);
+                                       shell->set_navigation_panel_visible (is_visible);
+                                       shell->set_status (is_visible ? "Sidebar visible" : "Sidebar hidden");
                                      });
 
     shell->add_workspace_command ("workspace.focus-editor",

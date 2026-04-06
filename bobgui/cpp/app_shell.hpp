@@ -336,6 +336,30 @@ public:
     workbench_.present ();
   }
 
+  void set_left_sidebar_visible (bool visible)
+  {
+    BobguiWidget *sidebar = workbench_.get_left_sidebar ();
+    if (sidebar != NULL)
+      bobgui_widget_set_visible (sidebar, visible);
+  }
+
+  void set_right_sidebar_visible (bool visible)
+  {
+    BobguiWidget *sidebar = workbench_.get_right_sidebar ();
+    if (sidebar != NULL)
+      bobgui_widget_set_visible (sidebar, visible);
+  }
+
+  void set_toolbar_visible (bool visible)
+  {
+    workbench_.enable_toolbar (visible);
+  }
+
+  void set_menubar_visible (bool visible)
+  {
+    workbench_.enable_menubar (visible);
+  }
+
 private:
   Workbench workbench_;
   ActionRegistry action_registry_;

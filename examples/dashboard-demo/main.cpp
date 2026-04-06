@@ -65,7 +65,10 @@ main (int argc, char **argv)
                                      "sidebar-show-right-symbolic",
                                      true,
                                      [&] (const std::string &) {
-                                       shell->set_status ("Context panel toggle triggered");
+                                       bool is_visible = !shell->actions ().is_checked ("dashboard.context.toggle");
+                                       shell->actions ().set_checked ("dashboard.context.toggle", is_visible);
+                                       shell->set_context_panel_visible (is_visible);
+                                       shell->set_status (is_visible ? "Context panel visible" : "Context panel hidden");
                                      });
 
     bobgui_box_append (BOBGUI_BOX (navigation), bobgui_label_new ("Dashboard Actions"));

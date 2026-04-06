@@ -42,14 +42,29 @@ public:
     bobgui_workbench_set_title (workbench_.get (), title);
   }
 
+  BobguiWidget *get_central () const
+  {
+    return bobgui_workbench_get_central (workbench_.get ());
+  }
+
   void set_central (BobguiWidget *widget)
   {
     bobgui_workbench_set_central (workbench_.get (), widget);
   }
 
+  BobguiWidget *get_left_sidebar () const
+  {
+    return bobgui_workbench_get_left_sidebar (workbench_.get ());
+  }
+
   void set_left_sidebar (BobguiWidget *widget)
   {
     bobgui_workbench_set_left_sidebar (workbench_.get (), widget);
+  }
+
+  BobguiWidget *get_right_sidebar () const
+  {
+    return bobgui_workbench_get_right_sidebar (workbench_.get ());
   }
 
   void set_right_sidebar (BobguiWidget *widget)

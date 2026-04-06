@@ -118,6 +118,7 @@ The main studio-style example shows a shell that:
 - builds workspace/panel-specific tool-surface presets derived from grouped action state
 - demonstrates workspace/panel action helpers on top of the shared action model
 - demonstrates different presentation policies from the same shared action model
+- demonstrates live panel visibility toggles driven by action state
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer
 

@@ -151,11 +151,19 @@ public:
 
   std::vector<ActionSection> list_sections () const
   {
+    return list_sections_filtered ([] (const ActionInfo &) { return true; });
+  }
+
+  std::vector<ActionSection> list_sections_filtered (std::function<bool(const ActionInfo &)> predicate) const
+  {
     std::vector<ActionSection> sections;
     std::vector<ActionInfo> actions = list_actions ();
 
     for (std::vector<ActionInfo>::const_iterator it = actions.begin (); it != actions.end (); ++it)
       {
+        if (!predicate (*it))
+          continue;
+
         std::string title = section_title (*it);
         bool found = false;
 

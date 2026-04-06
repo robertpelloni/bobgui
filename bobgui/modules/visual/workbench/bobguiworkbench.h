@@ -19,6 +19,9 @@ G_DECLARE_FINAL_TYPE (BobguiWorkbench, bobgui_workbench, BOBGUI, WORKBENCH, GObj
 BobguiWorkbench * bobgui_workbench_new               (BobguiApplication *application);
 BobguiWindow    * bobgui_workbench_get_window        (BobguiWorkbench   *self);
 BobguiWidget    * bobgui_workbench_get_content       (BobguiWorkbench   *self);
+BobguiWidget    * bobgui_workbench_get_left_sidebar  (BobguiWorkbench   *self);
+BobguiWidget    * bobgui_workbench_get_right_sidebar (BobguiWorkbench   *self);
+BobguiWidget    * bobgui_workbench_get_central       (BobguiWorkbench   *self);
 
 void             bobgui_workbench_set_title          (BobguiWorkbench   *self,
                                                       const char        *title);

@@ -56,7 +56,10 @@ main (int argc, char **argv)
                                      "sidebar-show-left-symbolic",
                                      true,
                                      [&] (const std::string &) {
-                                       shell->set_status ("Outline panel toggle triggered");
+                                       bool is_visible = !shell->actions ().is_checked ("document.outline.toggle");
+                                       shell->actions ().set_checked ("document.outline.toggle", is_visible);
+                                       shell->set_outline_panel_visible (is_visible);
+                                       shell->set_status (is_visible ? "Outline visible" : "Outline hidden");
                                      });
 
     bobgui_box_append (BOBGUI_BOX (outline), bobgui_label_new ("Document Actions"));
