@@ -7,6 +7,7 @@ The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
 - deepen dock/workspace-oriented shell helpers
 - make shell presets expose more purposeful workspace/panel surface builders
+- add broader example coverage for the growing shell family
 - continue documenting the framework direction clearly
 
 ## Changes made
@@ -16,55 +17,30 @@ The main goals were:
 - The working tree still returns no matches for those spellings.
 
 ### Workspace/panel-focused shell helpers
-Expanded `bobgui/cpp/app_shell.hpp` so it now provides focused surface helpers for workspace and panel action families:
-- `workspace_tool_surface_model()`
-- `panel_tool_surface_model()`
-- `build_workspace_toolbar_widget()`
-- `build_panel_toolbar_widget()`
-- `build_workspace_toolbar_preset()`
-- `build_panel_toolbar_preset()`
-- `build_workspace_tool_surface_widget()`
-- `build_panel_tool_surface_widget()`
-- `build_workspace_tool_surface_preset()`
-- `build_panel_tool_surface_preset()`
+The previously added shell-helper direction remains central:
+- focused workspace/panel action families
+- focused workspace/panel toolbar surfaces
+- focused workspace/panel tool surfaces
+- shell-level preset helpers built on top of the shared action model
 
-These helpers derive focused surfaces from the same shared grouped action state instead of forcing callers to manually filter section data.
+### Example expansion
+Added new C++ examples:
+- `examples/document-demo/main.cpp`
+- `examples/dashboard-demo/main.cpp`
 
-### StudioShell integration
-Expanded `bobgui/cpp/studio_shell.hpp` so it now exposes:
-- `build_workspace_toolbar_preset()`
-- `build_panel_toolbar_preset()`
-- `build_workspace_tool_surface_preset()`
-- `build_panel_tool_surface_preset()`
-
-### DocumentShell integration
-Expanded `bobgui/cpp/document_shell.hpp` so it now uses:
-- `build_document_toolbar_widget()` backed by workspace toolbar presets
-- `build_document_panel_toolbar_widget()` backed by panel toolbar presets
-- `build_document_tools_widget()` backed by workspace tool-surface presets
-- `build_document_panel_tools_widget()` backed by panel tool-surface presets
-
-### DashboardShell integration
-Expanded `bobgui/cpp/dashboard_shell.hpp` so it now uses:
-- `build_dashboard_toolbar_widget()` backed by workspace toolbar presets
-- `build_dashboard_panel_toolbar_widget()` backed by panel toolbar presets
-- `build_dashboard_tools_widget()` backed by workspace tool-surface presets
-- `build_dashboard_panel_tools_widget()` backed by panel tool-surface presets
-
-### Example update
-- Updated `examples/workbench-demo/main.cpp` so the studio-oriented demo now renders:
-  - a workspace-oriented toolbar preset in the navigation panel
-  - a panel-oriented toolbar preset in the inspector panel
-  - a panel-oriented tool-surface preset in the inspector panel
-  - a fuller descriptive tool surface below that
-- The example still uses workspace and panel helper commands, so it now demonstrates both semantic command helpers and semantic surface helpers.
+These expand the example family beyond the existing studio/workbench example and demonstrate:
+- document-oriented shell composition
+- dashboard-oriented shell composition
+- workspace command helpers
+- panel toggle helpers
+- shell-specific toolbar/tool surface generation
 
 ### Documentation
 Updated:
 - `docs/CPP_APP_FRAMEWORK_LAYER.md`
-- `docs/CPP_WORKSPACE_AND_DOCUMENT_SHELL_2026-04-05.md`
-- `docs/CPP_DASHBOARD_SHELL_PRESET_2026-04-05.md`
-- `docs/CPP_WORKSPACE_SURFACE_PRESETS_2026-04-05.md`
+
+Added:
+- `docs/CPP_EXAMPLE_PRESETS_2026-04-05.md`
 
 ## Validation notes
 - A literal grep audit still returns no matches for the legacy toolkit spellings in the working tree.

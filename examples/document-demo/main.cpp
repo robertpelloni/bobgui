@@ -1,0 +1,70 @@
+#include <bobgui/cpp/bobgui.hpp>
+
+#include <memory>
+#include <string>
+
+using bobgui::cpp::Application;
+using bobgui::cpp::DocumentShell;
+
+int
+main (int argc, char **argv)
+{
+  Application app ("org.bobgui.DocumentDemoCpp");
+  std::unique_ptr<DocumentShell> shell;
+
+  app.on_activate ([&] (Application &application) {
+    shell.reset (new DocumentShell (application));
+
+    BobguiWidget *outline = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 6);
+    BobguiWidget *content = bobgui_text_view_new ();
+    BobguiWidget *details = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, 6);
+
+    bobgui_box_append (BOBGUI_BOX (outline), bobgui_label_new ("Outline"));
+    bobgui_box_append (BOBGUI_BOX (outline), bobgui_label_new ("Chapter 1"));
+    bobgui_box_append (BOBGUI_BOX (outline), bobgui_label_new ("Chapter 2"));
+    bobgui_box_append (BOBGUI_BOX (details), bobgui_label_new ("Details"));
+    bobgui_box_append (BOBGUI_BOX (details), bobgui_label_new ("Metadata"));
+
+    shell->set_title ("Bobgui Document Demo (C++)");
+    shell->set_outline_panel (outline);
+    shell->set_content_view (content);
+    shell->set_details_panel (details);
+    shell->pin_command ("document.outline.toggle", true);
+
+    shell->add_workspace_command ("document.focus-content",
+                                  "Focus Content",
+                                  "Jump to the main document editor",
+                                  "Ctrl+1",
+                                  "document-edit-symbolic",
+                                  [&] (const std::string &) {
+                                    shell->set_status ("Content workspace action triggered");
+                                  });
+
+    shell->add_panel_toggle_command ("document.outline.toggle",
+                                     "Toggle Outline",
+                                     "Show or hide the outline panel",
+                                     "Ctrl+Shift+O",
+                                     "sidebar-show-left-symbolic",
+                                     true,
+                                     [&] (const std::string &) {
+                                       shell->set_status ("Outline panel toggle triggered");
+                                     });
+
+    bobgui_box_append (BOBGUI_BOX (outline), bobgui_label_new ("Document Actions"));
+    bobgui_box_append (BOBGUI_BOX (outline), shell->build_document_toolbar_widget ());
+
+    bobgui_box_append (BOBGUI_BOX (details), bobgui_label_new ("Detail Actions"));
+    bobgui_box_append (BOBGUI_BOX (details), shell->build_document_panel_toolbar_widget ());
+    bobgui_box_append (BOBGUI_BOX (details), bobgui_label_new ("Detail Tools"));
+    bobgui_box_append (BOBGUI_BOX (details), shell->build_document_panel_tools_widget ());
+
+    shell->add_header_action_for_command ("Content", "document.focus-content");
+    shell->add_header_action_for_command ("Outline", "document.outline.toggle");
+    shell->enable_menubar (true);
+    shell->enable_toolbar (true);
+    shell->set_status ("Document shell ready");
+    shell->present ();
+  });
+
+  return app.run (argc, argv);
+}

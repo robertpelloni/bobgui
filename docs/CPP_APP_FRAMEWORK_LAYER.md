@@ -19,8 +19,10 @@ New headers:
 - `bobgui/cpp/tool_surface_builder.hpp`
 - `bobgui/cpp/toolbar_builder.hpp`
 
-New example:
+New examples:
 - `examples/workbench-demo/main.cpp`
+- `examples/document-demo/main.cpp`
+- `examples/dashboard-demo/main.cpp`
 
 ## Why this direction
 The project goal is to make bobgui feel easier to use, more coherent, and more application-framework-oriented.
@@ -98,7 +100,10 @@ That is important because wrapper APIs need stable semantics for:
 By making those concepts explicit in the C layer first, the C++ API can stay simple instead of encoding fragile heuristics.
 
 ## Example direction
-The new C++ example now shows a studio-oriented shell that:
+The current C++ examples now cover multiple shell styles.
+
+### Studio-oriented example
+The main studio-style example shows a shell that:
 - creates an application
 - builds a `StudioShell`
 - gets a pre-wired workbench + action registry + command palette stack
@@ -115,6 +120,21 @@ The new C++ example now shows a studio-oriented shell that:
 - demonstrates different presentation policies from the same shared action model
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer
+
+### Document-oriented example
+The document example shows:
+- outline/content/details shell composition
+- workspace-oriented commands
+- panel toggles
+- document-specific toolbar/tool surfaces
+
+### Dashboard-oriented example
+The dashboard example shows:
+- navigation/dashboard/context shell composition
+- dashboard commands
+- workspace commands
+- panel toggles
+- dashboard and panel toolbar/tool surfaces
 
 ## Rename audit note
 A targeted audit of legacy toolkit spellings in the working tree came back clean during this pass.
