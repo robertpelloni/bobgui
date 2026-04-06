@@ -62,6 +62,16 @@ main (int argc, char **argv)
                                  shell->set_status ("Sidebar toggle action triggered");
                                });
 
+    {
+      bobgui::cpp::ToolbarBuilder::Options toolbar_options;
+
+      toolbar_options.show_section_labels = false;
+      toolbar_options.show_button_labels = true;
+
+      bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Quick Actions"));
+      bobgui_box_append (BOBGUI_BOX (sidebar), shell->build_toolbar_widget (toolbar_options));
+    }
+
     bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Tools"));
     bobgui_box_append (BOBGUI_BOX (inspector), shell->build_tool_surface_widget ());
 

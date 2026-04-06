@@ -4,6 +4,7 @@
 #include "dock_manager.hpp"
 #include "tool_surface.hpp"
 #include "tool_surface_builder.hpp"
+#include "toolbar_builder.hpp"
 #include "workbench.hpp"
 
 #include <memory>
@@ -112,6 +113,12 @@ public:
   {
     ToolSurfaceBuilder builder (action_registry_);
     return builder.build_widget (tool_surface_model ());
+  }
+
+  BobguiWidget *build_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
+  {
+    ToolbarBuilder builder (action_registry_);
+    return builder.build_widget (tool_surface_model (), options);
   }
 
   void add_header_action_for_command (const char *label,

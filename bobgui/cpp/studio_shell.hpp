@@ -147,6 +147,11 @@ public:
     return shell_.build_tool_surface_widget ();
   }
 
+  BobguiWidget *build_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
+  {
+    return shell_.build_toolbar_widget (options);
+  }
+
   void present ()
   {
     shell_.present ();

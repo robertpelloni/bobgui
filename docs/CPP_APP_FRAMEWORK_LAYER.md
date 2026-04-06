@@ -15,6 +15,7 @@ New headers:
 - `bobgui/cpp/studio_shell.hpp`
 - `bobgui/cpp/tool_surface.hpp`
 - `bobgui/cpp/tool_surface_builder.hpp`
+- `bobgui/cpp/toolbar_builder.hpp`
 
 New example:
 - `examples/workbench-demo/main.cpp`
@@ -48,6 +49,7 @@ The first wrapper pass introduces small C++ objects for:
 - `StudioShell`
 - `ToolSurfaceModel`
 - `ToolSurfaceBuilder`
+- `ToolbarBuilder`
 
 The current wrapper focuses on:
 - ownership of GObject-based instances
@@ -62,6 +64,7 @@ The current wrapper focuses on:
 - a more opinionated `StudioShell` preset for multi-pane tool-style apps
 - tool-surface modeling on top of grouped actions
 - actual tool-surface widget building on top of the model
+- toolbar-specific widget building with simple policy options
 - lambda-friendly command handlers via `std::function`
 
 ## Why this is a better step than a rewrite
@@ -95,6 +98,7 @@ The new C++ example now shows a studio-oriented shell that:
 - inspects grouped action sections through the shell helper layer
 - derives a `ToolSurfaceModel` from grouped actions
 - builds an actual tool-surface widget from the model and appends it to the inspector panel
+- builds a quick-actions toolbar widget with toolbar-specific policy options
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer
 

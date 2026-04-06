@@ -10,6 +10,7 @@
 #include "studio_shell.hpp"
 #include "tool_surface.hpp"
 #include "tool_surface_builder.hpp"
+#include "toolbar_builder.hpp"
 #include "workbench.hpp"
 
 #endif
