@@ -20,6 +20,8 @@ public:
     bool show_button_labels;
     bool show_shortcuts;
     bool show_checked_prefix;
+    bool show_tooltips;
+    bool frame_sections;
     int section_spacing;
     int item_spacing;
 
@@ -28,6 +30,8 @@ public:
       show_button_labels (true),
       show_shortcuts (false),
       show_checked_prefix (true),
+      show_tooltips (true),
+      frame_sections (false),
       section_spacing (8),
       item_spacing (4)
     {
@@ -50,6 +54,7 @@ public:
       {
         BobguiWidget *section_box = bobgui_box_new (BOBGUI_ORIENTATION_VERTICAL, options.item_spacing);
         BobguiWidget *items_box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, options.item_spacing);
+        BobguiWidget *section_widget = section_box;
 
         if (options.show_section_labels)
           {
@@ -64,7 +69,15 @@ public:
           bobgui_box_append (BOBGUI_BOX (items_box), build_button (*item, options));
 
         bobgui_box_append (BOBGUI_BOX (section_box), items_box);
-        bobgui_box_append (BOBGUI_BOX (root), section_box);
+
+        if (options.frame_sections)
+          {
+            BobguiWidget *frame = bobgui_frame_new (options.show_section_labels ? NULL : section->title.c_str ());
+            bobgui_frame_set_child (BOBGUI_FRAME (frame), section_box);
+            section_widget = frame;
+          }
+
+        bobgui_box_append (BOBGUI_BOX (root), section_widget);
       }
 
     return root;
@@ -129,6 +142,24 @@ private:
 
     if (!item.icon_name.empty ())
       bobgui_button_set_icon_name (BOBGUI_BUTTON (button), item.icon_name.c_str ());
+
+    if (options.show_tooltips)
+      {
+        std::string tooltip;
+
+        if (!item.subtitle.empty ())
+          tooltip = item.subtitle;
+
+        if (!item.shortcut.empty ())
+          {
+            if (!tooltip.empty ())
+              tooltip += " — ";
+            tooltip += item.shortcut;
+          }
+
+        if (!tooltip.empty ())
+          bobgui_widget_set_tooltip_text (button, tooltip.c_str ());
+      }
 
     g_signal_connect_data (button,
                            "clicked",

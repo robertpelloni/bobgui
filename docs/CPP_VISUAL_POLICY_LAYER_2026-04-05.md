@@ -9,6 +9,8 @@ This pass deepens the generated-surface policy model for the C++ layer.
 - `show_subtitles`
 - `show_shortcuts`
 - `show_checked_prefix`
+- `show_tooltips`
+- `frame_sections`
 - `section_spacing`
 - `item_spacing`
 
@@ -24,6 +26,8 @@ This lets callers choose whether a generated tool surface should be:
 - `show_button_labels`
 - `show_shortcuts`
 - `show_checked_prefix`
+- `show_tooltips`
+- `frame_sections`
 - `section_spacing`
 - `item_spacing`
 
@@ -41,8 +45,8 @@ That is especially important for:
 
 ## Demo effect
 The current C++ demo now shows two different policy styles from the same action model:
-- a compact quick-actions surface in the navigation area
-- a fuller descriptive tool surface in the inspector area
+- a compact quick-actions surface in the navigation area with framed groups and tooltip-driven detail
+- a fuller descriptive tool surface in the inspector area with framed groups, subtitles, shortcuts, and toggle emphasis
 
 That is a useful proof that the shared action model can drive multiple distinct presentation styles.
 

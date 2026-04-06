@@ -17,6 +17,8 @@ and builds a toolbar-like widget surface using grouped action data.
 - `show_button_labels`
 - `show_shortcuts`
 - `show_checked_prefix`
+- `show_tooltips`
+- `frame_sections`
 - `section_spacing`
 - `item_spacing`
 
@@ -33,6 +35,7 @@ Buttons can:
 - show icons
 - show text labels when enabled
 - show checked state for active toggle actions
+- expose tooltip detail
 - activate actions through the shared registry
 
 ## Shell integration
@@ -49,7 +52,7 @@ This means the higher-level shell presets can now generate both:
 from the same shared action state.
 
 ## Example effect
-The C++ demo now adds a compact icon-oriented "Quick Actions" toolbar-like widget into the navigation panel while still rendering the fuller grouped tool surface in the inspector panel.
+The C++ demo now adds a compact icon-oriented "Quick Actions" toolbar-like widget into the navigation panel while still rendering the fuller grouped tool surface in the inspector panel. The quick-actions surface also now demonstrates framed section grouping plus tooltip-oriented compact interaction.
 
 That gives the example a stronger story around multiple action-derived surfaces coming from the same shared model.
 
