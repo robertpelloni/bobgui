@@ -127,7 +127,12 @@ public:
 
   BobguiWidget *build_document_tools_widget ()
   {
-    return shell_.build_descriptive_tool_surface_widget ();
+    return shell_.build_workspace_tool_surface_preset ();
+  }
+
+  BobguiWidget *build_document_panel_tools_widget ()
+  {
+    return shell_.build_panel_tool_surface_preset ();
   }
 
   void present ()

@@ -71,7 +71,10 @@ main (int argc, char **argv)
     bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Panels"));
     bobgui_box_append (BOBGUI_BOX (inspector), shell->build_panel_toolbar_preset ());
 
-    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Tools"));
+    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Panel Tools"));
+    bobgui_box_append (BOBGUI_BOX (inspector), shell->build_panel_tool_surface_preset ());
+
+    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("All Tools"));
     bobgui_box_append (BOBGUI_BOX (inspector), shell->build_descriptive_tool_surface_widget ());
 
     {

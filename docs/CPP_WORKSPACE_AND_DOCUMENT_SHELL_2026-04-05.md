@@ -32,6 +32,7 @@ Added:
 - `build_document_toolbar_widget()`
 - `build_document_panel_toolbar_widget()`
 - `build_document_tools_widget()`
+- `build_document_panel_tools_widget()`
 
 ## Why this matters
 Not every application is a studio tool.

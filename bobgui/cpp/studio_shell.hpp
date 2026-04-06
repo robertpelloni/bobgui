@@ -184,6 +184,16 @@ public:
     return shell_.build_descriptive_tool_surface_widget ();
   }
 
+  BobguiWidget *build_workspace_tool_surface_preset ()
+  {
+    return shell_.build_workspace_tool_surface_preset ();
+  }
+
+  BobguiWidget *build_panel_tool_surface_preset ()
+  {
+    return shell_.build_panel_tool_surface_preset ();
+  }
+
   BobguiWidget *build_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
   {
     return shell_.build_toolbar_widget (options);

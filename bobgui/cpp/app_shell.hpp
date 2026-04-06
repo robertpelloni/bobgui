@@ -133,9 +133,31 @@ public:
     return builder.build_widget (tool_surface_model (), options);
   }
 
+  BobguiWidget *build_workspace_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
+  {
+    ToolSurfaceBuilder builder (action_registry_);
+    return builder.build_widget (workspace_tool_surface_model (), options);
+  }
+
+  BobguiWidget *build_panel_tool_surface_widget (const ToolSurfaceBuilder::Options &options = ToolSurfaceBuilder::Options ())
+  {
+    ToolSurfaceBuilder builder (action_registry_);
+    return builder.build_widget (panel_tool_surface_model (), options);
+  }
+
   BobguiWidget *build_descriptive_tool_surface_widget ()
   {
     return build_tool_surface_widget (ToolSurfaceBuilder::Options::detailed ());
+  }
+
+  BobguiWidget *build_workspace_tool_surface_preset ()
+  {
+    return build_workspace_tool_surface_widget (ToolSurfaceBuilder::Options::detailed ());
+  }
+
+  BobguiWidget *build_panel_tool_surface_preset ()
+  {
+    return build_panel_tool_surface_widget (ToolSurfaceBuilder::Options::detailed ());
   }
 
   BobguiWidget *build_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())

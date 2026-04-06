@@ -23,6 +23,10 @@ Expanded `bobgui/cpp/app_shell.hpp` so it now provides focused surface helpers f
 - `build_panel_toolbar_widget()`
 - `build_workspace_toolbar_preset()`
 - `build_panel_toolbar_preset()`
+- `build_workspace_tool_surface_widget()`
+- `build_panel_tool_surface_widget()`
+- `build_workspace_tool_surface_preset()`
+- `build_panel_tool_surface_preset()`
 
 These helpers derive focused surfaces from the same shared grouped action state instead of forcing callers to manually filter section data.
 
@@ -30,35 +34,36 @@ These helpers derive focused surfaces from the same shared grouped action state 
 Expanded `bobgui/cpp/studio_shell.hpp` so it now exposes:
 - `build_workspace_toolbar_preset()`
 - `build_panel_toolbar_preset()`
+- `build_workspace_tool_surface_preset()`
+- `build_panel_tool_surface_preset()`
 
 ### DocumentShell integration
 Expanded `bobgui/cpp/document_shell.hpp` so it now uses:
 - `build_document_toolbar_widget()` backed by workspace toolbar presets
 - `build_document_panel_toolbar_widget()` backed by panel toolbar presets
+- `build_document_tools_widget()` backed by workspace tool-surface presets
+- `build_document_panel_tools_widget()` backed by panel tool-surface presets
 
-### DashboardShell preset
-The newly introduced dashboard-oriented shell direction was extended into the same action-surface family:
-- `build_dashboard_toolbar_widget()` now uses workspace toolbar presets
-- `build_dashboard_panel_toolbar_widget()` now uses panel toolbar presets
+### DashboardShell integration
+Expanded `bobgui/cpp/dashboard_shell.hpp` so it now uses:
+- `build_dashboard_toolbar_widget()` backed by workspace toolbar presets
+- `build_dashboard_panel_toolbar_widget()` backed by panel toolbar presets
+- `build_dashboard_tools_widget()` backed by workspace tool-surface presets
+- `build_dashboard_panel_tools_widget()` backed by panel tool-surface presets
 
 ### Example update
 - Updated `examples/workbench-demo/main.cpp` so the studio-oriented demo now renders:
   - a workspace-oriented toolbar preset in the navigation panel
   - a panel-oriented toolbar preset in the inspector panel
+  - a panel-oriented tool-surface preset in the inspector panel
   - a fuller descriptive tool surface below that
 - The example still uses workspace and panel helper commands, so it now demonstrates both semantic command helpers and semantic surface helpers.
-
-### C++ umbrella/install updates
-- Updated `bobgui/cpp/bobgui.hpp` to include `dashboard_shell.hpp` earlier in the shell family growth.
-- Updated `bobgui/meson.build` to install the evolving header set.
 
 ### Documentation
 Updated:
 - `docs/CPP_APP_FRAMEWORK_LAYER.md`
 - `docs/CPP_WORKSPACE_AND_DOCUMENT_SHELL_2026-04-05.md`
 - `docs/CPP_DASHBOARD_SHELL_PRESET_2026-04-05.md`
-
-Added:
 - `docs/CPP_WORKSPACE_SURFACE_PRESETS_2026-04-05.md`
 
 ## Validation notes
