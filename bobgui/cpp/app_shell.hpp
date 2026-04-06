@@ -115,10 +115,20 @@ public:
     return builder.build_widget (tool_surface_model (), options);
   }
 
+  BobguiWidget *build_descriptive_tool_surface_widget ()
+  {
+    return build_tool_surface_widget (ToolSurfaceBuilder::Options::detailed ());
+  }
+
   BobguiWidget *build_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
   {
     ToolbarBuilder builder (action_registry_);
     return builder.build_widget (tool_surface_model (), options);
+  }
+
+  BobguiWidget *build_compact_toolbar_widget ()
+  {
+    return build_toolbar_widget (ToolbarBuilder::Options::compact ());
   }
 
   void add_header_action_for_command (const char *label,

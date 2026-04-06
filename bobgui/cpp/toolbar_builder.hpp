@@ -22,6 +22,7 @@ public:
     bool show_checked_prefix;
     bool show_tooltips;
     bool frame_sections;
+    bool show_section_separators;
     int section_spacing;
     int item_spacing;
 
@@ -32,9 +33,24 @@ public:
       show_checked_prefix (true),
       show_tooltips (true),
       frame_sections (false),
+      show_section_separators (false),
       section_spacing (8),
       item_spacing (4)
     {
+    }
+
+    static Options compact ()
+    {
+      Options options;
+
+      options.show_section_labels = false;
+      options.show_button_labels = false;
+      options.show_shortcuts = false;
+      options.show_checked_prefix = true;
+      options.show_tooltips = true;
+      options.frame_sections = true;
+      options.show_section_separators = true;
+      return options;
     }
   };
 
@@ -47,6 +63,8 @@ public:
                               const Options          &options = Options ())
   {
     BobguiWidget *root = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, options.section_spacing);
+
+    bool first_section = true;
 
     for (std::vector<ToolSurfaceModel::ToolSection>::const_iterator section = model.sections ().begin ();
          section != model.sections ().end ();
@@ -77,7 +95,11 @@ public:
             section_widget = frame;
           }
 
+        if (!first_section && options.show_section_separators)
+          bobgui_box_append (BOBGUI_BOX (root), bobgui_separator_new (BOBGUI_ORIENTATION_VERTICAL));
+
         bobgui_box_append (BOBGUI_BOX (root), section_widget);
+        first_section = false;
       }
 
     return root;

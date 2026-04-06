@@ -147,9 +147,19 @@ public:
     return shell_.build_tool_surface_widget (options);
   }
 
+  BobguiWidget *build_descriptive_tool_surface_widget ()
+  {
+    return shell_.build_descriptive_tool_surface_widget ();
+  }
+
   BobguiWidget *build_toolbar_widget (const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
   {
     return shell_.build_toolbar_widget (options);
+  }
+
+  BobguiWidget *build_compact_toolbar_widget ()
+  {
+    return shell_.build_compact_toolbar_widget ();
   }
 
   void present ()

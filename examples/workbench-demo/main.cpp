@@ -62,28 +62,11 @@ main (int argc, char **argv)
                                  shell->set_status ("Sidebar toggle action triggered");
                                });
 
-    {
-      bobgui::cpp::ToolbarBuilder::Options toolbar_options;
-      bobgui::cpp::ToolSurfaceBuilder::Options tool_surface_options;
+    bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Quick Actions"));
+    bobgui_box_append (BOBGUI_BOX (sidebar), shell->build_compact_toolbar_widget ());
 
-      toolbar_options.show_section_labels = false;
-      toolbar_options.show_button_labels = false;
-      toolbar_options.show_shortcuts = false;
-      toolbar_options.show_tooltips = true;
-      toolbar_options.frame_sections = true;
-
-      tool_surface_options.show_section_labels = true;
-      tool_surface_options.show_subtitles = true;
-      tool_surface_options.show_shortcuts = true;
-      tool_surface_options.show_tooltips = true;
-      tool_surface_options.frame_sections = true;
-
-      bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Quick Actions"));
-      bobgui_box_append (BOBGUI_BOX (sidebar), shell->build_toolbar_widget (toolbar_options));
-
-      bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Tools"));
-      bobgui_box_append (BOBGUI_BOX (inspector), shell->build_tool_surface_widget (tool_surface_options));
-    }
+    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Tools"));
+    bobgui_box_append (BOBGUI_BOX (inspector), shell->build_descriptive_tool_surface_widget ());
 
     {
       bobgui::cpp::ToolSurfaceModel tool_surface = shell->tool_surface_model ();

@@ -7,6 +7,7 @@ The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
 - add stronger C++ helpers for action-driven toolbar/tool work
 - deepen the visual policy layer for compact and descriptive generated action surfaces
+- introduce simpler shell-level preset entry points for those surface styles
 - continue documenting the framework direction clearly
 
 ## Changes made
@@ -29,7 +30,8 @@ Expanded `bobgui/cpp/tool_surface_builder.hpp` with richer `ToolSurfaceBuilder::
 - `section_spacing`
 - `item_spacing`
 
-The fuller generated tool surface can now present itself more like a grouped inspector/tool panel.
+Also added a convenience preset factory:
+- `ToolSurfaceBuilder::Options::detailed()`
 
 #### ToolbarBuilder
 Expanded `bobgui/cpp/toolbar_builder.hpp` with richer `ToolbarBuilder::Options` support:
@@ -39,16 +41,31 @@ Expanded `bobgui/cpp/toolbar_builder.hpp` with richer `ToolbarBuilder::Options` 
 - `show_checked_prefix`
 - `show_tooltips`
 - `frame_sections`
+- `show_section_separators`
 - `section_spacing`
 - `item_spacing`
 
+Also added a convenience preset factory:
+- `ToolbarBuilder::Options::compact()`
+
 This makes compact generated toolbar-like surfaces more adaptable to icon-oriented or tooltip-oriented quick-action contexts.
 
+### Shell-level preset helpers
+Expanded `bobgui/cpp/app_shell.hpp` with:
+- `build_descriptive_tool_surface_widget()`
+- `build_compact_toolbar_widget()`
+
+Expanded `bobgui/cpp/studio_shell.hpp` with:
+- `build_descriptive_tool_surface_widget()`
+- `build_compact_toolbar_widget()`
+
+This gives the shell presets a cleaner, more opinionated API for the most common generated surface styles.
+
 ### Example update
-- Updated `examples/workbench-demo/main.cpp` to use different visual policies for different generated surfaces.
-- The navigation panel now shows a compact quick-actions toolbar style with framed section grouping and tooltip-oriented interaction.
-- The inspector panel now shows a fuller descriptive tool surface style with framed groups, subtitle detail, and shortcut detail.
-- This demonstrates multiple presentation policies driven from the same shared action model.
+- Updated `examples/workbench-demo/main.cpp` to use the new shell-level preset helpers.
+- The navigation panel now uses the compact-toolbar preset path.
+- The inspector panel now uses the descriptive tool-surface preset path.
+- This keeps the example cleaner and reinforces the framework direction toward higher-level app-shell helpers.
 
 ### Documentation
 Updated:

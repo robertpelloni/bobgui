@@ -36,6 +36,19 @@ public:
       item_spacing (4)
     {
     }
+
+    static Options detailed ()
+    {
+      Options options;
+
+      options.show_section_labels = true;
+      options.show_subtitles = true;
+      options.show_shortcuts = true;
+      options.show_checked_prefix = true;
+      options.show_tooltips = true;
+      options.frame_sections = true;
+      return options;
+    }
   };
 
   explicit ToolSurfaceBuilder (ActionRegistry &registry)
