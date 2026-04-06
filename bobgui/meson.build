@@ -774,6 +774,7 @@ bobgui_cpp_headers = files([
   'cpp/application.hpp',
   'cpp/bobgui.hpp',
   'cpp/command_palette.hpp',
+  'cpp/document_shell.hpp',
   'cpp/dock_manager.hpp',
   'cpp/object_handle.hpp',
   'cpp/studio_shell.hpp',

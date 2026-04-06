@@ -5,7 +5,6 @@
 
 using bobgui::cpp::Application;
 using bobgui::cpp::StudioShell;
-using bobgui::cpp::Workbench;
 
 int
 main (int argc, char **argv)
@@ -32,18 +31,12 @@ main (int argc, char **argv)
     shell->set_document_view (editor);
     shell->set_inspector_panel (inspector);
 
-    Workbench::CommandOptions about_options;
-    Workbench::CommandOptions sidebar_options;
+    bobgui::cpp::ActionRegistry::ActionOptions about_options;
 
     about_options.section = "Help";
     about_options.category = "Application";
     about_options.shortcut = "Ctrl+Shift+A";
     about_options.icon_name = "help-about-symbolic";
-
-    sidebar_options.section = "Panels";
-    sidebar_options.category = "View";
-    sidebar_options.shortcut = "Ctrl+B";
-    sidebar_options.icon_name = "sidebar-show-right-symbolic";
 
     shell->add_command ("app.about",
                         "About",
@@ -53,14 +46,24 @@ main (int argc, char **argv)
                           shell->set_status ("About action triggered");
                         });
 
-    shell->add_toggle_command ("view.toggle-left-sidebar",
-                               "Toggle Left Sidebar",
-                               "Show or hide the project sidebar",
-                               sidebar_options,
-                               true,
-                               [&] (const std::string &) {
-                                 shell->set_status ("Sidebar toggle action triggered");
-                               });
+    shell->add_panel_toggle_command ("view.toggle-left-sidebar",
+                                     "Toggle Left Sidebar",
+                                     "Show or hide the project sidebar",
+                                     "Ctrl+B",
+                                     "sidebar-show-right-symbolic",
+                                     true,
+                                     [&] (const std::string &) {
+                                       shell->set_status ("Sidebar toggle action triggered");
+                                     });
+
+    shell->add_workspace_command ("workspace.focus-editor",
+                                  "Focus Editor",
+                                  "Move attention to the main document view",
+                                  "Ctrl+1",
+                                  "document-edit-symbolic",
+                                  [&] (const std::string &) {
+                                    shell->set_status ("Editor workspace action triggered");
+                                  });
 
     bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Quick Actions"));
     bobgui_box_append (BOBGUI_BOX (sidebar), shell->build_compact_toolbar_widget ());

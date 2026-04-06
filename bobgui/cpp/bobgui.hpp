@@ -5,6 +5,7 @@
 #include "app_shell.hpp"
 #include "application.hpp"
 #include "command_palette.hpp"
+#include "document_shell.hpp"
 #include "dock_manager.hpp"
 #include "object_handle.hpp"
 #include "studio_shell.hpp"

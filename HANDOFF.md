@@ -6,8 +6,8 @@ This session continued the bobgui refactor with a focus on making the thin C++ l
 The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
 - add stronger C++ helpers for action-driven toolbar/tool work
-- deepen the visual policy layer for compact and descriptive generated action surfaces
-- introduce simpler shell-level preset entry points for those surface styles
+- deepen dock/workspace-oriented shell helpers
+- introduce another higher-level shell preset for document-style applications
 - continue documenting the framework direction clearly
 
 ## Changes made
@@ -16,66 +16,51 @@ The main goals were:
 - Re-ran a literal audit for legacy toolkit spellings in the working tree.
 - The working tree still returns no matches for those spellings.
 
-### Visual policy expansion for generated surfaces
-The generated action-surface layer is now more configurable and more presentation-aware.
-
-#### ToolSurfaceBuilder
-Expanded `bobgui/cpp/tool_surface_builder.hpp` with richer `ToolSurfaceBuilder::Options` support:
-- `show_section_labels`
-- `show_subtitles`
-- `show_shortcuts`
-- `show_checked_prefix`
-- `show_tooltips`
-- `frame_sections`
-- `section_spacing`
-- `item_spacing`
-
-Also added a convenience preset factory:
-- `ToolSurfaceBuilder::Options::detailed()`
-
-#### ToolbarBuilder
-Expanded `bobgui/cpp/toolbar_builder.hpp` with richer `ToolbarBuilder::Options` support:
-- `show_section_labels`
-- `show_button_labels`
-- `show_shortcuts`
-- `show_checked_prefix`
-- `show_tooltips`
-- `frame_sections`
-- `show_section_separators`
-- `prefer_toggle_controls`
-- `section_spacing`
-- `item_spacing`
-
-Also added convenience preset factories:
-- `ToolbarBuilder::Options::compact()`
-- `ToolbarBuilder::Options::labeled()`
-
-This makes compact generated toolbar-like surfaces more adaptable to icon-oriented, label-oriented, or tooltip-oriented quick-action contexts.
-
-### Shell-level preset helpers
+### Dock/workspace-oriented shell helpers
 Expanded `bobgui/cpp/app_shell.hpp` with:
-- `build_descriptive_tool_surface_widget()`
-- `build_labeled_toolbar_widget()`
-- `build_compact_toolbar_widget()`
+- `add_workspace_command()`
+- `add_panel_toggle_command()`
 
-Expanded `bobgui/cpp/studio_shell.hpp` with:
-- `build_descriptive_tool_surface_widget()`
-- `build_labeled_toolbar_widget()`
-- `build_compact_toolbar_widget()`
+Expanded `bobgui/cpp/studio_shell.hpp` with forwarding helpers for:
+- `add_workspace_command()`
+- `add_panel_toggle_command()`
 
-This gives the shell presets a cleaner, more opinionated API for the most common generated surface styles.
+These helpers layer stronger defaults on top of the shared action model for:
+- workspace commands
+- panel/view toggles
+
+`add_panel_toggle_command()` also ensures the dock-manager path is initialized through the shell.
+
+### DocumentShell preset
+Added:
+- `bobgui/cpp/document_shell.hpp`
+
+This introduces a more document-oriented shell vocabulary:
+- `set_outline_panel()`
+- `set_content_view()`
+- `set_details_panel()`
+- `build_document_toolbar_widget()`
+- `build_document_tools_widget()`
+
+This extends the shell family beyond generic app shell and studio shell into a clearer document-app path.
 
 ### Example update
-- Updated `examples/workbench-demo/main.cpp` to use the new shell-level preset helpers.
-- The navigation panel now uses the compact-toolbar preset path.
-- The inspector panel now uses both a labeled command-strip toolbar preset and the descriptive tool-surface preset path.
-- This keeps the example cleaner and reinforces the framework direction toward higher-level app-shell helpers.
+- Updated `examples/workbench-demo/main.cpp` to demonstrate the new shell-level helpers.
+- The demo now uses:
+  - `add_panel_toggle_command()`
+  - `add_workspace_command()`
+- This keeps the example cleaner while pushing more intent into the shell layer.
+
+### C++ umbrella/install updates
+- Updated `bobgui/cpp/bobgui.hpp` to include `document_shell.hpp`.
+- Updated `bobgui/meson.build` to install the new header set.
 
 ### Documentation
 Updated:
 - `docs/CPP_APP_FRAMEWORK_LAYER.md`
-- `docs/CPP_TOOLBAR_BUILDERS_2026-04-05.md`
-- `docs/CPP_VISUAL_POLICY_LAYER_2026-04-05.md`
+
+Added:
+- `docs/CPP_WORKSPACE_AND_DOCUMENT_SHELL_2026-04-05.md`
 
 ## Validation notes
 - A literal grep audit still returns no matches for the legacy toolkit spellings in the working tree.
@@ -83,11 +68,11 @@ Updated:
 - Real compile validation remains blocked by missing environment tools from the earlier validation attempt (`meson`, Python `mesonbuild`, and `g++`).
 
 ## Recommended next steps
-1. Add stronger toolbar-specific semantics beyond generic grouped boxes and labels.
-2. Integrate dock/workspace-oriented actions more deeply into the same shell path.
+1. Continue integrating dock/workspace behavior more deeply into the shell presets.
+2. Consider a dashboard-oriented preset after document/studio shells.
 3. Continue modernizing the highest-visibility inherited public header comments.
 4. Run full Meson/configure/build validation immediately when tool availability exists.
-5. Consider a document-app or dashboard preset next if the shell layering remains stable.
+5. Keep improving builder semantics so generated surfaces feel more intentional and less generic.
 
 ## Notes
 - No processes were killed.

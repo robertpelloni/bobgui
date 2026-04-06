@@ -13,6 +13,7 @@ New headers:
 - `bobgui/cpp/app_shell.hpp`
 - `bobgui/cpp/dock_manager.hpp`
 - `bobgui/cpp/studio_shell.hpp`
+- `bobgui/cpp/document_shell.hpp`
 - `bobgui/cpp/tool_surface.hpp`
 - `bobgui/cpp/tool_surface_builder.hpp`
 - `bobgui/cpp/toolbar_builder.hpp`
@@ -47,6 +48,7 @@ The first wrapper pass introduces small C++ objects for:
 - `AppShell`
 - `DockManager`
 - `StudioShell`
+- `DocumentShell`
 - `ToolSurfaceModel`
 - `ToolSurfaceBuilder`
 - `ToolbarBuilder`
@@ -60,8 +62,10 @@ The current wrapper focuses on:
 - option-struct-based command registration to avoid long parameter lists
 - action visiting, action listing, grouped-section listing, and menu-model access from C++
 - a simple `AppShell` preset that wires workbench + action registry + command palette together
+- shell-level workspace/panel action helpers layered on the shared action model
 - lazy dock-manager access through the shell preset
 - a more opinionated `StudioShell` preset for multi-pane tool-style apps
+- a `DocumentShell` preset for outline/content/details document-style apps
 - tool-surface modeling on top of grouped actions
 - actual tool-surface widget building on top of the model
 - toolbar-specific widget building with evolving visual policy options including tooltips, separators, framed section grouping, and toggle-control semantics
@@ -101,6 +105,7 @@ The new C++ example now shows a studio-oriented shell that:
 - builds an actual tool-surface widget from the model and appends it to the inspector panel
 - builds a quick-actions toolbar widget from a dedicated compact preset path
 - builds a labeled command-strip toolbar from a dedicated labeled preset path
+- demonstrates workspace/panel action helpers on top of the shared action model
 - demonstrates different presentation policies from the same shared action model
 - enables menubar and toolbar generation
 - pins palette commands through the shell convenience layer
@@ -115,6 +120,6 @@ A real compile-validation pass was attempted after this refactor, but the curren
 
 ## Recommended next steps
 1. add richer wrapper coverage around action-driven toolbar/tool surfaces
-2. deepen dock/workspace-oriented shell helpers on top of app/studio shell presets
+2. deepen dock/workspace-oriented shell helpers on top of app/studio/document shell presets
 3. add build-wired C++ examples once the current shell APIs settle a little more
 4. continue modernizing the most visible inherited branding/comments in public entry points

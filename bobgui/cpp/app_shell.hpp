@@ -165,6 +165,27 @@ public:
                             std::move (handler));
   }
 
+  void add_workspace_command (const char               *command_id,
+                              const char               *title,
+                              const char               *subtitle,
+                              const char               *shortcut,
+                              const char               *icon_name,
+                              Workbench::CommandHandler handler)
+  {
+    Workbench::CommandOptions options;
+
+    options.section = "Workspace";
+    options.category = "Workspace";
+    options.shortcut = shortcut;
+    options.icon_name = icon_name;
+
+    add_command (command_id,
+                 title,
+                 subtitle,
+                 options,
+                 std::move (handler));
+  }
+
   void add_toggle_command (const char               *command_id,
                            const char               *title,
                            const char               *subtitle,
@@ -178,6 +199,30 @@ public:
                                    options,
                                    checked,
                                    std::move (handler));
+  }
+
+  void add_panel_toggle_command (const char               *command_id,
+                                 const char               *title,
+                                 const char               *subtitle,
+                                 const char               *shortcut,
+                                 const char               *icon_name,
+                                 bool                      checked,
+                                 Workbench::CommandHandler handler)
+  {
+    Workbench::CommandOptions options;
+
+    dock_manager ();
+    options.section = "Panels";
+    options.category = "View";
+    options.shortcut = shortcut;
+    options.icon_name = icon_name;
+
+    add_toggle_command (command_id,
+                        title,
+                        subtitle,
+                        options,
+                        checked,
+                        std::move (handler));
   }
 
   void present ()
