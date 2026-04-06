@@ -3,6 +3,7 @@
 
 #include "dock_manager.hpp"
 #include "tool_surface.hpp"
+#include "tool_surface_builder.hpp"
 #include "workbench.hpp"
 
 #include <memory>
@@ -105,6 +106,12 @@ public:
   ToolSurfaceModel tool_surface_model () const
   {
     return ToolSurfaceModel::from_action_sections (list_action_sections ());
+  }
+
+  BobguiWidget *build_tool_surface_widget ()
+  {
+    ToolSurfaceBuilder builder (action_registry_);
+    return builder.build_widget (tool_surface_model ());
   }
 
   void add_header_action_for_command (const char *label,

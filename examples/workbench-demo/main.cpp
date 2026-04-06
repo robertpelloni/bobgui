@@ -62,6 +62,9 @@ main (int argc, char **argv)
                                  shell->set_status ("Sidebar toggle action triggered");
                                });
 
+    bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("Tools"));
+    bobgui_box_append (BOBGUI_BOX (inspector), shell->build_tool_surface_widget ());
+
     {
       bobgui::cpp::ToolSurfaceModel tool_surface = shell->tool_surface_model ();
       std::string status = "Ready: " + std::to_string (tool_surface.section_count ()) +

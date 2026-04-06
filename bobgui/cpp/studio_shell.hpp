@@ -142,6 +142,11 @@ public:
     return shell_.tool_surface_model ();
   }
 
+  BobguiWidget *build_tool_surface_widget ()
+  {
+    return shell_.build_tool_surface_widget ();
+  }
+
   void present ()
   {
     shell_.present ();
