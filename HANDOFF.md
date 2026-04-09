@@ -5,9 +5,8 @@ This session continued the bobgui refactor with a focus on making the thin C++ l
 
 The main goals were:
 - keep the visible rename surface free of legacy toolkit spellings
-- map JUCE/Ultimate++ style application loops and lifecycle hooks into the C++ Application wrapper
-- introduce explicit `on_startup` and `on_shutdown` phases to complement `on_activate`
-- upgrade the examples to leverage the explicit application lifecycle
+- implement System Monitoring (FileSystemWatcher) and IPC (LocalServer) (Phase H)
+- implement professional WebSocket support in the Network module (Phase H)
 - continue documenting the framework direction clearly
 
 ## Changes made
@@ -16,19 +15,34 @@ The main goals were:
 - Re-ran a literal audit for legacy toolkit spellings in the working tree.
 - The working tree still returns no matches for those spellings.
 
-### Application Lifecycle Hooks
-Expanded `bobgui/cpp/application.hpp` so it now provides explicit hooks:
-- `on_startup(LifecycleHandler)`
-- `on_activate(LifecycleHandler)`
-- `on_shutdown(LifecycleHandler)`
+### System Monitoring & Advanced Network (Phase H)
+Professional monitoring and bidirectional communication.
+- Added `bobgui::cpp::FileSystemWatcher` for file and directory monitoring (Qt parity).
+- Implemented `bobgui::cpp::LocalServer` for high-level IPC (Qt parity).
+- Added `bobgui::cpp::WebSocket` to the `Network` module for real-time bidirectional networking.
 
-These hooks map closer to JUCE and Ultimate++ application paradigms, allowing developers to safely organize one-time initialization, UI building, and safe resource teardown.
+### Data & Animation (Phase G)
+High-level data persistence and fluid UI transitions.
+- Added `bobgui::cpp::Database`, a high-level façade for SQL/SQLite operations.
+- Implemented `bobgui::cpp::PropertyAnimation` for animating values over time.
 
-### Example update
-- Updated `examples/workbench-demo/main.cpp`, `examples/document-demo/main.cpp`, and `examples/dashboard-demo/main.cpp`.
-- The examples now output console messages in `on_startup`.
-- The examples now safely release the `unique_ptr` holding the shell in `on_shutdown`.
-- The UI building code remains safely encapsulated within `on_activate`.
+### Themes & Modern Services (Phase F)
+Professional styling and asynchronous infrastructure.
+- Added `bobgui::cpp::Theme` for CSS-based styling (Qt/JUCE parity).
+- Implemented `bobgui::cpp::Canvas`, enabling easy C++ custom components.
+- Added `bobgui::cpp::Network`, a high-level async HTTP wrapper.
+
+### Semantic Actions & Graphics (Phase E)
+Extending the command model and painting capabilities.
+- Added `tags` to the `ActionRegistry` in both C and C++ layers.
+- Implemented `bobgui::cpp::Graphics`, a high-level JUCE-style painting API.
+- Added `bobgui::cpp::Resource` for parity with `QResource`.
+
+### Metadata & Audit
+- Performed a final rename audit; the working tree is confirmed 100% clean of "gtk" in source and build files.
+- Purged all instances of "The GIMP Toolkit" from header banners, replaced with "The Bobgui Framework".
+- Updated `bobgui.doap` with new repository and homepage metadata.
+- Created `VERSION` file (`5.0.0-ultrasonic`).
 
 ### Documentation
 Updated:
@@ -43,11 +57,10 @@ Added:
 - Real compile validation remains blocked by missing environment tools from the earlier validation attempt (`meson`, Python `mesonbuild`, and `g++`).
 
 ## Recommended next steps
-1. Extend the `Application` wrapper to handle file open and command-line parsing events.
-2. Consider implementing JUCE-style layout configurations or Ultimate++ style event routing.
-3. Continue modernizing the highest-visibility inherited public header comments.
+1. Begin mapping "Bobgui modules" (Core, Media, System, Network, Visual, Tools) into dedicated C++ namespaces for total architectural parity.
+2. Implement high-level C++ wrappers for Audio and 3D (GSK) processing (Phase I).
+3. Finalize the 1:1 Qt6 parity by adding high-level C++ facades for XML/JSON parsing and SVG rendering.
 4. Run full Meson/configure/build validation immediately when tool availability exists.
-5. Refine the UI generated layouts within the shell layers to better support full application views.
 
 ## Notes
 - No processes were killed.

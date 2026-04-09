@@ -3,8 +3,8 @@
  * Copyright (C) 1999 The Free Software Foundation
  *
  * Authors: Simon Budig <Simon.Budig@unix-ag.org> (original code)
- *          Federico Mena-Quintero <federico@gimp.org> (cleanup for BOBGUI+)
- *          Jonathan Blandford <jrb@redhat.com> (cleanup for BOBGUI+)
+ *          Federico Mena-Quintero <federico@gimp.org> (cleanup for BOBGUI)
+ *          Jonathan Blandford <jrb@redhat.com> (cleanup for BOBGUI)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,10 +21,10 @@
  */
 
 /*
- * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
+ * Modified by the BOBGUI Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
+ * BOBGUI at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #pragma once

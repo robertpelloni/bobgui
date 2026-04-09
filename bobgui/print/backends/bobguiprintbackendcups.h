@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintbackendcups.h: Default implementation of BobguiPrintBackend for the Common Unix Print System (CUPS)
  * Copyright (C) 2006, 2007 Red Hat, Inc.
  *

@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintoperation-win32.c: Print Operation Details for Win32
  * Copyright (C) 2006, Red Hat, Inc.
  *

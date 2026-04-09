@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright 1998-2002 Tim Janik, Red Hat, Inc., and others.
  * Copyright (C) 2003 Alex Graveley
  *

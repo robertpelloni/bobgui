@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguitextviewchild-private.h Copyright (C) 2019 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or

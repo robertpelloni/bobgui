@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintoperationpreview.h: Abstract print preview interface
  * Copyright (C) 2006, Red Hat, Inc.
  *

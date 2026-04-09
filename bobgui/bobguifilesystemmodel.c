@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifilesystemmodel.c: BobguiTreeModel wrapping a BobguiFileSystem
  * Copyright (C) 2003, Red Hat, Inc.
  *

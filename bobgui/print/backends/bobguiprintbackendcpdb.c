@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintbackendcpdb.h: Default implementation of BobguiPrintBackend
  * for the Common Print Dialog Backends (CPDB)
  * Copyright (C) 2022, 2023 TinyTrebuchet <tinytrebuchet@protonmail.com>
@@ -382,7 +382,7 @@ cpdb_printer_get_capabilities (BobguiPrinter *printer)
 /*
  * This function is responsible for getting all the options
  * that the printer supports and display them into the
- * GUI template of BOBGUI+ print dialog box.
+ * GUI template of BOBGUI print dialog box.
  * The backend should obtain whatever options it supports,
  * from either its print server or PPDs.
  */

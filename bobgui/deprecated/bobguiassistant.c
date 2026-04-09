@@ -1,5 +1,5 @@
 /*
- * BOBGUI - The GIMP Toolkit
+ * BOBGUI - The Bobgui Framework
  * Copyright (C) 1999  Red Hat, Inc.
  * Copyright (C) 2002  Anders Carlsson <andersca@gnu.org>
  * Copyright (C) 2003  Matthias Clasen <mclasen@redhat.com>

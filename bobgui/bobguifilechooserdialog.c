@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-file-style: "gnu"; tab-width: 8 -*- */
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifilechooserdialog.c: File selector dialog
  * Copyright (C) 2003, Red Hat, Inc.
  *

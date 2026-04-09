@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintbackendfile.c: Default implementation of BobguiPrintBackend 
  * for printing to a file
  * Copyright (C) 2003, Red Hat, Inc.

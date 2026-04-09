@@ -15,10 +15,13 @@ class Application
 {
 public:
   typedef std::function<void(Application &)> LifecycleHandler;
+  typedef std::function<void(Application &, GFile **, int, const char *)> OpenHandler;
+  typedef std::function<int(Application &, GApplicationCommandLine *)> CommandLineHandler;
 
-  explicit Application (const char *application_id)
+  explicit Application (const char *application_id, GApplicationFlags flags = G_APPLICATION_DEFAULT_FLAGS)
   : app_ (BOBGUI_APPLICATION (g_object_new (BOBGUI_TYPE_APPLICATION,
                                             "application-id", application_id,
+                                            "flags", flags,
                                             NULL)))
   {
     g_signal_connect (app_.get (),
@@ -34,6 +37,16 @@ public:
     g_signal_connect (app_.get (),
                       "shutdown",
                       G_CALLBACK (&Application::shutdown_trampoline),
+                      this);
+
+    g_signal_connect (app_.get (),
+                      "open",
+                      G_CALLBACK (&Application::open_trampoline),
+                      this);
+
+    g_signal_connect (app_.get (),
+                      "command-line",
+                      G_CALLBACK (&Application::command_line_trampoline),
                       this);
   }
 
@@ -55,6 +68,16 @@ public:
   void on_shutdown (LifecycleHandler handler)
   {
     on_shutdown_ = std::move (handler);
+  }
+
+  void on_open (OpenHandler handler)
+  {
+    on_open_ = std::move (handler);
+  }
+
+  void on_command_line (CommandLineHandler handler)
+  {
+    on_command_line_ = std::move (handler);
   }
 
   int run (int argc, char **argv)
@@ -87,10 +110,30 @@ private:
       self->on_shutdown_ (*self);
   }
 
+  static void open_trampoline (BobguiApplication *, gpointer files, gint n_files, const gchar *hint, gpointer user_data)
+  {
+    Application *self = static_cast<Application *> (user_data);
+
+    if (self->on_open_)
+      self->on_open_ (*self, static_cast<GFile **> (files), n_files, hint);
+  }
+
+  static int command_line_trampoline (BobguiApplication *, GApplicationCommandLine *cmdline, gpointer user_data)
+  {
+    Application *self = static_cast<Application *> (user_data);
+
+    if (self->on_command_line_)
+      return self->on_command_line_ (*self, cmdline);
+
+    return 0;
+  }
+
   ObjectHandle<BobguiApplication> app_;
   LifecycleHandler on_startup_;
   LifecycleHandler on_activate_;
   LifecycleHandler on_shutdown_;
+  OpenHandler on_open_;
+  CommandLineHandler on_command_line_;
 };
 
 } /* namespace cpp */

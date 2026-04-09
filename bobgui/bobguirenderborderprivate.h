@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (C) 2010 Carlos Garnacho <carlosg@gnome.org>
  * Copyright (C) 2011 Red Hat, Inc.
  *

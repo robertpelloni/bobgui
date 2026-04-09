@@ -1,5 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (C) 1998, 2001 Tim Janik
  * Copyright (C) Javier Jardón <jjardon@gnome.org>
  *

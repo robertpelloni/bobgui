@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (C) 2000 Red Hat Software
  *
  * This library is free software; you can redistribute it and/or

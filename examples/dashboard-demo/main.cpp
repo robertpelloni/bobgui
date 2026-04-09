@@ -10,11 +10,29 @@ using bobgui::cpp::DashboardShell;
 int
 main (int argc, char **argv)
 {
-  Application app ("org.bobgui.DashboardDemoCpp");
+  Application app ("org.bobgui.DashboardDemoCpp", G_APPLICATION_HANDLES_COMMAND_LINE);
   std::unique_ptr<DashboardShell> shell;
 
   app.on_startup ([&] (Application &) {
     std::cout << "Dashboard application starting up..." << std::endl;
+  });
+
+  app.on_command_line ([&] (Application &application, GApplicationCommandLine *cmdline) -> int {
+    (void) application;
+    gchar **args;
+    gint argc_local;
+
+    args = g_application_command_line_get_arguments (cmdline, &argc_local);
+    std::cout << "Dashboard application received command line with " << argc_local << " arguments." << std::endl;
+    for (int i = 0; i < argc_local; i++) {
+        std::cout << "  [" << i << "] " << args[i] << std::endl;
+    }
+    g_strfreev (args);
+
+    // We still need to activate to show the UI in this demo style
+    g_application_activate (G_APPLICATION (application.native ()));
+
+    return 0;
   });
 
   app.on_activate ([&] (Application &application) {

@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguirecentmanager.h: a manager for the recently used resources
  *
  * Copyright (C) 2006 Emmanuele Bassi

@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguilinkbutton.c - a hyperlink-enabled button
  *
  * Copyright (C) 2006 Emmanuele Bassi <ebassi@gmail.com>

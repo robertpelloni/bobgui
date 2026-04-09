@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprinteroptionset.h: printer option set
  * Copyright (C) 2006, Red Hat, Inc.
  *

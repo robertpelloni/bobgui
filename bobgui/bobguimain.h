@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (C) 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
  *
  * This library is free software; you can redistribute it and/or
@@ -16,10 +16,10 @@
  */
 
 /*
- * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
+ * Modified by the BOBGUI Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
+ * BOBGUI at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #pragma once
@@ -43,7 +43,7 @@ G_BEGIN_DECLS
  *
  * Use this priority for functionality related to size allocation.
  *
- * It is used internally by BOBGUI+ to compute the sizes of widgets.
+ * It is used internally by BOBGUI to compute the sizes of widgets.
  * This priority is higher than %GDK_PRIORITY_REDRAW to avoid
  * resizing a widget which was just redrawn.
  */
@@ -64,7 +64,7 @@ gboolean bobgui_is_initialized       (void);
 #ifdef G_OS_WIN32
 
 /* Variants that are used to check for correct struct packing
- * when building BOBGUI+-using code.
+ * when building BOBGUI-using code.
  */
 GDK_AVAILABLE_IN_ALL
 void     bobgui_init_abi_check       (int     num_checks,

@@ -1,5 +1,5 @@
 /*
- * BOBGUI - The GIMP Toolkit
+ * BOBGUI - The Bobgui Framework
  * Copyright (C) 2022 Red Hat, Inc.
  * All rights reserved.
  *

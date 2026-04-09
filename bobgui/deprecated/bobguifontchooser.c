@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifontchooser.c - Abstract interface for font file selectors GUIs
  *
  * Copyright (C) 2006, Emmanuele Bassi

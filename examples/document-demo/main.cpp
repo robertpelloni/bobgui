@@ -10,11 +10,22 @@ using bobgui::cpp::DocumentShell;
 int
 main (int argc, char **argv)
 {
-  Application app ("org.bobgui.DocumentDemoCpp");
+  Application app ("org.bobgui.DocumentDemoCpp", G_APPLICATION_HANDLES_OPEN);
   std::unique_ptr<DocumentShell> shell;
 
   app.on_startup ([&] (Application &) {
     std::cout << "Document application starting up..." << std::endl;
+  });
+
+  app.on_open ([&] (Application &application, GFile **files, int n_files, const char *hint) {
+    (void) application;
+    (void) hint;
+    std::cout << "Document application asked to open " << n_files << " files." << std::endl;
+    for (int i = 0; i < n_files; i++) {
+        char *uri = g_file_get_uri (files[i]);
+        std::cout << "  - " << uri << std::endl;
+        g_free (uri);
+    }
   });
 
   app.on_activate ([&] (Application &application) {

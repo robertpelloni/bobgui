@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintbackendcpdb.h: Default implementation of BobguiPrintBackend
  * for the Common Print Dialog Backends (CPDB)
  * Copyright (C) 2022, 2023 TinyTrebuchet <tinytrebuchet@protonmail.com>

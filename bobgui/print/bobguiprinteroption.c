@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprinteroption.c: Handling possible settings for a specific printer setting
  * Copyright (C) 2006, Red Hat, Inc.
  *

@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifilechoosernative.h: Native File selector dialog
  * Copyright (C) 2015, Red Hat, Inc.
  *

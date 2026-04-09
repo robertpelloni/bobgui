@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (C) 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
  *
  * BobguiAspectFrame: Ensure that the child window has a specified aspect ratio
@@ -21,10 +21,10 @@
  */
 
 /*
- * Modified by the BOBGUI+ Team and others 1997-2001.  See the AUTHORS
- * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
+ * Modified by the BOBGUI Team and others 1997-2001.  See the AUTHORS
+ * file for a list of people on the BOBGUI Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
+ * BOBGUI at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 /**

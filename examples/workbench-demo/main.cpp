@@ -36,12 +36,27 @@ main (int argc, char **argv)
     shell->set_document_view (editor);
     shell->set_inspector_panel (inspector);
 
+    // Demonstrate Ultimate++ style layout operators
+    bobgui::cpp::Box custom_container (BOBGUI_ORIENTATION_VERTICAL, 10);
+    
+    // Apply Flexbox Layout (Qt6/JUCE parity)
+    custom_container.set_layout(bobgui::cpp::FlexLayout()
+        .flex_direction("column")
+        .justify_content("center")
+        .align_items("stretch"));
+
+    custom_container << bobgui::cpp::Label ("Ultrasonic Layout (U++ Style)")
+                     << bobgui::cpp::Button ("Click Me");
+    
+    bobgui_box_append (BOBGUI_BOX (inspector), custom_container.native ());
+
     bobgui::cpp::ActionRegistry::ActionOptions about_options;
 
     about_options.section = "Help";
     about_options.category = "Application";
     about_options.shortcut = "Ctrl+Shift+A";
     about_options.icon_name = "help-about-symbolic";
+    about_options.tags = "help";
 
     shell->add_command ("app.about",
                         "About",
@@ -73,6 +88,45 @@ main (int argc, char **argv)
                                     shell->set_status ("Editor workspace action triggered");
                                   });
 
+    // Persistent Settings (Qt/JUCE Parity)
+    bobgui::cpp::Settings settings ("Demo");
+    int launch_count = settings.get_int ("launch_count", 0);
+    settings.set_int ("launch_count", launch_count + 1);
+    std::cout << "Application launch count: " << launch_count + 1 << std::endl;
+
+    // Reactive Properties (Qt6 Parity)
+    static bobgui::cpp::Property<std::string> app_status;
+    app_status.on_changed.connect([&] (const std::string& new_status) {
+        shell->set_status(new_status.c_str());
+    });
+    app_status = "Ultrasonic Framework Active";
+
+    // Type-Safe Signals (JUCE/Qt Parity)
+    static bobgui::cpp::Signal<int> counter_signal;
+    static int internal_counter = 0;
+    counter_signal.connect([&] (int count) {
+        app_status = "Counter reached: " + std::to_string(count);
+    });
+
+    // Periodic Timer (Qt/JUCE Parity)
+    static bobgui::cpp::Timer status_timer;
+    status_timer.start (5000, [&] () {
+      internal_counter++;
+      counter_signal(internal_counter);
+      return true; // repeat
+    });
+
+    // Property Animation (Qt6 Parity)
+    static bobgui::cpp::Property<float> anim_val(0.0f);
+    static bobgui::cpp::PropertyAnimation animation(anim_val);
+    anim_val.on_changed.connect([&] (float val) {
+        // In a real app, this would update a widget opacity or position
+        if (internal_counter % 2 == 0) // avoid flooding console
+            std::cout << "Animation Progress: " << val << std::endl;
+    });
+    animation.set_range(0.0f, 100.0f, 2000);
+    animation.start();
+
     bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Workspace"));
     bobgui_box_append (BOBGUI_BOX (sidebar), shell->build_workspace_toolbar_preset ());
 
@@ -84,6 +138,10 @@ main (int argc, char **argv)
 
     bobgui_box_append (BOBGUI_BOX (inspector), bobgui_label_new ("All Tools"));
     bobgui_box_append (BOBGUI_BOX (inspector), shell->build_descriptive_tool_surface_widget ());
+
+    // Demonstrate Tagged Toolbars (Qt6 Parity)
+    bobgui_box_append (BOBGUI_BOX (sidebar), bobgui_label_new ("Help (Tagged)"));
+    bobgui_box_append (BOBGUI_BOX (sidebar), shell->build_tagged_toolbar_widget ("help"));
 
     {
       bobgui::cpp::ToolSurfaceModel tool_surface = shell->tool_surface_model ();

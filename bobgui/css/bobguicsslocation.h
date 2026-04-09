@@ -1,4 +1,4 @@
-/* GSK - The GIMP Toolkit
+/* GSK - The Bobgui Framework
  * Copyright (C) 2011 Benjamin Otte <otte@gnome.org>
  *
  * This library is free software; you can redistribute it and/or

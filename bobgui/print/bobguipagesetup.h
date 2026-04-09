@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguipagesetup.h: Page Setup
  * Copyright (C) 2006, Red Hat, Inc.
  *

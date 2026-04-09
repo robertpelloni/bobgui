@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (C) 2014,2015 Benjamin Otte
  * 
  * Authors: Benjamin Otte <otte@gnome.org>

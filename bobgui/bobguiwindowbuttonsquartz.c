@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (c) 2024 Arjan Molenaar <amolenaar@gnome.org>
  *
  * This library is free software; you can redistribute it and/or

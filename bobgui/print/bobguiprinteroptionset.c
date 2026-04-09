@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintbackendprivate.h: Abstract printer backend interfaces
  * Copyright (C) 2006, Red Hat, Inc.
  *

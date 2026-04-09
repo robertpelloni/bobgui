@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguisizegroup.c:
  * Copyright (C) 2001 Red Hat Software
  *

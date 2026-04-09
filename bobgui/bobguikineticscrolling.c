@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (C) 2014 Lieven van der Heide
  *
  * This library is free software; you can redistribute it and/or

@@ -1,5 +1,5 @@
 /*
- * BOBGUI - The GIMP Toolkit
+ * BOBGUI - The Bobgui Framework
  * Copyright (C) 2008  Jaap Haitsma <jaap@haitsma.org>
  *
  * All rights reserved.

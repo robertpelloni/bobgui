@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintoperation.c: Print Operation
  * Copyright (C) 2006, Red Hat, Inc.
  *

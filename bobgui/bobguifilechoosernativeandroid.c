@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-file-style: "gnu"; tab-width: 8 -*- */
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifilechoosernativeandroid.c: Android native filepicker
  * Copyright (C) 2024, Florian "sp1rit" <sp1rit@disroot.org>
  *

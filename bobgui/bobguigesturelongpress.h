@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright (C) 2012, One Laptop Per Child.
  * Copyright (C) 2014, Red Hat, Inc.
  *

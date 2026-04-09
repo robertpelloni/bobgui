@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifilechooserwidget.h: Embeddable file selector widget
  * Copyright (C) 2003, Red Hat, Inc.
  *

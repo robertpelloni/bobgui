@@ -15,10 +15,10 @@
  */
 
 /*
- * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
+ * Modified by the BOBGUI Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/. 
+ * BOBGUI at ftp://ftp.bobgui.org/pub/bobgui/. 
  */
 
 /*
@@ -234,7 +234,7 @@ bobgui_fnmatch_intern (const char *pattern,
 /* Match STRING against the filename pattern PATTERN, returning zero if
  *  it matches, nonzero if not.
  *
- * BOBGUI+ used to use a old version of GNU fnmatch() that was buggy
+ * BOBGUI used to use a old version of GNU fnmatch() that was buggy
  * in various ways and didn’t handle UTF-8. The following is
  * converted to UTF-8. To simplify the process of making it
  * correct, this is special-cased to the combinations of flags

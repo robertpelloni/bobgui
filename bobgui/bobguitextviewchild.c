@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-file-style: "gnu"; tab-width: 8 -*- */
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobgui_text_view_child.c Copyright (C) 2019 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or

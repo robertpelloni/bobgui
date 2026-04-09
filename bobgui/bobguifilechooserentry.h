@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifilechooserentry.h: Entry with filename completion
  * Copyright (C) 2003, Red Hat, Inc.
  *

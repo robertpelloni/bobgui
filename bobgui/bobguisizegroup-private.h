@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguisizegroup-private.h:
  * Copyright (C) 2000-2010 Red Hat Software
  *

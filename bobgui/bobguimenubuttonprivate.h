@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  *
  * Copyright (C) 2003 Ricardo Fernandez Pascual
  * Copyright (C) 2004 Paolo Borelli

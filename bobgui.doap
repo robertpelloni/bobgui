@@ -22,19 +22,20 @@ BOBGUI is free software and part of the GNU Project. However, the
 licensing terms for BOBGUI, the GNU LGPL, allow it to be used by all
 developers, including those developing proprietary software, without
 any license fees or royalties.</description>
-  <homepage rdf:resource="http://www.bobgui.org/" />
+  <homepage rdf:resource="http://www.bobgui.io/" />
   <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
-  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/bobgui/issues/" />
-  <download-page rdf:resource="https://download.gnome.org/sources/bobgui/" />
-  <developer-forum rdf:resource="https://discourse.gnome.org/c/platform/5" />
+  <bug-database rdf:resource="https://github.com/robertpelloni/bobgui/issues/" />
+  <download-page rdf:resource="https://github.com/robertpelloni/bobgui/releases/" />
+  <developer-forum rdf:resource="https://github.com/robertpelloni/bobgui/discussions" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
 
   <programming-language>C</programming-language>
+  <programming-language>C++</programming-language>
 
   <repository>
     <GitRepository>
-        <browse rdf:resource="https://gitlab.gnome.org/GNOME/bobgui/"/>
-      <location rdf:resource="https://gitlab.gnome.org/GNOME/bobgui.git"/>
+        <browse rdf:resource="https://github.com/robertpelloni/bobgui/"/>
+      <location rdf:resource="https://github.com/robertpelloni/bobgui.git"/>
     </GitRepository>
   </repository>
 

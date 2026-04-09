@@ -242,6 +242,20 @@ public:
     return build_panel_toolbar_widget (ToolbarBuilder::Options::compact ());
   }
 
+  BobguiWidget *build_tagged_toolbar_widget (const std::string& tag, 
+                                             const ToolbarBuilder::Options &options = ToolbarBuilder::Options ())
+  {
+    auto predicate = [tag] (const ActionRegistry::ActionInfo &info) {
+        return info.tags.find(tag) != std::string::npos;
+    };
+    
+    ToolbarBuilder builder (action_registry_);
+    ToolSurfaceModel model = ToolSurfaceModel::from_action_sections (
+        action_registry_.list_sections_filtered (predicate)
+    );
+    return builder.build_widget (model, options);
+  }
+
   void add_header_action_for_command (const char *label,
                                       const char *command_id)
   {

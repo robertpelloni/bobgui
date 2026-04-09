@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguiprintoperation-portal.c: Print Operation Details for sandboxed apps
  * Copyright (C) 2016, Red Hat, Inc.
  *

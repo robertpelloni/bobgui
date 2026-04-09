@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * Copyright 2019 Matthias Clasen
  *
  * This library is free software; you can redistribute it and/or

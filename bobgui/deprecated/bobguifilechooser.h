@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifilechooser.h: Abstract interface for file selector GUIs
  * Copyright (C) 2003, Red Hat, Inc.
  *

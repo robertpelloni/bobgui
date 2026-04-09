@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifilechooserutils.h: Private utility functions useful for
  *                        implementing a BobguiFileChooser interface
  * Copyright (C) 2003, Red Hat, Inc.

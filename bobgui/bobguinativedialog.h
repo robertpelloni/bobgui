@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguinativedialog.h: Native dialog
  * Copyright (C) 2015, Red Hat, Inc.
  *

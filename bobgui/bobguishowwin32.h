@@ -1,5 +1,5 @@
 /*
- * BOBGUI - The GIMP Toolkit
+ * BOBGUI - The Bobgui Framework
  * Copyright (C) 2024-2025 Sergey Bugaev
  * All rights reserved.
  *

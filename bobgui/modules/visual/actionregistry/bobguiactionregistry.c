@@ -10,6 +10,7 @@ typedef struct
   char *category;
   char *shortcut;
   char *icon_name;
+  char *tags;
   gboolean checkable;
   gboolean checked;
   BobguiActionRegistryFunc callback;
@@ -34,6 +35,7 @@ bobgui_action_registry_item_free (BobguiActionRegistryItem *item)
   g_free (item->category);
   g_free (item->shortcut);
   g_free (item->icon_name);
+  g_free (item->tags);
   g_free (item);
 }
 
@@ -77,16 +79,17 @@ bobgui_action_registry_new (void)
 }
 
 void
-bobgui_action_registry_add_sectioned (BobguiActionRegistry      *self,
-                                      const char                *action_id,
-                                      const char                *title,
-                                      const char                *subtitle,
-                                      const char                *section,
-                                      const char                *category,
-                                      const char                *shortcut,
-                                      const char                *icon_name,
-                                      BobguiActionRegistryFunc   callback,
-                                      gpointer                   user_data)
+bobgui_action_registry_add_tagged (BobguiActionRegistry      *self,
+                                   const char                *action_id,
+                                   const char                *title,
+                                   const char                *subtitle,
+                                   const char                *section,
+                                   const char                *category,
+                                   const char                *shortcut,
+                                   const char                *icon_name,
+                                   const char                *tags,
+                                   BobguiActionRegistryFunc   callback,
+                                   gpointer                   user_data)
 {
   BobguiActionRegistryItem *item;
 
@@ -101,9 +104,25 @@ bobgui_action_registry_add_sectioned (BobguiActionRegistry      *self,
   item->category = g_strdup (category);
   item->shortcut = g_strdup (shortcut);
   item->icon_name = g_strdup (icon_name);
+  item->tags = g_strdup (tags);
   item->callback = callback;
   item->user_data = user_data;
   g_ptr_array_add (self->items, item);
+}
+
+void
+bobgui_action_registry_add_sectioned (BobguiActionRegistry      *self,
+                                      const char                *action_id,
+                                      const char                *title,
+                                      const char                *subtitle,
+                                      const char                *section,
+                                      const char                *category,
+                                      const char                *shortcut,
+                                      const char                *icon_name,
+                                      BobguiActionRegistryFunc   callback,
+                                      gpointer                   user_data)
+{
+  bobgui_action_registry_add_tagged (self, action_id, title, subtitle, section, category, shortcut, icon_name, NULL, callback, user_data);
 }
 
 void
@@ -306,6 +325,7 @@ bobgui_action_registry_visit (BobguiActionRegistry          *self,
             item->category,
             item->shortcut,
             item->icon_name,
+            item->tags,
             item->checkable,
             item->checked,
             user_data);

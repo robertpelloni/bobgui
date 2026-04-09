@@ -16,10 +16,10 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.Free
  */
 /*
- * Modified by the BOBGUI+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the BOBGUI+ Team.  See the ChangeLog
+ * Modified by the BOBGUI Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the BOBGUI Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * BOBGUI+ at ftp://ftp.bobgui.org/pub/bobgui/.
+ * BOBGUI at ftp://ftp.bobgui.org/pub/bobgui/.
  */
 
 #include "config.h"

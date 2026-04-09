@@ -23,7 +23,7 @@
  * list of people on the bobgui Team.
  * See the gedit ChangeLog files for a list of changes.
  *
- * Modified by the BOBGUI+ team, 2008-2009.
+ * Modified by the BOBGUI team, 2008-2009.
  */
 
 

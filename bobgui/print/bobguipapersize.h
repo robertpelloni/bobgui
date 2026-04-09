@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguipapersize.h: Paper Size
  * Copyright (C) 2006, Red Hat, Inc.
  *

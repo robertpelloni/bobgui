@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguitrashmonitor.h: Monitor the trash:/// folder to see if there is trash or not
  * Copyright (C) 2011 Suse
  *

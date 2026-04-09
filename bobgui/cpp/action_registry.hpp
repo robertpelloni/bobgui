@@ -28,6 +28,7 @@ public:
     std::string category;
     std::string shortcut;
     std::string icon_name;
+    std::string tags;
     bool checkable;
     bool checked;
   };
@@ -46,12 +47,14 @@ public:
     const char *category;
     const char *shortcut;
     const char *icon_name;
+    const char *tags;
 
     ActionOptions ()
     : section (NULL),
       category (NULL),
       shortcut (NULL),
-      icon_name (NULL)
+      icon_name (NULL),
+      tags (NULL)
     {
     }
   };
@@ -74,16 +77,17 @@ public:
   {
     ActionBinding *binding = add_binding (std::move (handler));
 
-    bobgui_action_registry_add_sectioned (registry_.get (),
-                                          action_id,
-                                          title,
-                                          subtitle,
-                                          options.section,
-                                          options.category,
-                                          options.shortcut,
-                                          options.icon_name,
-                                          &ActionRegistry::action_trampoline,
-                                          binding);
+    bobgui_action_registry_add_tagged (registry_.get (),
+                                       action_id,
+                                       title,
+                                       subtitle,
+                                       options.section,
+                                       options.category,
+                                       options.shortcut,
+                                       options.icon_name,
+                                       options.tags,
+                                       &ActionRegistry::action_trampoline,
+                                       binding);
   }
 
   void add_toggle_action (const char          *action_id,
@@ -217,6 +221,7 @@ private:
                                 const char *category,
                                 const char *shortcut,
                                 const char *icon_name,
+                                const char *tags,
                                 gboolean    checkable,
                                 gboolean    checked,
                                 gpointer    user_data)
@@ -231,6 +236,7 @@ private:
     info.category = category != NULL ? category : "";
     info.shortcut = shortcut != NULL ? shortcut : "";
     info.icon_name = icon_name != NULL ? icon_name : "";
+    info.tags = tags != NULL ? tags : "";
     info.checkable = checkable;
     info.checked = checked;
 

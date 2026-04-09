@@ -1,4 +1,4 @@
-/* BOBGUI - The GIMP Toolkit
+/* BOBGUI - The Bobgui Framework
  * bobguifontfilter.c:
  * Copyright (C) 2024 Niels De Graef <nielsdegraef@gmail.com>
  *
