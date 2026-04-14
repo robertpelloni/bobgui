@@ -60,8 +60,43 @@ GDK_AVAILABLE_IN_ALL
 HWND          gdk_win32_surface_get_handle (GdkSurface *surface);
 
 GDK_AVAILABLE_IN_ALL
+<<<<<<< HEAD
 GdkSurface *   gdk_win32_surface_lookup_for_display (GdkDisplay *display,
                                                      HWND        anid);
+=======
+void          gdk_win32_selection_add_targets (GdkWindow  *owner,
+					       GdkAtom     selection,
+					       gint	   n_targets,
+					       GdkAtom    *targets);
+
+#if defined (GTK_COMPILATION) || defined (GDK_COMPILATION)
+#define gdk_win32_selection_clear_targets gdk_win32_selection_clear_targets_libgtk_only
+GDK_AVAILABLE_IN_ALL
+void          gdk_win32_selection_clear_targets (GdkDisplay *display,
+                                                 GdkAtom     selection);
+#endif
+
+GDK_AVAILABLE_IN_ALL
+GdkWindow *   gdk_win32_window_foreign_new_for_display (GdkDisplay *display,
+                                                        HWND        anid);
+GDK_AVAILABLE_IN_ALL
+GdkWindow *   gdk_win32_window_lookup_for_display (GdkDisplay *display,
+                                                   HWND        anid);
+
+#if defined (INSIDE_GDK_WIN32) || defined (GDK_COMPILATION) || defined (GTK_COMPILATION)
+
+/* For internal GTK use only */
+GDK_AVAILABLE_IN_ALL
+GdkPixbuf    *gdk_win32_icon_to_pixbuf_libgtk_only (HICON hicon,
+                                                    gdouble *x_hot,
+                                                    gdouble *y_hot);
+GDK_AVAILABLE_IN_ALL
+HICON         gdk_win32_pixbuf_to_hicon_libgtk_only (GdkPixbuf *pixbuf);
+GDK_AVAILABLE_IN_ALL
+void          gdk_win32_set_modal_dialog_libgtk_only (HWND window);
+
+#endif
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 G_END_DECLS
 

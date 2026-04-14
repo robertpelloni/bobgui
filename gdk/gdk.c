@@ -384,8 +384,26 @@ gdk_display_open_default (void)
   return display;
 }
 
+<<<<<<< HEAD
 /*< private >
  * gdk_get_startup_notification_id:
+=======
+gboolean
+gdk_running_in_sandbox (void)
+{
+  char *path;
+  gboolean ret;
+
+  path = g_build_filename (g_get_user_runtime_dir (), "flatpak-info", NULL);
+  ret = g_file_test (path, G_FILE_TEST_EXISTS);
+  g_free (path);
+
+  return ret;
+}
+
+/**
+ * gdk_display_open_default_libgtk_only:
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
  *
  * Returns the original value of the XDG_ACTIVATION_TOKEN environment
  * variable if it was defined and valid, otherwise it returns the original
@@ -435,6 +453,80 @@ gdk_disable_portals (const char **portal_interfaces)
     }
 }
 
+<<<<<<< HEAD
+=======
+
+
+/**
+ * SECTION:threads
+ * @Short_description: Functions for using GDK in multi-threaded programs
+ * @Title: Threads
+ *
+ * For thread safety, GDK relies on the thread primitives in GLib,
+ * and on the thread-safe GLib main loop.
+ *
+ * GLib is completely thread safe (all global data is automatically
+ * locked), but individual data structure instances are not automatically
+ * locked for performance reasons. So e.g. you must coordinate
+ * accesses to the same #GHashTable from multiple threads.
+ *
+ * GTK+, however, is not thread safe. You should only use GTK+ and GDK
+ * from the thread gtk_init() and gtk_main() were called on.
+ * This is usually referred to as the “main thread”.
+ *
+ * Signals on GTK+ and GDK types, as well as non-signal callbacks, are
+ * emitted in the main thread.
+ *
+ * You can schedule work in the main thread safely from other threads
+ * by using gdk_threads_add_idle() and gdk_threads_add_timeout():
+ *
+ * |[<!-- language="C" -->
+ * static void
+ * worker_thread (void)
+ * {
+ *   ExpensiveData *expensive_data = do_expensive_computation ();
+ *
+ *   gdk_threads_add_idle (got_value, expensive_data);
+ * }
+ *
+ * static gboolean
+ * got_value (gpointer user_data)
+ * {
+ *   ExpensiveData *expensive_data = user_data;
+ *
+ *   my_app->expensive_data = expensive_data;
+ *   gtk_button_set_sensitive (my_app->button, TRUE);
+ *   gtk_button_set_label (my_app->button, expensive_data->result_label);
+ *
+ *   return G_SOURCE_REMOVE;
+ * }
+ * ]|
+ *
+ * You should use gdk_threads_add_idle() and gdk_threads_add_timeout()
+ * instead of g_idle_add() and g_timeout_add() since libraries not under
+ * your control might be using the deprecated GDK locking mechanism.
+ * If you are sure that none of the code in your application and libraries
+ * use the deprecated gdk_threads_enter() or gdk_threads_leave() methods,
+ * then you can safely use g_idle_add() and g_timeout_add().
+ *
+ * For more information on this "worker thread" pattern, you should
+ * also look at #GTask, which gives you high-level tools to perform
+ * expensive tasks from worker threads, and will handle thread
+ * management for you.
+ */
+
+/**
+ * gdk_threads_enter:
+ *
+ * This function marks the beginning of a critical section in which
+ * GDK and GTK+ functions can be called safely and without causing race
+ * conditions. Only one thread at a time can be in such a critial
+ * section.
+ *
+ * Deprecated:3.6: All GDK and GTK+ calls should be made from the main
+ *     thread
+ */
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 void
 gdk_disable_all_portals (void)
 {

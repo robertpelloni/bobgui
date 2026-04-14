@@ -28,7 +28,11 @@
 #include <epoxy/gl.h>
 #include <epoxy/wgl.h>
 
+<<<<<<< HEAD
 #ifdef HAVE_EGL
+=======
+#ifdef GDK_WIN32_ENABLE_EGL
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 # include <epoxy/egl.h>
 #endif
 
@@ -55,7 +59,25 @@ struct _GdkWin32GLContext
 {
   GdkGLContext parent_instance;
 
+<<<<<<< HEAD
   HWND handle;
+=======
+  /* WGL Context Items */
+  HGLRC hglrc;
+  HDC gl_hdc;
+  guint need_alpha_bits : 1;
+
+  /* other items */
+  guint is_attached : 1;
+  guint do_frame_sync : 1;
+  guint do_blit_swap : 1;
+
+#ifdef GDK_WIN32_ENABLE_EGL
+  /* EGL (Angle) Context Items */
+  EGLContext egl_context;
+  EGLConfig egl_config;
+#endif
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 };
 
 struct _GdkWin32GLContextClass
@@ -92,6 +114,9 @@ HGLRC     gdk_win32_private_wglGetCurrentContext (void);
 BOOL      gdk_win32_private_wglMakeCurrent       (HDC hdc,
                                                   HGLRC hglrc);
 void      gdk_win32_private_wglDeleteContext     (HGLRC hglrc);
+
+void
+_gdk_win32_window_invalidate_egl_framebuffer (GdkWindow *window);
 
 G_END_DECLS
 

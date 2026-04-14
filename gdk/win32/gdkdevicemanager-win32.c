@@ -61,6 +61,7 @@ struct _wintab_items
   GdkSurface *wintab_surface;
   HMODULE wintab32;
 
+<<<<<<< HEAD
   t_WTInfoA p_WTInfoA;
   t_WTInfoW p_WTInfoW;
   t_WTEnable p_WTEnable;
@@ -83,6 +84,11 @@ enum {
 };
 
 static GParamSpec *device_manager_props[LAST_PROP] = { NULL, };
+=======
+static gboolean default_display_opened = FALSE;
+
+G_DEFINE_TYPE (GdkDeviceManagerWin32, gdk_device_manager_win32, GDK_TYPE_DEVICE_MANAGER)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 static GdkDevice *
 create_pointer (GdkDisplay *display,
@@ -700,7 +706,11 @@ wintab_init_check (GdkDeviceManagerWin32 *device_manager)
 /* Only initialize Wintab after the default display is set for
  * the first time. WTOpenA() executes code beyond our control,
  * and it can cause messages to be sent to the application even
+<<<<<<< HEAD
  * before a surface HWND is opened. GDK has to be in a fit state to
+=======
+ * before a window is opened. GDK has to be in a fit state to
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
  * handle them when they come.
  *
  * https://bugzilla.gnome.org/show_bug.cgi?id=774379
@@ -716,7 +726,13 @@ wintab_default_display_notify_cb (GdkDisplayManager *display_manager)
 
   g_assert (display != NULL);
 
+<<<<<<< HEAD
   device_manager = GDK_WIN32_DISPLAY (display)->device_manager;
+=======
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS;
+  device_manager = GDK_DEVICE_MANAGER_WIN32 (gdk_display_get_device_manager (display));
+G_GNUC_END_IGNORE_DEPRECATIONS;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   g_assert (display_manager != NULL);
 
   default_display_opened = TRUE;
@@ -730,8 +746,13 @@ gdk_device_manager_win32_constructed (GObject *object)
   GdkWin32Display *display_win32;
   GdkDeviceManagerWin32 *device_manager;
   GdkSeat *seat;
+<<<<<<< HEAD
   const char *api_preference = NULL;
   gboolean have_api_preference = TRUE;
+=======
+  GdkDisplayManager *display_manager = NULL;
+  GdkDisplay *default_display = NULL;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   device_manager = GDK_DEVICE_MANAGER_WIN32 (object);
   display_win32 = GDK_WIN32_DISPLAY (device_manager->display);
@@ -774,7 +795,23 @@ gdk_device_manager_win32_constructed (GObject *object)
   gdk_seat_default_add_physical_device (GDK_SEAT_DEFAULT (seat), device_manager->system_keyboard);
   g_object_unref (seat);
 
+<<<<<<< HEAD
   display_win32->device_manager = device_manager;
+=======
+  /* Only call Wintab init stuff after the default display
+   * is globally known and accessible through the display manager
+   * singleton. Approach lifted from gtkmodules.c.
+   */
+  display_manager = gdk_display_manager_get();
+  g_assert (display_manager != NULL);
+  default_display = gdk_display_manager_get_default_display (display_manager);
+  g_assert (default_display == NULL);
+
+  g_signal_connect (display_manager, "notify::default-display",
+                    G_CALLBACK (wintab_default_display_notify_cb),
+                    NULL);
+}
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   api_preference = g_getenv ("GDK_WIN32_TABLET_INPUT_API");
   if (g_strcmp0 (api_preference, "none") == 0)
@@ -1008,7 +1045,12 @@ gdk_wintab_make_event (GdkDisplay *display,
   GdkDeviceWintab *source_device = NULL;
   GdkDeviceGrabInfo *last_grab;
   guint key_state;
+<<<<<<< HEAD
   GdkEvent *event;
+=======
+  POINT pt;
+  GdkWindowImplWin32 *impl;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   PACKET packet;
   int num_axes;
@@ -1045,9 +1087,12 @@ gdk_wintab_make_event (GdkDisplay *display,
   switch (msg->message)
     {
     case WT_PACKET:
+<<<<<<< HEAD
       if (!WINTAB_API_CALL (device_manager, WTPacket) ((HCTX) msg->lParam, msg->wParam, &packet))
         return NULL;
 
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       source_device = gdk_device_manager_find_wintab_device (device_manager,
 							     (HCTX) msg->lParam,
 							     packet.pkCursor);
@@ -1062,16 +1107,56 @@ gdk_wintab_make_event (GdkDisplay *display,
 	  device_manager->dev_entered_proximity -= 1;
 
 	  if (source_device != NULL &&
+<<<<<<< HEAD
 	      source_device->sends_core)
 	    {
 	      _gdk_device_virtual_set_active (device_manager->core_pointer,
 					      GDK_DEVICE (source_device));
 	      GDK_WIN32_DISPLAY (display)->pointer_device_items->input_ignore_core += 1;
+=======
+	      source_device->sends_core &&
+	      gdk_device_get_mode (GDK_DEVICE (source_device)) != GDK_MODE_DISABLED)
+	    {
+	      _gdk_device_virtual_set_active (device_manager->core_pointer,
+					      GDK_DEVICE (source_device));
+	      _gdk_input_ignore_core += 1;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 	    }
 	}
       else if (source_device != NULL &&
 	       source_device->sends_core &&
+<<<<<<< HEAD
                GDK_WIN32_DISPLAY (display)->pointer_device_items->input_ignore_core == 0)
+=======
+	       gdk_device_get_mode (GDK_DEVICE (source_device)) != GDK_MODE_DISABLED &&
+               _gdk_input_ignore_core == 0)
+        {
+          /* A fallback for cases when two devices (disabled and enabled)
+           * were in proximity simultaneously.
+           * In this case the removal of a disabled device would also
+           * make the system pointer active, as we don't know which
+           * device was removed and assume it was the enabled one.
+           * If we are still getting packets for the enabled device,
+           * it means that the device that was removed was the disabled
+           * device, so we must make the enabled device active again and
+           * start ignoring the core pointer events. In practice this means that
+           * removing a disabled device while an enabled device is still
+           * in proximity might briefly make the core pointer active/visible.
+           */
+	  _gdk_device_virtual_set_active (device_manager->core_pointer,
+					  GDK_DEVICE (source_device));
+	  _gdk_input_ignore_core += 1;
+        }
+
+      if (source_device == NULL ||
+	  gdk_device_get_mode (GDK_DEVICE (source_device)) == GDK_MODE_DISABLED)
+	return FALSE;
+
+      /* Don't produce any button or motion events while a window is being
+       * moved or resized, see bug #151090.
+       */
+      if (_modal_operation_in_progress & GDK_WIN32_MODAL_OP_SIZEMOVE_MASK)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
         {
           /* A fallback for cases when two devices (disabled and enabled)
            * were in proximity simultaneously.
@@ -1090,6 +1175,7 @@ gdk_wintab_make_event (GdkDisplay *display,
 	  GDK_WIN32_DISPLAY (display)->pointer_device_items->input_ignore_core += 1;
         }
 
+<<<<<<< HEAD
       if (source_device == NULL)
 	return NULL;
 
@@ -1102,6 +1188,8 @@ gdk_wintab_make_event (GdkDisplay *display,
           return NULL;
         }
 
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       last_grab = _gdk_display_get_last_device_grab (display, GDK_DEVICE (source_device));
 
       if (last_grab && last_grab->surface)
@@ -1170,6 +1258,37 @@ gdk_wintab_make_event (GdkDisplay *display,
           event_type = GDK_MOTION_NOTIFY;
         }
 
+<<<<<<< HEAD
+=======
+      /* Now we can check if the window wants the event, and
+       * propagate if necessary.
+       */
+      while ((gdk_window_get_device_events (window, GDK_DEVICE (source_device)) & masktest) == 0 &&
+	     (gdk_device_get_device_type (GDK_DEVICE (source_device)) == GDK_DEVICE_TYPE_SLAVE &&
+	      (gdk_window_get_events (window) & masktest) == 0))
+        {
+          GDK_NOTE (EVENTS_OR_INPUT, g_print ("... not selected\n"));
+
+          if (window->parent == gdk_get_default_root_window () || window->parent == NULL)
+            return FALSE;
+
+          impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+          pt.x = x * impl->window_scale;
+          pt.y = y * impl->window_scale;
+          ClientToScreen (GDK_WINDOW_HWND (window), &pt);
+          g_object_unref (window);
+          window = window->parent;
+          impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+          g_object_ref (window);
+          ScreenToClient (GDK_WINDOW_HWND (window), &pt);
+          x = pt.x / impl->window_scale;
+          y = pt.y / impl->window_scale;
+          GDK_NOTE (EVENTS_OR_INPUT, g_print ("... propagating to %p %+d%+d\n",
+                                              GDK_WINDOW_HWND (window), x, y));
+        }
+
+      event->any.window = window;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       key_state = get_modifier_key_state ();
       if (event_type == GDK_BUTTON_PRESS ||
           event_type == GDK_BUTTON_RELEASE)
@@ -1238,6 +1357,7 @@ gdk_wintab_make_event (GdkDisplay *display,
       return event;
 
     case WT_CSRCHANGE:
+<<<<<<< HEAD
       if (!WINTAB_API_CALL (device_manager, WTPacket) ((HCTX) msg->lParam, msg->wParam, &packet))
         return NULL;
 
@@ -1254,6 +1374,22 @@ gdk_wintab_make_event (GdkDisplay *display,
 	  _gdk_device_virtual_set_active (device_manager->core_pointer,
 					  GDK_DEVICE (source_device));
 	  GDK_WIN32_DISPLAY (display)->pointer_device_items->input_ignore_core += 1;
+=======
+      if (device_manager->dev_entered_proximity > 0)
+	device_manager->dev_entered_proximity -= 1;
+
+      if ((source_device = gdk_device_manager_find_wintab_device (device_manager,
+								  (HCTX) msg->lParam,
+								  packet.pkCursor)) == NULL)
+	return FALSE;
+
+      if (source_device->sends_core &&
+	  gdk_device_get_mode (GDK_DEVICE (source_device)) != GDK_MODE_DISABLED)
+	{
+	  _gdk_device_virtual_set_active (device_manager->core_pointer,
+					  GDK_DEVICE (source_device));
+	  _gdk_input_ignore_core += 1;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 	}
 
       return NULL;
@@ -1261,9 +1397,25 @@ gdk_wintab_make_event (GdkDisplay *display,
     case WT_PROXIMITY:
       if (LOWORD (msg->lParam) == 0)
         {
+<<<<<<< HEAD
           if (GDK_WIN32_DISPLAY (display)->pointer_device_items->input_ignore_core > 0)
             {
 	      GDK_WIN32_DISPLAY (display)->pointer_device_items->input_ignore_core -= 1;
+=======
+          if (_gdk_input_ignore_core > 0)
+            {
+	      _gdk_input_ignore_core -= 1;
+
+	      if (_gdk_input_ignore_core == 0)
+		_gdk_device_virtual_set_active (device_manager->core_pointer,
+						device_manager->system_pointer);
+	    }
+	}
+      else
+	{
+	  device_manager->dev_entered_proximity += 1;
+	}
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 	      if (GDK_WIN32_DISPLAY (display)->pointer_device_items->input_ignore_core == 0)
 		_gdk_device_virtual_set_active (device_manager->core_pointer,

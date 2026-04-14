@@ -72,11 +72,38 @@ gdk_device_wintab_query_state (GdkDevice        *device,
   GdkDeviceWintab *device_wintab;
   POINT point;
   HWND hwnd, hwndc;
+<<<<<<< HEAD
   int scale;
   GdkDisplay *display = gdk_device_get_display (device);
 
   device_wintab = GDK_DEVICE_WINTAB (device);
   if (surface)
+=======
+  GdkWindowImplWin32 *impl;
+
+  device_wintab = GDK_DEVICE_WINTAB (device);
+  screen = gdk_window_get_screen (window);
+  impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+
+  hwnd = GDK_WINDOW_HWND (window);
+  GetCursorPos (&point);
+
+  if (root_x)
+    *root_x = point.x / impl->window_scale;
+
+  if (root_y)
+    *root_y = point.y / impl->window_scale;
+
+  ScreenToClient (hwnd, &point);
+
+  if (win_x)
+    *win_x = point.x / impl->window_scale;
+
+  if (win_y)
+    *win_y = point.y / impl->window_scale;
+
+  if (window == gdk_get_default_root_window ())
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     {
       scale = GDK_WIN32_SURFACE (surface)->surface_scale;
       hwnd = GDK_SURFACE_HWND (surface);

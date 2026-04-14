@@ -350,7 +350,11 @@ gdk_x11_app_launch_context_get_startup_notify_id (GAppLaunchContext *context,
   if (timestamp == GDK_CURRENT_TIME)
     timestamp = gdk_x11_display_get_user_time (display);
 
+<<<<<<< HEAD
   screen_str = g_strdup_printf ("%d", gdk_x11_screen_get_screen_number (screen));
+=======
+  screen_str = g_strdup_printf ("%d", gdk_x11_screen_get_number (screen));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   if (ctx->workspace > -1)
     workspace_str = g_strdup_printf ("%d", ctx->workspace);
   else
