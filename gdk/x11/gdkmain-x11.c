@@ -168,10 +168,28 @@ gdk_x_io_error (Display *display)
    * We g_debug() instead of g_warning(), because g_warning()
    * could possibly be redirected to the log
    */
+<<<<<<< HEAD
   g_debug ("%s: Fatal IO error %d (%s) on X server %s.\n",
            g_get_prgname (),
            errno, g_strerror (errno),
            display ? DisplayString (display) : "");
+=======
+  if (errno == EPIPE)
+    {
+      g_message ("The application '%s' lost its connection to the display %s;\n"
+                 "most likely the X server was shut down or you killed/destroyed\n"
+                 "the application.\n",
+                 g_get_prgname (),
+                 display ? DisplayString (display) : gdk_get_display_arg_name ());
+    }
+  else
+    {
+      g_message ("%s: Fatal IO error %d (%s) on X server %s.\n",
+                 g_get_prgname (),
+                 errno, g_strerror (errno),
+                 display ? DisplayString (display) : gdk_get_display_arg_name ());
+    }
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   _exit (1);
 }
@@ -309,3 +327,76 @@ _gdk_x11_region_get_xrectangles (const cairo_region_t *region,
   *n_rects = n;
   *rects = rectangles;
 }
+<<<<<<< HEAD
+=======
+
+/**
+ * gdk_x11_grab_server:
+ * 
+ * Call gdk_x11_display_grab() on the default display. 
+ * To ungrab the server again, use gdk_x11_ungrab_server(). 
+ *
+ * gdk_x11_grab_server()/gdk_x11_ungrab_server() calls can be nested.
+ **/ 
+void
+gdk_x11_grab_server (void)
+{
+  gdk_x11_display_grab (gdk_display_get_default ());
+}
+
+/**
+ * gdk_x11_ungrab_server:
+ *
+ * Ungrab the default display after it has been grabbed with 
+ * gdk_x11_grab_server(). 
+ **/
+void
+gdk_x11_ungrab_server (void)
+{
+  gdk_x11_display_ungrab (gdk_display_get_default ());
+}
+
+/**
+ * gdk_x11_get_default_screen:
+ * 
+ * Gets the default GTK+ screen number.
+ * 
+ * Returns: returns the screen number specified by
+ *   the --display command line option or the DISPLAY environment
+ *   variable when gdk_init() calls XOpenDisplay().
+ **/
+gint
+gdk_x11_get_default_screen (void)
+{
+  return gdk_x11_screen_get_number (gdk_screen_get_default ());
+}
+
+/**
+ * gdk_x11_get_default_root_xwindow:
+ * 
+ * Gets the root window of the default screen 
+ * (see gdk_x11_get_default_screen()).  
+ * 
+ * Returns: an Xlib Window.
+ **/
+Window
+gdk_x11_get_default_root_xwindow (void)
+{
+  return GDK_SCREEN_XROOTWIN (gdk_screen_get_default ());
+}
+
+/**
+ * gdk_x11_get_default_xdisplay:
+ * 
+ * Gets the default GTK+ display.
+ * 
+ * Returns: (transfer none): the Xlib Display* for
+ * the display specified in the `--display` command
+ * line option or the `DISPLAY` environment variable.
+ **/
+Display *
+gdk_x11_get_default_xdisplay (void)
+{
+  return GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+}
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px

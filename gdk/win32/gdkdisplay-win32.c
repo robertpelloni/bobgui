@@ -18,7 +18,11 @@
 
 #include "config.h"
 
+<<<<<<< HEAD
 #define VK_USE_PLATFORM_WIN32_KHR
+=======
+#define _WIN32_WINNT 0x0600
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #include "gdk.h"
 #include "gdkprivate-win32.h"
@@ -36,6 +40,7 @@
 #include "gdkwin32.h"
 #include "gdkvulkancontext-win32.h"
 
+<<<<<<< HEAD
 #include <dwmapi.h>
 #include <shellscalingapi.h>
 
@@ -167,6 +172,13 @@ gdk_win32_display_remove_filter (GdkWin32Display           *display,
         }
     }
 }
+=======
+#ifdef GDK_WIN32_ENABLE_EGL
+# include <epoxy/egl.h>
+#endif
+
+static int debug_indent = 0;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 static GdkMonitor *
 _gdk_win32_display_find_matching_monitor (GdkWin32Display *win32_display,
@@ -322,6 +334,10 @@ gdk_win32_display_init_monitors (GdkWin32Display *win32_display)
       g_list_store_insert (G_LIST_STORE (win32_display->monitors), 0, primary_to_move);
       g_object_unref (primary_to_move);
     }
+<<<<<<< HEAD
+=======
+  return changed;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 
@@ -769,8 +785,12 @@ _gdk_win32_display_open (const char *display_name)
 
       win32_display = GDK_WIN32_DISPLAY (display);
 
+<<<<<<< HEAD
       gdk_win32_display_init_monitors (win32_display);
       _gdk_events_init (display);
+=======
+  _gdk_input_ignore_core = 0;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       win32_display->device_manager = g_object_new (GDK_TYPE_DEVICE_MANAGER_WIN32,
                                                     "display", display,
@@ -880,6 +900,313 @@ gdk_win32_display_get_name (GdkDisplay *display)
   return display_name_cache;
 }
 
+<<<<<<< HEAD
+=======
+static GdkScreen *
+gdk_win32_display_get_default_screen (GdkDisplay *display)
+{
+  g_return_val_if_fail (GDK_IS_WIN32_DISPLAY (display), NULL);
+
+  return GDK_WIN32_DISPLAY (display)->screen;
+}
+
+static GdkWindow *
+gdk_win32_display_get_default_group (GdkDisplay *display)
+{
+  g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
+
+  g_warning ("gdk_display_get_default_group not yet implemented");
+
+  return NULL;
+}
+
+static gboolean
+gdk_win32_display_supports_selection_notification (GdkDisplay *display)
+{
+  g_return_val_if_fail (GDK_IS_DISPLAY (display), FALSE);
+
+  return TRUE;
+}
+
+static HWND _hwnd_next_viewer = NULL;
+
+/*
+ * maybe this should be integrated with the default message loop - or maybe not ;-)
+ */
+static LRESULT CALLBACK
+inner_clipboard_window_procedure (HWND   hwnd,
+                                  UINT   message,
+                                  WPARAM wparam,
+                                  LPARAM lparam)
+{
+  switch (message)
+    {
+    case WM_DESTROY: /* remove us from chain */
+      {
+        ChangeClipboardChain (hwnd, _hwnd_next_viewer);
+        PostQuitMessage (0);
+        return 0;
+      }
+    case WM_CHANGECBCHAIN:
+      {
+        HWND hwndRemove = (HWND) wparam; /* handle of window being removed */
+        HWND hwndNext   = (HWND) lparam; /* handle of next window in chain */
+
+        if (hwndRemove == _hwnd_next_viewer)
+          _hwnd_next_viewer = hwndNext == hwnd ? NULL : hwndNext;
+        else if (_hwnd_next_viewer != NULL)
+          return SendMessage (_hwnd_next_viewer, message, wparam, lparam);
+
+        return 0;
+      }
+    case WM_CLIPBOARDUPDATE:
+    case WM_DRAWCLIPBOARD:
+      {
+        HWND hwnd_owner;
+        HWND stored_hwnd_owner;
+        HWND hwnd_opener;
+        GdkEvent *event;
+        GdkWindow *owner;
+        GdkWindow *stored_owner;
+        GdkWin32Selection *win32_sel = _gdk_win32_selection_get ();
+
+        hwnd_owner = GetClipboardOwner ();
+
+        if ((hwnd_owner == NULL) &&
+            (GetLastError () != ERROR_SUCCESS))
+            WIN32_API_FAILED ("GetClipboardOwner");
+
+        hwnd_opener = GetOpenClipboardWindow ();
+
+        GDK_NOTE (DND, g_print (" drawclipboard owner: %p; opener %p ", hwnd_owner, hwnd_opener));
+
+#ifdef G_ENABLE_DEBUG
+        if (_gdk_debug_flags & GDK_DEBUG_DND)
+          {
+            if (win32_sel->clipboard_opened_for != INVALID_HANDLE_VALUE ||
+                OpenClipboard (hwnd))
+              {
+                UINT nFormat = 0;
+
+                while ((nFormat = EnumClipboardFormats (nFormat)) != 0)
+                  g_print ("%s ", _gdk_win32_cf_to_string (nFormat));
+
+                if (win32_sel->clipboard_opened_for == INVALID_HANDLE_VALUE)
+                  CloseClipboard ();
+              }
+            else
+              {
+                WIN32_API_FAILED ("OpenClipboard");
+              }
+          }
+#endif
+
+        GDK_NOTE (DND, g_print (" \n"));
+
+        owner = gdk_win32_window_lookup_for_display (_gdk_display, hwnd_owner);
+        if (owner == NULL)
+          owner = gdk_win32_window_foreign_new_for_display (_gdk_display, hwnd_owner);
+
+        stored_owner = _gdk_win32_display_get_selection_owner (gdk_display_get_default (),
+                                                               GDK_SELECTION_CLIPBOARD);
+
+        if (stored_owner)
+          stored_hwnd_owner = GDK_WINDOW_HWND (stored_owner);
+        else
+          stored_hwnd_owner = NULL;
+
+        if (stored_hwnd_owner != hwnd_owner)
+          {
+            if (win32_sel->clipboard_opened_for != INVALID_HANDLE_VALUE)
+              {
+                CloseClipboard ();
+                GDK_NOTE (DND, g_print ("Closed clipboard @ %s:%d\n", __FILE__, __LINE__));
+              }
+
+            win32_sel->clipboard_opened_for = INVALID_HANDLE_VALUE;
+
+            _gdk_win32_clear_clipboard_queue ();
+          }
+
+        event = gdk_event_new (GDK_OWNER_CHANGE);
+        event->owner_change.window = gdk_get_default_root_window ();
+        event->owner_change.owner = owner;
+        event->owner_change.reason = GDK_OWNER_CHANGE_NEW_OWNER;
+        event->owner_change.selection = GDK_SELECTION_CLIPBOARD;
+        event->owner_change.time = _gdk_win32_get_next_tick (0);
+        event->owner_change.selection_time = GDK_CURRENT_TIME;
+        _gdk_win32_append_event (event);
+
+        if (_hwnd_next_viewer != NULL)
+          return SendMessage (_hwnd_next_viewer, message, wparam, lparam);
+
+        /* clear error to avoid confusing SetClipboardViewer() return */
+        SetLastError (0);
+        return 0;
+      }
+    default:
+      /* Otherwise call DefWindowProcW(). */
+      GDK_NOTE (EVENTS, g_print (" DefWindowProcW"));
+      return DefWindowProc (hwnd, message, wparam, lparam);
+    }
+}
+
+static LRESULT CALLBACK
+_clipboard_window_procedure (HWND   hwnd,
+                             UINT   message,
+                             WPARAM wparam,
+                             LPARAM lparam)
+{
+  LRESULT retval;
+
+  GDK_NOTE (EVENTS, g_print ("%s%*s%s %p",
+			     (debug_indent > 0 ? "\n" : ""),
+			     debug_indent, "",
+			     _gdk_win32_message_to_string (message), hwnd));
+  debug_indent += 2;
+  retval = inner_clipboard_window_procedure (hwnd, message, wparam, lparam);
+  debug_indent -= 2;
+
+  GDK_NOTE (EVENTS, g_print (" => %" G_GINT64_FORMAT "%s", (gint64) retval, (debug_indent == 0 ? "\n" : "")));
+
+  return retval;
+}
+
+/*
+ * Creates a hidden window and adds it to the clipboard chain
+ */
+static gboolean
+register_clipboard_notification (GdkDisplay *display)
+{
+  GdkWin32Display *display_win32 = GDK_WIN32_DISPLAY (display);
+  WNDCLASS wclass = { 0, };
+  ATOM klass;
+
+  wclass.lpszClassName = "GdkClipboardNotification";
+  wclass.lpfnWndProc = _clipboard_window_procedure;
+  wclass.hInstance = _gdk_app_hmodule;
+
+  klass = RegisterClass (&wclass);
+  if (!klass)
+    return FALSE;
+
+  display_win32->clipboard_hwnd = CreateWindow (MAKEINTRESOURCE (klass),
+                                                NULL, WS_POPUP,
+                                                0, 0, 0, 0, NULL, NULL,
+                                                _gdk_app_hmodule, NULL);
+
+  if (display_win32->clipboard_hwnd == NULL)
+    goto failed;
+
+  SetLastError (0);
+  _hwnd_next_viewer = SetClipboardViewer (display_win32->clipboard_hwnd);
+
+  if (_hwnd_next_viewer == NULL && GetLastError() != 0)
+    goto failed;
+
+  /* FIXME: http://msdn.microsoft.com/en-us/library/ms649033(v=VS.85).aspx */
+  /* This is only supported by Vista, and not yet by mingw64 */
+  /* if (AddClipboardFormatListener (hwnd) == FALSE) */
+  /*   goto failed; */
+
+  return TRUE;
+
+failed:
+  g_critical ("Failed to install clipboard viewer");
+  UnregisterClass (MAKEINTRESOURCE (klass), _gdk_app_hmodule);
+  return FALSE;
+}
+
+static gboolean
+gdk_win32_display_request_selection_notification (GdkDisplay *display,
+                                                  GdkAtom     selection)
+
+{
+  GdkWin32Display *display_win32 = GDK_WIN32_DISPLAY (display);
+  gboolean ret = FALSE;
+  gchar *selection_name = gdk_atom_name (selection);
+
+  GDK_NOTE (DND,
+            g_print ("gdk_display_request_selection_notification (..., %s)",
+                     selection_name));
+
+  if (selection == GDK_SELECTION_CLIPBOARD ||
+      selection == GDK_SELECTION_PRIMARY)
+    {
+      if (display_win32->clipboard_hwnd == NULL)
+        {
+          if (register_clipboard_notification (display))
+            GDK_NOTE (DND, g_print (" registered"));
+          else
+            GDK_NOTE (DND, g_print (" failed to register"));
+        }
+      ret = (display_win32->clipboard_hwnd != NULL);
+    }
+  else
+    {
+      GDK_NOTE (DND, g_print (" unsupported"));
+      ret = FALSE;
+    }
+
+  g_free (selection_name);
+
+  GDK_NOTE (DND, g_print (" -> %s\n", ret ? "TRUE" : "FALSE"));
+  return ret;
+}
+
+static gboolean
+gdk_win32_display_supports_clipboard_persistence (GdkDisplay *display)
+{
+  return TRUE;
+}
+
+static void
+gdk_win32_display_store_clipboard (GdkDisplay    *display,
+                                   GdkWindow     *clipboard_window,
+                                   guint32        time_,
+                                   const GdkAtom *targets,
+                                   gint           n_targets)
+{
+  GdkEvent tmp_event;
+  SendMessage (GDK_WINDOW_HWND (clipboard_window), WM_RENDERALLFORMATS, 0, 0);
+
+  memset (&tmp_event, 0, sizeof (tmp_event));
+  tmp_event.selection.type = GDK_SELECTION_NOTIFY;
+  tmp_event.selection.window = clipboard_window;
+  tmp_event.selection.send_event = FALSE;
+  tmp_event.selection.selection = _gdk_win32_selection_atom (GDK_WIN32_ATOM_INDEX_CLIPBOARD_MANAGER);
+  tmp_event.selection.target = 0;
+  tmp_event.selection.property = GDK_NONE;
+  tmp_event.selection.requestor = 0;
+  tmp_event.selection.time = GDK_CURRENT_TIME;
+
+  gdk_event_put (&tmp_event);
+}
+
+static gboolean
+gdk_win32_display_supports_shapes (GdkDisplay *display)
+{
+  g_return_val_if_fail (GDK_IS_DISPLAY (display), FALSE);
+
+  return TRUE;
+}
+
+static gboolean
+gdk_win32_display_supports_input_shapes (GdkDisplay *display)
+{
+  g_return_val_if_fail (GDK_IS_DISPLAY (display), FALSE);
+
+  /* Partially supported, see WM_NCHITTEST handler. */
+  return TRUE;
+}
+
+static gboolean
+gdk_win32_display_supports_composite (GdkDisplay *display)
+{
+  return FALSE;
+}
+
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 static void
 gdk_win32_display_beep (GdkDisplay *display)
 {
@@ -901,7 +1228,21 @@ gdk_win32_display_dispose (GObject *object)
 {
   GdkWin32Display *self = GDK_WIN32_DISPLAY (object);
 
+<<<<<<< HEAD
   if (self->hwnd != NULL)
+=======
+  _gdk_screen_close (display_win32->screen);
+
+#ifdef GDK_WIN32_ENABLE_EGL
+  if (display_win32->egl_disp != EGL_NO_DISPLAY)
+    {
+      eglTerminate (display_win32->egl_disp);
+      display_win32->egl_disp = EGL_NO_DISPLAY;
+    }
+#endif
+
+  if (display_win32->hwnd != NULL)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     {
       DestroyWindow (self->hwnd);
       self->hwnd = NULL;
@@ -909,6 +1250,15 @@ gdk_win32_display_dispose (GObject *object)
 
   gdk_win32_com_clear (&self->d3d12_device);
   gdk_win32_com_clear (&self->dxgi_factory);
+
+  if (display_win32->have_at_least_win81)
+    {
+      if (display_win32->shcore_funcs.hshcore != NULL)
+        {
+          FreeLibrary (display_win32->shcore_funcs.hshcore);
+          display_win32->shcore_funcs.hshcore = NULL;
+        }
+    }
 
   G_OBJECT_CLASS (gdk_win32_display_parent_class)->dispose (object);
 }
@@ -946,6 +1296,7 @@ gdk_win32_display_finalize (GObject *object)
 
 static void
 _gdk_win32_enable_hidpi (GdkWin32Display *display)
+<<<<<<< HEAD
 {
   gboolean check_for_dpi_awareness = FALSE;
   gboolean have_hpi_disable_envvar = FALSE;
@@ -1189,6 +1540,210 @@ gdk_handle_equal (HANDLE *a,
                   HANDLE *b)
 {
   return (*a == *b);
+=======
+{
+  gboolean check_for_dpi_awareness = FALSE;
+  gboolean have_hpi_disable_envvar = FALSE;
+
+  enum dpi_aware_status {
+    DPI_STATUS_PENDING,
+    DPI_STATUS_SUCCESS,
+    DPI_STATUS_DISABLED,
+    DPI_STATUS_FAILED
+  } status = DPI_STATUS_PENDING;
+
+  if (g_win32_check_windows_version (6, 3, 0, G_WIN32_OS_ANY))
+    {
+      /* If we are on Windows 8.1 or later, cache up functions from shcore.dll, by all means */
+      display->have_at_least_win81 = TRUE;
+      display->shcore_funcs.hshcore = LoadLibraryW (L"shcore.dll");
+
+      if (display->shcore_funcs.hshcore != NULL)
+        {
+          display->shcore_funcs.setDpiAwareFunc =
+            (funcSetProcessDpiAwareness) GetProcAddress (display->shcore_funcs.hshcore,
+                                                         "SetProcessDpiAwareness");
+          display->shcore_funcs.getDpiAwareFunc =
+            (funcGetProcessDpiAwareness) GetProcAddress (display->shcore_funcs.hshcore,
+                                                         "GetProcessDpiAwareness");
+
+          display->shcore_funcs.getDpiForMonitorFunc =
+            (funcGetDpiForMonitor) GetProcAddress (display->shcore_funcs.hshcore,
+                                                   "GetDpiForMonitor");
+        }
+    }
+  else
+    {
+      /* Windows Vista through 8: use functions from user32.dll directly */
+      HMODULE user32;
+
+      display->have_at_least_win81 = FALSE;
+      user32 = GetModuleHandleW (L"user32.dll");
+
+      if (user32 != NULL)
+        {
+          display->user32_dpi_funcs.setDpiAwareFunc =
+            (funcSetProcessDPIAware) GetProcAddress (user32, "SetProcessDPIAware");
+          display->user32_dpi_funcs.isDpiAwareFunc =
+            (funcIsProcessDPIAware) GetProcAddress (user32, "IsProcessDPIAware");
+        }
+    }
+
+  if (g_getenv ("GDK_WIN32_DISABLE_HIDPI") == NULL)
+    {
+      /* For Windows 8.1 and later, use SetProcessDPIAwareness() */
+      if (display->have_at_least_win81)
+        {
+          /* then make the GDK-using app DPI-aware */
+          if (display->shcore_funcs.setDpiAwareFunc != NULL)
+            {
+              switch (display->shcore_funcs.setDpiAwareFunc (PROCESS_SYSTEM_DPI_AWARE))
+                {
+                  case S_OK:
+                    display->dpi_aware_type = PROCESS_SYSTEM_DPI_AWARE;
+                    status = DPI_STATUS_SUCCESS;
+                    break;
+                  case E_ACCESSDENIED:
+                    /* This means the app used a manifest to set DPI awareness, or a
+                       DPI compatibility setting is used.
+                       The manifest is the trump card in this game of bridge here.  The
+                       same applies if one uses the control panel or program properties to
+                       force system DPI awareness */
+                    check_for_dpi_awareness = TRUE;
+                    break;
+                  default:
+                    display->dpi_aware_type = PROCESS_DPI_UNAWARE;
+                    status = DPI_STATUS_FAILED;
+                    break;
+                }
+            }
+          else
+            {
+              check_for_dpi_awareness = TRUE;
+            }
+        }
+      else
+        {
+          /* For Windows Vista through 8, use SetProcessDPIAware() */
+          display->have_at_least_win81 = FALSE;
+          if (display->user32_dpi_funcs.setDpiAwareFunc != NULL)
+            {
+              if (display->user32_dpi_funcs.setDpiAwareFunc () != 0)
+                {
+                  display->dpi_aware_type = PROCESS_SYSTEM_DPI_AWARE;
+                  status = DPI_STATUS_SUCCESS;
+                }
+              else
+                {
+                  check_for_dpi_awareness = TRUE;
+                }
+            }
+          else
+            {
+              display->dpi_aware_type = PROCESS_DPI_UNAWARE;
+              status = DPI_STATUS_FAILED;
+            }
+        }
+    }
+  else
+    {
+      /* if GDK_WIN32_DISABLE_HIDPI is set, check for any DPI
+       * awareness settings done via manifests or user settings
+       */
+      check_for_dpi_awareness = TRUE;
+      have_hpi_disable_envvar = TRUE;
+    }
+
+  if (check_for_dpi_awareness)
+    {
+      if (display->have_at_least_win81)
+        {
+          if (display->shcore_funcs.getDpiAwareFunc != NULL)
+            {
+              display->shcore_funcs.getDpiAwareFunc (NULL, &display->dpi_aware_type);
+
+              if (display->dpi_aware_type != PROCESS_DPI_UNAWARE)
+                status = DPI_STATUS_SUCCESS;
+              else
+                /* This means the DPI awareness setting was forcefully disabled */
+                status = DPI_STATUS_DISABLED;
+            }
+          else
+            {
+              display->dpi_aware_type = PROCESS_DPI_UNAWARE;
+              status = DPI_STATUS_FAILED;
+            }
+        }
+      else
+        {
+          if (display->user32_dpi_funcs.isDpiAwareFunc != NULL)
+            {
+              /* This most probably means DPI awareness is set through
+                 the manifest, or a DPI compatibility setting is used. */
+              display->dpi_aware_type = display->user32_dpi_funcs.isDpiAwareFunc () ?
+                                        PROCESS_SYSTEM_DPI_AWARE :
+                                        PROCESS_DPI_UNAWARE;
+
+              if (display->dpi_aware_type == PROCESS_SYSTEM_DPI_AWARE)
+                status = DPI_STATUS_SUCCESS;
+              else
+                status = DPI_STATUS_DISABLED;
+            }
+          else
+            {
+              display->dpi_aware_type = PROCESS_DPI_UNAWARE;
+              status = DPI_STATUS_FAILED;
+            }
+        }
+      if (have_hpi_disable_envvar &&
+          status == DPI_STATUS_SUCCESS)
+        {
+          /* The user setting or application manifest trumps over GDK_WIN32_DISABLE_HIDPI */
+          g_print ("Note: GDK_WIN32_DISABLE_HIDPI is ignored due to preset\n"
+                   "      DPI awareness settings in user settings or application\n"
+                   "      manifest, DPI awareness is still enabled.");
+        }
+    }
+
+  switch (status)
+    {
+    case DPI_STATUS_SUCCESS:
+      GDK_NOTE (MISC, g_message ("HiDPI support enabled, type: %s",
+                                 display->dpi_aware_type == PROCESS_PER_MONITOR_DPI_AWARE ? "per-monitor" : "system"));
+      break;
+    case DPI_STATUS_DISABLED:
+      GDK_NOTE (MISC, g_message ("HiDPI support disabled via manifest"));
+      break;
+    case DPI_STATUS_FAILED:
+      g_warning ("Failed to enable HiDPI support.");
+    }
+}
+
+static void
+gdk_win32_display_init (GdkWin32Display *display)
+{
+  const gchar *scale_str = g_getenv ("GDK_SCALE");
+
+  display->monitors = g_ptr_array_new_with_free_func (g_object_unref);
+
+  _gdk_win32_enable_hidpi (display);
+
+  /* if we have DPI awareness, set up fixed scale if set */
+  if (display->dpi_aware_type != PROCESS_DPI_UNAWARE &&
+      scale_str != NULL)
+    {
+      display->window_scale = atol (scale_str);
+
+      if (display->window_scale == 0)
+        display->window_scale = 1;
+
+      display->has_fixed_scale = TRUE;
+    }
+  else
+    display->window_scale = 1;
+
+  _gdk_win32_display_init_cursors (display);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 static void
@@ -1221,7 +1776,45 @@ gdk_win32_display_notify_startup_complete (GdkDisplay  *display,
   /* nothing */
 }
 
+<<<<<<< HEAD
 GdkMonitor *
+=======
+static void
+gdk_win32_display_push_error_trap (GdkDisplay *display)
+{
+  /* nothing */
+}
+
+static gint
+gdk_win32_display_pop_error_trap (GdkDisplay *display,
+				  gboolean    ignored)
+{
+  return 0;
+}
+
+static int
+gdk_win32_display_get_n_monitors (GdkDisplay *display)
+{
+  GdkWin32Display *win32_display = GDK_WIN32_DISPLAY (display);
+
+  return win32_display->monitors->len;
+}
+
+
+static GdkMonitor *
+gdk_win32_display_get_monitor (GdkDisplay *display,
+                               int         monitor_num)
+{
+  GdkWin32Display *win32_display = GDK_WIN32_DISPLAY (display);
+
+  if (monitor_num < 0 || monitor_num >= win32_display->monitors->len)
+    return NULL;
+
+  return (GdkMonitor *) g_ptr_array_index (win32_display->monitors, monitor_num);
+}
+
+static GdkMonitor *
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 gdk_win32_display_get_primary_monitor (GdkDisplay *display)
 {
   GdkWin32Display *self = GDK_WIN32_DISPLAY (display);
@@ -1360,6 +1953,7 @@ gdk_win32_display_init_gl (GdkDisplay  *display,
   return NULL;
 }
 
+<<<<<<< HEAD
 /**
  * gdk_win32_display_get_egl_display:
  * @display: (type GdkWin32Display): a Win32 display
@@ -1392,6 +1986,89 @@ _gdk_win32_display_get_keymap (GdkDisplay *display)
   g_return_val_if_fail (display == gdk_display_get_default (), NULL);
 
   return gdk_win32_display_get_default_keymap (GDK_WIN32_DISPLAY (display));
+=======
+guint
+_gdk_win32_display_get_monitor_scale_factor (GdkWin32Display *win32_display,
+                                             HMONITOR         hmonitor,
+                                             HWND             hwnd,
+                                             gint            *dpi)
+{
+  gboolean is_scale_acquired = FALSE;
+  gboolean use_dpi_for_monitor = FALSE;
+  guint dpix, dpiy;
+
+  if (win32_display->have_at_least_win81)
+    {
+      if (hmonitor != NULL)
+        use_dpi_for_monitor = TRUE;
+
+      else
+        {
+          if (hwnd != NULL)
+            {
+              hmonitor = MonitorFromWindow (hwnd, MONITOR_DEFAULTTONEAREST);
+              use_dpi_for_monitor = TRUE;
+            }
+        }
+    }
+
+  if (use_dpi_for_monitor)
+    {
+      /* Use GetDpiForMonitor() for Windows 8.1+, when we have a HMONITOR */
+      if (win32_display->shcore_funcs.hshcore != NULL &&
+          win32_display->shcore_funcs.getDpiForMonitorFunc != NULL)
+        {
+          if (win32_display->shcore_funcs.getDpiForMonitorFunc (hmonitor,
+                                                                MDT_EFFECTIVE_DPI,
+                                                                &dpix,
+                                                                &dpiy) == S_OK)
+            {
+              is_scale_acquired = TRUE;
+            }
+        }
+    }
+  else
+    {
+      /* Go back to GetDeviceCaps() for Windows 8 and earler, or when we don't
+       * have a HMONITOR nor a HWND
+       */
+      HDC hdc = GetDC (hwnd);
+
+      /* in case we can't get the DC for the window, return 1 for the scale */
+      if (hdc == NULL)
+        {
+          if (dpi != NULL)
+            *dpi = USER_DEFAULT_SCREEN_DPI;
+
+          return 1;
+        }
+
+      dpix = GetDeviceCaps (hdc, LOGPIXELSX);
+      dpiy = GetDeviceCaps (hdc, LOGPIXELSY);
+      ReleaseDC (hwnd, hdc);
+
+      is_scale_acquired = TRUE;
+    }
+
+  if (is_scale_acquired)
+    /* USER_DEFAULT_SCREEN_DPI = 96, in winuser.h */
+    {
+      if (dpi != NULL)
+        *dpi = dpix;
+
+      if (win32_display->has_fixed_scale)
+        return win32_display->window_scale;
+      else
+        return dpix / USER_DEFAULT_SCREEN_DPI > 1 ? dpix / USER_DEFAULT_SCREEN_DPI : 1;
+    }
+  else
+    {
+      if (dpi != NULL)
+        *dpi = USER_DEFAULT_SCREEN_DPI;
+
+      return 1;
+  }
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 static void

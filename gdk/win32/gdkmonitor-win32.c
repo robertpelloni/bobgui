@@ -562,9 +562,13 @@ enum_monitor (HMONITOR hmonitor,
           GdkWin32Monitor *w32mon;
           GdkMonitor *mon;
           GdkRectangle rect;
+<<<<<<< HEAD
           HMONITOR scale_hmonitor;
           POINT pt;
           int scale;
+=======
+          guint scale;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
           memset (&dd_monitor, 0, sizeof (dd_monitor));
           dd_monitor.cb = sizeof (dd_monitor);
@@ -663,6 +667,7 @@ enum_monitor (HMONITOR hmonitor,
           /* This is temporary, scale will be applied below */
           w32mon->work_rect = rect;
 
+<<<<<<< HEAD
           /* First acquire the scale using the current screen */
           scale = gdk_win32_display_get_monitor_scale_factor (data->display, NULL, NULL);
 
@@ -671,6 +676,30 @@ enum_monitor (HMONITOR hmonitor,
           pt.y = w32mon->work_rect.y + w32mon->work_rect.height / 2;
           scale_hmonitor = MonitorFromPoint (pt, MONITOR_DEFAULTTONEAREST);
           scale = gdk_win32_display_get_monitor_scale_factor (data->display, NULL, scale_hmonitor);
+=======
+          if (data->display->has_fixed_scale)
+            scale = data->display->window_scale;
+          else
+            {
+              /* First acquire the scale using the current screen */
+              scale = _gdk_win32_display_get_monitor_scale_factor (data->display, NULL, NULL, NULL);
+
+              /* acquire the scale using the monitor which the window is nearest on Windows 8.1+ */
+              if (data->display->have_at_least_win81)
+                {
+                  HMONITOR hmonitor;
+                  POINT pt;
+
+                  /* Not subtracting _gdk_offset_x and _gdk_offset_y because they will only
+                   * be added later on, in _gdk_win32_display_get_monitor_list().
+                   */
+                  pt.x = w32mon->work_rect.x + w32mon->work_rect.width / 2;
+                  pt.y = w32mon->work_rect.y + w32mon->work_rect.height / 2;
+                  hmonitor = MonitorFromPoint (pt, MONITOR_DEFAULTTONEAREST);
+                  scale = _gdk_win32_display_get_monitor_scale_factor (data->display, hmonitor, NULL, NULL);
+                }
+            }
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
           gdk_monitor_set_scale_factor (mon, scale);
           /* Now apply the scale to the work rectangle */
@@ -683,7 +712,12 @@ enum_monitor (HMONITOR hmonitor,
           rect.y = monitor_info.rcMonitor.top / scale;
           rect.width = (monitor_info.rcMonitor.right - monitor_info.rcMonitor.left) / scale;
           rect.height = (monitor_info.rcMonitor.bottom - monitor_info.rcMonitor.top) / scale;
+<<<<<<< HEAD
           gdk_monitor_set_geometry (mon, &rect);
+=======
+          gdk_monitor_set_position (mon, rect.x, rect.y);
+          gdk_monitor_set_size (mon, rect.width, rect.height);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
           if (monitor_info.dwFlags & MONITORINFOF_PRIMARY && i != 0)
             {
@@ -715,7 +749,11 @@ enum_monitor (HMONITOR hmonitor,
 static void
 prune_monitors (EnumMonitorData *data)
 {
+<<<<<<< HEAD
   int i;
+=======
+  gint i;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   for (i = 0; i < data->monitors->len; i++)
     {
@@ -749,6 +787,8 @@ _gdk_win32_display_get_monitor_list (GdkWin32Display *win32_display)
   EnumDisplayMonitors (NULL, NULL, enum_monitor, (LPARAM) &data);
 
   prune_monitors (&data);
+<<<<<<< HEAD
+=======
 
   if (data.monitors->len == 0 && data.have_monitor_devices)
     {
@@ -758,6 +798,55 @@ _gdk_win32_display_get_monitor_list (GdkWin32Display *win32_display)
       data.have_monitor_devices = FALSE;
       EnumDisplayMonitors (NULL, NULL, enum_monitor, (LPARAM) &data);
       prune_monitors (&data);
+    }
+
+  _gdk_offset_x = G_MININT;
+  _gdk_offset_y = G_MININT;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+
+  if (data.monitors->len == 0 && data.have_monitor_devices)
+    {
+<<<<<<< HEAD
+      /* We thought we had monitors, but enumeration eventually failed, and
+       * we have none. Try again, this time making stuff up as we go.
+       */
+      data.have_monitor_devices = FALSE;
+      EnumDisplayMonitors (NULL, NULL, enum_monitor, (LPARAM) &data);
+      prune_monitors (&data);
+=======
+      GdkWin32Monitor *m;
+      GdkRectangle rect;
+
+      m = g_ptr_array_index (data.monitors, i);
+
+      /* Calculate offset */
+      gdk_monitor_get_geometry (GDK_MONITOR (m), &rect);
+      _gdk_offset_x = MAX (_gdk_offset_x, -rect.x);
+      _gdk_offset_y = MAX (_gdk_offset_y, -rect.y);
+    }
+
+  GDK_NOTE (MISC, g_print ("Multi-monitor offset: (%d,%d)\n",
+                           _gdk_offset_x, _gdk_offset_y));
+
+  /* Translate monitor coords into GDK coordinate space */
+  for (i = 0; i < data.monitors->len; i++)
+    {
+      GdkWin32Monitor *m;
+      GdkRectangle rect;
+
+      m = g_ptr_array_index (data.monitors, i);
+
+      gdk_monitor_get_geometry (GDK_MONITOR (m), &rect);
+      rect.x += _gdk_offset_x;
+      rect.y += _gdk_offset_y;
+      gdk_monitor_set_position (GDK_MONITOR (m), rect.x, rect.y);
+
+      m->work_rect.x += _gdk_offset_x;
+      m->work_rect.y += _gdk_offset_y;
+
+      GDK_NOTE (MISC, g_print ("Monitor %d: %dx%d@%+d%+d\n", i,
+                               rect.width, rect.height, rect.x, rect.y));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   return data.monitors;

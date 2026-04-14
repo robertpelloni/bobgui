@@ -115,7 +115,11 @@ gdk_seat_default_grab (GdkSeat                *seat,
   gboolean was_visible;
 
   priv = gdk_seat_default_get_instance_private (GDK_SEAT_DEFAULT (seat));
+<<<<<<< HEAD
   was_visible = gdk_surface_get_mapped (surface);
+=======
+  was_visible = gdk_window_is_visible (window);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   if (prepare_func)
     (prepare_func) (seat, surface, prepare_func_data);
@@ -144,8 +148,13 @@ gdk_seat_default_grab (GdkSeat                *seat,
       if (capabilities & GDK_SEAT_CAPABILITY_TOUCH)
         pointer_evmask |= TOUCH_EVENTS;
 
+<<<<<<< HEAD
       status = gdk_device_grab (priv->logical_pointer, surface,
                                 owner_events,
+=======
+      status = gdk_device_grab (priv->master_pointer, window,
+                                GDK_OWNERSHIP_NONE, owner_events,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                                 pointer_evmask, cursor,
                                 evtime);
     }
@@ -161,12 +170,20 @@ gdk_seat_default_grab (GdkSeat                *seat,
       if (status != GDK_GRAB_SUCCESS)
         {
           if (capabilities & ~GDK_SEAT_CAPABILITY_KEYBOARD)
+<<<<<<< HEAD
             gdk_device_ungrab (priv->logical_pointer, evtime);
+=======
+            gdk_device_ungrab (priv->master_pointer, evtime);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
         }
     }
 
   if (status != GDK_GRAB_SUCCESS && !was_visible)
+<<<<<<< HEAD
     gdk_surface_hide (surface);
+=======
+    gdk_window_hide (window);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   G_GNUC_END_IGNORE_DEPRECATIONS;
 

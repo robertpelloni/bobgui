@@ -288,6 +288,7 @@ bobgui_text_mark_get_visible (BobguiTextMark *mark)
 }
 
 /**
+<<<<<<< HEAD:bobgui/bobguitextmark.c
  * bobgui_text_mark_get_name:
  * @mark: a `BobguiTextMark`
  *
@@ -297,6 +298,15 @@ bobgui_text_mark_get_visible (BobguiTextMark *mark)
  *
  * Returns: (nullable): mark name
  */
+=======
+ * gtk_text_mark_get_name:
+ * @mark: a #GtkTextMark
+ * 
+ * Returns the mark name; returns NULL for anonymous marks.
+ * 
+ * Returns: (nullable): mark name
+ **/
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtktextmark.c
 const char *
 bobgui_text_mark_get_name (BobguiTextMark *mark)
 {

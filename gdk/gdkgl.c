@@ -22,6 +22,10 @@
 #include "gdkglcontextprivate.h"
 #include "gdksurfaceprivate.h"
 
+#ifdef GDK_WINDOWING_WIN32
+# include "win32/gdkwin32.h"
+#endif
+
 #include <epoxy/gl.h>
 #include <math.h>
 #include <string.h>
@@ -126,7 +130,26 @@ gdk_cairo_draw_from_gl (cairo_t    *cr,
 
   glBindFramebuffer (GL_FRAMEBUFFER, framebuffer);
 
+<<<<<<< HEAD
   if (source_type == GL_RENDERBUFFER)
+=======
+  /* Trivial == integer-only translation */
+  trivial_transform =
+    (double)dx == matrix.x0 && (double)dy == matrix.y0 &&
+    matrix.xx == 1.0 && matrix.xy == 0.0 &&
+    matrix.yx == 0.0 && matrix.yy == 1.0;
+
+  /* For direct paint of non-alpha renderbuffer, we can
+     just do a bitblit */
+  if ((_gdk_gl_flags & GDK_GL_SOFTWARE_DRAW_GL) == 0 &&
+      source_type == GL_RENDERBUFFER &&
+      alpha_size == 0 &&
+      direct_window != NULL &&
+      direct_window->current_paint.use_gl &&
+      gdk_gl_context_has_framebuffer_blit (paint_context) &&
+      trivial_transform &&
+      clip_region != NULL)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     {
       /* Create a framebuffer with the source renderbuffer and
          make it the current target for reads */
@@ -135,8 +158,80 @@ gdk_cairo_draw_from_gl (cairo_t    *cr,
     }
   else
     {
+<<<<<<< HEAD
       glFramebufferTexture2D (GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                               GL_TEXTURE_2D, source, 0);
+=======
+      /* Software fallback */
+      int major, minor, version;
+      gboolean es_read_bgra = FALSE;
+
+#ifdef GDK_WINDOWING_WIN32
+      /* on ANGLE GLES, we need to set the glReadPixel() format as GL_BGRA instead */
+      if (GDK_WIN32_IS_GL_CONTEXT(paint_context))
+        es_read_bgra = TRUE;
+#endif
+
+      gdk_gl_context_get_version (paint_context, &major, &minor);
+      version = major * 100 + minor;
+
+      /* TODO: Use glTexSubImage2D() and do a row-by-row copy to replace
+       * the GL_UNPACK_ROW_LENGTH support
+       */
+      if (gdk_gl_context_get_use_es (paint_context) &&
+          !(version >= 300 || gdk_gl_context_has_unpack_subimage (paint_context)))
+        goto out;
+
+      /* TODO: avoid reading back non-required data due to dest clip */
+      image = cairo_surface_create_similar_image (cairo_get_target (cr),
+                                                  (alpha_size == 0) ? CAIRO_FORMAT_RGB24 : CAIRO_FORMAT_ARGB32,
+                                                  width, height);
+
+      cairo_surface_set_device_scale (image, buffer_scale, buffer_scale);
+
+      framebuffer = paint_data->tmp_framebuffer;
+      glBindFramebufferEXT (GL_FRAMEBUFFER_EXT, framebuffer);
+
+      if (source_type == GL_RENDERBUFFER)
+        {
+          /* Create a framebuffer with the source renderbuffer and
+             make it the current target for reads */
+          glFramebufferRenderbufferEXT (GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
+                                        GL_RENDERBUFFER_EXT, source);
+        }
+      else
+        {
+          glFramebufferTexture2DEXT (GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
+                                     GL_TEXTURE_2D, source, 0);
+        }
+
+      glPixelStorei (GL_PACK_ALIGNMENT, 4);
+      glPixelStorei (GL_PACK_ROW_LENGTH, cairo_image_surface_get_stride (image) / 4);
+
+      /* The implicit format conversion is going to make this path slower */
+      if (!gdk_gl_context_get_use_es (paint_context))
+        glReadPixels (x, y, width, height, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,
+                      cairo_image_surface_get_data (image));
+      else
+        glReadPixels (x, y, width, height, es_read_bgra ? GL_BGRA : GL_RGBA, GL_UNSIGNED_BYTE,
+                      cairo_image_surface_get_data (image));
+
+      glPixelStorei (GL_PACK_ROW_LENGTH, 0);
+
+      glBindFramebufferEXT (GL_FRAMEBUFFER_EXT, 0);
+
+      cairo_surface_mark_dirty (image);
+
+      /* Invert due to opengl having different origin */
+      cairo_scale (cr, 1, -1);
+      cairo_translate (cr, 0, -height / buffer_scale);
+
+      cairo_set_source_surface (cr, image, 0, 0);
+      cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
+      cairo_paint (cr);
+
+      cairo_surface_destroy (image);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   glPixelStorei (GL_PACK_ALIGNMENT, 4);

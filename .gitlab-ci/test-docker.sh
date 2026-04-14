@@ -2,12 +2,16 @@
 
 set -e
 
+<<<<<<< HEAD
 srcdir=$(pwd)
 
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 mkdir -p _ccache
 export CCACHE_BASEDIR="$(pwd)"
 export CCACHE_DIR="${CCACHE_BASEDIR}/_ccache"
 
+<<<<<<< HEAD
 ccache --zero-stats
 ccache --show-stats
 export CCACHE_DISABLE=true
@@ -54,3 +58,7 @@ $srcdir/.gitlab-ci/meson-html-report.py \
         meson-logs/testlog.json
 
 exit $exit_code
+=======
+./autogen.sh
+make -j8
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px

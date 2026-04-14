@@ -195,6 +195,7 @@ static void     bobgui_recent_manager_monitor_changed     (GFileMonitor      *mo
                                                         GFile             *other_file,
                                                         GFileMonitorEvent  event_type,
                                                         gpointer           user_data);
+<<<<<<< HEAD:bobgui/bobguirecentmanager.c
 static void     bobgui_recent_manager_changed             (BobguiRecentManager  *manager);
 static void     bobgui_recent_manager_real_changed        (BobguiRecentManager  *manager);
 static void     bobgui_recent_manager_set_filename        (BobguiRecentManager  *manager,
@@ -205,6 +206,18 @@ static void     bobgui_recent_manager_clamp_to_size       (BobguiRecentManager  
                                                         const int          size);
 
 static void     bobgui_recent_manager_enabled_changed     (BobguiRecentManager  *manager);
+=======
+static void     gtk_recent_manager_changed             (GtkRecentManager  *manager);
+static void     gtk_recent_manager_real_changed        (GtkRecentManager  *manager);
+static void     gtk_recent_manager_set_filename        (GtkRecentManager  *manager,
+                                                        const gchar       *filename);
+static void     gtk_recent_manager_clamp_to_age        (GtkRecentManager  *manager,
+                                                        gint               age);
+static void     gtk_recent_manager_clamp_to_size       (GtkRecentManager  *manager,
+                                                        const gint         size);
+
+static void     gtk_recent_manager_enabled_changed     (GtkRecentManager  *manager);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkrecentmanager.c
 
 
 static void     build_recent_items_list                (BobguiRecentManager  *manager);
@@ -447,9 +460,15 @@ bobgui_recent_manager_real_changed (BobguiRecentManager *manager)
         }
       else
         {
+<<<<<<< HEAD:bobgui/bobguirecentmanager.c
           BobguiSettings *settings;
           int age;
           int max_size = MAX_LIST_SIZE;
+=======
+          GtkSettings *settings;
+          gint age;
+          gint max_size = MAX_LIST_SIZE;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkrecentmanager.c
           gboolean enabled;
 
           settings = bobgui_settings_get_default ();
@@ -473,9 +492,15 @@ bobgui_recent_manager_real_changed (BobguiRecentManager *manager)
           else
             {
               if (age > 0)
+<<<<<<< HEAD:bobgui/bobguirecentmanager.c
                 bobgui_recent_manager_clamp_to_age (manager, age);
               if (max_size > 0)
                 bobgui_recent_manager_clamp_to_size (manager, max_size);
+=======
+                gtk_recent_manager_clamp_to_age (manager, age);
+              if (max_size > 0)
+                gtk_recent_manager_clamp_to_size (manager, max_size);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkrecentmanager.c
             }
         }
 
@@ -762,7 +787,11 @@ bobgui_recent_manager_add_item_query_info (GObject      *source_object,
   BobguiRecentManager *manager = user_data;
   BobguiRecentData recent_data;
   GFileInfo *file_info;
+<<<<<<< HEAD:bobgui/bobguirecentmanager.c
   char *uri, *basename, *content_type;
+=======
+  gchar *uri, *basename, *content_type;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkrecentmanager.c
 
   uri = g_file_get_uri (file);
 
@@ -1463,6 +1492,34 @@ bobgui_recent_manager_clamp_to_size (BobguiRecentManager *manager,
   for (i = 0; i < n_uris - size; i++)
     {
       const char *uri = uris[i];
+      g_bookmark_file_remove_item (priv->recent_items, uri, NULL);
+    }
+
+  g_strfreev (uris);
+}
+
+static void
+gtk_recent_manager_clamp_to_size (GtkRecentManager *manager,
+                                  const gint        size)
+{
+  GtkRecentManagerPrivate *priv = manager->priv;
+  gchar **uris;
+  gsize n_uris, i;
+
+  if (G_UNLIKELY (!priv->recent_items) || G_UNLIKELY (size < 0))
+    return;
+
+  uris = g_bookmark_file_get_uris (priv->recent_items, &n_uris);
+
+  if (n_uris < size)
+  {
+    g_strfreev (uris);
+    return;
+  }
+
+  for (i = 0; i < n_uris - size; i++)
+    {
+      const gchar *uri = uris[i];
       g_bookmark_file_remove_item (priv->recent_items, uri, NULL);
     }
 

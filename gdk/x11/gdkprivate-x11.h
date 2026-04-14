@@ -250,10 +250,17 @@ extern const int         _gdk_x11_event_mask_table_size;
 
 #define GDK_SCREEN_DISPLAY(screen)    (GDK_X11_SCREEN (screen)->display)
 #define GDK_SCREEN_XROOTWIN(screen)   (GDK_X11_SCREEN (screen)->xroot_window)
+<<<<<<< HEAD
 #define GDK_DISPLAY_XROOTWIN(display) (GDK_SCREEN_XROOTWIN (GDK_X11_DISPLAY (display)->screen))
 #define GDK_SURFACE_SCREEN(win)        (GDK_X11_DISPLAY (gdk_surface_get_display (win))->screen)
 #define GDK_SURFACE_DISPLAY(win)       (gdk_surface_get_display (win))
 #define GDK_SURFACE_XROOTWIN(win)      (GDK_X11_SCREEN (GDK_SURFACE_SCREEN (win))->xroot_window)
+=======
+#define GDK_WINDOW_SCREEN(win)        (gdk_window_get_screen (win))
+#define GDK_WINDOW_DISPLAY(win)       (GDK_X11_SCREEN (GDK_WINDOW_SCREEN (win))->display)
+#define GDK_WINDOW_XROOTWIN(win)      (GDK_X11_SCREEN (GDK_WINDOW_SCREEN (win))->xroot_window)
+#define GDK_WINDOW_IS_X11(win)        (GDK_IS_WINDOW_IMPL_X11 ((win)->impl))
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 /* override some macros from gdkx.h with direct-access variants */
 #undef GDK_DISPLAY_XDISPLAY
