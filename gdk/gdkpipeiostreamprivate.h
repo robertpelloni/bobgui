@@ -18,11 +18,25 @@
 
 #pragma once
 
+<<<<<<< HEAD:gdk/gdkpipeiostreamprivate.h
 #include <gdk/gdktypes.h>
+=======
+#include <gtk/gtkfilefilter.h>
+#include <gdk/gdkconfig.h>
+
+#ifdef GDK_WINDOWING_QUARTZ
+#import <Foundation/Foundation.h>
+#endif
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkfilefilterprivate.h
 
 G_BEGIN_DECLS
 
 GIOStream *             gdk_pipe_io_stream_new                          (void);
+
+#ifdef GDK_WINDOWING_QUARTZ
+NSArray * _gtk_file_filter_get_as_pattern_nsstrings (GtkFileFilter *filter);
+#endif
+
 
 G_END_DECLS
 

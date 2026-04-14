@@ -275,8 +275,15 @@ static GdkBackend gdk_backends[] = {
 #ifdef GDK_WINDOWING_WAYLAND
   { "wayland",  _gdk_wayland_display_open },
 #endif
+#ifdef GDK_WINDOWING_MIR
+  { "mir",      _gdk_mir_display_open },
+#endif
 #ifdef GDK_WINDOWING_X11
+<<<<<<< HEAD
   { "x11",      gdk_x11_display_open },
+=======
+  { "x11",      _gdk_x11_display_open },
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #endif
 #ifdef GDK_WINDOWING_BROADWAY
   { "broadway", _gdk_broadway_display_open },

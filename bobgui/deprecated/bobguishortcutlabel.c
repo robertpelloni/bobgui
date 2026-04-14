@@ -548,8 +548,15 @@ bobgui_shortcut_label_class_init (BobguiShortcutLabelClass *klass)
 static void
 bobgui_shortcut_label_init (BobguiShortcutLabel *self)
 {
+<<<<<<< HEAD:bobgui/deprecated/bobguishortcutlabel.c
   /* Always use LTR so that modifiers are always left to the keyval */
   bobgui_widget_set_direction (BOBGUI_WIDGET (self), BOBGUI_TEXT_DIR_LTR);
+=======
+  gtk_box_set_spacing (GTK_BOX (self), 6);
+
+  /* Always use LTR so that modifiers are always left to the keyval */
+  gtk_widget_set_direction (GTK_WIDGET (self), GTK_TEXT_DIR_LTR);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkshortcutlabel.c
 }
 
 /**

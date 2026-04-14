@@ -15,10 +15,16 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
+<<<<<<< HEAD:bobgui/language-names.c
+=======
+
+#if defined (HAVE_HARFBUZZ) && defined (HAVE_PANGOFT)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
 #include <hb-ot.h>
 
 #include "language-names.h"
 
+<<<<<<< HEAD:bobgui/language-names.c
 #ifdef G_OS_WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -92,6 +98,13 @@ get_win32_all_locales_scripts (LPWSTR locale_w, DWORD flags, LPARAM param)
 
 #else /* non-Windows */
 
+=======
+#define ISO_CODES_DATADIR ISO_CODES_PREFIX "/share/xml/iso-codes"
+#define ISO_CODES_LOCALESDIR ISO_CODES_PREFIX "/share/locale"
+
+static GHashTable *language_map;
+
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
 static char *
 get_first_item_in_semicolon_list (const char *list)
 {
@@ -149,6 +162,7 @@ languages_parse_start_tag (GMarkupParseContext  *ctx,
   const char *ccode_id;
   const char *lang_name;
   char *display_name;
+<<<<<<< HEAD:bobgui/language-names.c
   const char *long_names[] = {
     "Dogri",
     "Greek, Modern",
@@ -158,6 +172,8 @@ languages_parse_start_tag (GMarkupParseContext  *ctx,
     "Turkish, Ottoman",
   };
   int i;
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
 
   if (!(g_str_equal (element_name, "iso_639_entry") ||
         g_str_equal (element_name, "iso_639_3_entry")) ||
@@ -224,6 +240,7 @@ languages_parse_start_tag (GMarkupParseContext  *ctx,
 
   display_name = get_display_name (lang_name);
 
+<<<<<<< HEAD:bobgui/language-names.c
   /* Fix up some egregious names */
   for (i = 0; i < G_N_ELEMENTS (long_names); i++)
     {
@@ -232,6 +249,8 @@ languages_parse_start_tag (GMarkupParseContext  *ctx,
     }
 
 
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
   if (ccode != NULL)
     g_hash_table_insert (language_map,
                          pango_language_from_string (ccode),
@@ -260,9 +279,15 @@ languages_variant_init (const char *variant)
 {
   gboolean res;
   gsize    buf_len;
+<<<<<<< HEAD:bobgui/language-names.c
   char *buf;
   char *filename;
   GError *error;
+=======
+  char *buf = NULL;
+  char *filename = NULL;
+  GError *error = NULL;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
 
   bindtextdomain (variant, ISO_CODES_LOCALESDIR);
   bind_textdomain_codeset (variant, "UTF-8");
@@ -277,10 +302,16 @@ languages_variant_init (const char *variant)
 
       ctx = g_markup_parse_context_new (&parser, 0, NULL, NULL);
 
+<<<<<<< HEAD:bobgui/language-names.c
+=======
+      g_free (error);
+      error = NULL;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
       res = g_markup_parse_context_parse (ctx, buf, buf_len, &error);
       g_free (ctx);
 
       if (!res)
+<<<<<<< HEAD:bobgui/language-names.c
         {
           g_warning ("Failed to parse '%s': %s\n", filename, error->message);
           g_error_free (error);
@@ -291,13 +322,22 @@ languages_variant_init (const char *variant)
       g_warning ("Failed to load '%s': %s\n", filename, error->message);
       g_error_free (error);
     }
+=======
+        g_warning ("Failed to parse '%s': %s\n", filename, error->message);
+    }
+  else
+    g_warning ("Failed to load '%s': %s\n", filename, error->message);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
 
   g_free (filename);
   g_free (buf);
 }
 
+<<<<<<< HEAD:bobgui/language-names.c
 #endif
 
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
 static void
 languages_init (void)
 {
@@ -305,6 +345,7 @@ languages_init (void)
     return;
 
   language_map = g_hash_table_new_full (NULL, NULL, NULL, g_free);
+<<<<<<< HEAD:bobgui/language-names.c
 
 #ifdef G_OS_WIN32
   g_return_if_fail (EnumSystemLocalesEx (&get_win32_all_locales_scripts, LOCALE_ALL, (LPARAM) language_map, NULL));
@@ -312,6 +353,10 @@ languages_init (void)
   languages_variant_init ("iso_639");
   languages_variant_init ("iso_639_3");
 #endif
+=======
+  languages_variant_init ("iso_639");
+  languages_variant_init ("iso_639_3");
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c
 }
 
 const char *
@@ -333,3 +378,7 @@ get_language_name_for_tag (guint32 tag)
 
   return get_language_name (pango_language_from_string (s));
 }
+<<<<<<< HEAD:bobgui/language-names.c
+=======
+#endif
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/language-names.c

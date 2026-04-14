@@ -36,10 +36,15 @@ static gboolean gdk_event_source_dispatch (GSource     *source,
                                            gpointer     user_data);
 static void     gdk_event_source_finalize (GSource     *source);
 
+<<<<<<< HEAD
 static GQuark quark_needs_enter = 0;
 
 #define HAS_FOCUS(toplevel)                           \
   ((toplevel)->has_focus || (toplevel)->has_pointer_focus)
+=======
+#define APPEARS_FOCUSED(toplevel)                           \
+  ((toplevel)->has_focus || (toplevel)->has_focus_window || (toplevel)->has_pointer_focus)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 struct _GdkEventSource
 {
@@ -110,10 +115,10 @@ handle_focus_change (GdkEvent *event)
   if (!gdk_crossing_event_get_focus (event) || toplevel->has_focus_window)
     return;
 
-  had_focus = HAS_FOCUS (toplevel);
+  had_focus = APPEARS_FOCUSED (toplevel);
   toplevel->has_pointer_focus = focus_in;
 
-  if (HAS_FOCUS (toplevel) != had_focus)
+  if (APPEARS_FOCUSED (toplevel) != had_focus)
     {
       GdkEvent *focus_event;
 

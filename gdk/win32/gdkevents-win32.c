@@ -47,6 +47,14 @@
 #include <cairo-win32.h>
 
 #include "gdk.h"
+<<<<<<< HEAD
+=======
+#include "gdkdisplayprivate.h"
+#include "gdkmonitorprivate.h"
+#include "gdkwin32.h"
+#include "gdkkeysyms.h"
+#include "gdkglcontext-win32.h"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #include "gdkdevicemanager-win32.h"
 #include "gdkdisplayprivate.h"
 #include "gdkeventsprivate.h"
@@ -61,11 +69,17 @@
 #include "gdkinput-dmanipulation.h"
 #include "gdkinput-winpointer.h"
 #include "gdkwin32dnd.h"
+<<<<<<< HEAD
 #include "gdkwin32dnd-private.h"
 #include "gdkdisplay-win32.h"
 //#include "gdkselection-win32.h"
 #include "gdkdragprivate.h"
 #include "gdkprivate.h"
+=======
+#include "gdkdisplay-win32.h"
+#include "gdkselection-win32.h"
+#include "gdkdndprivate.h"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #include <windowsx.h>
 
@@ -126,6 +140,21 @@ static HWND modal_win32_dialog = NULL;
 static HKL latin_locale = NULL;
 #endif
 
+<<<<<<< HEAD
+=======
+static gboolean in_ime_composition = FALSE;
+static UINT     modal_timer;
+static UINT     sync_timer = 0;
+
+static int debug_indent = 0;
+
+static int both_shift_pressed[2]; /* to store keycodes for shift keys */
+
+/* low-level keyboard hook handle */
+static HHOOK keyboard_hook = NULL;
+static UINT aerosnap_message;
+
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 static void
 track_mouse_event (DWORD dwFlags,
 		   HWND  hwnd)
@@ -281,6 +310,124 @@ _gdk_win32_surface_procedure (HWND   hwnd,
   return retval;
 }
 
+static LRESULT
+low_level_keystroke_handler (WPARAM message,
+                                       KBDLLHOOKSTRUCT *kbdhook,
+                                       GdkWindow *window)
+{
+  GdkWindow *toplevel = gdk_window_get_toplevel (window);
+  static DWORD last_keydown = 0;
+
+  if (message == WM_KEYDOWN &&
+      !GDK_WINDOW_DESTROYED (toplevel) &&
+      _gdk_win32_window_lacks_wm_decorations (toplevel) && /* For CSD only */
+      last_keydown != kbdhook->vkCode &&
+      ((GetKeyState (VK_LWIN) & 0x8000) ||
+      (GetKeyState (VK_RWIN) & 0x8000)))
+	{
+	  GdkWin32AeroSnapCombo combo = GDK_WIN32_AEROSNAP_COMBO_NOTHING;
+	  gboolean lshiftdown = GetKeyState (VK_LSHIFT) & 0x8000;
+          gboolean rshiftdown = GetKeyState (VK_RSHIFT) & 0x8000;
+          gboolean oneshiftdown = (lshiftdown || rshiftdown) && !(lshiftdown && rshiftdown);
+          gboolean maximized = gdk_window_get_state (toplevel) & GDK_WINDOW_STATE_MAXIMIZED;
+
+	  switch (kbdhook->vkCode)
+	    {
+	    case VK_UP:
+	      combo = GDK_WIN32_AEROSNAP_COMBO_UP;
+	      break;
+	    case VK_DOWN:
+	      combo = GDK_WIN32_AEROSNAP_COMBO_DOWN;
+	      break;
+	    case VK_LEFT:
+	      combo = GDK_WIN32_AEROSNAP_COMBO_LEFT;
+	      break;
+	    case VK_RIGHT:
+	      combo = GDK_WIN32_AEROSNAP_COMBO_RIGHT;
+	      break;
+	    }
+
+	  if (oneshiftdown && combo != GDK_WIN32_AEROSNAP_COMBO_NOTHING)
+	    combo += 4;
+
+	  /* These are the only combos that Windows WM does handle for us */
+	  if (combo == GDK_WIN32_AEROSNAP_COMBO_SHIFTLEFT ||
+              combo == GDK_WIN32_AEROSNAP_COMBO_SHIFTRIGHT)
+            combo = GDK_WIN32_AEROSNAP_COMBO_NOTHING;
+
+          /* On Windows 10 the WM will handle this specific combo */
+          if (combo == GDK_WIN32_AEROSNAP_COMBO_DOWN && maximized &&
+              g_win32_check_windows_version (6, 4, 0, G_WIN32_OS_ANY))
+            combo = GDK_WIN32_AEROSNAP_COMBO_NOTHING;
+
+	  if (combo != GDK_WIN32_AEROSNAP_COMBO_NOTHING)
+            PostMessage (GDK_WINDOW_HWND (toplevel), aerosnap_message, (WPARAM) combo, 0);
+	}
+
+  if (message == WM_KEYDOWN)
+    last_keydown = kbdhook->vkCode;
+  else if (message = WM_KEYUP && last_keydown == kbdhook->vkCode)
+    last_keydown = 0;
+
+  return 0;
+}
+
+static LRESULT CALLBACK
+low_level_keyboard_proc (int    code,
+                         WPARAM wParam,
+                         LPARAM lParam)
+{
+  KBDLLHOOKSTRUCT *kbdhook;
+  HWND kbd_focus_owner;
+  GdkWindow *gdk_kbd_focus_owner;
+  LRESULT chain;
+
+  do
+  {
+    if (code < 0)
+      break;
+
+    kbd_focus_owner = GetFocus ();
+
+    if (kbd_focus_owner == NULL)
+      break;
+
+    gdk_kbd_focus_owner = gdk_win32_handle_table_lookup (kbd_focus_owner);
+
+    if (gdk_kbd_focus_owner == NULL)
+      break;
+
+    kbdhook = (KBDLLHOOKSTRUCT *) lParam;
+    chain = low_level_keystroke_handler (wParam, kbdhook, gdk_kbd_focus_owner);
+
+    if (chain != 0)
+      return chain;
+  } while (FALSE);
+
+  return CallNextHookEx (0, code, wParam, lParam);
+}
+
+static void
+set_up_low_level_keyboard_hook (void)
+{
+  HHOOK hook_handle;
+
+  if (keyboard_hook != NULL)
+    return;
+
+  hook_handle = SetWindowsHookEx (WH_KEYBOARD_LL,
+                                  (HOOKPROC) low_level_keyboard_proc,
+                                  _gdk_dll_hinstance,
+                                  0);
+
+  if (hook_handle != NULL)
+    keyboard_hook = hook_handle;
+  else
+    WIN32_API_FAILED ("SetWindowsHookEx");
+
+  aerosnap_message = RegisterWindowMessage ("GDK_WIN32_AEROSNAP_MESSAGE");
+}
+
 void
 _gdk_events_init (GdkDisplay *display)
 {
@@ -390,6 +537,8 @@ _gdk_events_init (GdkDisplay *display)
   g_source_add_poll (source, &event_source->event_poll_fd);
   g_source_set_can_recurse (source, TRUE);
   g_source_attach (source, NULL);
+
+  set_up_low_level_keyboard_hook ();
 }
 
 #if 0 /* Unused, but might be useful to re-introduce in some debugging output? */
@@ -838,17 +987,29 @@ show_surface_recurse (GdkSurface *surface,
 		{
 		  if (gdk_toplevel_get_state (GDK_TOPLEVEL (surface)) & GDK_TOPLEVEL_STATE_MAXIMIZED)
 		    {
+<<<<<<< HEAD
 		      BobguiShowSurfaceHWND (surface, SW_SHOWMAXIMIZED);
 		    }
 		  else
 		    {
 		      BobguiShowSurfaceHWND (surface, SW_RESTORE);
+=======
+		      GtkShowWindow (window, SW_SHOWMAXIMIZED);
+		    }
+		  else
+		    {
+		      GtkShowWindow (window, SW_RESTORE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 		    }
 		}
 	    }
 	  else
 	    {
+<<<<<<< HEAD
 	      BobguiShowSurfaceHWND (surface, SW_MINIMIZE);
+=======
+	      GtkShowWindow (window, SW_MINIMIZE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 	    }
 	}
 
@@ -901,7 +1062,11 @@ send_crossing_event (GdkDisplay      *display,
   GdkEvent *event;
   GdkDeviceGrabInfo *grab;
   POINT pt;
+<<<<<<< HEAD
   GdkWin32Surface *impl = GDK_WIN32_SURFACE (surface);
+=======
+  GdkWindowImplWin32 *impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   grab = _gdk_display_has_device_grab (display, GDK_WIN32_DISPLAY (display)->device_manager->core_pointer, 0);
 
@@ -917,6 +1082,7 @@ send_crossing_event (GdkDisplay      *display,
   pt = *screen_pt;
   ScreenToClient (GDK_SURFACE_HWND (surface), &pt);
 
+<<<<<<< HEAD
   _gdk_device_virtual_set_active (GDK_WIN32_DISPLAY (display)->device_manager->core_pointer, physical_device);
 
   event = gdk_crossing_event_new (type,
@@ -928,6 +1094,25 @@ send_crossing_event (GdkDisplay      *display,
                                   pt.y / impl->surface_scale,
                                   mode,
                                   notify_type);
+=======
+  event = gdk_event_new (type);
+  event->crossing.window = window;
+  event->crossing.subwindow = subwindow;
+  event->crossing.time = _gdk_win32_get_next_tick (time_);
+  event->crossing.x = pt.x / impl->window_scale;
+  event->crossing.y = pt.y / impl->window_scale;
+  event->crossing.x_root = (screen_pt->x + _gdk_offset_x) / impl->window_scale;
+  event->crossing.y_root = (screen_pt->y + _gdk_offset_y) / impl->window_scale;
+  event->crossing.mode = mode;
+  event->crossing.detail = notify_type;
+  event->crossing.mode = mode;
+  event->crossing.detail = notify_type;
+  event->crossing.focus = FALSE;
+  event->crossing.state = mask;
+  gdk_event_set_device (event, device_manager->core_pointer);
+  gdk_event_set_source_device (event, device_manager->system_pointer);
+  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_pointer));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   _gdk_win32_append_event (event);
 }
@@ -1141,16 +1326,72 @@ gdk_win32_get_surface_hwnd_rect (GdkSurface *surface,
   point.x = client_rect.left; /* always 0 */
   point.y = client_rect.top;
 
+<<<<<<< HEAD
   /* top level surfaces need screen coords */
   if (GDK_IS_TOPLEVEL (surface))
     ClientToScreen (hwnd, &point);
+=======
+  /* top level windows need screen coords */
+  if (gdk_window_get_parent (window) == gdk_get_default_root_window ())
+    {
+      ClientToScreen (hwnd, &point);
+      point.x += _gdk_offset_x * window_impl->window_scale;
+      point.y += _gdk_offset_y * window_impl->window_scale;
+    }
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   rect->left = point.x;
   rect->top = point.y;
   rect->right = point.x + client_rect.right - client_rect.left;
   rect->bottom = point.y + client_rect.bottom - client_rect.top;
 
+<<<<<<< HEAD
   return !impl->inhibit_configure;
+=======
+  return !window_impl->inhibit_configure;
+}
+
+void
+_gdk_win32_do_emit_configure_event (GdkWindow *window,
+                                    RECT       rect)
+{
+  GdkWindowImplWin32 *impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+
+  impl->unscaled_width = rect.right - rect.left;
+  impl->unscaled_height = rect.bottom - rect.top;
+  window->width = (impl->unscaled_width + impl->window_scale - 1) / impl->window_scale;
+  window->height = (impl->unscaled_height + impl->window_scale - 1) / impl->window_scale;
+  window->x = rect.left / impl->window_scale;
+  window->y = rect.top / impl->window_scale;
+
+  _gdk_window_update_size (window);
+
+  if (window->event_mask & GDK_STRUCTURE_MASK)
+    {
+      GdkEvent *event = gdk_event_new (GDK_CONFIGURE);
+
+      event->configure.window = window;
+
+      event->configure.width = window->width;
+      event->configure.height = window->height;
+
+      event->configure.x = window->x;
+      event->configure.y = window->y;
+
+      _gdk_win32_append_event (event);
+    }
+}
+
+void
+_gdk_win32_emit_configure_event (GdkWindow *window)
+{
+  RECT rect;
+
+  if (!_gdk_win32_get_window_rect (window, &rect))
+    return;
+
+  _gdk_win32_do_emit_configure_event (window, rect);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 cairo_region_t *
@@ -1205,7 +1446,11 @@ handle_wm_paint (MSG        *msg,
   HDC hdc;
   PAINTSTRUCT paintstruct;
   cairo_region_t *update_region;
+<<<<<<< HEAD
   GdkWin32Surface *impl = GDK_WIN32_SURFACE (surface);
+=======
+  GdkWindowImplWin32 *impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   if (GetUpdateRgn (msg->hwnd, hrgn, FALSE) == ERROR)
     {
@@ -1231,7 +1476,11 @@ handle_wm_paint (MSG        *msg,
       return;
     }
 
+<<<<<<< HEAD
   update_region = _gdk_win32_hrgn_to_region (hrgn, impl->surface_scale);
+=======
+  update_region = _gdk_win32_hrgn_to_region (hrgn, impl->window_scale);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   if (!cairo_region_is_empty (update_region))
     gdk_surface_invalidate_region (surface, update_region);
   cairo_region_destroy (update_region);
@@ -1247,6 +1496,7 @@ modal_timer_proc (HWND     hwnd,
 {
   int arbitrary_limit = 10;
 
+<<<<<<< HEAD
   while (g_main_context_pending (NULL) && arbitrary_limit--)
     g_main_context_iteration (NULL, FALSE);
 }
@@ -1265,6 +1515,45 @@ _gdk_win32_begin_modal_call (GdkSurface          *surface,
     {
       UINT modal_timer;
       modal_timer = SetTimer (NULL, (UINT_PTR)surface, 10, modal_timer_proc);
+=======
+  while (_modal_operation_in_progress != GDK_WIN32_MODAL_OP_NONE &&
+	 g_main_context_pending (NULL) &&
+	 arbitrary_limit--)
+    g_main_context_iteration (NULL, FALSE);
+}
+
+void
+_gdk_win32_begin_modal_call (GdkWin32ModalOpKind kind)
+{
+  GdkWin32ModalOpKind was = _modal_operation_in_progress;
+  g_assert (!(_modal_operation_in_progress & kind));
+
+  _modal_operation_in_progress |= kind;
+
+  if (was == GDK_WIN32_MODAL_OP_NONE)
+    {
+      modal_timer = SetTimer (NULL, 0, 10, modal_timer_proc);
+
+      if (modal_timer == 0)
+	WIN32_API_FAILED ("SetTimer");
+    }
+}
+
+void
+_gdk_win32_end_modal_call (GdkWin32ModalOpKind kind)
+{
+  g_assert (_modal_operation_in_progress & kind);
+
+  _modal_operation_in_progress &= ~kind;
+
+  if (_modal_operation_in_progress == GDK_WIN32_MODAL_OP_NONE &&
+      modal_timer != 0)
+    {
+      API_CALL (KillTimer, (NULL, modal_timer));
+      modal_timer = 0;
+    }
+}
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       if (modal_timer == 0)
 	    WIN32_API_FAILED ("SetTimer");
@@ -1297,9 +1586,14 @@ handle_nchittest (HWND hwnd,
                   gint16 screen_y,
                   int *ret_valp)
 {
+<<<<<<< HEAD
   GdkWin32Surface *impl;
   RECT client_rect;
   POINT client_pt;
+=======
+  RECT rect;
+  GdkWindowImplWin32 *impl;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   if (surface == NULL)
     return FALSE;
@@ -1312,9 +1606,20 @@ handle_nchittest (HWND hwnd,
   if (!GetClientRect (hwnd, &client_rect))
     return FALSE;
 
+<<<<<<< HEAD
   client_pt.x = screen_x;
   client_pt.y = screen_y;
   if (!ScreenToClient (hwnd, &client_pt))
+=======
+  impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+  rect.left = screen_x - rect.left;
+  rect.top = screen_y - rect.top;
+
+  /* If it's inside the rect, return FALSE and let DefWindowProc() handle it */
+  if (cairo_region_contains_point (window->input_shape,
+                                   rect.left / impl->window_scale,
+                                   rect.top / impl->window_scale))
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     return FALSE;
 
   /* Check whether the point lies within the client area */
@@ -1340,6 +1645,7 @@ static void
 handle_dpi_changed (GdkSurface *surface,
                     MSG        *msg)
 {
+<<<<<<< HEAD
   GdkWin32Surface *impl = GDK_WIN32_SURFACE (surface);
   GdkDisplay *display = gdk_surface_get_display (surface);
   RECT *rect = (RECT *)msg->lParam;
@@ -1352,6 +1658,13 @@ handle_dpi_changed (GdkSurface *surface,
 
   /* Don't bother if scales did not change in the end */
   if (old_scale == impl->surface_scale)
+=======
+  GdkEvent *event = gdk_event_new (type);
+  GdkDeviceManagerWin32 *device_manager;
+  GdkWindowImplWin32 *impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+
+  if (_gdk_input_ignore_core > 0)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     return;
 
   if (!IsIconic (msg->hwnd) &&
@@ -1359,6 +1672,7 @@ handle_dpi_changed (GdkSurface *surface,
     {
       GdkMonitor *monitor;
 
+<<<<<<< HEAD
       monitor = gdk_display_get_monitor_at_surface (display, surface);
       gdk_monitor_set_scale_factor (monitor, impl->surface_scale);
     }
@@ -1405,6 +1719,20 @@ generate_button_event (GdkEventType  type,
                                 x,
                                 y,
                                 NULL);
+=======
+  event->button.window = window;
+  event->button.time = _gdk_win32_get_next_tick (msg->time);
+  event->button.x = current_x = (gint16) GET_X_LPARAM (msg->lParam) / impl->window_scale;
+  event->button.y = current_y = (gint16) GET_Y_LPARAM (msg->lParam) / impl->window_scale;
+  event->button.x_root = (msg->pt.x + _gdk_offset_x) / impl->window_scale;
+  event->button.y_root = (msg->pt.y + _gdk_offset_y) / impl->window_scale;
+  event->button.axes = NULL;
+  event->button.state = build_pointer_event_state (msg);
+  event->button.button = button;
+  gdk_event_set_device (event, device_manager->core_pointer);
+  gdk_event_set_source_device (event, device_manager->system_pointer);
+  gdk_event_set_seat (event, gdk_device_get_seat (device_manager->core_pointer));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   _gdk_win32_append_event (event);
 }
@@ -1414,7 +1742,201 @@ handle_wm_sysmenu (GdkSurface *surface,
                    MSG        *msg,
                    int *ret_valp)
 {
+<<<<<<< HEAD
   GdkWin32Surface *impl;
+=======
+  DWORD exstyle;
+
+  if ((GDK_WINDOW_TYPE (window) == GDK_WINDOW_TEMP) ||
+      (window->state & GDK_WINDOW_STATE_ABOVE))
+    return TRUE;
+
+  exstyle = GetWindowLong (GDK_WINDOW_HWND (window), GWL_EXSTYLE);
+
+  if (exstyle & WS_EX_TOPMOST)
+    return TRUE;
+
+  return FALSE;
+}
+
+static void
+ensure_stacking_on_unminimize (MSG *msg)
+{
+  HWND rover;
+  HWND lowest_transient = NULL;
+  GdkWindow *msg_window;
+  gboolean window_ontop = FALSE;
+
+  msg_window = gdk_win32_handle_table_lookup (msg->hwnd);
+
+  if (msg_window)
+    window_ontop = should_window_be_always_on_top (msg_window);
+
+  for (rover = GetNextWindow (msg->hwnd, GW_HWNDNEXT);
+       rover;
+       rover = GetNextWindow (rover, GW_HWNDNEXT))
+    {
+      GdkWindow *rover_gdkw = gdk_win32_handle_table_lookup (rover);
+      GdkWindowImplWin32 *rover_impl;
+      gboolean rover_ontop;
+
+      /* Checking window group not implemented yet */
+      if (rover_gdkw == NULL)
+        continue;
+
+      rover_ontop = should_window_be_always_on_top (rover_gdkw);
+      rover_impl = GDK_WINDOW_IMPL_WIN32 (rover_gdkw->impl);
+
+      if (GDK_WINDOW_IS_MAPPED (rover_gdkw) &&
+          (rover_impl->type_hint == GDK_WINDOW_TYPE_HINT_UTILITY ||
+           rover_impl->type_hint == GDK_WINDOW_TYPE_HINT_DIALOG ||
+           rover_impl->transient_owner != NULL) &&
+           ((window_ontop && rover_ontop) || (!window_ontop && !rover_ontop)))
+        {
+          lowest_transient = rover;
+        }
+    }
+
+  if (lowest_transient != NULL)
+    {
+      GDK_NOTE (EVENTS,
+		g_print (" restacking %p above %p",
+			 msg->hwnd, lowest_transient));
+      SetWindowPos (msg->hwnd, lowest_transient, 0, 0, 0, 0,
+		    SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_NOOWNERZORDER);
+    }
+}
+
+static gboolean
+ensure_stacking_on_window_pos_changing (MSG       *msg,
+					GdkWindow *window)
+{
+  GdkWindowImplWin32 *impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+  WINDOWPOS *windowpos = (WINDOWPOS *) msg->lParam;
+  HWND rover;
+  gboolean restacking;
+  gboolean window_ontop;
+
+  if (GetActiveWindow () != msg->hwnd ||
+      impl->type_hint == GDK_WINDOW_TYPE_HINT_UTILITY ||
+      impl->type_hint == GDK_WINDOW_TYPE_HINT_DIALOG ||
+      impl->transient_owner != NULL)
+    return FALSE;
+
+  /* Make sure the window stays behind any transient-type windows
+   * of the same window group.
+   *
+   * If the window is not active and being activated, we let
+   * Windows bring it to the top and rely on the WM_ACTIVATEAPP
+   * handling to bring any utility windows on top of it.
+   */
+
+  window_ontop = should_window_be_always_on_top (window);
+
+  for (rover = windowpos->hwndInsertAfter, restacking = FALSE;
+       rover;
+       rover = GetNextWindow (rover, GW_HWNDNEXT))
+    {
+      GdkWindow *rover_gdkw = gdk_win32_handle_table_lookup (rover);
+      GdkWindowImplWin32 *rover_impl;
+      gboolean rover_ontop;
+
+      /* Checking window group not implemented yet */
+
+      if (rover_gdkw == NULL)
+	continue;
+
+      rover_ontop = should_window_be_always_on_top (rover_gdkw);
+      rover_impl = GDK_WINDOW_IMPL_WIN32 (rover_gdkw->impl);
+
+      if (GDK_WINDOW_IS_MAPPED (rover_gdkw) &&
+          (rover_impl->type_hint == GDK_WINDOW_TYPE_HINT_UTILITY ||
+           rover_impl->type_hint == GDK_WINDOW_TYPE_HINT_DIALOG ||
+           rover_impl->transient_owner != NULL) &&
+          ((window_ontop && rover_ontop) || (!window_ontop && !rover_ontop)))
+        {
+          restacking = TRUE;
+          windowpos->hwndInsertAfter = rover;
+        }
+    }
+
+  if (restacking)
+    {
+      GDK_NOTE (EVENTS,
+		g_print (" letting Windows restack %p above %p",
+			 msg->hwnd, windowpos->hwndInsertAfter));
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
+static void
+ensure_stacking_on_activate_app (MSG       *msg,
+				 GdkWindow *window)
+{
+  GdkWindowImplWin32 *impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+  HWND rover;
+  gboolean window_ontop;
+
+  if (impl->type_hint == GDK_WINDOW_TYPE_HINT_UTILITY ||
+      impl->type_hint == GDK_WINDOW_TYPE_HINT_DIALOG ||
+      impl->transient_owner != NULL)
+    {
+      SetWindowPos (msg->hwnd, HWND_TOP, 0, 0, 0, 0,
+		    SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_NOOWNERZORDER);
+      return;
+    }
+
+  if (!IsWindowVisible (msg->hwnd) ||
+      msg->hwnd != GetActiveWindow ())
+    return;
+
+
+  /* This window is not a transient-type window and it is the
+   * activated window. Make sure this window is as visible as
+   * possible, just below the lowest transient-type window of this
+   * app.
+   */
+
+  window_ontop = should_window_be_always_on_top (window);
+
+  for (rover = GetNextWindow (msg->hwnd, GW_HWNDPREV);
+       rover;
+       rover = GetNextWindow (rover, GW_HWNDPREV))
+    {
+      GdkWindow *rover_gdkw = gdk_win32_handle_table_lookup (rover);
+      GdkWindowImplWin32 *rover_impl;
+      gboolean rover_ontop;
+
+      /* Checking window group not implemented yet */
+      if (rover_gdkw == NULL)
+        continue;
+
+      rover_ontop = should_window_be_always_on_top (rover_gdkw);
+      rover_impl = GDK_WINDOW_IMPL_WIN32 (rover_gdkw->impl);
+
+      if (GDK_WINDOW_IS_MAPPED (rover_gdkw) &&
+          (rover_impl->type_hint == GDK_WINDOW_TYPE_HINT_UTILITY ||
+           rover_impl->type_hint == GDK_WINDOW_TYPE_HINT_DIALOG ||
+           rover_impl->transient_owner != NULL) &&
+          ((window_ontop && rover_ontop) || (!window_ontop && !rover_ontop)))
+        {
+	  GDK_NOTE (EVENTS,
+		    g_print (" restacking %p above %p",
+			     msg->hwnd, rover));
+	  SetWindowPos (msg->hwnd, rover, 0, 0, 0, 0,
+			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_NOOWNERZORDER);
+          break;
+	}
+    }
+}
+
+static gboolean
+handle_wm_sysmenu (GdkWindow *window, MSG *msg, gint *ret_valp)
+{
+  GdkWindowImplWin32 *impl;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   LONG_PTR style, tmp_style;
   LONG_PTR additional_styles;
 
@@ -1422,6 +1944,11 @@ handle_wm_sysmenu (GdkSurface *surface,
 
   style = GetWindowLongPtr (msg->hwnd, GWL_STYLE);
 
+<<<<<<< HEAD
+=======
+  maximized = IsZoomed (msg->hwnd) || (style & WS_MAXIMIZE);
+  minimized = IsIconic (msg->hwnd) || (style & WS_MINIMIZE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   additional_styles = 0;
 
   if (!(style & WS_SYSMENU))
@@ -1500,8 +2027,13 @@ _gdk_win32_surface_fill_min_max_info (GdkSurface *surface,
   if (impl->hint_flags & GDK_HINT_MIN_SIZE)
     {
       rect.left = rect.top = 0;
+<<<<<<< HEAD
       rect.right = impl->hints.min_width * impl->surface_scale;
       rect.bottom = impl->hints.min_height * impl->surface_scale;
+=======
+      rect.right = impl->hints.min_width * impl->window_scale;
+      rect.bottom = impl->hints.min_height * impl->window_scale;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       _gdk_win32_adjust_client_rect (surface, &rect);
 
@@ -1514,8 +2046,13 @@ _gdk_win32_surface_fill_min_max_info (GdkSurface *surface,
       int maxw, maxh;
 
       rect.left = rect.top = 0;
+<<<<<<< HEAD
       rect.right = impl->hints.max_width * impl->surface_scale;
       rect.bottom = impl->hints.max_height * impl->surface_scale;
+=======
+      rect.right = impl->hints.max_width * impl->window_scale;
+      rect.bottom = impl->hints.max_height * impl->window_scale;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       _gdk_win32_adjust_client_rect (surface, &rect);
 
@@ -1569,12 +2106,20 @@ _gdk_win32_surface_fill_min_max_info (GdkSurface *surface,
            * This doesn't seem to be documented anywhere.
            * The following code uses a simple CSD/non-CSD test, but it could be that
            * this behaviour hinges on just one particular window style.
+<<<<<<< HEAD
            * Finding exactly which style that could be is not very useful for BOBGUI, however.
+=======
+           * Finding exactly which style that could be is not very useful for GTK, however.
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
            */
           mmi->ptMaxPosition.x = 0;
           mmi->ptMaxPosition.y = 0;
 
+<<<<<<< HEAD
           if (_gdk_win32_surface_lacks_wm_decorations (surface))
+=======
+          if (_gdk_win32_window_lacks_wm_decorations (window))
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
             {
               mmi->ptMaxPosition.x += (nearest_info.rcWork.left - nearest_info.rcMonitor.left);
               mmi->ptMaxPosition.y += (nearest_info.rcWork.top - nearest_info.rcMonitor.top);
@@ -1584,11 +2129,35 @@ _gdk_win32_surface_fill_min_max_info (GdkSurface *surface,
           mmi->ptMaxSize.y = nearest_info.rcWork.bottom - nearest_info.rcWork.top;
         }
 
+<<<<<<< HEAD
       mmi->ptMaxTrackSize.x = GetSystemMetrics (SM_CXVIRTUALSCREEN) + (impl->shadow.left + impl->shadow.right) * impl->surface_scale;
       mmi->ptMaxTrackSize.y = GetSystemMetrics (SM_CYVIRTUALSCREEN) + (impl->shadow.left + impl->shadow.right) * impl->surface_scale;
+=======
+      mmi->ptMaxTrackSize.x = GetSystemMetrics (SM_CXVIRTUALSCREEN) + impl->margins_x * impl->window_scale;
+      mmi->ptMaxTrackSize.y = GetSystemMetrics (SM_CYVIRTUALSCREEN) + impl->margins_y * impl->window_scale;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   return TRUE;
+}
+
+static void
+gdk_settings_notify (GdkWindow        *window,
+                     const char       *name,
+                     GdkSettingAction  action)
+{
+  GdkEvent *new_event;
+
+  if (!g_str_has_prefix (name, "gtk-"))
+    return;
+
+  new_event = gdk_event_new (GDK_SETTING);
+  new_event->setting.window = window;
+  new_event->setting.send_event = FALSE;
+  new_event->setting.action = action;
+  new_event->setting.name = (char*) name;
+
+  _gdk_win32_append_event (new_event);
 }
 
 #define GDK_ANY_BUTTON_MASK (GDK_BUTTON1_MASK | \
@@ -1616,7 +2185,14 @@ gdk_event_translate (MSG *msg,
   GdkWin32Surface *impl;
   GdkWin32Display *win32_display;
 
+<<<<<<< HEAD
   GdkSurface *new_surface;
+=======
+  GdkWindow *new_window = NULL;
+
+  GdkDeviceManager *device_manager = NULL;
+  GdkDeviceManagerWin32 *device_manager_win32 = NULL;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   GdkDeviceGrabInfo *keyboard_grab = NULL;
   GdkDeviceGrabInfo *pointer_grab = NULL;
@@ -1629,6 +2205,10 @@ gdk_event_translate (MSG *msg,
   gboolean return_val = FALSE;
 
   int i;
+
+  GdkWin32Selection *win32_sel = NULL;
+
+  STGMEDIUM *property_change_data;
 
   display = gdk_display_get_default ();
   win32_display = GDK_WIN32_DISPLAY (display);
@@ -1664,10 +2244,41 @@ gdk_event_translate (MSG *msg,
       return FALSE;
     }
 
+<<<<<<< HEAD
   keyboard_grab = _gdk_display_get_last_device_grab (display,
                                                      win32_display->device_manager->core_keyboard);
   pointer_grab = _gdk_display_get_last_device_grab (display,
                                                     win32_display->device_manager->core_pointer);
+=======
+  /* gdk_event_translate() can be called during initialization, if something
+   * sends MSGs. In this case, the default display or its device manager will
+   * be NULL, so avoid trying to read the active grabs.
+   * https://bugzilla.gnome.org/show_bug.cgi?id=774379
+   */
+  if (display != NULL)
+    {
+      device_manager = gdk_display_get_device_manager (display);
+    }
+  else
+    {
+      GDK_NOTE (EVENTS, g_print (" (no GdkDisplay)"));
+    }
+
+  if (device_manager != NULL)
+    {
+      device_manager_win32 = GDK_DEVICE_MANAGER_WIN32 (device_manager);
+    }
+  else
+    {
+      GDK_NOTE (EVENTS, g_print (" (no GdkDeviceManager)"));
+    }
+
+  if (device_manager_win32 != NULL)
+    {
+      keyboard_grab = _gdk_display_get_last_device_grab (display, device_manager_win32->core_keyboard);
+      pointer_grab = _gdk_display_get_last_device_grab (display, device_manager_win32->core_pointer);
+    }
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   g_object_ref (surface);
 
@@ -1678,6 +2289,7 @@ gdk_event_translate (MSG *msg,
    */
 #define return GOTO_DONE_INSTEAD
 
+<<<<<<< HEAD
   switch (msg->message)
     {
     case WM_INPUTLANGCHANGE:
@@ -1716,6 +2328,96 @@ gdk_event_translate (MSG *msg,
                                    NULL);
         _gdk_win32_append_event (event);
       }
+=======
+  if (!GDK_WINDOW_DESTROYED (window) && window->filters)
+    {
+      /* Apply per-window filters */
+
+      GdkFilterReturn result = apply_event_filters (window, msg, &window->filters);
+
+      if (result == GDK_FILTER_REMOVE || result == GDK_FILTER_TRANSLATE)
+	{
+	  return_val = TRUE;
+	  goto done;
+	}
+    }
+
+  if (msg->message == client_message)
+    {
+      GList *tmp_list;
+      GdkFilterReturn result = GDK_FILTER_CONTINUE;
+      GList *node;
+
+      GDK_NOTE (EVENTS, g_print (" client_message"));
+
+      event = gdk_event_new (GDK_NOTHING);
+      ((GdkEventPrivate *)event)->flags |= GDK_EVENT_PENDING;
+
+      node = _gdk_event_queue_append (display, event);
+
+      tmp_list = client_filters;
+      while (tmp_list)
+	{
+	  GdkClientFilter *filter = tmp_list->data;
+
+	  tmp_list = tmp_list->next;
+
+	  if (filter->type == GDK_POINTER_TO_ATOM (msg->wParam))
+	    {
+	      GDK_NOTE (EVENTS, g_print (" (match)"));
+
+	      result = (*filter->function) (msg, event, filter->data);
+
+	      if (result != GDK_FILTER_CONTINUE)
+		break;
+	    }
+	}
+
+      switch (result)
+	{
+	case GDK_FILTER_REMOVE:
+	  _gdk_event_queue_remove_link (display, node);
+	  g_list_free_1 (node);
+	  gdk_event_free (event);
+	  return_val = TRUE;
+	  goto done;
+
+	case GDK_FILTER_TRANSLATE:
+	  ((GdkEventPrivate *)event)->flags &= ~GDK_EVENT_PENDING;
+	  GDK_NOTE (EVENTS, _gdk_win32_print_event (event));
+	  return_val = TRUE;
+	  goto done;
+
+	case GDK_FILTER_CONTINUE:
+	  /* No more: Send unknown client messages on to Gtk for it to use */
+	  GDK_NOTE (EVENTS, _gdk_win32_print_event (event));
+	  return_val = TRUE;
+	  goto done;
+	}
+    }
+
+  if (msg->message == aerosnap_message)
+    _gdk_win32_window_handle_aerosnap (gdk_window_get_toplevel (window),
+                                       (GdkWin32AeroSnapCombo) msg->wParam);
+
+  switch (msg->message)
+    {
+    case WM_INPUTLANGCHANGE:
+      _gdk_input_locale = (HKL) msg->lParam;
+      _gdk_win32_keymap_set_active_layout (GDK_WIN32_KEYMAP (_gdk_win32_display_get_keymap (_gdk_display)), _gdk_input_locale);
+      _gdk_input_locale_is_ime = ImmIsIME (_gdk_input_locale);
+      GetLocaleInfo (MAKELCID (LOWORD (_gdk_input_locale), SORT_DEFAULT),
+		     LOCALE_IDEFAULTANSICODEPAGE,
+		     buf, sizeof (buf));
+      _gdk_input_codepage = atoi (buf);
+      _gdk_keymap_serial++;
+      GDK_NOTE (EVENTS,
+		g_print (" cs:%lu hkl:%p%s cp:%d",
+			 (gulong) msg->wParam,
+			 (gpointer) msg->lParam, _gdk_input_locale_is_ime ? " (IME)" : "",
+			 _gdk_input_codepage));
+      gdk_settings_notify (window, "gtk-im-module", GDK_SETTING_ACTION_CHANGED);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       break;
 
     case WM_SYSKEYUP:
@@ -1789,6 +2491,7 @@ gdk_event_translate (MSG *msg,
 
         API_CALL (GetKeyboardState, (key_state));
 
+<<<<<<< HEAD
         keyval = GDK_KEY_VoidSymbol;
         keycode = msg->wParam;
 
@@ -1812,6 +2515,9 @@ gdk_event_translate (MSG *msg,
             /* Remove message from queue */
             GetMessageW (&msg2, msg->hwnd, 0, 0);
           }
+=======
+      API_CALL (GetKeyboardState, (key_state));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
         if (translation->len > 0)
           composed = g_utf16_to_utf8 ((gunichar2*)translation->data,
@@ -2203,12 +2909,45 @@ gdk_event_translate (MSG *msg,
           track_mouse_event (TME_LEAVE, GDK_SURFACE_HWND (surface));
         }
 
+<<<<<<< HEAD
       impl = GDK_WIN32_SURFACE (surface);
+=======
+      if (mouse_window != new_window)
+	{
+	  GDK_NOTE (EVENTS, g_print (" mouse_sinwod %p -> %p",
+				     mouse_window ? GDK_WINDOW_HWND (mouse_window) : NULL,
+				     new_window ? GDK_WINDOW_HWND (new_window) : NULL));
+	  synthesize_crossing_events (display,
+				      mouse_window, new_window,
+				      GDK_CROSSING_NORMAL,
+				      &msg->pt,
+				      0, /* TODO: Set right mask */
+				      msg->time,
+				      FALSE);
+	  g_set_object (&mouse_window, new_window);
+	  mouse_window_ignored_leave = NULL;
+	  if (new_window != NULL)
+	    track_mouse_event (TME_LEAVE, GDK_WINDOW_HWND (new_window));
+	}
+      else if (new_window != NULL &&
+	       new_window == mouse_window_ignored_leave)
+	{
+	  /* If we ignored a leave event for this window and we're now getting
+	     input again we need to re-arm the mouse tracking, as that was
+	     cancelled by the mouseleave. */
+	  mouse_window_ignored_leave = NULL;
+	  track_mouse_event (TME_LEAVE, GDK_WINDOW_HWND (new_window));
+	}
+
+      g_set_object (&window, find_window_for_mouse_event (window, msg));
+      impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       /* If we haven't moved, don't create any GDK event. Windows
        * sends WM_MOUSEMOVE messages after a new surface is shown under
        * the mouse, even if the mouse hasn't moved. This disturbs bobgui.
        */
+<<<<<<< HEAD
       if (msg->pt.x == win32_display->event_record->current_root_x &&
           msg->pt.y == win32_display->event_record->current_root_y)
         break;
@@ -2234,6 +2973,35 @@ gdk_event_translate (MSG *msg,
                                         x,
                                         y,
                                         NULL);
+=======
+      if ((msg->pt.x + _gdk_offset_x) / impl->window_scale == current_root_x &&
+	  (msg->pt.y + _gdk_offset_y) / impl->window_scale == current_root_y)
+	break;
+
+      current_root_x = (msg->pt.x + _gdk_offset_x) / impl->window_scale;
+      current_root_y = (msg->pt.y + _gdk_offset_y) / impl->window_scale;
+
+
+      if (impl->drag_move_resize_context.op != GDK_WIN32_DRAGOP_NONE)
+        {
+          gdk_win32_window_do_move_resize_drag (window, current_root_x, current_root_y);
+        }
+      else if (_gdk_input_ignore_core == 0)
+	{
+	  event = gdk_event_new (GDK_MOTION_NOTIFY);
+	  event->motion.window = window;
+	  event->motion.time = _gdk_win32_get_next_tick (msg->time);
+	  event->motion.x = current_x = (gint16) GET_X_LPARAM (msg->lParam) / impl->window_scale;
+	  event->motion.y = current_y = (gint16) GET_Y_LPARAM (msg->lParam) / impl->window_scale;
+	  event->motion.x_root = current_root_x;
+	  event->motion.y_root = current_root_y;
+	  event->motion.axes = NULL;
+	  event->motion.state = build_pointer_event_state (msg);
+	  event->motion.is_hint = FALSE;
+	  gdk_event_set_device (event, device_manager_win32->core_pointer);
+	  gdk_event_set_source_device (event, device_manager_win32->system_pointer);
+          gdk_event_set_seat (event, gdk_device_get_seat (device_manager_win32->core_pointer));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 	  _gdk_win32_append_event (event);
 	}
@@ -2553,6 +3321,7 @@ gdk_event_translate (MSG *msg,
 
       msg->hwnd = hwnd;
 
+<<<<<<< HEAD
       g_set_object (&surface, gdk_win32_display_handle_table_lookup_ (display, hwnd));
       if (!surface)
         break;
@@ -2584,6 +3353,69 @@ gdk_event_translate (MSG *msg,
                                              (double) scroll_x,
                                              (double) -scroll_y,
                                              GDK_SCROLL_RELATIVE_DIRECTION_UNKNOWN);
+=======
+      if (new_window != window)
+	{
+	  g_set_object (&window, new_window);
+	}
+
+      impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+      ScreenToClient (msg->hwnd, &point);
+
+      event = gdk_event_new (GDK_SCROLL);
+      event->scroll.window = window;
+      event->scroll.direction = GDK_SCROLL_SMOOTH;
+
+      if (msg->message == WM_MOUSEWHEEL)
+        {
+          UINT lines_multiplier = 3;
+          event->scroll.delta_y = (gdouble) GET_WHEEL_DELTA_WPARAM (msg->wParam) / (gdouble) WHEEL_DELTA;
+          /* -1 means that we should scroll in screens, not lines.
+           * Right now GDK doesn't support that.
+           */
+          if (SystemParametersInfo (SPI_GETWHEELSCROLLLINES, 0, &lines_multiplier, 0) &&
+              lines_multiplier != (UINT) -1)
+            event->scroll.delta_y *= (gdouble) lines_multiplier;
+        }
+      else if (msg->message == WM_MOUSEHWHEEL)
+        {
+          UINT chars_multiplier = 3;
+          event->scroll.delta_x = (gdouble) GET_WHEEL_DELTA_WPARAM (msg->wParam) / (gdouble) WHEEL_DELTA;
+          /* There doesn't seem to be any indication that
+           * h-scroll has an equivalent of the "screen" mode,
+           * indicated by multiplier being (UINT) -1.
+           */
+          if (SystemParametersInfo (SPI_GETWHEELSCROLLCHARS, 0, &chars_multiplier, 0))
+            event->scroll.delta_x *= (gdouble) chars_multiplier;
+        }
+      /* Positive delta scrolls up, not down,
+         see API documentation for WM_MOUSEWHEEL message.
+       */
+      event->scroll.delta_y *= -1.0;
+      event->scroll.time = _gdk_win32_get_next_tick (msg->time);
+      event->scroll.x = (gint16) point.x / impl->window_scale;
+      event->scroll.y = (gint16) point.y / impl->window_scale;
+      event->scroll.x_root = ((gint16) GET_X_LPARAM (msg->lParam) + _gdk_offset_x) / impl->window_scale;
+      event->scroll.y_root = ((gint16) GET_Y_LPARAM (msg->lParam) + _gdk_offset_y) / impl->window_scale;
+      event->scroll.state = build_pointer_event_state (msg);
+      gdk_event_set_device (event, device_manager_win32->core_pointer);
+      gdk_event_set_source_device (event, device_manager_win32->system_pointer);
+      gdk_event_set_seat (event, gdk_device_get_seat (device_manager_win32->core_pointer));
+      gdk_event_set_pointer_emulated (event, FALSE);
+
+      _gdk_win32_append_event (gdk_event_copy (event));
+
+      /* Append the discrete version too */
+      if (msg->message == WM_MOUSEWHEEL)
+	event->scroll.direction = (((short) HIWORD (msg->wParam)) > 0) ?
+	  GDK_SCROLL_UP : GDK_SCROLL_DOWN;
+      else if (msg->message == WM_MOUSEHWHEEL)
+	event->scroll.direction = (((short) HIWORD (msg->wParam)) > 0) ?
+	  GDK_SCROLL_RIGHT : GDK_SCROLL_LEFT;
+      event->scroll.delta_x = 0;
+      event->scroll.delta_y = 0;
+      gdk_event_set_pointer_emulated (event, TRUE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       _gdk_win32_append_event (event);
 
@@ -2622,8 +3454,13 @@ gdk_event_translate (MSG *msg,
 
     case WM_KILLFOCUS:
       if (keyboard_grab != NULL &&
+<<<<<<< HEAD
 	  !GDK_SURFACE_DESTROYED (keyboard_grab->surface) &&
 	  (win32_display->display_surface_record->modal_operation_in_progress & GDK_WIN32_MODAL_OP_DND) == 0)
+=======
+	  !GDK_WINDOW_DESTROYED (keyboard_grab->window) &&
+	  (_modal_operation_in_progress & GDK_WIN32_MODAL_OP_DND) == 0)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 	{
 	  generate_grab_broken_event (win32_display->device_manager, keyboard_grab->surface, TRUE, NULL);
 	}
@@ -2719,6 +3556,7 @@ gdk_event_translate (MSG *msg,
       break;
 
     case WM_SYSCOMMAND:
+<<<<<<< HEAD
       /* From: https://learn.microsoft.com/en-us/windows/win32/menurc/wm-syscommand?redirectedfrom=MSDN
        * To obtain the correct result when testing the value of wParam,
        * an application must combine the value 0xFFF0 with the wParam value by using the bitwise AND operator. */
@@ -2734,10 +3572,27 @@ gdk_event_translate (MSG *msg,
           impl->maximizing = TRUE;
           break;
         }
+=======
+      switch (msg->wParam)
+	{
+	case SC_MINIMIZE:
+	case SC_RESTORE:
+	  do_show_window (window, msg->wParam == SC_MINIMIZE ? TRUE : FALSE);
+
+    if (msg->wParam == SC_RESTORE)
+      _gdk_win32_window_invalidate_egl_framebuffer (window);
+	  break;
+        case SC_MAXIMIZE:
+          impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+          impl->maximizing = TRUE;
+	  break;
+	}
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       break;
 
     case WM_ENTERSIZEMOVE:
+<<<<<<< HEAD
       GDK_WIN32_DISPLAY (gdk_surface_get_display (surface))->display_surface_record->modal_move_resize_hwnd = msg->hwnd;
       _gdk_win32_begin_modal_call (surface, GDK_WIN32_MODAL_OP_SIZEMOVE_MASK);
       break;
@@ -2748,10 +3603,22 @@ gdk_event_translate (MSG *msg,
 	{
 	  GDK_WIN32_DISPLAY (gdk_surface_get_display (surface))->display_surface_record->modal_move_resize_hwnd = NULL;
 	  _gdk_win32_end_modal_call (surface, GDK_WIN32_MODAL_OP_SIZEMOVE_MASK);
+=======
+      _modal_move_resize_window = msg->hwnd;
+      _gdk_win32_begin_modal_call (GDK_WIN32_MODAL_OP_SIZEMOVE_MASK);
+      break;
+
+    case WM_EXITSIZEMOVE:
+      if (_modal_operation_in_progress & GDK_WIN32_MODAL_OP_SIZEMOVE_MASK)
+	{
+	  _modal_move_resize_window = NULL;
+	  _gdk_win32_end_modal_call (GDK_WIN32_MODAL_OP_SIZEMOVE_MASK);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 	}
       break;
 
     case WM_ENTERMENULOOP:
+<<<<<<< HEAD
       _gdk_win32_begin_modal_call (surface, GDK_WIN32_MODAL_OP_MENU);
       break;
 
@@ -2759,6 +3626,14 @@ gdk_event_translate (MSG *msg,
       if (GDK_WIN32_DISPLAY (gdk_surface_get_display (surface))->display_surface_record->modal_operation_in_progress &
           GDK_WIN32_MODAL_OP_MENU)
 	_gdk_win32_end_modal_call (surface, GDK_WIN32_MODAL_OP_MENU);
+=======
+      _gdk_win32_begin_modal_call (GDK_WIN32_MODAL_OP_MENU);
+      break;
+
+    case WM_EXITMENULOOP:
+      if (_modal_operation_in_progress & GDK_WIN32_MODAL_OP_MENU)
+	_gdk_win32_end_modal_call (GDK_WIN32_MODAL_OP_MENU);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       break;
 
       break;
@@ -2769,12 +3644,20 @@ gdk_event_translate (MSG *msg,
      * on our behalf.
      * This prevents us from losing mouse capture when alt-tabbing during DnD
      * (this includes the feature of Windows Explorer where dragging stuff over
+<<<<<<< HEAD
      * a window button in the taskbar causes that surface to receive focus, i.e.
      * keyboardless alt-tabbing).
      */
     case WM_CANCELMODE:
       if (GDK_WIN32_DISPLAY (gdk_surface_get_display (surface))->display_surface_record->modal_operation_in_progress &
           GDK_WIN32_MODAL_OP_DND)
+=======
+     * a window button in the taskbar causes that window to receive focus, i.e.
+     * keyboardless alt-tabbing).
+     */
+    case WM_CANCELMODE:
+      if (_modal_operation_in_progress & GDK_WIN32_MODAL_OP_DND)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
         {
           return_val = TRUE;
           *ret_valp = 0;
@@ -2785,10 +3668,17 @@ gdk_event_translate (MSG *msg,
       /* Sometimes we don't get WM_EXITSIZEMOVE, for instance when you
 	 select move/size in the menu and then click somewhere without
 	 moving/resizing. We work around this using WM_CAPTURECHANGED. */
+<<<<<<< HEAD
       if (GDK_WIN32_DISPLAY (gdk_surface_get_display (surface))->display_surface_record->modal_operation_in_progress & GDK_WIN32_MODAL_OP_SIZEMOVE_MASK)
 	{
 	  GDK_WIN32_DISPLAY (gdk_surface_get_display (surface))->display_surface_record->modal_move_resize_hwnd = NULL;
 	  _gdk_win32_end_modal_call (surface, GDK_WIN32_MODAL_OP_SIZEMOVE_MASK);
+=======
+      if (_modal_operation_in_progress & GDK_WIN32_MODAL_OP_SIZEMOVE_MASK)
+	{
+	  _modal_move_resize_window = NULL;
+	  _gdk_win32_end_modal_call (GDK_WIN32_MODAL_OP_SIZEMOVE_MASK);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 	}
 
 
@@ -2841,6 +3731,32 @@ gdk_event_translate (MSG *msg,
             }
         }
 
+<<<<<<< HEAD
+=======
+      if (GDK_WINDOW_IS_MAPPED (window))
+        {
+	  return_val = ensure_stacking_on_window_pos_changing (msg, window);
+
+          impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+
+          if (impl->maximizing)
+            {
+              MINMAXINFO our_mmi;
+
+              _gdk_win32_window_invalidate_egl_framebuffer (window);
+
+              if (_gdk_win32_window_fill_min_max_info (window, &our_mmi))
+                {
+                  windowpos = (WINDOWPOS *) msg->lParam;
+                  windowpos->cx = our_mmi.ptMaxSize.x;
+                  windowpos->cy = our_mmi.ptMaxSize.y;
+                }
+
+              impl->maximizing = FALSE;
+            }
+        }
+
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       break;
 
     case WM_WINDOWPOSCHANGED:
@@ -2938,6 +3854,7 @@ gdk_event_translate (MSG *msg,
         }
 
       /* Call modal timer immediate so that we repaint faster after a resize. */
+<<<<<<< HEAD
       if (GDK_WIN32_DISPLAY (gdk_surface_get_display (surface))->display_surface_record->modal_operation_in_progress & GDK_WIN32_MODAL_OP_SIZEMOVE_MASK)
         {
           modal_timer_proc (msg->hwnd,
@@ -2945,6 +3862,10 @@ gdk_event_translate (MSG *msg,
                             (UINT_PTR)surface,
                             msg->time);
         }
+=======
+      if (_modal_operation_in_progress & GDK_WIN32_MODAL_OP_SIZEMOVE_MASK)
+	modal_timer_proc (0,0,0,0);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       /* Claim as handled, so that WM_SIZE and WM_MOVE are avoided */
       return_val = TRUE;
@@ -2967,8 +3888,208 @@ gdk_event_translate (MSG *msg,
 				 _gdk_win32_rect_to_string (&rect),
 				 _gdk_win32_rect_to_string ((RECT *) msg->lParam)));
 
+<<<<<<< HEAD
       impl = GDK_WIN32_SURFACE (surface);
 
+=======
+      impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
+      orig_drag = *drag;
+      if (impl->hint_flags & GDK_HINT_RESIZE_INC)
+	{
+	  GDK_NOTE (EVENTS, g_print (" (RESIZE_INC)"));
+	  if (impl->hint_flags & GDK_HINT_BASE_SIZE)
+	    {
+	      /* Resize in increments relative to the base size */
+	      rect.left = rect.top = 0;
+	      rect.right = impl->hints.base_width * impl->window_scale;
+	      rect.bottom = impl->hints.base_height * impl->window_scale;
+	      _gdk_win32_adjust_client_rect (window, &rect);
+	      point.x = rect.left;
+	      point.y = rect.top;
+	      ClientToScreen (GDK_WINDOW_HWND (window), &point);
+	      rect.left = point.x;
+	      rect.top = point.y;
+	      point.x = rect.right;
+	      point.y = rect.bottom;
+	      ClientToScreen (GDK_WINDOW_HWND (window), &point);
+	      rect.right = point.x;
+	      rect.bottom = point.y;
+
+	      GDK_NOTE (EVENTS, g_print (" (also BASE_SIZE, using %s)",
+					 _gdk_win32_rect_to_string (&rect)));
+	    }
+
+	  switch (msg->wParam)
+	    {
+	    case WMSZ_BOTTOM:
+	      if (drag->bottom == rect.bottom)
+		break;
+        adjust_drag (&drag->bottom, rect.bottom, impl->hints.height_inc * impl->window_scale);
+	      break;
+
+	    case WMSZ_BOTTOMLEFT:
+	      if (drag->bottom == rect.bottom && drag->left == rect.left)
+		break;
+	      adjust_drag (&drag->bottom, rect.bottom, impl->hints.height_inc * impl->window_scale);
+	      adjust_drag (&drag->left, rect.left, impl->hints.width_inc * impl->window_scale);
+	      break;
+
+	    case WMSZ_LEFT:
+	      if (drag->left == rect.left)
+		break;
+	      adjust_drag (&drag->left, rect.left, impl->hints.width_inc * impl->window_scale);
+	      break;
+
+	    case WMSZ_TOPLEFT:
+	      if (drag->top == rect.top && drag->left == rect.left)
+		break;
+	      adjust_drag (&drag->top, rect.top, impl->hints.height_inc * impl->window_scale);
+	      adjust_drag (&drag->left, rect.left, impl->hints.width_inc * impl->window_scale);
+	      break;
+
+	    case WMSZ_TOP:
+	      if (drag->top == rect.top)
+		break;
+	      adjust_drag (&drag->top, rect.top, impl->hints.height_inc * impl->window_scale);
+	      break;
+
+	    case WMSZ_TOPRIGHT:
+	      if (drag->top == rect.top && drag->right == rect.right)
+		break;
+	      adjust_drag (&drag->top, rect.top, impl->hints.height_inc * impl->window_scale);
+	      adjust_drag (&drag->right, rect.right, impl->hints.width_inc * impl->window_scale);
+	      break;
+
+	    case WMSZ_RIGHT:
+	      if (drag->right == rect.right)
+		break;
+	      adjust_drag (&drag->right, rect.right, impl->hints.width_inc * impl->window_scale);
+	      break;
+
+	    case WMSZ_BOTTOMRIGHT:
+	      if (drag->bottom == rect.bottom && drag->right == rect.right)
+		break;
+	      adjust_drag (&drag->bottom, rect.bottom, impl->hints.height_inc * impl->window_scale);
+	      adjust_drag (&drag->right, rect.right, impl->hints.width_inc * impl->window_scale);
+	      break;
+	    }
+
+	  if (drag->bottom != orig_drag.bottom || drag->left != orig_drag.left ||
+	      drag->top != orig_drag.top || drag->right != orig_drag.right)
+	    {
+	      *ret_valp = TRUE;
+	      return_val = TRUE;
+	      GDK_NOTE (EVENTS, g_print (" (handled RESIZE_INC: %s)",
+					 _gdk_win32_rect_to_string (drag)));
+	    }
+	}
+
+      /* WM_GETMINMAXINFO handles min_size and max_size hints? */
+
+      if (impl->hint_flags & GDK_HINT_ASPECT)
+	{
+	  RECT decorated_rect;
+	  RECT undecorated_drag;
+	  int decoration_width, decoration_height;
+	  gdouble drag_aspect;
+	  int drag_width, drag_height, new_width, new_height;
+
+	  GetClientRect (GDK_WINDOW_HWND (window), &rect);
+	  decorated_rect = rect;
+	  _gdk_win32_adjust_client_rect (window, &decorated_rect);
+
+	  /* Set undecorated_drag to the client area being dragged
+	   * out, in screen coordinates.
+	   */
+	  undecorated_drag = *drag;
+	  undecorated_drag.left -= decorated_rect.left - rect.left;
+	  undecorated_drag.right -= decorated_rect.right - rect.right;
+	  undecorated_drag.top -= decorated_rect.top - rect.top;
+	  undecorated_drag.bottom -= decorated_rect.bottom - rect.bottom;
+
+	  decoration_width = (decorated_rect.right - decorated_rect.left) - (rect.right - rect.left);
+	  decoration_height = (decorated_rect.bottom - decorated_rect.top) - (rect.bottom - rect.top);
+
+	  drag_width = undecorated_drag.right - undecorated_drag.left;
+	  drag_height = undecorated_drag.bottom - undecorated_drag.top;
+
+	  drag_aspect = (gdouble) drag_width / drag_height;
+
+	  GDK_NOTE (EVENTS, g_print (" (ASPECT:%g--%g curr: %g)",
+				     impl->hints.min_aspect, impl->hints.max_aspect, drag_aspect));
+
+	  if (drag_aspect < impl->hints.min_aspect)
+	    {
+	      /* Aspect is getting too narrow */
+	      switch (msg->wParam)
+		{
+		case WMSZ_BOTTOM:
+		case WMSZ_TOP:
+		  /* User drags top or bottom edge outward. Keep height, increase width. */
+		  new_width = impl->hints.min_aspect * drag_height;
+		  drag->left -= (new_width - drag_width) / 2;
+		  drag->right = drag->left + new_width + decoration_width;
+		  break;
+		case WMSZ_BOTTOMLEFT:
+		case WMSZ_BOTTOMRIGHT:
+		  /* User drags bottom-left or bottom-right corner down. Adjust height. */
+		  new_height = drag_width / impl->hints.min_aspect;
+		  drag->bottom = drag->top + new_height + decoration_height;
+		  break;
+		case WMSZ_LEFT:
+		case WMSZ_RIGHT:
+		  /* User drags left or right edge inward. Decrease height */
+		  new_height = drag_width / impl->hints.min_aspect;
+		  drag->top += (drag_height - new_height) / 2;
+		  drag->bottom = drag->top + new_height + decoration_height;
+		  break;
+		case WMSZ_TOPLEFT:
+		case WMSZ_TOPRIGHT:
+		  /* User drags top-left or top-right corner up. Adjust height. */
+		  new_height = drag_width / impl->hints.min_aspect;
+		  drag->top = drag->bottom - new_height - decoration_height;
+		}
+	    }
+	  else if (drag_aspect > impl->hints.max_aspect)
+	    {
+	      /* Aspect is getting too wide */
+	      switch (msg->wParam)
+		{
+		case WMSZ_BOTTOM:
+		case WMSZ_TOP:
+		  /* User drags top or bottom edge inward. Decrease width. */
+		  new_width = impl->hints.max_aspect * drag_height;
+		  drag->left += (drag_width - new_width) / 2;
+		  drag->right = drag->left + new_width + decoration_width;
+		  break;
+		case WMSZ_BOTTOMLEFT:
+		case WMSZ_TOPLEFT:
+		  /* User drags bottom-left or top-left corner left. Adjust width. */
+		  new_width = impl->hints.max_aspect * drag_height;
+		  drag->left = drag->right - new_width - decoration_width;
+		  break;
+		case WMSZ_BOTTOMRIGHT:
+		case WMSZ_TOPRIGHT:
+		  /* User drags bottom-right or top-right corner right. Adjust width. */
+		  new_width = impl->hints.max_aspect * drag_height;
+		  drag->right = drag->left + new_width + decoration_width;
+		  break;
+		case WMSZ_LEFT:
+		case WMSZ_RIGHT:
+		  /* User drags left or right edge outward. Increase height. */
+		  new_height = drag_width / impl->hints.max_aspect;
+		  drag->top -= (new_height - drag_height) / 2;
+		  drag->bottom = drag->top + new_height + decoration_height;
+		  break;
+		}
+	    }
+
+	  *ret_valp = TRUE;
+	  return_val = TRUE;
+	  GDK_NOTE (EVENTS, g_print (" (handled ASPECT: %s)",
+				     _gdk_win32_rect_to_string (drag)));
+	}
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       break;
 
     case WM_GETMINMAXINFO:
@@ -3052,7 +4173,123 @@ gdk_event_translate (MSG *msg,
       break;
 
     case WM_DWMCOMPOSITIONCHANGED:
+<<<<<<< HEAD
       gdk_win32_surface_enable_transparency (surface);
+=======
+      _gdk_win32_window_enable_transparency (window);
+      break;
+
+    case WM_DESTROYCLIPBOARD:
+      win32_sel = _gdk_win32_selection_get ();
+
+      if (!win32_sel->ignore_destroy_clipboard)
+	{
+	  event = gdk_event_new (GDK_SELECTION_CLEAR);
+	  event->selection.window = window;
+	  event->selection.selection = GDK_SELECTION_CLIPBOARD;
+	  event->selection.time = _gdk_win32_get_next_tick (msg->time);
+          _gdk_win32_append_event (event);
+	}
+      else
+	{
+	  return_val = TRUE;
+	}
+
+      break;
+
+    case WM_RENDERFORMAT:
+      GDK_NOTE (EVENTS, g_print (" %s", _gdk_win32_cf_to_string (msg->wParam)));
+
+      *ret_valp = 0;
+      return_val = TRUE;
+
+      win32_sel = _gdk_win32_selection_get ();
+
+      for (target = NULL, i = 0;
+           i < win32_sel->clipboard_selection_targets->len;
+           i++)
+        {
+          GdkSelTargetFormat target_format = g_array_index (win32_sel->clipboard_selection_targets, GdkSelTargetFormat, i);
+
+          if (target_format.format == msg->wParam)
+            {
+              target = target_format.target;
+              win32_sel->property_change_transmute = target_format.transmute;
+            }
+        }
+
+      if (target == NULL)
+        {
+          GDK_NOTE (EVENTS, g_print (" (target not found)"));
+          break;
+        }
+
+      /* We need to render to clipboard immediately, don't call
+       * _gdk_win32_append_event()
+       */
+      event = gdk_event_new (GDK_SELECTION_REQUEST);
+      event->selection.window = window;
+      event->selection.send_event = FALSE;
+      event->selection.selection = GDK_SELECTION_CLIPBOARD;
+      event->selection.target = target;
+      event->selection.property = _gdk_win32_selection_atom (GDK_WIN32_ATOM_INDEX_GDK_SELECTION);
+      event->selection.requestor = gdk_win32_handle_table_lookup (msg->hwnd);
+      event->selection.time = msg->time;
+      property_change_data = g_new0 (STGMEDIUM, 1);
+      win32_sel->property_change_data = property_change_data;
+      win32_sel->property_change_format = msg->wParam;
+      win32_sel->property_change_target_atom = target;
+
+      fixup_event (event);
+      GDK_NOTE (EVENTS, g_print (" (calling _gdk_event_emit)"));
+      GDK_NOTE (EVENTS, _gdk_win32_print_event (event));
+      _gdk_event_emit (event);
+      gdk_event_free (event);
+      win32_sel->property_change_format = 0;
+
+      /* Now the clipboard owner should have rendered */
+      if (!property_change_data->hGlobal)
+        {
+          GDK_NOTE (EVENTS, g_print (" (no _delayed_rendering_data?)"));
+        }
+      else
+        {
+          /* The requestor is holding the clipboard, no
+           * OpenClipboard() is required/possible
+           */
+          GDK_NOTE (DND,
+                    g_print (" SetClipboardData(%s,%p)",
+                             _gdk_win32_cf_to_string (msg->wParam),
+                             property_change_data->hGlobal));
+
+          API_CALL (SetClipboardData, (msg->wParam, property_change_data->hGlobal));
+        }
+
+        g_clear_pointer (&property_change_data, g_free);
+        *ret_valp = 0;
+        return_val = TRUE;
+      break;
+
+    case WM_RENDERALLFORMATS:
+      *ret_valp = 0;
+      return_val = TRUE;
+
+      win32_sel = _gdk_win32_selection_get ();
+
+      if (API_CALL (OpenClipboard, (msg->hwnd)))
+        {
+          for (target = NULL, i = 0;
+               i < win32_sel->clipboard_selection_targets->len;
+               i++)
+            {
+              GdkSelTargetFormat target_format = g_array_index (win32_sel->clipboard_selection_targets, GdkSelTargetFormat, i);
+              if (target_format.format != 0)
+                SendMessage (msg->hwnd, WM_RENDERFORMAT, target_format.format, 0);
+            }
+
+          API_CALL (CloseClipboard, ());
+        }
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       break;
 
     case WM_ACTIVATE:
@@ -3280,9 +4517,23 @@ gdk_event_dispatch (GSource     *source,
 
   if (event)
     {
+      GdkWin32Selection *sel_win32 = _gdk_win32_selection_get ();
+
       _gdk_event_emit (event);
 
+<<<<<<< HEAD
       gdk_event_unref (event);
+=======
+      gdk_event_free (event);
+
+      /* Do drag & drop if it is still pending */
+      if (sel_win32->dnd_source_state == GDK_WIN32_DND_PENDING)
+        {
+          sel_win32->dnd_source_state = GDK_WIN32_DND_DRAGGING;
+          _gdk_win32_dnd_do_dragdrop ();
+          sel_win32->dnd_source_state = GDK_WIN32_DND_NONE;
+        }
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   return TRUE;

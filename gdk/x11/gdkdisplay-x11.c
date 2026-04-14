@@ -218,10 +218,165 @@ gdk_x11_display_event_translator_init (GdkEventTranslatorIface *iface)
   iface->translate_event = gdk_x11_display_translate_event;
 }
 
+<<<<<<< HEAD
 #define ANY_EDGE_TILED (GDK_TOPLEVEL_STATE_LEFT_TILED | \
                         GDK_TOPLEVEL_STATE_RIGHT_TILED | \
                         GDK_TOPLEVEL_STATE_TOP_TILED | \
                         GDK_TOPLEVEL_STATE_BOTTOM_TILED)
+=======
+#define ANY_EDGE_TILED (GDK_WINDOW_STATE_LEFT_TILED | \
+                        GDK_WINDOW_STATE_RIGHT_TILED | \
+                        GDK_WINDOW_STATE_TOP_TILED | \
+                        GDK_WINDOW_STATE_BOTTOM_TILED)
+
+static void
+do_edge_constraint_state_check (GdkWindow      *window,
+                                GdkWindowState  old_state,
+                                GdkWindowState *set,
+                                GdkWindowState *unset)
+{
+  GdkToplevelX11 *toplevel = _gdk_x11_window_get_toplevel (window);
+  GdkWindowState local_set, local_unset;
+  GdkScreen *screen = GDK_WINDOW_SCREEN (window);
+  guint edge_constraints;
+
+  local_set = *set;
+  local_unset = *unset;
+  edge_constraints = toplevel->edge_constraints;
+
+  /* If the WM doesn't support _GTK_EDGE_CONSTRAINTS, rely on the fallback
+   * implementation. If it supports _GTK_EDGE_CONSTRAINTS, arrange for
+   * GDK_WINDOW_STATE_TILED to be set if any edge is tiled, and cleared
+   * if no edge is tiled.
+   */
+  if (!gdk_x11_screen_supports_net_wm_hint (screen,
+                                            gdk_atom_intern_static_string ("_GTK_EDGE_CONSTRAINTS")))
+    {
+      /* FIXME: we rely on implementation details of mutter here:
+       * mutter only tiles horizontally, and sets maxvert when it does
+       * and if it tiles, it always affects all edges
+       */
+      if (old_state & GDK_WINDOW_STATE_TILED)
+        {
+          if (!toplevel->have_maxvert)
+            local_unset |= GDK_WINDOW_STATE_TILED;
+        }
+      else
+        {
+          if (toplevel->have_maxvert && !toplevel->have_maxhorz)
+            local_set |= GDK_WINDOW_STATE_TILED;
+        }
+    }
+  else
+    {
+      if (old_state & GDK_WINDOW_STATE_TILED)
+        {
+          if (!(edge_constraints & ANY_EDGE_TILED))
+            local_unset |= GDK_WINDOW_STATE_TILED;
+        }
+      else
+        {
+          if (edge_constraints & ANY_EDGE_TILED)
+            local_set |= GDK_WINDOW_STATE_TILED;
+        }
+    }
+
+  /* Top edge */
+  if (old_state & GDK_WINDOW_STATE_TOP_TILED)
+    {
+      if ((edge_constraints & GDK_WINDOW_STATE_TOP_TILED) == 0)
+        local_unset |= GDK_WINDOW_STATE_TOP_TILED;
+    }
+  else
+    {
+      if (edge_constraints & GDK_WINDOW_STATE_TOP_TILED)
+        local_set |= GDK_WINDOW_STATE_TOP_TILED;
+    }
+
+  if (old_state & GDK_WINDOW_STATE_TOP_RESIZABLE)
+    {
+      if ((edge_constraints & GDK_WINDOW_STATE_TOP_RESIZABLE) == 0)
+        local_unset |= GDK_WINDOW_STATE_TOP_RESIZABLE;
+    }
+  else
+    {
+      if (edge_constraints & GDK_WINDOW_STATE_TOP_RESIZABLE)
+        local_set |= GDK_WINDOW_STATE_TOP_RESIZABLE;
+    }
+
+  /* Right edge */
+  if (old_state & GDK_WINDOW_STATE_RIGHT_TILED)
+    {
+      if ((edge_constraints & GDK_WINDOW_STATE_RIGHT_TILED) == 0)
+        local_unset |= GDK_WINDOW_STATE_RIGHT_TILED;
+    }
+  else
+    {
+      if (edge_constraints & GDK_WINDOW_STATE_RIGHT_TILED)
+        local_set |= GDK_WINDOW_STATE_RIGHT_TILED;
+    }
+
+  if (old_state & GDK_WINDOW_STATE_RIGHT_RESIZABLE)
+    {
+      if ((edge_constraints & GDK_WINDOW_STATE_RIGHT_RESIZABLE) == 0)
+        local_unset |= GDK_WINDOW_STATE_RIGHT_RESIZABLE;
+    }
+  else
+    {
+      if (edge_constraints & GDK_WINDOW_STATE_RIGHT_RESIZABLE)
+        local_set |= GDK_WINDOW_STATE_RIGHT_RESIZABLE;
+    }
+
+  /* Bottom edge */
+  if (old_state & GDK_WINDOW_STATE_BOTTOM_TILED)
+    {
+      if ((edge_constraints & GDK_WINDOW_STATE_BOTTOM_TILED) == 0)
+        local_unset |= GDK_WINDOW_STATE_BOTTOM_TILED;
+    }
+  else
+    {
+      if (edge_constraints & GDK_WINDOW_STATE_BOTTOM_TILED)
+        local_set |= GDK_WINDOW_STATE_BOTTOM_TILED;
+    }
+
+  if (old_state & GDK_WINDOW_STATE_BOTTOM_RESIZABLE)
+    {
+      if ((edge_constraints & GDK_WINDOW_STATE_BOTTOM_RESIZABLE) == 0)
+        local_unset |= GDK_WINDOW_STATE_BOTTOM_RESIZABLE;
+    }
+  else
+    {
+      if (edge_constraints & GDK_WINDOW_STATE_BOTTOM_RESIZABLE)
+        local_set |= GDK_WINDOW_STATE_BOTTOM_RESIZABLE;
+    }
+
+  /* Left edge */
+  if (old_state & GDK_WINDOW_STATE_LEFT_TILED)
+    {
+      if ((edge_constraints & GDK_WINDOW_STATE_LEFT_TILED) == 0)
+        local_unset |= GDK_WINDOW_STATE_LEFT_TILED;
+    }
+  else
+    {
+      if (edge_constraints & GDK_WINDOW_STATE_LEFT_TILED)
+        local_set |= GDK_WINDOW_STATE_LEFT_TILED;
+    }
+
+  if (old_state & GDK_WINDOW_STATE_LEFT_RESIZABLE)
+    {
+      if ((edge_constraints & GDK_WINDOW_STATE_LEFT_RESIZABLE) == 0)
+        local_unset |= GDK_WINDOW_STATE_LEFT_RESIZABLE;
+    }
+  else
+    {
+      if (edge_constraints & GDK_WINDOW_STATE_LEFT_RESIZABLE)
+        local_set |= GDK_WINDOW_STATE_LEFT_RESIZABLE;
+    }
+
+  *set = local_set;
+  *unset = local_unset;
+}
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 static void
 do_edge_constraint_state_check (GdkSurface      *surface,
@@ -408,7 +563,11 @@ do_net_wm_state_changes (GdkSurface *surface)
         set |= GDK_TOPLEVEL_STATE_MAXIMIZED;
     }
 
+<<<<<<< HEAD
   if (old_state & GDK_TOPLEVEL_STATE_FOCUSED)
+=======
+  if (old_state & GDK_WINDOW_STATE_FOCUSED)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     {
       if (!toplevel->have_focused)
         unset |= GDK_TOPLEVEL_STATE_FOCUSED;
@@ -437,9 +596,15 @@ do_net_wm_state_changes (GdkSurface *surface)
     }
 
   /* Update edge constraints and tiling */
+<<<<<<< HEAD
   do_edge_constraint_state_check (surface, old_state, &set, &unset);
 
   gdk_synthesize_surface_state (surface, unset, set);
+=======
+  do_edge_constraint_state_check (window, old_state, &set, &unset);
+
+  gdk_synthesize_window_state (window, unset, set);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 static void
@@ -590,6 +755,49 @@ static char *
 get_cm_name (GdkDisplay *display)
 {
   return g_strdup_printf ("_NET_WM_CM_S%d", DefaultScreen (GDK_DISPLAY_XDISPLAY (display)));
+}
+
+static void
+gdk_check_edge_constraints_changed (GdkWindow *window)
+{
+  GdkToplevelX11 *toplevel = _gdk_x11_window_get_toplevel (window);
+  GdkDisplay *display = GDK_WINDOW_DISPLAY (window);
+
+  Atom type;
+  gint format;
+  gulong nitems;
+  gulong bytes_after;
+  guchar *data;
+  gulong *constraints;
+
+  type = None;
+  gdk_x11_display_error_trap_push (display);
+  XGetWindowProperty (GDK_DISPLAY_XDISPLAY (display),
+                      GDK_WINDOW_XID (window),
+                      gdk_x11_get_xatom_by_name_for_display (display, "_GTK_EDGE_CONSTRAINTS"),
+                      0, G_MAXLONG, False, XA_CARDINAL, &type,
+                      &format, &nitems,
+                      &bytes_after, &data);
+  gdk_x11_display_error_trap_pop_ignored (display);
+
+  if (type != None)
+    {
+      constraints = (gulong *)data;
+
+      /* The GDK enum for these states does not begin at zero so, to avoid
+       * messing around with shifts, just make the passed value and GDK's
+       * enum values match by shifting to the first tiled state.
+       */
+      toplevel->edge_constraints = constraints[0] << 9;
+
+      XFree (constraints);
+    }
+  else
+    {
+      toplevel->edge_constraints = 0;
+    }
+
+  do_net_wm_state_changes (window);
 }
 
 static Window
@@ -1021,10 +1229,17 @@ gdk_x11_display_translate_event (GdkEventTranslator *translator,
 	    gdk_check_wm_state_changed (surface);
 
 	  if (xevent->xproperty.atom == gdk_x11_get_xatom_by_name_for_display (display, "_NET_WM_DESKTOP"))
+<<<<<<< HEAD
 	    gdk_check_wm_desktop_changed (surface);
 
 	  if (xevent->xproperty.atom == gdk_x11_get_xatom_by_name_for_display (display, "_BOBGUI_EDGE_CONSTRAINTS"))
 	    gdk_check_edge_constraints_changed (surface);
+=======
+	    gdk_check_wm_desktop_changed (window);
+
+	  if (xevent->xproperty.atom == gdk_x11_get_xatom_by_name_for_display (display, "_GTK_EDGE_CONSTRAINTS"))
+	    gdk_check_edge_constraints_changed (window);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 	}
       break;
 
@@ -1454,6 +1669,7 @@ gdk_x11_display_open (const char *display_name)
   int argc;
   char *argv[1];
   XClassHint *class_hint;
+<<<<<<< HEAD
   int ignore;
   int maj, min;
   char *cm_name;
@@ -1461,6 +1677,10 @@ gdk_x11_display_open (const char *display_name)
   gdk_ensure_initialized ();
 
   XInitThreads ();
+=======
+  gint ignore;
+  gint maj, min;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   xdisplay = XOpenDisplay (display_name);
   if (!xdisplay)
@@ -1586,7 +1806,11 @@ gdk_x11_display_open (const char *display_name)
   if (!gdk_running_in_sandbox ())
     {
       /* if sandboxed, we're likely in a pid namespace and would only confuse the wm with this */
+<<<<<<< HEAD
       long pid = getpid ();
+=======
+      pid_t pid = getpid ();
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       XChangeProperty (display_x11->xdisplay,
                        display_x11->leader_window,
                        gdk_x11_get_xatom_by_name_for_display (display, "_NET_WM_PID"),
@@ -2821,6 +3045,16 @@ gdk_x11_display_get_default_seat (GdkDisplay *display)
 
   seats = gdk_display_list_seats (display);
 
+  /* Shortcut only one seat being available.
+   * This path always triggers for core events, so we can freely use XInput below. */
+  if (g_list_length (seats) == 1)
+    {
+      GdkSeat *seat = seats->data;
+
+      g_list_free (seats);
+      return seat;
+    }
+
   gdk_x11_display_error_trap_push (display);
   result = XIGetClientPointer (GDK_DISPLAY_XDISPLAY (display),
                                None, &device_id);
@@ -2854,6 +3088,7 @@ gdk_x11_display_get_monitors (GdkDisplay *display)
   return G_LIST_MODEL (self->monitors);
 }
 
+<<<<<<< HEAD
 /**
  * gdk_x11_display_get_primary_monitor:
  * @display: (type GdkX11Display): a `GdkDisplay`
@@ -2872,6 +3107,22 @@ gdk_x11_display_get_monitors (GdkDisplay *display)
  *   primary monitor is configured by the user
  */
 GdkMonitor *
+=======
+
+static GdkMonitor *
+gdk_x11_display_get_monitor (GdkDisplay *display,
+                             int         monitor_num)
+{
+  GdkX11Display *x11_display = GDK_X11_DISPLAY (display);
+
+  if (0 <= monitor_num && monitor_num < x11_display->monitors->len)
+    return (GdkMonitor *)x11_display->monitors->pdata[monitor_num];
+
+  return NULL;
+}
+
+static GdkMonitor *
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 gdk_x11_display_get_primary_monitor (GdkDisplay *display)
 {
   GdkX11Display *self = GDK_X11_DISPLAY (display);
