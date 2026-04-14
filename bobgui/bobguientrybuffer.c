@@ -648,7 +648,11 @@ bobgui_entry_buffer_insert_text (BobguiEntryBuffer *buffer,
   if (n_chars == 0)
     return 0;
 
+<<<<<<< HEAD:bobgui/bobguientrybuffer.c
   klass = BOBGUI_ENTRY_BUFFER_GET_CLASS (buffer);
+=======
+  klass = GTK_ENTRY_BUFFER_GET_CLASS (buffer);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkentrybuffer.c
   g_return_val_if_fail (klass->insert_text != NULL, 0);
 
   return (*klass->insert_text) (buffer, position, chars, n_chars);

@@ -921,7 +921,11 @@ msgstr "ស្លាក​ដែល​មិន​បាន​ដោះស្រ
 #.
 #: ../bobgui/bobguicalendar.c:872
 msgid "calendar:MY"
+<<<<<<< HEAD
 msgstr "calendar:MY"
+=======
+msgstr "calendar:​MY"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to calendar:week_start:0 if you want Sunday to be the
 #. * first day of the week to calendar:week_start:1 if you want Monday
@@ -929,7 +933,11 @@ msgstr "calendar:MY"
 #.
 #: ../bobgui/bobguicalendar.c:910
 msgid "calendar:week_start:0"
+<<<<<<< HEAD
 msgstr "calendar:week_start:0"
+=======
+msgstr "calendar:​week_start:0"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translators:  This is a text measurement template.
 #. * Translate it to the widest year text

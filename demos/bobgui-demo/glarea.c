@@ -336,7 +336,11 @@ create_axis_slider (int axis)
   BobguiAdjustment *adj;
   const char *text;
 
+<<<<<<< HEAD:demos/bobgui-demo/glarea.c
   box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 0);
+=======
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:demos/gtk-demo/glarea.c
 
   switch (axis)
     {

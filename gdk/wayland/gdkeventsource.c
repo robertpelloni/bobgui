@@ -189,8 +189,11 @@ gdk_wayland_poll_source_check (GSource *base)
               g_message ("Error reading events from display: %s", g_strerror (errno));
               _exit (1);
             }
+<<<<<<< HEAD
           source->pfd.revents = 0;
           source->can_dispatch = TRUE;
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
         }
       else
         wl_display_cancel_read (display_wayland->wl_display);
@@ -320,6 +323,7 @@ _gdk_wayland_display_queue_events (GdkDisplay *display)
 
   for (l = display_wayland->event_queues; l; l = l->next)
     {
+<<<<<<< HEAD
       struct wl_event_queue *queue = l->data;
 
       if (wl_display_dispatch_queue_pending (display_wayland->wl_display, queue) < 0)
@@ -328,6 +332,10 @@ _gdk_wayland_display_queue_events (GdkDisplay *display)
                      errno, g_strerror (errno));
           _exit (1);
         }
+=======
+      g_message ("Lost connection to Wayland compositor.");
+      _exit (1);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   poll_source = (GdkWaylandPollSource *) display_wayland->poll_source;

@@ -37,14 +37,24 @@ static TestInterface interfaces[] = {
     "Ellipsizing Labels",
     "Demonstrates how labels will request a natural size in a horizontal space",
     "<interface>"
+<<<<<<< HEAD
     "  <requires lib=\"bobgui\" version=\"3.99\"/>"
+=======
+    "  <requires lib=\"gtk+\" version=\"3.22\"/>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "  <!-- interface-naming-policy project-wide -->"
     "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">450</property>"
     "    <property name=\"default_height\">50</property>"
     "    <child>"
+<<<<<<< HEAD
     "      <object class=\"BobguiBox\" id=\"hbox5\">"
     "        <property name=\"orientation\">horizontal</property>"
+=======
+    "      <object class=\"GtkBox\" id=\"hbox5\">"
+    "        <property name=\"orientation\">horizontal</property>"
+    "        <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "        <child>"
     "          <object class=\"BobguiLabel\" id=\"label9\">"
     "            <property name=\"label\" translatable=\"yes\">Some labels do ellipsize</property>"
@@ -86,19 +96,35 @@ static TestInterface interfaces[] = {
     "Wrapping Label",
     "Demonstrates how a wrapping label can require a height contextual to its allocated width",
     "<interface>"
+<<<<<<< HEAD
     "  <requires lib=\"bobgui\" version=\"3.99\"/>"
+=======
+    "  <requires lib=\"gtk+\" version=\"3.22\"/>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "  <!-- interface-naming-policy project-wide -->"
     "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">300</property>"
     "    <child>"
+<<<<<<< HEAD
     "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
+=======
+    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "        <property name=\"orientation\">horizontal</property>"
+    "        <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"resize-child1\">False</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <child>"
+<<<<<<< HEAD
     "          <object class=\"BobguiBox\" id=\"vbox2\">"
     "            <property name=\"orientation\">vertical</property>"
+=======
+    "          <object class=\"GtkBox\" id=\"vbox2\">"
+    "            <property name=\"orientation\">vertical</property>"
+    "            <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "            <child>"
     "              <object class=\"BobguiLabel\" id=\"label3\">"
     "                <property name=\"label\" translatable=\"yes\">A short static label.</property>"
@@ -162,23 +188,43 @@ static TestInterface interfaces[] = {
     "Horizontal Box",
     "Demonstrates how a horizontal box can calculate the collective height for an allocated width",
     "<interface>"
+<<<<<<< HEAD
     "  <requires lib=\"bobgui\" version=\"3.99\"/>"
+=======
+    "  <requires lib=\"gtk+\" version=\"3.22\"/>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "  <!-- interface-naming-policy project-wide -->"
     "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_height\">200</property>"
     "    <property name=\"default_width\">600</property>"
     "    <child>"
+<<<<<<< HEAD
     "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
+=======
+    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "        <property name=\"orientation\">horizontal</property>"
+    "        <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"resize-child1\">False</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <child>"
+<<<<<<< HEAD
     "          <object class=\"BobguiBox\" id=\"vbox1\">"
     "            <property name=\"orientation\">vertical</property>"
     "            <child>"
     "              <object class=\"BobguiBox\" id=\"hbox1\">"
     "                <property name=\"orientation\">horizontal</property>"
+=======
+    "          <object class=\"GtkBox\" id=\"vbox1\">"
+    "            <property name=\"orientation\">vertical</property>"
+    "            <property name=\"visible\">True</property>"
+    "            <child>"
+    "              <object class=\"GtkBox\" id=\"hbox1\">"
+    "                <property name=\"orientation\">horizontal</property>"
+    "                <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "                <child>"
     "                  <object class=\"BobguiButton\" id=\"button1\">"
     "                    <property name=\"can_focus\">True</property>"
@@ -227,6 +273,139 @@ static TestInterface interfaces[] = {
     "              <attribute name=\"foreground\" value=\"#ffff00000000\"/>"
     "            </attributes>"
     "          </object>"
+<<<<<<< HEAD
+=======
+    "          <packing>"
+    "            <property name=\"resize\">True</property>"
+    "            <property name=\"shrink\">True</property>"
+    "          </packing>"
+    "        </child>"
+    "      </object>"
+    "    </child>"
+    "  </object>"
+    "</interface>",
+    NULL
+  },
+
+  {
+    "Vertical Labels",
+    "Demonstrates how a horizontal box will consider width-for-height when allocating children "
+    "even if the toplevel window is requested as height-for-width.",
+    "<interface>"
+    "  <requires lib=\"gtk+\" version=\"3.22\"/>"
+    "  <!-- interface-naming-policy project-wide -->"
+    "  <object class=\"GtkWindow\" id=\"window\">"
+    "    <property name=\"default_width\">400</property>"
+    "    <property name=\"default_height\">300</property>"
+    "    <child>"
+    "      <object class=\"GtkPaned\" id=\"vpaned1\">"
+    "        <property name=\"orientation\">vertical</property>"
+    "        <property name=\"visible\">True</property>"
+    "        <property name=\"can_focus\">True</property>"
+    "        <child>"
+    "          <object class=\"GtkBox\" id=\"hbox1\">"
+    "            <property name=\"orientation\">horizontal</property>"
+    "            <property name=\"visible\">True</property>"
+    "            <child>"
+    "              <object class=\"GtkLabel\" id=\"label1\">"
+    "                <property name=\"visible\">True</property>"
+    "                <property name=\"label\" translatable=\"yes\">Some long width-for-height text that wraps</property>"
+    "                <property name=\"justify\">center</property>"
+    "                <property name=\"wrap\">True</property>"
+    "                <property name=\"width_chars\">10</property>"
+    "                <property name=\"angle\">90</property>"
+    "                <attributes>"
+    "                  <attribute name=\"weight\" value=\"bold\"/>"
+    "                  <attribute name=\"foreground\" value=\"#03e307ddfb5f\"/>"
+    "                </attributes>"
+    "              </object>"
+    "              <packing>"
+    "                <property name=\"expand\">False</property>"
+    "                <property name=\"position\">0</property>"
+    "              </packing>"
+    "            </child>"
+    "            <child>"
+    "              <object class=\"GtkFrame\" id=\"frame1\">"
+    "                <property name=\"visible\">True</property>"
+    "                <property name=\"label_xalign\">0</property>"
+    "                <property name=\"shadow_type\">out</property>"
+    "                <child>"
+    "                  <object class=\"GtkLabel\" id=\"label5\">"
+    "                    <property name=\"visible\">True</property>"
+    "                    <property name=\"label\" translatable=\"yes\">Neither of the panes are\n"
+    "set to shrink.</property>"
+    "                    <property name=\"justify\">center</property>"
+    "                    <attributes>"
+    "                      <attribute name=\"foreground\" value=\"#ffff00000000\"/>"
+    "                    </attributes>"
+    "                  </object>"
+    "                </child>"
+    "                <child type=\"label_item\">"
+    "                  <placeholder/>"
+    "                </child>"
+    "              </object>"
+    "              <packing>"
+    "                <property name=\"position\">1</property>"
+    "              </packing>"
+    "            </child>"
+    "          </object>"
+    "          <packing>"
+    "            <property name=\"resize\">False</property>"
+    "            <property name=\"shrink\">False</property>"
+    "          </packing>"
+    "        </child>"
+    "        <child>"
+    "          <object class=\"GtkBox\" id=\"hbox2\">"
+    "            <property name=\"orientation\">horizontal</property>"
+    "            <property name=\"visible\">True</property>"
+    "            <child>"
+    "              <object class=\"GtkFrame\" id=\"frame2\">"
+    "                <property name=\"visible\">True</property>"
+    "                <property name=\"label_xalign\">0</property>"
+    "                <property name=\"shadow_type\">out</property>"
+    "                <child>"
+    "                  <object class=\"GtkLabel\" id=\"label4\">"
+    "                    <property name=\"visible\">True</property>"
+    "                    <property name=\"label\" translatable=\"yes\">The interface is allocated as height\n"
+    "for width, but the horizontal boxes\n"
+    "allocate in width for height mode.</property>"
+    "                    <attributes>"
+    "                      <attribute name=\"foreground\" value=\"#000097970808\"/>"
+    "                    </attributes>"
+    "                  </object>"
+    "                </child>"
+    "                <child type=\"label_item\">"
+    "                  <placeholder/>"
+    "                </child>"
+    "              </object>"
+    "              <packing>"
+    "                <property name=\"position\">0</property>"
+    "              </packing>"
+    "            </child>"
+    "            <child>"
+    "              <object class=\"GtkLabel\" id=\"label3\">"
+    "                <property name=\"visible\">True</property>"
+    "                <property name=\"label\" translatable=\"yes\">Some long width-for-height text that wraps</property>"
+    "                <property name=\"justify\">center</property>"
+    "                <property name=\"wrap\">True</property>"
+    "                <property name=\"width_chars\">10</property>"
+    "                <property name=\"angle\">270</property>"
+    "                <attributes>"
+    "                  <attribute name=\"weight\" value=\"bold\"/>"
+    "                  <attribute name=\"foreground\" value=\"#03e307ddfb5f\"/>"
+    "                </attributes>"
+    "              </object>"
+    "              <packing>"
+    "                <property name=\"expand\">False</property>"
+    "                <property name=\"position\">1</property>"
+    "              </packing>"
+    "            </child>"
+    "          </object>"
+    "          <packing>"
+    "            <property name=\"resize\">False</property>"
+    "            <property name=\"shrink\">False</property>"
+    "          </packing>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "        </child>"
     "      </object>"
     "    </child>"
@@ -240,22 +419,42 @@ static TestInterface interfaces[] = {
     "This test demonstrates how \"width-chars\" and \"max-width-chars\" can be used "
     "to effect minimum and natural widths in wrapping labels.",
     "<interface>"
+<<<<<<< HEAD
     "  <requires lib=\"bobgui\" version=\"3.99\"/>"
+=======
+    "  <requires lib=\"gtk+\" version=\"3.22\"/>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "  <!-- interface-naming-policy project-wide -->"
     "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">900</property>"
     "    <child>"
+<<<<<<< HEAD
     "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
+=======
+    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "        <property name=\"orientation\">horizontal</property>"
+    "        <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"resize-child1\">False</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <child>"
+<<<<<<< HEAD
     "          <object class=\"BobguiBox\" id=\"vbox1\">"
     "            <property name=\"orientation\">vertical</property>"
     "            <child>"
     "              <object class=\"BobguiBox\" id=\"hbox1\">"
     "                <property name=\"orientation\">horizontal</property>"
+=======
+    "          <object class=\"GtkBox\" id=\"vbox1\">"
+    "            <property name=\"orientation\">vertical</property>"
+    "            <property name=\"visible\">True</property>"
+    "            <child>"
+    "              <object class=\"GtkBox\" id=\"hbox1\">"
+    "                <property name=\"orientation\">horizontal</property>"
+    "                <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "                <property name=\"spacing\">6</property>"
     "                <child>"
     "                  <object class=\"BobguiLabel\" id=\"label1\">"
@@ -334,13 +533,23 @@ static TestInterface interfaces[] = {
     "and also trade height for width.",
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<interface>"
+<<<<<<< HEAD
     "  <requires lib=\"bobgui\" version=\"3.99\"/>"
+=======
+    "  <requires lib=\"gtk+\" version=\"3.22\"/>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "  <!-- interface-naming-policy project-wide -->"
     "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">500</property>"
     "    <child>"
+<<<<<<< HEAD
     "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
+=======
+    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "        <property name=\"orientation\">horizontal</property>"
+    "        <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"resize-child1\">False</property>"
     "        <property name=\"shrink-child1\">False</property>"
@@ -394,7 +603,11 @@ static TestInterface interfaces[] = {
     "and also trade height for width.",
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<interface>"
+<<<<<<< HEAD
     "  <requires lib=\"bobgui\" version=\"3.99\"/>"
+=======
+    "  <requires lib=\"gtk+\" version=\"3.22\"/>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "  <!-- interface-naming-policy project-wide -->"
     "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">400</property>"
@@ -403,9 +616,16 @@ static TestInterface interfaces[] = {
     "      <object class=\"BobguiFrame\" id=\"frame1\">"
     "        <property name=\"label_xalign\">0</property>"
     "        <child>"
+<<<<<<< HEAD
     "          <object class=\"BobguiLabel\" id=\"label2\">"
     "            <property name=\"margin_start\">12</property>"
     "            <property name=\"label\" translatable=\"yes\">some content</property>"
+=======
+    "          <object class=\"GtkLabel\" id=\"label2\">"
+    "            <property name=\"visible\">True</property>"
+    "            <property name=\"label\" translatable=\"yes\">some content</property>"
+    "            <property name=\"margin_start\">12</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "          </object>"
     "        </child>"
     "        <child type=\"label\">"
@@ -427,23 +647,44 @@ static TestInterface interfaces[] = {
     "This test shows wrapping and ellipsizing text in combo boxes (and consequently in menu items).",
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<interface>"
+<<<<<<< HEAD
     "  <requires lib=\"bobgui\" version=\"3.99\"/>"
+=======
+    "  <requires lib=\"gtk+\" version=\"3.22\"/>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "  <!-- interface-naming-policy project-wide -->"
     "  <object class=\"BobguiWindow\" id=\"window\">"
     "    <property name=\"default_width\">600</property>"
     "    <child>"
+<<<<<<< HEAD
     "      <object class=\"BobguiPaned\" id=\"hpaned1\">"
     "        <property name=\"orientation\">horizontal</property>"
+=======
+    "      <object class=\"GtkPaned\" id=\"hpaned1\">"
+    "        <property name=\"orientation\">horizontal</property>"
+    "        <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "        <property name=\"can_focus\">True</property>"
     "        <property name=\"shrink-child1\">False</property>"
     "        <property name=\"resize-child2\">False</property>"
     "        <child>"
+<<<<<<< HEAD
     "          <object class=\"BobguiBox\" id=\"vbox1\">"
     "            <property name=\"orientation\">vertical</property>"
     "            <property name=\"spacing\">5</property>"
     "            <child>"
     "              <object class=\"BobguiBox\" id=\"hbox1\">"
     "                <property name=\"orientation\">horizontal</property>"
+=======
+    "          <object class=\"GtkBox\" id=\"vbox1\">"
+    "            <property name=\"orientation\">vertical</property>"
+    "            <property name=\"visible\">True</property>"
+    "            <property name=\"spacing\">5</property>"
+    "            <child>"
+    "              <object class=\"GtkBox\" id=\"hbox1\">"
+    "                <property name=\"orientation\">horizontal</property>"
+    "                <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "                <property name=\"spacing\">5</property>"
     "                <child>"
     "                  <object class=\"BobguiLabel\" id=\"label1\">"
@@ -513,8 +754,14 @@ static TestInterface interfaces[] = {
     "              </object>"
     "            </child>"
     "            <child>"
+<<<<<<< HEAD
     "              <object class=\"BobguiBox\" id=\"hbox2\">"
     "                <property name=\"orientation\">horizontal</property>"
+=======
+    "              <object class=\"GtkBox\" id=\"hbox2\">"
+    "                <property name=\"orientation\">horizontal</property>"
+    "                <property name=\"visible\">True</property>"
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     "                <property name=\"spacing\">5</property>"
     "                <child>"
     "                  <object class=\"BobguiLabel\" id=\"label4\">"
@@ -619,11 +866,16 @@ static TestInterface interfaces[] = {
 
 
 static void
+<<<<<<< HEAD
 test_clicked (BobguiWidget     *button, 
+=======
+test_clicked (GtkWidget     *button, 
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
               TestInterface *interface)
 {
   if (!interface->window)
     {
+<<<<<<< HEAD
       BobguiBuilder *builder = bobgui_builder_new ();
       GError *error = NULL;
       
@@ -643,6 +895,28 @@ test_clicked (BobguiWidget     *button,
       interface->window = (BobguiWidget *)bobgui_builder_get_object (builder, "window");
 
       bobgui_window_set_hide_on_close (BOBGUI_WINDOW (interface->window), TRUE);
+=======
+      GtkBuilder *builder = gtk_builder_new ();
+      GError *error = NULL;
+      
+      gtk_builder_add_from_string (builder, interface->interface, -1, &error);
+
+      if (error)
+        {
+          g_printerr ("GtkBuilder for interface \"%s\" returned error \"%s\"\n",
+                      interface->name, error->message);
+
+          g_error_free (error);
+          g_object_unref (builder);
+
+          return;
+        }
+
+      interface->window = (GtkWidget *)gtk_builder_get_object (builder, "window");
+
+      g_signal_connect (interface->window, "delete_event",
+                        G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
       g_object_unref (builder);
     }
@@ -665,7 +939,11 @@ create_window (void)
   bobgui_widget_set_margin_top (vbox, 8);
   bobgui_widget_set_margin_bottom (vbox, 8);
 
+<<<<<<< HEAD
   bobgui_window_set_child (BOBGUI_WINDOW (window), vbox);
+=======
+  gtk_container_add (GTK_CONTAINER (window), vbox);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   for (i = 0; i < G_N_ELEMENTS (interfaces); i++)
     {
@@ -676,12 +954,17 @@ create_window (void)
       g_signal_connect (button, "clicked",
                         G_CALLBACK (test_clicked), &interfaces[i]);
 
+<<<<<<< HEAD
       bobgui_box_append (BOBGUI_BOX (vbox), button);
+=======
+      gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   return window;
 }
 
+<<<<<<< HEAD
 static void
 quit_cb (BobguiWidget *widget,
          gpointer   data)
@@ -691,6 +974,24 @@ quit_cb (BobguiWidget *widget,
   *done = TRUE;
 
   g_main_context_wakeup (NULL);
+=======
+static gboolean
+main_window_delete_cb (GtkWidget *widget, GdkEvent *event, gpointer user_data)
+{
+  gsize i;
+
+  for (i = 0; i < G_N_ELEMENTS (interfaces); ++i)
+    {
+      if (interfaces[i].window)
+        gtk_widget_destroy (interfaces[i].window);
+    }
+
+  gtk_widget_destroy (widget);
+
+  gtk_main_quit ();
+
+  return TRUE;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 int
@@ -703,9 +1004,16 @@ main (int argc, char *argv[])
 
   window = create_window ();
 
+<<<<<<< HEAD
   g_signal_connect (window, "destroy", G_CALLBACK (quit_cb), &done);
 
   bobgui_window_present (BOBGUI_WINDOW (window));
+=======
+  g_signal_connect (window, "delete-event",
+                    G_CALLBACK (main_window_delete_cb), window);
+
+  gtk_widget_show_all (window);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

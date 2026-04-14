@@ -39,9 +39,38 @@
 #include <wintab.h>
 #include <imm.h>
 
+<<<<<<< HEAD
 /* Whether GDK initialized COM */
 gboolean
 gdk_win32_ensure_com (void)
+=======
+/* for CFSTR_SHELLIDLIST */
+#include <shlobj.h>
+
+static gboolean gdk_synchronize = FALSE;
+
+static gboolean dummy;
+
+const GOptionEntry _gdk_windowing_args[] = {
+  { "sync", 0, 0, G_OPTION_ARG_NONE, &gdk_synchronize,
+    /* Description of --sync in --help output */              N_("Don't batch GDI requests"), NULL },
+  { "no-wintab", 0, 0, G_OPTION_ARG_NONE, &_gdk_input_ignore_wintab,
+    /* Description of --no-wintab in --help output */         N_("Don't use the Wintab API for tablet support"), NULL },
+  { "ignore-wintab", 0, 0, G_OPTION_ARG_NONE, &_gdk_input_ignore_wintab,
+    /* Description of --ignore-wintab in --help output */     N_("Same as --no-wintab"), NULL },
+  { "use-wintab", 0, 0, G_OPTION_ARG_NONE, &dummy,
+    /* Description of --use-wintab in --help output */     N_("Do use the Wintab API [default]"), NULL },
+  { "max-colors", 0, 0, G_OPTION_ARG_INT, &_gdk_max_colors,
+    /* Description of --max-colors=COLORS in --help output */ N_("Size of the palette in 8 bit mode"),
+    /* Placeholder in --max-colors=COLORS in --help output */ N_("COLORS") },
+  { NULL }
+};
+
+BOOL WINAPI
+DllMain (HINSTANCE hinstDLL,
+	 DWORD     dwReason,
+	 LPVOID    reserved)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 {
   static gsize co_initialized = 0;
 
@@ -117,8 +146,41 @@ gdk_win32_ensure_ole (void)
 }
 
 void
+<<<<<<< HEAD
 _gdk_win32_api_failed (const char *where,
                        const char *api)
+=======
+_gdk_win32_windowing_init (void)
+{
+  gchar buf[10];
+
+  if (getenv ("GDK_IGNORE_WINTAB") != NULL)
+    _gdk_input_ignore_wintab = TRUE;
+  else if (getenv ("GDK_USE_WINTAB") != NULL)
+    _gdk_input_ignore_wintab = FALSE;
+
+  if (gdk_synchronize)
+    GdiSetBatchLimit (1);
+
+  _gdk_app_hmodule = GetModuleHandle (NULL);
+  _gdk_display_hdc = CreateDC ("DISPLAY", NULL, NULL, NULL);
+  _gdk_input_locale = GetKeyboardLayout (0);
+  _gdk_win32_keymap_set_active_layout (GDK_WIN32_KEYMAP (_gdk_win32_display_get_keymap (_gdk_display)), _gdk_input_locale);
+  _gdk_input_locale_is_ime = ImmIsIME (_gdk_input_locale);
+  GetLocaleInfo (MAKELCID (LOWORD (_gdk_input_locale), SORT_DEFAULT),
+		 LOCALE_IDEFAULTANSICODEPAGE,
+		 buf, sizeof (buf));
+  _gdk_input_codepage = atoi (buf);
+  GDK_NOTE (EVENTS, g_print ("input_locale:%p, codepage:%d\n",
+			     _gdk_input_locale, _gdk_input_codepage));
+
+  _gdk_win32_selection_init ();
+}
+
+void
+_gdk_win32_api_failed (const gchar *where,
+                       const gchar *api)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 {
   DWORD error_code = GetLastError ();
   char *msg = g_win32_error_message (error_code);

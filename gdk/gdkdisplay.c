@@ -1312,6 +1312,7 @@ gboolean
 gdk_display_prepare_vulkan (GdkDisplay  *self,
                             GError     **error)
 {
+<<<<<<< HEAD
   g_return_val_if_fail (GDK_IS_DISPLAY (self), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
@@ -1323,6 +1324,55 @@ gdk_display_prepare_vulkan (GdkDisplay  *self,
     {
       if (error)
         *error = g_error_copy (self->vulkan_error);
+=======
+  GdkDisplayManager *manager;
+  GdkGlobalErrorTrap *trap;
+  GSList *displays;
+  GSList *l;
+
+  manager = gdk_display_manager_get ();
+  displays = gdk_display_manager_list_displays (manager);
+
+  trap = g_slice_new0 (GdkGlobalErrorTrap);
+  for (l = displays; l != NULL; l = l->next)
+    {
+      GdkDisplay *display = l->data;
+      GdkDisplayClass *class = GDK_DISPLAY_GET_CLASS (display);
+
+      if (class->push_error_trap != NULL)
+        {
+          class->push_error_trap (display);
+          trap->displays = g_slist_prepend (trap->displays, g_object_ref (display));
+        }
+    }
+
+  g_queue_push_head (&gdk_error_traps, trap);
+
+  g_slist_free (displays);
+}
+
+static gint
+gdk_error_trap_pop_internal (gboolean need_code)
+{
+  GdkGlobalErrorTrap *trap;
+  gint result;
+  GSList *l;
+
+  trap = g_queue_pop_head (&gdk_error_traps);
+
+  g_return_val_if_fail (trap != NULL, 0);
+
+  result = 0;
+  for (l = trap->displays; l != NULL; l = l->next)
+    {
+      GdkDisplay *display = l->data;
+      GdkDisplayClass *class = GDK_DISPLAY_GET_CLASS (display);
+      gint code = class->pop_error_trap (display, !need_code);
+
+      /* we use the error on the last display listed, why not. */
+      if (code != 0)
+        result = code;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   return self->vk_instance != NULL;
@@ -2349,7 +2399,42 @@ gdk_display_get_monitors (GdkDisplay *self)
 {
   g_return_val_if_fail (GDK_IS_DISPLAY (self), NULL);
 
+<<<<<<< HEAD
   return GDK_DISPLAY_GET_CLASS (self)->get_monitors (self);
+=======
+  if (GDK_DISPLAY_GET_CLASS (display)->get_n_monitors == NULL)
+    return 1;
+
+  return GDK_DISPLAY_GET_CLASS (display)->get_n_monitors (display);
+}
+
+static GdkMonitor *
+get_fallback_monitor (GdkDisplay *display)
+{
+  static GdkMonitor *monitor = NULL;
+  GdkScreen *screen;
+
+  if (monitor == NULL)
+    {
+      g_warning ("%s does not implement the monitor vfuncs", G_OBJECT_TYPE_NAME (display));
+      monitor = gdk_monitor_new (display);
+      gdk_monitor_set_manufacturer (monitor, "fallback");
+      gdk_monitor_set_position (monitor, 0, 0);
+      gdk_monitor_set_scale_factor (monitor, 1);
+    }
+
+  screen = gdk_display_get_default_screen (display);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  gdk_monitor_set_size (monitor,
+                        gdk_screen_get_width (screen),
+                        gdk_screen_get_height (screen));
+  gdk_monitor_set_physical_size (monitor,
+                                 gdk_screen_get_width_mm (screen),
+                                 gdk_screen_get_height_mm (screen));
+G_GNUC_END_IGNORE_DEPRECATIONS
+
+  return monitor;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 /**

@@ -51,6 +51,7 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 /* these functions are based on code from libwnck (LGPLv2) */
 
 static gboolean get_window_list   (GdkDisplay *display,
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
                                    Display   *xdisplay,
                                    Window     xwindow,
                                    Atom       atom,
@@ -76,14 +77,43 @@ static gboolean read_rgb_icon     (GdkDisplay *display,
                                    int       *width,
                                    int       *height,
                                    guchar   **pixdata);
+=======
+                                   Window      xwindow,
+                                   Atom        atom,
+                                   Window    **windows,
+                                   int        *len);
+
+static char*    get_utf8_property (GdkDisplay *display,
+                                   Window      xwindow,
+                                   Atom        atom);
+
+static gboolean get_cardinal      (GdkDisplay *display,
+                                   Window      xwindow,
+                                   Atom        atom,
+                                   int        *val);
+
+static gboolean read_rgb_icon     (GdkDisplay *display,
+                                   Window      xwindow,
+                                   int         ideal_width,
+                                   int         ideal_height,
+                                   int        *width,
+                                   int        *height,
+                                   guchar    **pixdata);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
 
 
 static gboolean
 get_cardinal (GdkDisplay *display,
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
               Display *xdisplay,
               Window   xwindow,
               Atom     atom,
               int     *val)
+=======
+              Window      xwindow,
+              Atom        atom,
+              int        *val)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
 {
   Atom type;
   int format;
@@ -96,13 +126,17 @@ get_cardinal (GdkDisplay *display,
 
   gdk_x11_display_error_trap_push (display);
   type = None;
-  result = XGetWindowProperty (xdisplay,
+  result = XGetWindowProperty (GDK_DISPLAY_XDISPLAY (display),
                                xwindow,
                                atom,
                                0, G_MAXLONG,
                                False, XA_CARDINAL, &type, &format, &nitems,
                                &bytes_after, (void*)&num);
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
   XSync (xdisplay, False);
+=======
+  XSync (GDK_DISPLAY_XDISPLAY (display), False);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
   err = gdk_x11_display_error_trap_pop (display);
 
   if (err != Success ||
@@ -124,9 +158,14 @@ get_cardinal (GdkDisplay *display,
 
 static char*
 get_utf8_property (GdkDisplay *display,
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
                    Display *xdisplay,
                    Window   xwindow,
                    Atom     atom)
+=======
+                   Window      xwindow,
+                   Atom        atom)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
 {
   Atom type;
   int format;
@@ -142,14 +181,18 @@ get_utf8_property (GdkDisplay *display,
   gdk_x11_display_error_trap_push (display);
   type = None;
   val = NULL;
-  result = XGetWindowProperty (xdisplay,
+  result = XGetWindowProperty (GDK_DISPLAY_XDISPLAY (display),
                                xwindow,
                                atom,
                                0, G_MAXLONG,
                                False, utf8_string,
                                &type, &format, &nitems,
                                &bytes_after, (guchar **)&val);
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
   XSync (xdisplay, False);
+=======
+  XSync (GDK_DISPLAY_XDISPLAY (display), False);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
   err = gdk_x11_display_error_trap_pop (display);
 
   if (err != Success ||
@@ -344,6 +387,7 @@ argbdata_to_pixdata (gulong  *argb_data,
 
 static gboolean
 read_rgb_icon (GdkDisplay *display,
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
                Display   *xdisplay,
                Window     xwindow,
                int        ideal_width,
@@ -351,6 +395,14 @@ read_rgb_icon (GdkDisplay *display,
                int       *width,
                int       *height,
                guchar   **pixdata)
+=======
+               Window      xwindow,
+               int         ideal_width,
+               int         ideal_height,
+               int        *width,
+               int        *height,
+               guchar    **pixdata)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
 {
   Atom type;
   int format;
@@ -364,14 +416,18 @@ read_rgb_icon (GdkDisplay *display,
   gdk_x11_display_error_trap_push (display);
   type = None;
   data = NULL;
-  result = XGetWindowProperty (xdisplay,
+  result = XGetWindowProperty (GDK_DISPLAY_XDISPLAY (display),
                                xwindow,
                                gdk_x11_get_xatom_by_name_for_display (display, "_NET_WM_ICON"),
                                0, G_MAXLONG,
                                False, XA_CARDINAL, &type, &format, &nitems,
                                &bytes_after, (void*)&data);
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
 
   XSync (xdisplay, False);
+=======
+  XSync (GDK_DISPLAY_XDISPLAY (display), False);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
   err = gdk_x11_display_error_trap_pop (display);
 
   if (err != Success ||
@@ -473,11 +529,18 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
 static gboolean
 get_window_list (GdkDisplay *display,
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
                  Display  *xdisplay,
                  Window    xwindow,
                  Atom      atom,
                  Window  **windows,
                  int      *len)
+=======
+                 Window      xwindow,
+                 Atom        atom,
+                 Window    **windows,
+                 int        *len)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
 {
   Atom type;
   int format;
@@ -491,13 +554,17 @@ get_window_list (GdkDisplay *display,
 
   gdk_x11_display_error_trap_push (display);
   type = None;
-  result = XGetWindowProperty (xdisplay,
+  result = XGetWindowProperty (GDK_DISPLAY_XDISPLAY (display),
                                xwindow,
                                atom,
                                0, G_MAXLONG,
                                False, XA_WINDOW, &type, &format, &nitems,
                                &bytes_after, (void*)&data);
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
   XSync (xdisplay, False);
+=======
+  XSync (GDK_DISPLAY_XDISPLAY (display), False);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
   err = gdk_x11_display_error_trap_pop (display);
 
   if (err != Success ||
@@ -546,7 +613,19 @@ _bobgui_mount_operation_lookup_context_get (GdkDisplay *display)
   context->pid_to_window = g_hash_table_new (g_direct_hash, g_direct_equal);
   context->display = display;
 
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
   if (GDK_IS_X11_DISPLAY (display))
+=======
+  mapping = NULL;
+  mapping_length = 0;
+  get_window_list (context->display,
+                   GDK_ROOT_WINDOW(),
+                   gdk_x11_get_xatom_by_name_for_display (context->display,
+                                                          "_NET_CLIENT_LIST"),
+                   &mapping,
+                   &mapping_length);
+  for (n = 0; n < mapping_length; n++)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
     {
       mapping = NULL;
       mapping_length = 0;
@@ -561,6 +640,7 @@ _bobgui_mount_operation_lookup_context_get (GdkDisplay *display)
         {
           int pid;
 
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
           if (!get_cardinal (context->display,
                              GDK_DISPLAY_XDISPLAY (context->display),
                              mapping[n],
@@ -568,6 +648,14 @@ _bobgui_mount_operation_lookup_context_get (GdkDisplay *display)
                                                                     "_NET_WM_PID"),
                              &pid))
             continue;
+=======
+      if (!get_cardinal (context->display,
+                         mapping[n],
+                         gdk_x11_get_xatom_by_name_for_display (context->display,
+                                                                "_NET_WM_PID"),
+                         &pid))
+        continue;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
 
           g_hash_table_insert (context->pid_to_window,
                                GINT_TO_POINTER (pid),
@@ -915,13 +1003,19 @@ get_name_for_window_with_pid (BobguiMountOperationLookupContext *context,
   if (window != None)
     {
       ret = get_utf8_property (context->display,
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
                                GDK_DISPLAY_XDISPLAY (context->display),
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
                                window,
                                gdk_x11_get_xatom_by_name_for_display (context->display,
                                                                       "_NET_WM_NAME"));
       if (ret == NULL)
         ret = get_utf8_property (context->display,
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
                                  GDK_DISPLAY_XDISPLAY (context->display),
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
                                  window, gdk_x11_get_xatom_by_name_for_display (context->display,
                                                                                 "_NET_WM_ICON_NAME"));
     }
@@ -965,7 +1059,10 @@ get_texture_for_window_with_pid (BobguiMountOperationLookupContext *context,
       guchar *pixdata;
 
       if (read_rgb_icon (context->display,
+<<<<<<< HEAD:bobgui/bobguimountoperation-x11.c
                          GDK_DISPLAY_XDISPLAY (context->display),
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkmountoperation-x11.c
                          window,
                          size_pixels, size_pixels,
                          &width, &height,

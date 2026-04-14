@@ -25,7 +25,13 @@
 
 #include <gio/gio.h>
 #ifdef HAVE_CLOUDPROVIDERS
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 #include <cloudproviders.h>
+=======
+#include <cloudproviders/cloudproviderscollector.h>
+#include <cloudproviders/cloudprovidersaccount.h>
+#include <cloudproviders/cloudprovidersprovider.h>
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 #endif
 
 #include "bobguiplacessidebarprivate.h"
@@ -89,7 +95,11 @@
  *
  * # CSS nodes
  *
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
  * BobguiPlacesSidebar uses a single CSS node with name placessidebar and style
+=======
+ * GtkPlacesSidebar uses a single CSS node with name placessidebar and style
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
  * class .sidebar.
  *
  * Among the children of the places sidebar, the following style classes can
@@ -128,6 +138,16 @@ struct _BobguiPlacesSidebar {
   GList *unready_accounts;
 #endif
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
+=======
+  GtkBookmarksManager     *bookmarks_manager;
+
+#ifdef HAVE_CLOUDPROVIDERS
+  CloudProvidersCollector *cloud_manager;
+  GList *unready_accounts;
+#endif
+
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
   GVolumeMonitor    *volume_monitor;
   BobguiTrashMonitor   *trash_monitor;
   BobguiSettings       *bobgui_settings;
@@ -165,6 +185,8 @@ struct _BobguiPlacesSidebar {
 
   BobguiPlacesOpenFlags open_flags;
 
+  GActionGroup *action_group;
+
   guint mounting               : 1;
   guint show_recent_set        : 1;
   guint show_recent            : 1;
@@ -174,6 +196,11 @@ struct _BobguiPlacesSidebar {
   guint show_other_locations   : 1;
   guint show_trash             : 1;
   guint show_starred_location  : 1;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
+=======
+  guint local_only             : 1;
+  guint populate_all           : 1;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 };
 
 struct _BobguiPlacesSidebarClass {
@@ -201,7 +228,13 @@ struct _BobguiPlacesSidebarClass {
 
   void    (* show_starred_location)    (BobguiPlacesSidebar   *sidebar);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   void    (* mount)                  (BobguiPlacesSidebar   *sidebar,
+=======
+  void    (* show_starred_location)    (GtkPlacesSidebar   *sidebar);
+
+  void    (* mount)                  (GtkPlacesSidebar   *sidebar,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                                       GMountOperation    *mount_operation);
   void    (* unmount)                (BobguiPlacesSidebar   *sidebar,
                                       GMountOperation    *unmount_operation);
@@ -229,6 +262,10 @@ enum {
   PROP_SHOW_ENTER_LOCATION,
   PROP_SHOW_TRASH,
   PROP_SHOW_STARRED_LOCATION,
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
+=======
+  PROP_LOCAL_ONLY,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
   PROP_SHOW_OTHER_LOCATIONS,
   NUM_PROPERTIES
 };
@@ -327,8 +364,13 @@ emit_show_other_locations_with_flags (BobguiPlacesSidebar   *sidebar,
 }
 
 static void
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 emit_show_starred_location (BobguiPlacesSidebar  *sidebar,
                             BobguiPlacesOpenFlags open_flags)
+=======
+emit_show_starred_location (GtkPlacesSidebar  *sidebar,
+                            GtkPlacesOpenFlags open_flags)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 {
   g_signal_emit (sidebar, places_sidebar_signals[SHOW_STARRED_LOCATION], 0,
                  open_flags);
@@ -336,7 +378,11 @@ emit_show_starred_location (BobguiPlacesSidebar  *sidebar,
 
 
 static void
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 emit_mount_operation (BobguiPlacesSidebar *sidebar,
+=======
+emit_mount_operation (GtkPlacesSidebar *sidebar,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                       GMountOperation  *mount_op)
 {
   g_signal_emit (sidebar, places_sidebar_signals[MOUNT], 0, mount_op);
@@ -399,6 +445,7 @@ list_box_header_func (BobguiListBoxRow *row,
     }
 }
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 static BobguiWidget*
 add_place (BobguiPlacesSidebar            *sidebar,
            BobguiPlacesPlaceType           place_type,
@@ -407,6 +454,16 @@ add_place (BobguiPlacesSidebar            *sidebar,
            GIcon                       *start_icon,
            GIcon                       *end_icon,
            const char                  *uri,
+=======
+static GtkWidget*
+add_place (GtkPlacesSidebar            *sidebar,
+           GtkPlacesSidebarPlaceType    place_type,
+           GtkPlacesSidebarSectionType  section_type,
+           const gchar                 *name,
+           GIcon                       *start_icon,
+           GIcon                       *end_icon,
+           const gchar                 *uri,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
            GDrive                      *drive,
            GVolume                     *volume,
            GMount                      *mount,
@@ -415,8 +472,13 @@ add_place (BobguiPlacesSidebar            *sidebar,
 #else
            gpointer                    *cloud_provider_account,
 #endif
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
            const int                    index,
            const char                  *tooltip)
+=======
+           const gint                   index,
+           const gchar                 *tooltip)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 {
   gboolean show_eject, show_unmount;
   gboolean show_eject_button;
@@ -583,9 +645,15 @@ add_special_dirs (BobguiPlacesSidebar *sidebar)
       const char *path;
       GFile *root;
       GIcon *start_icon;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       char *name;
       char *mount_uri;
       char *tooltip;
+=======
+      gchar *name;
+      gchar *mount_uri;
+      gchar *tooltip;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
       if (!_bobgui_bookmarks_manager_get_is_xdg_dir_builtin (index))
         continue;
@@ -611,8 +679,13 @@ add_special_dirs (BobguiPlacesSidebar *sidebar)
       mount_uri = g_file_get_uri (root);
       tooltip = g_file_get_parse_name (root);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       add_place (sidebar, BOBGUI_PLACES_XDG_DIR,
                  BOBGUI_PLACES_SECTION_COMPUTER,
+=======
+      add_place (sidebar, PLACES_XDG_DIR,
+                 SECTION_COMPUTER,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                  name, start_icon, NULL, mount_uri,
                  NULL, NULL, NULL, NULL, 0,
                  tooltip);
@@ -708,18 +781,38 @@ on_app_shortcuts_query_complete (GObject      *source,
 
   if (info)
     {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       char *uri;
       char *tooltip;
       const char *name;
       GIcon *start_icon;
+=======
+      gchar *uri;
+      gchar *tooltip;
+      const gchar *name;
+      GIcon *start_icon;
+      int pos = 0;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
       name = g_file_info_get_display_name (info);
       start_icon = g_file_info_get_symbolic_icon (info);
       uri = g_file_get_uri (file);
       tooltip = g_file_get_parse_name (file);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       add_place (sidebar, BOBGUI_PLACES_BUILT_IN,
                  BOBGUI_PLACES_SECTION_COMPUTER,
+=======
+      /* XXX: we could avoid this by using an ancillary closure
+       * with the index coming from add_application_shortcuts(),
+       * but in terms of algorithmic overhead, the application
+       * shortcuts is not going to be really big
+       */
+      pos = g_slist_index (sidebar->shortcuts, file);
+
+      add_place (sidebar, PLACES_BUILT_IN,
+                 SECTION_COMPUTER,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                  name, start_icon, NULL, uri,
                  NULL, NULL, NULL, NULL,
                  pos,
@@ -777,9 +870,15 @@ on_bookmark_query_info_complete (GObject      *source,
   GFile *root = G_FILE (source);
   GError *error = NULL;
   GFileInfo *info;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   char *bookmark_name;
   char *mount_uri;
   char *tooltip;
+=======
+  gchar *bookmark_name;
+  gchar *mount_uri;
+  gchar *tooltip;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
   GIcon *start_icon;
 
   info = g_file_query_info_finish (root, result, &error);
@@ -811,8 +910,13 @@ on_bookmark_query_info_complete (GObject      *source,
   mount_uri = g_file_get_uri (root);
   tooltip = g_file_get_parse_name (root);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   add_place (sidebar, BOBGUI_PLACES_BOOKMARK,
              BOBGUI_PLACES_SECTION_BOOKMARKS,
+=======
+  add_place (sidebar, PLACES_BOOKMARK,
+             SECTION_BOOKMARKS,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
              bookmark_name, start_icon, NULL, mount_uri,
              NULL, NULL, NULL, NULL, clos->index,
              tooltip);
@@ -859,8 +963,13 @@ update_trash_icon (BobguiPlacesSidebar *sidebar)
     {
       GIcon *icon;
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       icon = _bobgui_trash_monitor_get_icon (sidebar->trash_monitor);
       bobgui_sidebar_row_set_start_icon (BOBGUI_SIDEBAR_ROW (sidebar->trash_row), icon);
+=======
+      icon = _gtk_trash_monitor_get_icon (sidebar->trash_monitor);
+      gtk_sidebar_row_set_start_icon (GTK_SIDEBAR_ROW (sidebar->trash_row), icon);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
       g_object_unref (icon);
     }
 }
@@ -868,25 +977,43 @@ update_trash_icon (BobguiPlacesSidebar *sidebar)
 #ifdef HAVE_CLOUDPROVIDERS
 
 static gboolean
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 create_cloud_provider_account_row (BobguiPlacesSidebar      *sidebar,
+=======
+create_cloud_provider_account_row (GtkPlacesSidebar      *sidebar,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                                    CloudProvidersAccount *account)
 {
   GIcon *end_icon;
   GIcon *start_icon;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   const char *mount_path;
   const char *name;
   char *mount_uri;
   char *tooltip;
+=======
+  gchar *mount_uri;
+  gchar *name;
+  gchar *tooltip;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
   guint provider_account_status;
 
   start_icon = cloud_providers_account_get_icon (account);
   name = cloud_providers_account_get_name (account);
   provider_account_status = cloud_providers_account_get_status (account);
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   mount_path = cloud_providers_account_get_path (account);
   if (start_icon != NULL
       && name != NULL
       && provider_account_status != CLOUD_PROVIDERS_ACCOUNT_STATUS_INVALID
       && mount_path != NULL)
+=======
+  mount_uri = cloud_providers_account_get_path (account);
+  if (start_icon != NULL
+      && name != NULL
+      && provider_account_status != CLOUD_PROVIDERS_ACCOUNT_STATUS_INVALID
+      && mount_uri != NULL)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
     {
       switch (provider_account_status)
         {
@@ -906,21 +1033,33 @@ create_cloud_provider_account_row (BobguiPlacesSidebar      *sidebar,
             return FALSE;
         }
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       mount_uri = g_strconcat ("file://", mount_path, NULL);
+=======
+      mount_uri = g_strconcat ("file://", mount_uri, NULL);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
       /* translators: %s is the name of a cloud provider for files */
       tooltip = g_strdup_printf (_("Open %s"), name);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       add_place (sidebar, BOBGUI_PLACES_BUILT_IN,
                  BOBGUI_PLACES_SECTION_CLOUD,
+=======
+      add_place (sidebar, PLACES_BUILT_IN,
+                 SECTION_CLOUD,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                  name, start_icon, end_icon, mount_uri,
                  NULL, NULL, NULL, account, 0,
                  tooltip);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       g_free (tooltip);
       g_free (mount_uri);
       g_clear_object (&end_icon);
       
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
       return TRUE;
     }
   else
@@ -929,6 +1068,27 @@ create_cloud_provider_account_row (BobguiPlacesSidebar      *sidebar,
     }
 }
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
+=======
+static void
+on_account_updated (GObject    *object,
+                    GParamSpec *pspec,
+                    gpointer    user_data)
+{
+    CloudProvidersAccount *account = CLOUD_PROVIDERS_ACCOUNT (object);
+    GtkPlacesSidebar *sidebar = GTK_PLACES_SIDEBAR (user_data);
+
+    if (create_cloud_provider_account_row (sidebar, account))
+      {
+          g_signal_handlers_disconnect_by_data (account, sidebar);
+          sidebar->unready_accounts = g_list_remove (sidebar->unready_accounts, account);
+          g_object_unref (account);
+      }
+}
+
+#endif
+
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 static void
 on_account_updated (GObject    *object,
                     GParamSpec *pspec,
@@ -957,22 +1117,36 @@ update_places (BobguiPlacesSidebar *sidebar)
   GList *volumes;
   GVolume *volume;
   GSList *bookmarks, *sl;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   int index;
   char *original_uri, *name, *identifier;
   BobguiListBoxRow *selected;
   char *home_uri;
+=======
+  gint index;
+  gchar *original_uri, *mount_uri, *name, *identifier;
+  GtkListBoxRow *selected;
+  gchar *home_uri;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
   GIcon *start_icon;
   GFile *root;
   char *tooltip;
   GList *network_mounts, *network_volumes;
   GIcon *new_bookmark_icon;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   BobguiWidget *child;
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 #ifdef HAVE_CLOUDPROVIDERS
   GList *cloud_providers;
   GList *cloud_providers_accounts;
   CloudProvidersAccount *cloud_provider_account;
   CloudProvidersProvider *cloud_provider;
 #endif
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
+=======
+  GtkStyleContext *context;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   /* save original selection */
   selected = bobgui_list_box_get_selected_row (BOBGUI_LIST_BOX (sidebar->list_box));
@@ -997,10 +1171,18 @@ update_places (BobguiPlacesSidebar *sidebar)
   /* add built-in places */
   if (should_show_recent (sidebar))
     {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       start_icon = g_themed_icon_new_with_default_fallbacks ("document-open-recent-symbolic");
       add_place (sidebar, BOBGUI_PLACES_BUILT_IN,
                  BOBGUI_PLACES_SECTION_COMPUTER,
                  _("Recent"), start_icon, NULL, "recent:///",
+=======
+      mount_uri = "recent:///";
+      start_icon = g_themed_icon_new_with_default_fallbacks ("document-open-recent-symbolic");
+      add_place (sidebar, PLACES_BUILT_IN,
+                 SECTION_COMPUTER,
+                 _("Recent"), start_icon, NULL, mount_uri,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                  NULL, NULL, NULL, NULL, 0,
                  _("Recent files"));
       g_object_unref (start_icon);
@@ -1008,20 +1190,36 @@ update_places (BobguiPlacesSidebar *sidebar)
 
   if (sidebar->show_starred_location)
     {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       start_icon = g_themed_icon_new_with_default_fallbacks ("starred-symbolic");
       add_place (sidebar, BOBGUI_PLACES_STARRED_LOCATION,
                  BOBGUI_PLACES_SECTION_COMPUTER,
                  _("Starred"), start_icon, NULL, "starred:///",
                  NULL, NULL, NULL, NULL, 0,
                  _("Starred files"));
+=======
+      mount_uri = "starred:///";
+      start_icon = g_themed_icon_new_with_default_fallbacks ("starred-symbolic");
+      add_place (sidebar, PLACES_STARRED_LOCATION,
+                 SECTION_COMPUTER,
+                 _("Starred"), start_icon, NULL, mount_uri,
+                 NULL, NULL, NULL, NULL, 0,
+                /* TODO: Rename to 'Starred files' */
+                 _("Favorite files"));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
       g_object_unref (start_icon);
     }
 
   /* home folder */
   home_uri = get_home_directory_uri ();
   start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_HOME);
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   add_place (sidebar, BOBGUI_PLACES_BUILT_IN,
              BOBGUI_PLACES_SECTION_COMPUTER,
+=======
+  add_place (sidebar, PLACES_BUILT_IN,
+             SECTION_COMPUTER,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
              _("Home"), start_icon, NULL, home_uri,
              NULL, NULL, NULL, NULL, 0,
              _("Open your personal folder"));
@@ -1035,8 +1233,13 @@ update_places (BobguiPlacesSidebar *sidebar)
       if (mount_uri)
         {
           start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_DESKTOP);
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
           add_place (sidebar, BOBGUI_PLACES_BUILT_IN,
                      BOBGUI_PLACES_SECTION_COMPUTER,
+=======
+          add_place (sidebar, PLACES_BUILT_IN,
+                     SECTION_COMPUTER,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                      _("Desktop"), start_icon, NULL, mount_uri,
                      NULL, NULL, NULL, NULL, 0,
                      _("Open the contents of your desktop in a folder"));
@@ -1051,8 +1254,13 @@ update_places (BobguiPlacesSidebar *sidebar)
   if (sidebar->show_enter_location)
     {
       start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_NETWORK_SERVER);
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       add_place (sidebar, BOBGUI_PLACES_ENTER_LOCATION,
                  BOBGUI_PLACES_SECTION_COMPUTER,
+=======
+      add_place (sidebar, PLACES_ENTER_LOCATION,
+                 SECTION_COMPUTER,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                  _("Enter Location"), start_icon, NULL, NULL,
                  NULL, NULL, NULL, NULL, 0,
                  _("Manually enter a location"));
@@ -1062,9 +1270,15 @@ update_places (BobguiPlacesSidebar *sidebar)
   /* Trash */
   if (sidebar->show_trash)
     {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       start_icon = _bobgui_trash_monitor_get_icon (sidebar->trash_monitor);
       sidebar->trash_row = add_place (sidebar, BOBGUI_PLACES_BUILT_IN,
                                       BOBGUI_PLACES_SECTION_COMPUTER,
+=======
+      start_icon = _gtk_trash_monitor_get_icon (sidebar->trash_monitor);
+      sidebar->trash_row = add_place (sidebar, PLACES_BUILT_IN,
+                                      SECTION_COMPUTER,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                                       _("Trash"), start_icon, NULL, "trash:///",
                                       NULL, NULL, NULL, NULL, 0,
                                       _("Open the trash"));
@@ -1155,8 +1369,13 @@ update_places (BobguiPlacesSidebar *sidebar)
                   name = g_mount_get_name (mount);
                   tooltip = g_file_get_parse_name (root);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
                   add_place (sidebar, BOBGUI_PLACES_MOUNTED_VOLUME,
                              BOBGUI_PLACES_SECTION_MOUNTS,
+=======
+                  add_place (sidebar, PLACES_MOUNTED_VOLUME,
+                             SECTION_MOUNTS,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                              name, start_icon, NULL, mount_uri,
                              drive, volume, mount, NULL, 0, tooltip);
                   g_object_unref (root);
@@ -1180,8 +1399,13 @@ update_places (BobguiPlacesSidebar *sidebar)
                   name = g_volume_get_name (volume);
                   tooltip = g_strdup_printf (_("Mount and open “%s”"), name);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
                   add_place (sidebar, BOBGUI_PLACES_MOUNTED_VOLUME,
                              BOBGUI_PLACES_SECTION_MOUNTS,
+=======
+                  add_place (sidebar, PLACES_MOUNTED_VOLUME,
+                             SECTION_MOUNTS,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                              name, start_icon, NULL, NULL,
                              drive, volume, NULL, NULL, 0, tooltip);
                   g_object_unref (start_icon);
@@ -1208,8 +1432,13 @@ update_places (BobguiPlacesSidebar *sidebar)
               name = g_drive_get_name (drive);
               tooltip = g_strdup_printf (_("Mount and open “%s”"), name);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
               add_place (sidebar, BOBGUI_PLACES_BUILT_IN,
                          BOBGUI_PLACES_SECTION_MOUNTS,
+=======
+              add_place (sidebar, PLACES_BUILT_IN,
+                         SECTION_MOUNTS,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                          name, start_icon, NULL, NULL,
                          drive, NULL, NULL, NULL, 0, tooltip);
               g_object_unref (start_icon);
@@ -1260,14 +1489,22 @@ update_places (BobguiPlacesSidebar *sidebar)
       if (mount != NULL)
         {
           char *mount_uri;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
           start_icon = g_mount_get_symbolic_icon (mount);
           root = g_mount_get_default_location (mount);
           mount_uri = g_file_get_uri (root);
           tooltip = g_file_get_parse_name (root);
           name = g_mount_get_name (mount);
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
           add_place (sidebar, BOBGUI_PLACES_MOUNTED_VOLUME,
                      BOBGUI_PLACES_SECTION_MOUNTS,
+=======
+          add_place (sidebar, PLACES_MOUNTED_VOLUME,
+                     SECTION_MOUNTS,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                      name, start_icon, NULL, mount_uri,
                      NULL, volume, mount, NULL, 0, tooltip);
           g_object_unref (mount);
@@ -1282,8 +1519,13 @@ update_places (BobguiPlacesSidebar *sidebar)
           /* see comment above in why we add an icon for an unmounted mountable volume */
           start_icon = g_volume_get_symbolic_icon (volume);
           name = g_volume_get_name (volume);
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
           add_place (sidebar, BOBGUI_PLACES_MOUNTED_VOLUME,
                      BOBGUI_PLACES_SECTION_MOUNTS,
+=======
+          add_place (sidebar, PLACES_MOUNTED_VOLUME,
+                     SECTION_MOUNTS,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                      name, start_icon, NULL, NULL,
                      NULL, volume, NULL, NULL, 0, name);
           g_object_unref (start_icon);
@@ -1296,10 +1538,18 @@ update_places (BobguiPlacesSidebar *sidebar)
   /* file system root */
   if (!sidebar->show_other_locations)
     {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_FILESYSTEM);
       add_place (sidebar, BOBGUI_PLACES_BUILT_IN,
                  BOBGUI_PLACES_SECTION_MOUNTS,
                  sidebar->hostname, start_icon, NULL, "file:///",
+=======
+      mount_uri = "file:///"; /* No need to strdup */
+      start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_FILESYSTEM);
+      add_place (sidebar, PLACES_BUILT_IN,
+                 SECTION_MOUNTS,
+                 sidebar->hostname, start_icon, NULL, mount_uri,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                  NULL, NULL, NULL, NULL, 0,
                  _("Open the contents of the file system"));
       g_object_unref (start_icon);
@@ -1338,8 +1588,13 @@ update_places (BobguiPlacesSidebar *sidebar)
       mount_uri = g_file_get_uri (root);
       name = g_mount_get_name (mount);
       tooltip = g_file_get_parse_name (root);
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       add_place (sidebar, BOBGUI_PLACES_MOUNTED_VOLUME,
                  BOBGUI_PLACES_SECTION_COMPUTER,
+=======
+      add_place (sidebar, PLACES_MOUNTED_VOLUME,
+                 SECTION_COMPUTER,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                  name, start_icon, NULL, mount_uri,
                  NULL, NULL, mount, NULL, 0, tooltip);
       g_object_unref (root);
@@ -1382,8 +1637,13 @@ update_places (BobguiPlacesSidebar *sidebar)
 
   /* Add new bookmark row */
   new_bookmark_icon = g_themed_icon_new ("bookmark-new-symbolic");
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   sidebar->new_bookmark_row = add_place (sidebar, BOBGUI_PLACES_DROP_FEEDBACK,
                                          BOBGUI_PLACES_SECTION_BOOKMARKS,
+=======
+  sidebar->new_bookmark_row = add_place (sidebar, PLACES_DROP_FEEDBACK,
+                                         SECTION_BOOKMARKS,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                                          _("New bookmark"), new_bookmark_icon, NULL, NULL,
                                          NULL, NULL, NULL, NULL, 0,
                                          _("Add a new bookmark"));
@@ -1399,8 +1659,18 @@ update_places (BobguiPlacesSidebar *sidebar)
 
       if (mount != NULL)
         {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
           network_mounts = g_list_prepend (network_mounts, mount);
           continue;
+=======
+          start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_NETWORK_SERVER);
+          add_place (sidebar, PLACES_CONNECT_TO_SERVER,
+                     SECTION_MOUNTS,
+                     _("Connect to Server"), start_icon, NULL,
+                     NULL, NULL, NULL, NULL, NULL, 0,
+                     _("Connect to a network server address"));
+          g_object_unref (start_icon);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
         }
       else
         {
@@ -1408,10 +1678,48 @@ update_places (BobguiPlacesSidebar *sidebar)
           name = g_volume_get_name (volume);
           tooltip = g_strdup_printf (_("Mount and open “%s”"), name);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
           add_place (sidebar, BOBGUI_PLACES_MOUNTED_VOLUME,
                      BOBGUI_PLACES_SECTION_MOUNTS,
                      name, start_icon, NULL, NULL,
                      NULL, volume, NULL, NULL, 0, tooltip);
+=======
+          if (mount != NULL)
+            {
+              network_mounts = g_list_prepend (network_mounts, mount);
+              continue;
+            }
+          else
+            {
+              start_icon = g_volume_get_symbolic_icon (volume);
+              name = g_volume_get_name (volume);
+              tooltip = g_strdup_printf (_("Mount and open “%s”"), name);
+
+              add_place (sidebar, PLACES_MOUNTED_VOLUME,
+                         SECTION_MOUNTS,
+                         name, start_icon, NULL, NULL,
+                         NULL, volume, NULL, NULL, 0, tooltip);
+              g_object_unref (start_icon);
+              g_free (name);
+              g_free (tooltip);
+            }
+        }
+
+      network_mounts = g_list_reverse (network_mounts);
+      for (l = network_mounts; l != NULL; l = l->next)
+        {
+          mount = l->data;
+          root = g_mount_get_default_location (mount);
+          start_icon = g_mount_get_symbolic_icon (mount);
+          mount_uri = g_file_get_uri (root);
+          name = g_mount_get_name (mount);
+          tooltip = g_file_get_parse_name (root);
+          add_place (sidebar, PLACES_MOUNTED_VOLUME,
+                     SECTION_MOUNTS,
+                     name, start_icon, NULL, mount_uri,
+                     NULL, NULL, mount, NULL, 0, tooltip);
+          g_object_unref (root);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
           g_object_unref (start_icon);
           g_free (name);
           g_free (tooltip);
@@ -1449,8 +1757,13 @@ update_places (BobguiPlacesSidebar *sidebar)
     {
       start_icon = g_themed_icon_new_with_default_fallbacks (ICON_NAME_OTHER_LOCATIONS);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       add_place (sidebar, BOBGUI_PLACES_OTHER_LOCATIONS,
                  BOBGUI_PLACES_SECTION_OTHER_LOCATIONS,
+=======
+      add_place (sidebar, PLACES_OTHER_LOCATIONS,
+                 SECTION_OTHER_LOCATIONS,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
                  _("Other Locations"), start_icon, NULL, "other-locations:///",
                  NULL, NULL, NULL, NULL, 0, _("Show other locations"));
 
@@ -1496,7 +1809,17 @@ check_valid_drop_target (BobguiPlacesSidebar *sidebar,
                 "uri", &uri,
                 NULL);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   if (place_type == BOBGUI_PLACES_STARRED_LOCATION)
+=======
+  if (place_type == PLACES_STARRED_LOCATION)
+    {
+      g_free (uri);
+      return FALSE;
+    }
+
+  if (place_type == PLACES_CONNECT_TO_SERVER)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
     {
       g_free (uri);
       return FALSE;
@@ -1975,8 +2298,13 @@ volume_mount_cb (GObject      *source_object,
                  GAsyncResult *result,
                  gpointer      user_data)
 {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   BobguiSidebarRow *row = BOBGUI_SIDEBAR_ROW (user_data);
   BobguiPlacesSidebar *sidebar;
+=======
+  GtkSidebarRow *row = GTK_SIDEBAR_ROW (user_data);
+  GtkPlacesSidebar *sidebar;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
   GVolume *volume;
   GError *error;
   char *primary;
@@ -1994,9 +2322,12 @@ volume_mount_cb (GObject      *source_object,
         {
           name = g_volume_get_name (G_VOLUME (source_object));
           if (g_str_has_prefix (error->message, "Error unlocking"))
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
             /* Translators: This means that unlocking an encrypted storage
              * device failed. %s is the name of the device.
              */
+=======
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
             primary = g_strdup_printf (_("Error unlocking “%s”"), name);
           else
             primary = g_strdup_printf (_("Unable to access “%s”"), name);
@@ -2008,7 +2339,11 @@ volume_mount_cb (GObject      *source_object,
     }
 
   sidebar->mounting = FALSE;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   bobgui_sidebar_row_set_busy (row, FALSE);
+=======
+  gtk_sidebar_row_set_busy (row, FALSE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   mount = g_volume_get_mount (volume);
   if (mount != NULL)
@@ -2027,10 +2362,17 @@ volume_mount_cb (GObject      *source_object,
 }
 
 static void
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 mount_volume (BobguiSidebarRow *row,
               GVolume       *volume)
 {
   BobguiPlacesSidebar *sidebar;
+=======
+mount_volume (GtkSidebarRow *row,
+              GVolume       *volume)
+{
+  GtkPlacesSidebar *sidebar;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
   GMountOperation *mount_op;
 
   g_object_get (row, "sidebar", &sidebar, NULL);
@@ -2044,11 +2386,19 @@ mount_volume (BobguiSidebarRow *row,
 }
 
 static void
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 open_drive (BobguiSidebarRow      *row,
+=======
+open_drive (GtkSidebarRow      *row,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
             GDrive             *drive,
             BobguiPlacesOpenFlags  open_flags)
 {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   BobguiPlacesSidebar *sidebar;
+=======
+  GtkPlacesSidebar *sidebar;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   g_object_get (row, "sidebar", &sidebar, NULL);
 
@@ -2057,7 +2407,11 @@ open_drive (BobguiSidebarRow      *row,
     {
       GMountOperation *mount_op;
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       bobgui_sidebar_row_set_busy (row, TRUE);
+=======
+      gtk_sidebar_row_set_busy (row, TRUE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
       mount_op = get_mount_operation (sidebar);
       g_drive_start (drive, G_DRIVE_START_NONE, mount_op, NULL, drive_start_from_bookmark_cb, NULL);
       g_object_unref (mount_op);
@@ -2065,11 +2419,19 @@ open_drive (BobguiSidebarRow      *row,
 }
 
 static void
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 open_volume (BobguiSidebarRow      *row,
+=======
+open_volume (GtkSidebarRow      *row,
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
              GVolume            *volume,
              BobguiPlacesOpenFlags  open_flags)
 {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   BobguiPlacesSidebar *sidebar;
+=======
+  GtkPlacesSidebar *sidebar;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   g_object_get (row, "sidebar", &sidebar, NULL);
 
@@ -2077,7 +2439,11 @@ open_volume (BobguiSidebarRow      *row,
     {
       sidebar->mounting = TRUE;
       sidebar->go_to_after_mount_open_flags = open_flags;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       bobgui_sidebar_row_set_busy (row, TRUE);
+=======
+      gtk_sidebar_row_set_busy (row, TRUE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
       mount_volume (row, volume);
     }
 }
@@ -2116,7 +2482,11 @@ open_row (BobguiSidebarRow      *row,
     {
       emit_show_other_locations_with_flags (sidebar, open_flags);
     }
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   else if (place_type == BOBGUI_PLACES_STARRED_LOCATION)
+=======
+  else if (place_type == PLACES_STARRED_LOCATION)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
     {
       emit_show_starred_location (sidebar, open_flags);
     }
@@ -3129,10 +3499,17 @@ on_row_popover_destroy (BobguiWidget        *row_popover,
 
 #ifdef HAVE_CLOUDPROVIDERS
 static void
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 build_popup_menu_using_gmenu (BobguiSidebarRow *row)
 {
   CloudProvidersAccount *cloud_provider_account;
   BobguiPlacesSidebar *sidebar;
+=======
+build_popup_menu_using_gmenu (GtkSidebarRow *row)
+{
+  CloudProvidersAccount *cloud_provider_account;
+  GtkPlacesSidebar *sidebar;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
   GMenuModel *cloud_provider_menu;
   GActionGroup *cloud_provider_action_group;
 
@@ -3147,6 +3524,7 @@ build_popup_menu_using_gmenu (BobguiSidebarRow *row)
       GMenu *menu = g_menu_new ();
       GMenuItem *item;
       item = g_menu_item_new (_("_Open"), "row.open");
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       g_menu_item_set_action_and_target_value (item, "row.open",
                                                g_variant_new_int32 (BOBGUI_PLACES_OPEN_NORMAL));
       g_menu_append_item (menu, item);
@@ -3160,6 +3538,20 @@ build_popup_menu_using_gmenu (BobguiSidebarRow *row)
         {
           item = g_menu_item_new (_("Open in New _Window"), "row.open-other");
           g_menu_item_set_action_and_target_value (item, "row.open-other", g_variant_new_int32(BOBGUI_PLACES_OPEN_NEW_WINDOW));
+=======
+      g_menu_item_set_action_and_target_value (item, "row.open", g_variant_new_int32(GTK_PLACES_OPEN_NORMAL));
+      g_menu_append_item (menu, item);
+      if (sidebar->open_flags & GTK_PLACES_OPEN_NEW_TAB)
+        {
+          item = g_menu_item_new (_("Open in New _Tab"), "row.open-other");
+          g_menu_item_set_action_and_target_value (item, "row.open-other", g_variant_new_int32(GTK_PLACES_OPEN_NEW_TAB));
+          g_menu_append_item (menu, item);
+        }
+      if (sidebar->open_flags & GTK_PLACES_OPEN_NEW_WINDOW)
+        {
+          item = g_menu_item_new (_("Open in New _Window"), "row.open-other");
+          g_menu_item_set_action_and_target_value (item, "row.open-other", g_variant_new_int32(GTK_PLACES_OPEN_NEW_WINDOW));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
           g_menu_append_item (menu, item);
         }
       cloud_provider_menu = cloud_providers_account_get_menu_model (cloud_provider_account);
@@ -3167,6 +3559,7 @@ build_popup_menu_using_gmenu (BobguiSidebarRow *row)
       if (cloud_provider_menu != NULL && cloud_provider_action_group != NULL)
         {
           g_menu_append_section (menu, NULL, cloud_provider_menu);
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
           bobgui_widget_insert_action_group (BOBGUI_WIDGET (sidebar),
                                           "cloudprovider",
                                           G_ACTION_GROUP (cloud_provider_action_group));
@@ -3176,6 +3569,18 @@ build_popup_menu_using_gmenu (BobguiSidebarRow *row)
 
       sidebar->popover = bobgui_popover_menu_new_from_model (G_MENU_MODEL (menu));
       bobgui_widget_set_parent (sidebar->popover, BOBGUI_WIDGET (sidebar));
+=======
+          gtk_widget_insert_action_group (GTK_WIDGET (sidebar),
+                                          "cloudprovider",
+                                          G_ACTION_GROUP (cloud_provider_action_group));
+        }
+      add_actions (sidebar);
+      if (sidebar->popover)
+        gtk_widget_destroy (sidebar->popover);
+
+      sidebar->popover = gtk_popover_new_from_model (GTK_WIDGET (sidebar),
+                                                     G_MENU_MODEL (menu));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
       g_signal_connect (sidebar->popover, "destroy",
                         G_CALLBACK (on_row_popover_destroy), sidebar);
       g_object_unref (sidebar);
@@ -3199,12 +3604,36 @@ create_row_popover (BobguiPlacesSidebar *sidebar,
   gboolean show_unmount, show_eject;
   gboolean show_stop;
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   g_object_get (row,
                 "place-type", &type,
                 "drive", &drive,
                 "volume", &volume,
                 "mount", &mount,
                 NULL);
+=======
+#ifdef HAVE_CLOUDPROVIDERS
+  CloudProvidersAccount *cloud_provider_account;
+
+  g_object_get (row, "cloud-provider-account", &cloud_provider_account, NULL);
+
+  if (cloud_provider_account)
+    {
+      build_popup_menu_using_gmenu (row);
+      return;
+    }
+#endif
+
+  sidebar->popover = gtk_popover_new (GTK_WIDGET (sidebar));
+  /* Clean sidebar pointer when its destroyed, most of the times due to its
+   * relative_to associated row being destroyed */
+  g_signal_connect (sidebar->popover, "destroy", G_CALLBACK (on_row_popover_destroy), sidebar);
+  setup_popover_shadowing (sidebar->popover);
+  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  g_object_set (box, "margin", 10, NULL);
+  gtk_widget_show (box);
+  gtk_container_add (GTK_CONTAINER (sidebar->popover), box);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   check_unmount_and_eject (mount, volume, drive, &show_unmount, &show_eject);
 
@@ -3406,7 +3835,34 @@ on_row_pressed (BobguiGestureClick *gesture,
                 "place-type", &row_type,
                 NULL);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   if (section_type == BOBGUI_PLACES_SECTION_BOOKMARKS)
+=======
+  if (section_type == SECTION_BOOKMARKS)
+    {
+      sidebar->drag_row = GTK_WIDGET (row);
+      sidebar->drag_row_x = (gint)event->x;
+      sidebar->drag_row_y = (gint)event->y;
+
+      sidebar->drag_root_x = event->x_root;
+      sidebar->drag_root_y = event->y_root;
+    }
+
+  g_object_unref (sidebar);
+
+  return FALSE;
+}
+
+static gboolean
+on_button_release_event (GtkWidget      *widget,
+                         GdkEventButton *event,
+                         GtkSidebarRow  *row)
+{
+  gboolean ret = FALSE;
+  GtkPlacesSidebarPlaceType row_type;
+
+  if (event && row)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
     {
       sidebar->drag_row = BOBGUI_WIDGET (row);
       sidebar->drag_row_x = (int)x;
@@ -3904,7 +4360,23 @@ bobgui_places_sidebar_set_property (GObject      *obj,
       break;
 
     case PROP_SHOW_STARRED_LOCATION:
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       bobgui_places_sidebar_set_show_starred_location (sidebar, g_value_get_boolean (value));
+=======
+      gtk_places_sidebar_set_show_starred_location (sidebar, g_value_get_boolean (value));
+      break;
+
+    case PROP_LOCAL_ONLY:
+      gtk_places_sidebar_set_local_only (sidebar, g_value_get_boolean (value));
+      break;
+
+    case PROP_POPULATE_ALL:
+      if (sidebar->populate_all != g_value_get_boolean (value))
+        {
+          sidebar->populate_all = g_value_get_boolean (value);
+          g_object_notify_by_pspec (obj, pspec);
+        }
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
       break;
 
     default:
@@ -3952,7 +4424,19 @@ bobgui_places_sidebar_get_property (GObject    *obj,
       break;
 
     case PROP_SHOW_STARRED_LOCATION:
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       g_value_set_boolean (value, bobgui_places_sidebar_get_show_starred_location (sidebar));
+=======
+      g_value_set_boolean (value, gtk_places_sidebar_get_show_starred_location (sidebar));
+      break;
+
+    case PROP_LOCAL_ONLY:
+      g_value_set_boolean (value, gtk_places_sidebar_get_local_only (sidebar));
+      break;
+
+    case PROP_POPULATE_ALL:
+      g_value_set_boolean (value, sidebar->populate_all);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
       break;
 
     default:
@@ -3964,7 +4448,11 @@ bobgui_places_sidebar_get_property (GObject    *obj,
 static void
 bobgui_places_sidebar_dispose (GObject *object)
 {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   BobguiPlacesSidebar *sidebar;
+=======
+  GtkPlacesSidebar *sidebar;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 #ifdef HAVE_CLOUDPROVIDERS
   GList *l;
 #endif
@@ -4056,6 +4544,7 @@ bobgui_places_sidebar_dispose (GObject *object)
     }
 #endif
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   G_OBJECT_CLASS (bobgui_places_sidebar_parent_class)->dispose (object);
 }
 
@@ -4110,15 +4599,59 @@ bobgui_places_sidebar_size_allocate (BobguiWidget *widget,
 
 static void
 bobgui_places_sidebar_class_init (BobguiPlacesSidebarClass *class)
+=======
+  g_slist_free_full (sidebar->shortcuts, g_object_unref);
+  sidebar->shortcuts = NULL;
+
+#ifdef HAVE_CLOUDPROVIDERS
+  for (l = cloud_providers_collector_get_providers (sidebar->cloud_manager);
+       l != NULL; l = l->next)
+    {
+      g_signal_handlers_disconnect_by_data (l->data, sidebar);
+    }
+  for (l = sidebar->unready_accounts; l != NULL; l = l->next)
+    {
+        g_signal_handlers_disconnect_by_data (l->data, sidebar);
+    }
+  g_list_free_full (sidebar->unready_accounts, g_object_unref);
+  sidebar->unready_accounts = NULL;
+#endif
+
+  G_OBJECT_CLASS (gtk_places_sidebar_parent_class)->dispose (object);
+}
+
+static void
+gtk_places_sidebar_finalize (GObject *object)
+{
+#ifdef HAVE_CLOUDPROVIDERS
+  GtkPlacesSidebar *sidebar;
+
+  sidebar = GTK_PLACES_SIDEBAR (object);
+  g_clear_object (&sidebar->cloud_manager);
+#endif
+
+  G_OBJECT_CLASS (gtk_places_sidebar_parent_class)->finalize (object);
+}
+
+static void
+gtk_places_sidebar_class_init (GtkPlacesSidebarClass *class)
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (class);
   BobguiWidgetClass *widget_class = BOBGUI_WIDGET_CLASS (class);
 
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   gobject_class->dispose = bobgui_places_sidebar_dispose;
   gobject_class->finalize = bobgui_places_sidebar_finalize;
   gobject_class->set_property = bobgui_places_sidebar_set_property;
   gobject_class->get_property = bobgui_places_sidebar_get_property;
+=======
+  gobject_class->dispose = gtk_places_sidebar_dispose;
+  gobject_class->finalize = gtk_places_sidebar_finalize;
+  gobject_class->set_property = gtk_places_sidebar_set_property;
+  gobject_class->get_property = gtk_places_sidebar_get_property;
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   widget_class->measure = bobgui_places_sidebar_measure;
   widget_class->size_allocate = bobgui_places_sidebar_size_allocate;
@@ -4147,8 +4680,62 @@ bobgui_places_sidebar_class_init (BobguiPlacesSidebarClass *class)
                               G_OBJECT_CLASS_TYPE (gobject_class),
                               _bobgui_marshal_VOID__OBJECT_FLAGSv);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   /*
    * BobguiPlacesSidebar::show-error-message:
+=======
+  /**
+   * GtkPlacesSidebar::populate-popup:
+   * @sidebar: the object which received the signal.
+   * @container: (type Gtk.Widget): a #GtkMenu or another #GtkContainer
+   * @selected_item: (type Gio.File) (nullable): #GFile with the item to which
+   *     the popup should refer, or %NULL in the case of a @selected_volume.
+   * @selected_volume: (type Gio.Volume) (nullable): #GVolume if the selected
+   *     item is a volume, or %NULL if it is a file.
+   *
+   * The places sidebar emits this signal when the user invokes a contextual
+   * popup on one of its items. In the signal handler, the application may
+   * add extra items to the menu as appropriate. For example, a file manager
+   * may want to add a "Properties" command to the menu.
+   *
+   * It is not necessary to store the @selected_item for each menu item;
+   * during their callbacks, the application can use gtk_places_sidebar_get_location()
+   * to get the file to which the item refers.
+   *
+   * The @selected_item argument may be %NULL in case the selection refers to
+   * a volume. In this case, @selected_volume will be non-%NULL. In this case,
+   * the calling application will have to g_object_ref() the @selected_volume and
+   * keep it around to use it in the callback.
+   *
+   * The @container and all its contents are destroyed after the user
+   * dismisses the popup. The popup is re-created (and thus, this signal is
+   * emitted) every time the user activates the contextual menu.
+   *
+   * Before 3.18, the @container always was a #GtkMenu, and you were expected
+   * to add your items as #GtkMenuItems. Since 3.18, the popup may be implemented
+   * as a #GtkPopover, in which case @container will be something else, e.g. a
+   * #GtkBox, to which you may add #GtkModelButtons or other widgets, such as
+   * #GtkEntries, #GtkSpinButtons, etc. If your application can deal with this
+   * situation, you can set #GtkPlacesSidebar::populate-all to %TRUE to request
+   * that this signal is emitted for populating popovers as well.
+   *
+   * Since: 3.10
+   */
+  places_sidebar_signals [POPULATE_POPUP] =
+          g_signal_new (I_("populate-popup"),
+                        G_OBJECT_CLASS_TYPE (gobject_class),
+                        G_SIGNAL_RUN_FIRST,
+                        G_STRUCT_OFFSET (GtkPlacesSidebarClass, populate_popup),
+                        NULL, NULL,
+                        _gtk_marshal_VOID__OBJECT_OBJECT_OBJECT,
+                        G_TYPE_NONE, 3,
+                        GTK_TYPE_WIDGET,
+                        G_TYPE_FILE,
+                        G_TYPE_VOLUME);
+
+  /**
+   * GtkPlacesSidebar::show-error-message:
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
    * @sidebar: the object which received the signal.
    * @primary: primary message with a summary of the error to show.
    * @secondary: secondary message with details of the error to show.
@@ -4340,25 +4927,46 @@ bobgui_places_sidebar_class_init (BobguiPlacesSidebarClass *class)
                         1,
                         G_TYPE_MOUNT_OPERATION);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   /*
    * BobguiPlacesSidebar::show-starred-location:
    * @sidebar: the object which received the signal
    * @flags: the flags for the operation
+=======
+  /**
+   * GtkPlacesSidebar::show-starred-location:
+   * @sidebar: the object which received the signal.
+   * @open_flags: a single value from #GtkPlacesOpenFlags specifying how the
+   *   starred file should be opened.
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
    *
    * The places sidebar emits this signal when it needs the calling
    * application to present a way to show the starred files. In GNOME,
    * starred files are implemented by setting the nao:predefined-tag-favorite
    * tag in the tracker database.
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
+=======
+   *
+   * Since: 3.22.26
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
    */
   places_sidebar_signals [SHOW_STARRED_LOCATION] =
           g_signal_new (I_("show-starred-location"),
                         G_OBJECT_CLASS_TYPE (gobject_class),
                         G_SIGNAL_RUN_FIRST,
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
                         G_STRUCT_OFFSET (BobguiPlacesSidebarClass, show_starred_location),
                         NULL, NULL,
                         NULL,
                         G_TYPE_NONE, 1,
                         BOBGUI_TYPE_PLACES_OPEN_FLAGS);
+=======
+                        G_STRUCT_OFFSET (GtkPlacesSidebarClass, show_starred_location),
+                        NULL, NULL,
+                        NULL,
+                        G_TYPE_NONE, 1,
+                        GTK_TYPE_PLACES_OPEN_FLAGS);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   properties[PROP_LOCATION] =
           g_param_spec_object ("location", NULL, NULL,
@@ -4392,7 +5000,33 @@ bobgui_places_sidebar_class_init (BobguiPlacesSidebarClass *class)
   properties[PROP_SHOW_STARRED_LOCATION] =
           g_param_spec_boolean ("show-starred-location", NULL, NULL,
                                 FALSE,
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
                                 BOBGUI_PARAM_READWRITE);
+=======
+                                G_PARAM_READWRITE);
+  properties[PROP_SHOW_STARRED_LOCATION] =
+          g_param_spec_boolean ("show-starred-location",
+                                P_("Show “Starred Location”"),
+                                P_("Whether the sidebar includes an item to show starred files"),
+                                FALSE,
+                                G_PARAM_READWRITE);
+
+
+  /**
+   * GtkPlacesSidebar:populate-all:
+   *
+   * If :populate-all is %TRUE, the #GtkPlacesSidebar::populate-popup signal
+   * is also emitted for popovers.
+   *
+   * Since: 3.18
+   */
+  properties[PROP_POPULATE_ALL] =
+          g_param_spec_boolean ("populate-all",
+                                P_("Populate all"),
+                                P_("Whether to emit ::populate-popup for popups that are not menus"),
+                                FALSE,
+                                G_PARAM_READWRITE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   g_object_class_install_properties (gobject_class, NUM_PROPERTIES, properties);
 
@@ -4530,13 +5164,17 @@ bobgui_places_sidebar_set_location (BobguiPlacesSidebar *sidebar,
  * @sidebar: a places sidebar
  *
  * Gets the currently selected location in the @sidebar. This can be %NULL when
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
  * nothing is selected, for example, when bobgui_places_sidebar_set_location() has
+=======
+ * nothing is selected, for example, when gtk_places_sidebar_set_location() has
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
  * been called with a location that is not among the sidebar’s list of places to
  * show.
  *
  * You can use this function to get the selection in the @sidebar.
  *
- * Returns: (nullable) (transfer full): a GFile with the selected location, or
+ * Returns: (nullable) (transfer full): a #GFile with the selected location, or
  * %NULL if nothing is visually selected.
  */
 GFile *
@@ -4981,12 +5619,18 @@ bobgui_places_sidebar_set_drop_targets_visible (BobguiPlacesSidebar *sidebar,
     }
 }
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 /*
  * bobgui_places_sidebar_set_show_starred_location:
+=======
+/**
+ * gtk_places_sidebar_set_show_starred_location:
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
  * @sidebar: a places sidebar
  * @show_starred_location: whether to show an item for Starred files
  *
  * If you enable this, you should connect to the
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
  * BobguiPlacesSidebar::show-starred-location signal.
  */
 void
@@ -4994,6 +5638,17 @@ bobgui_places_sidebar_set_show_starred_location (BobguiPlacesSidebar *sidebar,
                                               gboolean          show_starred_location)
 {
   g_return_if_fail (BOBGUI_IS_PLACES_SIDEBAR (sidebar));
+=======
+ * #GtkPlacesSidebar::show-starred-location signal.
+ *
+ * Since: 3.22.26
+ */
+void
+gtk_places_sidebar_set_show_starred_location (GtkPlacesSidebar *sidebar,
+                                              gboolean          show_starred_location)
+{
+  g_return_if_fail (GTK_IS_PLACES_SIDEBAR (sidebar));
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   show_starred_location = !!show_starred_location;
   if (sidebar->show_starred_location != show_starred_location)
@@ -5004,6 +5659,7 @@ bobgui_places_sidebar_set_show_starred_location (BobguiPlacesSidebar *sidebar,
     }
 }
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
 /*
  * bobgui_places_sidebar_get_show_starred_location:
  * @sidebar: a places sidebar
@@ -5016,6 +5672,22 @@ gboolean
 bobgui_places_sidebar_get_show_starred_location (BobguiPlacesSidebar *sidebar)
 {
   g_return_val_if_fail (BOBGUI_IS_PLACES_SIDEBAR (sidebar), FALSE);
+=======
+/**
+ * gtk_places_sidebar_get_show_starred_location:
+ * @sidebar: a places sidebar
+ *
+ * Returns the value previously set with gtk_places_sidebar_set_show_starred_location()
+ *
+ * Returns: %TRUE if the sidebar will display a Starred item.
+ *
+ * Since: 3.22.26
+ */
+gboolean
+gtk_places_sidebar_get_show_starred_location (GtkPlacesSidebar *sidebar)
+{
+  g_return_val_if_fail (GTK_IS_PLACES_SIDEBAR (sidebar), FALSE);
+>>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacessidebar.c
 
   return sidebar->show_starred_location;
 }
