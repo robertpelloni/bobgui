@@ -1,3 +1,3 @@
-module github.com/bobtk/bobtk
+module bobtk
 
 go 1.24.3

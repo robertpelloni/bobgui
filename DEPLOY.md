@@ -1,16 +1,28 @@
-# DEPLOYMENT INSTRUCTIONS
+# Deployment Instructions - Bobtk
 
-*Deployment procedures are currently in early development as the Go port and C++ integrations evolve.*
+## Requirements
+* OS: Linux (Ubuntu/Debian recommended for build consistency)
+* Dependencies:
+```bash
+sudo apt-get update
+sudo apt-get install -y build-essential meson ninja-build libxkbcommon-dev libsoup-3.0-dev libvulkan-dev libdrm-dev glslc gettext libegl1-mesa-dev libfontconfig1-dev libfreetype6-dev libwayland-dev
+```
 
-1. **Clone the Repository:**
-   ```bash
-   git clone --recurse-submodules <repository_url>
-   ```
+## Compilation (C)
+To compile the core Bobtk package:
+```bash
+meson setup build
+meson compile -C build
+```
 
-2. **Update Submodules:**
-   ```bash
-   git submodule update --init --recursive
-   ```
+To install globally:
+```bash
+sudo ninja -C build install
+```
 
-3. **Building the C/C++ version:**
-   - (Pending instructions for `meson` build setup following the renaming process).
+## Go Port
+To run the Go port:
+```bash
+cd go
+go run main.go
+```
