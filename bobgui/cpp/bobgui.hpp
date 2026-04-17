@@ -55,3 +55,4 @@ namespace cpp {
 #endif // BOBGUI_CPP_BOBGUI_HPP#include "media.hpp"
 #include "network.hpp"
 #include "system.hpp"
+#include "visual.hpp"

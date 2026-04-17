@@ -808,6 +808,7 @@ bobgui_cpp_headers = files([
   'cpp/tool_surface_builder.hpp',
   'cpp/toolbar_builder.hpp',
   'cpp/visual_pillar.hpp',
+  'cpp/visual.hpp',
   'cpp/widget.hpp',
   'cpp/workbench.hpp',
 ])

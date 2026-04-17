@@ -3,8 +3,8 @@ import re
 with open('bobgui/meson.build', 'r') as f:
     content = f.read()
 
-pattern = r"'cpp/layout\.hpp',"
-replacement = r"'cpp/layout.hpp',\n  'cpp/media.hpp',"
+pattern = r"'cpp/visual_pillar\.hpp',"
+replacement = r"'cpp/visual_pillar.hpp',\n  'cpp/visual.hpp',"
 content = re.sub(pattern, replacement, content)
 
 with open('bobgui/meson.build', 'w') as f:
