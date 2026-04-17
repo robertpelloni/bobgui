@@ -9,6 +9,23 @@
 namespace bobtk {
 namespace media {
 
+// Forward Declarations
+class AudioProcessor;
+class AudioDeviceManager;
+class Hologram;
+class HolographView;
+class MapView;
+class EffectShader;
+class PhysicsWorld;
+class Timeline;
+class BioManager;
+class SpatialContext;
+class ThreeDNode;
+
+// ---------------------------------------------------------
+// AUDIO SUBSYSTEM
+// ---------------------------------------------------------
+
 class AudioDeviceManager : public core::ObjectHandle<BobguiAudioDeviceManager> {
 public:
     AudioDeviceManager()
@@ -40,10 +57,18 @@ public:
     AudioAnalyzer() : Widget(bobgui_audio_analyzer_new()) {}
 };
 
+// ---------------------------------------------------------
+// 3D SUBSYSTEM
+// ---------------------------------------------------------
+
 class ThreeDNode : public core::ObjectHandle<Bobgui3dNode> {
 public:
     ThreeDNode() : core::ObjectHandle<Bobgui3dNode>(bobgui_3d_node_new()) {}
 };
+
+// ---------------------------------------------------------
+// HOLOGRAPHIC SUBSYSTEM
+// ---------------------------------------------------------
 
 class Hologram : public core::ObjectHandle<BobguiHologram> {
 public:
@@ -68,16 +93,28 @@ public:
     }
 };
 
+// ---------------------------------------------------------
+// GIS / MAP SUBSYSTEM
+// ---------------------------------------------------------
+
 class MapView : public Widget {
 public:
     MapView() : Widget(bobgui_map_view_new()) {}
 };
+
+// ---------------------------------------------------------
+// SHADER SUBSYSTEM
+// ---------------------------------------------------------
 
 class EffectShader : public core::ObjectHandle<BobguiEffectShader> {
 public:
     explicit EffectShader(const std::string& source)
         : core::ObjectHandle<BobguiEffectShader>(bobgui_effect_shader_new_from_source(source.c_str())) {}
 };
+
+// ---------------------------------------------------------
+// PHYSICS SUBSYSTEM
+// ---------------------------------------------------------
 
 class PhysicsWorld : public core::ObjectHandle<BobguiPhysicsWorld> {
 public:
@@ -92,10 +129,18 @@ public:
     }
 };
 
+// ---------------------------------------------------------
+// TIMELINE SUBSYSTEM
+// ---------------------------------------------------------
+
 class Timeline : public core::ObjectHandle<BobguiTimeline> {
 public:
     Timeline() : core::ObjectHandle<BobguiTimeline>(bobgui_timeline_new()) {}
 };
+
+// ---------------------------------------------------------
+// BIO SUBSYSTEM
+// ---------------------------------------------------------
 
 class BioManager : public core::ObjectHandle<BobguiBioManager> {
 public:
@@ -123,6 +168,10 @@ public:
         bobgui_bio_viewer_load_dicom(BOBGUI_BIO_VIEWER(handle()), path.c_str());
     }
 };
+
+// ---------------------------------------------------------
+// SPATIAL SUBSYSTEM
+// ---------------------------------------------------------
 
 class SpatialContext : public core::ObjectHandle<BobguiSpatialContext> {
 public:

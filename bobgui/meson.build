@@ -785,6 +785,7 @@ bobgui_cpp_headers = files([
   'cpp/graphics.hpp',
   'cpp/ipc.hpp',
   'cpp/layout.hpp',
+  'cpp/media.hpp',
   'cpp/module.hpp',
   'cpp/module/core.hpp',
   'cpp/module/media.hpp',

@@ -10,8 +10,8 @@
 ### Changed
 - Mass renaming: All instances of `gtk` and `bobgui` renamed to `bobtk` to signify the new direction and future of the project.
 
-## [4.0.2] - Unreleased
+## [4.0.3] - Unreleased
 ### Added
-- Implemented high-level C++ wrappers for Media subsystems (`bobtk::media::AudioDeviceManager`, `Hologram`, `MapView`, `PhysicsWorld`, `BioManager`, `Timeline`).
-- Implemented the `bobtk::module::MediaPillar` interface to manage the creation and state of all media-related subsystems within the core 6-pillar framework.
-- Exported new C++ classes through the master `bobgui.hpp` header.
+- Implemented high-level C++ wrappers for Network subsystems (`bobtk::network::NetworkAccessManager`, `WebSocket`, `RemoteServer`, `RemoteClient`, `WebView`, `CloudContext`, `BlockchainManager`, `SyncEngine`).
+- Implemented the `bobtk::module::NetworkPillar` interface to manage the creation and state of all connectivity-related subsystems within the core 6-pillar framework.
+- Exported new C++ network classes through the master `bobgui.hpp` header.
