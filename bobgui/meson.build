@@ -777,6 +777,7 @@ bobgui_cpp_headers = files([
   'cpp/canvas.hpp',
   'cpp/command_palette.hpp',
   'cpp/core_subsystems.hpp',
+  'cpp/tools_subsystems.hpp',
   'cpp/core.hpp',
   'cpp/dashboard_shell.hpp',
   'cpp/database.hpp',
