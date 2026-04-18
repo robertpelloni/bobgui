@@ -10,8 +10,8 @@
 ### Changed
 - Mass renaming: All instances of `gtk` and `bobgui` renamed to `bobtk` to signify the new direction and future of the project.
 
-## [4.0.5] - Unreleased
+## [4.0.6] - Unreleased
 ### Added
-- Implemented high-level C++ wrappers for Visual subsystems (`bobtk::visual::Workbench`, `RhiDevice`, `RhiBuffer`, `ImguiContext`, `GraphView`, `CommandPalette`, `DockManager`, `DesignSystem`).
-- Implemented the `bobtk::module::VisualPillar` interface to manage the creation and state of all rendering and UI-layout subsystems within the core 6-pillar framework.
-- Exported new C++ visual classes through the master `bobgui.hpp` header.
+- Implemented high-level C++ wrappers for Core subsystems (`bobtk::core_subsystems::AutonomousController`, `BrainNode`, `ComputePipeline`, `SqlDatabase`, `EntityManager`, `FinChart`, `Translator`, `ModernLayout`, `MetaOrchestrator`, `QuantumScheduler`, `RealtimeKernel`, `ReflectContext`, `ScriptContext`, `StateMachine`, `Stream`).
+- Implemented the `bobtk::module::CorePillar` interface to manage the creation and state of all data, rendering, layout, machine learning, logic, and state management subsystems within the core 6-pillar framework.
+- Exported new C++ core classes through the master `bobgui.hpp` header.

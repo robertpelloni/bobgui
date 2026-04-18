@@ -776,6 +776,7 @@ bobgui_cpp_headers = files([
   'cpp/bobgui.hpp',
   'cpp/canvas.hpp',
   'cpp/command_palette.hpp',
+  'cpp/core_subsystems.hpp',
   'cpp/core.hpp',
   'cpp/dashboard_shell.hpp',
   'cpp/database.hpp',
@@ -788,6 +789,7 @@ bobgui_cpp_headers = files([
   'cpp/media.hpp',
   'cpp/module.hpp',
   'cpp/module/core.hpp',
+  'cpp/module/core_pillar.hpp',
   'cpp/module/media.hpp',
   'cpp/module/network.hpp',
   'cpp/module/system.hpp',
@@ -808,7 +810,6 @@ bobgui_cpp_headers = files([
   'cpp/tool_surface_builder.hpp',
   'cpp/toolbar_builder.hpp',
   'cpp/visual_pillar.hpp',
-  'cpp/visual.hpp',
   'cpp/widget.hpp',
   'cpp/workbench.hpp',
 ])
