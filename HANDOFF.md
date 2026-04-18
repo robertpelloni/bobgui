@@ -1,19 +1,19 @@
-# Handoff Document - Bobtk Tools Subsystem & Full 6-Pillar C++ Framework (Session 8)
+# Handoff Document - Bobtk JUCE/Ultimate++ & Go Port Parity (Session 9)
 
 ## Current Status
-- **MILESTONE REACHED**: The entire 6-pillar framework (Media, Network, System, Visual, Core, and Tools) has been successfully wrapped in modern, idiomatic C++ bindings, fully shadowing the underlying C `GObject` implementation.
-- `bobgui.hpp` now acts as the unified master header aggregating all 6 subsystem layers.
+- Expanded the Go architecture to parity with the new 6-pillar C++ framework.
+- Evaluated integration mechanisms for the `JUCE` and `Ultimate++` submodules into the C++ wrappers via optional compiler directives (`BOBGUI_ENABLE_JUCE`, `BOBGUI_ENABLE_UPP`).
 
 ## Work Completed
-1. **Created `bobgui/cpp/tools_subsystems.hpp`:** Defined robust C++ classes abstracting the underlying C types for various compilation and editor tooling components. Included `bobtk::tools_subsystems::ForgeContext`, `ReportDesigner`, `ReportPreview`, `StudioManager`, and `TestRunner`.
-2. **Created `bobgui/cpp/module/tools_pillar.hpp`:** Implemented the `ToolsPillar` interface. This serves as the centralized module registry to instantiate and manage IDE functionality, compilation actions, PDF report building, and unit tests directly within the GUI.
-3. **Updated Configuration:** Integrated the new Tools headers into the master `bobgui.hpp` and confirmed `meson.build` has tracked dependencies.
+1. **Added `bobgui/cpp/juce_audio_bridge.hpp`:** Designed an integration bridge allowing the C++ `MediaPillar` to instantiate `juce::AudioDeviceManager` securely if JUCE components are selectively built alongside Bobtk.
+2. **Added `bobgui/cpp/upp_core_bridge.hpp`:** Designed a similar bridge for the `CorePillar` to interop with Ultimate++ native UI and data components (using `Upp::Time` as a testing prototype).
+3. **Go Architecture Expansion:** Expanded the `/go/pkg/` workspace to include `visual`, `tools`, `system`, and `network` package mirrors for the C++ components.
 
 ## Known Issues / Next Steps
-- C++ wrapper compilation is successful natively through `meson compile`, but direct standalone CLI compilation of the headers fails due to nested `GDK/glib` header structures requiring the generated build-tree configuration.
-- Now that the *entire* C++ structural framework exists, the Go port needs to be aggressively expanded to mirror all of these structures to achieve total language parity, and submodules (`JUCE` / `Ultimate++`) need to be logically mapped into this architecture.
+- C++ headers are written but not exhaustively integrated into the Meson build pipeline when linking the actual massive submodules (JUCE is huge, and requires its own CMake integration step or Projucer setup alongside Meson).
+- Go packages currently hold mock structural definitions. The exact bridging logic between Go (`cgo`) and the underlying `GObject` C framework has not yet been solidified.
 
 ## Next Agent Instructions
-1. Expand the Go (`/go/pkg/`) backend layer to mirror these newly created C++ object abstractions.
-2. Determine precisely how `JUCE` and `Ultimate++` integrate into the `MediaPillar` and `CorePillar` implementations.
+1. Implement the actual `cgo` bindings in the Go packages to instantiate the underlying `GObject` C constructs, bridging the new architecture from top to bottom.
+2. Formally integrate the build mechanisms for the JUCE and Ultimate++ submodules into the `meson.build` or a parent `Makefile`.
 3. Continue following the overarching `VISION.md` guidelines for 1:1 Qt6 parity.

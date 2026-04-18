@@ -1,3 +1,4 @@
-def plan_step_complete():
+def main():
     print("Plan step complete")
-plan_step_complete()
+if __name__ == "__main__":
+    main()
