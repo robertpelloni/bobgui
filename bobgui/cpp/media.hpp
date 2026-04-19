@@ -5,36 +5,53 @@
 #include <bobgui/cpp/widget.hpp>
 #include <string>
 #include <memory>
+#include <vector>
 
 namespace bobtk {
 namespace media {
 
-// Forward Declarations
-class AudioProcessor;
-class AudioDeviceManager;
-class Hologram;
-class HolographView;
-class MapView;
-class EffectShader;
-class PhysicsWorld;
-class Timeline;
-class BioManager;
-class SpatialContext;
-class ThreeDNode;
-
 // ---------------------------------------------------------
-// AUDIO SUBSYSTEM
+// AUDIO SUBSYSTEM (Parity with QtMultimedia / JUCE)
 // ---------------------------------------------------------
 
 class AudioDeviceManager : public core::ObjectHandle<BobguiAudioDeviceManager> {
 public:
     AudioDeviceManager()
         : core::ObjectHandle<BobguiAudioDeviceManager>(bobgui_audio_device_manager_new()) {}
+
+    void initializeDevices(int inputChannels, int outputChannels) {
+        bobgui_audio_device_manager_init_devices(handle(), inputChannels, outputChannels);
+    }
+
+    void setSampleRate(double sampleRate) {
+        bobgui_audio_device_manager_set_sample_rate(handle(), sampleRate);
+    }
+
+    void play() {
+        bobgui_audio_device_manager_play(handle());
+    }
+
+    void stop() {
+        bobgui_audio_device_manager_stop(handle());
+    }
 };
 
 class AudioProcessor : public core::ObjectHandle<BobguiAudioProcessor> {
-protected:
-    AudioProcessor(BobguiAudioProcessor* handle) : core::ObjectHandle<BobguiAudioProcessor>(handle) {}
+public:
+    explicit AudioProcessor(const std::string& name)
+        : core::ObjectHandle<BobguiAudioProcessor>(bobgui_audio_processor_new(name.c_str())) {}
+
+    void setParameter(int index, float value) {
+        bobgui_audio_processor_set_parameter(handle(), index, value);
+    }
+
+    float getParameter(int index) const {
+        return bobgui_audio_processor_get_parameter(handle(), index);
+    }
+
+    void processBlock(float** inChannels, float** outChannels, int numSamples) {
+        bobgui_audio_processor_process_block(handle(), inChannels, outChannels, numSamples);
+    }
 };
 
 class AudioDial : public Widget {
@@ -58,12 +75,28 @@ public:
 };
 
 // ---------------------------------------------------------
-// 3D SUBSYSTEM
+// 3D SUBSYSTEM (Parity with Qt3D)
 // ---------------------------------------------------------
 
 class ThreeDNode : public core::ObjectHandle<Bobgui3dNode> {
 public:
     ThreeDNode() : core::ObjectHandle<Bobgui3dNode>(bobgui_3d_node_new()) {}
+
+    void setTranslation(float x, float y, float z) {
+        bobgui_3d_node_set_translation(handle(), x, y, z);
+    }
+
+    void setRotation(float pitch, float yaw, float roll) {
+        bobgui_3d_node_set_rotation(handle(), pitch, yaw, roll);
+    }
+
+    void setScale(float scale) {
+        bobgui_3d_node_set_scale(handle(), scale);
+    }
+
+    void loadMesh(const std::string& path) {
+        bobgui_3d_node_load_mesh(handle(), path.c_str());
+    }
 };
 
 // ---------------------------------------------------------
@@ -94,12 +127,24 @@ public:
 };
 
 // ---------------------------------------------------------
-// GIS / MAP SUBSYSTEM
+// GIS / MAP SUBSYSTEM (Parity with QtLocation)
 // ---------------------------------------------------------
 
 class MapView : public Widget {
 public:
     MapView() : Widget(bobgui_map_view_new()) {}
+
+    void setCenter(double latitude, double longitude) {
+        bobgui_map_view_set_center(BOBGUI_MAP_VIEW(handle()), latitude, longitude);
+    }
+
+    void setZoom(double zoomLevel) {
+        bobgui_map_view_set_zoom(BOBGUI_MAP_VIEW(handle()), zoomLevel);
+    }
+
+    void addMarker(double latitude, double longitude, const std::string& title) {
+        bobgui_map_view_add_marker(BOBGUI_MAP_VIEW(handle()), latitude, longitude, title.c_str());
+    }
 };
 
 // ---------------------------------------------------------
@@ -110,6 +155,14 @@ class EffectShader : public core::ObjectHandle<BobguiEffectShader> {
 public:
     explicit EffectShader(const std::string& source)
         : core::ObjectHandle<BobguiEffectShader>(bobgui_effect_shader_new_from_source(source.c_str())) {}
+
+    void setUniformFloat(const std::string& name, float value) {
+        bobgui_effect_shader_set_uniform_float(handle(), name.c_str(), value);
+    }
+
+    void setUniformVec3(const std::string& name, float x, float y, float z) {
+        bobgui_effect_shader_set_uniform_vec3(handle(), name.c_str(), x, y, z);
+    }
 };
 
 // ---------------------------------------------------------
@@ -136,6 +189,18 @@ public:
 class Timeline : public core::ObjectHandle<BobguiTimeline> {
 public:
     Timeline() : core::ObjectHandle<BobguiTimeline>(bobgui_timeline_new()) {}
+
+    void play() {
+        bobgui_timeline_play(handle());
+    }
+
+    void pause() {
+        bobgui_timeline_pause(handle());
+    }
+
+    void seek(double timeSeconds) {
+        bobgui_timeline_seek(handle(), timeSeconds);
+    }
 };
 
 // ---------------------------------------------------------
