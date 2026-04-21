@@ -2608,6 +2608,14 @@ location_entry_changed_cb (GtkEditable          *editable,
 
   if (priv->action != GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER)
     reset_location_timeout (impl);
+    /* Reset location timeout */
+    if (impl->location_changed_id > 0)
+      g_source_remove (impl->location_changed_id);
+
+    impl->location_changed_id = g_timeout_add (LOCATION_CHANGED_TIMEOUT,
+                                              location_changed_timeout_cb,
+                                              impl);
+    gdk_source_set_static_name_by_id (impl->location_changed_id, "[gtk] location_changed_timeout_cb");
 }
 
 static void
