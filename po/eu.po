@@ -4,17 +4,16 @@
 # Joseba Bidaurrazaga van Dierdonck <gcpbivaj@lg.ehu.es>, 1999-2000.
 # Hizkuntza Politikarako Sailburuordetza <hizpol@ej-gv.es>, 2004.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004 - 2015, 2016, 2017.
-<<<<<<< HEAD
 # Asier Saratsua Garmendia  <asiersarasua@ni.eus>, 2019, 2020, 2021, 2022, 2023, 2025.
 # Asier Saratsua Garmendia  <asiersarasua@ni.eus>, 2026.
 #
 msgid ""
+<<<<<<< HEAD
 msgstr "Project-Id-Version: bobgui+ master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bobgui/-/issues/\n"
 "POT-Creation-Date: 2026-02-13 16:18+0000\n"
 "PO-Revision-Date: 2026-02-15 10:00+0100\n"
 "Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
-=======
 msgid ""
 msgstr ""
 "Project-Id-Version: gtk+ gtk-3-22\n"
@@ -22,16 +21,19 @@ msgstr ""
 "POT-Creation-Date: 2017-08-26 23:59+0000\n"
 "PO-Revision-Date: 2017-08-27 16:19+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+msgstr "Project-Id-Version: gtk+ master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gtk/-/issues/\n"
+"POT-Creation-Date: 2024-04-04 17:02+0000\n"
+"PO-Revision-Date: 2024-04-05 10:00+0100\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+>>>>>>> origin/4-14-backports
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-<<<<<<< HEAD
-=======
 "X-Generator: Lokalize 1.5\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: gdk/android/gdkandroidclipboard.c:174
@@ -60,6 +62,7 @@ msgid "Cannot read from empty clipboard."
 msgstr "Ezin da irakurri arbel huts batetik."
 
 #: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1123 gdk/gdkdrag.c:606
+#: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1136 gdk/gdkdrag.c:606
 msgid "No compatible formats to transfer clipboard contents."
 msgstr "Ez dago formatu bateragarririk arbeleko edukiak transferitzeko."
 
@@ -96,7 +99,6 @@ msgstr "Ezin dira edukiak %s gisa hornitu"
 
 <<<<<<< HEAD
 #: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:472
-=======
 #. Description of --display=DISPLAY in --help output
 #: gdk/gdk.c:238
 msgid "X display to use"
@@ -106,6 +108,14 @@ msgstr "Erabili beharreko X bistaratzea"
 #: gdk/gdk.c:239
 msgid "DISPLAY"
 msgstr "BISTARATZEA"
+=======
+#: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:464
+msgid "The current backend does not support OpenGL"
+msgstr "Uneko motorrak ez du OpenGL onartzen"
+
+#: gdk/gdkdisplay.c:1315 gdk/gdkvulkancontext.c:1600
+msgid "Vulkan support disabled via GDK_DEBUG"
+msgstr "Vulkan euskarria desgaituta GDK_DEBUG bidez"
 
 #. Description of --gdk-debug=FLAGS in --help output
 #: gdk/gdk.c:243
@@ -159,6 +169,23 @@ msgid "No perfect EGL configuration found"
 msgstr "Ez da EGL konfigurazio perfektua aurkitu"
 
 #: gdk/gdkdisplay.c:1815
+#: gdk/gdkdisplay.c:1675
+msgid "No EGL configuration available"
+msgstr "Ez dago EGL konfiguraziorik erabilgarri"
+
+#: gdk/gdkdisplay.c:1683
+msgid "Failed to get EGL configurations"
+msgstr "Huts egin du EGL konfigurazioa eskuratzeak"
+
+#: gdk/gdkdisplay.c:1713
+msgid "No EGL configuration with required features found"
+msgstr "Ez da beharrezkoak diren eginbideak dituen EGL konfiguraziorik aurkitu"
+
+#: gdk/gdkdisplay.c:1720
+msgid "No perfect EGL configuration found"
+msgstr "Ez da EGL konfigurazio perfektua aurkitu"
+
+#: gdk/gdkdisplay.c:1762
 #, c-format
 msgid "EGL implementation is missing extension %s"
 msgid_plural "EGL implementation is missing %2$d extensions: %1$s"
@@ -182,6 +209,23 @@ msgid "Could not initialize EGL display"
 msgstr "Ezin da EGL ikuspegia hasieratu"
 
 #: gdk/gdkdisplay.c:1894
+#: gdk/gdkdisplay.c:1811
+msgid "libEGL not available in this sandbox"
+msgstr "libEGL ez dago erabilgarri isolatu honetan"
+
+#: gdk/gdkdisplay.c:1812
+msgid "libEGL not available"
+msgstr "libEGL ez dago erabilgarri"
+
+#: gdk/gdkdisplay.c:1822
+msgid "Failed to create EGL display"
+msgstr "Huts egin du EGL ikuspegia sortzeak"
+
+#: gdk/gdkdisplay.c:1831
+msgid "Could not initialize EGL display"
+msgstr "Ezin da EGL ikuspegia hasieratu"
+
+#: gdk/gdkdisplay.c:1841
 #, c-format
 msgid "EGL version %d.%d is too old. BOBGUI requires %d.%d"
 msgstr "EGL %d.%d bertsioa zaharregia da. BOBGUI aplikazioak %d.%d behar du"
@@ -212,6 +256,25 @@ msgid "OpenGL API disabled via GDK_DISABLE"
 msgstr "OpenGL APIa desgaituta GDK_DISABLE bidez"
 
 #: gdk/gdkglcontext.c:1463
+#: gdk/gdkglcontext.c:424 gdk/x11/gdkglcontext-glx.c:645
+msgid "No GL API allowed."
+msgstr "Ez da onartzen GL APIrik."
+
+#: gdk/gdkglcontext.c:447 gdk/win32/gdkglcontext-win32-wgl.c:395
+#: gdk/win32/gdkglcontext-win32-wgl.c:538
+#: gdk/win32/gdkglcontext-win32-wgl.c:582 gdk/x11/gdkglcontext-glx.c:691
+msgid "Unable to create a GL context"
+msgstr "Ezin da GL testuingurua sortu"
+
+#: gdk/gdkglcontext.c:1310
+msgid "OpenGL ES disabled via GDK_DEBUG"
+msgstr "OpenGL ES desgaituta GDK_DEBUG bidez"
+
+#: gdk/gdkglcontext.c:1322
+msgid "OpenGL disabled via GDK_DEBUG"
+msgstr "OpenGL desgaituta GDK_DEBUG bidez"
+
+#: gdk/gdkglcontext.c:1333
 #, c-format
 msgid "Application does not support %s API"
 msgstr "Aplikazioak ez du %s APIa onartzen"
@@ -220,6 +283,7 @@ msgstr "Aplikazioak ez du %s APIa onartzen"
 #. * "Trying to use X11 GLX, but EGL is already in use"
 #.
 #: gdk/gdkglcontext.c:2259
+#: gdk/gdkglcontext.c:2123
 #, c-format
 msgid "Trying to use %s, but %s is already in use"
 msgstr "%s erabiltzen saiatzen, baina %s jadanik erabiltzen ari da"
@@ -610,7 +674,6 @@ msgctxt "keyboard label"
 msgid "Suspend"
 msgstr "Eseki"
 
-<<<<<<< HEAD
 #: gdk/loaders/gdkjpeg.c:71
 #, c-format
 msgid "Error interpreting JPEG image file (%s)"
@@ -807,7 +870,6 @@ msgstr "Ez dago emandako pixel formatuaren konfiguraziorik erabilgarri"
 #: gdk/win32/gdkhdataoutputstream-win32.c:64
 msgid "writing a closed stream"
 msgstr "korronte itxia idazten"
-=======
 #: gdk/mir/gdkmirglcontext.c:48 gdk/mir/gdkmirwindowimpl.c:2226
 #: gdk/wayland/gdkglcontext-wayland.c:468 gdk/win32/gdkglcontext-win32.c:796
 #: gdk/x11/gdkglcontext-x11.c:1274
@@ -830,13 +892,11 @@ msgstr "Ez dago emandako pixel formatuaren konfiguraziorik erabilgarri"
 #: gdk/mir/gdkmirwindowimpl.c:2234
 msgid "3.2 core GL profile is not available on EGL implementation"
 msgstr "3.2 nukleoa GL profila ez dago erabilgarri EGL inplementazioan"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:86
 msgid "g_try_realloc () failed"
 msgstr "g_try_realloc () prozesuak huts egin du"
 
-<<<<<<< HEAD
 #: gdk/win32/gdkhdataoutputstream-win32.c:94
 #: gdk/win32/gdkhdataoutputstream-win32.c:233
 msgid "GlobalReAlloc() failed: "
@@ -849,7 +909,6 @@ msgstr "Buffer lekua amaitu da (bufferraren tamaina finkoa da)"
 #: gdk/win32/gdkhdataoutputstream-win32.c:204
 msgid "Can’t transmute a single handle"
 msgstr "Ezin da helduleku bakan bat bihurtu"
-=======
 #: gdk/wayland/gdkglcontext-wayland.c:476
 msgid "Core GL is not available on EGL implementation"
 msgstr "GL nukleoa ez dago erabilgarri EGL inplementazioan"
@@ -858,7 +917,6 @@ msgstr "GL nukleoa ez dago erabilgarri EGL inplementazioan"
 #: gdk/win32/gdkmain-win32.c:53
 msgid "Don't batch GDI requests"
 msgstr "Ez jarri GDI eskaerak batch gisa"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:217
 #, c-format
@@ -938,6 +996,12 @@ msgid "Unsupported encoding “%s”"
 msgstr "Onartzen ez den kodeketa: “%s”"
 
 #: gsk/gpu/gskgldevice.c:258
+#: gsk/gl/gskglrenderer.c:204
+#, c-format
+msgid "This GLES %d.%d implementation does not support half-float vertex data"
+msgstr "GLES %d.%d inplementazio honek ez du onartzen erpin-datu sasimugikorrak"
+
+#: gsk/gpu/gskgldevice.c:246
 #, c-format
 msgid "OpenGL ES 3.0 is not supported by this renderer."
 msgstr "Errendatzaile honek ez du onartzen OpenGL ES 3.0."
@@ -965,10 +1029,8 @@ msgctxt "accessibility"
 msgid "Toggle"
 msgstr "Txandakatu"
 
-<<<<<<< HEAD
 #: bobgui/a11y/bobguiatspiaction.c:340
 msgctxt "accessibility"
-=======
 #: gtk/a11y/gtkcellaccessible.c:257
 msgctxt "Action name"
 msgid "Edit"
@@ -1488,7 +1550,6 @@ msgstr "Aurrerapenaren adierazle bisuala eskaintzen du"
 
 #: gtk/a11y/gtkswitchaccessible.c:98
 msgctxt "Action description"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Toggles the switch"
 msgstr "Aldatzailea txandakatzen du"
 
@@ -1626,11 +1687,9 @@ msgstr "'%s' fitxategiak irekitzen."
 msgid "No applications found for “%s” files"
 msgstr "Ez da '%s' fitxategientzako aplikaziorik aurkitu"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguiappchooserdialog.c:435
 msgid "Failed to start GNOME Software"
 msgstr "Huts egin du GNOME Softwarea abiaraztean"
-=======
 #: gtk/deprecated/gtkcolorseldialog.c:191 gtk/deprecated/gtkfontsel.c:1689
 #: gtk/gtkfilechoosernative.c:540 gtk/gtkfilechoosernative.c:632
 #: gtk/gtkfilechooserwidget.c:1477 gtk/gtkfilechooserwidget.c:6384
@@ -1643,7 +1702,6 @@ msgstr "Huts egin du GNOME Softwarea abiaraztean"
 #: gtk/ui/gtkcolorchooserdialog.ui:34 gtk/ui/gtkfontchooserdialog.ui:31
 msgid "_Cancel"
 msgstr "_Utzi"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translators: Label for a search button and entry, should be translated as a verb
 #: bobgui/deprecated/bobguiappchooserdialog.c:472 bobgui/bobguifilechooserdialog.c:477
@@ -1672,10 +1730,8 @@ msgstr "Erlazionatutako aplikazioak"
 msgid "Other Apps"
 msgstr "Beste aplikazioak"
 
-<<<<<<< HEAD
 #. This label is displayed in a treeview cell displaying
 #. * a disabled accelerator key combination.
-=======
 #: gtk/deprecated/gtkfontsel.c:400
 msgid "Si_ze:"
 msgstr "Ta_maina:"
@@ -1701,7 +1757,6 @@ msgstr "Letra-tipoaren hautapena"
 
 #. Translators: the format here is used to build the string that will be rendered
 #. * in the number emblem.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #.
 #: bobgui/deprecated/bobguicellrendereraccel.c:294
 msgctxt "Accelerator"
@@ -1761,20 +1816,19 @@ msgstr "Hautatu letra-tipoa"
 
 #: bobgui/deprecated/bobguifontbutton.c:603 bobgui/bobguifilechooserwidget.c:3850
 #: bobgui/bobguifontdialogbutton.c:128 bobgui/inspector/visual.ui:360
+#: gtk/deprecated/gtkfontbutton.c:600 gtk/gtkfilechooserwidget.c:3815
+#: gtk/gtkfontdialogbutton.c:126 gtk/inspector/visual.ui:285
 msgid "Font"
 msgstr "Letra-tipoa"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguifontbutton.c:1158 bobgui/bobguifontdialogbutton.c:661
 msgctxt "font"
 msgid "None"
 msgstr "Bat ere ez"
-=======
 #: gtk/encodesymbolic.c:279 gtk/gtk-builder-tool.c:671
 #, c-format
 msgid "Can't load file: %s\n"
 msgstr "Ezin da fitxategia kargatu: %s\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/deprecated/bobguilockbutton.c:306 bobgui/ui/bobguilockbutton.ui:20
 msgid "Lock"
@@ -1784,18 +1838,15 @@ msgstr "Blokeatu"
 msgid "Unlock"
 msgstr "Desblokeatu"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguilockbutton.c:334
 msgid ""
 "Dialog is unlocked.\n"
 "Click to prevent further changes"
 msgstr "Elkarrizketa-koadroa desblokeatuta dago.\n"
 "Egin klik aldaketa gehiago saihesteko."
-=======
 #: gtk/gtkaboutdialog.c:113 gtk/ui/gtkaboutdialog.ui:206
 msgid "License"
 msgstr "Lizentzia"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/deprecated/bobguilockbutton.c:348
 msgid ""
@@ -1811,9 +1862,7 @@ msgid ""
 msgstr "Sistemaren arauek aldaketak saihesten dituzte.\n"
 "Jar zaitez sistemaren administratzailearekin harremanetan"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguishow.c:291
-=======
 #: gtk/gtkaboutdialog.c:116
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNUren Lizentzia Publiko Orokorra, 3 bertsioa edo berriagoa"
@@ -1876,7 +1925,6 @@ msgid "_Close"
 msgstr "It_xi"
 
 #: gtk/gtkaboutdialog.c:996
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Could not show link"
 msgstr "Ezin izan da esteka erakutsi"
 
@@ -2050,13 +2098,10 @@ msgstr "Alt"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:902 bobgui/deprecated/bobguishortcutlabel.c:115
 #: bobgui/deprecated/bobguishortcutlabel.c:145
-=======
 #: gtk/gtkaccellabel.c:843 gtk/gtkshortcutlabel.c:114
 #: gtk/gtkshortcutlabel.c:152
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Super"
 msgstr "Super"
@@ -2066,13 +2111,10 @@ msgstr "Super"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:916 bobgui/deprecated/bobguishortcutlabel.c:118
 #: bobgui/deprecated/bobguishortcutlabel.c:147
-=======
 #: gtk/gtkaccellabel.c:856 gtk/gtkshortcutlabel.c:117
 #: gtk/gtkshortcutlabel.c:154
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hyper"
 msgstr "Hiper"
@@ -2082,18 +2124,14 @@ msgstr "Hiper"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:931 bobgui/deprecated/bobguishortcutlabel.c:112
 #: bobgui/deprecated/bobguishortcutlabel.c:150
-=======
 #: gtk/gtkaccellabel.c:870 gtk/gtkshortcutlabel.c:111
 #: gtk/gtkshortcutlabel.c:156
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Meta"
 msgstr "Meta"
 
-<<<<<<< HEAD
 #. Translators: "KP" means "numeric key pad". This string will
 #. * be used in accelerators such as "Ctrl+Shift+KP 1" in menus,
 #. * and therefore the translation needs to be very short.
@@ -2104,18 +2142,13 @@ msgid "KP"
 msgstr "ZT"
 
 #: bobgui/bobguiaccelgroup.c:958
-=======
 #: gtk/gtkaccellabel.c:887
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Space"
 msgstr "Zuriunea"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:961 bobgui/deprecated/bobguishortcutlabel.c:178
-=======
 #: gtk/gtkaccellabel.c:890 gtk/gtkshortcutlabel.c:181
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Backslash"
 msgstr "Alderantzizko barra"
@@ -2185,17 +2218,14 @@ msgctxt "accessibility"
 msgid "document"
 msgstr "dokumentua"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccessible.c:850
 msgctxt "accessibility"
 msgid "feed"
 msgstr "Iturria"
-=======
 #: gtk/gtkapplicationwindow.c:345 gtk/gtkprintoperation-unix.c:484
 #: gtk/gtkprintoperation-win32.c:1453 gtk/inspector/prop-editor.c:1686
 msgid "Application"
 msgstr "Aplikazioa"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/bobguiaccessible.c:851
 msgctxt "accessibility"
@@ -2589,7 +2619,6 @@ msgstr "<%s> elementua ez da maila gorenean onartzen"
 msgid "Text may not appear inside <%s>"
 msgstr "Testua ezin da <%s>(r)en barruan egon"
 
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:612
 msgid "Previous Month"
 msgstr "Aurreko hila"
@@ -2613,7 +2642,6 @@ msgstr "Hurrengo urtea"
 #: bobgui/bobguicalendar.c:697
 msgid "calendar:week_start:0"
 msgstr "calendar:week_start:1"
-=======
 #: gtk/gtk-builder-tool.c:124
 #, c-format
 msgid "Packing property %s::%s not found\n"
@@ -2677,7 +2705,6 @@ msgstr ""
 "  --css=FITXATEGIA     Erabili estiloa CSS fitxategitik\n"
 "\n"
 "Landu hainbat ataza GtkBuilder .ui fitxategietan.\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to calendar:YM if you want years to be displayed
 #. * before months; otherwise translate to calendar:MY.
@@ -2693,8 +2720,6 @@ msgstr ""
 msgid "calendar:MY"
 msgstr "calendar:YM"
 
-<<<<<<< HEAD
-=======
 #. Translate to calendar:week_start:0 if you want Sunday to be the
 #. * first day of the week to calendar:week_start:1 if you want Monday
 #. * to be the first day of the week, and so on.
@@ -2713,7 +2738,6 @@ msgctxt "year measurement template"
 msgid "2000"
 msgstr "2000"
 
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. Translators: this defines whether the day numbers should use
 #. * localized digits or the ones used in English (0123...).
 #. *
@@ -2724,11 +2748,8 @@ msgstr "2000"
 #. * digits. That needs support from your system and locale definition
 #. * too.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1029
-=======
 #: gtk/gtkcalendar.c:1897 gtk/gtkcalendar.c:2593
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:day:digits"
 msgid "%d"
@@ -2753,20 +2774,15 @@ msgstr "%Y"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1179
-=======
 #.
 #: gtk/gtkcalendar.c:1929 gtk/gtkcalendar.c:2459
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:week:digits"
 msgid "%d"
 msgstr "%d"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorchooserwidget.c:386 bobgui/bobguicoloreditor.c:171
-=======
 #. Translators: This dictates how the year is displayed in
 #. * gtkcalendar widget.  See strftime() manual for the format.
 #. * Use only ASCII in the translation.
@@ -2827,7 +2843,6 @@ msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "Gorria %%%d, Berdea %%%d, Urdina %%%d"
 
 #: gtk/gtkcolorchooserwidget.c:387
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Color: %s"
 msgstr "Kolorea: %s"
@@ -3071,11 +3086,9 @@ msgstr "Gehitu kolorea"
 msgid "Custom color %d: %s"
 msgstr "%d. kolore pertsonalizatua: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorswatch.c:230
 msgid "Customize"
 msgstr "Pertsonalizatu"
-=======
 #: gtk/gtkcolorplane.c:409
 msgid "Color Plane"
 msgstr "Kolore soila"
@@ -3093,7 +3106,6 @@ msgstr "Alfa"
 #: gtk/gtkcolorswatch.c:360
 msgid "C_ustomize"
 msgstr "_Pertsonalizatu"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to the default units to use for presenting
 #. * lengths to the user. Translate to default:inch if you
@@ -3105,9 +3117,7 @@ msgstr "_Pertsonalizatu"
 msgid "default:mm"
 msgstr "default:mm"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguicustompaperunixdialog.c:291
-=======
 #. And show the custom paper dialog
 #: gtk/gtkcustompaperunixdialog.c:405 gtk/gtkprintunixdialog.c:3336
 msgid "Manage Custom Sizes"
@@ -3122,7 +3132,6 @@ msgid "mm"
 msgstr "mm"
 
 #: gtk/gtkcustompaperunixdialog.c:615
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Margins from Printer…"
 msgstr "Marjinak inprimagailutik…"
 
@@ -3178,7 +3187,6 @@ msgstr "E_skuinean:"
 msgid "Paper Margins"
 msgstr "Paper-marjinak"
 
-<<<<<<< HEAD
 #: bobgui/bobguieditablelabel.c:170 bobgui/ui/bobguiapplication-quartz.ui:50
 msgid "_Edit"
 msgstr "_Editatu"
@@ -3285,7 +3293,6 @@ msgid "The session bus is not available"
 msgstr "Saioaren bus-a ez dago erabilgarri"
 
 #: bobgui/bobguifilechoosernativequartz.c:348 bobgui/ui/bobguifilechooserwidget.ui:299
-=======
 #: gtk/gtkentry.c:9543 gtk/gtklabel.c:6677 gtk/gtktextview.c:9448
 msgid "Cu_t"
 msgstr "_Ebaki"
@@ -3364,7 +3371,6 @@ msgid "_Save"
 msgstr "_Gorde"
 
 #: gtk/gtkfilechoosernativequartz.c:331 gtk/ui/gtkfilechooserwidget.ui:392
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Select which types of files are shown"
 msgstr "Hautatu erakutsiko diren fitxategi motak"
 
@@ -3437,6 +3443,8 @@ msgstr "Elementu bat ezabatzen baduzu, betirako galduko duzu."
 
 #: bobgui/bobguifilechooserwidget.c:1249 bobgui/bobguifilechooserwidget.c:1848
 #: bobgui/bobguilabel.c:5951 bobgui/bobguitext.c:6390 bobgui/bobguitextview.c:9390
+#: gtk/gtkfilechooserwidget.c:1188 gtk/gtkfilechooserwidget.c:1786
+#: gtk/gtklabel.c:5712 gtk/gtktext.c:6194 gtk/gtktextview.c:9099
 msgid "_Delete"
 msgstr "Ez_abatu"
 
@@ -3444,7 +3452,6 @@ msgstr "Ez_abatu"
 msgid "The file could not be renamed"
 msgstr "Ezin izan da fitxategia berrizendatu"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1539
 msgid "Could not select file"
 msgstr "Ezin izan da fitxategia hautatu"
@@ -3466,7 +3473,6 @@ msgid "_Open With File Manager"
 msgstr "_Ireki fitxategi-kudeatzailearekin"
 
 #: bobgui/bobguifilechooserwidget.c:1836
-=======
 #: gtk/gtkfilechooserwidget.c:1924
 msgid "Could not select file"
 msgstr "Ezin izan da fitxategia hautatu"
@@ -3480,11 +3486,9 @@ msgid "_Open With File Manager"
 msgstr "_Ireki fitxategi-kudeatzailearekin"
 
 #: gtk/gtkfilechooserwidget.c:2275
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Copy Location"
 msgstr "_Kopiatu helbidea"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1840
 msgid "_Add to Bookmarks"
 msgstr "_Gehitu laster-markei"
@@ -3495,7 +3499,6 @@ msgid "_Rename"
 msgstr "_Aldatu izena"
 
 #: bobgui/bobguifilechooserwidget.c:1852
-=======
 #: gtk/gtkfilechooserwidget.c:2276
 msgid "_Add to Bookmarks"
 msgstr "_Gehitu laster-markei"
@@ -3506,18 +3509,15 @@ msgid "_Rename"
 msgstr "_Aldatu izena"
 
 #: gtk/gtkfilechooserwidget.c:2279
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Move to Trash"
 msgstr "Eraman _zakarrontzira"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1861
 msgid "Show _Hidden Files"
 msgstr "Erakutsi fitxategi _ezkutuak"
 
 #: bobgui/bobguifilechooserwidget.c:1865
 msgid "Sort _Folders Before Files"
-=======
 #: gtk/gtkfilechooserwidget.c:2283
 msgid "Show _Hidden Files"
 msgstr "Erakutsi fitxategi _ezkutuak"
@@ -3532,7 +3532,6 @@ msgstr "Erakutsi _ordua"
 
 #: gtk/gtkfilechooserwidget.c:2286
 msgid "Sort _Folders before Files"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgstr "_Ordenatu karpetak fitxategiak baino lehen"
 
 #: bobgui/bobguifilechooserwidget.c:1988 bobgui/bobguifilechooserwidget.c:2018
@@ -3545,24 +3544,19 @@ msgid "Home"
 msgstr "Karpeta nagusia"
 
 #. this is the header for the location column in the print dialog
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2228 bobgui/bobguifilechooserwidget.c:7465
 #: bobgui/inspector/css-node-tree.ui:76 bobgui/print/ui/bobguiprintunixdialog.ui:111
-=======
 #: gtk/gtkfilechooserwidget.c:2610 gtk/inspector/css-node-tree.ui:141
 #: gtk/ui/gtkfilechooserwidget.ui:207 gtk/ui/gtkprintunixdialog.ui:123
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Location"
 msgstr "Kokalekua"
 
 #. Label
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2335
 msgid "_Name:"
 msgstr "_Izena:"
 
 #: bobgui/bobguifilechooserwidget.c:2892 bobgui/bobguifilechooserwidget.c:2906
-=======
 #: gtk/gtkfilechooserwidget.c:2703
 msgid "_Name:"
 msgstr "_Izena:"
@@ -3572,12 +3566,10 @@ msgid "Searching"
 msgstr "Bilaketa"
 
 #: gtk/gtkfilechooserwidget.c:3330 gtk/gtkfilechooserwidget.c:3344
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Searching in %s"
 msgstr "Hemen bilatzen: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2912
 msgid "Searching"
 msgstr "Bilatzen"
@@ -3588,7 +3580,6 @@ msgstr "Sartu kokalekua edo URLa"
 
 #: bobgui/bobguifilechooserwidget.c:3477 bobgui/bobguifilechooserwidget.c:5820
 #: bobgui/bobguifilechooserwidget.c:7487
-=======
 #: gtk/gtkfilechooserwidget.c:3354
 msgid "Enter location"
 msgstr "Sartu kokalekua"
@@ -3599,20 +3590,15 @@ msgstr "Sartu kokalekua edo URLa"
 
 #: gtk/gtkfilechooserwidget.c:4394 gtk/gtkfilechooserwidget.c:7298
 #: gtk/ui/gtkfilechooserwidget.ui:235
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Modified"
 msgstr "Aldatze-data"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3662
-=======
 #: gtk/gtkfilechooserwidget.c:4672
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Could not read the contents of %s"
 msgstr "Ezin izan da %s(r)en edukia irakurri"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3666
 msgid "Could not read the contents of the folder"
 msgstr "Ezin izan da karpetaren edukia irakurri"
@@ -3623,7 +3609,6 @@ msgid "%H:%M"
 msgstr "%H:%M"
 
 #: bobgui/bobguifilechooserwidget.c:3791 bobgui/bobguifilechooserwidget.c:3834
-=======
 #: gtk/gtkfilechooserwidget.c:4676
 msgid "Could not read the contents of the folder"
 msgstr "Ezin izan da karpetaren edukia irakurri"
@@ -3633,36 +3618,28 @@ msgid "%H:%M"
 msgstr "%H:%M"
 
 #: gtk/gtkfilechooserwidget.c:4808 gtk/gtkfilechooserwidget.c:4856
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "%l:%M %p"
 msgstr "%l:%M %p%l:%M %p"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3795
 msgid "Yesterday"
 msgstr "Atzo"
 
 #: bobgui/bobguifilechooserwidget.c:3804
 #, no-c-format
-=======
 #: gtk/gtkfilechooserwidget.c:4812
 msgid "Yesterday"
 msgstr "Atzo"
 
 #: gtk/gtkfilechooserwidget.c:4820
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "%-e %b"
 msgstr "%-e %b"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3808
-=======
 #: gtk/gtkfilechooserwidget.c:4824
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "%-e %b %Y"
 msgstr "%Y-%b-%-e"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3848 bobgui/bobguifilechooserwidget.c:3856
 msgid "Program"
 msgstr "Programa"
@@ -3716,7 +3693,6 @@ msgid "You do not have access to the specified folder."
 msgstr "Ez daukazu atzipenik zehaztutako karpetara."
 
 #: bobgui/bobguifilechooserwidget.c:5025 bobgui/print/bobguiprintunixdialog.c:674
-=======
 #. Translators: We don't know whether this printer is
 #. * available to print to.
 #: gtk/gtkfilechooserwidget.c:5059 gtk/inspector/prop-editor.c:1689
@@ -3733,22 +3709,17 @@ msgid "Cannot change to folder because it is not local"
 msgstr "Ezin aldatu karpetara, lokala ez delako."
 
 #: gtk/gtkfilechooserwidget.c:6377 gtk/gtkprintunixdialog.c:664
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "'%s' izeneko fitxategia badago lehendik. Ordeztea nahi duzu?"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5027 bobgui/print/bobguiprintunixdialog.c:678
-=======
 #: gtk/gtkfilechooserwidget.c:6380 gtk/gtkprintunixdialog.c:668
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "The file already exists in “%s”.  Replacing it will overwrite its contents."
 msgstr "'%s'(e)n badago fitxategia lehendik. Hau ordeztean bere eduki guztia gainidatziko da."
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5033 bobgui/print/bobguiprintunixdialog.c:686
 msgid "_Replace"
 msgstr "_Ordeztu"
@@ -3758,7 +3729,6 @@ msgid "Could not send the search request"
 msgstr "Ezin izan da bilaketako eskaera bidali"
 
 #: bobgui/bobguifilechooserwidget.c:6048
-=======
 #: gtk/gtkfilechooserwidget.c:6385 gtk/gtkprintunixdialog.c:676
 msgid "_Replace"
 msgstr "_Ordeztu"
@@ -3772,7 +3742,6 @@ msgid "Could not send the search request"
 msgstr "Ezin izan da bilaketako eskaera bidali"
 
 #: gtk/gtkfilechooserwidget.c:7508
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Accessed"
 msgstr "Atzituta"
 
@@ -3792,6 +3761,10 @@ msgstr "O_rdua"
 #: bobgui/inspector/a11y.ui:43 bobgui/inspector/actions.ui:18
 #: bobgui/inspector/css-node-tree.ui:22 bobgui/inspector/prop-list.ui:24
 #: bobgui/ui/bobguifilechooserwidget.ui:394 bobgui/print/ui/bobguiprintunixdialog.ui:80
+#: gtk/gtkfilechooserwidget.c:7375 gtk/gtkplacessidebar.c:2306
+#: gtk/inspector/a11y.ui:43 gtk/inspector/actions.ui:18
+#: gtk/inspector/css-node-tree.ui:22 gtk/inspector/prop-list.ui:24
+#: gtk/ui/gtkfilechooserwidget.ui:385 gtk/print/ui/gtkprintunixdialog.ui:80
 msgid "Name"
 msgstr "Izena"
 
@@ -3927,16 +3900,13 @@ msgstr "Karaktere-aldaerak"
 msgid "OpenGL context creation failed"
 msgstr "Huts egin du OpenGL-ren testuingurua sortzean"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguiinfobar.c:501 bobgui/bobguiwindowcontrols.c:412
 #: bobgui/bobguiwindowhandle.c:253
-=======
 #: gtk/gtkheaderbar.c:387
 msgid "Application menu"
 msgstr "Aplikazioaren menua"
 
 #: gtk/gtkheaderbar.c:454 gtk/gtkwindow.c:9083
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Close"
 msgstr "Itxi"
 
@@ -3945,6 +3915,7 @@ msgid "Close the infobar"
 msgstr "Itxi informazio-barra"
 
 #: bobgui/bobguilabel.c:5948 bobgui/bobguitext.c:6378 bobgui/bobguitextview.c:9378
+#: gtk/gtklabel.c:5709 gtk/gtktext.c:6182 gtk/gtktextview.c:9087
 msgid "Cu_t"
 msgstr "_Moztu"
 
@@ -3953,16 +3924,23 @@ msgid "_Paste"
 msgstr "_Itsatsi"
 
 #: bobgui/bobguilabel.c:5956 bobgui/bobguitext.c:6399 bobgui/bobguitextview.c:9411
+#: gtk/gtklabel.c:5710 gtk/gtktext.c:6186 gtk/gtktextview.c:9091
+msgid "_Copy"
+msgstr "_Kopiatu"
+
+#: gtk/gtklabel.c:5711 gtk/gtktext.c:6190 gtk/gtktextview.c:9095
+msgid "_Paste"
+msgstr "_Itsatsi"
+
+#: gtk/gtklabel.c:5717 gtk/gtktext.c:6203 gtk/gtktextview.c:9120
 msgid "Select _All"
 msgstr "Hautatu _dena"
 
-<<<<<<< HEAD
 #: bobgui/bobguilabel.c:5961
 msgid "_Open Link"
 msgstr "_Ireki esteka"
 
 #: bobgui/bobguilabel.c:5965
-=======
 #: gtk/gtkimmulticontext.c:609
 msgctxt "input method menu"
 msgid "System"
@@ -3997,15 +3975,18 @@ msgstr "_Ireki esteka"
 
 #. Copy Link Address
 #: gtk/gtklabel.c:6667
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Copy _Link Address"
 msgstr "Kopiatu _estekaren helbidea"
 
 #: bobgui/bobguilinkbutton.c:276
+#: gtk/gtklabel.c:5770 gtk/gtktext.c:2723 gtk/gtktextview.c:9169
+msgid "Context menu"
+msgstr "Testuinguru-menua"
+
+#: gtk/gtklinkbutton.c:260
 msgid "_Copy URL"
 msgstr "_Kopiatu URLa"
 
-<<<<<<< HEAD
 #: bobgui/bobguilinkbutton.c:605
 msgid "Invalid URI"
 msgstr "URI baliogabea"
@@ -4021,7 +4002,6 @@ msgstr "URI baliogabea"
 msgctxt "long time format"
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
-=======
 #: gtk/gtk-launch.c:74
 msgid "APPLICATION [URI...] — launch an APPLICATION"
 msgstr "APLIKAZIOA [URIa…] — abiarazi aplikazio bat"
@@ -4161,7 +4141,6 @@ msgstr "Erakutsi GTK+ aukerak"
 #: gtk/gtkmain.c:1269
 msgid "default:LTR"
 msgstr "default:LTR"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. -hour:minutes:seconds
 #. Translators: This is a time format, like "-9:05:02" for 9
@@ -4328,7 +4307,6 @@ msgstr "Z Shell"
 msgid "Cannot end process with PID %d: %s"
 msgstr "Ezin da %d PID prozesua amaitu: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguinomediafile.c:48
 msgid "BOBGUI could not find a media module. Check your installation."
 msgstr "BOBGUI aplikazioak ezin izan da multimedia-modulurik aurkitu. Egiaztatu instalazioa ondo dagoela."
@@ -4342,9 +4320,7 @@ msgid "Next tab"
 msgstr "Hurrengo fitxa"
 
 #: bobgui/bobguinotebook.c:4426 bobgui/bobguinotebook.c:6636
-=======
 #: gtk/gtknotebook.c:5121 gtk/gtknotebook.c:7388
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Page %u"
 msgstr "%u. orrialdea"
@@ -4385,18 +4361,15 @@ msgstr "Marjinak\n"
 " Goian: %s %s\n"
 " Behean: %s %s"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguipagesetupunixdialog.c:787
 #: bobgui/print/ui/bobguipagesetupunixdialog.ui:5
 #: bobgui/print/ui/bobguiprintunixdialog.ui:783
-=======
 #: gtk/gtkpagesetupunixdialog.c:878 gtk/gtkprintunixdialog.c:3390
 msgid "Manage Custom Sizes…"
 msgstr "Kudeatu tamaina pertsonalizatuak…"
 
 #: gtk/gtkpagesetupunixdialog.c:900 gtk/ui/gtkpagesetupunixdialog.ui:31
 #: gtk/ui/gtkprintunixdialog.ui:854
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Page Setup"
 msgstr "Orrialdearen konfigurazioa"
 
@@ -4404,7 +4377,6 @@ msgstr "Orrialdearen konfigurazioa"
 msgid "Hide Text"
 msgstr "Ezkutatu testua"
 
-<<<<<<< HEAD
 #: bobgui/bobguipasswordentry.c:176 bobgui/bobguipasswordentry.c:623
 msgid "Show Text"
 msgstr "Erakutsi testua"
@@ -4424,21 +4396,15 @@ msgid "Open %s"
 msgstr "Ireki %s"
 
 #: bobgui/bobguiplacessidebar.c:1003
-=======
 #: gtk/gtkplacessidebar.c:1034
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Recent"
 msgstr "Azken aldikoa"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1005
-=======
 #: gtk/gtkplacessidebar.c:1036
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Recent files"
 msgstr "Azken aldiko fitxategiak"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1014
 msgid "Starred"
 msgstr "Izarduna"
@@ -4477,7 +4443,6 @@ msgstr "Ireki zakarrontzia"
 
 #: bobgui/bobguiplacessidebar.c:1181 bobgui/bobguiplacessidebar.c:1209
 #: bobgui/bobguiplacessidebar.c:1409
-=======
 #: gtk/gtkplacessidebar.c:1047
 msgid "Open your personal folder"
 msgstr "Ireki zure karpeta pertsonala"
@@ -4511,20 +4476,15 @@ msgstr "Ireki %s"
 
 #: gtk/gtkplacessidebar.c:1212 gtk/gtkplacessidebar.c:1240
 #: gtk/gtkplacessidebar.c:1456
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Mount and open “%s”"
 msgstr "Muntatu eta ireki '%s'"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1304
-=======
 #: gtk/gtkplacessidebar.c:1328
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Open the contents of the file system"
 msgstr "Ireki fitxategi-sistemaren edukia"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1387
 msgid "New bookmark"
 msgstr "Laster-marka berria"
@@ -4542,7 +4502,6 @@ msgid "Show other locations"
 msgstr "Erakutsi beste kokalekuak"
 
 #: bobgui/bobguiplacessidebar.c:1964 bobgui/bobguiplacessidebar.c:2984
-=======
 #: gtk/gtkplacessidebar.c:1412
 msgid "New bookmark"
 msgstr "Laster-marka berria"
@@ -4619,12 +4578,10 @@ msgid "_Lock Device"
 msgstr "_Blokeatu gailua"
 
 #: gtk/gtkplacessidebar.c:2353 gtk/gtkplacessidebar.c:3325
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to start “%s”"
 msgstr "Ezin da “%s” abiatu"
 
-<<<<<<< HEAD
 #. Translators: This means that unlocking an encrypted storage
 #. * device failed. %s is the name of the device.
 #.
@@ -4634,20 +4591,16 @@ msgid "Error unlocking “%s”"
 msgstr "Errorea “%s” desblokeatzean"
 
 #: bobgui/bobguiplacessidebar.c:2002
-=======
 #: gtk/gtkplacessidebar.c:2383
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to access “%s”"
 msgstr "Ezin da “%s” atzitu"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2233
 msgid "This name is already taken"
 msgstr "Izen hori jadanik erabilita dago"
 
 #: bobgui/bobguiplacessidebar.c:2525
-=======
 #: gtk/gtkplacessidebar.c:2597
 msgid "This name is already taken"
 msgstr "Izen hori jadanik erabilita dago"
@@ -4659,48 +4612,34 @@ msgid "Name"
 msgstr "Izena"
 
 #: gtk/gtkplacessidebar.c:2866
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to unmount “%s”"
 msgstr "Ezin da '%s' desmuntatu"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2701
-=======
 #: gtk/gtkplacessidebar.c:3042
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to stop “%s”"
 msgstr "Ezin da '%s' gelditu"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2730
-=======
 #: gtk/gtkplacessidebar.c:3071
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject “%s”"
 msgstr "Ezin da “%s” egotzi"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2759 bobgui/bobguiplacessidebar.c:2788
-=======
 #: gtk/gtkplacessidebar.c:3100 gtk/gtkplacessidebar.c:3129
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject %s"
 msgstr "Ezin da %s egotzi"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2936
-=======
 #: gtk/gtkplacessidebar.c:3277
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to poll “%s” for media changes"
 msgstr "Ezin da euskarri aldakorren '%s' berreskuratu"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3155 bobgui/bobguiplacessidebar.c:3242
 #: bobgui/bobguiplacesview.c:1650
 msgid "Open in New _Tab"
@@ -4728,7 +4667,6 @@ msgid "_Unmount"
 msgstr "_Desmuntatu"
 
 #: bobgui/bobguiplacessidebar.c:3298
-=======
 #: gtk/gtkplacessidebar.c:3616 gtk/gtkplacesview.c:1640
 msgid "Open in New _Tab"
 msgstr "Ireki _fitxa berrian"
@@ -4758,11 +4696,9 @@ msgid "_Unmount"
 msgstr "_Desmuntatu"
 
 #: gtk/gtkplacessidebar.c:3631
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Eject"
 msgstr "E_gotzi"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3308
 msgid "_Detect Media"
 msgstr "_Detektatu euskarria"
@@ -4820,7 +4756,6 @@ msgid "Searching for network locations"
 msgstr "Sareko kokalekuak bilatzen"
 
 #: bobgui/bobguiplacesview.c:883
-=======
 #: gtk/gtkplacessidebar.c:3632
 msgid "_Detect Media"
 msgstr "_Detektatu euskarria"
@@ -4834,39 +4769,28 @@ msgid "Searching for network locations"
 msgstr "Sareko kokalekuak bilatzen"
 
 #: gtk/gtkplacesview.c:901
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No network locations found"
 msgstr "Ez da sareko kokalekurik aurkitu"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1197 bobgui/bobguiplacesview.c:1294
-=======
 #: gtk/gtkplacesview.c:1229 gtk/gtkplacesview.c:1304
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to access location"
 msgstr "Ezin da kokalekua atzitu"
 
 #. Restore from Cancel to Connect
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1215 bobgui/ui/bobguiplacesview.ui:237
-=======
 #: gtk/gtkplacesview.c:1247 gtk/ui/gtkplacesview.ui:449
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Con_nect"
 msgstr "_Konektatu"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1354
-=======
 #: gtk/gtkplacesview.c:1367
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to unmount volume"
 msgstr "Ezin da bolumena desmuntatu"
 
 #. Allow to cancel the operation
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1446
 msgid "Cance_l"
 msgstr "_Utzi"
@@ -4927,7 +4851,6 @@ msgid "Networks"
 msgstr "Sareak"
 
 #: bobgui/bobguiplacesview.c:2039 bobgui/bobguiplacesview.c:2048
-=======
 #: gtk/gtkplacesview.c:1467
 msgid "Cance_l"
 msgstr "_Utzi"
@@ -4949,7 +4872,6 @@ msgid "Networks"
 msgstr "Sareak"
 
 #: gtk/gtkplacesview.c:1965 gtk/gtkplacesview.c:1974
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "On This Computer"
 msgstr "Ordenagailu honetan"
 
@@ -4957,18 +4879,14 @@ msgstr "Ordenagailu honetan"
 #. * should be based on the free space available.
 #. * i.e. 1 GB / 24 GB available.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:135
-=======
 #: gtk/gtkplacesviewrow.c:134
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "%s / %s available"
 msgid_plural "%s / %s available"
 msgstr[0] "%s / %s erabilgarri"
 msgstr[1] "%s / %s erabilgarri"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:471
 msgid "Disconnect"
 msgstr "Deskonektatu"
@@ -5007,7 +4925,6 @@ msgstr "Baxua"
 #.
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:521
 #: bobgui/print/backends/bobguiprintbackendcups.c:5861
-=======
 #: gtk/gtkplacesviewrow.c:481
 msgid "Disconnect"
 msgstr "Deskonektatu"
@@ -5127,8 +5044,13 @@ msgid "Out of paper"
 msgstr "Paperik ez"
 
 #. Translators: this is a printer status.
+<<<<<<< HEAD
 #: gtk/gtkprintoperation-win32.c:621
 #: modules/printbackends/cups/gtkprintbackendcups.c:2588
+=======
+#: gtk/print/gtkprintoperation-win32.c:640
+#: modules/printbackends/gtkprintbackendcpdb.c:1533
+#: modules/printbackends/gtkprintbackendcups.c:2639
 msgid "Paused"
 msgstr "Pausarazita"
 
@@ -5232,6 +5154,43 @@ msgstr "Behetik gora, ezkerretik eskuinera"
 
 #: gtk/gtkprintunixdialog.c:3122
 #: modules/printbackends/cups/gtkprintbackendcups.c:5375
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, top to bottom"
+msgstr "Ezkerretik eskuinera, goitik behera"
+
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, bottom to top"
+msgstr "Ezkerretik eskuinera, behetik gora"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, top to bottom"
+msgstr "Eskuinetik ezkerrera, goitik behera"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, bottom to top"
+msgstr "Eskuinetik ezkerrera, behetik gora"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, left to right"
+msgstr "Goitik behera, ezkerretik eskuinera"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, right to left"
+msgstr "Goitik behera, eskuinetik ezkerrera"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
+msgid "Bottom to top, left to right"
+msgstr "Behetik gora, ezkerretik eskuinera"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
 msgid "Bottom to top, right to left"
 msgstr "Behetik gora, eskuinetik ezkerrera"
 
@@ -5453,6 +5412,19 @@ msgid "OFF"
 msgstr "○"
 
 #: gtk/gtktextbufferrichtext.c:648
+#: gtk/gtktext.c:6208 gtk/gtktextview.c:9125
+msgid "Insert _Emoji"
+msgstr "Txertatu _emojia"
+
+#: gtk/gtktextview.c:9107
+msgid "_Undo"
+msgstr "_Desegin"
+
+#: gtk/gtktextview.c:9111
+msgid "_Redo"
+msgstr "_Berregin"
+
+#: gtk/gtkwindow.c:6245
 #, c-format
 msgid "Unknown error when trying to deserialize %s"
 msgstr "Errore ezezaguna %s serietik kentzen saiatzean"
@@ -5752,6 +5724,15 @@ msgid "GTK+ Version"
 msgstr "GTK+ bertsioa"
 
 #: gtk/inspector/general.ui:68
+#: gtk/inspector/general.c:924
+msgid "IM Context is hardcoded by GTK_IM_MODULE"
+msgstr "IM testuingurua GTK_IM_MODULE kodean txertatuta dago"
+
+#: gtk/inspector/general.ui:31
+msgid "GTK Version"
+msgstr "GTK bertsioa"
+
+#: gtk/inspector/general.ui:57
 msgid "GDK Backend"
 msgstr "GDK motorra"
 
@@ -5881,6 +5862,9 @@ msgstr "Fotograma-emaria"
 #: gtk/inspector/misc-info.ui:579
 msgid "Accessible role"
 msgstr "Portaera erabilgarria"
+#: gtk/inspector/misc-info.ui:527 gtk/inspector/visual.ui:315
+msgid "Scale"
+msgstr "Eskala"
 
 #: gtk/inspector/misc-info.ui:613
 msgid "Accessible name"
@@ -6062,21 +6046,25 @@ msgid "Mode"
 msgstr "Modua"
 
 #: gtk/inspector/size-groups.c:252
+#: gtk/inspector/size-groups.c:228
 msgctxt "sizegroup mode"
 msgid "None"
 msgstr "Bat ere ez"
 
 #: gtk/inspector/size-groups.c:253
+#: gtk/inspector/size-groups.c:229
 msgctxt "sizegroup mode"
 msgid "Horizontal"
 msgstr "Horizontala"
 
 #: gtk/inspector/size-groups.c:254
+#: gtk/inspector/size-groups.c:230
 msgctxt "sizegroup mode"
 msgid "Vertical"
 msgstr "Bertikala"
 
 #: gtk/inspector/size-groups.c:255
+#: gtk/inspector/size-groups.c:231
 msgctxt "sizegroup mode"
 msgid "Both"
 msgstr "Biak"
@@ -6084,6 +6072,9 @@ msgstr "Biak"
 #: gtk/inspector/statistics.c:377
 msgid "GLib must be configured with --enable-debug"
 msgstr "GLib --enable-debug aukerarekin konfiguratu behar da"
+#: gtk/inspector/size-groups.c:243
+msgid "Mode"
+msgstr "Modua"
 
 #: gtk/inspector/statistics.ui:68
 msgid "Self 1"
@@ -6124,6 +6115,34 @@ msgstr "Motorrak ez du leihoa eskalatzea onartzen"
 #: gtk/inspector/visual.c:726
 msgid "Setting is hardcoded by GTK_TEST_TOUCHSCREEN"
 msgstr "Ezarpena GTK_TEST_TOUCHSCREEN-ek kodean txertatuta dago"
+#: gtk/inspector/strv-editor.c:83
+#, c-format
+msgid "Remove %s"
+msgstr "Kendu %s"
+
+#: gtk/inspector/strv-editor.c:115
+msgid "Add"
+msgstr "Gehitu"
+
+#: gtk/inspector/tree-data.ui:10
+msgid "Show data"
+msgstr "Erakutsi datuak"
+
+#: gtk/inspector/type-info.ui:14
+msgid "Hierarchy"
+msgstr "Hierarkia"
+
+#: gtk/inspector/type-info.ui:35
+msgid "Implements"
+msgstr "Inplementatzen du"
+
+#: gtk/inspector/visual.c:765 gtk/inspector/visual.c:784
+msgid "Theme is hardcoded by GTK_THEME"
+msgstr "Gaia GTK_THEME-k kodean txertatuta dago"
+
+#: gtk/inspector/visual.ui:34
+msgid "GTK Theme"
+msgstr "GTK gaia"
 
 #: gtk/inspector/visual.c:791
 msgid ""
@@ -6249,6 +6268,115 @@ msgstr "Desgaituta"
 #: gtk/inspector/visual.ui:766
 msgid "Software GL"
 msgstr "Software bidezko GL"
+#: gtk/inspector/visual.ui:169
+msgid "Text Direction"
+msgstr "Testuaren norabidea"
+
+#: gtk/inspector/visual.ui:184
+msgid "Left-to-Right"
+msgstr "Ezkerretik eskuinera"
+
+#: gtk/inspector/visual.ui:185
+msgid "Right-to-Left"
+msgstr "Eskuinetik ezkerrera"
+
+#: gtk/inspector/visual.ui:202
+msgid "Animations"
+msgstr "Animazioak"
+
+#: gtk/inspector/visual.ui:227
+msgid "Slowdown"
+msgstr "Geldotu"
+
+#: gtk/inspector/visual.ui:362
+msgid "Antialiasing"
+msgstr "Antialiasing-a"
+
+#: gtk/inspector/visual.ui:387
+msgid "Hinting"
+msgstr "Atxikitzea"
+
+#: gtk/inspector/visual.ui:402
+msgctxt "Font hinting style"
+msgid "None"
+msgstr "Bat ere ez"
+
+#: gtk/inspector/visual.ui:403
+msgctxt "Font hinting style"
+msgid "Slight"
+msgstr "Arina"
+
+#: gtk/inspector/visual.ui:404
+msgctxt "Font hinting style"
+msgid "Medium"
+msgstr "Tartekoa"
+
+#: gtk/inspector/visual.ui:405
+msgctxt "Font hinting style"
+msgid "Full"
+msgstr "Osoa"
+
+#: gtk/inspector/visual.ui:422
+msgid "Metrics Hinting"
+msgstr "Metriken atxikitzea"
+
+#: gtk/inspector/visual.ui:457
+msgid "Show Framerate"
+msgstr "Erakutsi fotograma-tasa"
+
+#: gtk/inspector/visual.ui:482
+msgid "Show Graphic Updates"
+msgstr "Erakutsi eguneraketa grafikoak"
+
+#: gtk/inspector/visual.ui:502
+msgid ""
+"Tints all the places where the current renderer uses Cairo instead of the "
+"GPU."
+msgstr "Uneko errendatzaileak PUZaren ordez Cairo erabiltzen dituen toki guztiak tindatzen ditu."
+
+#: gtk/inspector/visual.ui:508
+msgid "Show Cairo Rendering"
+msgstr "Erakutsi Cairo errendatzea"
+
+#: gtk/inspector/visual.ui:533
+msgid "Show Baselines"
+msgstr "Erakutsi oinarri-lerroak"
+
+#: gtk/inspector/visual.ui:561
+msgid "Show Layout Borders"
+msgstr "Erakutsi diseinuaren ertzak"
+
+#: gtk/inspector/visual.ui:618
+msgid "CSS Padding"
+msgstr "CSS betegarria"
+
+#: gtk/inspector/visual.ui:628
+msgid "CSS Border"
+msgstr "CSS ertza"
+
+#: gtk/inspector/visual.ui:638
+msgid "CSS Margin"
+msgstr "CSS marjina"
+
+#: gtk/inspector/visual.ui:648
+msgid "Widget Margin"
+msgstr "Trepetaren marjina"
+
+#: gtk/inspector/visual.ui:683
+msgid "Show Focus"
+msgstr "Erakutsi fokua"
+
+#: gtk/inspector/visual.ui:708
+msgid "Show Accessibility warnings"
+msgstr "Erakutsi erabilerraztasun-abisuak"
+
+#: gtk/inspector/visual.ui:733
+msgid "Show Graphics Offload"
+msgstr "Erakutsi grafikoen libratzea"
+
+#: gtk/inspector/visual.ui:765
+msgid "Inspect Inspector"
+msgstr "Ikuskatu ikuskatzailea"
 
 #: gtk/inspector/visual.ui:800
 msgid "Software Surfaces"
@@ -7814,6 +7942,72 @@ msgstr "Huts egin du karpetaren indizea idaztean\n"
 #, c-format
 msgid "Failed to rewrite header\n"
 msgstr "Huts egin du goiburukoa berridaztean\n"
+#: modules/printbackends/gtkprintbackendcpdb.c:542
+#: modules/printbackends/gtkprintbackendcups.c:5668
+msgctxt "Print job priority"
+msgid "Urgent"
+msgstr "Presazkoa"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:543
+#: modules/printbackends/gtkprintbackendcups.c:5669
+msgctxt "Print job priority"
+msgid "High"
+msgstr "Altua"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:544
+#: modules/printbackends/gtkprintbackendcups.c:5670
+msgctxt "Print job priority"
+msgid "Medium"
+msgstr "Tartekoa"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:545
+#: modules/printbackends/gtkprintbackendcups.c:5671
+msgctxt "Print job priority"
+msgid "Low"
+msgstr "Baxua"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the front cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:567
+#: modules/printbackends/gtkprintbackendcups.c:5814
+msgctxt "printer option"
+msgid "Before"
+msgstr "Aurretik"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the back cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:574
+#: modules/printbackends/gtkprintbackendcups.c:5829
+msgctxt "printer option"
+msgid "After"
+msgstr "Ondoren"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:597
+msgid "Print at"
+msgstr "Inprimatze-unea:"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:607
+msgid "Print at time"
+msgstr "Inprimatu orduan"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:670
+msgctxt "print option"
+msgid "Borderless"
+msgstr "Ertzik gabea"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1530
+#: modules/printbackends/gtkprintbackendcups.c:2636
+msgid "Paused; Rejecting Jobs"
+msgstr "Pausarazita; Lanak baztertzen"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1536
+#: modules/printbackends/gtkprintbackendcups.c:2642
+msgid "Rejecting Jobs"
+msgstr "Lanak baztertzen"
 
 #: gtk/updateiconcache.c:1504
 #, c-format
@@ -8169,49 +8363,60 @@ msgstr "; "
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4318
 #: modules/printbackends/cups/gtkprintbackendcups.c:4385
+#: modules/printbackends/gtkprintbackendcups.c:4609
+#: modules/printbackends/gtkprintbackendcups.c:4676
 msgctxt "printing option"
 msgid "Two Sided"
 msgstr "Bi aldetatik"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4319
+#: modules/printbackends/gtkprintbackendcups.c:4610
 msgctxt "printing option"
 msgid "Paper Type"
 msgstr "Paper mota"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4320
+#: modules/printbackends/gtkprintbackendcups.c:4611
 msgctxt "printing option"
 msgid "Paper Source"
 msgstr "Paper iturria"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4321
 #: modules/printbackends/cups/gtkprintbackendcups.c:4386
+#: modules/printbackends/gtkprintbackendcups.c:4612
+#: modules/printbackends/gtkprintbackendcups.c:4677
 msgctxt "printing option"
 msgid "Output Tray"
 msgstr "Irteerako erretilua"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4322
+#: modules/printbackends/gtkprintbackendcups.c:4613
 msgctxt "printing option"
 msgid "Resolution"
 msgstr "Bereizmena"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4323
+#: modules/printbackends/gtkprintbackendcups.c:4614
 msgctxt "printing option"
 msgid "GhostScript pre-filtering"
 msgstr "GhostScript aurre-iragazketa"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4332
+#: modules/printbackends/gtkprintbackendcups.c:4623
 msgctxt "printing option value"
 msgid "One Sided"
 msgstr "Alde batetik"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4334
+#: modules/printbackends/gtkprintbackendcups.c:4625
 msgctxt "printing option value"
 msgid "Long Edge (Standard)"
 msgstr "Marjina luzea (estandarra)"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4336
+#: modules/printbackends/gtkprintbackendcups.c:4627
 msgctxt "printing option value"
 msgid "Short Edge (Flip)"
 msgstr "Marjina laburra (iraulia)"
@@ -8220,6 +8425,9 @@ msgstr "Marjina laburra (iraulia)"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4338
 #: modules/printbackends/cups/gtkprintbackendcups.c:4340
 #: modules/printbackends/cups/gtkprintbackendcups.c:4348
+#: modules/printbackends/gtkprintbackendcups.c:4629
+#: modules/printbackends/gtkprintbackendcups.c:4631
+#: modules/printbackends/gtkprintbackendcups.c:4639
 msgctxt "printing option value"
 msgid "Auto Select"
 msgstr "Hautapen automatikoa"
@@ -8230,30 +8438,38 @@ msgstr "Hautapen automatikoa"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4344
 #: modules/printbackends/cups/gtkprintbackendcups.c:4346
 #: modules/printbackends/cups/gtkprintbackendcups.c:4350
+#: modules/printbackends/gtkprintbackendcups.c:4633
+#: modules/printbackends/gtkprintbackendcups.c:4635
+#: modules/printbackends/gtkprintbackendcups.c:4637
+#: modules/printbackends/gtkprintbackendcups.c:4641
 msgctxt "printing option value"
 msgid "Printer Default"
 msgstr "Inprimagailu lehenetsia"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4352
+#: modules/printbackends/gtkprintbackendcups.c:4643
 msgctxt "printing option value"
 msgid "Embed GhostScript fonts only"
 msgstr "Kapsulatutako GhostScript letra-tipoak soilik"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4354
+#: modules/printbackends/gtkprintbackendcups.c:4645
 msgctxt "printing option value"
 msgid "Convert to PS level 1"
 msgstr "Bihurtu PS 1. mailara"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4356
+#: modules/printbackends/gtkprintbackendcups.c:4647
 msgctxt "printing option value"
 msgid "Convert to PS level 2"
 msgstr "Bihurtu PS 2. mailara"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4358
+#: modules/printbackends/gtkprintbackendcups.c:4649
 msgctxt "printing option value"
 msgid "No pre-filtering"
 msgstr "Aurre-iragazketarik gabe"
@@ -8261,95 +8477,111 @@ msgstr "Aurre-iragazketarik gabe"
 #. Translators: "Miscellaneous" is the label for a button, that opens
 #. up an extra panel of settings in a print dialog.
 #: modules/printbackends/cups/gtkprintbackendcups.c:4367
+#: modules/printbackends/gtkprintbackendcups.c:4658
 msgctxt "printing option group"
 msgid "Miscellaneous"
 msgstr "Hainbat"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4394
+#: modules/printbackends/gtkprintbackendcups.c:4685
 msgctxt "sides"
 msgid "One Sided"
 msgstr "Alde batetik"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4396
+#: modules/printbackends/gtkprintbackendcups.c:4687
 msgctxt "sides"
 msgid "Long Edge (Standard)"
 msgstr "Marjina luzea (estandarra)"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4398
+#: modules/printbackends/gtkprintbackendcups.c:4689
 msgctxt "sides"
 msgid "Short Edge (Flip)"
 msgstr "Marjina laburra (iraulia)"
 
 #. Translators: Top output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4401
+#: modules/printbackends/gtkprintbackendcups.c:4692
 msgctxt "output-bin"
 msgid "Top Bin"
 msgstr "Goiko edukiontzia"
 
 #. Translators: Middle output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4403
+#: modules/printbackends/gtkprintbackendcups.c:4694
 msgctxt "output-bin"
 msgid "Middle Bin"
 msgstr "Erdiko edukiontzia"
 
 #. Translators: Bottom output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4405
+#: modules/printbackends/gtkprintbackendcups.c:4696
 msgctxt "output-bin"
 msgid "Bottom Bin"
 msgstr "Beheko edukiontzia"
 
 #. Translators: Side output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4407
+#: modules/printbackends/gtkprintbackendcups.c:4698
 msgctxt "output-bin"
 msgid "Side Bin"
 msgstr "Alboko edukiontzia"
 
 #. Translators: Left output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4409
+#: modules/printbackends/gtkprintbackendcups.c:4700
 msgctxt "output-bin"
 msgid "Left Bin"
 msgstr "Ezkerreko edukiontzia"
 
 #. Translators: Right output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4411
+#: modules/printbackends/gtkprintbackendcups.c:4702
 msgctxt "output-bin"
 msgid "Right Bin"
 msgstr "Eskuineko edukiontzia"
 
 #. Translators: Center output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4413
+#: modules/printbackends/gtkprintbackendcups.c:4704
 msgctxt "output-bin"
 msgid "Center Bin"
 msgstr "Zentroko edukiontzia"
 
 #. Translators: Rear output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4415
+#: modules/printbackends/gtkprintbackendcups.c:4706
 msgctxt "output-bin"
 msgid "Rear Bin"
 msgstr "Atzeko edukiontzia"
 
 #. Translators: Output bin where one sided output is oriented in the face-up position
 #: modules/printbackends/cups/gtkprintbackendcups.c:4417
+#: modules/printbackends/gtkprintbackendcups.c:4708
 msgctxt "output-bin"
 msgid "Face Up Bin"
 msgstr "Edukiontzia buruz gora"
 
 #. Translators: Output bin where one sided output is oriented in the face-down position
 #: modules/printbackends/cups/gtkprintbackendcups.c:4419
+#: modules/printbackends/gtkprintbackendcups.c:4710
 msgctxt "output-bin"
 msgid "Face Down Bin"
 msgstr "Edukiontzia buruz behera"
 
 #. Translators: Large capacity output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4421
+#: modules/printbackends/gtkprintbackendcups.c:4712
 msgctxt "output-bin"
 msgid "Large Capacity Bin"
 msgstr "Tamaina handiko edukiontzia"
 
 #. Translators: Output stacker number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4443
+#: modules/printbackends/gtkprintbackendcups.c:4734
 #, c-format
 msgctxt "output-bin"
 msgid "Stacker %d"
@@ -8357,6 +8589,7 @@ msgstr "%d pilatzailea"
 
 #. Translators: Output mailbox number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4447
+#: modules/printbackends/gtkprintbackendcups.c:4738
 #, c-format
 msgctxt "output-bin"
 msgid "Mailbox %d"
@@ -8364,18 +8597,21 @@ msgstr "%d. postontzia"
 
 #. Translators: Private mailbox
 #: modules/printbackends/cups/gtkprintbackendcups.c:4451
+#: modules/printbackends/gtkprintbackendcups.c:4742
 msgctxt "output-bin"
 msgid "My Mailbox"
 msgstr "Nire postontzia"
 
 #. Translators: Output tray number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4455
+#: modules/printbackends/gtkprintbackendcups.c:4746
 #, c-format
 msgctxt "output-bin"
 msgid "Tray %d"
 msgstr "%d. erretilua"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4926
+#: modules/printbackends/gtkprintbackendcups.c:5223
 msgid "Printer Default"
 msgstr "Inprimagailu lehenetsia"
 
@@ -8402,6 +8638,7 @@ msgstr "Baxua"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5397
+#: modules/printbackends/gtkprintbackendcups.c:5702
 msgid "Job Priority"
 msgstr "Lanaren lehentasuna"
 
@@ -8413,36 +8650,50 @@ msgid "Billing Info"
 msgstr "Fakturaren datuak"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5432
+#: modules/printbackends/gtkprintbackendcups.c:5713
+msgid "Billing Info"
+msgstr "Fakturaren datuak"
+
+#. Translators, these strings are names for various 'standard' cover
+#. * pages that the printing system may support.
+#.
+#: modules/printbackends/gtkprintbackendcups.c:5737
 msgctxt "cover page"
 msgid "None"
 msgstr "Bat ere ez"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5433
+#: modules/printbackends/gtkprintbackendcups.c:5738
 msgctxt "cover page"
 msgid "Classified"
 msgstr "Klasifikatuta"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5434
+#: modules/printbackends/gtkprintbackendcups.c:5739
 msgctxt "cover page"
 msgid "Confidential"
 msgstr "Konfidentziala"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5435
+#: modules/printbackends/gtkprintbackendcups.c:5740
 msgctxt "cover page"
 msgid "Secret"
 msgstr "Ezkutukoa"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5436
+#: modules/printbackends/gtkprintbackendcups.c:5741
 msgctxt "cover page"
 msgid "Standard"
 msgstr "Estandarra"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5437
+#: modules/printbackends/gtkprintbackendcups.c:5742
 msgctxt "cover page"
 msgid "Top Secret"
 msgstr "Ezkutu gorenekoa"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5438
+#: modules/printbackends/gtkprintbackendcups.c:5743
 msgctxt "cover page"
 msgid "Unclassified"
 msgstr "Sailkatu gabe"
@@ -8451,6 +8702,7 @@ msgstr "Sailkatu gabe"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5450
+#: modules/printbackends/gtkprintbackendcups.c:5755
 msgctxt "printer option"
 msgid "Pages per Sheet"
 msgstr "Orrialde orriko"
@@ -8478,9 +8730,7 @@ msgstr "Aurretik"
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:528
 #: bobgui/print/backends/bobguiprintbackendcups.c:5876
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5524
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "printer option"
 msgid "After"
 msgstr "Ondoren"
@@ -8985,6 +9235,9 @@ msgstr "Orrialde orriko"
 #. * dialog that controls in what order multiple pages are arranged
 #.
 #: bobgui/print/backends/bobguiprintbackendcups.c:5819
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5772
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Page Ordering"
 msgstr "Orrialdeak ordenatzea"
@@ -8995,9 +9248,10 @@ msgstr "Orrialdeak ordenatzea"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5896
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5544
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5849
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at"
 msgstr "Noiz inprimatu"
@@ -9007,9 +9261,10 @@ msgstr "Noiz inprimatu"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5907
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5555
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5860
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at time"
 msgstr "Noiz inprimatu"
@@ -9021,19 +9276,21 @@ msgstr "Noiz inprimatu"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5955
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5597
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5907
+>>>>>>> origin/4-14-backports
 #, c-format
 msgid "Custom %s×%s"
 msgstr "%sx%s pertsonalizatua"
 
-<<<<<<< HEAD
 #. TRANSLATORS: this is the ICC color profile to use for this job
+<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6067
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5706
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6018
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Printer Profile"
 msgstr "Inprimagailuaren profila"
@@ -9041,9 +9298,10 @@ msgstr "Inprimagailuaren profila"
 #. TRANSLATORS: this is when color profile information is unavailable
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6074
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5713
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6025
+>>>>>>> origin/4-14-backports
 msgctxt "printer option value"
 msgid "Unavailable"
 msgstr "Ez dago erabilgarri"
@@ -13099,11 +13357,9 @@ msgstr "Irudi-fitxategi bakarra onartzen da\n"
 msgid "Don't add a titlebar"
 msgstr "Ez gehitu titulu-barra"
 
-<<<<<<< HEAD
 #: tools/bobgui-image-tool-play.c:322 tools/bobgui-rendernode-tool-convert.c:97
 msgid "SIZE"
 msgstr "TAMAINA"
-=======
 #~ msgid "Could not start the search process"
 #~ msgstr "Ezin izan da bilaketako prozesua abiarazi"
 
@@ -13126,7 +13382,6 @@ msgstr "TAMAINA"
 
 #~ msgid "Error launching preview"
 #~ msgstr "Errorea aurrebista abiaraztean"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: tools/bobgui-image-tool-play.c:323
 msgid "Don't run animations"
@@ -14000,10 +14255,15 @@ msgstr "Ez dago gaiaren indize fitxategirik “%s”(e)n.\n"
 
 #~ msgid "Backend does not support window scaling"
 #~ msgstr "Motorrak ez du leihoa eskalatzea onartzen"
-=======
 #~ msgid "Remove"
 #~ msgstr "Kendu"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#~ msgid "Backend does not support window scaling"
+#~ msgstr "Motorrak ez du leihoa eskalatzea onartzen"
+
+#~ msgid "Font Scale"
+#~ msgstr "Letra-tipoaren eskala"
+>>>>>>> origin/4-14-backports
 
 #~ msgid "Window Scaling"
 #~ msgstr "Leihoa eskalatzea"

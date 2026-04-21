@@ -2,11 +2,8 @@
 # This file is distributed under the same license as the bobgui+ package.
 #
 # Sung-Hyun Nam <namsh@lgic.co.kr>, 1998
-<<<<<<< HEAD
 # Changwoo Ryu <cwryu@debian.org>, 2002-2026.
-=======
 # Changwoo Ryu <cwryu@debian.org>, 2002-2018.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #
 #
 # - font family를 나타내는 family는 "계열"이라고 번역
@@ -16,17 +13,20 @@
 #
 msgid ""
 msgstr ""
-<<<<<<< HEAD
 "Project-Id-Version: bobgui+\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bobgui/-/issues/\n"
 "POT-Creation-Date: 2026-02-26 21:54+0000\n"
 "PO-Revision-Date: 2026-02-28 02:35+0900\n"
-=======
 "Project-Id-Version: gtk+\n"
+<<<<<<< HEAD
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-21 16:27+0000\n"
 "PO-Revision-Date: 2018-08-26 13:59+0900\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gtk/-/issues/\n"
+"POT-Creation-Date: 2024-04-09 09:56+0000\n"
+"PO-Revision-Date: 2024-04-09 23:28+0900\n"
+>>>>>>> origin/4-14-backports
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Gnome Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -63,6 +63,7 @@ msgid "Cannot read from empty clipboard."
 msgstr "빈 클립보드에서는 읽을 수 없습니다."
 
 #: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1123 gdk/gdkdrag.c:606
+#: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1136 gdk/gdkdrag.c:606
 msgid "No compatible formats to transfer clipboard contents."
 msgstr "클립보드 내용을 전달할 호환 형식이 없습니다."
 
@@ -102,7 +103,6 @@ msgstr "내용을 %s(으)로 제공할 수 없습니다"
 
 <<<<<<< HEAD
 #: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:472
-=======
 #. Description of --display=DISPLAY in --help output
 #: gdk/gdk.c:238
 msgid "X display to use"
@@ -112,6 +112,14 @@ msgstr "사용할 X 디스플레이"
 #: gdk/gdk.c:239
 msgid "DISPLAY"
 msgstr "<디스플레이>"
+=======
+#: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:464
+msgid "The current backend does not support OpenGL"
+msgstr "현재 백엔드가 OpenGL을 지원하지 않습니다"
+
+#: gdk/gdkdisplay.c:1315 gdk/gdkvulkancontext.c:1600
+msgid "Vulkan support disabled via GDK_DEBUG"
+msgstr "GDK_DEBUG를 통해 Vulkan 기능을 사용하지 않습니다"
 
 #. Description of --gdk-debug=FLAGS in --help output
 #: gdk/gdk.c:243
@@ -165,6 +173,23 @@ msgid "No perfect EGL configuration found"
 msgstr "완전한 EGL 설정이 없습니다"
 
 #: gdk/gdkdisplay.c:1815
+#: gdk/gdkdisplay.c:1675
+msgid "No EGL configuration available"
+msgstr "사용할 수 있는 EGL 설정이 없습니다"
+
+#: gdk/gdkdisplay.c:1683
+msgid "Failed to get EGL configurations"
+msgstr "EGL 설정을 가져오는데 실패했습니다"
+
+#: gdk/gdkdisplay.c:1713
+msgid "No EGL configuration with required features found"
+msgstr "필요한 기능이 들어 있는 EGL 설정이 없습니다"
+
+#: gdk/gdkdisplay.c:1720
+msgid "No perfect EGL configuration found"
+msgstr "완전한 EGL 설정이 없습니다"
+
+#: gdk/gdkdisplay.c:1762
 #, c-format
 msgid "EGL implementation is missing extension %s"
 msgid_plural "EGL implementation is missing %2$d extensions: %1$s"
@@ -187,6 +212,23 @@ msgid "Could not initialize EGL display"
 msgstr "EGL 디스플레이를 초기화할 수 없습니다"
 
 #: gdk/gdkdisplay.c:1894
+#: gdk/gdkdisplay.c:1811
+msgid "libEGL not available in this sandbox"
+msgstr "이 샌드박스에서 libEGL을 사용할 수 없습니다"
+
+#: gdk/gdkdisplay.c:1812
+msgid "libEGL not available"
+msgstr "libEGL을 사용할 수 없습니다"
+
+#: gdk/gdkdisplay.c:1822
+msgid "Failed to create EGL display"
+msgstr "EGL 디스플레이를 만들 수 없습니다"
+
+#: gdk/gdkdisplay.c:1831
+msgid "Could not initialize EGL display"
+msgstr "EGL 디스플레이를 초기화할 수 없습니다"
+
+#: gdk/gdkdisplay.c:1841
 #, c-format
 msgid "EGL version %d.%d is too old. BOBGUI requires %d.%d"
 msgstr "EGL %d.%d 버전은 너무 오래 되었습니다. BOBGUI는 %d.%d 버전이 필요합니다."
@@ -217,6 +259,25 @@ msgid "OpenGL API disabled via GDK_DISABLE"
 msgstr "GDK_DISABLE을 통해 OpenGL을 사용하지 않습니다"
 
 #: gdk/gdkglcontext.c:1463
+#: gdk/gdkglcontext.c:424 gdk/x11/gdkglcontext-glx.c:645
+msgid "No GL API allowed."
+msgstr "GL API를 허용하지 않습니다."
+
+#: gdk/gdkglcontext.c:447 gdk/win32/gdkglcontext-win32-wgl.c:395
+#: gdk/win32/gdkglcontext-win32-wgl.c:538
+#: gdk/win32/gdkglcontext-win32-wgl.c:582 gdk/x11/gdkglcontext-glx.c:691
+msgid "Unable to create a GL context"
+msgstr "GL 컨텍스트를 만들 수 없습니다"
+
+#: gdk/gdkglcontext.c:1310
+msgid "OpenGL ES disabled via GDK_DEBUG"
+msgstr "GDK_DEBUG를 통해 OpenGL ES를 사용하지 않습니다"
+
+#: gdk/gdkglcontext.c:1322
+msgid "OpenGL disabled via GDK_DEBUG"
+msgstr "GDK_DEBUG를 통해 OpenGL을 사용하지 않습니다"
+
+#: gdk/gdkglcontext.c:1333
 #, c-format
 msgid "Application does not support %s API"
 msgstr "프로그램이 %s API를 지원하지 않습니다"
@@ -225,6 +286,7 @@ msgstr "프로그램이 %s API를 지원하지 않습니다"
 #. * "Trying to use X11 GLX, but EGL is already in use"
 #.
 #: gdk/gdkglcontext.c:2259
+#: gdk/gdkglcontext.c:2123
 #, c-format
 msgid "Trying to use %s, but %s is already in use"
 msgstr "%s 백엔드 사용을 시도했지만, 이미 %s 백엔드를 사용 중입니다"
@@ -241,15 +303,12 @@ msgstr "알 수 없는 이미지 형식."
 #.
 #. * Translators, the strings in the 'keyboard label' context are
 #. * display names for keyboard keys. Some of them have prefixes like
-<<<<<<< HEAD
 #. * XF86 or ISO_ - these should be removed in the translation. Similarly,
 #. * underscores should be replaced by spaces. The prefix 'KP_' stands
 #. * for 'key pad' and you may want to include that in your translation.
-=======
 #. * XF86 or ISO_ — these should be removed in the translation. Similarly,
 #. * underscores should be replaced by spaces. The prefix “KP_” stands
 #. * for “key pad” and you may want to include that in your translation.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. * Here are some examples of English translations:
 #. * XF86AudioMute - Audio mute
 #. * Scroll_lock   - Scroll lock
@@ -370,13 +429,10 @@ msgctxt "keyboard label"
 msgid "Num_Lock"
 msgstr "Num_Lock"
 
-<<<<<<< HEAD
 #. Translators: KP_ means 'key pad' here
 #: gdk/keynamesprivate.h:6882
-=======
 #. Translators: KP_ means “key pad” here
 #: gdk/keyname-table.h:6864
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "KP_Space"
 msgstr "키패드 스페이스"
@@ -627,116 +683,79 @@ msgctxt "keyboard label"
 msgid "ScreenSaver"
 msgstr "화면 보호기"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6923
-=======
 #: gdk/keyname-table.h:6905
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Battery"
 msgstr "배터리"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6924
-=======
 #: gdk/keyname-table.h:6906
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Launch1"
 msgstr "실행1"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6925
-=======
 #: gdk/keyname-table.h:6907
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Forward"
 msgstr "앞으로"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6926
-=======
 #: gdk/keyname-table.h:6908
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Back"
 msgstr "뒤로"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6927
-=======
 #: gdk/keyname-table.h:6909
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Sleep"
 msgstr "일시절전"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6928
-=======
 #: gdk/keyname-table.h:6910
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hibernate"
 msgstr "최대절전"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6929
-=======
 #: gdk/keyname-table.h:6911
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WLAN"
 msgstr "무선랜"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6930
-=======
 #: gdk/keyname-table.h:6912
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WebCam"
 msgstr "웹카메라"
 
 # 주의: 모니터를 말함
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6931
-=======
 #: gdk/keyname-table.h:6913
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Display"
 msgstr "디스플레이"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6932
-=======
 #: gdk/keyname-table.h:6914
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "TouchpadToggle"
 msgstr "터치패드 토글"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6933
-=======
 #: gdk/keyname-table.h:6915
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WakeUp"
 msgstr "깨어나기"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6934
-=======
 #: gdk/keyname-table.h:6916
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Suspend"
 msgstr "절전"
 
-<<<<<<< HEAD
 #: gdk/loaders/gdkjpeg.c:71
 #, c-format
 msgid "Error interpreting JPEG image file (%s)"
@@ -960,7 +979,6 @@ msgstr "주어진 픽셀 형식에 대한 설정이 없습니다"
 #: gdk/win32/gdkhdataoutputstream-win32.c:64
 msgid "writing a closed stream"
 msgstr "쓰려는 스트림이 닫혔습니다"
-=======
 #: gdk/mir/gdkmirglcontext.c:48 gdk/mir/gdkmirwindowimpl.c:2226
 #: gdk/wayland/gdkglcontext-wayland.c:468 gdk/win32/gdkglcontext-win32.c:1177
 #: gdk/x11/gdkglcontext-x11.c:1277
@@ -984,13 +1002,11 @@ msgstr "주어진 픽셀 형식에 대한 설정이 없습니다"
 #: gdk/mir/gdkmirwindowimpl.c:2234
 msgid "3.2 core GL profile is not available on EGL implementation"
 msgstr "3.2 코어 GL 프로파일이 EGL 구현에 없습니다"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:86
 msgid "g_try_realloc () failed"
 msgstr "g_try_realloc () 실패"
 
-<<<<<<< HEAD
 #: gdk/win32/gdkhdataoutputstream-win32.c:94
 #: gdk/win32/gdkhdataoutputstream-win32.c:233
 msgid "GlobalReAlloc() failed: "
@@ -1005,7 +1021,6 @@ msgid "Can’t transmute a single handle"
 msgstr "하나의 핸들을 변환할 수 없습니다"
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:217
-=======
 #: gdk/wayland/gdkglcontext-wayland.c:476
 msgid "Core GL is not available on EGL implementation"
 msgstr "코어 GL이 EGL 구현에 없습니다"
@@ -1041,7 +1056,6 @@ msgid "COLORS"
 msgstr "<색>"
 
 #: gdk/x11/gdkapplaunchcontext-x11.c:295
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Failed to transmute %zu bytes of data from %s to %u"
 msgstr "%zu 바이트의 데이터를 %s에서 %u(으)로 변환하는데 실패했습니다"
@@ -1070,7 +1084,6 @@ msgid "Opening %d Item"
 msgid_plural "Opening %d Items"
 msgstr[0] "%d개 항목 여는 중"
 
-<<<<<<< HEAD
 #: gdk/x11/gdkclipboard-x11.c:475
 msgid "Clipboard manager could not store selection."
 msgstr "클립보드 관리자가 선택한 항목을 저장할 수 없습니다."
@@ -1092,9 +1105,7 @@ msgid "GLX is not supported"
 msgstr "GLX를 지원하지 않습니다"
 
 #: gdk/x11/gdkselectioninputstream-x11.c:467
-=======
 #: gdk/x11/gdkglcontext-x11.c:999
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Format %s not supported"
 msgstr "%s 형식은 지원하지 않습니다"
@@ -1154,10 +1165,8 @@ msgctxt "accessibility"
 msgid "Toggles the switch"
 msgstr "스위치 토글"
 
-<<<<<<< HEAD
 #: bobgui/a11y/bobguiatspiaction.c:421
 msgctxt "accessibility"
-=======
 #: gtk/a11y/gtkcellaccessible.c:259 gtk/a11y/gtkcolorswatchaccessible.c:149
 #: gtk/a11y/gtkentryaccessible.c:1557 gtk/a11y/gtkexpanderaccessible.c:281
 msgctxt "Action name"
@@ -1181,7 +1190,6 @@ msgstr "셀을 활성화합니다"
 
 #: gtk/a11y/gtkcolorswatchaccessible.c:148
 msgctxt "Action name"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Select"
 msgstr "선택"
 
@@ -1212,10 +1220,8 @@ msgctxt "accessibility"
 msgid "Customizes the color"
 msgstr "색을 사용자 지정"
 
-<<<<<<< HEAD
 #: bobgui/a11y/bobguiatspiaction.c:491
 msgctxt "accessibility"
-=======
 #: gtk/a11y/gtkcomboboxaccessible.c:310
 msgctxt "Action name"
 msgid "Press"
@@ -1233,7 +1239,6 @@ msgstr "입력창을 활성화합니다"
 
 #: gtk/a11y/gtkexpanderaccessible.c:290
 msgctxt "Action description"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Activates the expander"
 msgstr "확장 막대를 활성화"
 
@@ -1368,7 +1373,6 @@ msgstr "다른 앱"
 #. This label is displayed in a treeview cell displaying
 #. * a disabled accelerator key combination.
 #.
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicellrendereraccel.c:294
 msgctxt "Accelerator"
 msgid "Disabled"
@@ -1377,7 +1381,6 @@ msgstr "사용 안 함"
 #. This label is displayed in a treeview cell displaying
 #. * an accelerator key combination that is not valid according
 #. * to bobgui_accelerator_valid().
-=======
 #: gtk/a11y/gtkimageaccessible.c:53 gtk/deprecated/gtkstock.c:345
 msgctxt "Stock label"
 msgid "_About"
@@ -2023,7 +2026,6 @@ msgstr "글꼴 선택"
 
 #. Translators: the format here is used to build the string that will be rendered
 #. * in the number emblem.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #.
 #: bobgui/deprecated/bobguicellrendereraccel.c:304
 msgctxt "Accelerator"
@@ -2046,7 +2048,6 @@ msgctxt "progress bar label"
 msgid "%d %%"
 msgstr "%d %%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicolorbutton.c:186 bobgui/deprecated/bobguicolorbutton.c:317
 #: bobgui/bobguicolordialog.c:409
 msgid "Pick a Color"
@@ -2054,7 +2055,6 @@ msgstr "색 고르기"
 
 #: bobgui/deprecated/bobguicolorbutton.c:508 bobgui/bobguicolorchooserwidget.c:323
 #: bobgui/bobguicolordialogbutton.c:341
-=======
 #: gtk/deprecated/gtkstock.c:347
 msgctxt "Stock label"
 msgid "_Apply"
@@ -2165,31 +2165,24 @@ msgid "_Yes"
 msgstr "예(_Y)"
 
 #: gtk/deprecated/gtkuimanager.c:1782
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%, Alpha %d%%"
 msgstr "빨강 %d%%, 녹색 %d%%, 파랑 %d%%, 알파 %d%%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicolorbutton.c:514 bobgui/bobguicolorchooserwidget.c:329
 #: bobgui/bobguicolordialogbutton.c:347
-=======
 #: gtk/deprecated/gtkuimanager.c:1872
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "빨강 %d%%, 녹색 %d%%, 파랑 %d%%"
 
-<<<<<<< HEAD
 # 한글 글꼴은 그냥 fontconfig에 의존하도록 한다
 #: bobgui/deprecated/bobguifontbutton.c:399
 msgid "Sans 12"
 msgstr "Sans 12"
-=======
 #: gtk/deprecated/gtkuimanager.c:2709
 msgid "Empty"
 msgstr "비었음"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/deprecated/bobguifontbutton.c:510 bobgui/deprecated/bobguifontbutton.c:627
 #: bobgui/bobguifontdialog.c:590
@@ -2198,20 +2191,19 @@ msgstr "글꼴 고르기"
 
 #: bobgui/deprecated/bobguifontbutton.c:603 bobgui/bobguifilechooserwidget.c:3850
 #: bobgui/bobguifontdialogbutton.c:128 bobgui/inspector/visual.ui:360
+#: gtk/deprecated/gtkfontbutton.c:600 gtk/gtkfilechooserwidget.c:3815
+#: gtk/gtkfontdialogbutton.c:126 gtk/inspector/visual.ui:285
 msgid "Font"
 msgstr "글꼴"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguifontbutton.c:1158 bobgui/bobguifontdialogbutton.c:661
 msgctxt "font"
 msgid "None"
 msgstr "없음"
-=======
 #: gtk/encodesymbolic.c:279 gtk/gtk-builder-tool.c:671
 #, c-format
 msgid "Can't load file: %s\n"
 msgstr "파일을 읽어들일 수 없습니다: %s\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 # 키보드에 써 있는 단어이므로 번역하지 않는다
 #: bobgui/deprecated/bobguilockbutton.c:306 bobgui/ui/bobguilockbutton.ui:20
@@ -2222,7 +2214,6 @@ msgstr "잠그기"
 msgid "Unlock"
 msgstr "잠금 해제"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguilockbutton.c:334
 msgid ""
 "Dialog is unlocked.\n"
@@ -2352,7 +2343,6 @@ msgid "Website"
 msgstr "웹사이트"
 
 #: bobgui/bobguiaboutdialog.c:1071 bobgui/ui/bobguiapplication-quartz.ui:6
-=======
 #: gtk/gtkaboutdialog.c:114 gtk/ui/gtkaboutdialog.ui:206
 msgid "License"
 msgstr "라이선스"
@@ -2436,12 +2426,10 @@ msgstr "웹사이트"
 
 #. used for the application menu on MacOS.  %s is replaced with the application name.
 #: gtk/gtkaboutdialog.c:1085 gtk/ui/gtkapplication-quartz.ui:7
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "About %s"
 msgstr "%s 정보"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:2165
 msgid "Created by"
 msgstr "만든 사람"
@@ -2457,7 +2445,6 @@ msgstr "번역"
 #: bobgui/bobguiaboutdialog.c:2183
 msgid "Design by"
 msgstr "디자인"
-=======
 #: gtk/gtkaboutdialog.c:2312
 msgid "Created by"
 msgstr "만든 사람"
@@ -2473,16 +2460,12 @@ msgstr "번역"
 #: gtk/gtkaboutdialog.c:2330
 msgid "Artwork by"
 msgstr "아트워크"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:2348
-=======
 #: gtk/gtkaboutdialog.c:2490
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "This program comes with absolutely no warranty.\n"
@@ -2496,13 +2479,10 @@ msgstr ""
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:846 bobgui/deprecated/bobguishortcutlabel.c:103
 #: bobgui/deprecated/bobguishortcutlabel.c:139
-=======
 #: gtk/gtkaccellabel.c:181 gtk/gtkshortcutlabel.c:102
 #: gtk/gtkshortcutlabel.c:138
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Shift"
 msgstr "Shift"
@@ -2512,13 +2492,10 @@ msgstr "Shift"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:865 bobgui/deprecated/bobguishortcutlabel.c:106
 #: bobgui/deprecated/bobguishortcutlabel.c:141
-=======
 #: gtk/gtkaccellabel.c:187 gtk/gtkshortcutlabel.c:105
 #: gtk/gtkshortcutlabel.c:140
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Ctrl"
 msgstr "Ctrl"
@@ -2528,13 +2505,10 @@ msgstr "Ctrl"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:884 bobgui/deprecated/bobguishortcutlabel.c:109
 #: bobgui/deprecated/bobguishortcutlabel.c:143
-=======
 #: gtk/gtkaccellabel.c:193 gtk/gtkshortcutlabel.c:108
 #: gtk/gtkshortcutlabel.c:142
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Alt"
 msgstr "Alt"
@@ -2544,13 +2518,10 @@ msgstr "Alt"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:902 bobgui/deprecated/bobguishortcutlabel.c:115
 #: bobgui/deprecated/bobguishortcutlabel.c:145
-=======
 #: gtk/gtkaccellabel.c:845 gtk/gtkshortcutlabel.c:114
 #: gtk/gtkshortcutlabel.c:152
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Super"
 msgstr "Super"
@@ -2560,13 +2531,10 @@ msgstr "Super"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:916 bobgui/deprecated/bobguishortcutlabel.c:118
 #: bobgui/deprecated/bobguishortcutlabel.c:147
-=======
 #: gtk/gtkaccellabel.c:858 gtk/gtkshortcutlabel.c:117
 #: gtk/gtkshortcutlabel.c:154
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hyper"
 msgstr "Hyper"
@@ -2576,18 +2544,14 @@ msgstr "Hyper"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:931 bobgui/deprecated/bobguishortcutlabel.c:112
 #: bobgui/deprecated/bobguishortcutlabel.c:150
-=======
 #: gtk/gtkaccellabel.c:872 gtk/gtkshortcutlabel.c:111
 #: gtk/gtkshortcutlabel.c:156
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Meta"
 msgstr "Meta"
 
-<<<<<<< HEAD
 #. Translators: "KP" means "numeric key pad". This string will
 #. * be used in accelerators such as "Ctrl+Shift+KP 1" in menus,
 #. * and therefore the translation needs to be very short.
@@ -2598,18 +2562,13 @@ msgid "KP"
 msgstr "KP"
 
 #: bobgui/bobguiaccelgroup.c:958
-=======
 #: gtk/gtkaccellabel.c:889
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Space"
 msgstr "스페이스"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:961 bobgui/deprecated/bobguishortcutlabel.c:178
-=======
 #: gtk/gtkaccellabel.c:892 gtk/gtkshortcutlabel.c:181
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Backslash"
 msgstr "백슬래시"
@@ -2619,7 +2578,6 @@ msgctxt "accessibility"
 msgid "alert"
 msgstr "알림"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccessible.c:838
 msgctxt "accessibility"
 msgid "alert dialog"
@@ -2684,7 +2642,6 @@ msgstr "문서"
 msgctxt "accessibility"
 msgid "feed"
 msgstr "피드"
-=======
 #: gtk/gtkappchooserdialog.c:204 gtk/gtkappchooserdialog.c:211
 #: gtk/gtkappchooserdialog.c:228 gtk/ui/gtkappchooserdialog.ui:5
 msgid "Select Application"
@@ -2745,7 +2702,6 @@ msgstr "다른 프로그램"
 #: gtk/gtkprintoperation-win32.c:1453 gtk/inspector/prop-editor.c:1686
 msgid "Application"
 msgstr "프로그램"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/bobguiaccessible.c:851
 msgctxt "accessibility"
@@ -3146,7 +3102,6 @@ msgstr "<%s> 엘리먼트는 맨 위에 쓸 수 없습니다"
 msgid "Text may not appear inside <%s>"
 msgstr "<%s> 안에는 글을 쓸 수 없습니다"
 
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:612
 msgid "Previous Month"
 msgstr "이전 달"
@@ -3170,7 +3125,6 @@ msgstr "다음 연도"
 #: bobgui/bobguicalendar.c:697
 msgid "calendar:week_start:0"
 msgstr "calendar:week_start:0"
-=======
 #: gtk/gtk-builder-tool.c:124
 #, c-format
 msgid "Packing property %s::%s not found\n"
@@ -3234,7 +3188,6 @@ msgstr ""
 "  --css=<파일>       CSS 파일에서 스타일을 사용합니다\n"
 "\n"
 "GtkBuilder .ui 파일에 여러가지 작업을 수행합니다.\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to calendar:YM if you want years to be displayed
 #. * before months; otherwise translate to calendar:MY.
@@ -3246,12 +3199,10 @@ msgstr ""
 #. * text direction of RTL and specify "calendar:YM", then the year
 #. * will appear to the right of the month.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:848
 msgid "calendar:MY"
 msgstr "calendar:YM"
 
-=======
 #: gtk/gtkcalendar.c:815
 msgid "calendar:MY"
 msgstr "calendar:YM"
@@ -3274,7 +3225,6 @@ msgctxt "year measurement template"
 msgid "2000"
 msgstr "2000"
 
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. Translators: this defines whether the day numbers should use
 #. * localized digits or the ones used in English (0123...).
 #. *
@@ -3285,11 +3235,8 @@ msgstr "2000"
 #. * digits. That needs support from your system and locale definition
 #. * too.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1029
-=======
 #: gtk/gtkcalendar.c:1912 gtk/gtkcalendar.c:2608
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:day:digits"
 msgid "%d"
@@ -3314,20 +3261,15 @@ msgstr "%Y"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1179
-=======
 #.
 #: gtk/gtkcalendar.c:1944 gtk/gtkcalendar.c:2474
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:week:digits"
 msgid "%d"
 msgstr "%d"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorchooserwidget.c:386 bobgui/bobguicoloreditor.c:171
-=======
 #. Translators: This dictates how the year is displayed in
 #. * gtkcalendar widget.  See strftime() manual for the format.
 #. * Use only ASCII in the translation.
@@ -3388,7 +3330,6 @@ msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "빨강 %d%%, 녹색 %d%%, 파랑 %d%%"
 
 #: gtk/gtkcolorchooserwidget.c:387
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Color: %s"
 msgstr "색: %s"
@@ -3632,11 +3573,9 @@ msgstr "색 추가"
 msgid "Custom color %d: %s"
 msgstr "사용자 지정 %d: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorswatch.c:230
 msgid "Customize"
 msgstr "사용자 지정"
-=======
 #: gtk/gtkcolorplane.c:409
 msgid "Color Plane"
 msgstr "색 평면"
@@ -3654,7 +3593,6 @@ msgstr "알파"
 #: gtk/gtkcolorswatch.c:360
 msgid "C_ustomize"
 msgstr "사용자 지정(_U)"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to the default units to use for presenting
 #. * lengths to the user. Translate to default:inch if you
@@ -3666,9 +3604,7 @@ msgstr "사용자 지정(_U)"
 msgid "default:mm"
 msgstr "default:mm"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguicustompaperunixdialog.c:291
-=======
 #. And show the custom paper dialog
 #: gtk/gtkcustompaperunixdialog.c:405 gtk/gtkprintunixdialog.c:3336
 msgid "Manage Custom Sizes"
@@ -3683,7 +3619,6 @@ msgid "mm"
 msgstr "mm"
 
 #: gtk/gtkcustompaperunixdialog.c:615
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Margins from Printer…"
 msgstr "프린터의 여백…"
 
@@ -3739,7 +3674,6 @@ msgstr "오른쪽(_R):"
 msgid "Paper Margins"
 msgstr "용지 여백"
 
-<<<<<<< HEAD
 #: bobgui/bobguieditablelabel.c:170 bobgui/ui/bobguiapplication-quartz.ui:50
 msgid "_Edit"
 msgstr "편집(_E)"
@@ -3847,7 +3781,6 @@ msgid "The session bus is not available"
 msgstr "세션 버스를 사용할 수 없습니다"
 
 #: bobgui/bobguifilechoosernativequartz.c:348 bobgui/ui/bobguifilechooserwidget.ui:299
-=======
 #: gtk/gtkentry.c:9582 gtk/gtklabel.c:6680 gtk/gtktextview.c:9492
 msgid "Cu_t"
 msgstr "잘라내기(_T)"
@@ -3932,7 +3865,6 @@ msgid "_Save"
 msgstr "저장(_S)"
 
 #: gtk/gtkfilechoosernativequartz.c:331 gtk/ui/gtkfilechooserwidget.ui:392
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Select which types of files are shown"
 msgstr "어떤 종류의 파일을 표시할 지 선택합니다"
 
@@ -3945,7 +3877,6 @@ msgstr "어떤 종류의 파일을 표시할 지 선택합니다"
 msgid "%1$s on %2$s"
 msgstr "%s %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:365
 msgid "Type name of new folder"
 msgstr "새 폴더의 이름을 넣으십시오"
@@ -3959,7 +3890,6 @@ msgid "You need to choose a valid filename."
 msgstr "올바른 파일 이름을 선택해야 합니다."
 
 #: bobgui/bobguifilechooserwidget.c:768
-=======
 #: gtk/gtkfilechooserwidget.c:369
 msgid "Type name of new folder"
 msgstr "새 폴더의 이름을 넣으십시오"
@@ -3981,12 +3911,10 @@ msgid "You need to choose a valid filename."
 msgstr "올바른 파일 이름을 선택해야 합니다."
 
 #: gtk/gtkfilechooserwidget.c:819
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot create a file under %s as it is not a folder"
 msgstr "폴더가 아니므로 %s 아래에 파일을 만들 수 없습니다"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:778
 msgid "Cannot create file as the filename is too long"
 msgstr "파일 이름이 너무 길어서 파일을 만들 수 없습니다"
@@ -4020,7 +3948,6 @@ msgid "The file could not be moved to the Trash"
 msgstr "파일을 휴지통에 옮길 수 없습니다"
 
 #: bobgui/bobguifilechooserwidget.c:1247
-=======
 #: gtk/gtkfilechooserwidget.c:829
 msgid "Cannot create file as the filename is too long"
 msgstr "파일 이름이 너무 길어서 파일을 만들 수 없습니다"
@@ -4110,18 +4037,19 @@ msgid "File names starting with a “.” are hidden"
 msgstr "“.”으로 시작하는 이름의 파일은 숨겨집니다"
 
 #: gtk/gtkfilechooserwidget.c:1471
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Are you sure you want to permanently delete “%s”?"
 msgstr "정말로 “%s”을(를) 영구히 삭제하시겠습니까?"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1248
 msgid "If you delete an item, it will be permanently lost."
 msgstr "삭제하면 영구히 잃어버리게 됩니다."
 
+<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1249 bobgui/bobguifilechooserwidget.c:1848
 #: bobgui/bobguilabel.c:5951 bobgui/bobguitext.c:6390 bobgui/bobguitextview.c:9390
+#: gtk/gtkfilechooserwidget.c:1188 gtk/gtkfilechooserwidget.c:1786
+#: gtk/gtklabel.c:5712 gtk/gtktext.c:6194 gtk/gtktextview.c:9099
 msgid "_Delete"
 msgstr "삭제(_D)"
 
@@ -4165,13 +4093,10 @@ msgstr "위치 복사(_C)"
 msgid "_Add to Bookmarks"
 msgstr "책갈피에 추가(_A)"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1844 bobgui/bobguiplacessidebar.c:2312
 #: bobgui/bobguiplacessidebar.c:3270 bobgui/ui/bobguifilechooserwidget.ui:417
-=======
 #: gtk/gtkfilechooserwidget.c:2275 gtk/gtkplacessidebar.c:2731
 #: gtk/ui/gtkfilechooserwidget.ui:526
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Rename"
 msgstr "이름 바꾸기(_R)"
 
@@ -4187,10 +4112,8 @@ msgstr "숨긴 파일 표시(_H)"
 msgid "Sort _Folders Before Files"
 msgstr "폴더를 파일보다 앞에 정렬(_F)"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1988 bobgui/bobguifilechooserwidget.c:2018
 #: bobgui/bobguifilechooserwidget.c:3893
-=======
 #. this is the header for the location column in the print dialog
 #: gtk/gtkfilechooserwidget.c:2559 gtk/inspector/css-node-tree.ui:141
 #: gtk/ui/gtkfilechooserwidget.ui:207 gtk/ui/gtkprintunixdialog.ui:123
@@ -4257,12 +4180,10 @@ msgstr "%Y년 %b %-e일"
 #. * available to print to.
 #: gtk/gtkfilechooserwidget.c:5005 gtk/inspector/prop-editor.c:1689
 #: modules/printbackends/cloudprint/gtkprintbackendcloudprint.c:748
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unknown"
 msgstr "알 수 없음"
 
 # 홈 폴더
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2073 bobgui/bobguiplacessidebar.c:1025
 msgid "Home"
 msgstr "홈"
@@ -4380,7 +4301,6 @@ msgid "You do not have access to the specified folder."
 msgstr "지정한 폴더에 접근할 수 없습니다."
 
 #: bobgui/bobguifilechooserwidget.c:5025 bobgui/print/bobguiprintunixdialog.c:674
-=======
 #: gtk/gtkfilechooserwidget.c:5044 gtk/gtkplacessidebar.c:1094
 msgid "Home"
 msgstr "홈"
@@ -4390,23 +4310,18 @@ msgid "Cannot change to folder because it is not local"
 msgstr "로컬 폴더가 아니므로 폴더로 이동할 수 없습니다"
 
 #: gtk/gtkfilechooserwidget.c:6323 gtk/gtkprintunixdialog.c:664
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "이름이 “%s”인 파일이 이미 있습니다. 이 파일을 바꾸시겠습니까?"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5027 bobgui/print/bobguiprintunixdialog.c:678
-=======
 #: gtk/gtkfilechooserwidget.c:6326 gtk/gtkprintunixdialog.c:668
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "The file already exists in “%s”.  Replacing it will overwrite its contents."
 msgstr ""
 "“%s” 안에 파일이 이미 있습니다. 파일을 바꾸면 그 내용을 덮어 쓰게 됩니다."
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5033 bobgui/print/bobguiprintunixdialog.c:686
 msgid "_Replace"
 msgstr "바꾸기(_R)"
@@ -4416,7 +4331,6 @@ msgid "Could not send the search request"
 msgstr "검색 요청을 보낼 수 없습니다"
 
 #: bobgui/bobguifilechooserwidget.c:6048
-=======
 #: gtk/gtkfilechooserwidget.c:6331 gtk/gtkprintunixdialog.c:676
 msgid "_Replace"
 msgstr "바꾸기(_R)"
@@ -4430,7 +4344,6 @@ msgid "Could not send the search request"
 msgstr "검색 요청을 보낼 수 없습니다"
 
 #: gtk/gtkfilechooserwidget.c:7454
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Accessed"
 msgstr "접근 시간"
 
@@ -4438,7 +4351,6 @@ msgstr "접근 시간"
 msgid "_Size"
 msgstr "크기(_S)"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:7447
 msgid "T_ype"
 msgstr "종류(_Y)"
@@ -4595,6 +4507,7 @@ msgstr "닫기"
 msgid "Close the infobar"
 msgstr "정보 창을 닫습니다"
 
+<<<<<<< HEAD
 #: bobgui/bobguilabel.c:5948 bobgui/bobguitext.c:6378 bobgui/bobguitextview.c:9378
 msgid "Cu_t"
 msgstr "잘라내기(_T)"
@@ -4612,7 +4525,6 @@ msgid "_Open Link"
 msgstr "링크 열기(_O)"
 
 #: bobgui/bobguilabel.c:5965
-=======
 # 한글 글꼴은 그냥 fontconfig에 의존하도록 한다
 #: gtk/gtkfontbutton.c:379 gtk/gtkfontbutton.c:509
 msgid "Sans 12"
@@ -4740,15 +4652,44 @@ msgstr "링크 열기(_O)"
 
 #. Copy Link Address
 #: gtk/gtklabel.c:6670
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Copy _Link Address"
 msgstr "링크 주소 복사(_L)"
 
 #: bobgui/bobguilinkbutton.c:276
+=======
+#: gtk/gtklabel.c:5709 gtk/gtktext.c:6182 gtk/gtktextview.c:9087
+msgid "Cu_t"
+msgstr "잘라내기(_T)"
+
+#: gtk/gtklabel.c:5710 gtk/gtktext.c:6186 gtk/gtktextview.c:9091
+msgid "_Copy"
+msgstr "복사(_C)"
+
+#: gtk/gtklabel.c:5711 gtk/gtktext.c:6190 gtk/gtktextview.c:9095
+msgid "_Paste"
+msgstr "붙여넣기(_P)"
+
+#: gtk/gtklabel.c:5717 gtk/gtktext.c:6203 gtk/gtktextview.c:9120
+msgid "Select _All"
+msgstr "모두 선택(_A)"
+
+#: gtk/gtklabel.c:5722
+msgid "_Open Link"
+msgstr "링크 열기(_O)"
+
+#: gtk/gtklabel.c:5726
+msgid "Copy _Link Address"
+msgstr "링크 주소 복사(_L)"
+
+#: gtk/gtklabel.c:5770 gtk/gtktext.c:2723 gtk/gtktextview.c:9169
+msgid "Context menu"
+msgstr "컨텍스트 메뉴"
+
+#: gtk/gtklinkbutton.c:260
+>>>>>>> origin/4-14-backports
 msgid "_Copy URL"
 msgstr "URL 복사(_C)"
 
-<<<<<<< HEAD
 #: bobgui/bobguilinkbutton.c:605
 msgid "Invalid URI"
 msgstr "올바르지 않은 URI"
@@ -4764,7 +4705,6 @@ msgstr "올바르지 않은 URI"
 msgctxt "long time format"
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
-=======
 #: gtk/gtk-launch.c:74
 msgid "APPLICATION [URI...] — launch an APPLICATION"
 msgstr "<프로그램> [<URI>…] - <프로그램>을 실행합니다"
@@ -4903,7 +4843,6 @@ msgstr "GTK+ 옵션 표시"
 #: gtk/gtkmain.c:1270
 msgid "default:LTR"
 msgstr "default:LTR"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. -hour:minutes:seconds
 #. Translators: This is a time format, like "-9:05:02" for 9
@@ -5049,7 +4988,6 @@ msgstr ""
 "PID %d의 프로세스를 중지할 수 없습니다. 해당 동작을 구현하지 않았습니다."
 
 #. translators: this string is a name for the 'less' command
-<<<<<<< HEAD
 #: bobgui/bobguimountoperation-x11.c:990
 msgid "Terminal Pager"
 msgstr "터미널 페이지 프로그램"
@@ -5071,7 +5009,6 @@ msgid "Z Shell"
 msgstr "Z 셸"
 
 #: bobgui/bobguimountoperation-x11.c:1094
-=======
 #: gtk/gtkmountoperation-x11.c:954
 msgid "Terminal Pager"
 msgstr "터미널 페이지 프로그램"
@@ -5093,12 +5030,10 @@ msgid "Z Shell"
 msgstr "Z 셸"
 
 #: gtk/gtkmountoperation-x11.c:1055
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot end process with PID %d: %s"
 msgstr "PID %d 프로세스를 끝낼 수 없습니다: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguinomediafile.c:48
 msgid "BOBGUI could not find a media module. Check your installation."
 msgstr ""
@@ -5113,9 +5048,7 @@ msgid "Next tab"
 msgstr "다음 탭"
 
 #: bobgui/bobguinotebook.c:4426 bobgui/bobguinotebook.c:6636
-=======
 #: gtk/gtknotebook.c:5121 gtk/gtknotebook.c:7386
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Page %u"
 msgstr "%u페이지"
@@ -5157,7 +5090,6 @@ msgstr ""
 " 위: %s %s\n"
 " 아래: %s %s"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguipagesetupunixdialog.c:787
 #: bobgui/print/ui/bobguipagesetupunixdialog.ui:5
 #: bobgui/print/ui/bobguiprintunixdialog.ui:783
@@ -5183,7 +5115,6 @@ msgstr "텍스트 보이기(_S)"
 
 #. translators: %s is the name of a cloud provider for files
 #: bobgui/bobguiplacessidebar.c:912
-=======
 #: gtk/gtkpagesetupunixdialog.c:878 gtk/gtkprintunixdialog.c:3390
 msgid "Manage Custom Sizes…"
 msgstr "사용자 설정 크기 관리…"
@@ -5199,12 +5130,10 @@ msgstr "파일 시스템 루트"
 
 #. translators: %s is the name of a cloud provider for files
 #: gtk/gtkplacessidebar.c:981
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Open %s"
 msgstr "%s 열기"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1003
 msgid "Recent"
 msgstr "최근"
@@ -5222,7 +5151,6 @@ msgid "Starred files"
 msgstr "별표 파일"
 
 #: bobgui/bobguiplacessidebar.c:1027
-=======
 #: gtk/gtkplacessidebar.c:1070 gtk/ui/gtkemojichooser.ui:197
 msgid "Recent"
 msgstr "최근"
@@ -5241,7 +5169,6 @@ msgid "Favorite files"
 msgstr "즐겨찾기 파일"
 
 #: gtk/gtkplacessidebar.c:1096
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Open your personal folder"
 msgstr "개인 폴더를 엽니다"
 
@@ -5250,7 +5177,6 @@ msgid "Desktop"
 msgstr "바탕 화면"
 
 # "~/Desktop" 폴더를 사용하는 경우
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1042
 msgid "Open the contents of your desktop in a folder"
 msgstr "폴더에 들어 있는 바탕 화면의 내용을 엽니다"
@@ -5273,7 +5199,6 @@ msgstr "휴지통 열기"
 
 #: bobgui/bobguiplacessidebar.c:1181 bobgui/bobguiplacessidebar.c:1209
 #: bobgui/bobguiplacessidebar.c:1409
-=======
 #: gtk/gtkplacessidebar.c:1111
 msgid "Open the contents of your desktop in a folder"
 msgstr "폴더에 들어 있는 바탕 화면의 내용을 엽니다"
@@ -5296,12 +5221,10 @@ msgstr "휴지통 열기"
 
 #: gtk/gtkplacessidebar.c:1248 gtk/gtkplacessidebar.c:1276
 #: gtk/gtkplacessidebar.c:1484
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Mount and open “%s”"
 msgstr "“%s” 마운트 및 열기"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1304
 msgid "Open the contents of the file system"
 msgstr "파일 시스템의 내용을 엽니다"
@@ -5323,7 +5246,6 @@ msgid "Show other locations"
 msgstr "다른 위치 표시"
 
 #: bobgui/bobguiplacessidebar.c:1964 bobgui/bobguiplacessidebar.c:2984
-=======
 #: gtk/gtkplacessidebar.c:1364
 msgid "Open the contents of the file system"
 msgstr "파일 시스템의 내용을 엽니다"
@@ -5396,39 +5318,30 @@ msgid "_Lock Device"
 msgstr "장치 잠그기(_L)"
 
 #: gtk/gtkplacessidebar.c:2387 gtk/gtkplacessidebar.c:3384
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to start “%s”"
 msgstr "“%s”을(를) 시작할 수 없습니다"
 
-<<<<<<< HEAD
 #. Translators: This means that unlocking an encrypted storage
 #. * device failed. %s is the name of the device.
 #.
 #: bobgui/bobguiplacessidebar.c:2000
-=======
 #: gtk/gtkplacessidebar.c:2420
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Error unlocking “%s”"
 msgstr "“%s” 잠금 해제에 오류"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2002
-=======
 #: gtk/gtkplacessidebar.c:2422
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to access “%s”"
 msgstr "“%s”에 접근할 수 없습니다"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2233
 msgid "This name is already taken"
 msgstr "이 이름은 이미 있습니다"
 
 #: bobgui/bobguiplacessidebar.c:2525
-=======
 #: gtk/gtkplacessidebar.c:2656
 msgid "This name is already taken"
 msgstr "이 이름은 이미 있습니다"
@@ -5440,48 +5353,34 @@ msgid "Name"
 msgstr "이름"
 
 #: gtk/gtkplacessidebar.c:2925
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to unmount “%s”"
 msgstr "“%s”의 마운트를 해제할 수 없습니다"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2701
-=======
 #: gtk/gtkplacessidebar.c:3101
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to stop “%s”"
 msgstr "“%s”을(를) 중지할 수 없습니다"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2730
-=======
 #: gtk/gtkplacessidebar.c:3130
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject “%s”"
 msgstr "“%s”을(를) 뺄 수 없습니다"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2759 bobgui/bobguiplacessidebar.c:2788
-=======
 #: gtk/gtkplacessidebar.c:3159 gtk/gtkplacessidebar.c:3188
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject %s"
 msgstr "%s을(를) 뺄 수 없습니다"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2936
-=======
 #: gtk/gtkplacessidebar.c:3336
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to poll “%s” for media changes"
 msgstr "미디어 상태 변화를 검사하는데 “%s”에 대해 poll()을 할 수 없습니다"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3155 bobgui/bobguiplacessidebar.c:3242
 #: bobgui/bobguiplacesview.c:1650
 msgid "Open in New _Tab"
@@ -5569,7 +5468,6 @@ msgid "Searching for network locations"
 msgstr "네트워크 위치 검색"
 
 #: bobgui/bobguiplacesview.c:883
-=======
 #: gtk/gtkplacessidebar.c:3620 gtk/gtkplacessidebar.c:3686
 #: gtk/gtkplacesview.c:1643
 msgid "Open in New _Tab"
@@ -5617,39 +5515,28 @@ msgid "Searching for network locations"
 msgstr "네트워크 위치 검색"
 
 #: gtk/gtkplacesview.c:904
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No network locations found"
 msgstr "네트워크 위치가 없습니다"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1197 bobgui/bobguiplacesview.c:1294
-=======
 #: gtk/gtkplacesview.c:1231 gtk/gtkplacesview.c:1306
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to access location"
 msgstr "위치에 접근할 수 없습니다"
 
 #. Restore from Cancel to Connect
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1215 bobgui/ui/bobguiplacesview.ui:237
-=======
 #: gtk/gtkplacesview.c:1249 gtk/ui/gtkplacesview.ui:449
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Con_nect"
 msgstr "연결(_N)"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1354
-=======
 #: gtk/gtkplacesview.c:1369
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to unmount volume"
 msgstr "볼륨의 마운트를 해제할 수 없습니다"
 
 #. Allow to cancel the operation
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1446
 msgid "Cance_l"
 msgstr "취소(_L)"
@@ -5710,7 +5597,6 @@ msgid "Networks"
 msgstr "네트워크"
 
 #: bobgui/bobguiplacesview.c:2039 bobgui/bobguiplacesview.c:2048
-=======
 #: gtk/gtkplacesview.c:1470
 msgid "Cance_l"
 msgstr "취소(_L)"
@@ -5732,7 +5618,6 @@ msgid "Networks"
 msgstr "네트워크"
 
 #: gtk/gtkplacesview.c:2017 gtk/gtkplacesview.c:2026
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "On This Computer"
 msgstr "이 컴퓨터"
 
@@ -5740,17 +5625,13 @@ msgstr "이 컴퓨터"
 #. * should be based on the free space available.
 #. * i.e. 1 GB / 24 GB available.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:135
-=======
 #: gtk/gtkplacesviewrow.c:134
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "%s / %s available"
 msgid_plural "%s / %s available"
 msgstr[0] "%s / %s 남음"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:471
 msgid "Disconnect"
 msgstr "연결 끊기"
@@ -5789,7 +5670,6 @@ msgstr "낮음"
 #.
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:521
 #: bobgui/print/backends/bobguiprintbackendcups.c:5861
-=======
 #: gtk/gtkplacesviewrow.c:481
 msgid "Disconnect"
 msgstr "연결 끊기"
@@ -5909,8 +5789,13 @@ msgid "Out of paper"
 msgstr "용지 부족"
 
 #. Translators: this is a printer status.
+<<<<<<< HEAD
 #: gtk/gtkprintoperation-win32.c:621
 #: modules/printbackends/cups/gtkprintbackendcups.c:2603
+=======
+#: gtk/print/gtkprintoperation-win32.c:640
+#: modules/printbackends/gtkprintbackendcpdb.c:1533
+#: modules/printbackends/gtkprintbackendcups.c:2639
 msgid "Paused"
 msgstr "일시 정지"
 
@@ -6015,6 +5900,43 @@ msgstr "아래에서 위, 왼쪽에서 오른쪽"
 
 #: gtk/gtkprintunixdialog.c:3122
 #: modules/printbackends/cups/gtkprintbackendcups.c:5444
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, top to bottom"
+msgstr "왼쪽에서 오른쪽, 위에서 아래"
+
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, bottom to top"
+msgstr "왼쪽에서 오른쪽, 아래에서 위"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, top to bottom"
+msgstr "오른쪽에서 왼쪽, 위에서 아래"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, bottom to top"
+msgstr "오른쪽에서 왼쪽, 아래에서 위"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, left to right"
+msgstr "위에서 아래, 왼쪽에서 오른쪽"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, right to left"
+msgstr "위에서 아래, 오른쪽에서 왼쪽"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
+msgid "Bottom to top, left to right"
+msgstr "아래에서 위, 왼쪽에서 오른쪽"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
 msgid "Bottom to top, right to left"
 msgstr "아래에서 위, 오른쪽에서 왼쪽"
 
@@ -6234,6 +6156,20 @@ msgid "OFF"
 msgstr "끔"
 
 #: gtk/gtktextbufferrichtext.c:648
+# 키보드에 써 있는 단어이므로 번역하지 않는다
+#: gtk/gtktext.c:6208 gtk/gtktextview.c:9125
+msgid "Insert _Emoji"
+msgstr "에모지 입력(_E)"
+
+#: gtk/gtktextview.c:9107
+msgid "_Undo"
+msgstr "입력 취소(_U)"
+
+#: gtk/gtktextview.c:9111
+msgid "_Redo"
+msgstr "다시 실행(_R)"
+
+#: gtk/gtkwindow.c:6245
 #, c-format
 msgid "Unknown error when trying to deserialize %s"
 msgstr "%s의 일렬화 데이터를 해제하는 데 오류가 발생했습니다"
@@ -6534,6 +6470,15 @@ msgid "GTK+ Version"
 msgstr "GTK+ 버전"
 
 #: gtk/inspector/general.ui:68
+#: gtk/inspector/general.c:924
+msgid "IM Context is hardcoded by GTK_IM_MODULE"
+msgstr "IM 컨텍스트가 GTK_IM_MODULE에 따라 하드 코딩되어 있습니다"
+
+#: gtk/inspector/general.ui:31
+msgid "GTK Version"
+msgstr "GTK 버전"
+
+#: gtk/inspector/general.ui:57
 msgid "GDK Backend"
 msgstr "GDK 백엔드"
 
@@ -6664,6 +6609,9 @@ msgstr "초당 프레임"
 #: gtk/inspector/misc-info.ui:579
 msgid "Accessible role"
 msgstr "접근성 역할"
+#: gtk/inspector/misc-info.ui:527 gtk/inspector/visual.ui:315
+msgid "Scale"
+msgstr "크기 조정"
 
 #: gtk/inspector/misc-info.ui:613
 msgid "Accessible name"
@@ -6894,6 +6842,28 @@ msgid "Enable statistics with GOBJECT_DEBUG=instance-count"
 msgstr "GOBJECT_DEBUG=instance-count 변수로 통계 기능 사용"
 
 #: gtk/inspector/visual.c:406 gtk/inspector/visual.c:421
+#: gtk/inspector/strv-editor.c:83
+#, c-format
+msgid "Remove %s"
+msgstr "%s 제거"
+
+#: gtk/inspector/strv-editor.c:115
+msgid "Add"
+msgstr "추가"
+
+#: gtk/inspector/tree-data.ui:10
+msgid "Show data"
+msgstr "데이터 표시"
+
+#: gtk/inspector/type-info.ui:14
+msgid "Hierarchy"
+msgstr "계층 구조"
+
+#: gtk/inspector/type-info.ui:35
+msgid "Implements"
+msgstr "구현"
+
+#: gtk/inspector/visual.c:765 gtk/inspector/visual.c:784
 msgid "Theme is hardcoded by GTK_THEME"
 msgstr "테마가 GTK_THEME으로 하드 코딩되어 있습니다"
 
@@ -7029,6 +6999,115 @@ msgstr "사용 안 함"
 #: gtk/inspector/visual.ui:766
 msgid "Software GL"
 msgstr "소프트웨어 GL"
+#: gtk/inspector/visual.ui:169
+msgid "Text Direction"
+msgstr "글자 방향"
+
+#: gtk/inspector/visual.ui:184
+msgid "Left-to-Right"
+msgstr "왼쪽에서 오른쪽으로"
+
+#: gtk/inspector/visual.ui:185
+msgid "Right-to-Left"
+msgstr "오른쪽에서 왼쪽으로"
+
+#: gtk/inspector/visual.ui:202
+msgid "Animations"
+msgstr "애니메이션"
+
+#: gtk/inspector/visual.ui:227
+msgid "Slowdown"
+msgstr "감속"
+
+#: gtk/inspector/visual.ui:362
+msgid "Antialiasing"
+msgstr "안티앨리어싱"
+
+#: gtk/inspector/visual.ui:387
+msgid "Hinting"
+msgstr "힌팅"
+
+#: gtk/inspector/visual.ui:402
+msgctxt "Font hinting style"
+msgid "None"
+msgstr "없음"
+
+#: gtk/inspector/visual.ui:403
+msgctxt "Font hinting style"
+msgid "Slight"
+msgstr "약간"
+
+#: gtk/inspector/visual.ui:404
+msgctxt "Font hinting style"
+msgid "Medium"
+msgstr "중간"
+
+#: gtk/inspector/visual.ui:405
+msgctxt "Font hinting style"
+msgid "Full"
+msgstr "최대한"
+
+#: gtk/inspector/visual.ui:422
+msgid "Metrics Hinting"
+msgstr "메트릭 힌팅"
+
+#: gtk/inspector/visual.ui:457
+msgid "Show Framerate"
+msgstr "프레임 수 표시"
+
+#: gtk/inspector/visual.ui:482
+msgid "Show Graphic Updates"
+msgstr "그래픽 업데이트 표시"
+
+#: gtk/inspector/visual.ui:502
+msgid ""
+"Tints all the places where the current renderer uses Cairo instead of the "
+"GPU."
+msgstr "현재 렌더러가 GPU가 아닌 카이로를 사용하는 모든 부분에 색을 넣습니다."
+
+#: gtk/inspector/visual.ui:508
+msgid "Show Cairo Rendering"
+msgstr "카이로 렌더링 표시"
+
+#: gtk/inspector/visual.ui:533
+msgid "Show Baselines"
+msgstr "베이스라인 표시"
+
+#: gtk/inspector/visual.ui:561
+msgid "Show Layout Borders"
+msgstr "레이아웃 경계 표시"
+
+#: gtk/inspector/visual.ui:618
+msgid "CSS Padding"
+msgstr "CSS 채움"
+
+#: gtk/inspector/visual.ui:628
+msgid "CSS Border"
+msgstr "CSS 가장자리"
+
+#: gtk/inspector/visual.ui:638
+msgid "CSS Margin"
+msgstr "CSS 여백"
+
+#: gtk/inspector/visual.ui:648
+msgid "Widget Margin"
+msgstr "위젯 여백"
+
+#: gtk/inspector/visual.ui:683
+msgid "Show Focus"
+msgstr "포커스 표시"
+
+#: gtk/inspector/visual.ui:708
+msgid "Show Accessibility warnings"
+msgstr "접근성 경고 표시"
+
+#: gtk/inspector/visual.ui:733
+msgid "Show Graphics Offload"
+msgstr "그래픽 오프로드 표시"
+
+#: gtk/inspector/visual.ui:765
+msgid "Inspect Inspector"
+msgstr "인스펙터 검사"
 
 #: gtk/inspector/visual.ui:800
 msgid "Software Surfaces"
@@ -10001,6 +10080,72 @@ msgstr "폴더 인덱스를 쓰는 데 실패\n"
 #, c-format
 msgid "Failed to rewrite header\n"
 msgstr "헤더를 다시 쓰는 데 실패\n"
+#: modules/printbackends/gtkprintbackendcpdb.c:542
+#: modules/printbackends/gtkprintbackendcups.c:5668
+msgctxt "Print job priority"
+msgid "Urgent"
+msgstr "긴급"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:543
+#: modules/printbackends/gtkprintbackendcups.c:5669
+msgctxt "Print job priority"
+msgid "High"
+msgstr "높음"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:544
+#: modules/printbackends/gtkprintbackendcups.c:5670
+msgctxt "Print job priority"
+msgid "Medium"
+msgstr "중간"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:545
+#: modules/printbackends/gtkprintbackendcups.c:5671
+msgctxt "Print job priority"
+msgid "Low"
+msgstr "낮음"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the front cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:567
+#: modules/printbackends/gtkprintbackendcups.c:5814
+msgctxt "printer option"
+msgid "Before"
+msgstr "앞에"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the back cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:574
+#: modules/printbackends/gtkprintbackendcups.c:5829
+msgctxt "printer option"
+msgid "After"
+msgstr "뒤에"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:597
+msgid "Print at"
+msgstr "인쇄할 때"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:607
+msgid "Print at time"
+msgstr "인쇄할 시각"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:670
+msgctxt "print option"
+msgid "Borderless"
+msgstr "가장자리 없음"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1530
+#: modules/printbackends/gtkprintbackendcups.c:2636
+msgid "Paused; Rejecting Jobs"
+msgstr "일시 정지, 작업을 거부하는 중"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1536
+#: modules/printbackends/gtkprintbackendcups.c:2642
+msgid "Rejecting Jobs"
+msgstr "작업을 거부하는 중"
 
 #: gtk/updateiconcache.c:1502
 #, c-format
@@ -10368,49 +10513,60 @@ msgstr ", "
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4387
 #: modules/printbackends/cups/gtkprintbackendcups.c:4454
+#: modules/printbackends/gtkprintbackendcups.c:4609
+#: modules/printbackends/gtkprintbackendcups.c:4676
 msgctxt "printing option"
 msgid "Two Sided"
 msgstr "양면"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4388
+#: modules/printbackends/gtkprintbackendcups.c:4610
 msgctxt "printing option"
 msgid "Paper Type"
 msgstr "용지 종류"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4389
+#: modules/printbackends/gtkprintbackendcups.c:4611
 msgctxt "printing option"
 msgid "Paper Source"
 msgstr "용지 공급"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4390
 #: modules/printbackends/cups/gtkprintbackendcups.c:4455
+#: modules/printbackends/gtkprintbackendcups.c:4612
+#: modules/printbackends/gtkprintbackendcups.c:4677
 msgctxt "printing option"
 msgid "Output Tray"
 msgstr "출력 트레이"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4391
+#: modules/printbackends/gtkprintbackendcups.c:4613
 msgctxt "printing option"
 msgid "Resolution"
 msgstr "해상도"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4392
+#: modules/printbackends/gtkprintbackendcups.c:4614
 msgctxt "printing option"
 msgid "GhostScript pre-filtering"
 msgstr "고스트스크립트 사전 필터링"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4401
+#: modules/printbackends/gtkprintbackendcups.c:4623
 msgctxt "printing option value"
 msgid "One Sided"
 msgstr "단면"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4403
+#: modules/printbackends/gtkprintbackendcups.c:4625
 msgctxt "printing option value"
 msgid "Long Edge (Standard)"
 msgstr "긴 방향(표준)"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4405
+#: modules/printbackends/gtkprintbackendcups.c:4627
 msgctxt "printing option value"
 msgid "Short Edge (Flip)"
 msgstr "짧은 방향(거꾸로)"
@@ -10419,6 +10575,9 @@ msgstr "짧은 방향(거꾸로)"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4407
 #: modules/printbackends/cups/gtkprintbackendcups.c:4409
 #: modules/printbackends/cups/gtkprintbackendcups.c:4417
+#: modules/printbackends/gtkprintbackendcups.c:4629
+#: modules/printbackends/gtkprintbackendcups.c:4631
+#: modules/printbackends/gtkprintbackendcups.c:4639
 msgctxt "printing option value"
 msgid "Auto Select"
 msgstr "자동 선택"
@@ -10429,30 +10588,38 @@ msgstr "자동 선택"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4413
 #: modules/printbackends/cups/gtkprintbackendcups.c:4415
 #: modules/printbackends/cups/gtkprintbackendcups.c:4419
+#: modules/printbackends/gtkprintbackendcups.c:4633
+#: modules/printbackends/gtkprintbackendcups.c:4635
+#: modules/printbackends/gtkprintbackendcups.c:4637
+#: modules/printbackends/gtkprintbackendcups.c:4641
 msgctxt "printing option value"
 msgid "Printer Default"
 msgstr "프린터 기본값"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4421
+#: modules/printbackends/gtkprintbackendcups.c:4643
 msgctxt "printing option value"
 msgid "Embed GhostScript fonts only"
 msgstr "고스트스크립트 글꼴만 문서에 포함"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4423
+#: modules/printbackends/gtkprintbackendcups.c:4645
 msgctxt "printing option value"
 msgid "Convert to PS level 1"
 msgstr "PS 레벨 1로 변환"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4425
+#: modules/printbackends/gtkprintbackendcups.c:4647
 msgctxt "printing option value"
 msgid "Convert to PS level 2"
 msgstr "PS 레벨 2로 변환"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4427
+#: modules/printbackends/gtkprintbackendcups.c:4649
 msgctxt "printing option value"
 msgid "No pre-filtering"
 msgstr "사전 필터링 기능이 없습니다"
@@ -10460,95 +10627,111 @@ msgstr "사전 필터링 기능이 없습니다"
 #. Translators: "Miscellaneous" is the label for a button, that opens
 #. up an extra panel of settings in a print dialog.
 #: modules/printbackends/cups/gtkprintbackendcups.c:4436
+#: modules/printbackends/gtkprintbackendcups.c:4658
 msgctxt "printing option group"
 msgid "Miscellaneous"
 msgstr "기타"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4463
+#: modules/printbackends/gtkprintbackendcups.c:4685
 msgctxt "sides"
 msgid "One Sided"
 msgstr "단면"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4465
+#: modules/printbackends/gtkprintbackendcups.c:4687
 msgctxt "sides"
 msgid "Long Edge (Standard)"
 msgstr "긴 방향(표준)"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4467
+#: modules/printbackends/gtkprintbackendcups.c:4689
 msgctxt "sides"
 msgid "Short Edge (Flip)"
 msgstr "짧은 방향(거꾸로)"
 
 #. Translators: Top output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4470
+#: modules/printbackends/gtkprintbackendcups.c:4692
 msgctxt "output-bin"
 msgid "Top Bin"
 msgstr "위 출력함"
 
 #. Translators: Middle output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4472
+#: modules/printbackends/gtkprintbackendcups.c:4694
 msgctxt "output-bin"
 msgid "Middle Bin"
 msgstr "중간 출력함"
 
 #. Translators: Bottom output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4474
+#: modules/printbackends/gtkprintbackendcups.c:4696
 msgctxt "output-bin"
 msgid "Bottom Bin"
 msgstr "아래 출력함"
 
 #. Translators: Side output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4476
+#: modules/printbackends/gtkprintbackendcups.c:4698
 msgctxt "output-bin"
 msgid "Side Bin"
 msgstr "옆 출력함"
 
 #. Translators: Left output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4478
+#: modules/printbackends/gtkprintbackendcups.c:4700
 msgctxt "output-bin"
 msgid "Left Bin"
 msgstr "왼쪽 출력함"
 
 #. Translators: Right output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4480
+#: modules/printbackends/gtkprintbackendcups.c:4702
 msgctxt "output-bin"
 msgid "Right Bin"
 msgstr "오른쪽 출력함"
 
 #. Translators: Center output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4482
+#: modules/printbackends/gtkprintbackendcups.c:4704
 msgctxt "output-bin"
 msgid "Center Bin"
 msgstr "중앙 출력함"
 
 #. Translators: Rear output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4484
+#: modules/printbackends/gtkprintbackendcups.c:4706
 msgctxt "output-bin"
 msgid "Rear Bin"
 msgstr "뒤 출력함"
 
 #. Translators: Output bin where one sided output is oriented in the face-up position
 #: modules/printbackends/cups/gtkprintbackendcups.c:4486
+#: modules/printbackends/gtkprintbackendcups.c:4708
 msgctxt "output-bin"
 msgid "Face Up Bin"
 msgstr "전면 출력함"
 
 #. Translators: Output bin where one sided output is oriented in the face-down position
 #: modules/printbackends/cups/gtkprintbackendcups.c:4488
+#: modules/printbackends/gtkprintbackendcups.c:4710
 msgctxt "output-bin"
 msgid "Face Down Bin"
 msgstr "후면 출력함"
 
 #. Translators: Large capacity output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4490
+#: modules/printbackends/gtkprintbackendcups.c:4712
 msgctxt "output-bin"
 msgid "Large Capacity Bin"
 msgstr "대용량 출력함"
 
 #. Translators: Output stacker number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4512
+#: modules/printbackends/gtkprintbackendcups.c:4734
 #, c-format
 msgctxt "output-bin"
 msgid "Stacker %d"
@@ -10556,6 +10739,7 @@ msgstr "%d번 스태커"
 
 #. Translators: Output mailbox number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4516
+#: modules/printbackends/gtkprintbackendcups.c:4738
 #, c-format
 msgctxt "output-bin"
 msgid "Mailbox %d"
@@ -10563,18 +10747,21 @@ msgstr "%d번 메일함"
 
 #. Translators: Private mailbox
 #: modules/printbackends/cups/gtkprintbackendcups.c:4520
+#: modules/printbackends/gtkprintbackendcups.c:4742
 msgctxt "output-bin"
 msgid "My Mailbox"
 msgstr "내 메일함"
 
 #. Translators: Output tray number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4524
+#: modules/printbackends/gtkprintbackendcups.c:4746
 #, c-format
 msgctxt "output-bin"
 msgid "Tray %d"
 msgstr "%d번 트레이"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4995
+#: modules/printbackends/gtkprintbackendcups.c:5223
 msgid "Printer Default"
 msgstr "프린터 기본값"
 
@@ -10601,6 +10788,7 @@ msgstr "낮음"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5466
+#: modules/printbackends/gtkprintbackendcups.c:5702
 msgid "Job Priority"
 msgstr "작업 우선순위"
 
@@ -10612,36 +10800,50 @@ msgid "Billing Info"
 msgstr "요금 정보"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5501
+#: modules/printbackends/gtkprintbackendcups.c:5713
+msgid "Billing Info"
+msgstr "요금 정보"
+
+#. Translators, these strings are names for various 'standard' cover
+#. * pages that the printing system may support.
+#.
+#: modules/printbackends/gtkprintbackendcups.c:5737
 msgctxt "cover page"
 msgid "None"
 msgstr "없음"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5502
+#: modules/printbackends/gtkprintbackendcups.c:5738
 msgctxt "cover page"
 msgid "Classified"
 msgstr "비밀 분류"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5503
+#: modules/printbackends/gtkprintbackendcups.c:5739
 msgctxt "cover page"
 msgid "Confidential"
 msgstr "기밀"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5504
+#: modules/printbackends/gtkprintbackendcups.c:5740
 msgctxt "cover page"
 msgid "Secret"
 msgstr "비밀"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5505
+#: modules/printbackends/gtkprintbackendcups.c:5741
 msgctxt "cover page"
 msgid "Standard"
 msgstr "표준"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5506
+#: modules/printbackends/gtkprintbackendcups.c:5742
 msgctxt "cover page"
 msgid "Top Secret"
 msgstr "일급 비밀"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5507
+#: modules/printbackends/gtkprintbackendcups.c:5743
 msgctxt "cover page"
 msgid "Unclassified"
 msgstr "비밀 분류 해제"
@@ -10650,6 +10852,7 @@ msgstr "비밀 분류 해제"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5519
+#: modules/printbackends/gtkprintbackendcups.c:5755
 msgctxt "printer option"
 msgid "Pages per Sheet"
 msgstr "한 장당 페이지 수"
@@ -10677,9 +10880,7 @@ msgstr "앞에"
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:528
 #: bobgui/print/backends/bobguiprintbackendcups.c:5876
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5593
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "printer option"
 msgid "After"
 msgstr "뒤에"
@@ -11184,6 +11385,9 @@ msgstr "한 장당 페이지 수"
 #. * dialog that controls in what order multiple pages are arranged
 #.
 #: bobgui/print/backends/bobguiprintbackendcups.c:5819
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5772
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Page Ordering"
 msgstr "페이지 순서"
@@ -11194,9 +11398,10 @@ msgstr "페이지 순서"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5896
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5613
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5849
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at"
 msgstr "인쇄할 때"
@@ -11206,9 +11411,10 @@ msgstr "인쇄할 때"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5907
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5624
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5860
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at time"
 msgstr "인쇄할 시각"
@@ -11220,19 +11426,21 @@ msgstr "인쇄할 시각"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5955
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5666
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5907
+>>>>>>> origin/4-14-backports
 #, c-format
 msgid "Custom %s×%s"
 msgstr "사용자 지정 %s×%s"
 
-<<<<<<< HEAD
 #. TRANSLATORS: this is the ICC color profile to use for this job
+<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6067
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5775
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6018
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Printer Profile"
 msgstr "프린터 프로파일"
@@ -11240,9 +11448,10 @@ msgstr "프린터 프로파일"
 #. TRANSLATORS: this is when color profile information is unavailable
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6074
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5782
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6025
+>>>>>>> origin/4-14-backports
 msgctxt "printer option value"
 msgid "Unavailable"
 msgstr "없음"
@@ -11281,29 +11490,20 @@ msgstr "출력 형식(_O)"
 
 #. TRANSLATORS: when we're running an old CUPS, and
 #. * it hasn't registered the device with colord
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:245
-=======
 #: modules/printbackends/cups/gtkprintercups.c:269
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Color management unavailable"
 msgstr "사용할 색 관리 없음"
 
 #. TRANSLATORS: when there is no color profile available
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:257
-=======
 #: modules/printbackends/cups/gtkprintercups.c:281
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No profile available"
 msgstr "사용할 프로파일 없음"
 
 #. TRANSLATORS: when the color profile has no title
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:268
-=======
 #: modules/printbackends/cups/gtkprintercups.c:292
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unspecified profile"
 msgstr "프로파일을 지정하지 않음"
 
@@ -16239,3 +16439,5 @@ msgstr ""
 #, c-format
 #~ msgid "Bounds: %g x %g\n"
 #~ msgstr "경계: %g x %g\n"
+#~ msgid "Font Scale"
+#~ msgstr "글꼴 크기 조정"

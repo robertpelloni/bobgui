@@ -22,17 +22,13 @@
 # Hendrik Richter <hendrikr@gnome.org>, 2004-2009.
 # Hendrik Brandt <heb@gnome-de.org>, 2004-2005.
 # Andre Klapper <ak-47@gmx.net>, 2008.
-<<<<<<< HEAD
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2013, 2016-2018, 2020.
-=======
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2013, 2016-2018.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 # Jakob Kramer <jakob.kramer@gmx.de>, 2010.
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2011.
 # Christian Kirbach <christian.kirbach@gmail.com>, 2009-2012, 2022.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2014, 2016.
 # Bernd Homuth <dev@hmt.im>, 2015.
-<<<<<<< HEAD
 # Philipp Kiemle <l10n@prly.mozmail.com>, 2020-2023, 2025.
 # Tim Sabsch <tim@sabsch.com>, 2022, 2024.
 # Jürgen Benvenuti <gastornis@posteo.org>, 2022-2024.
@@ -40,10 +36,15 @@
 #
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: BOBGUI+ master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bobgui/-/issues/\n"
 "POT-Creation-Date: 2026-02-19 02:45+0000\n"
 "PO-Revision-Date: 2026-02-19 21:20+0100\n"
+"Project-Id-Version: GTK+ master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gtk/-/issues/\n"
+"POT-Creation-Date: 2024-04-18 14:17+0000\n"
+"PO-Revision-Date: 2024-04-18 22:35+0200\n"
 "Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 =======
@@ -63,11 +64,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-<<<<<<< HEAD
 "X-Generator: Poedit 3.8\n"
-=======
 "X-Generator: Poedit 2.1.1\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/android/gdkandroidclipboard.c:174
 msgid "No compatible formats to transfer contents of content provider."
@@ -96,6 +94,7 @@ msgid "Cannot read from empty clipboard."
 msgstr "Aus einer leeren Zwischenablage kann nicht gelesen werden."
 
 #: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1123 gdk/gdkdrag.c:606
+#: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1136 gdk/gdkdrag.c:606
 msgid "No compatible formats to transfer clipboard contents."
 msgstr ""
 "Keine kompatiblen Formate zum Übertragen des Inhalts der Zwischenablage."
@@ -133,7 +132,6 @@ msgstr "Inhalt kann nicht als %s bereitgestellt werden"
 
 <<<<<<< HEAD
 #: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:472
-=======
 #. Description of --display=DISPLAY in --help output
 #: gdk/gdk.c:238
 msgid "X display to use"
@@ -143,6 +141,14 @@ msgstr "X-Anzeige, die verwendet werden soll"
 #: gdk/gdk.c:239
 msgid "DISPLAY"
 msgstr "ANZEIGE"
+=======
+#: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:464
+msgid "The current backend does not support OpenGL"
+msgstr "Aktuelles Backend unterstützt kein OpenGL"
+
+#: gdk/gdkdisplay.c:1315 gdk/gdkvulkancontext.c:1600
+msgid "Vulkan support disabled via GDK_DEBUG"
+msgstr "Unterstützung für Vulkan ist durch GDK_DEBUG deaktiviert"
 
 #. Description of --gdk-debug=FLAGS in --help output
 #: gdk/gdk.c:243
@@ -196,6 +202,23 @@ msgid "No perfect EGL configuration found"
 msgstr "Keine perfekte EGL-Konfiguration gefunden"
 
 #: gdk/gdkdisplay.c:1815
+#: gdk/gdkdisplay.c:1675
+msgid "No EGL configuration available"
+msgstr "Es ist keine EGL-Konfiguration verfügbar"
+
+#: gdk/gdkdisplay.c:1683
+msgid "Failed to get EGL configurations"
+msgstr "Holen der EGL-Konfigurationen fehlgeschlagen"
+
+#: gdk/gdkdisplay.c:1713
+msgid "No EGL configuration with required features found"
+msgstr "Keine EGL-Konfiguration mit den benötigten Eigenschaften gefunden"
+
+#: gdk/gdkdisplay.c:1720
+msgid "No perfect EGL configuration found"
+msgstr "Keine perfekte EGL-Konfiguration gefunden"
+
+#: gdk/gdkdisplay.c:1762
 #, c-format
 msgid "EGL implementation is missing extension %s"
 msgid_plural "EGL implementation is missing %2$d extensions: %1$s"
@@ -219,6 +242,23 @@ msgid "Could not initialize EGL display"
 msgstr "EGL-Display konnte nicht initialisiert werden"
 
 #: gdk/gdkdisplay.c:1894
+#: gdk/gdkdisplay.c:1811
+msgid "libEGL not available in this sandbox"
+msgstr "libEGL ist in dieser Sandbox nicht verfügbar"
+
+#: gdk/gdkdisplay.c:1812
+msgid "libEGL not available"
+msgstr "libEGL ist nicht verfügbar"
+
+#: gdk/gdkdisplay.c:1822
+msgid "Failed to create EGL display"
+msgstr "EGL-Display konnte nicht erzeugt werden"
+
+#: gdk/gdkdisplay.c:1831
+msgid "Could not initialize EGL display"
+msgstr "EGL-Display konnte nicht initialisiert werden"
+
+#: gdk/gdkdisplay.c:1841
 #, c-format
 msgid "EGL version %d.%d is too old. BOBGUI requires %d.%d"
 msgstr "EGL-Version %d.%d ist zu alt. BOBGUI benötigt %d.%d"
@@ -249,6 +289,25 @@ msgid "OpenGL API disabled via GDK_DISABLE"
 msgstr "OpenGL API ist durch GDK_DISABLE deaktiviert"
 
 #: gdk/gdkglcontext.c:1463
+#: gdk/gdkglcontext.c:424 gdk/x11/gdkglcontext-glx.c:645
+msgid "No GL API allowed."
+msgstr "Keine GL-API erlaubt."
+
+#: gdk/gdkglcontext.c:447 gdk/win32/gdkglcontext-win32-wgl.c:395
+#: gdk/win32/gdkglcontext-win32-wgl.c:538
+#: gdk/win32/gdkglcontext-win32-wgl.c:582 gdk/x11/gdkglcontext-glx.c:691
+msgid "Unable to create a GL context"
+msgstr "GL-Kontext kann nicht erstellt werden"
+
+#: gdk/gdkglcontext.c:1310
+msgid "OpenGL ES disabled via GDK_DEBUG"
+msgstr "OpenGL ES ist durch GDK_DEBUG deaktiviert"
+
+#: gdk/gdkglcontext.c:1322
+msgid "OpenGL disabled via GDK_DEBUG"
+msgstr "OpenGL ist durch GDK_DEBUG deaktiviert"
+
+#: gdk/gdkglcontext.c:1333
 #, c-format
 msgid "Application does not support %s API"
 msgstr "Anwendung unterstützt die API %s nicht"
@@ -257,6 +316,7 @@ msgstr "Anwendung unterstützt die API %s nicht"
 #. * "Trying to use X11 GLX, but EGL is already in use"
 #.
 #: gdk/gdkglcontext.c:2259
+#: gdk/gdkglcontext.c:2123
 #, c-format
 msgid "Trying to use %s, but %s is already in use"
 msgstr "Es wird versucht, %s zu verwenden, aber %s ist bereits in Verwendung"
@@ -274,15 +334,12 @@ msgstr "Bildformat unbekannt."
 #.
 #. * Translators, the strings in the 'keyboard label' context are
 #. * display names for keyboard keys. Some of them have prefixes like
-<<<<<<< HEAD
 #. * XF86 or ISO_ - these should be removed in the translation. Similarly,
 #. * underscores should be replaced by spaces. The prefix 'KP_' stands
 #. * for 'key pad' and you may want to include that in your translation.
-=======
 #. * XF86 or ISO_ — these should be removed in the translation. Similarly,
 #. * underscores should be replaced by spaces. The prefix “KP_” stands
 #. * for “key pad” and you may want to include that in your translation.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. * Here are some examples of English translations:
 #. * XF86AudioMute - Audio mute
 #. * Scroll_lock   - Scroll lock
@@ -388,13 +445,10 @@ msgctxt "keyboard label"
 msgid "Num_Lock"
 msgstr "Num"
 
-<<<<<<< HEAD
 #. Translators: KP_ means 'key pad' here
 #: gdk/keynamesprivate.h:6882
-=======
 #. Translators: KP_ means “key pad” here
 #: gdk/keyname-table.h:6864
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "KP_Space"
 msgstr "Leertaste (Nmblck)"
@@ -634,115 +688,78 @@ msgctxt "keyboard label"
 msgid "ScreenSaver"
 msgstr "Bildschirmschoner"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6923
-=======
 #: gdk/keyname-table.h:6905
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Battery"
 msgstr "Batterie"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6924
-=======
 #: gdk/keyname-table.h:6906
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Launch1"
 msgstr "Starten1"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6925
-=======
 #: gdk/keyname-table.h:6907
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Forward"
 msgstr "Vor"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6926
-=======
 #: gdk/keyname-table.h:6908
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Back"
 msgstr "Zurück"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6927
-=======
 #: gdk/keyname-table.h:6909
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Sleep"
 msgstr "Bereitschaft"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6928
-=======
 #: gdk/keyname-table.h:6910
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hibernate"
 msgstr "Ruhezustand"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6929
-=======
 #: gdk/keyname-table.h:6911
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WLAN"
 msgstr "WLAN"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6930
-=======
 #: gdk/keyname-table.h:6912
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WebCam"
 msgstr "WebCam"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6931
-=======
 #: gdk/keyname-table.h:6913
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Display"
 msgstr "Anzeige"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6932
-=======
 #: gdk/keyname-table.h:6914
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "TouchpadToggle"
 msgstr "Touchpad umschalten"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6933
-=======
 #: gdk/keyname-table.h:6915
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WakeUp"
 msgstr "Aufwecken"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6934
-=======
 #: gdk/keyname-table.h:6916
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Suspend"
 msgstr "In Bereitschaft versetzen"
 
-<<<<<<< HEAD
 #: gdk/loaders/gdkjpeg.c:71
 #, c-format
 msgid "Error interpreting JPEG image file (%s)"
@@ -982,7 +999,6 @@ msgstr "Es sind keine Einstellungen für das angegebene Pixelformat vorhanden"
 #: gdk/win32/gdkhdataoutputstream-win32.c:64
 msgid "writing a closed stream"
 msgstr "ein geschlossener Datenstrom wird geschrieben"
-=======
 #: gdk/mir/gdkmirglcontext.c:48 gdk/mir/gdkmirwindowimpl.c:2226
 #: gdk/wayland/gdkglcontext-wayland.c:468 gdk/win32/gdkglcontext-win32.c:1177
 #: gdk/x11/gdkglcontext-x11.c:1277
@@ -1006,13 +1022,11 @@ msgstr "Es sind keine Einstellungen für das angegebene Pixelformat vorhanden"
 #: gdk/mir/gdkmirwindowimpl.c:2234
 msgid "3.2 core GL profile is not available on EGL implementation"
 msgstr "3.2 core GL-Profile ist nicht in der EGL-Implementierung verfügbar"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:86
 msgid "g_try_realloc () failed"
 msgstr "g_try_realloc () ist fehlgeschlagen"
 
-<<<<<<< HEAD
 #: gdk/win32/gdkhdataoutputstream-win32.c:94
 #: gdk/win32/gdkhdataoutputstream-win32.c:233
 msgid "GlobalReAlloc() failed: "
@@ -1027,7 +1041,6 @@ msgid "Can’t transmute a single handle"
 msgstr "Ein einzelner Handle kann nicht umgewandelt werden"
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:217
-=======
 #: gdk/wayland/gdkglcontext-wayland.c:476
 msgid "Core GL is not available on EGL implementation"
 msgstr "core GL ist nicht in der EGL-Implementierung verfügbar"
@@ -1063,7 +1076,6 @@ msgid "COLORS"
 msgstr "FARBEN"
 
 #: gdk/x11/gdkapplaunchcontext-x11.c:295
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Failed to transmute %zu bytes of data from %s to %u"
 msgstr "%zu Byte an Daten konnten nicht von %s nach %u umgewandelt werden"
@@ -1093,7 +1105,6 @@ msgid_plural "Opening %d Items"
 msgstr[0] "%d Objekt wird geöffnet"
 msgstr[1] "%d Objekte werden geöffnet"
 
-<<<<<<< HEAD
 #: gdk/x11/gdkclipboard-x11.c:475
 msgid "Clipboard manager could not store selection."
 msgstr "Die Zwischenablagenverwaltung konnte die Auswahl nicht speichern."
@@ -1117,9 +1128,7 @@ msgid "GLX is not supported"
 msgstr "GLX wird nicht unterstützt"
 
 #: gdk/x11/gdkselectioninputstream-x11.c:467
-=======
 #: gdk/x11/gdkglcontext-x11.c:999
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Format %s not supported"
 msgstr "Format %s wird nicht unterstützt"
@@ -1174,10 +1183,8 @@ msgctxt "accessibility"
 msgid "Toggle"
 msgstr "Umschalten"
 
-<<<<<<< HEAD
 #: bobgui/a11y/bobguiatspiaction.c:340
 msgctxt "accessibility"
-=======
 #: gtk/a11y/gtkbuttonaccessible.c:321 gtk/a11y/gtkmenuitemaccessible.c:436
 msgctxt "Action name"
 msgid "Click"
@@ -1719,7 +1726,6 @@ msgstr "Ermöglicht die visuelle Darstellung des Fortschritts"
 
 #: gtk/a11y/gtkswitchaccessible.c:98
 msgctxt "Action description"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Toggles the switch"
 msgstr "Schaltet den Schalter um"
 
@@ -1859,11 +1865,9 @@ msgstr "»%s«-Dateien werden geöffnet."
 msgid "No applications found for “%s” files"
 msgstr "Es wurde keine Anwendung für »%s«-Dateien gefunden"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguiappchooserdialog.c:435
 msgid "Failed to start GNOME Software"
 msgstr "Starten von GNOME Software schlug fehl"
-=======
 #: gtk/deprecated/gtkcolorseldialog.c:191 gtk/deprecated/gtkfontsel.c:1689
 #: gtk/gtkfilechoosernative.c:540 gtk/gtkfilechoosernative.c:632
 #: gtk/gtkfilechooserwidget.c:1475 gtk/gtkfilechooserwidget.c:6330
@@ -1876,7 +1880,6 @@ msgstr "Starten von GNOME Software schlug fehl"
 #: gtk/ui/gtkcolorchooserdialog.ui:34 gtk/ui/gtkfontchooserdialog.ui:31
 msgid "_Cancel"
 msgstr "_Abbrechen"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translators: Label for a search button and entry, should be translated as a verb
 #: bobgui/deprecated/bobguiappchooserdialog.c:472 bobgui/bobguifilechooserdialog.c:477
@@ -1905,10 +1908,8 @@ msgstr "Zugehörige Anwendungen"
 msgid "Other Apps"
 msgstr "Weitere Anwendungen"
 
-<<<<<<< HEAD
 #. This label is displayed in a treeview cell displaying
 #. * a disabled accelerator key combination.
-=======
 #: gtk/deprecated/gtkfontsel.c:400
 msgid "Si_ze:"
 msgstr "_Größe:"
@@ -1934,7 +1935,6 @@ msgstr "Schriftwahl"
 
 #. Translators: the format here is used to build the string that will be rendered
 #. * in the number emblem.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #.
 #: bobgui/deprecated/bobguicellrendereraccel.c:294
 msgctxt "Accelerator"
@@ -1966,7 +1966,6 @@ msgctxt "progress bar label"
 msgid "%d %%"
 msgstr "%d %%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicolorbutton.c:186 bobgui/deprecated/bobguicolorbutton.c:317
 #: bobgui/bobguicolordialog.c:409
 msgid "Pick a Color"
@@ -1974,7 +1973,6 @@ msgstr "Eine Farbe wählen"
 
 #: bobgui/deprecated/bobguicolorbutton.c:508 bobgui/bobguicolorchooserwidget.c:323
 #: bobgui/bobguicolordialogbutton.c:341
-=======
 #: gtk/deprecated/gtkstock.c:347
 msgctxt "Stock label"
 msgid "_Apply"
@@ -2085,30 +2083,23 @@ msgid "_Yes"
 msgstr "_Ja"
 
 #: gtk/deprecated/gtkuimanager.c:1782
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%, Alpha %d%%"
 msgstr "Rot %d%%, Grün %d%%, Blau %d%%, Alpha %d%%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicolorbutton.c:514 bobgui/bobguicolorchooserwidget.c:329
 #: bobgui/bobguicolordialogbutton.c:347
-=======
 #: gtk/deprecated/gtkuimanager.c:1872
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "Rot %d%%, Grün %d%%, Blau %d%%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguifontbutton.c:399
 msgid "Sans 12"
 msgstr "Sans 12"
-=======
 #: gtk/deprecated/gtkuimanager.c:2709
 msgid "Empty"
 msgstr "Leer"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/deprecated/bobguifontbutton.c:510 bobgui/deprecated/bobguifontbutton.c:627
 #: bobgui/bobguifontdialog.c:590
@@ -2117,6 +2108,8 @@ msgstr "Eine Schrift wählen"
 
 #: bobgui/deprecated/bobguifontbutton.c:603 bobgui/bobguifilechooserwidget.c:3850
 #: bobgui/bobguifontdialogbutton.c:128 bobgui/inspector/visual.ui:360
+#: gtk/deprecated/gtkfontbutton.c:600 gtk/gtkfilechooserwidget.c:3815
+#: gtk/gtkfontdialogbutton.c:126 gtk/inspector/visual.ui:285
 msgid "Font"
 msgstr "Schrift"
 
@@ -2182,7 +2175,6 @@ msgctxt "volume percentage"
 msgid "%d %%"
 msgstr "%d %%"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:127 bobgui/ui/bobguiaboutdialog.ui:173
 #: bobgui/ui/bobguiaboutdialog.ui:192
 msgid "License"
@@ -2265,7 +2257,6 @@ msgid "Website"
 msgstr "Webseite"
 
 #: bobgui/bobguiaboutdialog.c:1071 bobgui/ui/bobguiapplication-quartz.ui:6
-=======
 #: gtk/encodesymbolic.c:279 gtk/gtk-builder-tool.c:671
 #, c-format
 msgid "Can't load file: %s\n"
@@ -2364,12 +2355,10 @@ msgstr "Webseite"
 
 #. used for the application menu on MacOS.  %s is replaced with the application name.
 #: gtk/gtkaboutdialog.c:1085 gtk/ui/gtkapplication-quartz.ui:7
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "About %s"
 msgstr "Info zu %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:2165
 msgid "Created by"
 msgstr "Erstellt von"
@@ -2385,7 +2374,6 @@ msgstr "Übersetzung von"
 #: bobgui/bobguiaboutdialog.c:2183
 msgid "Design by"
 msgstr "Design von"
-=======
 #: gtk/gtkaboutdialog.c:2312
 msgid "Created by"
 msgstr "Erstellt von"
@@ -2401,16 +2389,12 @@ msgstr "Übersetzung von"
 #: gtk/gtkaboutdialog.c:2330
 msgid "Artwork by"
 msgstr "Künstlerische Darstellung von"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:2348
-=======
 #: gtk/gtkaboutdialog.c:2490
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "This program comes with absolutely no warranty.\n"
@@ -2424,13 +2408,10 @@ msgstr ""
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:846 bobgui/deprecated/bobguishortcutlabel.c:103
 #: bobgui/deprecated/bobguishortcutlabel.c:139
-=======
 #: gtk/gtkaccellabel.c:181 gtk/gtkshortcutlabel.c:102
 #: gtk/gtkshortcutlabel.c:138
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Shift"
 msgstr "Umschalt"
@@ -2440,13 +2421,10 @@ msgstr "Umschalt"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:865 bobgui/deprecated/bobguishortcutlabel.c:106
 #: bobgui/deprecated/bobguishortcutlabel.c:141
-=======
 #: gtk/gtkaccellabel.c:187 gtk/gtkshortcutlabel.c:105
 #: gtk/gtkshortcutlabel.c:140
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Ctrl"
 msgstr "Strg"
@@ -2456,13 +2434,10 @@ msgstr "Strg"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:884 bobgui/deprecated/bobguishortcutlabel.c:109
 #: bobgui/deprecated/bobguishortcutlabel.c:143
-=======
 #: gtk/gtkaccellabel.c:193 gtk/gtkshortcutlabel.c:108
 #: gtk/gtkshortcutlabel.c:142
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Alt"
 msgstr "Alt"
@@ -2472,13 +2447,10 @@ msgstr "Alt"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:902 bobgui/deprecated/bobguishortcutlabel.c:115
 #: bobgui/deprecated/bobguishortcutlabel.c:145
-=======
 #: gtk/gtkaccellabel.c:845 gtk/gtkshortcutlabel.c:114
 #: gtk/gtkshortcutlabel.c:152
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Super"
 msgstr "Super"
@@ -2488,13 +2460,10 @@ msgstr "Super"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:916 bobgui/deprecated/bobguishortcutlabel.c:118
 #: bobgui/deprecated/bobguishortcutlabel.c:147
-=======
 #: gtk/gtkaccellabel.c:858 gtk/gtkshortcutlabel.c:117
 #: gtk/gtkshortcutlabel.c:154
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hyper"
 msgstr "Hyper"
@@ -2504,18 +2473,14 @@ msgstr "Hyper"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:931 bobgui/deprecated/bobguishortcutlabel.c:112
 #: bobgui/deprecated/bobguishortcutlabel.c:150
-=======
 #: gtk/gtkaccellabel.c:872 gtk/gtkshortcutlabel.c:111
 #: gtk/gtkshortcutlabel.c:156
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Meta"
 msgstr "Meta"
 
-<<<<<<< HEAD
 # Abkürzung für Nummernblock
 #. Translators: "KP" means "numeric key pad". This string will
 #. * be used in accelerators such as "Ctrl+Shift+KP 1" in menus,
@@ -2527,18 +2492,13 @@ msgid "KP"
 msgstr "NB"
 
 #: bobgui/bobguiaccelgroup.c:958
-=======
 #: gtk/gtkaccellabel.c:889
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Space"
 msgstr "Leertaste"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:961 bobgui/deprecated/bobguishortcutlabel.c:178
-=======
 #: gtk/gtkaccellabel.c:892 gtk/gtkshortcutlabel.c:181
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Backslash"
 msgstr "Backslash"
@@ -2548,7 +2508,6 @@ msgctxt "accessibility"
 msgid "alert"
 msgstr "Warnung"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccessible.c:838
 msgctxt "accessibility"
 msgid "alert dialog"
@@ -2613,7 +2572,6 @@ msgstr "Dokument"
 msgctxt "accessibility"
 msgid "feed"
 msgstr "Dynamische Liste"
-=======
 #: gtk/gtkappchooserdialog.c:204 gtk/gtkappchooserdialog.c:211
 #: gtk/gtkappchooserdialog.c:228 gtk/ui/gtkappchooserdialog.ui:5
 msgid "Select Application"
@@ -2674,7 +2632,6 @@ msgstr "Weitere Anwendungen"
 #: gtk/gtkprintoperation-win32.c:1453 gtk/inspector/prop-editor.c:1686
 msgid "Application"
 msgstr "Anwendung"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/bobguiaccessible.c:851
 msgctxt "accessibility"
@@ -3068,7 +3025,6 @@ msgstr "Element »%s« ist in der obersten Ebene nicht erlaubt"
 msgid "Text may not appear inside <%s>"
 msgstr "Text darf nicht innerhalb von <%s> erscheinen"
 
-<<<<<<< HEAD
 # CHECK
 #: bobgui/bobguicalendar.c:612
 msgid "Previous Month"
@@ -3094,7 +3050,6 @@ msgstr "Nächstes Jahr"
 #: bobgui/bobguicalendar.c:697
 msgid "calendar:week_start:0"
 msgstr "calendar:week_start:1"
-=======
 #: gtk/gtk-builder-tool.c:124
 #, c-format
 msgid "Packing property %s::%s not found\n"
@@ -3158,7 +3113,6 @@ msgstr ""
 "  --css=DATEI        Stil aus CSS-Datei verwenden\n"
 "\n"
 "Verschiedene Aufgaben mit GtkBuilder .ui-Dateien erledigen.\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to calendar:YM if you want years to be displayed
 #. * before months; otherwise translate to calendar:MY.
@@ -3170,12 +3124,10 @@ msgstr ""
 #. * text direction of RTL and specify "calendar:YM", then the year
 #. * will appear to the right of the month.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:848
 msgid "calendar:MY"
 msgstr "calendar:MY"
 
-=======
 #: gtk/gtkcalendar.c:815
 msgid "calendar:MY"
 msgstr "calendar:MY"
@@ -3198,7 +3150,6 @@ msgctxt "year measurement template"
 msgid "2000"
 msgstr "2000"
 
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. Translators: this defines whether the day numbers should use
 #. * localized digits or the ones used in English (0123...).
 #. *
@@ -3209,11 +3160,8 @@ msgstr "2000"
 #. * digits. That needs support from your system and locale definition
 #. * too.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1029
-=======
 #: gtk/gtkcalendar.c:1912 gtk/gtkcalendar.c:2608
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:day:digits"
 msgid "%d"
@@ -3238,20 +3186,15 @@ msgstr "%Y"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1179
-=======
 #.
 #: gtk/gtkcalendar.c:1944 gtk/gtkcalendar.c:2474
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:week:digits"
 msgid "%d"
 msgstr "%d"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorchooserwidget.c:386 bobgui/bobguicoloreditor.c:171
-=======
 #. Translators: This dictates how the year is displayed in
 #. * gtkcalendar widget.  See strftime() manual for the format.
 #. * Use only ASCII in the translation.
@@ -3312,7 +3255,6 @@ msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "Rot %d%%, Grün %d%%, Blau %d%%"
 
 #: gtk/gtkcolorchooserwidget.c:387
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Color: %s"
 msgstr "Farbe: %s"
@@ -3556,11 +3498,9 @@ msgstr "Farbe hinzufügen"
 msgid "Custom color %d: %s"
 msgstr "Benutzerdefinierte Farbe %d: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorswatch.c:230
 msgid "Customize"
 msgstr "Anpassen"
-=======
 # Keine Ahnung, ob das hier richtig ist. Laut Quelltext ist es die Beschriftung eines Knopfes und bezieht sich auf den barrierefreien Zugriff. Hier ist der Git-Diff dazu:
 # http://mail.gnome.org/archives/commits-list/2012-February/msg00794.html
 #: gtk/gtkcolorplane.c:409
@@ -3580,7 +3520,6 @@ msgstr "Alpha"
 #: gtk/gtkcolorswatch.c:360
 msgid "C_ustomize"
 msgstr "_Anpassen"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to the default units to use for presenting
 #. * lengths to the user. Translate to default:inch if you
@@ -3592,8 +3531,6 @@ msgstr "_Anpassen"
 msgid "default:mm"
 msgstr "default:mm"
 
-<<<<<<< HEAD
-=======
 #. And show the custom paper dialog
 #: gtk/gtkcustompaperunixdialog.c:405 gtk/gtkprintunixdialog.c:3336
 msgid "Manage Custom Sizes"
@@ -3607,7 +3544,6 @@ msgstr "Zoll"
 msgid "mm"
 msgstr "mm"
 
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 # CHECK
 #: bobgui/print/bobguicustompaperunixdialog.c:291
 msgid "Margins from Printer…"
@@ -3665,7 +3601,6 @@ msgstr "_Rechts:"
 msgid "Paper Margins"
 msgstr "Papierränder"
 
-<<<<<<< HEAD
 #: bobgui/bobguieditablelabel.c:170 bobgui/ui/bobguiapplication-quartz.ui:50
 msgid "_Edit"
 msgstr "_Bearbeiten"
@@ -3772,7 +3707,6 @@ msgid "The session bus is not available"
 msgstr "Der Sitzungsbus ist nicht verfügbar"
 
 #: bobgui/bobguifilechoosernativequartz.c:348 bobgui/ui/bobguifilechooserwidget.ui:299
-=======
 #: gtk/gtkentry.c:9582 gtk/gtklabel.c:6680 gtk/gtktextview.c:9492
 msgid "Cu_t"
 msgstr "_Ausschneiden"
@@ -3854,7 +3788,6 @@ msgid "_Save"
 msgstr "_Speichern"
 
 #: gtk/gtkfilechoosernativequartz.c:331 gtk/ui/gtkfilechooserwidget.ui:392
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Select which types of files are shown"
 msgstr "Wählen Sie die anzuzeigenden Dateitypen"
 
@@ -3868,7 +3801,6 @@ msgid "%1$s on %2$s"
 msgstr "%1$s, %2$s"
 
 # CHECK
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:365
 msgid "Type name of new folder"
 msgstr "Geben Sie den neuen Ordnernamen ein"
@@ -3882,7 +3814,6 @@ msgid "You need to choose a valid filename."
 msgstr "Sie müssen einen gültigen Dateinamen auswählen."
 
 #: bobgui/bobguifilechooserwidget.c:768
-=======
 #: gtk/gtkfilechooserwidget.c:369
 msgid "Type name of new folder"
 msgstr "Geben Sie den neuen Ordnernamen ein"
@@ -3905,12 +3836,10 @@ msgid "You need to choose a valid filename."
 msgstr "Sie müssen einen gültigen Dateinamen auswählen."
 
 #: gtk/gtkfilechooserwidget.c:819
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot create a file under %s as it is not a folder"
 msgstr "Datei in %s konnte nicht erstellt werden, weil dies kein Ordner ist"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:778
 msgid "Cannot create file as the filename is too long"
 msgstr "Datei kann nicht erstellt werden, weil der Dateiname zu lang ist"
@@ -3924,7 +3853,6 @@ msgid "You may only select folders"
 msgstr "Sie dürfen nur Ordner auswählen"
 
 #: bobgui/bobguifilechooserwidget.c:790
-=======
 #: gtk/gtkfilechooserwidget.c:829
 msgid "Cannot create file as the filename is too long"
 msgstr "Datei kann nicht erstellt werden, weil der Dateiname zu lang ist"
@@ -3938,13 +3866,11 @@ msgid "You may only select folders"
 msgstr "Sie dürfen nur Ordner auswählen"
 
 #: gtk/gtkfilechooserwidget.c:841
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "The item that you selected is not a folder try using a different item."
 msgstr ""
 "Das von Ihnen ausgewählte Objekt ist kein Ordner. Versuchen Sie, ein anderes "
 "Objekt auszuwählen."
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:798
 msgid "Invalid file name"
 msgstr "Ungültiger Dateiname"
@@ -3962,7 +3888,6 @@ msgid "The file could not be moved to the Trash"
 msgstr "Die Datei kann nicht in den Papierkorb verschoben werden"
 
 #: bobgui/bobguifilechooserwidget.c:1247
-=======
 #: gtk/gtkfilechooserwidget.c:849
 msgid "Invalid file name"
 msgstr "Ungültiger Dateiname"
@@ -4036,12 +3961,10 @@ msgid "File names starting with a “.” are hidden"
 msgstr "Dateinamen, die mit ».« beginnen, sind verborgen"
 
 #: gtk/gtkfilechooserwidget.c:1471
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Are you sure you want to permanently delete “%s”?"
 msgstr "Sind Sie sicher, dass Sie »%s« dauerhaft löschen wollen?"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1248
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Sobald Sie ein Objekt löschen, geht es dauerhaft verloren."
@@ -4052,14 +3975,12 @@ msgid "_Delete"
 msgstr "_Löschen"
 
 #: bobgui/bobguifilechooserwidget.c:1367
-=======
 #: gtk/gtkfilechooserwidget.c:1474
 #, c-format
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Sobald Sie ein Objekt löschen, geht es dauerhaft verloren."
 
 #: gtk/gtkfilechooserwidget.c:1608
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "The file could not be renamed"
 msgstr "Die Datei konnte nicht umbenannt werden"
 
@@ -4091,13 +4012,10 @@ msgstr "O_rt kopieren"
 msgid "_Add to Bookmarks"
 msgstr "Zu Lesezeichen _hinzufügen"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1844 bobgui/bobguiplacessidebar.c:2312
 #: bobgui/bobguiplacessidebar.c:3270 bobgui/ui/bobguifilechooserwidget.ui:417
-=======
 #: gtk/gtkfilechooserwidget.c:2275 gtk/gtkplacessidebar.c:2731
 #: gtk/ui/gtkfilechooserwidget.ui:526
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Rename"
 msgstr "_Umbenennen"
 
@@ -4123,41 +4041,33 @@ msgid "Home"
 msgstr "Persönlicher Ordner"
 
 #. this is the header for the location column in the print dialog
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2228 bobgui/bobguifilechooserwidget.c:7465
 #: bobgui/inspector/css-node-tree.ui:76 bobgui/print/ui/bobguiprintunixdialog.ui:111
-=======
 #: gtk/gtkfilechooserwidget.c:2559 gtk/inspector/css-node-tree.ui:141
 #: gtk/ui/gtkfilechooserwidget.ui:207 gtk/ui/gtkprintunixdialog.ui:123
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Location"
 msgstr "Standort"
 
 #. Label
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2335
 msgid "_Name:"
 msgstr "_Name:"
 
 #: bobgui/bobguifilechooserwidget.c:2892 bobgui/bobguifilechooserwidget.c:2906
-=======
 #: gtk/gtkfilechooserwidget.c:2652
 msgid "_Name:"
 msgstr "_Name:"
 
 #: gtk/gtkfilechooserwidget.c:3277 gtk/gtkfilechooserwidget.c:3291
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Searching in %s"
 msgstr "Suchen in %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2912
 msgid "Searching"
 msgstr "Suchen"
 
 #: bobgui/bobguifilechooserwidget.c:2918
-=======
 #: gtk/gtkfilechooserwidget.c:3297
 msgid "Searching"
 msgstr "Suchen"
@@ -4167,31 +4077,26 @@ msgid "Enter location"
 msgstr "Ort angeben"
 
 #: gtk/gtkfilechooserwidget.c:3306
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Enter location or URL"
 msgstr "Ort oder Adresse angeben"
 
 # CHECK
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3477 bobgui/bobguifilechooserwidget.c:5820
 #: bobgui/bobguifilechooserwidget.c:7487
 msgid "Modified"
 msgstr "Letzte Änderung"
 
 #: bobgui/bobguifilechooserwidget.c:3662
-=======
 #: gtk/gtkfilechooserwidget.c:4340 gtk/gtkfilechooserwidget.c:7244
 #: gtk/ui/gtkfilechooserwidget.ui:235
 msgid "Modified"
 msgstr "Letzte Änderung"
 
 #: gtk/gtkfilechooserwidget.c:4618
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Could not read the contents of %s"
 msgstr "Inhalt von %s konnte nicht gelesen werden"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3666
 msgid "Could not read the contents of the folder"
 msgstr "Inhalt des Ordners konnte nicht gelesen werden"
@@ -4271,7 +4176,6 @@ msgid "You do not have access to the specified folder."
 msgstr "Sie haben keinen Zugriff auf den angegebenen Ordner."
 
 #: bobgui/bobguifilechooserwidget.c:5025 bobgui/print/bobguiprintunixdialog.c:674
-=======
 #: gtk/gtkfilechooserwidget.c:4622
 msgid "Could not read the contents of the folder"
 msgstr "Inhalt des Ordners konnte nicht gelesen werden"
@@ -4314,16 +4218,12 @@ msgstr ""
 "nicht lokal ist."
 
 #: gtk/gtkfilechooserwidget.c:6323 gtk/gtkprintunixdialog.c:664
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Eine Datei namens »%s« existiert bereits. Möchten Sie diese ersetzen?"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5027 bobgui/print/bobguiprintunixdialog.c:678
-=======
 #: gtk/gtkfilechooserwidget.c:6326 gtk/gtkprintunixdialog.c:668
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "The file already exists in “%s”.  Replacing it will overwrite its contents."
@@ -4331,7 +4231,6 @@ msgstr ""
 "Die Datei existiert bereits in »%s«. Durch ihr Ersetzen wird sämtlicher "
 "Inhalt überschrieben."
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5033 bobgui/print/bobguiprintunixdialog.c:686
 msgid "_Replace"
 msgstr "_Ersetzen"
@@ -4341,7 +4240,6 @@ msgid "Could not send the search request"
 msgstr "Die Suchanfrage konnte nicht gestellt werden"
 
 #: bobgui/bobguifilechooserwidget.c:6048
-=======
 #: gtk/gtkfilechooserwidget.c:6331 gtk/gtkprintunixdialog.c:676
 msgid "_Replace"
 msgstr "_Ersetzen"
@@ -4355,7 +4253,6 @@ msgid "Could not send the search request"
 msgstr "Die Suchanfrage konnte nicht gestellt werden"
 
 #: gtk/gtkfilechooserwidget.c:7454
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Accessed"
 msgstr "Zugegriffen"
 
@@ -4363,7 +4260,6 @@ msgstr "Zugegriffen"
 msgid "_Size"
 msgstr "_Größe"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:7447
 msgid "T_ype"
 msgstr "T_yp"
@@ -4533,7 +4429,6 @@ msgid "Select _All"
 msgstr "_Alles auswählen"
 
 #: bobgui/bobguilabel.c:5961
-=======
 #: gtk/gtkfontbutton.c:379 gtk/gtkfontbutton.c:509
 msgid "Sans 12"
 msgstr "Sans 12"
@@ -4656,16 +4551,12 @@ msgstr "Fehler"
 
 #. Open Link
 #: gtk/gtklabel.c:6661
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Open Link"
 msgstr "Verknüpfung ö_ffnen"
 
-<<<<<<< HEAD
 #: bobgui/bobguilabel.c:5965
-=======
 #. Copy Link Address
 #: gtk/gtklabel.c:6670
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Copy _Link Address"
 msgstr "Verknüpfungsadresse _kopieren"
 
@@ -4673,7 +4564,6 @@ msgstr "Verknüpfungsadresse _kopieren"
 msgid "_Copy URL"
 msgstr "ADRESSE _kopieren"
 
-<<<<<<< HEAD
 #: bobgui/bobguilinkbutton.c:605
 msgid "Invalid URI"
 msgstr "Ungültige Adresse"
@@ -4689,7 +4579,6 @@ msgstr "Ungültige Adresse"
 msgctxt "long time format"
 msgid "%d:%02d:%02d"
 msgstr "%d:%02d:%02d"
-=======
 #: gtk/gtk-launch.c:74
 msgid "APPLICATION [URI...] — launch an APPLICATION"
 msgstr "ANWENDUNG [URI …] – eine ANWENDUNG starten."
@@ -4830,7 +4719,6 @@ msgstr "GTK+-Optionen anzeigen"
 #: gtk/gtkmain.c:1270
 msgid "default:LTR"
 msgstr "default:LTR"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. -hour:minutes:seconds
 #. Translators: This is a time format, like "-9:05:02" for 9
@@ -4974,7 +4862,6 @@ msgstr ""
 "implementiert."
 
 #. translators: this string is a name for the 'less' command
-<<<<<<< HEAD
 #: bobgui/bobguimountoperation-x11.c:990
 msgid "Terminal Pager"
 msgstr "Terminal-Pager"
@@ -4996,7 +4883,6 @@ msgid "Z Shell"
 msgstr "Z-Shell"
 
 #: bobgui/bobguimountoperation-x11.c:1094
-=======
 #: gtk/gtkmountoperation-x11.c:954
 msgid "Terminal Pager"
 msgstr "Terminal-Pager"
@@ -5018,12 +4904,10 @@ msgid "Z Shell"
 msgstr "Z-Shell"
 
 #: gtk/gtkmountoperation-x11.c:1055
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot end process with PID %d: %s"
 msgstr "Prozess mit Kennung %d kann nicht abgewürgt werden: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguinomediafile.c:48
 msgid "BOBGUI could not find a media module. Check your installation."
 msgstr "BOBGUI konnte kein Medienmodul finden. Überprüfen Sie Ihre Installation."
@@ -5038,9 +4922,7 @@ msgid "Next tab"
 msgstr "Nächster Reiter"
 
 #: bobgui/bobguinotebook.c:4426 bobgui/bobguinotebook.c:6636
-=======
 #: gtk/gtknotebook.c:5121 gtk/gtknotebook.c:7386
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Page %u"
 msgstr "Seite %u"
@@ -5083,7 +4965,6 @@ msgstr ""
 " Oben: %s %s\n"
 " Unten: %s %s"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguipagesetupunixdialog.c:787
 #: bobgui/print/ui/bobguipagesetupunixdialog.ui:5
 #: bobgui/print/ui/bobguiprintunixdialog.ui:783
@@ -5108,7 +4989,6 @@ msgstr "Text _anzeigen"
 
 #. translators: %s is the name of a cloud provider for files
 #: bobgui/bobguiplacessidebar.c:912
-=======
 #: gtk/gtkpagesetupunixdialog.c:878 gtk/gtkprintunixdialog.c:3390
 msgid "Manage Custom Sizes…"
 msgstr "Benutzerdefinierte Größen verwalten …"
@@ -5124,12 +5004,10 @@ msgstr "Dateisystem-Wurzel"
 
 #. translators: %s is the name of a cloud provider for files
 #: gtk/gtkplacessidebar.c:981
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Open %s"
 msgstr "%s öffnen"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1003
 msgid "Recent"
 msgstr "Zuletzt verwendet"
@@ -5176,7 +5054,6 @@ msgstr "Den Papierkorb öffnen"
 
 #: bobgui/bobguiplacessidebar.c:1181 bobgui/bobguiplacessidebar.c:1209
 #: bobgui/bobguiplacessidebar.c:1409
-=======
 #: gtk/gtkplacessidebar.c:1070 gtk/ui/gtkemojichooser.ui:197
 msgid "Recent"
 msgstr "Zuletzt verwendet"
@@ -5220,12 +5097,10 @@ msgstr "Den Papierkorb öffnen"
 
 #: gtk/gtkplacessidebar.c:1248 gtk/gtkplacessidebar.c:1276
 #: gtk/gtkplacessidebar.c:1484
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Mount and open “%s”"
 msgstr "»%s« einhängen und öffnen"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1304
 msgid "Open the contents of the file system"
 msgstr "Inhalt des Dateisystems öffnen"
@@ -5247,7 +5122,6 @@ msgid "Show other locations"
 msgstr "Andere Orte anzeigen"
 
 #: bobgui/bobguiplacessidebar.c:1964 bobgui/bobguiplacessidebar.c:2984
-=======
 #: gtk/gtkplacessidebar.c:1364
 msgid "Open the contents of the file system"
 msgstr "Inhalt des Dateisystems öffnen"
@@ -5320,39 +5194,30 @@ msgid "_Lock Device"
 msgstr "Gerät _sperren"
 
 #: gtk/gtkplacessidebar.c:2387 gtk/gtkplacessidebar.c:3384
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to start “%s”"
 msgstr "Starten von »%s« nicht möglich"
 
-<<<<<<< HEAD
 #. Translators: This means that unlocking an encrypted storage
 #. * device failed. %s is the name of the device.
 #.
 #: bobgui/bobguiplacessidebar.c:2000
-=======
 #: gtk/gtkplacessidebar.c:2420
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Error unlocking “%s”"
 msgstr "Fehler beim Entsperren von »%s«"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2002
-=======
 #: gtk/gtkplacessidebar.c:2422
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to access “%s”"
 msgstr "Auf »%s« kann nicht zugegriffen werden"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2233
 msgid "This name is already taken"
 msgstr "Dieser Name ist bereits vergeben"
 
 #: bobgui/bobguiplacessidebar.c:2525
-=======
 #: gtk/gtkplacessidebar.c:2656
 msgid "This name is already taken"
 msgstr "Dieser Name ist bereits vergeben"
@@ -5364,48 +5229,34 @@ msgid "Name"
 msgstr "Name"
 
 #: gtk/gtkplacessidebar.c:2925
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to unmount “%s”"
 msgstr "»%s« kann nicht ausgehängt werden"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2701
-=======
 #: gtk/gtkplacessidebar.c:3101
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to stop “%s”"
 msgstr "Stoppen von »%s« nicht möglich"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2730
-=======
 #: gtk/gtkplacessidebar.c:3130
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject “%s”"
 msgstr "Auswerfen von »%s« nicht möglich"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2759 bobgui/bobguiplacessidebar.c:2788
-=======
 #: gtk/gtkplacessidebar.c:3159 gtk/gtkplacessidebar.c:3188
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject %s"
 msgstr "Auswerfen von %s nicht möglich"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2936
-=======
 #: gtk/gtkplacessidebar.c:3336
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to poll “%s” for media changes"
 msgstr "»%s« konnte nicht nach Datenträgeränderungen befragt werden"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3155 bobgui/bobguiplacessidebar.c:3242
 #: bobgui/bobguiplacesview.c:1650
 msgid "Open in New _Tab"
@@ -5493,7 +5344,6 @@ msgid "Searching for network locations"
 msgstr "Netzwerkorte werden gesucht"
 
 #: bobgui/bobguiplacesview.c:883
-=======
 #: gtk/gtkplacessidebar.c:3620 gtk/gtkplacessidebar.c:3686
 #: gtk/gtkplacesview.c:1643
 msgid "Open in New _Tab"
@@ -5541,39 +5391,28 @@ msgid "Searching for network locations"
 msgstr "Netzwerkorte werden gesucht"
 
 #: gtk/gtkplacesview.c:904
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No network locations found"
 msgstr "Keine Netzwerkorte gefunden"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1197 bobgui/bobguiplacesview.c:1294
-=======
 #: gtk/gtkplacesview.c:1231 gtk/gtkplacesview.c:1306
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to access location"
 msgstr "Zugriff auf den Ort ist nicht möglich"
 
 #. Restore from Cancel to Connect
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1215 bobgui/ui/bobguiplacesview.ui:237
-=======
 #: gtk/gtkplacesview.c:1249 gtk/ui/gtkplacesview.ui:449
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Con_nect"
 msgstr "_Verbinden"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1354
-=======
 #: gtk/gtkplacesview.c:1369
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to unmount volume"
 msgstr "Aushängen des Datenträgers nicht möglich"
 
 #. Allow to cancel the operation
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1446
 msgid "Cance_l"
 msgstr "_Abbrechen"
@@ -5634,7 +5473,6 @@ msgid "Networks"
 msgstr "Netzwerke"
 
 #: bobgui/bobguiplacesview.c:2039 bobgui/bobguiplacesview.c:2048
-=======
 #: gtk/gtkplacesview.c:1470
 msgid "Cance_l"
 msgstr "_Abbrechen"
@@ -5656,7 +5494,6 @@ msgid "Networks"
 msgstr "Netzwerke"
 
 #: gtk/gtkplacesview.c:2017 gtk/gtkplacesview.c:2026
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "On This Computer"
 msgstr "Auf diesem Rechner"
 
@@ -5664,18 +5501,14 @@ msgstr "Auf diesem Rechner"
 #. * should be based on the free space available.
 #. * i.e. 1 GB / 24 GB available.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:135
-=======
 #: gtk/gtkplacesviewrow.c:134
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "%s / %s available"
 msgid_plural "%s / %s available"
 msgstr[0] "%s / %s verfügbar"
 msgstr[1] "%s / %s verfügbar"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:471
 msgid "Disconnect"
 msgstr "Trennen"
@@ -5714,7 +5547,6 @@ msgstr "Niedrig"
 #.
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:521
 #: bobgui/print/backends/bobguiprintbackendcups.c:5861
-=======
 #: gtk/gtkplacesviewrow.c:481
 msgid "Disconnect"
 msgstr "Trennen"
@@ -5836,8 +5668,13 @@ msgid "Out of paper"
 msgstr "Kein Papier mehr"
 
 #. Translators: this is a printer status.
+<<<<<<< HEAD
 #: gtk/gtkprintoperation-win32.c:621
 #: modules/printbackends/cups/gtkprintbackendcups.c:2603
+=======
+#: gtk/print/gtkprintoperation-win32.c:640
+#: modules/printbackends/gtkprintbackendcpdb.c:1533
+#: modules/printbackends/gtkprintbackendcups.c:2639
 msgid "Paused"
 msgstr "Pausiert"
 
@@ -5941,6 +5778,43 @@ msgstr "Unten nach oben, links nach rechts"
 
 #: gtk/gtkprintunixdialog.c:3122
 #: modules/printbackends/cups/gtkprintbackendcups.c:5444
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, top to bottom"
+msgstr "Links nach rechts, oben nach unten"
+
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, bottom to top"
+msgstr "Links nach rechts, unten nach oben"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, top to bottom"
+msgstr "Rechts nach links, oben nach unten"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, bottom to top"
+msgstr "Rechts nach links, unten nach oben"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, left to right"
+msgstr "Oben nach unten, links nach rechts"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, right to left"
+msgstr "Oben nach unten, rechts nach links"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
+msgid "Bottom to top, left to right"
+msgstr "Unten nach oben, links nach rechts"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
 msgid "Bottom to top, right to left"
 msgstr "Unten nach oben, rechts nach links"
 
@@ -6468,6 +6342,16 @@ msgid "GTK+ Version"
 msgstr "GTK+-Version"
 
 #: gtk/inspector/general.ui:68
+# https://docs.gtk.org/gtk4/class.IMContext.html
+#: gtk/inspector/general.c:924
+msgid "IM Context is hardcoded by GTK_IM_MODULE"
+msgstr "Der IM-Context ist fest einprogrammiert durch GTK_IM_MODULE"
+
+#: gtk/inspector/general.ui:31
+msgid "GTK Version"
+msgstr "GTK-Version"
+
+#: gtk/inspector/general.ui:57
 msgid "GDK Backend"
 msgstr "GDK-Backend"
 
@@ -6600,6 +6484,9 @@ msgstr "Bildrate"
 #: gtk/inspector/misc-info.ui:579
 msgid "Accessible role"
 msgstr "Barrierefreie Rolle"
+#: gtk/inspector/misc-info.ui:527 gtk/inspector/visual.ui:315
+msgid "Scale"
+msgstr "Skalierung"
 
 #: gtk/inspector/misc-info.ui:613
 msgid "Accessible name"
@@ -6832,6 +6719,28 @@ msgid "Enable statistics with GOBJECT_DEBUG=instance-count"
 msgstr "Statistiken mit GOBJECT_DEBUG=instance-count einschalten"
 
 #: gtk/inspector/visual.c:406 gtk/inspector/visual.c:421
+#: gtk/inspector/strv-editor.c:83
+#, c-format
+msgid "Remove %s"
+msgstr "Entfernen %s"
+
+#: gtk/inspector/strv-editor.c:115
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: gtk/inspector/tree-data.ui:10
+msgid "Show data"
+msgstr "Daten Zeigen"
+
+#: gtk/inspector/type-info.ui:14
+msgid "Hierarchy"
+msgstr "Hierarchie"
+
+#: gtk/inspector/type-info.ui:35
+msgid "Implements"
+msgstr "Implementiert"
+
+#: gtk/inspector/visual.c:765 gtk/inspector/visual.c:784
 msgid "Theme is hardcoded by GTK_THEME"
 msgstr "Das Thema ist fest einprogrammiert durch GTK_THEME"
 
@@ -6968,6 +6877,121 @@ msgstr "Deaktiviert"
 #: gtk/inspector/visual.ui:766
 msgid "Software GL"
 msgstr "Software GL"
+#: gtk/inspector/visual.ui:169
+msgid "Text Direction"
+msgstr "Textrichtung"
+
+#: gtk/inspector/visual.ui:184
+msgid "Left-to-Right"
+msgstr "Links nach rechts"
+
+#: gtk/inspector/visual.ui:185
+msgid "Right-to-Left"
+msgstr "Rechts nach links"
+
+#: gtk/inspector/visual.ui:202
+msgid "Animations"
+msgstr "Animationen"
+
+#: gtk/inspector/visual.ui:227
+msgid "Slowdown"
+msgstr "Verlangsamung"
+
+#: gtk/inspector/visual.ui:362
+msgid "Antialiasing"
+msgstr "Kantenglättung"
+
+#: gtk/inspector/visual.ui:387
+msgid "Hinting"
+msgstr "Hinting"
+
+#: gtk/inspector/visual.ui:402
+msgctxt "Font hinting style"
+msgid "None"
+msgstr "Keine"
+
+#: gtk/inspector/visual.ui:403
+msgctxt "Font hinting style"
+msgid "Slight"
+msgstr "Gering"
+
+#: gtk/inspector/visual.ui:404
+msgctxt "Font hinting style"
+msgid "Medium"
+msgstr "Medium"
+
+#: gtk/inspector/visual.ui:405
+msgctxt "Font hinting style"
+msgid "Full"
+msgstr "Voll"
+
+#: gtk/inspector/visual.ui:422
+#, fuzzy
+#| msgctxt "OpenType layout"
+#| msgid "Vertical Writing"
+msgid "Metrics Hinting"
+msgstr "Vertikales Schreiben"
+
+#: gtk/inspector/visual.ui:457
+msgid "Show Framerate"
+msgstr "Bildrate anzeigen"
+
+#: gtk/inspector/visual.ui:482
+msgid "Show Graphic Updates"
+msgstr "Grafikaktualisierungen zeigen"
+
+#: gtk/inspector/visual.ui:502
+msgid ""
+"Tints all the places where the current renderer uses Cairo instead of the "
+"GPU."
+msgstr ""
+"Alle Stellen einfärben, an denen der aktuelle Darsteller Cairo statt der GPU "
+"verwendet."
+
+#: gtk/inspector/visual.ui:508
+msgid "Show Cairo Rendering"
+msgstr "Cairo-Darstellung anzeigen"
+
+#: gtk/inspector/visual.ui:533
+msgid "Show Baselines"
+msgstr "Grundlinie zeigen"
+
+#: gtk/inspector/visual.ui:561
+msgid "Show Layout Borders"
+msgstr "Layout-Ränder anzeigen"
+
+#: gtk/inspector/visual.ui:618
+msgid "CSS Padding"
+msgstr "CSS-Auffüllung"
+
+#: gtk/inspector/visual.ui:628
+msgid "CSS Border"
+msgstr "CSS-Rand"
+
+#: gtk/inspector/visual.ui:638
+msgid "CSS Margin"
+msgstr "CSS-Überstand"
+
+#: gtk/inspector/visual.ui:648
+msgid "Widget Margin"
+msgstr "Widget-Überstand"
+
+#: gtk/inspector/visual.ui:683
+msgid "Show Focus"
+msgstr "Fokus anzeigen"
+
+#: gtk/inspector/visual.ui:708
+msgid "Show Accessibility warnings"
+msgstr "Warnungen zur Barrierefreiheit anzeigen"
+
+# Ich glaube nicht, dass sich eine Übersetzung hier lohnt https://docs.gtk.org/gtk4/class.GraphicsOffload.html - ts
+#: gtk/inspector/visual.ui:733
+msgid "Show Graphics Offload"
+msgstr "Grafiken-Offload zeigen"
+
+#: gtk/inspector/visual.ui:765
+msgid "Inspect Inspector"
+msgstr "Inspektor untersuchen"
 
 #: gtk/inspector/visual.ui:800
 msgid "Software Surfaces"
@@ -9951,6 +9975,72 @@ msgstr "Ordner-Index konnte nicht geschrieben werden\n"
 #, c-format
 msgid "Failed to rewrite header\n"
 msgstr "Header konnte nicht überschrieben werden\n"
+#: modules/printbackends/gtkprintbackendcpdb.c:542
+#: modules/printbackends/gtkprintbackendcups.c:5668
+msgctxt "Print job priority"
+msgid "Urgent"
+msgstr "Dringend"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:543
+#: modules/printbackends/gtkprintbackendcups.c:5669
+msgctxt "Print job priority"
+msgid "High"
+msgstr "Hoch"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:544
+#: modules/printbackends/gtkprintbackendcups.c:5670
+msgctxt "Print job priority"
+msgid "Medium"
+msgstr "Medium"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:545
+#: modules/printbackends/gtkprintbackendcups.c:5671
+msgctxt "Print job priority"
+msgid "Low"
+msgstr "Niedrig"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the front cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:567
+#: modules/printbackends/gtkprintbackendcups.c:5814
+msgctxt "printer option"
+msgid "Before"
+msgstr "Vorne"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the back cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:574
+#: modules/printbackends/gtkprintbackendcups.c:5829
+msgctxt "printer option"
+msgid "After"
+msgstr "Hinten"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:597
+msgid "Print at"
+msgstr "Drucken um"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:607
+msgid "Print at time"
+msgstr "Drucken zu Uhrzeit"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:670
+msgctxt "print option"
+msgid "Borderless"
+msgstr "Randlos"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1530
+#: modules/printbackends/gtkprintbackendcups.c:2636
+msgid "Paused; Rejecting Jobs"
+msgstr "Pausiert; Aufträge werden abgewiesen"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1536
+#: modules/printbackends/gtkprintbackendcups.c:2642
+msgid "Rejecting Jobs"
+msgstr "Aufträge werden abgewiesen"
 
 #: gtk/updateiconcache.c:1502
 #, c-format
@@ -10556,6 +10646,7 @@ msgstr "Niedrig"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5466
+#: modules/printbackends/gtkprintbackendcups.c:5702
 msgid "Job Priority"
 msgstr "Priorität"
 
@@ -10568,36 +10659,50 @@ msgid "Billing Info"
 msgstr "Abrechnungsinfo"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5501
+#: modules/printbackends/gtkprintbackendcups.c:5713
+msgid "Billing Info"
+msgstr "Abrechnungsinfo"
+
+#. Translators, these strings are names for various 'standard' cover
+#. * pages that the printing system may support.
+#.
+#: modules/printbackends/gtkprintbackendcups.c:5737
 msgctxt "cover page"
 msgid "None"
 msgstr "Keine"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5502
+#: modules/printbackends/gtkprintbackendcups.c:5738
 msgctxt "cover page"
 msgid "Classified"
 msgstr "Klassifiziert"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5503
+#: modules/printbackends/gtkprintbackendcups.c:5739
 msgctxt "cover page"
 msgid "Confidential"
 msgstr "Vertraulich"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5504
+#: modules/printbackends/gtkprintbackendcups.c:5740
 msgctxt "cover page"
 msgid "Secret"
 msgstr "Geheim"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5505
+#: modules/printbackends/gtkprintbackendcups.c:5741
 msgctxt "cover page"
 msgid "Standard"
 msgstr "Standard"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5506
+#: modules/printbackends/gtkprintbackendcups.c:5742
 msgctxt "cover page"
 msgid "Top Secret"
 msgstr "Streng geheim"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5507
+#: modules/printbackends/gtkprintbackendcups.c:5743
 msgctxt "cover page"
 msgid "Unclassified"
 msgstr "Unklassifiziert"
@@ -10606,6 +10711,7 @@ msgstr "Unklassifiziert"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5519
+#: modules/printbackends/gtkprintbackendcups.c:5755
 msgctxt "printer option"
 msgid "Pages per Sheet"
 msgstr "Seiten pro Blatt"
@@ -10633,9 +10739,7 @@ msgstr "Vorne"
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:528
 #: bobgui/print/backends/bobguiprintbackendcups.c:5876
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5593
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "printer option"
 msgid "After"
 msgstr "Hinten"
@@ -11143,6 +11247,9 @@ msgstr "Seiten pro Blatt"
 #. * dialog that controls in what order multiple pages are arranged
 #.
 #: bobgui/print/backends/bobguiprintbackendcups.c:5819
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5772
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Page Ordering"
 msgstr "Reihenfolge"
@@ -11153,9 +11260,10 @@ msgstr "Reihenfolge"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5896
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5613
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5849
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at"
 msgstr "Drucken um"
@@ -11165,9 +11273,10 @@ msgstr "Drucken um"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5907
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5624
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5860
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at time"
 msgstr "Drucken zu Uhrzeit"
@@ -11179,19 +11288,21 @@ msgstr "Drucken zu Uhrzeit"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5955
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5666
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5907
+>>>>>>> origin/4-14-backports
 #, c-format
 msgid "Custom %s×%s"
 msgstr "Benutzerdefiniert %s×%s"
 
-<<<<<<< HEAD
 #. TRANSLATORS: this is the ICC color profile to use for this job
+<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6067
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5775
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6018
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Printer Profile"
 msgstr "Druckerfarbprofil"
@@ -11199,9 +11310,10 @@ msgstr "Druckerfarbprofil"
 #. TRANSLATORS: this is when color profile information is unavailable
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6074
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5782
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6025
+>>>>>>> origin/4-14-backports
 msgctxt "printer option value"
 msgid "Unavailable"
 msgstr "Nicht verfügbar"
@@ -11240,29 +11352,20 @@ msgstr "_Ausgabeformat"
 
 #. TRANSLATORS: when we're running an old CUPS, and
 #. * it hasn't registered the device with colord
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:245
-=======
 #: modules/printbackends/cups/gtkprintercups.c:269
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Color management unavailable"
 msgstr "Farbverwaltung ist nicht verfügbar"
 
 #. TRANSLATORS: when there is no color profile available
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:257
-=======
 #: modules/printbackends/cups/gtkprintercups.c:281
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No profile available"
 msgstr "Kein Profil verfügbar"
 
 #. TRANSLATORS: when the color profile has no title
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:268
-=======
 #: modules/printbackends/cups/gtkprintercups.c:292
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unspecified profile"
 msgstr "Nicht angegebenes Profil"
 
@@ -15343,7 +15446,6 @@ msgstr "Informationen zum Bild bereitstellen."
 msgid "Can only accept a single image file\n"
 msgstr "Es wird nur eine einzelne Bilddatei akzeptiert\n"
 
-<<<<<<< HEAD
 #: tools/bobgui-image-tool-play.c:321 tools/bobgui-image-tool-show.c:118
 #: tools/bobgui-rendernode-tool-show.c:122
 msgid "Don't add a titlebar"
@@ -16172,6 +16274,7 @@ msgstr ""
 "Wenn Sie hier wirklich einen Symbol-Cache erstellen möchten, verwenden Sie "
 "bitte --ignore-theme-index.\n"
 
+<<<<<<< HEAD
 #, c-format
 #~ msgid "cicp: Narrow range or YUV not supported"
 #~ msgstr "cicp: Schmaler Bereich oder YUV wird nicht unterstützt"
@@ -16231,6 +16334,8 @@ msgstr ""
 #, c-format
 #~ msgid "Bounds: %g x %g\n"
 #~ msgstr "Maße: %g x %g\n"
+#~ msgid "Font Scale"
+#~ msgstr "Schriftskalierungsfaktor"
 
 #~ msgid "Show _Size Column"
 #~ msgstr "Spalte »_Größe« anzeigen"

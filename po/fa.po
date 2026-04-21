@@ -3,7 +3,6 @@
 # Meelad Zakaria <meelad@bamdad.org>, 2005.
 # Mahyar Moghimi <mahyar.moqimi@gmail.com>, 2010.
 # Ali Yousefi Sabzevar <aysabzevar@gmail.com>, 2010.
-<<<<<<< HEAD
 # Arash Mousavi <mousavi.arash@gmail.com>, 2011-2017.
 # Danial Behzadi <dani.behzi@ubuntu.com>, 2018-2025.
 #
@@ -14,17 +13,22 @@ msgstr ""
 "POT-Creation-Date: 2025-09-20 06:00+0000\n"
 "PO-Revision-Date: 2025-09-20 09:51+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
-=======
 # Arash Mousavi <mousavi.arash@gmail.com>, 2011, 2012, 2013, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtk+ 2.6\n"
+<<<<<<< HEAD
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-07 14:03+0000\n"
 "PO-Revision-Date: 2017-09-22 22:53+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gtk/-/issues/\n"
+"POT-Creation-Date: 2024-04-04 17:02+0000\n"
+"PO-Revision-Date: 2024-04-05 16:09+0330\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
+>>>>>>> origin/4-14-backports
 "Language-Team: Persian <>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -32,13 +36,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Bookmarks: 133,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
-<<<<<<< HEAD
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 3.7\n"
-=======
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 2.0.3\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/android/gdkandroidclipboard.c:174
 msgid "No compatible formats to transfer contents of content provider."
@@ -100,9 +101,7 @@ msgstr "نمی‌توان محتوا را به شکل «%s» فراهم کرد"
 msgid "Cannot provide contents as %s"
 msgstr "نمی‌توان محتوا را به شکل %s فراهم کرد"
 
-<<<<<<< HEAD
 #: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:471
-=======
 #. Description of --display=DISPLAY in --help output
 #: gdk/gdk.c:238
 msgid "X display to use"
@@ -136,7 +135,6 @@ msgid "GL support disabled via GDK_DEBUG"
 msgstr "پشتیبانی از GL توسط GDK_DEBUG غیرفعال شده است"
 
 #: gdk/gdkwindow.c:2840
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "The current backend does not support OpenGL"
 msgstr "پسانه در حال حاضر از OpenGL پشتیبانی نمی‌کند"
 
@@ -616,9 +614,7 @@ msgctxt "keyboard label"
 msgid "Suspend"
 msgstr "تعلیق"
 
-<<<<<<< HEAD
 #: gdk/loaders/gdkjpeg.c:71
-=======
 #: gdk/mir/gdkmirglcontext.c:48 gdk/mir/gdkmirwindowimpl.c:2226
 #: gdk/wayland/gdkglcontext-wayland.c:468 gdk/win32/gdkglcontext-win32.c:796
 #: gdk/x11/gdkglcontext-x11.c:1274
@@ -680,7 +676,6 @@ msgid "COLORS"
 msgstr "COLORS"
 
 #: gdk/x11/gdkapplaunchcontext-x11.c:295
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Error interpreting JPEG image file (%s)"
 msgstr "خطا در تفسیر پروندهٔ JPEG ‏(%s)"
@@ -998,10 +993,8 @@ msgctxt "accessibility"
 msgid "Toggle"
 msgstr "تغییر وضعیت"
 
-<<<<<<< HEAD
 #: bobgui/a11y/bobguiatspiaction.c:340
 msgctxt "accessibility"
-=======
 #: gtk/a11y/gtkcellaccessible.c:257
 msgctxt "Action name"
 msgid "Edit"
@@ -1520,7 +1513,6 @@ msgstr "نشان‌گر تصویری پیشرفت را فراهم می‌کند"
 
 #: gtk/a11y/gtkswitchaccessible.c:98
 msgctxt "Action description"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Toggles the switch"
 msgstr "تغییر وضعیت کلید"
 
@@ -1657,11 +1649,9 @@ msgstr "در حال گشودن پرونده‌های «%s»."
 msgid "No applications found for “%s” files"
 msgstr "هیچ برنامه‌ای برای پرونده‌های «%s» پیدا نشد"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguiappchooserdialog.c:435
 msgid "Failed to start GNOME Software"
 msgstr "شکست در اجرای نرم‌افزارهای گنوم"
-=======
 #: gtk/deprecated/gtkcolorseldialog.c:191 gtk/deprecated/gtkfontsel.c:1689
 #: gtk/gtkfilechoosernative.c:540 gtk/gtkfilechoosernative.c:632
 #: gtk/gtkfilechooserwidget.c:1476 gtk/gtkfilechooserwidget.c:6383
@@ -1674,7 +1664,6 @@ msgstr "شکست در اجرای نرم‌افزارهای گنوم"
 #: gtk/ui/gtkfontchooserdialog.ui:31
 msgid "_Cancel"
 msgstr "_انصراف"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translators: Label for a search button and entry, should be translated as a verb
 #: bobgui/deprecated/bobguiappchooserdialog.c:472 bobgui/bobguifilechooserdialog.c:477
@@ -1703,10 +1692,8 @@ msgstr "کاره‌های مربوط"
 msgid "Other Apps"
 msgstr "دیگر کاره‌ها"
 
-<<<<<<< HEAD
 #. This label is displayed in a treeview cell displaying
 #. * a disabled accelerator key combination.
-=======
 #: gtk/deprecated/gtkfontsel.c:400
 msgid "Si_ze:"
 msgstr "_اندازه:"
@@ -1732,7 +1719,6 @@ msgstr "انتخابگر قلم"
 
 #. Translators: the format here is used to build the string that will be rendered
 #. * in the number emblem.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #.
 #: bobgui/deprecated/bobguicellrendereraccel.c:294
 msgctxt "Accelerator"
@@ -1795,18 +1781,15 @@ msgstr "یک قلم بردارید"
 msgid "Font"
 msgstr "قلم"
 
-<<<<<<< HEAD
 # farmaan
 #: bobgui/deprecated/bobguifontbutton.c:1158 bobgui/bobguifontdialogbutton.c:657
 msgctxt "font"
 msgid "None"
 msgstr "هیچ‌کدام"
-=======
 #: gtk/encodesymbolic.c:279 gtk/gtk-builder-tool.c:671
 #, c-format
 msgid "Can't load file: %s\n"
 msgstr "نمی‌توان پرونده را بارگیری کرد: %s\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/deprecated/bobguilockbutton.c:306 bobgui/ui/bobguilockbutton.ui:20
 msgid "Lock"
@@ -1816,7 +1799,6 @@ msgstr "قفل"
 msgid "Unlock"
 msgstr "قفل‌گشایی"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguilockbutton.c:334
 msgid ""
 "Dialog is unlocked.\n"
@@ -1824,11 +1806,9 @@ msgid ""
 msgstr ""
 "محاوره باز شده است.\n"
 "جهت جلوگیری از تغییرات آتی کلیک کنید"
-=======
 #: gtk/gtkaboutdialog.c:113 gtk/ui/gtkaboutdialog.ui:206
 msgid "License"
 msgstr "مجوز"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/deprecated/bobguilockbutton.c:348
 msgid ""
@@ -2021,12 +2001,9 @@ msgstr "دگرساز"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:902 bobgui/deprecated/bobguishortcutlabel.c:115
 #: bobgui/deprecated/bobguishortcutlabel.c:145
-=======
 #: gtk/gtkaccellabel.c:843 gtk/gtkshortcutlabel.c:114 gtk/gtkshortcutlabel.c:152
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Super"
 msgstr "سوپر"
@@ -2036,12 +2013,9 @@ msgstr "سوپر"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:916 bobgui/deprecated/bobguishortcutlabel.c:118
 #: bobgui/deprecated/bobguishortcutlabel.c:147
-=======
 #: gtk/gtkaccellabel.c:856 gtk/gtkshortcutlabel.c:117 gtk/gtkshortcutlabel.c:154
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hyper"
 msgstr "فوق"
@@ -2051,17 +2025,13 @@ msgstr "فوق"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:931 bobgui/deprecated/bobguishortcutlabel.c:112
 #: bobgui/deprecated/bobguishortcutlabel.c:150
-=======
 #: gtk/gtkaccellabel.c:870 gtk/gtkshortcutlabel.c:111 gtk/gtkshortcutlabel.c:156
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Meta"
 msgstr "فرا"
 
-<<<<<<< HEAD
 #. Translators: "KP" means "numeric key pad". This string will
 #. * be used in accelerators such as "Ctrl+Shift+KP 1" in menus,
 #. * and therefore the translation needs to be very short.
@@ -2072,32 +2042,24 @@ msgid "KP"
 msgstr "ص‌ش"
 
 #: bobgui/bobguiaccelgroup.c:958
-=======
 #: gtk/gtkaccellabel.c:887
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Space"
 msgstr "فاصله"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:961 bobgui/deprecated/bobguishortcutlabel.c:178
-=======
 #: gtk/gtkaccellabel.c:890 gtk/gtkshortcutlabel.c:181
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Backslash"
 msgstr "ممیز وارونه"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccessible.c:827
 msgctxt "accessibility"
 msgid "alert"
 msgstr "هشدار"
-=======
 #: gtk/gtkappchooserbutton.c:295
 msgid "Other application…"
 msgstr "برنامه دیگر…"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/bobguiaccessible.c:828
 msgctxt "accessibility"
@@ -2159,17 +2121,14 @@ msgctxt "accessibility"
 msgid "document"
 msgstr "سند"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccessible.c:840
 msgctxt "accessibility"
 msgid "feed"
 msgstr "خوراک"
-=======
 #: gtk/gtkapplicationwindow.c:345 gtk/gtkprintoperation-unix.c:484
 #: gtk/gtkprintoperation-win32.c:1453 gtk/inspector/prop-editor.c:1686
 msgid "Application"
 msgstr "برنامه"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/bobguiaccessible.c:841
 msgctxt "accessibility"
@@ -2563,7 +2522,6 @@ msgstr "عنصر <%s> به عنوان سطح بالا (toplevel) مجاز نیس
 msgid "Text may not appear inside <%s>"
 msgstr "متن ممکن است درون «%s» نمایان نشود"
 
-<<<<<<< HEAD
 #. Translate to calendar:week_start:0 if you want Sunday to be the
 #. * first day of the week to calendar:week_start:1 if you want Monday
 #. * to be the first day of the week, and so on.
@@ -2571,7 +2529,6 @@ msgstr "متن ممکن است درون «%s» نمایان نشود"
 #: bobgui/bobguicalendar.c:693
 msgid "calendar:week_start:0"
 msgstr "calendar:week_start:6"
-=======
 #: gtk/gtk-builder-tool.c:124
 #, c-format
 msgid "Packing property %s::%s not found\n"
@@ -2635,7 +2592,6 @@ msgstr ""
 "  --css=FILE         Use style from CSS file\n"
 "\n"
 "Perform various tasks on GtkBuilder .ui files.\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to calendar:YM if you want years to be displayed
 #. * before months; otherwise translate to calendar:MY.
@@ -2651,8 +2607,6 @@ msgstr ""
 msgid "calendar:MY"
 msgstr "calendar:YM"
 
-<<<<<<< HEAD
-=======
 #. Translate to calendar:week_start:0 if you want Sunday to be the
 #. * first day of the week to calendar:week_start:1 if you want Monday
 #. * to be the first day of the week, and so on.
@@ -2671,7 +2625,6 @@ msgctxt "year measurement template"
 msgid "2000"
 msgstr "2000"
 
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. Translators: this defines whether the day numbers should use
 #. * localized digits or the ones used in English (0123...).
 #. *
@@ -2682,11 +2635,8 @@ msgstr "2000"
 #. * digits. That needs support from your system and locale definition
 #. * too.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1025
-=======
 #: gtk/gtkcalendar.c:1897 gtk/gtkcalendar.c:2593
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:day:digits"
 msgid "%d"
@@ -2711,20 +2661,15 @@ msgstr "%Y"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1175
-=======
 #.
 #: gtk/gtkcalendar.c:1929 gtk/gtkcalendar.c:2459
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:week:digits"
 msgid "%d"
 msgstr "%Id"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorchooserwidget.c:386 bobgui/bobguicoloreditor.c:171
-=======
 #. Translators: This dictates how the year is displayed in
 #. * gtkcalendar widget.  See strftime() manual for the format.
 #. * Use only ASCII in the translation.
@@ -2785,7 +2730,6 @@ msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "قرمز ٪%Id، سبز ٪%Id، آبی ٪%Id"
 
 #: gtk/gtkcolorchooserwidget.c:387
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Color: %s"
 msgstr "رنگ: %s"
@@ -3029,11 +2973,9 @@ msgstr "افزودن رنگ"
 msgid "Custom color %d: %s"
 msgstr "رنگ سفارشی %Id: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorswatch.c:230
 msgid "Customize"
 msgstr "سفارشی سازی"
-=======
 #: gtk/gtkcolorplane.c:409
 msgid "Color Plane"
 msgstr "صفحه رنگ"
@@ -3051,7 +2993,6 @@ msgstr "آلفا"
 #: gtk/gtkcolorswatch.c:360
 msgid "C_ustomize"
 msgstr "_سفارشی‌سازی"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to the default units to use for presenting
 #. * lengths to the user. Translate to default:inch if you
@@ -3068,11 +3009,8 @@ msgid "Margins from Printer…"
 msgstr "حاشیه‌ها از چاپگر…"
 
 #. And show the custom paper dialog
-<<<<<<< HEAD
 #: bobgui/print/bobguicustompaperunixdialog.c:377 bobgui/print/bobguiprintunixdialog.c:2952
-=======
 #: gtk/gtkcustompaperunixdialog.c:405 gtk/gtkprintunixdialog.c:3336
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Manage Custom Sizes"
 msgstr "مدیریت اندازه‌های سفارشی"
 
@@ -3084,15 +3022,12 @@ msgstr "اینچ"
 msgid "mm"
 msgstr "میلی‌متر"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguicustompaperunixdialog.c:598
-=======
 #: gtk/gtkcustompaperunixdialog.c:615
 msgid "Margins from Printer…"
 msgstr "حاشیه‌ها از چاپگر…"
 
 #: gtk/gtkcustompaperunixdialog.c:781
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Custom Size %d"
 msgstr "اندازهٔ سفارشی %Id"
@@ -3129,7 +3064,6 @@ msgstr "_راست:"
 msgid "Paper Margins"
 msgstr "حاشیه‌های کاغذ"
 
-<<<<<<< HEAD
 #: bobgui/bobguieditablelabel.c:170 bobgui/ui/bobguiapplication-quartz.ui:50
 msgid "_Edit"
 msgstr "_ویرایش"
@@ -3235,7 +3169,6 @@ msgid "The session bus is not available"
 msgstr "گذرگاه سامانه موجود نیست"
 
 #: bobgui/bobguifilechoosernativequartz.c:348 bobgui/ui/bobguifilechooserwidget.ui:299
-=======
 #: gtk/gtkentry.c:9555 gtk/gtklabel.c:6677 gtk/gtktextview.c:9456
 msgid "Cu_t"
 msgstr "_برش"
@@ -3317,7 +3250,6 @@ msgid "_Save"
 msgstr "_ذخیره"
 
 #: gtk/gtkfilechoosernativequartz.c:331 gtk/ui/gtkfilechooserwidget.ui:392
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Select which types of files are shown"
 msgstr "انتخاب این که کدام نوع پرونده‌ها نمایش داده شوند"
 
@@ -3330,15 +3262,11 @@ msgstr "انتخاب این که کدام نوع پرونده‌ها نمایش 
 msgid "%1$s on %2$s"
 msgstr "%1$s روی %2$s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:365
-=======
 #: gtk/gtkfilechooserwidget.c:370
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Type name of new folder"
 msgstr "نام پوشهٔ جدید را وارد کنید"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:752
 msgid "The folder could not be created"
 msgstr "نمی‌توان پوشه را ایجاد کرد"
@@ -3348,7 +3276,6 @@ msgid "You need to choose a valid filename."
 msgstr "شما باید یک نام معتبر انتخاب کنید."
 
 #: bobgui/bobguifilechooserwidget.c:768
-=======
 #: gtk/gtkfilechooserwidget.c:789
 msgid "The folder could not be created"
 msgstr "نمی‌توان پوشه را ایجاد کرد"
@@ -3366,12 +3293,10 @@ msgid "You need to choose a valid filename."
 msgstr "شما باید یک نام معتبر انتخاب کنید."
 
 #: gtk/gtkfilechooserwidget.c:820
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot create a file under %s as it is not a folder"
 msgstr "از آنجایی که %s یک پوشه نیست، نمی‌توان یک پرونده در آن ساخت"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:778
 msgid "Cannot create file as the filename is too long"
 msgstr "باتوجه به اینکه نام پرونده بسیار بزرگ است، نمی‌توان پرونده را ساخت"
@@ -3389,7 +3314,6 @@ msgid "The item that you selected is not a folder try using a different item."
 msgstr "موردی که شما انتخاب کرده‌اید، پوشه نیست، سعی کنید مورد دیگری استفاده کنید."
 
 #: bobgui/bobguifilechooserwidget.c:798
-=======
 #: gtk/gtkfilechooserwidget.c:830
 msgid "Cannot create file as the filename is too long"
 msgstr "باتوجه به اینکه نام پرونده بسیار بزرگ است، نمی‌توان پرونده را ساخت"
@@ -3407,11 +3331,9 @@ msgid "The item that you selected is not a folder try using a different item."
 msgstr "موردی که شما انتخاب کرده‌اید، پوشه نیست، سعی کنید مورد دیگری استفاده کنید."
 
 #: gtk/gtkfilechooserwidget.c:850
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Invalid file name"
 msgstr "نام پروندهٔ نامعتبر"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:807
 msgid "The folder contents could not be displayed"
 msgstr "نمی‌توان محتویات پوشه را نمایش داد"
@@ -3425,7 +3347,6 @@ msgid "The file could not be moved to the Trash"
 msgstr "پرونده را نمی‌توان به زباله‌دان منتقل کرد"
 
 #: bobgui/bobguifilechooserwidget.c:1247
-=======
 #: gtk/gtkfilechooserwidget.c:859
 msgid "The folder contents could not be displayed"
 msgstr "نمی‌توان محتویات پوشه را نمایش داد"
@@ -3495,12 +3416,10 @@ msgid "File names starting with a “.” are hidden"
 msgstr "پرونده‌هایی که نام آنها با «.» شروع شود مخفی هستند"
 
 #: gtk/gtkfilechooserwidget.c:1472
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Are you sure you want to permanently delete “%s”?"
 msgstr "آیا مطمئنید که می‌خواهید برای همیشه «%s» را پاک کنید؟"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1248
 msgid "If you delete an item, it will be permanently lost."
 msgstr "اگر موردی را پاک کنید، برای همیشه از دست خواهد رفت."
@@ -3531,7 +3450,6 @@ msgid "_Visit File"
 msgstr "_مشاهده پرونده"
 
 #: bobgui/bobguifilechooserwidget.c:1836
-=======
 #: gtk/gtkfilechooserwidget.c:1475
 #, c-format
 msgid "If you delete an item, it will be permanently lost."
@@ -3550,11 +3468,9 @@ msgid "_Visit File"
 msgstr "_مشاهده پرونده"
 
 #: gtk/gtkfilechooserwidget.c:2273
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Open With File Manager"
 msgstr "_گشودن با مدیر پرونده‌ها"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1840
 msgid "_Copy Location"
 msgstr "_رونوشت از مکان"
@@ -3592,7 +3508,6 @@ msgstr "خانه"
 #. this is the header for the location column in the print dialog
 #: bobgui/bobguifilechooserwidget.c:2232 bobgui/bobguifilechooserwidget.c:7469
 #: bobgui/inspector/css-node-tree.ui:76 bobgui/print/ui/bobguiprintunixdialog.ui:111
-=======
 #: gtk/gtkfilechooserwidget.c:2274
 msgid "_Copy Location"
 msgstr "_رونوشت از مکان"
@@ -3629,18 +3544,15 @@ msgstr "نمایش _پوشه‌ها قبل از پرونده‌ها"
 #. this is the header for the location column in the print dialog
 #: gtk/gtkfilechooserwidget.c:2609 gtk/inspector/css-node-tree.ui:141
 #: gtk/ui/gtkfilechooserwidget.ui:207 gtk/ui/gtkprintunixdialog.ui:123
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Location"
 msgstr "مکان"
 
 #. Label
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2339
 msgid "_Name:"
 msgstr "_نام:"
 
 #: bobgui/bobguifilechooserwidget.c:2896 bobgui/bobguifilechooserwidget.c:2910
-=======
 #: gtk/gtkfilechooserwidget.c:2702
 msgid "_Name:"
 msgstr "_نام:"
@@ -3650,12 +3562,10 @@ msgid "Searching"
 msgstr "درحال جستجو"
 
 #: gtk/gtkfilechooserwidget.c:3329 gtk/gtkfilechooserwidget.c:3343
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Searching in %s"
 msgstr "در حال جست‌وجو در %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2916
 msgid "Searching"
 msgstr "درحال جست‌وجو"
@@ -3670,7 +3580,6 @@ msgid "Modified"
 msgstr "تغییریافته"
 
 #: bobgui/bobguifilechooserwidget.c:3666
-=======
 #: gtk/gtkfilechooserwidget.c:3353
 msgid "Enter location"
 msgstr "وارد کردن مکان"
@@ -3685,12 +3594,10 @@ msgid "Modified"
 msgstr "تغییریافته"
 
 #: gtk/gtkfilechooserwidget.c:4671
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Could not read the contents of %s"
 msgstr "محتوای %s قابل خواندن نبود"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3670
 msgid "Could not read the contents of the folder"
 msgstr "محتوای پوشه قابل خواندن نبود"
@@ -3770,7 +3677,6 @@ msgid "You do not have access to the specified folder."
 msgstr "شما دسترسی به پوشه مشخص شده را ندارید."
 
 #: bobgui/bobguifilechooserwidget.c:5029 bobgui/print/bobguiprintunixdialog.c:674
-=======
 #: gtk/gtkfilechooserwidget.c:4675
 msgid "Could not read the contents of the folder"
 msgstr "محتوای پوشه قابل خواندن نبود"
@@ -3811,28 +3717,22 @@ msgid "Cannot change to folder because it is not local"
 msgstr "نمی‌توان به پوشه رفت چون «محلی» نیست"
 
 #: gtk/gtkfilechooserwidget.c:6376 gtk/gtkprintunixdialog.c:664
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "پرونده‌ای با نام «%s» از قبل وجود دارد.  می‌خواهید آن را جایگزین کنید؟"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5031 bobgui/print/bobguiprintunixdialog.c:678
-=======
 #: gtk/gtkfilechooserwidget.c:6379 gtk/gtkprintunixdialog.c:668
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "The file already exists in “%s”.  Replacing it will overwrite its contents."
 msgstr ""
 "پرونده از قبل در «%s» وجود دارد.  با جایگزینی آن تمام محتوایش بازنویسی می‌شود."
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5037 bobgui/print/bobguiprintunixdialog.c:686
 msgid "_Replace"
 msgstr "_جایگزینی"
 
 #: bobgui/bobguifilechooserwidget.c:5771
-=======
 #: gtk/gtkfilechooserwidget.c:6384 gtk/gtkprintunixdialog.c:676
 msgid "_Replace"
 msgstr "_جایگزینی"
@@ -3842,15 +3742,11 @@ msgid "You do not have access to the specified folder."
 msgstr "شما دسترسی به پوشه مشخص شده را ندارید."
 
 #: gtk/gtkfilechooserwidget.c:7221
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Could not send the search request"
 msgstr "نمی‌توان درخواست جست‌وجو را ارسال کرد"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:6052
-=======
 #: gtk/gtkfilechooserwidget.c:7507
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Accessed"
 msgstr "در دسترس"
 
@@ -4000,16 +3896,13 @@ msgstr "دگرگونه‌های نویسه"
 msgid "OpenGL context creation failed"
 msgstr "ساخت زمینه OpenGL شکست خورد"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguiinfobar.c:501 bobgui/bobguiwindowcontrols.c:412
 #: bobgui/bobguiwindowhandle.c:253
-=======
 #: gtk/gtkheaderbar.c:387
 msgid "Application menu"
 msgstr "منو برنامه"
 
 #: gtk/gtkheaderbar.c:454 gtk/gtkwindow.c:9085
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Close"
 msgstr "بستن"
 
@@ -4029,9 +3922,7 @@ msgstr "_چسباندن"
 msgid "Select _All"
 msgstr "انتخاب _همه"
 
-<<<<<<< HEAD
 #: bobgui/bobguilabel.c:5918
-=======
 #: gtk/gtkimmulticontext.c:609
 msgctxt "input method menu"
 msgid "System"
@@ -4061,16 +3952,12 @@ msgstr "خطا"
 
 #. Open Link
 #: gtk/gtklabel.c:6658
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Open Link"
 msgstr "_گشودن پیوند"
 
-<<<<<<< HEAD
 #: bobgui/bobguilabel.c:5922
-=======
 #. Copy Link Address
 #: gtk/gtklabel.c:6667
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Copy _Link Address"
 msgstr "_رونوشت از نشانی پیوند"
 
@@ -4078,9 +3965,7 @@ msgstr "_رونوشت از نشانی پیوند"
 msgid "_Copy URL"
 msgstr "_رونوشت از نشانی"
 
-<<<<<<< HEAD
 #: bobgui/bobguilinkbutton.c:605
-=======
 #: gtk/gtk-launch.c:74
 msgid "APPLICATION [URI...] — launch an APPLICATION"
 msgstr "APPLICATION [URI…] — اجرا یک برنامه از طریق APPLICATION"
@@ -4136,11 +4021,9 @@ msgid "Copy URL"
 msgstr "رونوشت از نشانی وب"
 
 #: gtk/gtklinkbutton.c:511
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Invalid URI"
 msgstr "نشانی نامعتبر"
 
-<<<<<<< HEAD
 #. hour:minutes:seconds
 #. Translators: This is a time format, like "9:05:02" for 9
 #. * hours, 5 minutes, and 2 seconds. You may change ":" to
@@ -4152,7 +4035,6 @@ msgstr "نشانی نامعتبر"
 msgctxt "long time format"
 msgid "%d:%02d:%02d"
 msgstr "%Id:%I02d:%I02d"
-=======
 #: gtk/gtklockbutton.c:275 gtk/ui/gtklockbutton.ui:30
 msgid "Lock"
 msgstr "قفل"
@@ -4231,7 +4113,6 @@ msgstr "نمایش گزینه‌های GTK+"
 #: gtk/gtkmain.c:1269
 msgid "default:LTR"
 msgstr "default:RTL"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. -hour:minutes:seconds
 #. Translators: This is a time format, like "-9:05:02" for 9
@@ -4398,7 +4279,6 @@ msgstr "پوستهٔ زی"
 msgid "Cannot end process with PID %d: %s"
 msgstr "نمی‌توان فرایند با شناسهٔ %Id را به پایان برد: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguinomediafile.c:48
 msgid "BOBGUI could not find a media module. Check your installation."
 msgstr "BOBGUI نتوانست پیمانه‌ٔ رسانه‌ای بیابد. نصبتان را بررسی کنید."
@@ -4412,9 +4292,7 @@ msgid "Next tab"
 msgstr "_زبانهٔ بعدی"
 
 #: bobgui/bobguinotebook.c:4426 bobgui/bobguinotebook.c:6636
-=======
 #: gtk/gtknotebook.c:5121 gtk/gtknotebook.c:7388
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Page %u"
 msgstr "صفحهٔ %Iu"
@@ -4455,17 +4333,14 @@ msgstr ""
 "بالا:%s %s\n"
 "پایین:%s %s"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguipagesetupunixdialog.c:787 bobgui/print/ui/bobguipagesetupunixdialog.ui:5
 #: bobgui/print/ui/bobguiprintunixdialog.ui:783
-=======
 #: gtk/gtkpagesetupunixdialog.c:878 gtk/gtkprintunixdialog.c:3390
 msgid "Manage Custom Sizes…"
 msgstr "مدیریت اندازه‌های سفارشی…"
 
 #: gtk/gtkpagesetupunixdialog.c:900 gtk/ui/gtkpagesetupunixdialog.ui:31
 #: gtk/ui/gtkprintunixdialog.ui:854
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Page Setup"
 msgstr "برپایی صفحه"
 
@@ -4473,7 +4348,6 @@ msgstr "برپایی صفحه"
 msgid "Hide Text"
 msgstr "نهفتن متن"
 
-<<<<<<< HEAD
 #: bobgui/bobguipasswordentry.c:176 bobgui/bobguipasswordentry.c:623
 msgid "Show Text"
 msgstr "نمایش متن"
@@ -4509,7 +4383,6 @@ msgid "Starred files"
 msgstr "پرونده‌های ستاره‌دار"
 
 #: bobgui/bobguiplacessidebar.c:1027
-=======
 #: gtk/gtkplacessidebar.c:1034
 msgid "Recent"
 msgstr "موارد اخیر"
@@ -4519,31 +4392,23 @@ msgid "Recent files"
 msgstr "پرونده‌های اخیر"
 
 #: gtk/gtkplacessidebar.c:1047
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Open your personal folder"
 msgstr "گشودن شاخهٔ شخصیتان"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1040
 msgid "Desktop"
 msgstr "رومیزی"
 
 #: bobgui/bobguiplacessidebar.c:1042
-=======
 #: gtk/gtkplacessidebar.c:1062
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Open the contents of your desktop in a folder"
 msgstr "گشودن محتوای میزکارتان در یک شاخه"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1056
-=======
 #: gtk/gtkplacessidebar.c:1076
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Enter Location"
 msgstr "ورود موقعیت"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1058
 msgid "Manually enter a location"
 msgstr "به‌طور دستی یک مکان وارد کنید"
@@ -4553,7 +4418,6 @@ msgid "Trash"
 msgstr "زباله‌دان"
 
 #: bobgui/bobguiplacessidebar.c:1070
-=======
 #: gtk/gtkplacessidebar.c:1078
 msgid "Manually enter a location"
 msgstr "به‌طور دستی یک مکان وارد کنید"
@@ -4563,14 +4427,11 @@ msgid "Trash"
 msgstr "زباله‌دان"
 
 #: gtk/gtkplacessidebar.c:1090
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Open the trash"
 msgstr "گشودن زباله‌دان"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1181 bobgui/bobguiplacessidebar.c:1209
 #: bobgui/bobguiplacessidebar.c:1409
-=======
 #. translators: %s is the name of a cloud provider for files
 #: gtk/gtkplacessidebar.c:1133
 #, c-format
@@ -4579,20 +4440,15 @@ msgstr "باز کردن %s"
 
 #: gtk/gtkplacessidebar.c:1212 gtk/gtkplacessidebar.c:1240
 #: gtk/gtkplacessidebar.c:1448
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Mount and open “%s”"
 msgstr "سوار و گشودن «%s»"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1304
-=======
 #: gtk/gtkplacessidebar.c:1328
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Open the contents of the file system"
 msgstr "گشودن محتوای سامانهٔ پرونده"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1387
 msgid "New bookmark"
 msgstr "نشانک جدید"
@@ -4602,7 +4458,6 @@ msgid "Add a new bookmark"
 msgstr "اضافه کردن یک نشانک جدید"
 
 #: bobgui/bobguiplacessidebar.c:1454
-=======
 #: gtk/gtkplacessidebar.c:1412
 msgid "New bookmark"
 msgstr "نشانک جدید"
@@ -4620,21 +4475,15 @@ msgid "Connect to a network server address"
 msgstr "اتصال به یک آدرس کارگزار شبکه"
 
 #: gtk/gtkplacessidebar.c:1491
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Other Locations"
 msgstr "دیگر مکان‌ها"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1455
-=======
 #: gtk/gtkplacessidebar.c:1492
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Show other locations"
 msgstr "نمایش دیگر مکان‌ها"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1964 bobgui/bobguiplacessidebar.c:2984
-=======
 #. Adjust start/stop items to reflect the type of the drive
 #: gtk/gtkplacessidebar.c:2282 gtk/gtkplacessidebar.c:3625
 msgid "_Start"
@@ -4679,12 +4528,10 @@ msgid "_Lock Device"
 msgstr "ق_فل کردن دستگاه"
 
 #: gtk/gtkplacessidebar.c:2345 gtk/gtkplacessidebar.c:3317
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to start “%s”"
 msgstr "نتوانست %s را شروع کند"
 
-<<<<<<< HEAD
 #. Translators: This means that unlocking an encrypted storage
 #. * device failed. %s is the name of the device.
 #.
@@ -4694,24 +4541,17 @@ msgid "Error unlocking “%s”"
 msgstr "خطا در قفل‌گشایی %s"
 
 #: bobgui/bobguiplacessidebar.c:2002
-=======
 #: gtk/gtkplacessidebar.c:2375
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to access “%s”"
 msgstr "نتوانست به %s دسترسی یابد"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2233
-=======
 #: gtk/gtkplacessidebar.c:2589
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "This name is already taken"
 msgstr "این نام از پیش گرفته شده"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2525
-=======
 #: gtk/gtkplacessidebar.c:2658 gtk/inspector/actions.ui:43
 #: gtk/inspector/css-node-tree.ui:39 gtk/inspector/object-tree.ui:110
 #: gtk/ui/gtkfilechooserwidget.ui:189 gtk/ui/gtkfilechooserwidget.ui:500
@@ -4719,80 +4559,57 @@ msgid "Name"
 msgstr "نام"
 
 #: gtk/gtkplacessidebar.c:2858
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to unmount “%s”"
 msgstr "نتوانست %s را پیاده کند"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2701
-=======
 #: gtk/gtkplacessidebar.c:3034
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to stop “%s”"
 msgstr "نتوانست %s را متوقّف کند"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2730
-=======
 #: gtk/gtkplacessidebar.c:3063
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject “%s”"
 msgstr "نتوانست %s را بیرون دهد"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2759 bobgui/bobguiplacessidebar.c:2788
-=======
 #: gtk/gtkplacessidebar.c:3092 gtk/gtkplacessidebar.c:3121
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject %s"
 msgstr "نتوانست %s را بیرون دهد"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2936
-=======
 #: gtk/gtkplacessidebar.c:3269
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to poll “%s” for media changes"
 msgstr "نتوانست %s را برای تغییرات رسانه‌ای بررسی کند"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3155 bobgui/bobguiplacessidebar.c:3242 bobgui/bobguiplacesview.c:1650
-=======
 #: gtk/gtkplacessidebar.c:3551 gtk/gtkplacessidebar.c:3608 gtk/gtkplacesview.c:1640
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Open in New _Tab"
 msgstr "گشودن در _زبانهٔ جدید"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3161 bobgui/bobguiplacessidebar.c:3251 bobgui/bobguiplacesview.c:1655
-=======
 #: gtk/gtkplacessidebar.c:3554 gtk/gtkplacessidebar.c:3611 gtk/gtkplacesview.c:1651
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Open in New _Window"
 msgstr "گشودن در _پنجرهٔ جدید"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3262
 msgid "_Add Bookmark"
 msgstr "_افزودن نشانک"
 
 #: bobgui/bobguiplacessidebar.c:3266
-=======
 #: gtk/gtkplacessidebar.c:3615
 msgid "_Add Bookmark"
 msgstr "_افزودن نشانک"
 
 #: gtk/gtkplacessidebar.c:3616
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Remove"
 msgstr "_برداشتن"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3282 bobgui/bobguiplacesview.c:1680
 msgid "_Mount"
 msgstr "_سوار کردن"
@@ -4862,7 +4679,6 @@ msgid "Searching for network locations"
 msgstr "جست‌وجو برای مکان‌های شبکه"
 
 #: bobgui/bobguiplacesview.c:883
-=======
 #: gtk/gtkplacessidebar.c:3617
 msgid "Rename…"
 msgstr "تغییر نام…"
@@ -4892,47 +4708,33 @@ msgid "Searching for network locations"
 msgstr "جستجو برای مکان‌های شبکه"
 
 #: gtk/gtkplacesview.c:901
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No network locations found"
 msgstr "هیچ مکان شبکه‌ای پیدا نشد"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1197 bobgui/bobguiplacesview.c:1294
-=======
 #: gtk/gtkplacesview.c:1229 gtk/gtkplacesview.c:1304
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to access location"
 msgstr "نتوانست به موقعیت دسترسی یابد"
 
 #. Restore from Cancel to Connect
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1215 bobgui/ui/bobguiplacesview.ui:237
-=======
 #: gtk/gtkplacesview.c:1247 gtk/ui/gtkplacesview.ui:449
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Con_nect"
 msgstr "اتّ_صال"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1354
-=======
 #: gtk/gtkplacesview.c:1367
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to unmount volume"
 msgstr "نتوانست حجم را پیاده کند"
 
 #. Allow to cancel the operation
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1446
-=======
 #: gtk/gtkplacesview.c:1467
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Cance_l"
 msgstr "_لغو"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1593
 msgid "AppleTalk"
 msgstr "اپل‌تاک"
@@ -4977,37 +4779,29 @@ msgid "_Disconnect"
 msgstr "_قطع ارتباط"
 
 #: bobgui/bobguiplacesview.c:1675
-=======
 #: gtk/gtkplacesview.c:1675
 msgid "_Disconnect"
 msgstr "_قطع ارتباط"
 
 #: gtk/gtkplacesview.c:1685
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Connect"
 msgstr "اتّ_صال"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1895
-=======
 #: gtk/gtkplacesview.c:1826
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to get remote server location"
 msgstr "نتوانست موقعیت کارساز دوردست را بگیرد"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:2039 bobgui/bobguiplacesview.c:2048
 msgid "Networks"
 msgstr "شبکه"
 
 #: bobgui/bobguiplacesview.c:2039 bobgui/bobguiplacesview.c:2048
-=======
 #: gtk/gtkplacesview.c:1965 gtk/gtkplacesview.c:1974
 msgid "Networks"
 msgstr "شبکه"
 
 #: gtk/gtkplacesview.c:1965 gtk/gtkplacesview.c:1974
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "On This Computer"
 msgstr "روی این رایانه"
 
@@ -5015,18 +4809,14 @@ msgstr "روی این رایانه"
 #. * should be based on the free space available.
 #. * i.e. 1 GB / 24 GB available.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:135
-=======
 #: gtk/gtkplacesviewrow.c:134
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "%s / %s available"
 msgid_plural "%s / %s available"
 msgstr[0] "%s / %s موجود"
 msgstr[1] "%s / %s موجود"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:471
 msgid "Disconnect"
 msgstr "قطع ارتباط"
@@ -5045,7 +4835,6 @@ msgstr "فوری"
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:497
 #: bobgui/print/backends/bobguiprintbackendcups.c:5716
 msgctxt "Print job priority"
-=======
 #: gtk/gtkplacesviewrow.c:481
 msgid "Disconnect"
 msgstr "قطع ارتباط"
@@ -5165,8 +4954,13 @@ msgid "Out of paper"
 msgstr "بدون کاغذ"
 
 #. Translators: this is a printer status.
+<<<<<<< HEAD
 #: gtk/gtkprintoperation-win32.c:621
 #: modules/printbackends/cups/gtkprintbackendcups.c:2588
+=======
+#: gtk/print/gtkprintoperation-win32.c:640
+#: modules/printbackends/gtkprintbackendcpdb.c:1533
+#: modules/printbackends/gtkprintbackendcups.c:2639
 msgid "Paused"
 msgstr "مکث"
 
@@ -5270,6 +5064,43 @@ msgstr "از انتها به ابتدا، از چپ به راست"
 
 #: gtk/gtkprintunixdialog.c:3122
 #: modules/printbackends/cups/gtkprintbackendcups.c:5375
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, top to bottom"
+msgstr "از چپ به راست، از بالا به پایین"
+
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, bottom to top"
+msgstr "از چپ به راست، از پایین به ابتدا"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, top to bottom"
+msgstr "از راست به چپ، از بالا به پایین"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, bottom to top"
+msgstr "از راست به چپ، از پایین به بالا"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, left to right"
+msgstr "از بالا به پایین، از چپ به راست"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, right to left"
+msgstr "از بالا به پایین، از راست به چپ"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
+msgid "Bottom to top, left to right"
+msgstr "از انتها به ابتدا، از چپ به راست"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
 msgid "Bottom to top, right to left"
 msgstr "از پایین به بالا، از راست به چپ"
 
@@ -6243,6 +6074,36 @@ msgid "Recording"
 msgstr "درحال ضبط"
 
 #: gtk/inspector/visual.ui:513
+# farmaan
+#: gtk/inspector/visual.ui:402
+msgctxt "Font hinting style"
+msgid "None"
+msgstr "هیچ‌کدام"
+
+#: gtk/inspector/visual.ui:403
+msgctxt "Font hinting style"
+msgid "Slight"
+msgstr "خفیف"
+
+#: gtk/inspector/visual.ui:404
+msgctxt "Font hinting style"
+msgid "Medium"
+msgstr "متوسّط"
+
+#: gtk/inspector/visual.ui:405
+msgctxt "Font hinting style"
+msgid "Full"
+msgstr "کامل"
+
+#: gtk/inspector/visual.ui:422
+msgid "Metrics Hinting"
+msgstr "سرنخ‌دهی یکاها"
+
+#: gtk/inspector/visual.ui:457
+msgid "Show Framerate"
+msgstr "نمایش آهنگ قاب"
+
+#: gtk/inspector/visual.ui:482
 msgid "Show Graphic Updates"
 msgstr "نمایش بروزرسانی‌های گرافیکی"
 
@@ -7840,6 +7701,72 @@ msgstr "نوشتن جدول درهم خراب شد \n"
 #, c-format
 msgid "Failed to write folder index\n"
 msgstr "نوشتن نمایه‌ی پوشه خراب شد\n"
+#: modules/printbackends/gtkprintbackendcpdb.c:542
+#: modules/printbackends/gtkprintbackendcups.c:5668
+msgctxt "Print job priority"
+msgid "Urgent"
+msgstr "فوری"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:543
+#: modules/printbackends/gtkprintbackendcups.c:5669
+msgctxt "Print job priority"
+msgid "High"
+msgstr "زیاد"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:544
+#: modules/printbackends/gtkprintbackendcups.c:5670
+msgctxt "Print job priority"
+msgid "Medium"
+msgstr "متوسّط"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:545
+#: modules/printbackends/gtkprintbackendcups.c:5671
+msgctxt "Print job priority"
+msgid "Low"
+msgstr "کم"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the front cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:567
+#: modules/printbackends/gtkprintbackendcups.c:5814
+msgctxt "printer option"
+msgid "Before"
+msgstr "پیش از"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the back cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:574
+#: modules/printbackends/gtkprintbackendcups.c:5829
+msgctxt "printer option"
+msgid "After"
+msgstr "پس از"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:597
+msgid "Print at"
+msgstr "زمان چاپ"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:607
+msgid "Print at time"
+msgstr "چاپ در زمان مشخص"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:670
+msgctxt "print option"
+msgid "Borderless"
+msgstr "بی‌لبه"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1530
+#: modules/printbackends/gtkprintbackendcups.c:2636
+msgid "Paused; Rejecting Jobs"
+msgstr "مکث؛ در حال رد کردن کار‌ها"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1536
+#: modules/printbackends/gtkprintbackendcups.c:2642
+msgid "Rejecting Jobs"
+msgstr "در حال رد کردن کار‌ها"
 
 #: gtk/updateiconcache.c:1410
 #, c-format
@@ -8421,23 +8348,18 @@ msgstr "فوری"
 msgid "High"
 msgstr "زیاد"
 
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:498
 #: bobgui/print/backends/bobguiprintbackendcups.c:5717
 msgctxt "Print job priority"
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5367
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Medium"
 msgstr "متوسّط"
 
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:499
 #: bobgui/print/backends/bobguiprintbackendcups.c:5718
 msgctxt "Print job priority"
 msgid "Low"
 msgstr "کم"
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5367
 msgid "Low"
 msgstr "پایین"
@@ -8445,7 +8367,10 @@ msgstr "پایین"
 #. Translators, this string is used to label the job priority option
 #. * in the print dialog
 #.
+<<<<<<< HEAD
 #: modules/printbackends/cups/gtkprintbackendcups.c:5397
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5702
 msgid "Job Priority"
 msgstr "اولویت کار"
 
@@ -8453,41 +8378,52 @@ msgstr "اولویت کار"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5408
+#: modules/printbackends/gtkprintbackendcups.c:5713
 msgid "Billing Info"
 msgstr "اطلاعات صورتحساب"
 
 # farmaan
 #: modules/printbackends/cups/gtkprintbackendcups.c:5432
+#. Translators, these strings are names for various 'standard' cover
+#. * pages that the printing system may support.
+#.
+#: modules/printbackends/gtkprintbackendcups.c:5737
 msgctxt "cover page"
 msgid "None"
 msgstr "هیچ‌کدام"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5433
+#: modules/printbackends/gtkprintbackendcups.c:5738
 msgctxt "cover page"
 msgid "Classified"
 msgstr "طبقه‌بندی شده"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5434
+#: modules/printbackends/gtkprintbackendcups.c:5739
 msgctxt "cover page"
 msgid "Confidential"
 msgstr "محرمانه"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5435
+#: modules/printbackends/gtkprintbackendcups.c:5740
 msgctxt "cover page"
 msgid "Secret"
 msgstr "سری"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5436
+#: modules/printbackends/gtkprintbackendcups.c:5741
 msgctxt "cover page"
 msgid "Standard"
 msgstr "استاندارد"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5437
+#: modules/printbackends/gtkprintbackendcups.c:5742
 msgctxt "cover page"
 msgid "Top Secret"
 msgstr "فوق سری"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5438
+#: modules/printbackends/gtkprintbackendcups.c:5743
 msgctxt "cover page"
 msgid "Unclassified"
 msgstr "طبقه‌بندی نشده"
@@ -8496,6 +8432,7 @@ msgstr "طبقه‌بندی نشده"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5450
+#: modules/printbackends/gtkprintbackendcups.c:5755
 msgctxt "printer option"
 msgid "Pages per Sheet"
 msgstr "تعداد صفحه‌ها در برگه"
@@ -8515,9 +8452,7 @@ msgstr "ترتیب صفحه‌ها"
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:521
 #: bobgui/print/backends/bobguiprintbackendcups.c:5861
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5509
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "printer option"
 msgid "Before"
 msgstr "پیش از"
@@ -8525,12 +8460,9 @@ msgstr "پیش از"
 #. Translators, this is the label used for the option in the print
 #. * dialog that controls the back cover page.
 #.
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:528
 #: bobgui/print/backends/bobguiprintbackendcups.c:5876
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5524
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "printer option"
 msgid "After"
 msgstr "پس از"
@@ -9028,6 +8960,9 @@ msgstr "تعداد صفحه‌ها در برگه"
 #. * dialog that controls in what order multiple pages are arranged
 #.
 #: bobgui/print/backends/bobguiprintbackendcups.c:5819
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5772
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Page Ordering"
 msgstr "ترتیب صفحه‌ها"
@@ -9038,9 +8973,10 @@ msgstr "ترتیب صفحه‌ها"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5896
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5544
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5849
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at"
 msgstr "زمان چاپ"
@@ -9050,9 +8986,10 @@ msgstr "زمان چاپ"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5907
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5555
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5860
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at time"
 msgstr "چاپ در زمان مشخص"
@@ -9064,19 +9001,21 @@ msgstr "چاپ در زمان مشخص"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5955
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5597
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5907
+>>>>>>> origin/4-14-backports
 #, c-format
 msgid "Custom %s×%s"
 msgstr "سفارشی %s×%s"
 
-<<<<<<< HEAD
 #. TRANSLATORS: this is the ICC color profile to use for this job
+<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6067
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5706
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6018
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Printer Profile"
 msgstr "نماگر چاپگر"
@@ -9084,9 +9023,10 @@ msgstr "نماگر چاپگر"
 #. TRANSLATORS: this is when color profile information is unavailable
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6074
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5713
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6025
+>>>>>>> origin/4-14-backports
 msgctxt "printer option value"
 msgid "Unavailable"
 msgstr "خارج از دسترس"
@@ -15323,7 +15263,6 @@ msgstr ""
 #~ msgstr "2000"
 
 #~ msgid ""
-<<<<<<< HEAD
 #~ "The folder could not be created, as a file with the same name already exists.  "
 #~ "Try using a different name for the folder, or rename the file first."
 #~ msgstr ""
@@ -15911,8 +15850,6 @@ msgstr ""
 #~ msgstr "چاپ به چاپگر آزمایشی"
 
 #~ msgid ""
-=======
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #~ "The WGL_ARB_create_context extension needed to create core profiles is not "
 #~ "available"
 #~ msgstr "افزونه WGL_ARB_create_context برای ساخت نمای‌های هسته موجود نیست"
@@ -15931,13 +15868,10 @@ msgstr ""
 #~ msgstr "smb://foo.example.com, ssh://192.168.0.1"
 
 #~ msgid ""
-<<<<<<< HEAD
 #~ "The GLX_ARB_create_context_profile extension needed to create core profiles is "
 #~ "not available"
-=======
 #~ "The GLX_ARB_create_context_profile extension needed to create core profiles "
 #~ "is not available"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #~ msgstr ""
 #~ "افزونه GLX_ARB_create_context_profile که برای ساخت نمایه هسته لازم است، موجود "
 #~ "نیست"

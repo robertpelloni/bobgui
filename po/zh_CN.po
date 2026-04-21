@@ -1,12 +1,9 @@
 # Chinese (China) translation of BOBGUI.
 # converted from tranditional Chinese translation and modified (2003).
-<<<<<<< HEAD
 # Copyright (C) 2000-2021 BOBGUI's COPYRIGHT HOLDER
 # This file is distributed under the same license as the BOBGUI package.
-=======
 # Copyright (C) 2000-2018 GTK+'s COPYRIGHT HOLDER
 # This file is distributed under the same license as the GTK+ package.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 # 辛立仁 <hsin@med.cgu.edu.tw>, 2000.
 # Chih-Wei Huang <cwhuang@linux.org.tw>, 2000.
 # Abel Cheung <maddog@linux.org.hk>, 2001.
@@ -25,7 +22,6 @@
 # Tong Hui <tonghuix@gmail.com>, 2013, 2014.
 # Mingye Wang <arthur2e5@aosc.xyz>, 2015.
 # YunQiang Su <wzssyqa@gmail.com>, 2011, 2015.
-<<<<<<< HEAD
 # Boyuan Yang <073plan@gmail.com>, 2016, 2023.
 # Zamir SUN <sztsian@gmail.com>, 2016.
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015, 2016, 2017, 2018.
@@ -35,10 +31,15 @@
 #
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: bobgui master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bobgui/-/issues/\n"
 "POT-Creation-Date: 2026-03-06 19:34+0000\n"
 "PO-Revision-Date: 2026-03-07 10:30+0800\n"
+"Project-Id-Version: gtk master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gtk/-/issues/\n"
+"POT-Creation-Date: 2024-04-14 11:22+0000\n"
+"PO-Revision-Date: 2024-04-18 10:13+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 =======
 # Boyuan Yang <073plan@gmail.com>, 2016.
@@ -62,9 +63,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 <<<<<<< HEAD
 "X-Generator: Gtranslator 49.0\n"
-=======
 "X-Generator: Gtranslator 2.91.7\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+"X-Generator: Poedit 3.4.2\n"
+>>>>>>> origin/4-14-backports
 
 #: gdk/android/gdkandroidclipboard.c:174
 msgid "No compatible formats to transfer contents of content provider."
@@ -83,7 +85,6 @@ msgstr "未找到兼容传输格式"
 msgid "Broadway display type not supported: %s"
 msgstr "不支持 broadway 显示类型：%s"
 
-<<<<<<< HEAD
 #: gdk/gdkclipboard.c:232
 msgid "This clipboard cannot store data."
 msgstr "剪贴板无法存放数据。"
@@ -92,7 +93,9 @@ msgstr "剪贴板无法存放数据。"
 msgid "Cannot read from empty clipboard."
 msgstr "无法读取空剪贴板。"
 
+<<<<<<< HEAD
 #: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1123 gdk/gdkdrag.c:606
+#: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1136 gdk/gdkdrag.c:606
 msgid "No compatible formats to transfer clipboard contents."
 msgstr "无兼容格式可用于传输剪贴板内容。"
 
@@ -104,16 +107,12 @@ msgstr "无兼容格式可用于传输剪贴板内容。"
 msgid "cicp: Unspecified parameters not supported"
 msgstr "cicp：不支持未指定的参数"
 
-<<<<<<< HEAD
 #: gdk/gdkcolorstate.c:1096
-=======
 #: gdk/gdk.c:202
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "cicp: Transfer function %u not supported"
 msgstr "cicp：不支持传输函数 %u"
 
-<<<<<<< HEAD
 #: gdk/gdkcolorstate.c:1127
 #, c-format
 msgid "cicp: Color primaries %u not supported"
@@ -135,6 +134,7 @@ msgstr "无法以“%s”提供内容"
 msgid "Cannot provide contents as %s"
 msgstr "无法以 %s 提供内容"
 
+<<<<<<< HEAD
 #: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:472
 msgid "The current backend does not support OpenGL"
 msgstr "当前后端不支持 OpenGL"
@@ -142,6 +142,13 @@ msgstr "当前后端不支持 OpenGL"
 #: gdk/gdkdisplay.c:1365 gdk/gdkvulkancontext.c:1966
 msgid "Vulkan support disabled via GDK_DISABLE"
 msgstr "已通过 GDK_DISABLE 禁用 Vulkan 支持"
+#: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:464
+msgid "The current backend does not support OpenGL"
+msgstr "当前后端不支持 OpenGL"
+
+#: gdk/gdkdisplay.c:1315 gdk/gdkvulkancontext.c:1600
+msgid "Vulkan support disabled via GDK_DEBUG"
+msgstr "已通过 GDK_DEBUG 停用 Vulkan 支持"
 
 #: gdk/gdkdisplay.c:1415
 msgid "OpenGL support disabled via GDK_DISABLE"
@@ -164,6 +171,23 @@ msgid "No perfect EGL configuration found"
 msgstr "未找到完全符合的 EGL 配置"
 
 #: gdk/gdkdisplay.c:1815
+#: gdk/gdkdisplay.c:1675
+msgid "No EGL configuration available"
+msgstr "没有可用的 EGL 配置"
+
+#: gdk/gdkdisplay.c:1683
+msgid "Failed to get EGL configurations"
+msgstr "获取 EGL 配置失败"
+
+#: gdk/gdkdisplay.c:1713
+msgid "No EGL configuration with required features found"
+msgstr "未找到带有所需功能的 EGL 配置"
+
+#: gdk/gdkdisplay.c:1720
+msgid "No perfect EGL configuration found"
+msgstr "未找到完全符合的 EGL 配置"
+
+#: gdk/gdkdisplay.c:1762
 #, c-format
 msgid "EGL implementation is missing extension %s"
 msgid_plural "EGL implementation is missing %2$d extensions: %1$s"
@@ -186,6 +210,23 @@ msgid "Could not initialize EGL display"
 msgstr "无法初始化 EGL 显示"
 
 #: gdk/gdkdisplay.c:1894
+#: gdk/gdkdisplay.c:1811
+msgid "libEGL not available in this sandbox"
+msgstr "libEGL 在此沙盒内不可用"
+
+#: gdk/gdkdisplay.c:1812
+msgid "libEGL not available"
+msgstr "libEGL 不可用"
+
+#: gdk/gdkdisplay.c:1822
+msgid "Failed to create EGL display"
+msgstr "创建 EGL 显示失败"
+
+#: gdk/gdkdisplay.c:1831
+msgid "Could not initialize EGL display"
+msgstr "无法初始化 EGL 显示"
+
+#: gdk/gdkdisplay.c:1841
 #, c-format
 msgid "EGL version %d.%d is too old. BOBGUI requires %d.%d"
 msgstr "EGL %d.%d 版太旧。BOBGUI 需要 %d.%d"
@@ -216,6 +257,25 @@ msgid "OpenGL API disabled via GDK_DISABLE"
 msgstr "已通过 GDK_DISABLE 禁用 OpenGL 接口"
 
 #: gdk/gdkglcontext.c:1463
+#: gdk/gdkglcontext.c:424 gdk/x11/gdkglcontext-glx.c:645
+msgid "No GL API allowed."
+msgstr "无允许的 GL API。"
+
+#: gdk/gdkglcontext.c:447 gdk/win32/gdkglcontext-win32-wgl.c:395
+#: gdk/win32/gdkglcontext-win32-wgl.c:538
+#: gdk/win32/gdkglcontext-win32-wgl.c:582 gdk/x11/gdkglcontext-glx.c:691
+msgid "Unable to create a GL context"
+msgstr "无法创建 GL 上下文"
+
+#: gdk/gdkglcontext.c:1310
+msgid "OpenGL ES disabled via GDK_DEBUG"
+msgstr "已通过 GDK_DEBUG 停用 OpenGL ES"
+
+#: gdk/gdkglcontext.c:1322
+msgid "OpenGL disabled via GDK_DEBUG"
+msgstr "已通过 GDK_DEBUG 停用 OpenGL"
+
+#: gdk/gdkglcontext.c:1333
 #, c-format
 msgid "Application does not support %s API"
 msgstr "应用程序不支持 %s API"
@@ -224,6 +284,7 @@ msgstr "应用程序不支持 %s API"
 #. * "Trying to use X11 GLX, but EGL is already in use"
 #.
 #: gdk/gdkglcontext.c:2259
+#: gdk/gdkglcontext.c:2123
 #, c-format
 msgid "Trying to use %s, but %s is already in use"
 msgstr "尝试使用 %s，但 %s 已在使用"
@@ -297,15 +358,12 @@ msgstr "当前后端不支持 OpenGL"
 #.
 #. * Translators, the strings in the 'keyboard label' context are
 #. * display names for keyboard keys. Some of them have prefixes like
-<<<<<<< HEAD
 #. * XF86 or ISO_ - these should be removed in the translation. Similarly,
 #. * underscores should be replaced by spaces. The prefix 'KP_' stands
 #. * for 'key pad' and you may want to include that in your translation.
-=======
 #. * XF86 or ISO_ — these should be removed in the translation. Similarly,
 #. * underscores should be replaced by spaces. The prefix “KP_” stands
 #. * for “key pad” and you may want to include that in your translation.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. * Here are some examples of English translations:
 #. * XF86AudioMute - Audio mute
 #. * Scroll_lock   - Scroll lock
@@ -376,20 +434,14 @@ msgctxt "keyboard label"
 msgid "Down"
 msgstr "下"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6874 bobgui/deprecated/bobguishortcutlabel.c:229
-=======
 #: gdk/keyname-table.h:6856 gtk/gtkshortcutlabel.c:222
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Page_Up"
 msgstr "Page Up"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6875 bobgui/deprecated/bobguishortcutlabel.c:232
-=======
 #: gdk/keyname-table.h:6857 gtk/gtkshortcutlabel.c:225
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Page_Down"
 msgstr "Page Down"
@@ -407,11 +459,8 @@ msgstr "Begin"
 #: gdk/keynamesprivate.h:6878
 msgctxt "keyboard label"
 msgid "Print"
-<<<<<<< HEAD
 msgstr "PrtSc"
-=======
 msgstr "Print"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/keynamesprivate.h:6879
 msgctxt "keyboard label"
@@ -423,13 +472,10 @@ msgctxt "keyboard label"
 msgid "Num_Lock"
 msgstr "Num Lock"
 
-<<<<<<< HEAD
 #. Translators: KP_ means 'key pad' here
 #: gdk/keynamesprivate.h:6882
-=======
 #. Translators: KP_ means “key pad” here
 #: gdk/keyname-table.h:6864
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "KP_Space"
 msgstr "空格（小键盘）"
@@ -669,115 +715,78 @@ msgctxt "keyboard label"
 msgid "ScreenSaver"
 msgstr "屏保"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6923
-=======
 #: gdk/keyname-table.h:6905
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Battery"
 msgstr "电池"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6924
-=======
 #: gdk/keyname-table.h:6906
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Launch1"
 msgstr "启动1"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6925
-=======
 #: gdk/keyname-table.h:6907
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Forward"
 msgstr "前进"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6926
-=======
 #: gdk/keyname-table.h:6908
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Back"
 msgstr "后退"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6927
-=======
 #: gdk/keyname-table.h:6909
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Sleep"
 msgstr "睡眠"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6928
-=======
 #: gdk/keyname-table.h:6910
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hibernate"
 msgstr "休眠"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6929
-=======
 #: gdk/keyname-table.h:6911
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WLAN"
 msgstr "无线局域网"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6930
-=======
 #: gdk/keyname-table.h:6912
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WebCam"
 msgstr "网络摄像头"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6931
-=======
 #: gdk/keyname-table.h:6913
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Display"
 msgstr "显示"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6932
-=======
 #: gdk/keyname-table.h:6914
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "TouchpadToggle"
 msgstr "触摸板开关"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6933
-=======
 #: gdk/keyname-table.h:6915
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WakeUp"
 msgstr "唤醒"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6934
-=======
 #: gdk/keyname-table.h:6916
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Suspend"
 msgstr "挂起"
 
-<<<<<<< HEAD
 #: gdk/loaders/gdkjpeg.c:71
 #, c-format
 msgid "Error interpreting JPEG image file (%s)"
@@ -974,7 +983,6 @@ msgstr "指定的像素格式没有可用的设置"
 #: gdk/win32/gdkhdataoutputstream-win32.c:64
 msgid "writing a closed stream"
 msgstr "正在写入到已关闭的流"
-=======
 #: gdk/mir/gdkmirglcontext.c:48 gdk/mir/gdkmirwindowimpl.c:2226
 #: gdk/wayland/gdkglcontext-wayland.c:468 gdk/win32/gdkglcontext-win32.c:814
 #: gdk/x11/gdkglcontext-x11.c:1274
@@ -997,13 +1005,11 @@ msgstr "指定的像素格式没有可用的设置"
 #: gdk/mir/gdkmirwindowimpl.c:2234
 msgid "3.2 core GL profile is not available on EGL implementation"
 msgstr "3.2 核心 GL 配置文件在 EGL 实现中不可用"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:86
 msgid "g_try_realloc () failed"
 msgstr "g_try_realloc () 失败"
 
-<<<<<<< HEAD
 #: gdk/win32/gdkhdataoutputstream-win32.c:94
 #: gdk/win32/gdkhdataoutputstream-win32.c:233
 msgid "GlobalReAlloc() failed: "
@@ -1018,7 +1024,6 @@ msgid "Can’t transmute a single handle"
 msgstr "无法转变单一句柄"
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:217
-=======
 #: gdk/wayland/gdkglcontext-wayland.c:476
 msgid "Core GL is not available on EGL implementation"
 msgstr "核心 GL 在 EGL 实现中无法使用"
@@ -1054,7 +1059,6 @@ msgid "COLORS"
 msgstr "颜色"
 
 #: gdk/x11/gdkapplaunchcontext-x11.c:295
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Failed to transmute %zu bytes of data from %s to %u"
 msgstr "无法将 %zu 字节的 %s 数据转变为 %u"
@@ -1083,7 +1087,6 @@ msgid "Opening %d Item"
 msgid_plural "Opening %d Items"
 msgstr[0] "打开 %d 项"
 
-<<<<<<< HEAD
 #: gdk/x11/gdkclipboard-x11.c:475
 msgid "Clipboard manager could not store selection."
 msgstr "剪贴板管理器无法存储选择。"
@@ -1105,14 +1108,11 @@ msgid "GLX is not supported"
 msgstr "不支持 GLX"
 
 #: gdk/x11/gdkselectioninputstream-x11.c:467
-=======
 #: gdk/x11/gdkglcontext-x11.c:996
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Format %s not supported"
 msgstr "不支持 %s 格式"
 
-<<<<<<< HEAD
 #: gdk/x11/gdktextlistconverter-x11.c:67 gdk/x11/gdktextlistconverter-x11.c:107
 msgid "Not enough space in destination"
 msgstr "目标位置空间不足"
@@ -1120,12 +1120,10 @@ msgstr "目标位置空间不足"
 #: gdk/x11/gdktextlistconverter-x11.c:93 gdk/x11/gdktextlistconverter-x11.c:197
 msgid "Need complete input to do conversion"
 msgstr "转换需要完整输入"
-=======
 #: gtk/a11y/gtkbooleancellaccessible.c:43
 msgctxt "Action description"
 msgid "Toggles the cell"
 msgstr "开/关该单元"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/x11/gdktextlistconverter-x11.c:218
 #: gdk/x11/gdktextlistconverter-x11.c:252
@@ -1142,6 +1140,12 @@ msgid "Unsupported encoding “%s”"
 msgstr "不支持的编码“%s”"
 
 #: gsk/gpu/gskgldevice.c:258
+#: gsk/gl/gskglrenderer.c:204
+#, c-format
+msgid "This GLES %d.%d implementation does not support half-float vertex data"
+msgstr "该 GLES %d.%d 实现不支持半浮点顶点数据"
+
+#: gsk/gpu/gskgldevice.c:246
 #, c-format
 msgid "OpenGL ES 3.0 is not supported by this renderer."
 msgstr "此渲染器不支持 OpenGL ES 3.0。"
@@ -1169,7 +1173,6 @@ msgctxt "accessibility"
 msgid "Toggle"
 msgstr "开关"
 
-<<<<<<< HEAD
 #: bobgui/a11y/bobguiatspiaction.c:340
 msgctxt "accessibility"
 msgid "Toggles the switch"
@@ -1182,7 +1185,6 @@ msgstr "选择"
 
 #: bobgui/a11y/bobguiatspiaction.c:422
 msgctxt "accessibility"
-=======
 #: gtk/a11y/gtkcellaccessible.c:257
 msgctxt "Action name"
 msgid "Edit"
@@ -1221,7 +1223,6 @@ msgstr "自定义"
 
 #: gtk/a11y/gtkcolorswatchaccessible.c:161
 msgctxt "Action description"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Selects the color"
 msgstr "选择颜色"
 
@@ -1247,10 +1248,8 @@ msgctxt "accessibility"
 msgid "Customizes the color"
 msgstr "自定义颜色"
 
-<<<<<<< HEAD
 #: bobgui/a11y/bobguiatspiaction.c:491
 msgctxt "accessibility"
-=======
 #: gtk/a11y/gtkcomboboxaccessible.c:310
 msgctxt "Action name"
 msgid "Press"
@@ -1268,7 +1267,6 @@ msgstr "激活入口"
 
 #: gtk/a11y/gtkexpanderaccessible.c:290
 msgctxt "Action description"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Activates the expander"
 msgstr "激活扩展器"
 
@@ -1403,7 +1401,6 @@ msgstr "其他应用"
 #. This label is displayed in a treeview cell displaying
 #. * a disabled accelerator key combination.
 #.
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicellrendereraccel.c:294
 msgctxt "Accelerator"
 msgid "Disabled"
@@ -1429,7 +1426,6 @@ msgstr "新建快捷键…"
 #: bobgui/deprecated/bobguicellrendererprogress.c:132
 #: bobgui/deprecated/bobguicellrendererprogress.c:322
 #: bobgui/deprecated/bobguicellrendererprogress.c:352
-=======
 #: gtk/a11y/gtkimageaccessible.c:53 gtk/deprecated/gtkstock.c:341
 msgctxt "Stock label"
 msgid "_About"
@@ -2069,13 +2065,11 @@ msgstr "字体选择"
 #. * in the number emblem.
 #.
 #: gtk/deprecated/gtknumerableicon.c:473
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "progress bar label"
 msgid "%d %%"
 msgstr "%d %%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicolorbutton.c:186 bobgui/deprecated/bobguicolorbutton.c:317
 #: bobgui/bobguicolordialog.c:409
 msgid "Pick a Color"
@@ -2089,7 +2083,6 @@ msgstr "红 %d%%，绿 %d%%，蓝 %d%%，透明度 %d%%"
 
 #: bobgui/deprecated/bobguicolorbutton.c:514 bobgui/bobguicolorchooserwidget.c:329
 #: bobgui/bobguicolordialogbutton.c:347
-=======
 #: gtk/deprecated/gtkstock.c:343
 msgctxt "Stock label"
 msgid "_Apply"
@@ -2205,20 +2198,16 @@ msgid "Unexpected start tag '%s' on line %d char %d"
 msgstr "在第 %2$d 行第 %3$d 个字符处有未预期的开始标签“%1$s”"
 
 #: gtk/deprecated/gtkuimanager.c:1866
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "红 %d%%，绿 %d%%，蓝 %d%%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguifontbutton.c:399
 msgid "Sans 12"
 msgstr "Sans 12"
-=======
 #: gtk/deprecated/gtkuimanager.c:2703
 msgid "Empty"
 msgstr "空"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/deprecated/bobguifontbutton.c:510 bobgui/deprecated/bobguifontbutton.c:627
 #: bobgui/bobguifontdialog.c:590
@@ -2227,6 +2216,8 @@ msgstr "选择字体"
 
 #: bobgui/deprecated/bobguifontbutton.c:603 bobgui/bobguifilechooserwidget.c:3850
 #: bobgui/bobguifontdialogbutton.c:128 bobgui/inspector/visual.ui:360
+#: gtk/deprecated/gtkfontbutton.c:600 gtk/gtkfilechooserwidget.c:3815
+#: gtk/gtkfontdialogbutton.c:126 gtk/inspector/visual.ui:285
 msgid "Font"
 msgstr "字体"
 
@@ -2290,17 +2281,14 @@ msgctxt "volume percentage"
 msgid "%d %%"
 msgstr "%d %%"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:127 bobgui/ui/bobguiaboutdialog.ui:173
 #: bobgui/ui/bobguiaboutdialog.ui:192
 msgid "License"
 msgstr "许可"
-=======
 #: gtk/encodesymbolic.c:279 gtk/gtk-builder-tool.c:671
 #, c-format
 msgid "Can't load file: %s\n"
 msgstr "不能加载文件：%s\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/bobguiaboutdialog.c:128
 msgid "Custom License"
@@ -2399,12 +2387,10 @@ msgstr "翻译："
 msgid "Design by"
 msgstr "设计："
 
-<<<<<<< HEAD
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
 #: bobgui/bobguiaboutdialog.c:2348
-=======
 #: gtk/gtkaboutdialog.c:114 gtk/ui/gtkaboutdialog.ui:206
 msgid "License"
 msgstr "许可"
@@ -2512,17 +2498,13 @@ msgstr "美工："
 #. * contains the name of the license as link text.
 #.
 #: gtk/gtkaboutdialog.c:2490
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"%s\">%s</a> for details."
 msgstr ""
-<<<<<<< HEAD
 "本程序不作任何担保。\n"
-=======
 "本程序不含任何担保。\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 "详情见 <a href=\"%s\">%s</a>。"
 
 #. This is the text that should appear next to menu accelerators
@@ -2530,13 +2512,10 @@ msgstr ""
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:846 bobgui/deprecated/bobguishortcutlabel.c:103
 #: bobgui/deprecated/bobguishortcutlabel.c:139
-=======
 #: gtk/gtkaccellabel.c:181 gtk/gtkshortcutlabel.c:102
 #: gtk/gtkshortcutlabel.c:138
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Shift"
 msgstr "Shift"
@@ -2546,13 +2525,10 @@ msgstr "Shift"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:865 bobgui/deprecated/bobguishortcutlabel.c:106
 #: bobgui/deprecated/bobguishortcutlabel.c:141
-=======
 #: gtk/gtkaccellabel.c:187 gtk/gtkshortcutlabel.c:105
 #: gtk/gtkshortcutlabel.c:140
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Ctrl"
 msgstr "Ctrl"
@@ -2562,13 +2538,10 @@ msgstr "Ctrl"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:884 bobgui/deprecated/bobguishortcutlabel.c:109
 #: bobgui/deprecated/bobguishortcutlabel.c:143
-=======
 #: gtk/gtkaccellabel.c:193 gtk/gtkshortcutlabel.c:108
 #: gtk/gtkshortcutlabel.c:142
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Alt"
 msgstr "Alt"
@@ -2578,13 +2551,10 @@ msgstr "Alt"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:902 bobgui/deprecated/bobguishortcutlabel.c:115
 #: bobgui/deprecated/bobguishortcutlabel.c:145
-=======
 #: gtk/gtkaccellabel.c:845 gtk/gtkshortcutlabel.c:114
 #: gtk/gtkshortcutlabel.c:152
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Super"
 msgstr "Super"
@@ -2594,13 +2564,10 @@ msgstr "Super"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:916 bobgui/deprecated/bobguishortcutlabel.c:118
 #: bobgui/deprecated/bobguishortcutlabel.c:147
-=======
 #: gtk/gtkaccellabel.c:858 gtk/gtkshortcutlabel.c:117
 #: gtk/gtkshortcutlabel.c:154
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hyper"
 msgstr "Hyper"
@@ -2610,18 +2577,14 @@ msgstr "Hyper"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:931 bobgui/deprecated/bobguishortcutlabel.c:112
 #: bobgui/deprecated/bobguishortcutlabel.c:150
-=======
 #: gtk/gtkaccellabel.c:872 gtk/gtkshortcutlabel.c:111
 #: gtk/gtkshortcutlabel.c:156
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Meta"
 msgstr "Meta"
 
-<<<<<<< HEAD
 #. Translators: "KP" means "numeric key pad". This string will
 #. * be used in accelerators such as "Ctrl+Shift+KP 1" in menus,
 #. * and therefore the translation needs to be very short.
@@ -2632,23 +2595,17 @@ msgid "KP"
 msgstr "小键盘"
 
 #: bobgui/bobguiaccelgroup.c:958
-=======
 #: gtk/gtkaccellabel.c:889
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Space"
 msgstr "空格"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:961 bobgui/deprecated/bobguishortcutlabel.c:178
-=======
 #: gtk/gtkaccellabel.c:892 gtk/gtkshortcutlabel.c:181
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Backslash"
 msgstr "反斜杠 (\\)"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccessible.c:837
 msgctxt "accessibility"
 msgid "alert"
@@ -2718,7 +2675,6 @@ msgstr "文档"
 msgctxt "accessibility"
 msgid "feed"
 msgstr "源"
-=======
 #: gtk/gtkappchooserbutton.c:295
 msgid "Other application…"
 msgstr "其他应用程序…"
@@ -2783,7 +2739,6 @@ msgstr "其他应用程序"
 #: gtk/gtkprintoperation-win32.c:1453 gtk/inspector/prop-editor.c:1686
 msgid "Application"
 msgstr "应用程序"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/bobguiaccessible.c:851
 msgctxt "accessibility"
@@ -3177,7 +3132,6 @@ msgstr "元素 <%s> 不允许位于顶层"
 msgid "Text may not appear inside <%s>"
 msgstr "文本不能出现在 <%s> 内部"
 
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:612
 msgid "Previous Month"
 msgstr "上个月"
@@ -3201,7 +3155,6 @@ msgstr "下一年"
 #: bobgui/bobguicalendar.c:697
 msgid "calendar:week_start:0"
 msgstr "calendar:week_start:1"
-=======
 #: gtk/gtk-builder-tool.c:124
 #, c-format
 msgid "Packing property %s::%s not found\n"
@@ -3265,7 +3218,6 @@ msgstr ""
 "  --css=文件         使用 CSS 文件中的样式\n"
 "\n"
 "此命令可以对 GtkBuilder 的 .ui 文件执行各种操作。\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to calendar:YM if you want years to be displayed
 #. * before months; otherwise translate to calendar:MY.
@@ -3277,12 +3229,10 @@ msgstr ""
 #. * text direction of RTL and specify "calendar:YM", then the year
 #. * will appear to the right of the month.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:848
 msgid "calendar:MY"
 msgstr "calendar:YM"
 
-=======
 #: gtk/gtkcalendar.c:815
 msgid "calendar:MY"
 msgstr "calendar:YM"
@@ -3305,7 +3255,6 @@ msgctxt "year measurement template"
 msgid "2000"
 msgstr "2000"
 
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. Translators: this defines whether the day numbers should use
 #. * localized digits or the ones used in English (0123...).
 #. *
@@ -3316,11 +3265,8 @@ msgstr "2000"
 #. * digits. That needs support from your system and locale definition
 #. * too.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1029
-=======
 #: gtk/gtkcalendar.c:1912 gtk/gtkcalendar.c:2608
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:day:digits"
 msgid "%d"
@@ -3345,20 +3291,15 @@ msgstr "%Y"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1179
-=======
 #.
 #: gtk/gtkcalendar.c:1944 gtk/gtkcalendar.c:2474
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:week:digits"
 msgid "%d"
 msgstr "%d"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorchooserwidget.c:386 bobgui/bobguicoloreditor.c:171
-=======
 #. Translators: This dictates how the year is displayed in
 #. * gtkcalendar widget.  See strftime() manual for the format.
 #. * Use only ASCII in the translation.
@@ -3419,7 +3360,6 @@ msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "红 %d%%，绿 %d%%，蓝 %d%%"
 
 #: gtk/gtkcolorchooserwidget.c:387
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Color: %s"
 msgstr "颜色：%s"
@@ -3663,11 +3603,9 @@ msgstr "添加颜色"
 msgid "Custom color %d: %s"
 msgstr "自定义颜色 %d：%s"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorswatch.c:230
 msgid "Customize"
 msgstr "自定义"
-=======
 #: gtk/gtkcolorplane.c:409
 msgid "Color Plane"
 msgstr "调色板"
@@ -3685,7 +3623,6 @@ msgstr "透明度"
 #: gtk/gtkcolorswatch.c:360
 msgid "C_ustomize"
 msgstr "自定义(_U)"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to the default units to use for presenting
 #. * lengths to the user. Translate to default:inch if you
@@ -3702,11 +3639,8 @@ msgid "Margins from Printer…"
 msgstr "打印机边距…"
 
 #. And show the custom paper dialog
-<<<<<<< HEAD
 #: bobgui/print/bobguicustompaperunixdialog.c:377 bobgui/print/bobguiprintunixdialog.c:2952
-=======
 #: gtk/gtkcustompaperunixdialog.c:405 gtk/gtkprintunixdialog.c:3336
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Manage Custom Sizes"
 msgstr "管理自定义大小"
 
@@ -3720,15 +3654,12 @@ msgstr "英寸"
 msgid "mm"
 msgstr "毫米"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguicustompaperunixdialog.c:598
-=======
 #: gtk/gtkcustompaperunixdialog.c:615
 msgid "Margins from Printer…"
 msgstr "打印机边距…"
 
 #: gtk/gtkcustompaperunixdialog.c:781
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Custom Size %d"
 msgstr "自定义大小 %d"
@@ -3765,7 +3696,6 @@ msgstr "右(_R)："
 msgid "Paper Margins"
 msgstr "纸张边距"
 
-<<<<<<< HEAD
 #: bobgui/bobguieditablelabel.c:170 bobgui/ui/bobguiapplication-quartz.ui:50
 msgid "_Edit"
 msgstr "编辑(_E)"
@@ -3872,7 +3802,6 @@ msgid "The session bus is not available"
 msgstr "该会话总线不可用"
 
 #: bobgui/bobguifilechoosernativequartz.c:348 bobgui/ui/bobguifilechooserwidget.ui:299
-=======
 #: gtk/gtkentry.c:9564 gtk/gtklabel.c:6680 gtk/gtktextview.c:9491
 msgid "Cu_t"
 msgstr "剪切(_T)"
@@ -3954,7 +3883,6 @@ msgid "_Save"
 msgstr "保存(_S)"
 
 #: gtk/gtkfilechoosernativequartz.c:331 gtk/ui/gtkfilechooserwidget.ui:392
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Select which types of files are shown"
 msgstr "选择要显示的文件类型"
 
@@ -3962,16 +3890,12 @@ msgstr "选择要显示的文件类型"
 #. * is a hostname. Nautilus and the panel contain the same string
 #. * to translate.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserutils.c:365
-=======
 #: gtk/gtkfilechooserutils.c:505
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "%1$s on %2$s"
 msgstr "%2$s 上的 %1$s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:365
 msgid "Type name of new folder"
 msgstr "输入新建文件夹的名称"
@@ -3985,7 +3909,6 @@ msgid "You need to choose a valid filename."
 msgstr "您应选择一个有效的文件名。"
 
 #: bobgui/bobguifilechooserwidget.c:768
-=======
 #: gtk/gtkfilechooserwidget.c:369
 msgid "Type name of new folder"
 msgstr "输入新建文件夹的名称"
@@ -4007,12 +3930,10 @@ msgid "You need to choose a valid filename."
 msgstr "您应选择一个有效的文件名。"
 
 #: gtk/gtkfilechooserwidget.c:819
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot create a file under %s as it is not a folder"
 msgstr "无法在 %s 下创建文件，因为它不是一个文件夹"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:778
 msgid "Cannot create file as the filename is too long"
 msgstr "无法创建文件，文件名太长"
@@ -4046,7 +3967,6 @@ msgid "The file could not be moved to the Trash"
 msgstr "无法将文件移动到回收站"
 
 #: bobgui/bobguifilechooserwidget.c:1247
-=======
 #: gtk/gtkfilechooserwidget.c:829
 msgid "Cannot create file as the filename is too long"
 msgstr "无法创建文件，文件名太长"
@@ -4136,18 +4056,19 @@ msgid "File names starting with a “.” are hidden"
 msgstr "名称以“.”开头的文件为隐藏文件"
 
 #: gtk/gtkfilechooserwidget.c:1471
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Are you sure you want to permanently delete “%s”?"
 msgstr "确定要永久删除“%s”吗？"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1248
 msgid "If you delete an item, it will be permanently lost."
 msgstr "如果您删除一个项目，它将永久丢失。"
 
+<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1249 bobgui/bobguifilechooserwidget.c:1848
 #: bobgui/bobguilabel.c:5951 bobgui/bobguitext.c:6390 bobgui/bobguitextview.c:9390
+#: gtk/gtkfilechooserwidget.c:1188 gtk/gtkfilechooserwidget.c:1786
+#: gtk/gtklabel.c:5712 gtk/gtktext.c:6194 gtk/gtktextview.c:9099
 msgid "_Delete"
 msgstr "删除(_D)"
 
@@ -4264,35 +4185,28 @@ msgid "Home"
 msgstr "主目录"
 
 #. this is the header for the location column in the print dialog
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2228 bobgui/bobguifilechooserwidget.c:7465
 #: bobgui/inspector/css-node-tree.ui:76 bobgui/print/ui/bobguiprintunixdialog.ui:111
-=======
 #: gtk/gtkfilechooserwidget.c:2559 gtk/inspector/css-node-tree.ui:141
 #: gtk/ui/gtkfilechooserwidget.ui:207 gtk/ui/gtkprintunixdialog.ui:123
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Location"
 msgstr "位置"
 
 #. Label
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2335
 msgid "_Name:"
 msgstr "名称(_N)："
 
 #: bobgui/bobguifilechooserwidget.c:2892 bobgui/bobguifilechooserwidget.c:2906
-=======
 #: gtk/gtkfilechooserwidget.c:2652
 msgid "_Name:"
 msgstr "名称(_N)："
 
 #: gtk/gtkfilechooserwidget.c:3277 gtk/gtkfilechooserwidget.c:3291
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Searching in %s"
 msgstr "正在 %s 内搜索"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2912
 msgid "Searching"
 msgstr "正在搜索"
@@ -4307,7 +4221,6 @@ msgid "Modified"
 msgstr "修改日期"
 
 #: bobgui/bobguifilechooserwidget.c:3662
-=======
 #: gtk/gtkfilechooserwidget.c:3297
 msgid "Searching"
 msgstr "正在搜索"
@@ -4326,12 +4239,10 @@ msgid "Modified"
 msgstr "修改日期"
 
 #: gtk/gtkfilechooserwidget.c:4618
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Could not read the contents of %s"
 msgstr "无法读取 %s 的内容"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3666
 msgid "Could not read the contents of the folder"
 msgstr "无法获得该文件夹的内容"
@@ -4411,7 +4322,6 @@ msgid "You do not have access to the specified folder."
 msgstr "您没有访问指定文件夹的权限。"
 
 #: bobgui/bobguifilechooserwidget.c:5025 bobgui/print/bobguiprintunixdialog.c:674
-=======
 #: gtk/gtkfilechooserwidget.c:4622
 msgid "Could not read the contents of the folder"
 msgstr "无法获得该文件夹的内容"
@@ -4452,22 +4362,17 @@ msgid "Cannot change to folder because it is not local"
 msgstr "无法更改为文件夹，因为该文件夹并非本地"
 
 #: gtk/gtkfilechooserwidget.c:6323 gtk/gtkprintunixdialog.c:664
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "已经存在名为“%s”的文件。您想要替换它吗？"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5027 bobgui/print/bobguiprintunixdialog.c:678
-=======
 #: gtk/gtkfilechooserwidget.c:6326 gtk/gtkprintunixdialog.c:668
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "The file already exists in “%s”.  Replacing it will overwrite its contents."
 msgstr "文件已经在“%s”中了。替换该文件将覆盖它的内容。"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5033 bobgui/print/bobguiprintunixdialog.c:686
 msgid "_Replace"
 msgstr "替换(_R)"
@@ -4492,10 +4397,15 @@ msgstr "类型(_Y)"
 msgid "_Time"
 msgstr "时间(_T)"
 
+<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:7457 bobgui/bobguiplacessidebar.c:2306
 #: bobgui/inspector/a11y.ui:43 bobgui/inspector/actions.ui:18
 #: bobgui/inspector/css-node-tree.ui:22 bobgui/inspector/prop-list.ui:24
 #: bobgui/ui/bobguifilechooserwidget.ui:394 bobgui/print/ui/bobguiprintunixdialog.ui:80
+#: gtk/gtkfilechooserwidget.c:7375 gtk/gtkplacessidebar.c:2306
+#: gtk/inspector/a11y.ui:43 gtk/inspector/actions.ui:18
+#: gtk/inspector/css-node-tree.ui:22 gtk/inspector/prop-list.ui:24
+#: gtk/ui/gtkfilechooserwidget.ui:385 gtk/print/ui/gtkprintunixdialog.ui:80
 msgid "Name"
 msgstr "名称"
 
@@ -4649,6 +4559,19 @@ msgid "_Paste"
 msgstr "粘贴(_P)"
 
 #: bobgui/bobguilabel.c:5956 bobgui/bobguitext.c:6399 bobgui/bobguitextview.c:9411
+#: gtk/gtklabel.c:5709 gtk/gtktext.c:6182 gtk/gtktextview.c:9087
+msgid "Cu_t"
+msgstr "剪切(_T)"
+
+#: gtk/gtklabel.c:5710 gtk/gtktext.c:6186 gtk/gtktextview.c:9091
+msgid "_Copy"
+msgstr "复制(_C)"
+
+#: gtk/gtklabel.c:5711 gtk/gtktext.c:6190 gtk/gtktextview.c:9095
+msgid "_Paste"
+msgstr "粘贴(_P)"
+
+#: gtk/gtklabel.c:5717 gtk/gtktext.c:6203 gtk/gtktextview.c:9120
 msgid "Select _All"
 msgstr "全选(_A)"
 
@@ -4661,6 +4584,11 @@ msgid "Copy _Link Address"
 msgstr "复制链接地址(_L)"
 
 #: bobgui/bobguilinkbutton.c:276
+#: gtk/gtklabel.c:5770 gtk/gtktext.c:2723 gtk/gtktextview.c:9169
+msgid "Context menu"
+msgstr "右键菜单"
+
+#: gtk/gtklinkbutton.c:260
 msgid "_Copy URL"
 msgstr "复制 URL(_C)"
 
@@ -5081,42 +5009,33 @@ msgstr "立即忘记密码(_I)"
 msgid "Remember password until you _logout"
 msgstr "注销前记住密码(_L)"
 
-<<<<<<< HEAD
 #: bobgui/bobguimountoperation.c:784
 msgid "Remember _forever"
 msgstr "永远记住(_F)"
 
 #: bobgui/bobguimountoperation.c:1256
-=======
 #: gtk/gtkmountoperation.c:704
 msgid "Remember _forever"
 msgstr "永远记住(_F)"
 
 #: gtk/gtkmountoperation.c:1093
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unknown Application (PID %d)"
 msgstr "未知应用程序(PID %d)"
 
-<<<<<<< HEAD
 #. Use BOBGUI_DIALOG_DESTROY_WITH_PARENT here since the parent dialog can be
 #. * indeed be destroyed via the GMountOperation::abort signal... for example,
 #. * this is triggered if the user yanks the device while we are showing
 #. * the dialog...
 #.
 #: bobgui/bobguimountoperation.c:1401
-=======
 #: gtk/gtkmountoperation.c:1278
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to end process"
 msgstr "无法结束进程"
 
-<<<<<<< HEAD
 #: bobgui/bobguimountoperation.c:1553
-=======
 #: gtk/gtkmountoperation.c:1312
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_End Process"
 msgstr "结束进程(_E)"
 
@@ -5126,7 +5045,6 @@ msgid "Cannot kill process with PID %d. Operation is not implemented."
 msgstr "不能杀死 PID %d 进程。操作未实现。"
 
 #. translators: this string is a name for the 'less' command
-<<<<<<< HEAD
 #: bobgui/bobguimountoperation-x11.c:990
 msgid "Terminal Pager"
 msgstr "终端阅读器"
@@ -5148,7 +5066,6 @@ msgid "Z Shell"
 msgstr "Z Shell (zsh)"
 
 #: bobgui/bobguimountoperation-x11.c:1094
-=======
 #: gtk/gtkmountoperation-x11.c:954
 msgid "Terminal Pager"
 msgstr "终端阅读器"
@@ -5170,12 +5087,10 @@ msgid "Z Shell"
 msgstr "Z Shell (zsh)"
 
 #: gtk/gtkmountoperation-x11.c:1055
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot end process with PID %d: %s"
 msgstr "无法结束 PID %d 的进程：%s"
 
-<<<<<<< HEAD
 #: bobgui/bobguinomediafile.c:48
 msgid "BOBGUI could not find a media module. Check your installation."
 msgstr "BOBGUI 找不到媒体模块。请检查安装完整性。"
@@ -5189,9 +5104,7 @@ msgid "Next tab"
 msgstr "下一个标签页"
 
 #: bobgui/bobguinotebook.c:4426 bobgui/bobguinotebook.c:6636
-=======
 #: gtk/gtknotebook.c:5121 gtk/gtknotebook.c:7386
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Page %u"
 msgstr "第 %u 页"
@@ -5233,7 +5146,6 @@ msgstr ""
 " 上：%s %s\n"
 " 下：%s %s"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguipagesetupunixdialog.c:787
 #: bobgui/print/ui/bobguipagesetupunixdialog.ui:5
 #: bobgui/print/ui/bobguiprintunixdialog.ui:783
@@ -5308,7 +5220,6 @@ msgstr "打开回收站"
 
 #: bobgui/bobguiplacessidebar.c:1181 bobgui/bobguiplacessidebar.c:1209
 #: bobgui/bobguiplacessidebar.c:1409
-=======
 #: gtk/gtkpagesetupunixdialog.c:878 gtk/gtkprintunixdialog.c:3390
 msgid "Manage Custom Sizes…"
 msgstr "管理自定义大小…"
@@ -5371,12 +5282,10 @@ msgstr "打开回收站"
 
 #: gtk/gtkplacessidebar.c:1248 gtk/gtkplacessidebar.c:1276
 #: gtk/gtkplacessidebar.c:1484
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Mount and open “%s”"
 msgstr "挂载并打开“%s”"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1304
 msgid "Open the contents of the file system"
 msgstr "打开文件系统内容"
@@ -5398,7 +5307,6 @@ msgid "Show other locations"
 msgstr "显示其他位置"
 
 #: bobgui/bobguiplacessidebar.c:1964 bobgui/bobguiplacessidebar.c:2984
-=======
 #: gtk/gtkplacessidebar.c:1364
 msgid "Open the contents of the file system"
 msgstr "打开文件系统内容"
@@ -5471,12 +5379,10 @@ msgid "_Lock Device"
 msgstr "锁定设备(_L)"
 
 #: gtk/gtkplacessidebar.c:2387 gtk/gtkplacessidebar.c:3363
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to start “%s”"
 msgstr "不能启动“%s”"
 
-<<<<<<< HEAD
 #. Translators: This means that unlocking an encrypted storage
 #. * device failed. %s is the name of the device.
 #.
@@ -5486,20 +5392,16 @@ msgid "Error unlocking “%s”"
 msgstr "解锁“%s”失败"
 
 #: bobgui/bobguiplacessidebar.c:2002
-=======
 #: gtk/gtkplacessidebar.c:2417
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to access “%s”"
 msgstr "不能访问“%s”"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2233
 msgid "This name is already taken"
 msgstr "此名称已被使用"
 
 #: bobgui/bobguiplacessidebar.c:2525
-=======
 #: gtk/gtkplacessidebar.c:2635
 msgid "This name is already taken"
 msgstr "此名称已被使用"
@@ -5511,48 +5413,34 @@ msgid "Name"
 msgstr "名称"
 
 #: gtk/gtkplacessidebar.c:2904
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to unmount “%s”"
 msgstr "不能卸载“%s”"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2701
-=======
 #: gtk/gtkplacessidebar.c:3080
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to stop “%s”"
 msgstr "不能停止“%s”"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2730
-=======
 #: gtk/gtkplacessidebar.c:3109
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject “%s”"
 msgstr "不能弹出“%s”"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2759 bobgui/bobguiplacessidebar.c:2788
-=======
 #: gtk/gtkplacessidebar.c:3138 gtk/gtkplacessidebar.c:3167
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject %s"
 msgstr "不能弹出 %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2936
-=======
 #: gtk/gtkplacessidebar.c:3315
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to poll “%s” for media changes"
 msgstr "无法轮询“%s”以获取媒体更改"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3155 bobgui/bobguiplacessidebar.c:3242
 #: bobgui/bobguiplacesview.c:1650
 msgid "Open in New _Tab"
@@ -5640,7 +5528,6 @@ msgid "Searching for network locations"
 msgstr "搜索网络位置"
 
 #: bobgui/bobguiplacesview.c:883
-=======
 #: gtk/gtkplacessidebar.c:3599 gtk/gtkplacessidebar.c:3665
 #: gtk/gtkplacesview.c:1639
 msgid "Open in New _Tab"
@@ -5688,39 +5575,28 @@ msgid "Searching for network locations"
 msgstr "搜索网络位置"
 
 #: gtk/gtkplacesview.c:901
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No network locations found"
 msgstr "未找到网络位置"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1197 bobgui/bobguiplacesview.c:1294
-=======
 #: gtk/gtkplacesview.c:1228 gtk/gtkplacesview.c:1303
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to access location"
 msgstr "不能访问位置"
 
 #. Restore from Cancel to Connect
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1215 bobgui/ui/bobguiplacesview.ui:237
-=======
 #: gtk/gtkplacesview.c:1246 gtk/ui/gtkplacesview.ui:449
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Con_nect"
 msgstr "连接(_N)"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1354
-=======
 #: gtk/gtkplacesview.c:1366
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to unmount volume"
 msgstr "不能卸载卷"
 
 #. Allow to cancel the operation
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1446
 msgid "Cance_l"
 msgstr "取消(_L)"
@@ -5781,7 +5657,6 @@ msgid "Networks"
 msgstr "网络"
 
 #: bobgui/bobguiplacesview.c:2039 bobgui/bobguiplacesview.c:2048
-=======
 #: gtk/gtkplacesview.c:1466
 msgid "Cance_l"
 msgstr "取消(_L)"
@@ -5803,7 +5678,6 @@ msgid "Networks"
 msgstr "网络"
 
 #: gtk/gtkplacesview.c:2013 gtk/gtkplacesview.c:2022
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "On This Computer"
 msgstr "在这台电脑上"
 
@@ -5811,17 +5685,13 @@ msgstr "在这台电脑上"
 #. * should be based on the free space available.
 #. * i.e. 1 GB / 24 GB available.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:135
-=======
 #: gtk/gtkplacesviewrow.c:134
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "%s / %s available"
 msgid_plural "%s / %s available"
 msgstr[0] "%s / %s 可用"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:471
 msgid "Disconnect"
 msgstr "断开连接"
@@ -5860,7 +5730,6 @@ msgstr "低"
 #.
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:521
 #: bobgui/print/backends/bobguiprintbackendcups.c:5861
-=======
 #: gtk/gtkplacesviewrow.c:481
 msgid "Disconnect"
 msgstr "断开连接"
@@ -5980,8 +5849,13 @@ msgid "Out of paper"
 msgstr "缺纸"
 
 #. Translators: this is a printer status.
+<<<<<<< HEAD
 #: gtk/gtkprintoperation-win32.c:621
 #: modules/printbackends/cups/gtkprintbackendcups.c:2596
+=======
+#: gtk/print/gtkprintoperation-win32.c:640
+#: modules/printbackends/gtkprintbackendcpdb.c:1533
+#: modules/printbackends/gtkprintbackendcups.c:2639
 msgid "Paused"
 msgstr "已暂停"
 
@@ -6085,6 +5959,43 @@ msgstr "从下到上，从左到右"
 
 #: gtk/gtkprintunixdialog.c:3122
 #: modules/printbackends/cups/gtkprintbackendcups.c:5437
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, top to bottom"
+msgstr "从左到右，从上到下"
+
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, bottom to top"
+msgstr "从左到右，从下到上"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, top to bottom"
+msgstr "从右到左，从上到下"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, bottom to top"
+msgstr "从右到左，从下到上"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, left to right"
+msgstr "从上到下，从左到右"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, right to left"
+msgstr "从上到下，从右到左"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
+msgid "Bottom to top, left to right"
+msgstr "从下到上，从左到右"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
 msgid "Bottom to top, right to left"
 msgstr "从下到上，从右到左"
 
@@ -6304,6 +6215,20 @@ msgid "OFF"
 msgstr "关闭"
 
 #: gtk/gtktextbufferrichtext.c:648
+#: gtk/gtktext.c:6208 gtk/gtktextview.c:9125
+msgid "Insert _Emoji"
+msgstr "插入表情符号(_E)"
+
+#: gtk/gtktextview.c:9107
+msgid "_Undo"
+msgstr "撤消(_U)"
+
+#: gtk/gtktextview.c:9111
+msgid "_Redo"
+msgstr "重做(_R)"
+
+# Chrome 那个叫检查元素，这个叫检查器也没什么问题吧。
+#: gtk/gtkwindow.c:6245
 #, c-format
 msgid "Unknown error when trying to deserialize %s"
 msgstr "试图反序列化 %s 时发生未知错误"
@@ -6597,6 +6522,15 @@ msgid "GTK+ Version"
 msgstr "GTK+ 版本"
 
 #: gtk/inspector/general.ui:68
+#: gtk/inspector/general.c:924
+msgid "IM Context is hardcoded by GTK_IM_MODULE"
+msgstr "输入法上下文由 GTK_IM_MODULE 硬编码"
+
+#: gtk/inspector/general.ui:31
+msgid "GTK Version"
+msgstr "GTK 版本"
+
+#: gtk/inspector/general.ui:57
 msgid "GDK Backend"
 msgstr "GDK 后端"
 
@@ -6726,6 +6660,9 @@ msgstr "帧率"
 #: gtk/inspector/misc-info.ui:579
 msgid "Accessible role"
 msgstr "辅助功能角色"
+#: gtk/inspector/misc-info.ui:527 gtk/inspector/visual.ui:315
+msgid "Scale"
+msgstr "缩放"
 
 #: gtk/inspector/misc-info.ui:613
 msgid "Accessible name"
@@ -6907,21 +6844,25 @@ msgid "Mode"
 msgstr "模式"
 
 #: gtk/inspector/size-groups.c:252
+#: gtk/inspector/size-groups.c:228
 msgctxt "sizegroup mode"
 msgid "None"
 msgstr "无"
 
 #: gtk/inspector/size-groups.c:253
+#: gtk/inspector/size-groups.c:229
 msgctxt "sizegroup mode"
 msgid "Horizontal"
 msgstr "水平"
 
 #: gtk/inspector/size-groups.c:254
+#: gtk/inspector/size-groups.c:230
 msgctxt "sizegroup mode"
 msgid "Vertical"
 msgstr "垂直"
 
 #: gtk/inspector/size-groups.c:255
+#: gtk/inspector/size-groups.c:231
 msgctxt "sizegroup mode"
 msgid "Both"
 msgstr "两者"
@@ -6929,6 +6870,9 @@ msgstr "两者"
 #: gtk/inspector/statistics.c:377
 msgid "GLib must be configured with --enable-debug"
 msgstr "GLib 必须用 --enable-debug 进行配置"
+#: gtk/inspector/size-groups.c:243
+msgid "Mode"
+msgstr "模式"
 
 #: gtk/inspector/statistics.ui:68
 msgid "Self 1"
@@ -6969,6 +6913,34 @@ msgstr "后端不支持窗口缩放"
 #: gtk/inspector/visual.c:726
 msgid "Setting is hardcoded by GTK_TEST_TOUCHSCREEN"
 msgstr "设置值由 GTK_TEST_TOUCHSCREEN 所设置"
+#: gtk/inspector/strv-editor.c:83
+#, c-format
+msgid "Remove %s"
+msgstr "删除 %s"
+
+#: gtk/inspector/strv-editor.c:115
+msgid "Add"
+msgstr "添加"
+
+#: gtk/inspector/tree-data.ui:10
+msgid "Show data"
+msgstr "显示数据"
+
+#: gtk/inspector/type-info.ui:14
+msgid "Hierarchy"
+msgstr "层级"
+
+#: gtk/inspector/type-info.ui:35
+msgid "Implements"
+msgstr "实现"
+
+#: gtk/inspector/visual.c:765 gtk/inspector/visual.c:784
+msgid "Theme is hardcoded by GTK_THEME"
+msgstr "主题由 GTK_THEME 控制"
+
+#: gtk/inspector/visual.ui:34
+msgid "GTK Theme"
+msgstr "GTK 主题"
 
 #: gtk/inspector/visual.c:791
 msgid ""
@@ -7094,6 +7066,115 @@ msgstr "已禁用"
 #: gtk/inspector/visual.ui:766
 msgid "Software GL"
 msgstr "软件 GL"
+#: gtk/inspector/visual.ui:169
+msgid "Text Direction"
+msgstr "文本方向"
+
+#: gtk/inspector/visual.ui:184
+msgid "Left-to-Right"
+msgstr "从左至右"
+
+#: gtk/inspector/visual.ui:185
+msgid "Right-to-Left"
+msgstr "从右至左"
+
+#: gtk/inspector/visual.ui:202
+msgid "Animations"
+msgstr "动画"
+
+#: gtk/inspector/visual.ui:227
+msgid "Slowdown"
+msgstr "减速"
+
+#: gtk/inspector/visual.ui:362
+msgid "Antialiasing"
+msgstr "抗锯齿"
+
+#: gtk/inspector/visual.ui:387
+msgid "Hinting"
+msgstr "微调"
+
+#: gtk/inspector/visual.ui:402
+msgctxt "Font hinting style"
+msgid "None"
+msgstr "无"
+
+#: gtk/inspector/visual.ui:403
+msgctxt "Font hinting style"
+msgid "Slight"
+msgstr "轻微"
+
+#: gtk/inspector/visual.ui:404
+msgctxt "Font hinting style"
+msgid "Medium"
+msgstr "中等"
+
+#: gtk/inspector/visual.ui:405
+msgctxt "Font hinting style"
+msgid "Full"
+msgstr "完全"
+
+#: gtk/inspector/visual.ui:422
+msgid "Metrics Hinting"
+msgstr "度量微调"
+
+#: gtk/inspector/visual.ui:457
+msgid "Show Framerate"
+msgstr "显示帧率"
+
+#: gtk/inspector/visual.ui:482
+msgid "Show Graphic Updates"
+msgstr "显示图形更新"
+
+#: gtk/inspector/visual.ui:502
+msgid ""
+"Tints all the places where the current renderer uses Cairo instead of the "
+"GPU."
+msgstr "为当前渲染器使用 Cairo 而不是 GPU 的所有位置进行着色。"
+
+#: gtk/inspector/visual.ui:508
+msgid "Show Cairo Rendering"
+msgstr "显示 Cairo 渲染"
+
+#: gtk/inspector/visual.ui:533
+msgid "Show Baselines"
+msgstr "显示基线"
+
+#: gtk/inspector/visual.ui:561
+msgid "Show Layout Borders"
+msgstr "显示布局边框"
+
+#: gtk/inspector/visual.ui:618
+msgid "CSS Padding"
+msgstr "CSS 填充"
+
+#: gtk/inspector/visual.ui:628
+msgid "CSS Border"
+msgstr "CSS 边框"
+
+#: gtk/inspector/visual.ui:638
+msgid "CSS Margin"
+msgstr "CSS 边距"
+
+#: gtk/inspector/visual.ui:648
+msgid "Widget Margin"
+msgstr "部件边距"
+
+#: gtk/inspector/visual.ui:683
+msgid "Show Focus"
+msgstr "显示焦点"
+
+#: gtk/inspector/visual.ui:708
+msgid "Show Accessibility warnings"
+msgstr "显示辅助功能警告"
+
+#: gtk/inspector/visual.ui:733
+msgid "Show Graphics Offload"
+msgstr "显示图形离屏渲染"
+
+#: gtk/inspector/visual.ui:765
+msgid "Inspect Inspector"
+msgstr "检阅本检查器"
 
 #: gtk/inspector/visual.ui:800
 msgid "Software Surfaces"
@@ -8657,6 +8738,72 @@ msgstr "写入目录索引失败\n"
 #, c-format
 msgid "Failed to rewrite header\n"
 msgstr "重写头失败\n"
+#: modules/printbackends/gtkprintbackendcpdb.c:542
+#: modules/printbackends/gtkprintbackendcups.c:5668
+msgctxt "Print job priority"
+msgid "Urgent"
+msgstr "紧急"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:543
+#: modules/printbackends/gtkprintbackendcups.c:5669
+msgctxt "Print job priority"
+msgid "High"
+msgstr "高"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:544
+#: modules/printbackends/gtkprintbackendcups.c:5670
+msgctxt "Print job priority"
+msgid "Medium"
+msgstr "中"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:545
+#: modules/printbackends/gtkprintbackendcups.c:5671
+msgctxt "Print job priority"
+msgid "Low"
+msgstr "低"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the front cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:567
+#: modules/printbackends/gtkprintbackendcups.c:5814
+msgctxt "printer option"
+msgid "Before"
+msgstr "封面"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the back cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:574
+#: modules/printbackends/gtkprintbackendcups.c:5829
+msgctxt "printer option"
+msgid "After"
+msgstr "封底"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:597
+msgid "Print at"
+msgstr "打印于"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:607
+msgid "Print at time"
+msgstr "在指定时间打印"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:670
+msgctxt "print option"
+msgid "Borderless"
+msgstr "无边框"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1530
+#: modules/printbackends/gtkprintbackendcups.c:2636
+msgid "Paused; Rejecting Jobs"
+msgstr "暂停，拒绝任务"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1536
+#: modules/printbackends/gtkprintbackendcups.c:2642
+msgid "Rejecting Jobs"
+msgstr "拒绝任务"
 
 #: gtk/updateiconcache.c:1502
 #, c-format
@@ -9017,49 +9164,60 @@ msgstr "；"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4380
 #: modules/printbackends/cups/gtkprintbackendcups.c:4447
+#: modules/printbackends/gtkprintbackendcups.c:4609
+#: modules/printbackends/gtkprintbackendcups.c:4676
 msgctxt "printing option"
 msgid "Two Sided"
 msgstr "双面"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4381
+#: modules/printbackends/gtkprintbackendcups.c:4610
 msgctxt "printing option"
 msgid "Paper Type"
 msgstr "纸张类型"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4382
+#: modules/printbackends/gtkprintbackendcups.c:4611
 msgctxt "printing option"
 msgid "Paper Source"
 msgstr "纸张来源"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4383
 #: modules/printbackends/cups/gtkprintbackendcups.c:4448
+#: modules/printbackends/gtkprintbackendcups.c:4612
+#: modules/printbackends/gtkprintbackendcups.c:4677
 msgctxt "printing option"
 msgid "Output Tray"
 msgstr "出纸器"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4384
+#: modules/printbackends/gtkprintbackendcups.c:4613
 msgctxt "printing option"
 msgid "Resolution"
 msgstr "分辨率"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4385
+#: modules/printbackends/gtkprintbackendcups.c:4614
 msgctxt "printing option"
 msgid "GhostScript pre-filtering"
 msgstr "GhostScript 预过滤"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4394
+#: modules/printbackends/gtkprintbackendcups.c:4623
 msgctxt "printing option value"
 msgid "One Sided"
 msgstr "单面"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4396
+#: modules/printbackends/gtkprintbackendcups.c:4625
 msgctxt "printing option value"
 msgid "Long Edge (Standard)"
 msgstr "长边（标准）"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4398
+#: modules/printbackends/gtkprintbackendcups.c:4627
 msgctxt "printing option value"
 msgid "Short Edge (Flip)"
 msgstr "短边（翻转）"
@@ -9068,6 +9226,9 @@ msgstr "短边（翻转）"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4400
 #: modules/printbackends/cups/gtkprintbackendcups.c:4402
 #: modules/printbackends/cups/gtkprintbackendcups.c:4410
+#: modules/printbackends/gtkprintbackendcups.c:4629
+#: modules/printbackends/gtkprintbackendcups.c:4631
+#: modules/printbackends/gtkprintbackendcups.c:4639
 msgctxt "printing option value"
 msgid "Auto Select"
 msgstr "自动选择"
@@ -9078,30 +9239,38 @@ msgstr "自动选择"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4406
 #: modules/printbackends/cups/gtkprintbackendcups.c:4408
 #: modules/printbackends/cups/gtkprintbackendcups.c:4412
+#: modules/printbackends/gtkprintbackendcups.c:4633
+#: modules/printbackends/gtkprintbackendcups.c:4635
+#: modules/printbackends/gtkprintbackendcups.c:4637
+#: modules/printbackends/gtkprintbackendcups.c:4641
 msgctxt "printing option value"
 msgid "Printer Default"
 msgstr "打印机默认"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4414
+#: modules/printbackends/gtkprintbackendcups.c:4643
 msgctxt "printing option value"
 msgid "Embed GhostScript fonts only"
 msgstr "只嵌入 GhostScript 字体"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4416
+#: modules/printbackends/gtkprintbackendcups.c:4645
 msgctxt "printing option value"
 msgid "Convert to PS level 1"
 msgstr "转换到 PS 1 级"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4418
+#: modules/printbackends/gtkprintbackendcups.c:4647
 msgctxt "printing option value"
 msgid "Convert to PS level 2"
 msgstr "转换到 PS 2 级"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4420
+#: modules/printbackends/gtkprintbackendcups.c:4649
 msgctxt "printing option value"
 msgid "No pre-filtering"
 msgstr "无预过滤"
@@ -9109,95 +9278,111 @@ msgstr "无预过滤"
 #. Translators: "Miscellaneous" is the label for a button, that opens
 #. up an extra panel of settings in a print dialog.
 #: modules/printbackends/cups/gtkprintbackendcups.c:4429
+#: modules/printbackends/gtkprintbackendcups.c:4658
 msgctxt "printing option group"
 msgid "Miscellaneous"
 msgstr "杂项"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4456
+#: modules/printbackends/gtkprintbackendcups.c:4685
 msgctxt "sides"
 msgid "One Sided"
 msgstr "单面"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4458
+#: modules/printbackends/gtkprintbackendcups.c:4687
 msgctxt "sides"
 msgid "Long Edge (Standard)"
 msgstr "长边（标准）"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4460
+#: modules/printbackends/gtkprintbackendcups.c:4689
 msgctxt "sides"
 msgid "Short Edge (Flip)"
 msgstr "短边（翻转）"
 
 #. Translators: Top output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4463
+#: modules/printbackends/gtkprintbackendcups.c:4692
 msgctxt "output-bin"
 msgid "Top Bin"
 msgstr "顶纸盒"
 
 #. Translators: Middle output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4465
+#: modules/printbackends/gtkprintbackendcups.c:4694
 msgctxt "output-bin"
 msgid "Middle Bin"
 msgstr "中纸盒"
 
 #. Translators: Bottom output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4467
+#: modules/printbackends/gtkprintbackendcups.c:4696
 msgctxt "output-bin"
 msgid "Bottom Bin"
 msgstr "底纸盒"
 
 #. Translators: Side output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4469
+#: modules/printbackends/gtkprintbackendcups.c:4698
 msgctxt "output-bin"
 msgid "Side Bin"
 msgstr "侧纸盒"
 
 #. Translators: Left output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4471
+#: modules/printbackends/gtkprintbackendcups.c:4700
 msgctxt "output-bin"
 msgid "Left Bin"
 msgstr "左纸盒"
 
 #. Translators: Right output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4473
+#: modules/printbackends/gtkprintbackendcups.c:4702
 msgctxt "output-bin"
 msgid "Right Bin"
 msgstr "右纸盒"
 
 #. Translators: Center output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4475
+#: modules/printbackends/gtkprintbackendcups.c:4704
 msgctxt "output-bin"
 msgid "Center Bin"
 msgstr "中纸盒"
 
 #. Translators: Rear output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4477
+#: modules/printbackends/gtkprintbackendcups.c:4706
 msgctxt "output-bin"
 msgid "Rear Bin"
 msgstr "后纸盒"
 
 #. Translators: Output bin where one sided output is oriented in the face-up position
 #: modules/printbackends/cups/gtkprintbackendcups.c:4479
+#: modules/printbackends/gtkprintbackendcups.c:4708
 msgctxt "output-bin"
 msgid "Face Up Bin"
 msgstr "面朝上纸盒"
 
 #. Translators: Output bin where one sided output is oriented in the face-down position
 #: modules/printbackends/cups/gtkprintbackendcups.c:4481
+#: modules/printbackends/gtkprintbackendcups.c:4710
 msgctxt "output-bin"
 msgid "Face Down Bin"
 msgstr "面朝下纸盒"
 
 #. Translators: Large capacity output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4483
+#: modules/printbackends/gtkprintbackendcups.c:4712
 msgctxt "output-bin"
 msgid "Large Capacity Bin"
 msgstr "大容量纸盒"
 
 #. Translators: Output stacker number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4505
+#: modules/printbackends/gtkprintbackendcups.c:4734
 #, c-format
 msgctxt "output-bin"
 msgid "Stacker %d"
@@ -9205,6 +9390,7 @@ msgstr "贴纸 %d"
 
 #. Translators: Output mailbox number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4509
+#: modules/printbackends/gtkprintbackendcups.c:4738
 #, c-format
 msgctxt "output-bin"
 msgid "Mailbox %d"
@@ -9212,18 +9398,21 @@ msgstr "邮箱 %d"
 
 #. Translators: Private mailbox
 #: modules/printbackends/cups/gtkprintbackendcups.c:4513
+#: modules/printbackends/gtkprintbackendcups.c:4742
 msgctxt "output-bin"
 msgid "My Mailbox"
 msgstr "我的邮箱"
 
 #. Translators: Output tray number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4517
+#: modules/printbackends/gtkprintbackendcups.c:4746
 #, c-format
 msgctxt "output-bin"
 msgid "Tray %d"
 msgstr "托盘 %d"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4988
+#: modules/printbackends/gtkprintbackendcups.c:5223
 msgid "Printer Default"
 msgstr "打印机默认"
 
@@ -9250,6 +9439,7 @@ msgstr "低"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5459
+#: modules/printbackends/gtkprintbackendcups.c:5702
 msgid "Job Priority"
 msgstr "任务优先级"
 
@@ -9261,36 +9451,50 @@ msgid "Billing Info"
 msgstr "计费信息"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5494
+#: modules/printbackends/gtkprintbackendcups.c:5713
+msgid "Billing Info"
+msgstr "计费信息"
+
+#. Translators, these strings are names for various 'standard' cover
+#. * pages that the printing system may support.
+#.
+#: modules/printbackends/gtkprintbackendcups.c:5737
 msgctxt "cover page"
 msgid "None"
 msgstr "无"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5495
+#: modules/printbackends/gtkprintbackendcups.c:5738
 msgctxt "cover page"
 msgid "Classified"
 msgstr "已分类"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5496
+#: modules/printbackends/gtkprintbackendcups.c:5739
 msgctxt "cover page"
 msgid "Confidential"
 msgstr "机密"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5497
+#: modules/printbackends/gtkprintbackendcups.c:5740
 msgctxt "cover page"
 msgid "Secret"
 msgstr "秘密"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5498
+#: modules/printbackends/gtkprintbackendcups.c:5741
 msgctxt "cover page"
 msgid "Standard"
 msgstr "标准"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5499
+#: modules/printbackends/gtkprintbackendcups.c:5742
 msgctxt "cover page"
 msgid "Top Secret"
 msgstr "绝密"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5500
+#: modules/printbackends/gtkprintbackendcups.c:5743
 msgctxt "cover page"
 msgid "Unclassified"
 msgstr "未分类"
@@ -9299,6 +9503,7 @@ msgstr "未分类"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5512
+#: modules/printbackends/gtkprintbackendcups.c:5755
 msgctxt "printer option"
 msgid "Pages per Sheet"
 msgstr "每张页数"
@@ -9326,9 +9531,7 @@ msgstr "封面"
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:528
 #: bobgui/print/backends/bobguiprintbackendcups.c:5876
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5586
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "printer option"
 msgid "After"
 msgstr "封底"
@@ -9833,6 +10036,9 @@ msgstr "每张页数"
 #. * dialog that controls in what order multiple pages are arranged
 #.
 #: bobgui/print/backends/bobguiprintbackendcups.c:5819
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5772
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Page Ordering"
 msgstr "页面顺序"
@@ -9843,9 +10049,10 @@ msgstr "页面顺序"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5896
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5606
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5849
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at"
 msgstr "打印于"
@@ -9855,9 +10062,10 @@ msgstr "打印于"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5907
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5617
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5860
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at time"
 msgstr "在指定时间打印"
@@ -9869,19 +10077,21 @@ msgstr "在指定时间打印"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5955
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5659
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5907
+>>>>>>> origin/4-14-backports
 #, c-format
 msgid "Custom %s×%s"
 msgstr "自定义 %s×%s"
 
-<<<<<<< HEAD
 #. TRANSLATORS: this is the ICC color profile to use for this job
+<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6067
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5768
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6018
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Printer Profile"
 msgstr "打印机配置"
@@ -9889,9 +10099,10 @@ msgstr "打印机配置"
 #. TRANSLATORS: this is when color profile information is unavailable
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6074
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5775
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6025
+>>>>>>> origin/4-14-backports
 msgctxt "printer option value"
 msgid "Unavailable"
 msgstr "不可用"
@@ -9930,29 +10141,20 @@ msgstr "输出格式(_O)"
 
 #. TRANSLATORS: when we're running an old CUPS, and
 #. * it hasn't registered the device with colord
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:245
-=======
 #: modules/printbackends/cups/gtkprintercups.c:269
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Color management unavailable"
 msgstr "颜色管理不可用"
 
 #. TRANSLATORS: when there is no color profile available
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:257
-=======
 #: modules/printbackends/cups/gtkprintercups.c:281
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No profile available"
 msgstr "没有可用配置"
 
 #. TRANSLATORS: when the color profile has no title
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:268
-=======
 #: modules/printbackends/cups/gtkprintercups.c:292
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unspecified profile"
 msgstr "未指定的配置"
 
@@ -13974,7 +14176,6 @@ msgstr "仅能接受单个图像文件\n"
 msgid "Don't add a titlebar"
 msgstr "不要添加标题栏"
 
-<<<<<<< HEAD
 #: tools/bobgui-image-tool-play.c:309 tools/bobgui-rendernode-tool-convert.c:97
 msgid "SIZE"
 msgstr "大小"
@@ -14782,6 +14983,7 @@ msgstr ""
 "“%s”中没有主题索引文件。\n"
 "如果您确实想要在此创建图标缓存，请使用 --ignore-theme-index 参数。\n"
 
+<<<<<<< HEAD
 #~ msgid "Theme is hardcoded by BOBGUI_THEME"
 #~ msgstr "主题由 BOBGUI_THEME 控制"
 
@@ -14876,6 +15078,12 @@ msgstr ""
 
 #~ msgid "Backend does not support window scaling"
 #~ msgstr "后端不支持窗口缩放"
+
+#~ msgid "Backend does not support window scaling"
+#~ msgstr "后端不支持窗口缩放"
+
+#~ msgid "Font Scale"
+#~ msgstr "字体缩放"
 
 #~ msgid "Window Scaling"
 #~ msgstr "窗口缩放"
@@ -16378,7 +16586,6 @@ msgstr ""
 #~ "profiles is not available"
 #~ msgstr "创建核心配置文件所需的 GLX_ARB_create_context_profile 扩展无法使用"
 
-<<<<<<< HEAD
 #~ msgid "CSS Selector"
 #~ msgstr "CSS 选择器"
 
@@ -16886,8 +17093,6 @@ msgstr ""
 #~ "profiles is not available"
 #~ msgstr "创建核心配置文件所需的 GLX_ARB_create_context_profile 扩展无法使用"
 
-=======
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #~ msgid "Error launching preview"
 #~ msgstr "调用预览出错"
 
@@ -16917,15 +17122,12 @@ msgstr ""
 
 #~ msgid "Object Hierarchy"
 #~ msgstr "对象层级"
-<<<<<<< HEAD
-=======
 
 #~ msgid "Hierarchy"
 #~ msgstr "层级"
 
 #~ msgid "Style Properties"
 #~ msgstr "样式属性"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #~ msgid "broadway display type not supported '%s'"
 #~ msgstr "不支持的 broadway 显示类型“%s”"

@@ -147,6 +147,7 @@ $ cd bobgui
 ```
 
 To compile the Git version of BOBGUI on your system, you will need to
+To compile the Git version of GTK on your system, you will need to
 configure your build using Meson:
 
 ```sh
@@ -167,6 +168,7 @@ maintainers review your contribution.
 **Important**: Do **not** attach a diff or a patch file to a GitLab issue.
 Patches cannot be reviewed, and do not not go through the CI pipeline. If
 you wish to submit your changes to BOBGUI, always use a merge request.
+you wish to submit your changes to GTK, always use a merge request.
 
 ### Code reviews
 

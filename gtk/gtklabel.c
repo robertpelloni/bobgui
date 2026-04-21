@@ -4966,6 +4966,2415 @@ gtk_label_multipress_gesture_pressed (GtkGestureMultiPress *gesture,
   GtkLabelPrivate *priv = label->priv;
   GtkLabelSelectionInfo *info = priv->select_info;
   GtkWidget *widget = GTK_WIDGET (label);
+emit_activate_link (GtkLabel     *self,
+                    GtkLabelLink *link)
+{
+  gboolean handled;
+
+  g_signal_emit (self, signals[ACTIVATE_LINK], 0, link->uri, &handled);
+
+  /* signal handler might have invalidated the layout */
+  if (!self->layout)
+    return;
+
+  if (handled && !link->visited &&
+      self->select_info && self->select_info->links)
+    {
+      link->visited = TRUE;
+      update_link_state (self);
+    }
+}
+
+static void
+gtk_label_activate_link_open (GtkWidget  *widget,
+                              const char *name,
+                              GVariant   *parameter)
+{
+  GtkLabel *self = GTK_LABEL (widget);
+  if (self->select_info)
+    {
+      GtkLabelLink *link = self->select_info->context_link;
+
+      if (link)
+        emit_activate_link (self, link);
+    }
+}
+
+static void
+gtk_label_activate_link_copy (GtkWidget  *widget,
+                              const char *name,
+                              GVariant   *parameter)
+{
+  GtkLabel *self = GTK_LABEL (widget);
+  if (self->select_info)
+    {
+      GtkLabelLink *link = self->select_info->context_link;
+
+      if (link)
+        {
+          GdkClipboard *clipboard;
+
+          clipboard = gtk_widget_get_clipboard (widget);
+          gdk_clipboard_set_text (clipboard, link->uri);
+        }
+    }
+}
+
+static void
+gtk_label_activate_clipboard_copy (GtkWidget  *widget,
+                                   const char *name,
+                                   GVariant   *parameter)
+{
+  g_signal_emit_by_name (widget, "copy-clipboard");
+}
+
+static void
+gtk_label_select_all (GtkLabel *self)
+{
+  gtk_label_select_region_index (self, 0, strlen (self->text));
+}
+
+static void
+gtk_label_activate_selection_select_all (GtkWidget  *widget,
+                                         const char *name,
+                                         GVariant   *parameter)
+{
+  gtk_label_select_all (GTK_LABEL (widget));
+}
+
+static void
+gtk_label_nop (GtkWidget  *widget,
+               const char *name,
+               GVariant   *parameter)
+{
+}
+
+static gboolean
+gtk_label_mnemonic_activate (GtkWidget *widget,
+                             gboolean   group_cycling)
+{
+  GtkLabel *self = GTK_LABEL (widget);
+  GtkWidget *parent;
+
+  if (self->mnemonic_widget)
+    return gtk_widget_mnemonic_activate (self->mnemonic_widget, group_cycling);
+
+  /* Not a label for something else, but is selectable, so set focus into
+   * the label itself.
+  */
+  if (gtk_label_get_selectable (self) && gtk_widget_get_focusable (widget))
+    return gtk_label_grab_focus (widget);
+
+  /* Try to find the widget to activate by traversing the
+   * widget's ancestry.
+   */
+  parent = gtk_widget_get_parent (widget);
+
+  if (GTK_IS_NOTEBOOK (parent))
+    return FALSE;
+
+  while (parent)
+    {
+      if (gtk_widget_get_focusable (parent) ||
+          (!group_cycling && gtk_widget_can_activate (parent)) ||
+          GTK_IS_NOTEBOOK (gtk_widget_get_parent (parent)))
+        return gtk_widget_mnemonic_activate (parent, group_cycling);
+      parent = gtk_widget_get_parent (parent);
+    }
+
+  /* barf if there was nothing to activate */
+  g_warning ("Couldn't find a target for a mnemonic activation.");
+  gtk_widget_error_bell (widget);
+
+  return FALSE;
+}
+
+static void
+gtk_label_popup_menu (GtkWidget  *widget,
+                      const char *action_name,
+                      GVariant   *parameters)
+{
+  GtkLabel *self = GTK_LABEL (widget);
+
+  gtk_label_do_popup (self, -1, -1);
+}
+
+static void
+gtk_label_root (GtkWidget *widget)
+{
+  GtkLabel *self = GTK_LABEL (widget);
+
+  GTK_WIDGET_CLASS (gtk_label_parent_class)->root (widget);
+
+  gtk_label_setup_mnemonic (self);
+
+  /* The PangoContext is replaced when the display changes, so clear the layouts */
+  gtk_label_clear_layout (GTK_LABEL (widget));
+}
+
+static void
+gtk_label_unroot (GtkWidget *widget)
+{
+  GtkLabel *self = GTK_LABEL (widget);
+
+  gtk_label_setup_mnemonic (self);
+
+  GTK_WIDGET_CLASS (gtk_label_parent_class)->unroot (widget);
+}
+
+static void
+launch_done (GObject      *source,
+             GAsyncResult *result,
+             gpointer      data)
+{
+  GError *error = NULL;
+  gboolean success;
+
+  if (GTK_IS_FILE_LAUNCHER (source))
+    success = gtk_file_launcher_launch_finish (GTK_FILE_LAUNCHER (source), result, &error);
+  else if (GTK_IS_URI_LAUNCHER (source))
+    success = gtk_uri_launcher_launch_finish (GTK_URI_LAUNCHER (source), result, &error);
+  else
+    g_assert_not_reached ();
+
+  if (!success)
+    {
+      g_warning ("Failed to launch handler: %s", error->message);
+      g_error_free (error);
+    }
+}
+
+static gboolean
+gtk_label_activate_link (GtkLabel    *self,
+                         const char *uri)
+{
+  GtkWidget *widget = GTK_WIDGET (self);
+  GtkWidget *toplevel = GTK_WIDGET (gtk_widget_get_root (widget));
+  const char *uri_scheme;
+
+  if (!GTK_IS_WINDOW (toplevel))
+    return FALSE;
+
+  uri_scheme = g_uri_peek_scheme (uri);
+  if (g_strcmp0 (uri_scheme, "file") == 0)
+    {
+      GFile *file;
+      GtkFileLauncher *launcher;
+
+      file = g_file_new_for_uri (uri);
+      launcher = gtk_file_launcher_new (file);
+      gtk_file_launcher_launch (launcher, GTK_WINDOW (toplevel), NULL, launch_done, NULL);
+      g_object_unref (launcher);
+      g_object_unref (file);
+    }
+  else
+    {
+      GtkUriLauncher *launcher;
+
+      launcher = gtk_uri_launcher_new (uri);
+      gtk_uri_launcher_launch (launcher, GTK_WINDOW (toplevel), NULL, launch_done, NULL);
+      g_object_unref (launcher);
+    }
+
+  return TRUE;
+}
+
+static void
+gtk_label_activate_current_link (GtkLabel *self)
+{
+  GtkLabelLink *link;
+  GtkWidget *widget = GTK_WIDGET (self);
+
+  link = gtk_label_get_focus_link (self, NULL);
+
+  if (link)
+    emit_activate_link (self, link);
+  else
+    gtk_widget_activate_default (widget);
+}
+
+static void
+gtk_label_copy_clipboard (GtkLabel *self)
+{
+  if (self->text && self->select_info)
+    {
+      int start, end;
+      int len;
+      GdkClipboard *clipboard;
+
+      start = MIN (self->select_info->selection_anchor,
+                   self->select_info->selection_end);
+      end = MAX (self->select_info->selection_anchor,
+                 self->select_info->selection_end);
+
+      len = strlen (self->text);
+
+      if (end > len)
+        end = len;
+
+      if (start > len)
+        start = len;
+
+      clipboard = gtk_widget_get_clipboard (GTK_WIDGET (self));
+
+      if (start != end)
+        {
+          char *str = g_strndup (self->text + start, end - start);
+          gdk_clipboard_set_text (clipboard, str);
+          g_free (str);
+        }
+      else
+        {
+          GtkLabelLink *link;
+
+          link = gtk_label_get_focus_link (self, NULL);
+          if (link)
+            gdk_clipboard_set_text (clipboard, link->uri);
+        }
+    }
+}
+
+static void
+gtk_label_class_init (GtkLabelClass *class)
+{
+  GObjectClass *gobject_class = G_OBJECT_CLASS (class);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+
+  gobject_class->set_property = gtk_label_set_property;
+  gobject_class->get_property = gtk_label_get_property;
+  gobject_class->finalize = gtk_label_finalize;
+  gobject_class->dispose = gtk_label_dispose;
+
+  widget_class->size_allocate = gtk_label_size_allocate;
+  widget_class->state_flags_changed = gtk_label_state_flags_changed;
+  widget_class->css_changed = gtk_label_css_changed;
+  widget_class->query_tooltip = gtk_label_query_tooltip;
+  widget_class->snapshot = gtk_label_snapshot;
+  widget_class->unrealize = gtk_label_unrealize;
+  widget_class->root = gtk_label_root;
+  widget_class->unroot = gtk_label_unroot;
+  widget_class->mnemonic_activate = gtk_label_mnemonic_activate;
+  widget_class->grab_focus = gtk_label_grab_focus;
+  widget_class->focus = gtk_label_focus;
+  widget_class->get_request_mode = gtk_label_get_request_mode;
+  widget_class->measure = gtk_label_measure;
+
+  class->move_cursor = gtk_label_move_cursor;
+  class->copy_clipboard = gtk_label_copy_clipboard;
+  class->activate_link = gtk_label_activate_link;
+
+  /**
+   * GtkLabel::move-cursor:
+   * @entry: the object which received the signal
+   * @step: the granularity of the move, as a `GtkMovementStep`
+   * @count: the number of @step units to move
+   * @extend_selection: %TRUE if the move should extend the selection
+   *
+   * Gets emitted when the user initiates a cursor movement.
+   *
+   * The ::move-cursor signal is a [keybinding signal](class.SignalAction.html).
+   * If the cursor is not visible in @entry, this signal causes the viewport to
+   * be moved instead.
+   *
+   * Applications should not connect to it, but may emit it with
+   * g_signal_emit_by_name() if they need to control the cursor
+   * programmatically.
+   *
+   * The default bindings for this signal come in two variants,
+   * the variant with the Shift modifier extends the selection,
+   * the variant without the Shift modifier does not.
+   * There are too many key combinations to list them all here.
+   *
+   * - <kbd>←</kbd>, <kbd>→</kbd>, <kbd>↑</kbd>, <kbd>↓</kbd>
+   *   move by individual characters/lines
+   * - <kbd>Ctrl</kbd>+<kbd>←</kbd>, etc. move by words/paragraphs
+   * - <kbd>Home</kbd> and <kbd>End</kbd> move to the ends of the buffer
+   */
+  signals[MOVE_CURSOR] =
+    g_signal_new (I_("move-cursor"),
+                  G_OBJECT_CLASS_TYPE (gobject_class),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (GtkLabelClass, move_cursor),
+                  NULL, NULL,
+                  _gtk_marshal_VOID__ENUM_INT_BOOLEAN,
+                  G_TYPE_NONE, 3,
+                  GTK_TYPE_MOVEMENT_STEP,
+                  G_TYPE_INT,
+                  G_TYPE_BOOLEAN);
+  g_signal_set_va_marshaller (signals[MOVE_CURSOR],
+                              G_OBJECT_CLASS_TYPE (gobject_class),
+                              _gtk_marshal_VOID__ENUM_INT_BOOLEANv);
+
+   /**
+   * GtkLabel::copy-clipboard:
+   * @self: the object which received the signal
+   *
+   * Gets emitted to copy the selection to the clipboard.
+   *
+   * The ::copy-clipboard signal is a [keybinding signal](class.SignalAction.html).
+   *
+   * The default binding for this signal is <kbd>Ctrl</kbd>+<kbd>c</kbd>.
+   */
+  signals[COPY_CLIPBOARD] =
+    g_signal_new (I_("copy-clipboard"),
+                  G_OBJECT_CLASS_TYPE (gobject_class),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (GtkLabelClass, copy_clipboard),
+                  NULL, NULL,
+                  NULL,
+                  G_TYPE_NONE, 0);
+
+  /**
+   * GtkLabel::activate-current-link:
+   * @self: The label on which the signal was emitted
+   *
+   * Gets emitted when the user activates a link in the label.
+   *
+   * The ::activate-current-link is a [keybinding signal](class.SignalAction.html).
+   *
+   * Applications may also emit the signal with g_signal_emit_by_name()
+   * if they need to control activation of URIs programmatically.
+   *
+   * The default bindings for this signal are all forms of the <kbd>Enter</kbd> key.
+   */
+  signals[ACTIVATE_CURRENT_LINK] =
+    g_signal_new_class_handler (I_("activate-current-link"),
+                                G_TYPE_FROM_CLASS (gobject_class),
+                                G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+                                G_CALLBACK (gtk_label_activate_current_link),
+                                NULL, NULL,
+                                NULL,
+                                G_TYPE_NONE, 0);
+
+  /**
+   * GtkLabel::activate-link:
+   * @self: The label on which the signal was emitted
+   * @uri: the URI that is activated
+   *
+   * Gets emitted to activate a URI.
+   *
+   * Applications may connect to it to override the default behaviour,
+   * which is to call [method@Gtk.FileLauncher.launch].
+   *
+   * Returns: %TRUE if the link has been activated
+   */
+  signals[ACTIVATE_LINK] =
+    g_signal_new (I_("activate-link"),
+                  G_TYPE_FROM_CLASS (gobject_class),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (GtkLabelClass, activate_link),
+                  _gtk_boolean_handled_accumulator, NULL,
+                  _gtk_marshal_BOOLEAN__STRING,
+                  G_TYPE_BOOLEAN, 1, G_TYPE_STRING);
+  g_signal_set_va_marshaller (signals[ACTIVATE_LINK],
+                              G_TYPE_FROM_CLASS (gobject_class),
+                              _gtk_marshal_BOOLEAN__STRINGv);
+
+  /**
+   * GtkLabel:label: (attributes org.gtk.Property.get=gtk_label_get_label org.gtk.Property.set=gtk_label_set_label)
+   *
+   * The contents of the label.
+   *
+   * If the string contains Pango markup (see [func@Pango.parse_markup]),
+   * you will have to set the [property@Gtk.Label:use-markup] property to
+   * %TRUE in order for the label to display the markup attributes. See also
+   * [method@Gtk.Label.set_markup] for a convenience function that sets both
+   * this property and the [property@Gtk.Label:use-markup] property at the
+   * same time.
+   *
+   * If the string contains underlines acting as mnemonics, you will have to
+   * set the [property@Gtk.Label:use-underline] property to %TRUE in order
+   * for the label to display them.
+   */
+  label_props[PROP_LABEL] =
+      g_param_spec_string ("label", NULL, NULL,
+                           "",
+                           GTK_PARAM_READWRITE);
+
+  /**
+   * GtkLabel:attributes: (attributes org.gtk.Property.get=gtk_label_get_attributes org.gtk.Property.set=gtk_label_set_attributes)
+   *
+   * A list of style attributes to apply to the text of the label.
+   */
+  label_props[PROP_ATTRIBUTES] =
+      g_param_spec_boxed ("attributes", NULL, NULL,
+                          PANGO_TYPE_ATTR_LIST,
+                          GTK_PARAM_READWRITE);
+
+  /**
+   * GtkLabel:use-markup: (attributes org.gtk.Property.get=gtk_label_get_use_markup org.gtk.Property.set=gtk_label_set_use_markup)
+   *
+   * %TRUE if the text of the label includes Pango markup.
+   *
+   * See [func@Pango.parse_markup].
+   */
+  label_props[PROP_USE_MARKUP] =
+      g_param_spec_boolean ("use-markup", NULL, NULL,
+                            FALSE,
+                            GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:use-underline: (attributes org.gtk.Property.get=gtk_label_get_use_underline org.gtk.Property.set=gtk_label_set_use_underline)
+   *
+   * %TRUE if the text of the label indicates a mnemonic with an _
+   * before the mnemonic character.
+   */
+  label_props[PROP_USE_UNDERLINE] =
+      g_param_spec_boolean ("use-underline", NULL, NULL,
+                            FALSE,
+                            GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:justify: (attributes org.gtk.Property.get=gtk_label_get_justify org.gtk.Property.set=gtk_label_set_justify)
+   *
+   * The alignment of the lines in the text of the label, relative to each other.
+   *
+   * This does *not* affect the alignment of the label within its allocation.
+   * See [property@Gtk.Label:xalign] for that.
+   */
+  label_props[PROP_JUSTIFY] =
+      g_param_spec_enum ("justify", NULL, NULL,
+                         GTK_TYPE_JUSTIFICATION,
+                         GTK_JUSTIFY_LEFT,
+                         GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:xalign: (attributes org.gtk.Property.get=gtk_label_get_xalign org.gtk.Property.set=gtk_label_set_xalign)
+   *
+   * The horizontal alignment of the label text inside its size allocation.
+   *
+   * Compare this to [property@Gtk.Widget:halign], which determines how the
+   * labels size allocation is positioned in the space available for the label.
+   */
+  label_props[PROP_XALIGN] =
+      g_param_spec_float ("xalign", NULL, NULL,
+                          0.0, 1.0,
+                          0.5,
+                          GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:yalign: (attributes org.gtk.Property.get=gtk_label_get_yalign org.gtk.Property.set=gtk_label_set_yalign)
+   *
+   * The vertical alignment of the label text inside its size allocation.
+   *
+   * Compare this to [property@Gtk.Widget:valign], which determines how the
+   * labels size allocation is positioned in the space available for the label.
+   */
+  label_props[PROP_YALIGN] =
+      g_param_spec_float ("yalign", NULL, NULL,
+                          0.0, 1.0,
+                          0.5,
+                          GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:wrap: (attributes org.gtk.Property.get=gtk_label_get_wrap org.gtk.Property.set=gtk_label_set_wrap)
+   *
+   * %TRUE if the label text will wrap if it gets too wide.
+   */
+  label_props[PROP_WRAP] =
+      g_param_spec_boolean ("wrap", NULL, NULL,
+                            FALSE,
+                            GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:wrap-mode: (attributes org.gtk.Property.get=gtk_label_get_wrap_mode org.gtk.Property.set=gtk_label_set_wrap_mode)
+   *
+   * Controls how the line wrapping is done.
+   *
+   * This only affects the formatting if line wrapping is on (see the
+   * [property@Gtk.Label:wrap] property). The default is %PANGO_WRAP_WORD,
+   * which means wrap on word boundaries.
+   *
+   * For sizing behavior, also consider the [property@Gtk.Label:natural-wrap-mode]
+   * property.
+   */
+  label_props[PROP_WRAP_MODE] =
+      g_param_spec_enum ("wrap-mode", NULL, NULL,
+                         PANGO_TYPE_WRAP_MODE,
+                         PANGO_WRAP_WORD,
+                         GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:natural-wrap-mode: (attributes org.gtk.Property.get=gtk_label_get_natural_wrap_mode org.gtk.Property.set=gtk_label_set_natural_wrap_mode)
+   *
+   * Select the line wrapping for the natural size request.
+   *
+   * This only affects the natural size requested. For the actual wrapping used,
+   * see the [property@Gtk.Label:wrap-mode] property.
+   *
+   * The default is %GTK_NATURAL_WRAP_INHERIT, which inherits the behavior of the
+   * [property@Gtk.Label:wrap-mode] property.
+   *
+   * Since: 4.6
+   */
+  label_props[PROP_NATURAL_WRAP_MODE] =
+      g_param_spec_enum ("natural-wrap-mode", NULL, NULL,
+                         GTK_TYPE_NATURAL_WRAP_MODE,
+                         GTK_NATURAL_WRAP_INHERIT,
+                         GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:selectable: (attributes org.gtk.Property.get=gtk_label_get_selectable og.gtk.Property.set=gtk_label_set_selectable)
+   *
+   * Whether the label text can be selected with the mouse.
+   */
+  label_props[PROP_SELECTABLE] =
+      g_param_spec_boolean ("selectable", NULL, NULL,
+                            FALSE,
+                            GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:mnemonic-keyval: (attributes org.gtk.Property.get=gtk_label_get_mnemonic_keyval)
+   *
+   * The mnemonic accelerator key for the label.
+   */
+  label_props[PROP_MNEMONIC_KEYVAL] =
+      g_param_spec_uint ("mnemonic-keyval", NULL, NULL,
+                         0, G_MAXUINT,
+                         GDK_KEY_VoidSymbol,
+                         GTK_PARAM_READABLE);
+
+  /**
+   * GtkLabel:mnemonic-widget: (attributes org.gtk.Property.get=gtk_label_get_mnemonic_widget org.gtk.Property.set=gtk_label_set_mnemonic_widget)
+   *
+   * The widget to be activated when the labels mnemonic key is pressed.
+   */
+  label_props[PROP_MNEMONIC_WIDGET] =
+      g_param_spec_object ("mnemonic-widget", NULL, NULL,
+                           GTK_TYPE_WIDGET,
+                           GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:ellipsize: (attributes org.gtk.Property.get=gtk_label_get_ellipsize org.gtk.Property.set=gtk_label_set_ellipsize)
+   *
+   * The preferred place to ellipsize the string, if the label does
+   * not have enough room to display the entire string.
+   *
+   * Note that setting this property to a value other than
+   * %PANGO_ELLIPSIZE_NONE has the side-effect that the label requests
+   * only enough space to display the ellipsis "...". In particular, this
+   * means that ellipsizing labels do not work well in notebook tabs, unless
+   * the [property@Gtk.NotebookPage:tab-expand] child property is set to %TRUE.
+   * Other ways to set a label's width are [method@Gtk.Widget.set_size_request]
+   * and [method@Gtk.Label.set_width_chars].
+   */
+  label_props[PROP_ELLIPSIZE] =
+      g_param_spec_enum ("ellipsize", NULL, NULL,
+                         PANGO_TYPE_ELLIPSIZE_MODE,
+                         PANGO_ELLIPSIZE_NONE,
+                         GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:width-chars: (attributes org.gtk.Property.get=gtk_label_get_width_chars org.gtk.Property.set=gtk_label_set_width_chars)
+   *
+   * The desired width of the label, in characters.
+   *
+   * If this property is set to -1, the width will be calculated automatically.
+   *
+   * See the section on [text layout](class.Label.html#text-layout) for details of how
+   * [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
+   * determine the width of ellipsized and wrapped labels.
+   */
+  label_props[PROP_WIDTH_CHARS] =
+      g_param_spec_int ("width-chars", NULL, NULL,
+                        -1, G_MAXINT,
+                        -1,
+                        GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:single-line-mode: (attributes org.gtk.Property.get=gtk_label_get_single_line_mode org.gtk.Property.set=gtk_label_set_single_line_mode)
+   *
+   * Whether the label is in single line mode.
+   *
+   * In single line mode, the height of the label does not depend on the
+   * actual text, it is always set to ascent + descent of the font. This
+   * can be an advantage in situations where resizing the label because
+   * of text changes would be distracting, e.g. in a statusbar.
+   */
+  label_props[PROP_SINGLE_LINE_MODE] =
+      g_param_spec_boolean ("single-line-mode", NULL, NULL,
+                            FALSE,
+                            GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:max-width-chars: (attributes org.gtk.Property.get=gtk_label_set_max_width_chars org.gtk.Property.set=gtk_label_set_max_width_chars)
+   *
+   * The desired maximum width of the label, in characters.
+   *
+   * If this property is set to -1, the width will be calculated automatically.
+   *
+   * See the section on [text layout](class.Label.html#text-layout) for details of how
+   * [property@Gtk.Label:width-chars] and [property@Gtk.Label:max-width-chars]
+   * determine the width of ellipsized and wrapped labels.
+   */
+  label_props[PROP_MAX_WIDTH_CHARS] =
+      g_param_spec_int ("max-width-chars", NULL, NULL,
+                        -1, G_MAXINT,
+                        -1,
+                        GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:lines: (attributes org.gtk.Property.get=gtk_label_get_lines org.gtk.Property.set=gtk_label_set_lines)
+   *
+   * The number of lines to which an ellipsized, wrapping label
+   * should be limited.
+   *
+   * This property has no effect if the label is not wrapping or ellipsized.
+   * Set this property to -1 if you don't want to limit the number of lines.
+   */
+  label_props[PROP_LINES] =
+      g_param_spec_int ("lines", NULL, NULL,
+                        -1, G_MAXINT,
+                        -1,
+                        GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:extra-menu: (attributes org.gtk.Property.get=gtk_label_get_extra_menu org.gtk.Property.set=gtk_label_set_extra_menu)
+   *
+   * A menu model whose contents will be appended to the context menu.
+   */
+  label_props[PROP_EXTRA_MENU] =
+      g_param_spec_object ("extra-menu", NULL, NULL,
+                          G_TYPE_MENU_MODEL,
+                          GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * GtkLabel:tabs: (attributes org.gtk.Property.get=gtk_label_get_tabs org.gtk.Property.set=gtk_label_set_tabs)
+   *
+   * Custom tabs for this label.
+   *
+   * Since: 4.8
+   */
+  label_props[PROP_TABS] =
+      g_param_spec_boxed ("tabs", NULL, NULL,
+                          PANGO_TYPE_TAB_ARRAY,
+                          GTK_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (gobject_class, NUM_PROPERTIES, label_props);
+
+  /**
+   * GtkLabel|menu.popup:
+   *
+   * Opens the context menu.
+   */
+  gtk_widget_class_install_action (widget_class, "menu.popup", NULL, gtk_label_popup_menu);
+
+  /*
+   * Key bindings
+   */
+
+  gtk_widget_class_add_binding_action (widget_class,
+                                       GDK_KEY_F10, GDK_SHIFT_MASK,
+                                       "menu.popup",
+                                       NULL);
+  gtk_widget_class_add_binding_action (widget_class,
+                                       GDK_KEY_Menu, 0,
+                                       "menu.popup",
+                                       NULL);
+
+  /* Moving the insertion point */
+  add_move_binding (widget_class, GDK_KEY_Right, 0,
+                    GTK_MOVEMENT_VISUAL_POSITIONS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_Left, 0,
+                    GTK_MOVEMENT_VISUAL_POSITIONS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_KP_Right, 0,
+                    GTK_MOVEMENT_VISUAL_POSITIONS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_KP_Left, 0,
+                      GTK_MOVEMENT_VISUAL_POSITIONS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_f, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_LOGICAL_POSITIONS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_b, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_LOGICAL_POSITIONS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_Right, GDK_CONTROL_MASK,
+                      GTK_MOVEMENT_WORDS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_Left, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_WORDS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_KP_Right, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_WORDS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_KP_Left, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_WORDS, -1);
+
+  /* select all */
+  gtk_widget_class_add_binding (widget_class,
+                                GDK_KEY_a, GDK_CONTROL_MASK,
+                                (GtkShortcutFunc) gtk_label_select_all,
+                                NULL);
+  gtk_widget_class_add_binding (widget_class,
+                                GDK_KEY_slash, GDK_CONTROL_MASK,
+                                (GtkShortcutFunc) gtk_label_select_all,
+                                NULL);
+
+  /* unselect all */
+  gtk_widget_class_add_binding_signal (widget_class,
+                                       GDK_KEY_a, GDK_SHIFT_MASK | GDK_CONTROL_MASK,
+                                       "move-cursor",
+                                       "(iib)", GTK_MOVEMENT_PARAGRAPH_ENDS, 0, FALSE);
+
+  gtk_widget_class_add_binding_signal (widget_class,
+                                       GDK_KEY_backslash, GDK_CONTROL_MASK,
+                                       "move-cursor",
+                                       "(iib)", GTK_MOVEMENT_PARAGRAPH_ENDS, 0, FALSE);
+
+  add_move_binding (widget_class, GDK_KEY_f, GDK_ALT_MASK,
+                    GTK_MOVEMENT_WORDS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_b, GDK_ALT_MASK,
+                    GTK_MOVEMENT_WORDS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_Home, 0,
+                    GTK_MOVEMENT_DISPLAY_LINE_ENDS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_End, 0,
+                    GTK_MOVEMENT_DISPLAY_LINE_ENDS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_KP_Home, 0,
+                    GTK_MOVEMENT_DISPLAY_LINE_ENDS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_KP_End, 0,
+                    GTK_MOVEMENT_DISPLAY_LINE_ENDS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_Home, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_BUFFER_ENDS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_End, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_BUFFER_ENDS, 1);
+
+  add_move_binding (widget_class, GDK_KEY_KP_Home, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_BUFFER_ENDS, -1);
+
+  add_move_binding (widget_class, GDK_KEY_KP_End, GDK_CONTROL_MASK,
+                    GTK_MOVEMENT_BUFFER_ENDS, 1);
+
+  /* copy */
+  gtk_widget_class_add_binding_signal (widget_class,
+                                       GDK_KEY_c, GDK_CONTROL_MASK,
+                                       "copy-clipboard",
+                                       NULL);
+
+  gtk_widget_class_add_binding_signal (widget_class,
+                                       GDK_KEY_Return, 0,
+                                       "activate-current-link",
+                                       NULL);
+  gtk_widget_class_add_binding_signal (widget_class,
+                                       GDK_KEY_ISO_Enter, 0,
+                                       "activate-current-link",
+                                       NULL);
+  gtk_widget_class_add_binding_signal (widget_class,
+                                       GDK_KEY_KP_Enter, 0,
+                                       "activate-current-link",
+                                       NULL);
+
+  gtk_widget_class_set_css_name (widget_class, I_("label"));
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_LABEL);
+
+  quark_mnemonics_visible_connected = g_quark_from_static_string ("gtk-label-mnemonics-visible-connected");
+
+  /**
+   * GtkLabel|clipboard.cut:
+   *
+   * Doesn't do anything, since text in labels can't be deleted.
+   */
+  gtk_widget_class_install_action (widget_class, "clipboard.cut", NULL,
+                                   gtk_label_nop);
+
+  /**
+   * GtkLabel|clipboard.copy:
+   *
+   * Copies the text to the clipboard.
+   */
+  gtk_widget_class_install_action (widget_class, "clipboard.copy", NULL,
+                                   gtk_label_activate_clipboard_copy);
+
+  /**
+   * GtkLabel|clipboard.paste:
+   *
+   * Doesn't do anything, since text in labels can't be edited.
+   */
+  gtk_widget_class_install_action (widget_class, "clipboard.paste", NULL,
+                                   gtk_label_nop);
+
+  /**
+   * GtkLabel|selection.delete:
+   *
+   * Doesn't do anything, since text in labels can't be deleted.
+   */
+  gtk_widget_class_install_action (widget_class, "selection.delete", NULL,
+                                   gtk_label_nop);
+
+  /**
+   * GtkLabel|selection.select-all:
+   *
+   * Selects all of the text, if the label allows selection.
+   */
+  gtk_widget_class_install_action (widget_class, "selection.select-all", NULL,
+                                   gtk_label_activate_selection_select_all);
+
+  /**
+   * GtkLabel|link.open:
+   *
+   * Opens the link, when activated on a link inside the label.
+   */
+  gtk_widget_class_install_action (widget_class, "link.open", NULL,
+                                   gtk_label_activate_link_open);
+
+  /**
+   * GtkLabel|link.copy:
+   *
+   * Copies the link to the clipboard, when activated on a link
+   * inside the label.
+   */
+  gtk_widget_class_install_action (widget_class, "link.copy", NULL,
+                                   gtk_label_activate_link_copy);
+}
+
+/**
+ * gtk_label_new:
+ * @str: (nullable): The text of the label
+ *
+ * Creates a new label with the given text inside it.
+ *
+ * You can pass %NULL to get an empty label widget.
+ *
+ * Returns: the new `GtkLabel`
+ **/
+GtkWidget*
+gtk_label_new (const char *str)
+{
+  GtkLabel *self;
+
+  self = g_object_new (GTK_TYPE_LABEL, NULL);
+
+  if (str && *str)
+    gtk_label_set_text (self, str);
+
+  return GTK_WIDGET (self);
+}
+
+/**
+ * gtk_label_new_with_mnemonic:
+ * @str: (nullable): The text of the label, with an underscore in front of the
+ *   mnemonic character
+ *
+ * Creates a new `GtkLabel`, containing the text in @str.
+ *
+ * If characters in @str are preceded by an underscore, they are
+ * underlined. If you need a literal underscore character in a label, use
+ * '__' (two underscores). The first underlined character represents a
+ * keyboard accelerator called a mnemonic. The mnemonic key can be used
+ * to activate another widget, chosen automatically, or explicitly using
+ * [method@Gtk.Label.set_mnemonic_widget].
+ *
+ * If [method@Gtk.Label.set_mnemonic_widget] is not called, then the first
+ * activatable ancestor of the `GtkLabel` will be chosen as the mnemonic
+ * widget. For instance, if the label is inside a button or menu item,
+ * the button or menu item will automatically become the mnemonic widget
+ * and be activated by the mnemonic.
+ *
+ * Returns: the new `GtkLabel`
+ **/
+GtkWidget*
+gtk_label_new_with_mnemonic (const char *str)
+{
+  GtkLabel *self;
+
+  self = g_object_new (GTK_TYPE_LABEL, NULL);
+
+  if (str && *str)
+    gtk_label_set_text_with_mnemonic (self, str);
+
+  return GTK_WIDGET (self);
+}
+
+static void
+_gtk_label_mnemonics_visible_apply_recursively (GtkWidget *widget,
+                                                gboolean   visible)
+{
+  if (GTK_IS_LABEL (widget))
+    {
+      GtkLabel *self = GTK_LABEL (widget);
+
+      if (self->mnemonics_visible != visible)
+        {
+          self->mnemonics_visible = visible;
+          gtk_label_recalculate (self);
+        }
+    }
+  else
+    {
+      GtkWidget *child;
+
+      for (child = gtk_widget_get_first_child (widget);
+           child;
+           child = gtk_widget_get_next_sibling (child))
+        {
+          if (GTK_IS_NATIVE (child))
+            continue;
+
+          _gtk_label_mnemonics_visible_apply_recursively (child, visible);
+        }
+    }
+}
+
+static void
+label_mnemonics_visible_changed (GtkWidget  *widget,
+                                 GParamSpec *pspec,
+                                 gpointer    data)
+{
+  gboolean visible;
+
+  g_object_get (widget, "mnemonics-visible", &visible, NULL);
+  _gtk_label_mnemonics_visible_apply_recursively (widget, visible);
+}
+
+static void
+gtk_label_setup_mnemonic (GtkLabel *self)
+{
+  GtkWidget *widget = GTK_WIDGET (self);
+  GtkShortcut *shortcut;
+  GtkNative *native;
+  gboolean connected;
+  gboolean mnemonics_visible;
+
+  if (self->mnemonic_keyval == GDK_KEY_VoidSymbol)
+    {
+      if (self->mnemonic_controller)
+        {
+          gtk_widget_remove_controller (widget, self->mnemonic_controller);
+          self->mnemonic_controller = NULL;
+        }
+      return;
+    }
+
+  if (self->mnemonic_controller == NULL)
+    {
+      self->mnemonic_controller = gtk_shortcut_controller_new ();
+      gtk_event_controller_set_propagation_phase (self->mnemonic_controller, GTK_PHASE_CAPTURE);
+      gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (self->mnemonic_controller), GTK_SHORTCUT_SCOPE_MANAGED);
+      shortcut = gtk_shortcut_new (gtk_mnemonic_trigger_new (self->mnemonic_keyval),
+                                   g_object_ref (gtk_mnemonic_action_get ()));
+      gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (self->mnemonic_controller), shortcut);
+      gtk_widget_add_controller (GTK_WIDGET (self), self->mnemonic_controller);
+    }
+  else
+    {
+      shortcut = g_list_model_get_item (G_LIST_MODEL (self->mnemonic_controller), 0);
+      gtk_shortcut_set_trigger (shortcut, gtk_mnemonic_trigger_new (self->mnemonic_keyval));
+      g_object_unref (shortcut);
+    }
+
+  /* Connect to notify::mnemonics-visible of the root */
+  native = gtk_widget_get_native (GTK_WIDGET (self));
+  if (!GTK_IS_WINDOW (native) && !GTK_IS_POPOVER (native))
+    return;
+
+  /* always set up this widgets initial value */
+  g_object_get (native, "mnemonics-visible", &mnemonics_visible, NULL);
+  self->mnemonics_visible = mnemonics_visible;
+
+  connected = GPOINTER_TO_INT (g_object_get_qdata (G_OBJECT (native),
+                                                   quark_mnemonics_visible_connected));
+
+  if (!connected)
+    {
+      g_signal_connect (native,
+                        "notify::mnemonics-visible",
+                        G_CALLBACK (label_mnemonics_visible_changed),
+                        self);
+      g_object_set_qdata (G_OBJECT (native),
+                          quark_mnemonics_visible_connected,
+                          GINT_TO_POINTER (1));
+    }
+}
+
+static void
+label_mnemonic_widget_weak_notify (gpointer      data,
+                                   GObject      *where_the_object_was)
+{
+  GtkLabel *self = data;
+
+  self->mnemonic_widget = NULL;
+  g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_MNEMONIC_WIDGET]);
+}
+
+/**
+ * gtk_label_set_mnemonic_widget: (attributes org.gtk.Method.set_property=mnemonic-widget)
+ * @self: a `GtkLabel`
+ * @widget: (nullable): the target `GtkWidget`, or %NULL to unset
+ *
+ * Associate the label with its mnemonic target.
+ *
+ * If the label has been set so that it has a mnemonic key (using
+ * i.e. [method@Gtk.Label.set_markup_with_mnemonic],
+ * [method@Gtk.Label.set_text_with_mnemonic],
+ * [ctor@Gtk.Label.new_with_mnemonic]
+ * or the [property@Gtk.Label:use_underline] property) the label can be
+ * associated with a widget that is the target of the mnemonic. When the
+ * label is inside a widget (like a [class@Gtk.Button] or a
+ * [class@Gtk.Notebook] tab) it is automatically associated with the correct
+ * widget, but sometimes (i.e. when the target is a [class@Gtk.Entry] next to
+ * the label) you need to set it explicitly using this function.
+ *
+ * The target widget will be accelerated by emitting the
+ * [signal@Gtk.Widget::mnemonic-activate] signal on it. The default handler for
+ * this signal will activate the widget if there are no mnemonic collisions
+ * and toggle focus between the colliding widgets otherwise.
+ */
+void
+gtk_label_set_mnemonic_widget (GtkLabel  *self,
+                               GtkWidget *widget)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+  g_return_if_fail (widget == NULL || GTK_IS_WIDGET (widget));
+
+  if (self->mnemonic_widget == widget)
+    return;
+
+  if (self->mnemonic_widget)
+    {
+      gtk_widget_remove_mnemonic_label (self->mnemonic_widget, GTK_WIDGET (self));
+      g_object_weak_unref (G_OBJECT (self->mnemonic_widget),
+                           label_mnemonic_widget_weak_notify,
+                           self);
+    }
+  self->mnemonic_widget = widget;
+  if (self->mnemonic_widget)
+    {
+      g_object_weak_ref (G_OBJECT (self->mnemonic_widget),
+                         label_mnemonic_widget_weak_notify,
+                         self);
+      gtk_widget_add_mnemonic_label (self->mnemonic_widget, GTK_WIDGET (self));
+    }
+
+  g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_MNEMONIC_WIDGET]);
+}
+
+/**
+ * gtk_label_get_mnemonic_widget: (attributes org.gtk.Method.get_property=mnemonic-widget)
+ * @self: a `GtkLabel`
+ *
+ * Retrieves the target of the mnemonic (keyboard shortcut) of this
+ * label.
+ *
+ * See [method@Gtk.Label.set_mnemonic_widget].
+ *
+ * Returns: (nullable) (transfer none): the target of the label’s mnemonic,
+ *   or %NULL if none has been set and the default algorithm will be used.
+ **/
+GtkWidget *
+gtk_label_get_mnemonic_widget (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), NULL);
+
+  return self->mnemonic_widget;
+}
+
+/**
+ * gtk_label_get_mnemonic_keyval: (attributes org.gtk.Method.get_property=mnemonic-keyval)
+ * @self: a `GtkLabel`
+ *
+ * Return the mnemonic accelerator.
+ *
+ * If the label has been set so that it has a mnemonic key this function
+ * returns the keyval used for the mnemonic accelerator. If there is no
+ * mnemonic set up it returns `GDK_KEY_VoidSymbol`.
+ *
+ * Returns: GDK keyval usable for accelerators, or `GDK_KEY_VoidSymbol`
+ **/
+guint
+gtk_label_get_mnemonic_keyval (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), GDK_KEY_VoidSymbol);
+
+  return self->mnemonic_keyval;
+}
+
+static void
+gtk_label_set_text_internal (GtkLabel *self,
+                             char     *str)
+{
+  if (g_strcmp0 (self->text, str) == 0)
+    {
+      g_free (str);
+      return;
+    }
+
+  g_free (self->text);
+  self->text = str;
+
+  gtk_label_select_region_index (self, 0, 0);
+}
+
+static gboolean
+gtk_label_set_label_internal (GtkLabel   *self,
+                              const char *str)
+{
+  if (g_strcmp0 (str, self->label) == 0)
+    return FALSE;
+
+  g_free (self->label);
+  self->label = g_strdup (str ? str : "");
+
+  g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_LABEL]);
+
+  gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                  GTK_ACCESSIBLE_PROPERTY_LABEL,
+                                  self->label,
+                                  -1);
+
+  return TRUE;
+}
+
+static gboolean
+gtk_label_set_use_markup_internal (GtkLabel *self,
+                                   gboolean  val)
+{
+  if (self->use_markup != val)
+    {
+      self->use_markup = val;
+
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_USE_MARKUP]);
+
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
+static gboolean
+gtk_label_set_use_underline_internal (GtkLabel *self,
+                                      gboolean  val)
+{
+  if (self->use_underline != val)
+    {
+      self->use_underline = val;
+
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_USE_UNDERLINE]);
+
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
+/* Calculates text, attrs and mnemonic_keyval from
+ * label, use_underline and use_markup
+ */
+static void
+gtk_label_recalculate (GtkLabel *self)
+{
+  guint keyval = self->mnemonic_keyval;
+
+  gtk_label_clear_links (self);
+  gtk_label_clear_layout (self);
+  gtk_label_clear_select_info (self);
+
+  if (self->use_markup)
+    {
+      gtk_label_set_markup_internal (self, self->label, self->use_underline);
+    }
+  else if (self->use_underline)
+    {
+      char *text;
+
+      text = g_markup_escape_text (self->label, -1);
+      gtk_label_set_markup_internal (self, text, TRUE);
+      g_free (text);
+    }
+  else
+    {
+      g_clear_pointer (&self->markup_attrs, pango_attr_list_unref);
+
+      gtk_label_set_text_internal (self, g_strdup (self->label));
+    }
+
+  if (!self->use_underline)
+    self->mnemonic_keyval = GDK_KEY_VoidSymbol;
+
+  if (keyval != self->mnemonic_keyval)
+    {
+      gtk_label_setup_mnemonic (self);
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_MNEMONIC_KEYVAL]);
+    }
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+}
+
+/**
+ * gtk_label_set_text:
+ * @self: a `GtkLabel`
+ * @str: The text you want to set
+ *
+ * Sets the text within the `GtkLabel` widget.
+ *
+ * It overwrites any text that was there before.
+ *
+ * This function will clear any previously set mnemonic accelerators,
+ * and set the [property@Gtk.Label:use-underline] property to %FALSE as
+ * a side effect.
+ *
+ * This function will set the [property@Gtk.Label:use-markup] property
+ * to %FALSE as a side effect.
+ *
+ * See also: [method@Gtk.Label.set_markup]
+ */
+void
+gtk_label_set_text (GtkLabel    *self,
+                    const char *str)
+{
+  gboolean changed;
+
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  changed = gtk_label_set_label_internal (self, str);
+  changed = gtk_label_set_use_markup_internal (self, FALSE) || changed;
+  changed = gtk_label_set_use_underline_internal (self, FALSE) || changed;
+
+  if (changed)
+    gtk_label_recalculate (self);
+
+  g_object_thaw_notify (G_OBJECT (self));
+}
+
+/**
+ * gtk_label_set_attributes: (attributes org.gtk.Method.set_property=attributes)
+ * @self: a `GtkLabel`
+ * @attrs: (nullable): a [struct@Pango.AttrList]
+ *
+ * Apply attributes to the label text.
+ *
+ * The attributes set with this function will be applied and merged with
+ * any other attributes previously effected by way of the
+ * [property@Gtk.Label:use-underline] or [property@Gtk.Label:use-markup]
+ * properties. While it is not recommended to mix markup strings with
+ * manually set attributes, if you must; know that the attributes will
+ * be applied to the label after the markup string is parsed.
+ */
+void
+gtk_label_set_attributes (GtkLabel         *self,
+                          PangoAttrList    *attrs)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  if (!attrs && !self->attrs)
+    return;
+
+  if (attrs)
+    pango_attr_list_ref (attrs);
+
+  if (self->attrs)
+    pango_attr_list_unref (self->attrs);
+  self->attrs = attrs;
+
+  g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_ATTRIBUTES]);
+
+  gtk_label_clear_layout (self);
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+}
+
+/**
+ * gtk_label_get_attributes: (attributes org.gtk.Method.get_property=attributes)
+ * @self: a `GtkLabel`
+ *
+ * Gets the label's attribute list.
+ *
+ * This is the [struct@Pango.AttrList] that was set on the label using
+ * [method@Gtk.Label.set_attributes], if any. This function does not
+ * reflect attributes that come from the label's markup (see
+ * [method@Gtk.Label.set_markup]). If you want to get the effective
+ * attributes for the label, use
+ * `pango_layout_get_attributes (gtk_label_get_layout (self))`.
+ *
+ * Returns: (nullable) (transfer none): the attribute list
+ */
+PangoAttrList *
+gtk_label_get_attributes (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), NULL);
+
+  return self->attrs;
+}
+
+/**
+ * gtk_label_set_label: (attributes org.gtk.Method.set_property=label)
+ * @self: a `GtkLabel`
+ * @str: the new text to set for the label
+ *
+ * Sets the text of the label.
+ *
+ * The label is interpreted as including embedded underlines and/or Pango
+ * markup depending on the values of the [property@Gtk.Label:use-underline]
+ * and [property@Gtk.Label:use-markup] properties.
+ */
+void
+gtk_label_set_label (GtkLabel    *self,
+                     const char *str)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  if (gtk_label_set_label_internal (self, str))
+    gtk_label_recalculate (self);
+
+  g_object_thaw_notify (G_OBJECT (self));
+}
+
+/**
+ * gtk_label_get_label: (attributes org.gtk.Method.get_property=label)
+ * @self: a `GtkLabel`
+ *
+ * Fetches the text from a label.
+ *
+ * The returned text includes any embedded underlines indicating
+ * mnemonics and Pango markup. (See [method@Gtk.Label.get_text]).
+ *
+ * Returns: the text of the label widget. This string is
+ *   owned by the widget and must not be modified or freed.
+ */
+const char *
+gtk_label_get_label (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), NULL);
+
+  return self->label;
+}
+
+typedef struct
+{
+  GtkLabel *label;
+  GArray *links;
+  GString *new_str;
+  gsize text_len;
+  gboolean strip_ulines;
+  GString *text_data;
+  gunichar accel_key;
+} UriParserData;
+
+static char *
+strip_ulines (const char *text,
+              guint      *accel_key)
+{
+  char *new_text;
+  const char *p;
+  char *q;
+  gboolean after_uline = FALSE;
+
+  new_text = g_malloc (strlen (text) + 1);
+
+  q = new_text;
+  for (p = text; *p; p++)
+    {
+      if (*p == '_' && !after_uline)
+        {
+          after_uline = TRUE;
+          continue;
+        }
+
+      *q = *p;
+      if (after_uline && *p != '_' && *accel_key == 0)
+        *accel_key = g_utf8_get_char (p);
+
+      q++;
+      after_uline = FALSE;
+    }
+
+  if (after_uline)
+    {
+      *q = '_';
+      q++;
+    }
+
+  *q = '\0';
+
+  return new_text;
+}
+
+static void
+finish_text (UriParserData *pdata)
+{
+  if (pdata->text_data->len > 0)
+    {
+      char *text;
+      gsize text_len;
+      char *newtext;
+
+      if (pdata->strip_ulines && strchr (pdata->text_data->str, '_'))
+        {
+          text = strip_ulines (pdata->text_data->str, &pdata->accel_key);
+          text_len = strlen (text);
+        }
+      else
+        {
+          text = pdata->text_data->str;
+          text_len = pdata->text_data->len;
+        }
+
+      newtext = g_markup_escape_text (text, text_len);
+      g_string_append (pdata->new_str, newtext);
+      pdata->text_len += text_len;
+      g_free (newtext);
+
+      if (text != pdata->text_data->str)
+        g_free (text);
+
+      g_string_set_size (pdata->text_data, 0);
+    }
+}
+
+static void
+start_element_handler (GMarkupParseContext  *context,
+                       const char           *element_name,
+                       const char          **attribute_names,
+                       const char          **attribute_values,
+                       gpointer              user_data,
+                       GError              **error)
+{
+  UriParserData *pdata = user_data;
+  GtkLabel *self = pdata->label;
+
+  finish_text (pdata);
+
+  if (strcmp (element_name, "a") == 0)
+    {
+      GtkLabelLink link;
+      const char *uri = NULL;
+      const char *title = NULL;
+      const char *class = NULL;
+      gboolean visited = FALSE;
+      int line_number;
+      int char_number;
+      int i;
+      GtkCssNode *widget_node;
+      GtkStateFlags state;
+
+      g_markup_parse_context_get_position (context, &line_number, &char_number);
+
+      for (i = 0; attribute_names[i] != NULL; i++)
+        {
+          const char *attr = attribute_names[i];
+
+          if (strcmp (attr, "href") == 0)
+            uri = attribute_values[i];
+          else if (strcmp (attr, "title") == 0)
+            title = attribute_values[i];
+          else if (strcmp (attr, "class") == 0)
+            class = attribute_values[i];
+          else
+            {
+              g_set_error (error,
+                           G_MARKUP_ERROR,
+                           G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE,
+                           "Attribute '%s' is not allowed on the <a> tag "
+                           "on line %d char %d",
+                            attr, line_number, char_number);
+              return;
+            }
+        }
+
+      if (uri == NULL)
+        {
+          g_set_error (error,
+                       G_MARKUP_ERROR,
+                       G_MARKUP_ERROR_INVALID_CONTENT,
+                       "Attribute 'href' was missing on the <a> tag "
+                       "on line %d char %d",
+                       line_number, char_number);
+          return;
+        }
+
+      visited = FALSE;
+      if (self->select_info)
+        {
+          for (i = 0; i < self->select_info->n_links; i++)
+            {
+              const GtkLabelLink *l = &self->select_info->links[i];
+
+              if (strcmp (uri, l->uri) == 0)
+                {
+                  visited = l->visited;
+                  break;
+                }
+            }
+        }
+
+      if (!pdata->links)
+        pdata->links = g_array_new (FALSE, TRUE, sizeof (GtkLabelLink));
+
+      link.uri = g_strdup (uri);
+      link.title = g_strdup (title);
+
+      widget_node = gtk_widget_get_css_node (GTK_WIDGET (pdata->label));
+      link.cssnode = gtk_css_node_new ();
+      gtk_css_node_set_name (link.cssnode, g_quark_from_static_string ("link"));
+      gtk_css_node_set_parent (link.cssnode, widget_node);
+      if (class)
+        gtk_css_node_add_class (link.cssnode, g_quark_from_string (class));
+
+      state = gtk_css_node_get_state (widget_node);
+      if (visited)
+        state |= GTK_STATE_FLAG_VISITED;
+      else
+        state |= GTK_STATE_FLAG_LINK;
+      gtk_css_node_set_state (link.cssnode, state);
+      g_object_unref (link.cssnode);
+
+      link.visited = visited;
+      link.start = pdata->text_len;
+      g_array_append_val (pdata->links, link);
+    }
+  else
+    {
+      int i;
+
+      g_string_append_c (pdata->new_str, '<');
+      g_string_append (pdata->new_str, element_name);
+
+      for (i = 0; attribute_names[i] != NULL; i++)
+        {
+          const char *attr  = attribute_names[i];
+          const char *value = attribute_values[i];
+          char *newvalue;
+
+          newvalue = g_markup_escape_text (value, -1);
+
+          g_string_append_c (pdata->new_str, ' ');
+          g_string_append (pdata->new_str, attr);
+          g_string_append (pdata->new_str, "=\"");
+          g_string_append (pdata->new_str, newvalue);
+          g_string_append_c (pdata->new_str, '\"');
+
+          g_free (newvalue);
+        }
+      g_string_append_c (pdata->new_str, '>');
+    }
+}
+
+static void
+end_element_handler (GMarkupParseContext  *context,
+                     const char           *element_name,
+                     gpointer              user_data,
+                     GError              **error)
+{
+  UriParserData *pdata = user_data;
+
+  finish_text (pdata);
+
+  if (!strcmp (element_name, "a"))
+    {
+      GtkLabelLink *link = &g_array_index (pdata->links, GtkLabelLink, pdata->links->len - 1);
+      link->end = pdata->text_len;
+    }
+  else
+    {
+      g_string_append (pdata->new_str, "</");
+      g_string_append (pdata->new_str, element_name);
+      g_string_append_c (pdata->new_str, '>');
+    }
+}
+
+static void
+text_handler (GMarkupParseContext  *context,
+              const char           *text,
+              gsize                 text_len,
+              gpointer              user_data,
+              GError              **error)
+{
+  UriParserData *pdata = user_data;
+
+  g_string_append_len (pdata->text_data, text, text_len);
+}
+
+static const GMarkupParser markup_parser =
+{
+  start_element_handler,
+  end_element_handler,
+  text_handler,
+  NULL,
+  NULL
+};
+
+static gboolean
+xml_isspace (char c)
+{
+  return (c == ' ' || c == '\t' || c == '\n' || c == '\r');
+}
+
+static gboolean
+parse_uri_markup (GtkLabel      *self,
+                  const char    *str,
+                  gboolean       strip_ulines,
+                  gunichar      *accel_key,
+                  char         **new_str,
+                  GtkLabelLink **links,
+                  guint         *out_n_links,
+                  GError       **error)
+{
+  GMarkupParseContext *context;
+  const char *p, *end;
+  gsize length;
+  UriParserData pdata;
+
+  length = strlen (str);
+  p = str;
+  end = str + length;
+
+  pdata.label = self;
+  pdata.links = NULL;
+  pdata.new_str = g_string_sized_new (length);
+  pdata.text_len = 0;
+  pdata.strip_ulines = strip_ulines;
+  pdata.text_data = g_string_new ("");
+  pdata.accel_key = 0;
+
+  while (p != end && xml_isspace (*p))
+    p++;
+
+  context = g_markup_parse_context_new (&markup_parser, 0, &pdata, NULL);
+
+  if (end - p >= 8 && strncmp (p, "<markup>", 8) == 0)
+    {
+      if (!g_markup_parse_context_parse (context, str, length, error))
+        goto failed;
+    }
+  else
+    {
+      if (!g_markup_parse_context_parse (context, "<markup>", 8, error))
+        goto failed;
+
+      if (!g_markup_parse_context_parse (context, str, length, error))
+        goto failed;
+
+      if (!g_markup_parse_context_parse (context, "</markup>", 9, error))
+        goto failed;
+    }
+
+  if (!g_markup_parse_context_end_parse (context, error))
+    goto failed;
+
+  g_markup_parse_context_free (context);
+
+  g_string_free (pdata.text_data, TRUE);
+
+  *new_str = g_string_free (pdata.new_str, FALSE);
+
+  if (pdata.links)
+    {
+      *out_n_links = pdata.links->len;
+      *links = (GtkLabelLink *)g_array_free (pdata.links, FALSE);
+    }
+  else
+    {
+      *links = NULL;
+    }
+
+  if (accel_key)
+    *accel_key = pdata.accel_key;
+
+  return TRUE;
+
+failed:
+  g_markup_parse_context_free (context);
+  g_string_free (pdata.new_str, TRUE);
+
+  if (pdata.links)
+    g_array_free (pdata.links, TRUE);
+
+  return FALSE;
+}
+
+static void
+gtk_label_ensure_has_tooltip (GtkLabel *self)
+{
+  guint i;
+  gboolean has_tooltip = gtk_widget_get_has_tooltip(GTK_WIDGET(self));
+
+  if (has_tooltip) {
+    return;
+  }
+
+  for (i = 0; i < self->select_info->n_links; i++)
+    {
+      const GtkLabelLink *link = &self->select_info->links[i];
+
+      if (link->title)
+        {
+          has_tooltip = TRUE;
+          break;
+        }
+    }
+
+  gtk_widget_set_has_tooltip (GTK_WIDGET (self), has_tooltip);
+}
+
+static void
+gtk_label_set_markup_internal (GtkLabel   *self,
+                               const char *str,
+                               gboolean    with_uline)
+{
+  char *text = NULL;
+  GError *error = NULL;
+  PangoAttrList *attrs = NULL;
+  char *str_for_display = NULL;
+  GtkLabelLink *links = NULL;
+  guint n_links = 0;
+  gunichar accel_keyval = 0;
+  gboolean do_mnemonics;
+
+  do_mnemonics = self->mnemonics_visible &&
+                 gtk_widget_is_sensitive (GTK_WIDGET (self)) &&
+                 (!self->mnemonic_widget || gtk_widget_is_sensitive (self->mnemonic_widget));
+
+  if (!parse_uri_markup (self, str,
+                         with_uline && !do_mnemonics,
+                         &accel_keyval,
+                         &str_for_display,
+                         &links, &n_links,
+                         &error))
+    goto error_set;
+
+  if (links)
+    {
+      gtk_label_ensure_select_info (self);
+      self->select_info->links = g_steal_pointer (&links);
+      self->select_info->n_links = n_links;
+      gtk_label_ensure_has_tooltip (self);
+      gtk_widget_add_css_class (GTK_WIDGET (self), "link");
+    }
+
+  if (!pango_parse_markup (str_for_display, -1,
+                           with_uline && do_mnemonics ? '_' : 0,
+                           &attrs, &text,
+                           with_uline && do_mnemonics ? &accel_keyval : NULL,
+                           &error))
+    goto error_set;
+
+  g_free (str_for_display);
+
+  if (text)
+    gtk_label_set_text_internal (self, text);
+
+  g_clear_pointer (&self->markup_attrs, pango_attr_list_unref);
+  self->markup_attrs = attrs;
+
+  self->mnemonic_keyval = accel_keyval;
+
+  return;
+
+error_set:
+  g_warning ("Failed to set text '%s' from markup due to error parsing markup: %s",
+             str, error->message);
+  g_error_free (error);
+
+}
+
+/**
+ * gtk_label_set_markup:
+ * @self: a `GtkLabel`
+ * @str: a markup string
+ *
+ * Sets the labels text and attributes from markup.
+ *
+ * The string must be marked up with Pango markup
+ * (see [func@Pango.parse_markup]).
+ *
+ * If the @str is external data, you may need to escape it
+ * with g_markup_escape_text() or g_markup_printf_escaped():
+ *
+ * ```c
+ * GtkWidget *self = gtk_label_new (NULL);
+ * const char *str = "...";
+ * const char *format = "<span style=\"italic\">\%s</span>";
+ * char *markup;
+ *
+ * markup = g_markup_printf_escaped (format, str);
+ * gtk_label_set_markup (GTK_LABEL (self), markup);
+ * g_free (markup);
+ * ```
+ *
+ * This function will set the [property@Gtk.Label:use-markup] property
+ * to %TRUE as a side effect.
+ *
+ * If you set the label contents using the [property@Gtk.Label:label]
+ * property you should also ensure that you set the
+ * [property@Gtk.Label:use-markup] property accordingly.
+ *
+ * See also: [method@Gtk.Label.set_text]
+ */
+void
+gtk_label_set_markup (GtkLabel    *self,
+                      const char *str)
+{
+  gboolean changed;
+
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  changed = gtk_label_set_label_internal (self, str);
+  changed = gtk_label_set_use_markup_internal (self, TRUE) || changed;
+  changed = gtk_label_set_use_underline_internal (self, FALSE) || changed;
+
+  if (changed)
+    gtk_label_recalculate (self);
+
+  g_object_thaw_notify (G_OBJECT (self));
+}
+
+/**
+ * gtk_label_set_markup_with_mnemonic:
+ * @self: a `GtkLabel`
+ * @str: a markup string
+ *
+ * Sets the labels text, attributes and mnemonic from markup.
+ *
+ * Parses @str which is marked up with Pango markup (see [func@Pango.parse_markup]),
+ * setting the label’s text and attribute list based on the parse results.
+ * If characters in @str are preceded by an underscore, they are underlined
+ * indicating that they represent a keyboard accelerator called a mnemonic.
+ *
+ * The mnemonic key can be used to activate another widget, chosen
+ * automatically, or explicitly using [method@Gtk.Label.set_mnemonic_widget].
+ */
+void
+gtk_label_set_markup_with_mnemonic (GtkLabel    *self,
+                                    const char *str)
+{
+  gboolean changed;
+
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  changed = gtk_label_set_label_internal (self, str);
+  changed = gtk_label_set_use_markup_internal (self, TRUE) || changed;
+  changed = gtk_label_set_use_underline_internal (self, TRUE) || changed;
+
+  if (changed)
+    gtk_label_recalculate (self);
+
+  g_object_thaw_notify (G_OBJECT (self));
+}
+
+/**
+ * gtk_label_get_text:
+ * @self: a `GtkLabel`
+ *
+ * Fetches the text from a label.
+ *
+ * The returned text is as it appears on screen. This does not include
+ * any embedded underlines indicating mnemonics or Pango markup. (See
+ * [method@Gtk.Label.get_label])
+ *
+ * Returns: the text in the label widget. This is the internal
+ *   string used by the label, and must not be modified.
+ **/
+const char *
+gtk_label_get_text (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), NULL);
+
+  return self->text;
+}
+
+/**
+ * gtk_label_set_justify: (attributes org.gtk.Method.set_property=justify)
+ * @self: a `GtkLabel`
+ * @jtype: a `GtkJustification`
+ *
+ * Sets the alignment of the lines in the text of the label relative to
+ * each other.
+ *
+ * %GTK_JUSTIFY_LEFT is the default value when the widget is first created
+ * with [ctor@Gtk.Label.new]. If you instead want to set the alignment of
+ * the label as a whole, use [method@Gtk.Widget.set_halign] instead.
+ * [method@Gtk.Label.set_justify] has no effect on labels containing
+ * only a single line.
+ */
+void
+gtk_label_set_justify (GtkLabel        *self,
+                       GtkJustification jtype)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+  g_return_if_fail (jtype >= GTK_JUSTIFY_LEFT && jtype <= GTK_JUSTIFY_FILL);
+
+  if ((GtkJustification) self->jtype != jtype)
+    {
+      self->jtype = jtype;
+
+      /* No real need to be this drastic, but easier than duplicating the code */
+      gtk_label_clear_layout (self);
+
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_JUSTIFY]);
+      gtk_widget_queue_resize (GTK_WIDGET (self));
+    }
+}
+
+/**
+ * gtk_label_get_justify: (attributes org.gtk.Method.get_property=justify)
+ * @self: a `GtkLabel`
+ *
+ * Returns the justification of the label.
+ *
+ * See [method@Gtk.Label.set_justify].
+ *
+ * Returns: `GtkJustification`
+ **/
+GtkJustification
+gtk_label_get_justify (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), 0);
+
+  return self->jtype;
+}
+
+/**
+ * gtk_label_set_ellipsize: (attributes org.gtk.Method.set_property=ellipsize)
+ * @self: a `GtkLabel`
+ * @mode: a `PangoEllipsizeMode`
+ *
+ * Sets the mode used to ellipsize the text.
+ *
+ * The text will be ellipsized if there is not enough space
+ * to render the entire string.
+ */
+void
+gtk_label_set_ellipsize (GtkLabel          *self,
+                         PangoEllipsizeMode mode)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+  g_return_if_fail (mode >= PANGO_ELLIPSIZE_NONE && mode <= PANGO_ELLIPSIZE_END);
+
+  if ((PangoEllipsizeMode) self->ellipsize != mode)
+    {
+      self->ellipsize = mode;
+
+      /* No real need to be this drastic, but easier than duplicating the code */
+      gtk_label_clear_layout (self);
+
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_ELLIPSIZE]);
+      gtk_widget_queue_resize (GTK_WIDGET (self));
+    }
+}
+
+/**
+ * gtk_label_get_ellipsize: (attributes org.gtk.Method.get_property=ellipsize)
+ * @self: a `GtkLabel`
+ *
+ * Returns the ellipsizing position of the label.
+ *
+ * See [method@Gtk.Label.set_ellipsize].
+ *
+ * Returns: `PangoEllipsizeMode`
+ **/
+PangoEllipsizeMode
+gtk_label_get_ellipsize (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), PANGO_ELLIPSIZE_NONE);
+
+  return self->ellipsize;
+}
+
+/**
+ * gtk_label_set_width_chars: (attributes org.gtk.Method.set_property=width-chars)
+ * @self: a `GtkLabel`
+ * @n_chars: the new desired width, in characters.
+ *
+ * Sets the desired width in characters of @label to @n_chars.
+ */
+void
+gtk_label_set_width_chars (GtkLabel *self,
+                           int       n_chars)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  if (self->width_chars != n_chars)
+    {
+      self->width_chars = n_chars;
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_WIDTH_CHARS]);
+      gtk_widget_queue_resize (GTK_WIDGET (self));
+    }
+}
+
+/**
+ * gtk_label_get_width_chars: (attributes org.gtk.Method.get_property=width-chars)
+ * @self: a `GtkLabel`
+ *
+ * Retrieves the desired width of @label, in characters.
+ *
+ * See [method@Gtk.Label.set_width_chars].
+ *
+ * Returns: the width of the label in characters.
+ */
+int
+gtk_label_get_width_chars (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), -1);
+
+  return self->width_chars;
+}
+
+/**
+ * gtk_label_set_max_width_chars: (attributes org.gtk.Method.set_property=max-width-chars)
+ * @self: a `GtkLabel`
+ * @n_chars: the new desired maximum width, in characters.
+ *
+ * Sets the desired maximum width in characters of @label to @n_chars.
+ */
+void
+gtk_label_set_max_width_chars (GtkLabel *self,
+                               int       n_chars)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  if (self->max_width_chars != n_chars)
+    {
+      self->max_width_chars = n_chars;
+
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_MAX_WIDTH_CHARS]);
+      gtk_widget_queue_resize (GTK_WIDGET (self));
+    }
+}
+
+/**
+ * gtk_label_get_max_width_chars: (attributes org.gtk.Method.get_property=max-width-chars)
+ * @self: a `GtkLabel`
+ *
+ * Retrieves the desired maximum width of @label, in characters.
+ *
+ * See [method@Gtk.Label.set_width_chars].
+ *
+ * Returns: the maximum width of the label in characters.
+ **/
+int
+gtk_label_get_max_width_chars (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), -1);
+
+  return self->max_width_chars;
+}
+
+/**
+ * gtk_label_set_wrap: (attributes org.gtk.Method.set_property=wrap)
+ * @self: a `GtkLabel`
+ * @wrap: the setting
+ *
+ * Toggles line wrapping within the `GtkLabel` widget.
+ *
+ * %TRUE makes it break lines if text exceeds the widget’s size.
+ * %FALSE lets the text get cut off by the edge of the widget if
+ * it exceeds the widget size.
+ *
+ * Note that setting line wrapping to %TRUE does not make the label
+ * wrap at its parent container’s width, because GTK widgets
+ * conceptually can’t make their requisition depend on the parent
+ * container’s size. For a label that wraps at a specific position,
+ * set the label’s width using [method@Gtk.Widget.set_size_request].
+ */
+void
+gtk_label_set_wrap (GtkLabel *self,
+                    gboolean  wrap)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  wrap = wrap != FALSE;
+
+  if (self->wrap != wrap)
+    {
+      self->wrap = wrap;
+
+      gtk_label_clear_layout (self);
+      gtk_widget_queue_resize (GTK_WIDGET (self));
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_WRAP]);
+    }
+}
+
+/**
+ * gtk_label_get_wrap: (attributes org.gtk.Method.get_property=wrap)
+ * @self: a `GtkLabel`
+ *
+ * Returns whether lines in the label are automatically wrapped.
+ *
+ * See [method@Gtk.Label.set_wrap].
+ *
+ * Returns: %TRUE if the lines of the label are automatically wrapped.
+ */
+gboolean
+gtk_label_get_wrap (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), FALSE);
+
+  return self->wrap;
+}
+
+/**
+ * gtk_label_set_wrap_mode: (attributes org.gtk.Method.set_property=wrap-mode)
+ * @self: a `GtkLabel`
+ * @wrap_mode: the line wrapping mode
+ *
+ * Controls how line wrapping is done.
+ *
+ * This only affects the label if line wrapping is on. (See
+ * [method@Gtk.Label.set_wrap]) The default is %PANGO_WRAP_WORD
+ * which means wrap on word boundaries.
+ *
+ * For sizing behavior, also consider the [property@Gtk.Label:natural-wrap-mode]
+ * property.
+ */
+void
+gtk_label_set_wrap_mode (GtkLabel *self,
+                         PangoWrapMode wrap_mode)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  if (self->wrap_mode != wrap_mode)
+    {
+      self->wrap_mode = wrap_mode;
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_WRAP_MODE]);
+
+      gtk_widget_queue_resize (GTK_WIDGET (self));
+    }
+}
+
+/**
+ * gtk_label_get_wrap_mode: (attributes org.gtk.Method.get_property=wrap-mode)
+ * @self: a `GtkLabel`
+ *
+ * Returns line wrap mode used by the label.
+ *
+ * See [method@Gtk.Label.set_wrap_mode].
+ *
+ * Returns: the line wrap mode
+ */
+PangoWrapMode
+gtk_label_get_wrap_mode (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), PANGO_WRAP_WORD);
+
+  return self->wrap_mode;
+}
+
+/**
+ * gtk_label_set_natural_wrap_mode: (attributes org.gtk.Method.set_property=natural-wrap-mode)
+ * @self: a `GtkLabel`
+ * @wrap_mode: the line wrapping mode
+ *
+ * Select the line wrapping for the natural size request.
+ *
+ * This only affects the natural size requested, for the actual wrapping used,
+ * see the [property@Gtk.Label:wrap-mode] property.
+ *
+ * Since: 4.6
+ */
+void
+gtk_label_set_natural_wrap_mode (GtkLabel           *self,
+                                 GtkNaturalWrapMode  wrap_mode)
+{
+  g_return_if_fail (GTK_IS_LABEL (self));
+
+  if (self->natural_wrap_mode != wrap_mode)
+    {
+      self->natural_wrap_mode = wrap_mode;
+      g_object_notify_by_pspec (G_OBJECT (self), label_props[PROP_NATURAL_WRAP_MODE]);
+
+      gtk_widget_queue_resize (GTK_WIDGET (self));
+    }
+}
+
+/**
+ * gtk_label_get_natural_wrap_mode: (attributes org.gtk.Method.get_property=natural-wrap-mode)
+ * @self: a `GtkLabel`
+ *
+ * Returns line wrap mode used by the label.
+ *
+ * See [method@Gtk.Label.set_natural_wrap_mode].
+ *
+ * Returns: the natural line wrap mode
+ *
+ * Since: 4.6
+ */
+GtkNaturalWrapMode
+gtk_label_get_natural_wrap_mode (GtkLabel *self)
+{
+  g_return_val_if_fail (GTK_IS_LABEL (self), GTK_NATURAL_WRAP_INHERIT);
+
+  return self->natural_wrap_mode;
+}
+
+static void
+gtk_label_clear_layout (GtkLabel *self)
+{
+  g_clear_object (&self->layout);
+}
+
+static void
+gtk_label_ensure_layout (GtkLabel *self)
+{
+  PangoAlignment align;
+  gboolean rtl;
+
+  if (self->layout)
+    return;
+
+  rtl = _gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
+  self->layout = gtk_widget_create_pango_layout (GTK_WIDGET (self), self->text);
+
+  gtk_label_update_layout_attributes (self, NULL);
+
+  switch (self->jtype)
+    {
+    case GTK_JUSTIFY_LEFT:
+      align = rtl ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_LEFT;
+      break;
+    case GTK_JUSTIFY_RIGHT:
+      align = rtl ? PANGO_ALIGN_LEFT : PANGO_ALIGN_RIGHT;
+      break;
+    case GTK_JUSTIFY_CENTER:
+      align = PANGO_ALIGN_CENTER;
+      break;
+    case GTK_JUSTIFY_FILL:
+      align = rtl ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_LEFT;
+      pango_layout_set_justify (self->layout, TRUE);
+      break;
+    default:
+      g_assert_not_reached();
+    }
+
+  pango_layout_set_alignment (self->layout, align);
+  pango_layout_set_ellipsize (self->layout, self->ellipsize);
+  pango_layout_set_wrap (self->layout, self->wrap_mode);
+  pango_layout_set_single_paragraph_mode (self->layout, self->single_line_mode);
+  if (self->lines > 0)
+    pango_layout_set_height (self->layout, - self->lines);
+
+  if (self->ellipsize || self->wrap)
+    pango_layout_set_width (self->layout, gtk_widget_get_width (GTK_WIDGET (self)) * PANGO_SCALE);
+
+  pango_layout_set_tabs (self->layout, self->tabs);
+}
+
+/**
+ * gtk_label_set_text_with_mnemonic:
+ * @self: a `GtkLabel`
+ * @str: a string
+ *
+ * Sets the label’s text from the string @str.
+ *
+ * If characters in @str are preceded by an underscore, they are underlined
+ * indicating that they represent a keyboard accelerator called a mnemonic.
+ * The mnemonic key can be used to activate another widget, chosen
+ * automatically, or explicitly using [method@Gtk.Label.set_mnemonic_widget].
+ */
+void
+gtk_label_set_text_with_mnemonic (GtkLabel    *self,
+                                  const char *str)
+{
+  gboolean changed;
+
+  g_return_if_fail (GTK_IS_LABEL (self));
+  g_return_if_fail (str != NULL);
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  changed = gtk_label_set_label_internal (self, str);
+  changed = gtk_label_set_use_markup_internal (self, FALSE) || changed;
+  changed = gtk_label_set_use_underline_internal (self, TRUE) || changed;
+
+  if (changed)
+    gtk_label_recalculate (self);
+
+  g_object_thaw_notify (G_OBJECT (self));
+}
+
+static int
+gtk_label_move_forward_word (GtkLabel *self,
+                             int       start)
+{
+  int new_pos = g_utf8_pointer_to_offset (self->text, self->text + start);
+  int length;
+
+  length = g_utf8_strlen (self->text, -1);
+  if (new_pos < length)
+    {
+      const PangoLogAttr *log_attrs;
+      int n_attrs;
+
+      gtk_label_ensure_layout (self);
+
+      log_attrs = pango_layout_get_log_attrs_readonly (self->layout, &n_attrs);
+
+      /* Find the next word end */
+      new_pos++;
+      while (new_pos < n_attrs && !log_attrs[new_pos].is_word_end)
+        new_pos++;
+    }
+
+  return g_utf8_offset_to_pointer (self->text, new_pos) - self->text;
+}
+
+static int
+gtk_label_move_backward_word (GtkLabel *self,
+                              int       start)
+{
+  int new_pos = g_utf8_pointer_to_offset (self->text, self->text + start);
+
+  if (new_pos > 0)
+    {
+      const PangoLogAttr *log_attrs;
+      int n_attrs;
+
+      gtk_label_ensure_layout (self);
+
+      log_attrs = pango_layout_get_log_attrs_readonly (self->layout, &n_attrs);
+
+      new_pos -= 1;
+
+      /* Find the previous word beginning */
+      while (new_pos > 0 && !log_attrs[new_pos].is_word_start)
+        new_pos--;
+    }
+
+  return g_utf8_offset_to_pointer (self->text, new_pos) - self->text;
+}
+
+static void
+gtk_label_select_word (GtkLabel *self)
+{
+  int min, max;
+
+  int start_index = gtk_label_move_backward_word (self, self->select_info->selection_end);
+  int end_index = gtk_label_move_forward_word (self, self->select_info->selection_end);
+
+  min = MIN (self->select_info->selection_anchor,
+             self->select_info->selection_end);
+  max = MAX (self->select_info->selection_anchor,
+             self->select_info->selection_end);
+
+  min = MIN (min, start_index);
+  max = MAX (max, end_index);
+
+  gtk_label_select_region_index (self, min, max);
+}
+
+static void
+gtk_label_click_gesture_pressed (GtkGestureClick *gesture,
+                                 int              n_press,
+                                 double           widget_x,
+                                 double           widget_y,
+                                 GtkLabel        *self)
+{
+  GtkLabelSelectionInfo *info = self->select_info;
+  GtkWidget *widget = GTK_WIDGET (self);
   GdkEventSequence *sequence;
   const GdkEvent *event;
   guint button;

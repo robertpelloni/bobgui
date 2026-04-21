@@ -415,6 +415,28 @@ gtk_link_button_button_press (GtkWidget      *widget,
   return FALSE;
 }
 
+static void
+launch_done (GObject      *source,
+             GAsyncResult *result,
+             gpointer      data)
+{
+  GError *error = NULL;
+  gboolean success;
+
+  if (GTK_IS_FILE_LAUNCHER (source))
+    success = gtk_file_launcher_launch_finish (GTK_FILE_LAUNCHER (source), result, &error);
+  else if (GTK_IS_URI_LAUNCHER (source))
+    success = gtk_uri_launcher_launch_finish (GTK_URI_LAUNCHER (source), result, &error);
+  else
+    g_assert_not_reached ();
+
+  if (!success)
+    {
+      g_warning ("Failed to launch handler: %s", error->message);
+      g_error_free (error);
+    }
+}
+
 static gboolean
 gtk_link_button_activate_link (GtkLinkButton *link_button)
 {
@@ -433,6 +455,20 @@ gtk_link_button_activate_link (GtkLinkButton *link_button)
       g_error_free (error);
 
       return FALSE;
+      launcher = gtk_file_launcher_new (file);
+
+      gtk_file_launcher_launch (launcher, GTK_WINDOW (toplevel), NULL, launch_done, NULL);
+
+      g_object_unref (launcher);
+      g_object_unref (file);
+    }
+  else
+    {
+      GtkUriLauncher *launcher = gtk_uri_launcher_new (link_button->uri);
+
+      gtk_uri_launcher_launch (launcher, GTK_WINDOW (toplevel), NULL, launch_done, NULL);
+
+      g_object_unref (launcher);
     }
 
   gtk_link_button_set_visited (link_button, TRUE);

@@ -3079,6 +3079,13 @@ gdk_event_translate (MSG *msg,
               gdk_surface_request_layout (surface);
             }
         }
+	}
+
+      if (!(windowpos->flags & SWP_NOCLIENTSIZE))
+	{
+	  if (window->resize_count > 1)
+	    window->resize_count -= 1;
+	}
 
       /* Call modal timer immediate so that we repaint faster after a resize. */
       if (GDK_WIN32_DISPLAY (gdk_surface_get_display (surface))->display_surface_record->modal_operation_in_progress & GDK_WIN32_MODAL_OP_SIZEMOVE_MASK)

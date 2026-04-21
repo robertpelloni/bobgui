@@ -1434,6 +1434,21 @@ gsk_gpu_node_processor_add_texture_scale_node (GskGpuRenderPass *self,
                                        &node->bounds,
                                        &clip_bounds);
 
+        return;
+      clip_bounds.size.width = ceilf (clip_bounds.size.width);
+      clip_bounds.size.height = ceilf (clip_bounds.size.height);
+      offscreen = gsk_gpu_node_processor_create_offscreen (self->frame,
+                                                           graphene_vec2_one (),
+                                                           &clip_bounds,
+                                                           node);
+      descriptor = gsk_gpu_node_processor_add_image (self, offscreen, GSK_GPU_SAMPLER_DEFAULT);
+      gsk_gpu_texture_op (self->frame,
+                          gsk_gpu_clip_get_shader_clip (&self->clip, &self->offset, &node->bounds),
+                          self->desc,
+                          descriptor,
+                          &node->bounds,
+                          &self->offset,
+                          &clip_bounds);
       g_object_unref (offscreen);
       return;
     }

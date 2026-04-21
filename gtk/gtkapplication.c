@@ -1284,11 +1284,16 @@ gtk_application_get_parent_muxer_for_window (GtkWindow *window)
   GtkApplication *application;
 
   application = gtk_window_get_application (window);
+  GtkApplication *application = gtk_window_get_application (window);
+  GtkApplicationPrivate *priv;
 
   if (!application)
     return NULL;
 
   return application->priv->muxer;
+  priv = gtk_application_get_instance_private (application);
+
+  return priv->muxer;
 }
 
 GtkApplicationAccels *

@@ -304,6 +304,10 @@ gdk_dmabuf_egl_create_image (GdkDisplay      *display,
       attribs[i++] = EGL_SAMPLE_RANGE_HINT_EXT;
       attribs[i++] = range_hint;
     }
+  attribs[i++] = EGL_YUV_COLOR_SPACE_HINT_EXT;
+  attribs[i++] = EGL_ITU_REC601_EXT;
+  attribs[i++] = EGL_SAMPLE_RANGE_HINT_EXT;
+  attribs[i++] = EGL_YUV_NARROW_RANGE_EXT;
 
 #define ADD_PLANE(plane) \
   { \

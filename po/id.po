@@ -5,11 +5,8 @@
 # Mohammad DAMT <mdamt@bisnisweb.com>, 2003, 2004, 2005.
 # Ahmad Riza H Nst  <rizahnst@gnome.org>, 2006.
 # Muhammad Hilman <hilman09121991@yahoo.com>, 2008.
-<<<<<<< HEAD
 # Andika Triwidada <andika@gmail.com>, 2010-2014, 2021, 2023-2025.
-=======
 # Andika Triwidada <andika@gmail.com>, 2010-2014, 2017.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 # Dirgita <dirgitadevina@yahoo.co.id>, 2010.
 # Dirgita Devina <dirgitadevina@yahoo.co.id>, 2010, 2012.
 # Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023.
@@ -21,6 +18,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bobgui/-/issues/\n"
 "POT-Creation-Date: 2025-12-29 14:31+0000\n"
 "PO-Revision-Date: 2026-01-03 13:15+0700\n"
+"Project-Id-Version: gtk main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gtk/-/issues/\n"
+"POT-Creation-Date: 2024-04-22 13:22+0000\n"
+"PO-Revision-Date: 2024-04-23 14:25+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 =======
@@ -36,11 +37,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-<<<<<<< HEAD
 "X-Generator: Poedit 3.8\n"
-=======
 "X-Generator: Poedit 2.0.6\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/android/gdkandroidclipboard.c:174
 msgid "No compatible formats to transfer contents of content provider."
@@ -70,6 +68,7 @@ msgid "Cannot read from empty clipboard."
 msgstr "Tidak dapat membaca dari papan klip kosong."
 
 #: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1122 gdk/gdkdrag.c:606
+#: gdk/gdkclipboard.c:318 gdk/gdkclipboard.c:1136 gdk/gdkdrag.c:606
 msgid "No compatible formats to transfer clipboard contents."
 msgstr "Tidak ada format yang kompatibel untuk mentransfer konten papan klip."
 
@@ -106,7 +105,6 @@ msgstr "Tidak dapat memberikan konten sebagai \"%s\""
 
 <<<<<<< HEAD
 #: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:471
-=======
 #. Description of --display=DISPLAY in --help output
 #: gdk/gdk.c:238
 msgid "X display to use"
@@ -116,6 +114,14 @@ msgstr "Tampilan X yang akan dipakai"
 #: gdk/gdk.c:239
 msgid "DISPLAY"
 msgstr "TAMPILAN"
+=======
+#: gdk/gdkdisplay.c:176 gdk/gdkglcontext.c:464
+msgid "The current backend does not support OpenGL"
+msgstr "Backend saat ini tak mendukung OpenGL"
+
+#: gdk/gdkdisplay.c:1315 gdk/gdkvulkancontext.c:1600
+msgid "Vulkan support disabled via GDK_DEBUG"
+msgstr "Dukungan Vulkan dinonaktifkan melalui GDK_DEBUG"
 
 #. Description of --gdk-debug=FLAGS in --help output
 #: gdk/gdk.c:243
@@ -169,6 +175,23 @@ msgid "No perfect EGL configuration found"
 msgstr "Tak ditemukan konfigurasi EGL yang sempurna"
 
 #: gdk/gdkdisplay.c:1816
+#: gdk/gdkdisplay.c:1675
+msgid "No EGL configuration available"
+msgstr "Tak ada konfigurasi EGL yang tersedia"
+
+#: gdk/gdkdisplay.c:1683
+msgid "Failed to get EGL configurations"
+msgstr "Gagal mendapatkan konfigurasi EGL"
+
+#: gdk/gdkdisplay.c:1713
+msgid "No EGL configuration with required features found"
+msgstr "Tidak ditemukan konfigurasi EGL dengan fitur yang diperlukan"
+
+#: gdk/gdkdisplay.c:1720
+msgid "No perfect EGL configuration found"
+msgstr "Tak ditemukan konfigurasi EGL yang sempurna"
+
+#: gdk/gdkdisplay.c:1762
 #, c-format
 msgid "EGL implementation is missing extension %s"
 msgid_plural "EGL implementation is missing %2$d extensions: %1$s"
@@ -191,6 +214,23 @@ msgid "Could not initialize EGL display"
 msgstr "Tidak bisa menginisialisasi tampilan EGL"
 
 #: gdk/gdkdisplay.c:1895
+#: gdk/gdkdisplay.c:1811
+msgid "libEGL not available in this sandbox"
+msgstr "libEGL tidak tersedia di sandbox ini"
+
+#: gdk/gdkdisplay.c:1812
+msgid "libEGL not available"
+msgstr "libEGL tidak tersedia"
+
+#: gdk/gdkdisplay.c:1822
+msgid "Failed to create EGL display"
+msgstr "Gagal membuat tampilan EGL"
+
+#: gdk/gdkdisplay.c:1831
+msgid "Could not initialize EGL display"
+msgstr "Tidak bisa menginisialisasi tampilan EGL"
+
+#: gdk/gdkdisplay.c:1841
 #, c-format
 msgid "EGL version %d.%d is too old. BOBGUI requires %d.%d"
 msgstr "EGL versi %d.%d terlalu tua. BOBGUI memerlukan %d.%d"
@@ -221,6 +261,25 @@ msgid "OpenGL API disabled via GDK_DISABLE"
 msgstr "API OpenGL dinonaktifkan melalui GDK_DISABLE"
 
 #: gdk/gdkglcontext.c:1462
+#: gdk/gdkglcontext.c:424 gdk/x11/gdkglcontext-glx.c:645
+msgid "No GL API allowed."
+msgstr "Tidak ada API GL yang diizinkan."
+
+#: gdk/gdkglcontext.c:447 gdk/win32/gdkglcontext-win32-wgl.c:395
+#: gdk/win32/gdkglcontext-win32-wgl.c:538
+#: gdk/win32/gdkglcontext-win32-wgl.c:582 gdk/x11/gdkglcontext-glx.c:691
+msgid "Unable to create a GL context"
+msgstr "Tak dapat membuat sebuah konteks GL"
+
+#: gdk/gdkglcontext.c:1310
+msgid "OpenGL ES disabled via GDK_DEBUG"
+msgstr "OpenGL ES dinonaktifkan melalui GDK_DEBUG"
+
+#: gdk/gdkglcontext.c:1322
+msgid "OpenGL disabled via GDK_DEBUG"
+msgstr "OpenGL dinonaktifkan melalui GDK_DEBUG"
+
+#: gdk/gdkglcontext.c:1333
 #, c-format
 msgid "Application does not support %s API"
 msgstr "Aplikasi tidak mendukung API %s"
@@ -229,6 +288,7 @@ msgstr "Aplikasi tidak mendukung API %s"
 #. * "Trying to use X11 GLX, but EGL is already in use"
 #.
 #: gdk/gdkglcontext.c:2253
+#: gdk/gdkglcontext.c:2123
 #, c-format
 msgid "Trying to use %s, but %s is already in use"
 msgstr "Mencoba menggunakan %s, tetapi %s sudah digunakan"
@@ -245,15 +305,12 @@ msgstr "Format gambar tidak dikenal."
 #.
 #. * Translators, the strings in the 'keyboard label' context are
 #. * display names for keyboard keys. Some of them have prefixes like
-<<<<<<< HEAD
 #. * XF86 or ISO_ - these should be removed in the translation. Similarly,
 #. * underscores should be replaced by spaces. The prefix 'KP_' stands
 #. * for 'key pad' and you may want to include that in your translation.
-=======
 #. * XF86 or ISO_ — these should be removed in the translation. Similarly,
 #. * underscores should be replaced by spaces. The prefix “KP_” stands
 #. * for “key pad” and you may want to include that in your translation.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. * Here are some examples of English translations:
 #. * XF86AudioMute - Audio mute
 #. * Scroll_lock   - Scroll lock
@@ -359,13 +416,10 @@ msgctxt "keyboard label"
 msgid "Num_Lock"
 msgstr "Num_Lock"
 
-<<<<<<< HEAD
 #. Translators: KP_ means 'key pad' here
 #: gdk/keynamesprivate.h:6882
-=======
 #. Translators: KP_ means “key pad” here
 #: gdk/keyname-table.h:6864
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "KP_Space"
 msgstr "KP_Space"
@@ -605,115 +659,78 @@ msgctxt "keyboard label"
 msgid "ScreenSaver"
 msgstr "ScreenSaver"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6923
-=======
 #: gdk/keyname-table.h:6905
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Battery"
 msgstr "Battery"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6924
-=======
 #: gdk/keyname-table.h:6906
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Launch1"
 msgstr "Launch1"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6925
-=======
 #: gdk/keyname-table.h:6907
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Forward"
 msgstr "Forward"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6926
-=======
 #: gdk/keyname-table.h:6908
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Back"
 msgstr "Back"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6927
-=======
 #: gdk/keyname-table.h:6909
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Sleep"
 msgstr "Sleep"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6928
-=======
 #: gdk/keyname-table.h:6910
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hibernate"
 msgstr "Hibernate"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6929
-=======
 #: gdk/keyname-table.h:6911
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WLAN"
 msgstr "WLAN"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6930
-=======
 #: gdk/keyname-table.h:6912
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WebCam"
 msgstr "WebCam"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6931
-=======
 #: gdk/keyname-table.h:6913
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Display"
 msgstr "Display"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6932
-=======
 #: gdk/keyname-table.h:6914
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "TouchpadToggle"
 msgstr "TouchpadToggle"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6933
-=======
 #: gdk/keyname-table.h:6915
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "WakeUp"
 msgstr "WakeUp"
 
-<<<<<<< HEAD
 #: gdk/keynamesprivate.h:6934
-=======
 #: gdk/keyname-table.h:6916
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Suspend"
 msgstr "Suspend"
 
-<<<<<<< HEAD
 #: gdk/loaders/gdkjpeg.c:71
 #, c-format
 msgid "Error interpreting JPEG image file (%s)"
@@ -931,7 +948,6 @@ msgstr "Tak ada konfigurasi yang tersedia bagi format piksel yang diberikan"
 #: gdk/win32/gdkhdataoutputstream-win32.c:64
 msgid "writing a closed stream"
 msgstr "menulis stream tertutup"
-=======
 #: gdk/mir/gdkmirglcontext.c:48 gdk/mir/gdkmirwindowimpl.c:2226
 #: gdk/wayland/gdkglcontext-wayland.c:468 gdk/win32/gdkglcontext-win32.c:1177
 #: gdk/x11/gdkglcontext-x11.c:1277
@@ -955,13 +971,11 @@ msgstr "Tak ada konfigurasi yang tersedia bagi format piksel yang diberikan"
 #: gdk/mir/gdkmirwindowimpl.c:2234
 msgid "3.2 core GL profile is not available on EGL implementation"
 msgstr "Profil GL inti 3.2 tak tersedia pada implementasi EGL"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:86
 msgid "g_try_realloc () failed"
 msgstr "g_try_realloc () gagal"
 
-<<<<<<< HEAD
 #: gdk/win32/gdkhdataoutputstream-win32.c:94
 #: gdk/win32/gdkhdataoutputstream-win32.c:233
 msgid "GlobalReAlloc() failed: "
@@ -976,7 +990,6 @@ msgid "Can’t transmute a single handle"
 msgstr "Tidak dapat mentransmutasikan satu penanganan"
 
 #: gdk/win32/gdkhdataoutputstream-win32.c:217
-=======
 #: gdk/wayland/gdkglcontext-wayland.c:476
 msgid "Core GL is not available on EGL implementation"
 msgstr "GL inti tak tersedia pada implementasi EGL"
@@ -1012,7 +1025,6 @@ msgid "COLORS"
 msgstr "WARNA"
 
 #: gdk/x11/gdkapplaunchcontext-x11.c:295
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Failed to transmute %zu bytes of data from %s to %u"
 msgstr "Gagal mentransmutasikan %zu byte data dari %s ke %u"
@@ -1027,13 +1039,10 @@ msgstr "GlobalAlloc() gagal: "
 
 #: gdk/x11/gdkapplaunchcontext-x11.c:299
 #, c-format
-<<<<<<< HEAD
 msgid "Starting “%s”"
 msgstr "Memulai “%s”"
-=======
 msgid "Opening %s"
 msgstr "Membuka %s"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: gdk/x11/gdkapplaunchcontext-x11.c:312
 #, c-format
@@ -1046,18 +1055,15 @@ msgid "Opening %d Item"
 msgid_plural "Opening %d Items"
 msgstr[0] "Membuka %d Butir"
 
-<<<<<<< HEAD
 #: gdk/x11/gdkclipboard-x11.c:475
 msgid "Clipboard manager could not store selection."
 msgstr "Manajer papan klip tidak dapat menyimpan pilihan."
 
 #: gdk/x11/gdkclipboard-x11.c:651
 msgid "Cannot store clipboard. No clipboard manager is active."
-=======
 #: gdk/x11/gdkglcontext-x11.c:999
 #, c-format
 msgid "No available configurations for the given RGBA pixel format"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgstr ""
 "Tidak dapat menyimpan papan klip. Tidak ada manajer papan klip yang aktif."
 
@@ -1101,6 +1107,13 @@ msgid "Unsupported encoding “%s”"
 msgstr "Pengkodean “%s” tidak didukung"
 
 #: gsk/gpu/gskgldevice.c:253
+#: gsk/gl/gskglrenderer.c:204
+#, c-format
+msgid "This GLES %d.%d implementation does not support half-float vertex data"
+msgstr ""
+"Implementasi GLES %d.%d ini tidak mendukung data verteks setengah mengambang"
+
+#: gsk/gpu/gskgldevice.c:246
 #, c-format
 msgid "OpenGL ES 3.0 is not supported by this renderer."
 msgstr "OpenGL ES 3.0 tidak didukung oleh perender ini."
@@ -1128,10 +1141,8 @@ msgctxt "accessibility"
 msgid "Toggle"
 msgstr "Jungkit"
 
-<<<<<<< HEAD
 #: bobgui/a11y/bobguiatspiaction.c:340
 msgctxt "accessibility"
-=======
 #: gtk/a11y/gtkcellaccessible.c:257
 msgctxt "Action name"
 msgid "Edit"
@@ -1651,7 +1662,6 @@ msgstr "Menyediakan indikasi visual dari kemajuan"
 
 #: gtk/a11y/gtkswitchaccessible.c:98
 msgctxt "Action description"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Toggles the switch"
 msgstr "Jungkitkan penukar"
 
@@ -1784,7 +1794,6 @@ msgstr "Tak ditemukan aplikasi untuk \"%s\""
 msgid "Opening “%s” files."
 msgstr "Membuka berkas \"%s\"."
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguiappchooserdialog.c:233
 #, c-format
 msgid "No applications found for “%s” files"
@@ -1793,7 +1802,6 @@ msgstr "Tak ditemukan aplikasi bagi berkas \"%s\""
 #: bobgui/deprecated/bobguiappchooserdialog.c:435
 msgid "Failed to start GNOME Software"
 msgstr "Gagal memulai Perangkat Lunak GNOME"
-=======
 #: gtk/deprecated/gtkcolorsel.c:1664
 msgid ""
 "Click this palette entry to make it the current color. To change this entry, "
@@ -1815,7 +1823,6 @@ msgstr ""
 #: gtk/ui/gtkcolorchooserdialog.ui:34 gtk/ui/gtkfontchooserdialog.ui:31
 msgid "_Cancel"
 msgstr "Ba_tal"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translators: Label for a search button and entry, should be translated as a verb
 #: bobgui/deprecated/bobguiappchooserdialog.c:472 bobgui/bobguifilechooserdialog.c:477
@@ -1844,10 +1851,8 @@ msgstr "Aplikasi Terkait"
 msgid "Other Apps"
 msgstr "Aplikasi Lain"
 
-<<<<<<< HEAD
 #. This label is displayed in a treeview cell displaying
 #. * a disabled accelerator key combination.
-=======
 #: gtk/deprecated/gtkfontsel.c:400
 msgid "Si_ze:"
 msgstr "_Ukuran:"
@@ -1873,7 +1878,6 @@ msgstr "Seleksi Fonta"
 
 #. Translators: the format here is used to build the string that will be rendered
 #. * in the number emblem.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #.
 #: bobgui/deprecated/bobguicellrendereraccel.c:294
 msgctxt "Accelerator"
@@ -1905,7 +1909,6 @@ msgctxt "progress bar label"
 msgid "%d %%"
 msgstr "%d %%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicolorbutton.c:186 bobgui/deprecated/bobguicolorbutton.c:317
 #: bobgui/bobguicolordialog.c:409
 msgid "Pick a Color"
@@ -1913,7 +1916,6 @@ msgstr "Pilih Warna"
 
 #: bobgui/deprecated/bobguicolorbutton.c:508 bobgui/bobguicolorchooserwidget.c:323
 #: bobgui/bobguicolordialogbutton.c:341
-=======
 #: gtk/deprecated/gtkstock.c:347
 msgctxt "Stock label"
 msgid "_Apply"
@@ -2024,30 +2026,23 @@ msgid "_Yes"
 msgstr "_Ya"
 
 #: gtk/deprecated/gtkuimanager.c:1782
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%, Alpha %d%%"
 msgstr "Merah %d%%, Hijau %d%%, Biru %d%%, Alfa %d%%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguicolorbutton.c:514 bobgui/bobguicolorchooserwidget.c:329
 #: bobgui/bobguicolordialogbutton.c:347
-=======
 #: gtk/deprecated/gtkuimanager.c:1872
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "Merah %d%%, Hijau %d%%, Biru %d%%"
 
-<<<<<<< HEAD
 #: bobgui/deprecated/bobguifontbutton.c:399
 msgid "Sans 12"
 msgstr "Sans 12"
-=======
 #: gtk/deprecated/gtkuimanager.c:2709
 msgid "Empty"
 msgstr "Kosong"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/deprecated/bobguifontbutton.c:510 bobgui/deprecated/bobguifontbutton.c:627
 #: bobgui/bobguifontdialog.c:590
@@ -2056,6 +2051,8 @@ msgstr "Pilih Fonta"
 
 #: bobgui/deprecated/bobguifontbutton.c:603 bobgui/bobguifilechooserwidget.c:3854
 #: bobgui/bobguifontdialogbutton.c:128 bobgui/inspector/visual.ui:328
+#: gtk/deprecated/gtkfontbutton.c:600 gtk/gtkfilechooserwidget.c:3815
+#: gtk/gtkfontdialogbutton.c:126 gtk/inspector/visual.ui:285
 msgid "Font"
 msgstr "Fonta"
 
@@ -2119,7 +2116,6 @@ msgctxt "volume percentage"
 msgid "%d %%"
 msgstr "%d %%"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:127 bobgui/ui/bobguiaboutdialog.ui:173
 #: bobgui/ui/bobguiaboutdialog.ui:192
 msgid "License"
@@ -2202,7 +2198,6 @@ msgid "Website"
 msgstr "Situs web"
 
 #: bobgui/bobguiaboutdialog.c:1071 bobgui/ui/bobguiapplication-quartz.ui:6
-=======
 #: gtk/encodesymbolic.c:279 gtk/gtk-builder-tool.c:671
 #, c-format
 msgid "Can't load file: %s\n"
@@ -2301,53 +2296,40 @@ msgstr "Situs web"
 
 #. used for the application menu on MacOS.  %s is replaced with the application name.
 #: gtk/gtkaboutdialog.c:1085 gtk/ui/gtkapplication-quartz.ui:7
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "About %s"
 msgstr "Tentang %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:2165
 msgid "Created by"
 msgstr "Dibuat oleh"
 
 #: bobgui/bobguiaboutdialog.c:2168
-=======
 #: gtk/gtkaboutdialog.c:2312
 msgid "Created by"
 msgstr "Dibuat oleh"
 
 #: gtk/gtkaboutdialog.c:2315
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Documented by"
 msgstr "Didokumentasikan oleh"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:2178
-=======
 #: gtk/gtkaboutdialog.c:2325
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Translated by"
 msgstr "Diterjemahkan oleh"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:2183
 msgid "Design by"
 msgstr "Dirancang oleh"
-=======
 #: gtk/gtkaboutdialog.c:2330
 msgid "Artwork by"
 msgstr "Karya Seni"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaboutdialog.c:2348
-=======
 #: gtk/gtkaboutdialog.c:2490
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "This program comes with absolutely no warranty.\n"
@@ -2361,13 +2343,10 @@ msgstr ""
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:846 bobgui/deprecated/bobguishortcutlabel.c:103
 #: bobgui/deprecated/bobguishortcutlabel.c:139
-=======
 #: gtk/gtkaccellabel.c:181 gtk/gtkshortcutlabel.c:102
 #: gtk/gtkshortcutlabel.c:138
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Shift"
 msgstr "Shift"
@@ -2377,13 +2356,10 @@ msgstr "Shift"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:865 bobgui/deprecated/bobguishortcutlabel.c:106
 #: bobgui/deprecated/bobguishortcutlabel.c:141
-=======
 #: gtk/gtkaccellabel.c:187 gtk/gtkshortcutlabel.c:105
 #: gtk/gtkshortcutlabel.c:140
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Ctrl"
 msgstr "Ctrl"
@@ -2393,13 +2369,10 @@ msgstr "Ctrl"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:884 bobgui/deprecated/bobguishortcutlabel.c:109
 #: bobgui/deprecated/bobguishortcutlabel.c:143
-=======
 #: gtk/gtkaccellabel.c:193 gtk/gtkshortcutlabel.c:108
 #: gtk/gtkshortcutlabel.c:142
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Alt"
 msgstr "Alt"
@@ -2409,13 +2382,10 @@ msgstr "Alt"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:902 bobgui/deprecated/bobguishortcutlabel.c:115
 #: bobgui/deprecated/bobguishortcutlabel.c:145
-=======
 #: gtk/gtkaccellabel.c:845 gtk/gtkshortcutlabel.c:114
 #: gtk/gtkshortcutlabel.c:152
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Super"
 msgstr "Super"
@@ -2425,13 +2395,10 @@ msgstr "Super"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:916 bobgui/deprecated/bobguishortcutlabel.c:118
 #: bobgui/deprecated/bobguishortcutlabel.c:147
-=======
 #: gtk/gtkaccellabel.c:858 gtk/gtkshortcutlabel.c:117
 #: gtk/gtkshortcutlabel.c:154
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Hyper"
 msgstr "Hyper"
@@ -2441,18 +2408,14 @@ msgstr "Hyper"
 #. * translated on keyboards used for your language, don't translate
 #. * this.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:931 bobgui/deprecated/bobguishortcutlabel.c:112
 #: bobgui/deprecated/bobguishortcutlabel.c:150
-=======
 #: gtk/gtkaccellabel.c:872 gtk/gtkshortcutlabel.c:111
 #: gtk/gtkshortcutlabel.c:156
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Meta"
 msgstr "Meta"
 
-<<<<<<< HEAD
 #. Translators: "KP" means "numeric key pad". This string will
 #. * be used in accelerators such as "Ctrl+Shift+KP 1" in menus,
 #. * and therefore the translation needs to be very short.
@@ -2463,18 +2426,13 @@ msgid "KP"
 msgstr "KP"
 
 #: bobgui/bobguiaccelgroup.c:958
-=======
 #: gtk/gtkaccellabel.c:889
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Space"
 msgstr "Spasi"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccelgroup.c:961 bobgui/deprecated/bobguishortcutlabel.c:178
-=======
 #: gtk/gtkaccellabel.c:892 gtk/gtkshortcutlabel.c:181
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "keyboard label"
 msgid "Backslash"
 msgstr "Backslash"
@@ -2484,7 +2442,6 @@ msgctxt "accessibility"
 msgid "alert"
 msgstr "peringatan"
 
-<<<<<<< HEAD
 #: bobgui/bobguiaccessible.c:828
 msgctxt "accessibility"
 msgid "alert dialog"
@@ -2550,7 +2507,6 @@ msgstr "dokumen"
 msgctxt "accessibility"
 msgid "feed"
 msgstr "asupan"
-=======
 #: gtk/gtkappchooserdialog.c:204 gtk/gtkappchooserdialog.c:211
 #: gtk/gtkappchooserdialog.c:228 gtk/ui/gtkappchooserdialog.ui:5
 msgid "Select Application"
@@ -2611,7 +2567,6 @@ msgstr "Aplikasi Lain"
 #: gtk/gtkprintoperation-win32.c:1453 gtk/inspector/prop-editor.c:1686
 msgid "Application"
 msgstr "Aplikasi"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #: bobgui/bobguiaccessible.c:841
 msgctxt "accessibility"
@@ -3006,7 +2961,6 @@ msgstr "Elemen <%s> tak diperbolehkan di aras puncak"
 msgid "Text may not appear inside <%s>"
 msgstr "Teks tak boleh muncul di dalam <%s>"
 
-<<<<<<< HEAD
 # Karena awal minggu dimulai dari Minggu (kalender sekarang banyak menggunakan hari Minggu sebagai awal minggu), maka menggunakan nilai "0".
 #. Translate to calendar:week_start:0 if you want Sunday to be the
 #. * first day of the week to calendar:week_start:1 if you want Monday
@@ -3015,7 +2969,6 @@ msgstr "Teks tak boleh muncul di dalam <%s>"
 #: bobgui/bobguicalendar.c:693
 msgid "calendar:week_start:0"
 msgstr "calendar:week_start:0"
-=======
 #: gtk/gtk-builder-tool.c:124
 #, c-format
 msgid "Packing property %s::%s not found\n"
@@ -3079,7 +3032,6 @@ msgstr ""
 "  --css=BERKAS       Pakai gaya dari berkas CSS\n"
 "\n"
 "Melakukan berbagai tugas pada berkas .ui GtkBuilder.\n"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to calendar:YM if you want years to be displayed
 #. * before months; otherwise translate to calendar:MY.
@@ -3091,12 +3043,10 @@ msgstr ""
 #. * text direction of RTL and specify "calendar:YM", then the year
 #. * will appear to the right of the month.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:844
 msgid "calendar:MY"
 msgstr "calendar:MY"
 
-=======
 #: gtk/gtkcalendar.c:815
 msgid "calendar:MY"
 msgstr "calendar:MY"
@@ -3120,7 +3070,6 @@ msgctxt "year measurement template"
 msgid "2000"
 msgstr "2000"
 
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #. Translators: this defines whether the day numbers should use
 #. * localized digits or the ones used in English (0123...).
 #. *
@@ -3131,11 +3080,8 @@ msgstr "2000"
 #. * digits. That needs support from your system and locale definition
 #. * too.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1025
-=======
 #: gtk/gtkcalendar.c:1912 gtk/gtkcalendar.c:2608
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:day:digits"
 msgid "%d"
@@ -3160,20 +3106,15 @@ msgstr "%Y"
 #. * Note that translating this doesn't guarantee that you get localized
 #. * digits. That needs support from your system and locale definition
 #. * too.
-<<<<<<< HEAD
 #: bobgui/bobguicalendar.c:1175
-=======
 #.
 #: gtk/gtkcalendar.c:1944 gtk/gtkcalendar.c:2474
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgctxt "calendar:week:digits"
 msgid "%d"
 msgstr "%d"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorchooserwidget.c:386 bobgui/bobguicoloreditor.c:171
-=======
 #. Translators: This dictates how the year is displayed in
 #. * gtkcalendar widget.  See strftime() manual for the format.
 #. * Use only ASCII in the translation.
@@ -3234,7 +3175,6 @@ msgid "Red %d%%, Green %d%%, Blue %d%%"
 msgstr "Merah %d%%, Hijau %d%%, Biru %d%%"
 
 #: gtk/gtkcolorchooserwidget.c:387
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Color: %s"
 msgstr "Warna: %s"
@@ -3478,11 +3418,9 @@ msgstr "Tambah Warna"
 msgid "Custom color %d: %s"
 msgstr "Warna gubahan %d: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguicolorswatch.c:230
 msgid "Customize"
 msgstr "Gubah"
-=======
 #: gtk/gtkcolorplane.c:409
 msgid "Color Plane"
 msgstr "Bidang Warna"
@@ -3500,7 +3438,6 @@ msgstr "Alfa"
 #: gtk/gtkcolorswatch.c:360
 msgid "C_ustomize"
 msgstr "K_ustomasi"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #. Translate to the default units to use for presenting
 #. * lengths to the user. Translate to default:inch if you
@@ -3512,9 +3449,7 @@ msgstr "K_ustomasi"
 msgid "default:mm"
 msgstr "default:mm"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguicustompaperunixdialog.c:291
-=======
 #. And show the custom paper dialog
 #: gtk/gtkcustompaperunixdialog.c:405 gtk/gtkprintunixdialog.c:3336
 msgid "Manage Custom Sizes"
@@ -3529,7 +3464,6 @@ msgid "mm"
 msgstr "mm"
 
 #: gtk/gtkcustompaperunixdialog.c:615
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Margins from Printer…"
 msgstr "Batas dari Pencetak…"
 
@@ -3585,7 +3519,6 @@ msgstr "_Kanan:"
 msgid "Paper Margins"
 msgstr "Margin Kertas"
 
-<<<<<<< HEAD
 #: bobgui/bobguieditablelabel.c:170 bobgui/ui/bobguiapplication-quartz.ui:50
 msgid "_Edit"
 msgstr "_Sunting"
@@ -3692,7 +3625,6 @@ msgid "The session bus is not available"
 msgstr "Bus sesi tidak tersedia"
 
 #: bobgui/bobguifilechoosernativequartz.c:348 bobgui/ui/bobguifilechooserwidget.ui:299
-=======
 #: gtk/gtkentry.c:9582 gtk/gtklabel.c:6680 gtk/gtktextview.c:9492
 msgid "Cu_t"
 msgstr "Po_tong"
@@ -3774,7 +3706,6 @@ msgid "_Save"
 msgstr "_Simpan"
 
 #: gtk/gtkfilechoosernativequartz.c:331 gtk/ui/gtkfilechooserwidget.ui:392
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Select which types of files are shown"
 msgstr "Pilih jenis berkas yang ingin ditampilkan"
 
@@ -3787,7 +3718,6 @@ msgstr "Pilih jenis berkas yang ingin ditampilkan"
 msgid "%1$s on %2$s"
 msgstr "%1$s pada %2$s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:365
 msgid "Type name of new folder"
 msgstr "Ketikkan nama folder baru"
@@ -3801,7 +3731,6 @@ msgid "You need to choose a valid filename."
 msgstr "Anda perlu memilih nama berkas yang valid."
 
 #: bobgui/bobguifilechooserwidget.c:768
-=======
 #: gtk/gtkfilechooserwidget.c:369
 msgid "Type name of new folder"
 msgstr "Ketikkan nama folder baru"
@@ -3824,12 +3753,10 @@ msgid "You need to choose a valid filename."
 msgstr "Anda perlu memilih nama berkas yang valid."
 
 #: gtk/gtkfilechooserwidget.c:819
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot create a file under %s as it is not a folder"
 msgstr "Tak bisa membuat berkas di bawah %s karena itu bukan folder"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:778
 msgid "Cannot create file as the filename is too long"
 msgstr "Tak bisa membuat berkas karena nama terlalu panjang"
@@ -3863,7 +3790,6 @@ msgid "The file could not be moved to the Trash"
 msgstr "Berkas tak dapat dipindahkan ke Tong Sampah"
 
 #: bobgui/bobguifilechooserwidget.c:1247
-=======
 #: gtk/gtkfilechooserwidget.c:829
 msgid "Cannot create file as the filename is too long"
 msgstr "Tak bisa membuat berkas karena nama terlalu panjang"
@@ -3953,18 +3879,19 @@ msgid "File names starting with a “.” are hidden"
 msgstr "Berkas dengan nama berawalan \".\" tersembunyi"
 
 #: gtk/gtkfilechooserwidget.c:1471
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Are you sure you want to permanently delete “%s”?"
 msgstr "Anda yakin akan menghapus permanen \"%s\"?"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1248
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Jika Anda menghapus suatu butir, itu akan hilang selamanya."
 
+<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1249 bobgui/bobguifilechooserwidget.c:1852
 #: bobgui/bobguilabel.c:5951 bobgui/bobguitext.c:6387 bobgui/bobguitextview.c:9390
+#: gtk/gtkfilechooserwidget.c:1188 gtk/gtkfilechooserwidget.c:1786
+#: gtk/gtklabel.c:5712 gtk/gtktext.c:6194 gtk/gtktextview.c:9099
 msgid "_Delete"
 msgstr "_Hapus"
 
@@ -4008,13 +3935,10 @@ msgstr "Salin _Lokasi"
 msgid "_Add to Bookmarks"
 msgstr "T_ambah dalam Markah"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:1848 bobgui/bobguiplacessidebar.c:2312
 #: bobgui/bobguiplacessidebar.c:3270 bobgui/ui/bobguifilechooserwidget.ui:417
-=======
 #: gtk/gtkfilechooserwidget.c:2275 gtk/gtkplacessidebar.c:2731
 #: gtk/ui/gtkfilechooserwidget.ui:526
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Rename"
 msgstr "_Ganti Nama"
 
@@ -4040,35 +3964,28 @@ msgid "Home"
 msgstr "Rumah"
 
 #. this is the header for the location column in the print dialog
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2232 bobgui/bobguifilechooserwidget.c:7469
 #: bobgui/inspector/css-node-tree.ui:76 bobgui/print/ui/bobguiprintunixdialog.ui:111
-=======
 #: gtk/gtkfilechooserwidget.c:2559 gtk/inspector/css-node-tree.ui:141
 #: gtk/ui/gtkfilechooserwidget.ui:207 gtk/ui/gtkprintunixdialog.ui:123
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Location"
 msgstr "Lokasi"
 
 #. Label
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2339
 msgid "_Name:"
 msgstr "_Nama:"
 
 #: bobgui/bobguifilechooserwidget.c:2896 bobgui/bobguifilechooserwidget.c:2910
-=======
 #: gtk/gtkfilechooserwidget.c:2652
 msgid "_Name:"
 msgstr "_Nama:"
 
 #: gtk/gtkfilechooserwidget.c:3277 gtk/gtkfilechooserwidget.c:3291
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Searching in %s"
 msgstr "Mencari dalam %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:2916
 msgid "Searching"
 msgstr "Mencari"
@@ -4083,7 +4000,6 @@ msgid "Modified"
 msgstr "Diubah"
 
 #: bobgui/bobguifilechooserwidget.c:3666
-=======
 #: gtk/gtkfilechooserwidget.c:3297
 msgid "Searching"
 msgstr "Mencari"
@@ -4102,12 +4018,10 @@ msgid "Modified"
 msgstr "Diubah"
 
 #: gtk/gtkfilechooserwidget.c:4618
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Could not read the contents of %s"
 msgstr "Tidak dapat membaca isi dari %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:3670
 msgid "Could not read the contents of the folder"
 msgstr "Tidak bisa membaca isi dari folder"
@@ -4187,7 +4101,6 @@ msgid "You do not have access to the specified folder."
 msgstr "Anda tak punya hak akses ke folder itu."
 
 #: bobgui/bobguifilechooserwidget.c:5029 bobgui/print/bobguiprintunixdialog.c:674
-=======
 #: gtk/gtkfilechooserwidget.c:4622
 msgid "Could not read the contents of the folder"
 msgstr "Tidak bisa membaca isi dari folder"
@@ -4228,16 +4141,12 @@ msgid "Cannot change to folder because it is not local"
 msgstr "Tidak dapat mengganti folder karena tidak berada pada komputer lokal"
 
 #: gtk/gtkfilechooserwidget.c:6323 gtk/gtkprintunixdialog.c:664
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Berkas \"%s\" sudah ada. Timpa?"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5031 bobgui/print/bobguiprintunixdialog.c:678
-=======
 #: gtk/gtkfilechooserwidget.c:6326 gtk/gtkprintunixdialog.c:668
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid ""
 "The file already exists in “%s”.  Replacing it will overwrite its contents."
@@ -4245,7 +4154,6 @@ msgstr ""
 "Berkas sudah ada dalam \"%s\". Berkas lama akan diganti dengan yang baru "
 "bila Anda menimpanya."
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:5037 bobgui/print/bobguiprintunixdialog.c:686
 msgid "_Replace"
 msgstr "_Timpa"
@@ -4255,7 +4163,6 @@ msgid "Could not send the search request"
 msgstr "Tidak dapat mengirim permintaan pencarian"
 
 #: bobgui/bobguifilechooserwidget.c:6052
-=======
 #: gtk/gtkfilechooserwidget.c:6331 gtk/gtkprintunixdialog.c:676
 msgid "_Replace"
 msgstr "_Timpa"
@@ -4269,7 +4176,6 @@ msgid "Could not send the search request"
 msgstr "Tidak dapat mengirim permintaan pencarian"
 
 #: gtk/gtkfilechooserwidget.c:7454
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Accessed"
 msgstr "Diakses"
 
@@ -4277,7 +4183,6 @@ msgstr "Diakses"
 msgid "_Size"
 msgstr "_Ukuran"
 
-<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:7451
 msgid "T_ype"
 msgstr "T_ipe"
@@ -4286,10 +4191,15 @@ msgstr "T_ipe"
 msgid "_Time"
 msgstr "_Waktu"
 
+<<<<<<< HEAD
 #: bobgui/bobguifilechooserwidget.c:7461 bobgui/bobguiplacessidebar.c:2306
 #: bobgui/inspector/a11y.ui:43 bobgui/inspector/actions.ui:18
 #: bobgui/inspector/css-node-tree.ui:22 bobgui/inspector/prop-list.ui:24
 #: bobgui/ui/bobguifilechooserwidget.ui:394 bobgui/print/ui/bobguiprintunixdialog.ui:80
+#: gtk/gtkfilechooserwidget.c:7375 gtk/gtkplacessidebar.c:2306
+#: gtk/inspector/a11y.ui:43 gtk/inspector/actions.ui:18
+#: gtk/inspector/css-node-tree.ui:22 gtk/inspector/prop-list.ui:24
+#: gtk/ui/gtkfilechooserwidget.ui:385 gtk/print/ui/gtkprintunixdialog.ui:80
 msgid "Name"
 msgstr "Nama"
 
@@ -4438,6 +4348,19 @@ msgid "_Paste"
 msgstr "Tem_pel"
 
 #: bobgui/bobguilabel.c:5956 bobgui/bobguitext.c:6396 bobgui/bobguitextview.c:9411
+#: gtk/gtklabel.c:5709 gtk/gtktext.c:6182 gtk/gtktextview.c:9087
+msgid "Cu_t"
+msgstr "Po_tong"
+
+#: gtk/gtklabel.c:5710 gtk/gtktext.c:6186 gtk/gtktextview.c:9091
+msgid "_Copy"
+msgstr "_Salin"
+
+#: gtk/gtklabel.c:5711 gtk/gtktext.c:6190 gtk/gtktextview.c:9095
+msgid "_Paste"
+msgstr "Tem_pel"
+
+#: gtk/gtklabel.c:5717 gtk/gtktext.c:6203 gtk/gtktextview.c:9120
 msgid "Select _All"
 msgstr "Pilih Semu_a"
 
@@ -4450,6 +4373,11 @@ msgid "Copy _Link Address"
 msgstr "Sa_lin Alamat Taut"
 
 #: bobgui/bobguilinkbutton.c:276
+#: gtk/gtklabel.c:5770 gtk/gtktext.c:2723 gtk/gtktextview.c:9169
+msgid "Context menu"
+msgstr "Menu konteks"
+
+#: gtk/gtklinkbutton.c:260
 msgid "_Copy URL"
 msgstr "_Salin URL"
 
@@ -4881,16 +4809,12 @@ msgid "Cannot kill process with PID %d. Operation is not implemented."
 msgstr "Tak bisa mematikan proses dengan PID %d. Operasi belum diimplementasi."
 
 #. translators: this string is a name for the 'less' command
-<<<<<<< HEAD
 #: bobgui/bobguimountoperation-x11.c:990
-=======
 #: gtk/gtkmountoperation-x11.c:954
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Terminal Pager"
 msgstr "Penyeranta Terminal"
 
 # Ini untuk perintah "top".
-<<<<<<< HEAD
 #: bobgui/bobguimountoperation-x11.c:991
 msgid "Top Command"
 msgstr "Perintah Top"
@@ -4908,7 +4832,6 @@ msgid "Z Shell"
 msgstr "Z Shell"
 
 #: bobgui/bobguimountoperation-x11.c:1094
-=======
 #: gtk/gtkmountoperation-x11.c:955
 msgid "Top Command"
 msgstr "Perintah Top"
@@ -4926,12 +4849,10 @@ msgid "Z Shell"
 msgstr "Z Shell"
 
 #: gtk/gtkmountoperation-x11.c:1055
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Cannot end process with PID %d: %s"
 msgstr "Tidak dapat mengakhiri proses dengan PID %d: %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguinomediafile.c:48
 msgid "BOBGUI could not find a media module. Check your installation."
 msgstr "BOBGUI tidak dapat menemukan modul media. Periksa pemasangan Anda."
@@ -4945,9 +4866,7 @@ msgid "Next tab"
 msgstr "Tab selanjutnya"
 
 #: bobgui/bobguinotebook.c:4426 bobgui/bobguinotebook.c:6636
-=======
 #: gtk/gtknotebook.c:5121 gtk/gtknotebook.c:7386
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Page %u"
 msgstr "Halaman %u"
@@ -4989,7 +4908,6 @@ msgstr ""
 " Atas: %s %s\n"
 " Bawah: %s %s"
 
-<<<<<<< HEAD
 #: bobgui/print/bobguipagesetupunixdialog.c:787
 #: bobgui/print/ui/bobguipagesetupunixdialog.ui:5
 #: bobgui/print/ui/bobguiprintunixdialog.ui:783
@@ -5064,7 +4982,6 @@ msgstr "Buka tong sampah"
 
 #: bobgui/bobguiplacessidebar.c:1181 bobgui/bobguiplacessidebar.c:1209
 #: bobgui/bobguiplacessidebar.c:1409
-=======
 #: gtk/gtkpagesetupunixdialog.c:878 gtk/gtkprintunixdialog.c:3390
 msgid "Manage Custom Sizes…"
 msgstr "Kelola Ukuran Gubahan…"
@@ -5127,36 +5044,28 @@ msgstr "Buka tong sampah"
 
 #: gtk/gtkplacessidebar.c:1248 gtk/gtkplacessidebar.c:1276
 #: gtk/gtkplacessidebar.c:1484
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Mount and open “%s”"
 msgstr "Kait dan buka \"%s\""
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1304
 msgid "Open the contents of the file system"
 msgstr "Buka isi dari sistem berkas"
 
 #: bobgui/bobguiplacessidebar.c:1387
-=======
 #: gtk/gtkplacessidebar.c:1364
 msgid "Open the contents of the file system"
 msgstr "Buka isi dari sistem berkas"
 
 #: gtk/gtkplacessidebar.c:1448
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "New bookmark"
 msgstr "Tanda markah"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1389
-=======
 #: gtk/gtkplacessidebar.c:1450
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Add a new bookmark"
 msgstr "Tambah markah baru"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:1454
 msgid "Other Locations"
 msgstr "Lokasi Lain"
@@ -5166,7 +5075,6 @@ msgid "Show other locations"
 msgstr "Tampilkan lokasi lain"
 
 #: bobgui/bobguiplacessidebar.c:1964 bobgui/bobguiplacessidebar.c:2984
-=======
 #: gtk/gtkplacessidebar.c:1463
 msgid "Connect to Server"
 msgstr "Menyambung ke Server"
@@ -5227,39 +5135,30 @@ msgid "_Lock Device"
 msgstr "_Kunci Perangkat"
 
 #: gtk/gtkplacessidebar.c:2387 gtk/gtkplacessidebar.c:3384
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to start “%s”"
 msgstr "Tak bisa memulai \"%s\""
 
-<<<<<<< HEAD
 #. Translators: This means that unlocking an encrypted storage
 #. * device failed. %s is the name of the device.
 #.
 #: bobgui/bobguiplacessidebar.c:2000
-=======
 #: gtk/gtkplacessidebar.c:2420
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Error unlocking “%s”"
 msgstr "Galat membuka kunci \"%s\""
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2002
-=======
 #: gtk/gtkplacessidebar.c:2422
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to access “%s”"
 msgstr "Tak bisa mengakses \"%s\""
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2233
 msgid "This name is already taken"
 msgstr "Nama sudah dipakai"
 
 #: bobgui/bobguiplacessidebar.c:2525
-=======
 #: gtk/gtkplacessidebar.c:2656
 msgid "This name is already taken"
 msgstr "Nama sudah dipakai"
@@ -5271,48 +5170,34 @@ msgid "Name"
 msgstr "Nama"
 
 #: gtk/gtkplacessidebar.c:2925
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to unmount “%s”"
 msgstr "Tak bisa melepas kait \"%s\""
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2701
-=======
 #: gtk/gtkplacessidebar.c:3101
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to stop “%s”"
 msgstr "Tak bisa menghentikan \"%s\""
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2730
-=======
 #: gtk/gtkplacessidebar.c:3130
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject “%s”"
 msgstr "Tak bisa mengeluarkan \"%s\""
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2759 bobgui/bobguiplacessidebar.c:2788
-=======
 #: gtk/gtkplacessidebar.c:3159 gtk/gtkplacessidebar.c:3188
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to eject %s"
 msgstr "Tak bisa mengeluarkan %s"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:2936
-=======
 #: gtk/gtkplacessidebar.c:3336
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "Unable to poll “%s” for media changes"
 msgstr "Tak bisa mem-poll \"%s\" untuk pergantian media"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3155 bobgui/bobguiplacessidebar.c:3242
 #: bobgui/bobguiplacesview.c:1650
 msgid "Open in New _Tab"
@@ -5324,7 +5209,6 @@ msgid "Open in New _Window"
 msgstr "Buka dalam _Jendela Baru"
 
 #: bobgui/bobguiplacessidebar.c:3262
-=======
 #: gtk/gtkplacessidebar.c:3620 gtk/gtkplacessidebar.c:3686
 #: gtk/gtkplacesview.c:1643
 msgid "Open in New _Tab"
@@ -5336,11 +5220,9 @@ msgid "Open in New _Window"
 msgstr "Buka dalam _Jendela Baru"
 
 #: gtk/gtkplacessidebar.c:3693
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "_Add Bookmark"
 msgstr "T_ambah Markah"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacessidebar.c:3266
 msgid "_Remove"
 msgstr "_Hapus"
@@ -5414,7 +5296,6 @@ msgid "Searching for network locations"
 msgstr "Mencari lokasi jaringan"
 
 #: bobgui/bobguiplacesview.c:883
-=======
 #: gtk/gtkplacessidebar.c:3694
 msgid "_Remove"
 msgstr "_Hapus"
@@ -5448,39 +5329,28 @@ msgid "Searching for network locations"
 msgstr "Mencari lokasi jaringan"
 
 #: gtk/gtkplacesview.c:904
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No network locations found"
 msgstr "Tak ada lokasi jaringan yang ditemukan"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1197 bobgui/bobguiplacesview.c:1294
-=======
 #: gtk/gtkplacesview.c:1231 gtk/gtkplacesview.c:1306
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to access location"
 msgstr "Tak bisa mengakses lokasi"
 
 #. Restore from Cancel to Connect
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1215 bobgui/ui/bobguiplacesview.ui:237
-=======
 #: gtk/gtkplacesview.c:1249 gtk/ui/gtkplacesview.ui:449
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Con_nect"
 msgstr "CON-PATH"
 
 #. if it wasn't cancelled show a dialog
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1354
-=======
 #: gtk/gtkplacesview.c:1369
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unable to unmount volume"
 msgstr "Tak bisa melepas kait volume"
 
 #. Allow to cancel the operation
-<<<<<<< HEAD
 #: bobgui/bobguiplacesview.c:1446
 msgid "Cance_l"
 msgstr "Bata_l"
@@ -5541,7 +5411,6 @@ msgid "Networks"
 msgstr "Jaringan"
 
 #: bobgui/bobguiplacesview.c:2039 bobgui/bobguiplacesview.c:2048
-=======
 #: gtk/gtkplacesview.c:1470
 msgid "Cance_l"
 msgstr "Bata_l"
@@ -5563,7 +5432,6 @@ msgid "Networks"
 msgstr "Jaringan"
 
 #: gtk/gtkplacesview.c:2017 gtk/gtkplacesview.c:2026
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "On This Computer"
 msgstr "Pada Komputer Ini"
 
@@ -5571,17 +5439,13 @@ msgstr "Pada Komputer Ini"
 #. * should be based on the free space available.
 #. * i.e. 1 GB / 24 GB available.
 #.
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:135
-=======
 #: gtk/gtkplacesviewrow.c:134
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #, c-format
 msgid "%s / %s available"
 msgid_plural "%s / %s available"
 msgstr[0] "%s / %s tersedia"
 
-<<<<<<< HEAD
 #: bobgui/bobguiplacesviewrow.c:471
 msgid "Disconnect"
 msgstr "Putuskan"
@@ -5620,7 +5484,6 @@ msgstr "Rendah"
 #.
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:521
 #: bobgui/print/backends/bobguiprintbackendcups.c:5861
-=======
 #: gtk/gtkplacesviewrow.c:481
 msgid "Disconnect"
 msgstr "Putuskan"
@@ -5740,8 +5603,13 @@ msgid "Out of paper"
 msgstr "Habis kertas"
 
 #. Translators: this is a printer status.
+<<<<<<< HEAD
 #: gtk/gtkprintoperation-win32.c:621
 #: modules/printbackends/cups/gtkprintbackendcups.c:2603
+=======
+#: gtk/print/gtkprintoperation-win32.c:640
+#: modules/printbackends/gtkprintbackendcpdb.c:1533
+#: modules/printbackends/gtkprintbackendcups.c:2639
 msgid "Paused"
 msgstr "Ditahan"
 
@@ -5845,6 +5713,43 @@ msgstr "Dasar ke puncak, kiri ke kanan"
 
 #: gtk/gtkprintunixdialog.c:3122
 #: modules/printbackends/cups/gtkprintbackendcups.c:5444
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, top to bottom"
+msgstr "Kiri ke kanan, puncak ke dasar"
+
+#: gtk/print/gtkprintunixdialog.c:2753
+#: modules/printbackends/gtkprintbackendcups.c:5677
+msgid "Left to right, bottom to top"
+msgstr "Kiri ke kanan, dasar ke puncak"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, top to bottom"
+msgstr "Kanan ke kiri, puncak ke dasar"
+
+#: gtk/print/gtkprintunixdialog.c:2754
+#: modules/printbackends/gtkprintbackendcups.c:5678
+msgid "Right to left, bottom to top"
+msgstr "Kanan ke kiri, dasar ke puncak"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, left to right"
+msgstr "Puncak ke dasar, kiri ke kanan"
+
+#: gtk/print/gtkprintunixdialog.c:2755
+#: modules/printbackends/gtkprintbackendcups.c:5679
+msgid "Top to bottom, right to left"
+msgstr "Puncak ke dasar, kanan ke kiri"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
+msgid "Bottom to top, left to right"
+msgstr "Dasar ke puncak, kiri ke kanan"
+
+#: gtk/print/gtkprintunixdialog.c:2756
+#: modules/printbackends/gtkprintbackendcups.c:5680
 msgid "Bottom to top, right to left"
 msgstr "Dasar ke puncak, kanan ke kiri"
 
@@ -6065,6 +5970,19 @@ msgid "OFF"
 msgstr "MATI"
 
 #: gtk/gtktextbufferrichtext.c:648
+#: gtk/gtktext.c:6208 gtk/gtktextview.c:9125
+msgid "Insert _Emoji"
+msgstr "Sisipkan _Emoji"
+
+#: gtk/gtktextview.c:9107
+msgid "_Undo"
+msgstr "_Tidak Jadi"
+
+#: gtk/gtktextview.c:9111
+msgid "_Redo"
+msgstr "_Jadi Lagi"
+
+#: gtk/gtkwindow.c:6245
 #, c-format
 msgid "Unknown error when trying to deserialize %s"
 msgstr "Kesalahan tidak dikenal ketika mencoba deserialisasi %s"
@@ -6363,6 +6281,15 @@ msgid "GTK+ Version"
 msgstr "Versi GTK+"
 
 #: gtk/inspector/general.ui:68
+#: gtk/inspector/general.c:924
+msgid "IM Context is hardcoded by GTK_IM_MODULE"
+msgstr "Konteks IM adalah di-hardcode oleh GTK_IM_MODULE"
+
+#: gtk/inspector/general.ui:31
+msgid "GTK Version"
+msgstr "Versi GTK"
+
+#: gtk/inspector/general.ui:57
 msgid "GDK Backend"
 msgstr "Backend GDK"
 
@@ -6492,6 +6419,9 @@ msgstr "Laju bingkai"
 #: gtk/inspector/misc-info.ui:579
 msgid "Accessible role"
 msgstr "Peran aksesibel"
+#: gtk/inspector/misc-info.ui:527 gtk/inspector/visual.ui:315
+msgid "Scale"
+msgstr "Skala"
 
 #: gtk/inspector/misc-info.ui:613
 msgid "Accessible name"
@@ -6670,21 +6600,25 @@ msgid "Mode"
 msgstr "Mode"
 
 #: gtk/inspector/size-groups.c:252
+#: gtk/inspector/size-groups.c:228
 msgctxt "sizegroup mode"
 msgid "None"
 msgstr "Nihil"
 
 #: gtk/inspector/size-groups.c:253
+#: gtk/inspector/size-groups.c:229
 msgctxt "sizegroup mode"
 msgid "Horizontal"
 msgstr "Horisontal"
 
 #: gtk/inspector/size-groups.c:254
+#: gtk/inspector/size-groups.c:230
 msgctxt "sizegroup mode"
 msgid "Vertical"
 msgstr "Vertikal"
 
 #: gtk/inspector/size-groups.c:255
+#: gtk/inspector/size-groups.c:231
 msgctxt "sizegroup mode"
 msgid "Both"
 msgstr "Keduanya"
@@ -6692,6 +6626,9 @@ msgstr "Keduanya"
 #: gtk/inspector/statistics.c:377
 msgid "GLib must be configured with --enable-debug"
 msgstr "GLib mesti ditata dengan --enable-debug"
+#: gtk/inspector/size-groups.c:243
+msgid "Mode"
+msgstr "Mode"
 
 #: gtk/inspector/statistics.ui:68
 msgid "Self 1"
@@ -6732,6 +6669,34 @@ msgstr "Backend tak mendukung penskalaan jendela"
 #: gtk/inspector/visual.c:726
 msgid "Setting is hardcoded by GTK_TEST_TOUCHSCREEN"
 msgstr "Pengaturan di-hardcode oleh GTK_TEST_TOUCHSCREEN"
+#: gtk/inspector/strv-editor.c:83
+#, c-format
+msgid "Remove %s"
+msgstr "Hapus %s"
+
+#: gtk/inspector/strv-editor.c:115
+msgid "Add"
+msgstr "Tambah"
+
+#: gtk/inspector/tree-data.ui:10
+msgid "Show data"
+msgstr "Tampilkan data"
+
+#: gtk/inspector/type-info.ui:14
+msgid "Hierarchy"
+msgstr "Hirarki"
+
+#: gtk/inspector/type-info.ui:35
+msgid "Implements"
+msgstr "Melaksanakan"
+
+#: gtk/inspector/visual.c:765 gtk/inspector/visual.c:784
+msgid "Theme is hardcoded by GTK_THEME"
+msgstr "Tema di-hardcode oleh GTK_THEME"
+
+#: gtk/inspector/visual.ui:34
+msgid "GTK Theme"
+msgstr "Tema GTK"
 
 #: gtk/inspector/visual.c:791
 msgid ""
@@ -6857,6 +6822,119 @@ msgstr "Dinonaktifkan"
 #: gtk/inspector/visual.ui:766
 msgid "Software GL"
 msgstr "GL Perangkat Lunak"
+#: gtk/inspector/visual.ui:169
+msgid "Text Direction"
+msgstr "Arah Teks"
+
+#: gtk/inspector/visual.ui:184
+msgid "Left-to-Right"
+msgstr "Kiri ke Kanan"
+
+#: gtk/inspector/visual.ui:185
+msgid "Right-to-Left"
+msgstr "Kanan ke Kiri"
+
+#: gtk/inspector/visual.ui:202
+msgid "Animations"
+msgstr "Animasi"
+
+#: gtk/inspector/visual.ui:227
+msgid "Slowdown"
+msgstr "Melambat"
+
+#: gtk/inspector/visual.ui:362
+msgid "Antialiasing"
+msgstr "Antialias"
+
+#: gtk/inspector/visual.ui:387
+#, fuzzy
+msgid "Hinting"
+msgstr "Hinting"
+
+#: gtk/inspector/visual.ui:402
+msgctxt "Font hinting style"
+msgid "None"
+msgstr "Nihil"
+
+#: gtk/inspector/visual.ui:403
+msgctxt "Font hinting style"
+msgid "Slight"
+msgstr "Sedikit"
+
+#: gtk/inspector/visual.ui:404
+msgctxt "Font hinting style"
+msgid "Medium"
+msgstr "Sedang"
+
+#: gtk/inspector/visual.ui:405
+msgctxt "Font hinting style"
+msgid "Full"
+msgstr "Penuh"
+
+#: gtk/inspector/visual.ui:422
+#, fuzzy
+msgid "Metrics Hinting"
+msgstr "Hinting Metrik"
+
+#: gtk/inspector/visual.ui:457
+msgid "Show Framerate"
+msgstr "Tampilkan Laju Bingkai"
+
+#: gtk/inspector/visual.ui:482
+msgid "Show Graphic Updates"
+msgstr "Tampilkan Pembaruan Grafik"
+
+#: gtk/inspector/visual.ui:502
+msgid ""
+"Tints all the places where the current renderer uses Cairo instead of the "
+"GPU."
+msgstr ""
+"Mewarnai semua tempat di mana perender saat ini menggunakan Cairo alih-alih "
+"GPU."
+
+#: gtk/inspector/visual.ui:508
+msgid "Show Cairo Rendering"
+msgstr "Tampilkan Pereenderan Cairo"
+
+#: gtk/inspector/visual.ui:533
+msgid "Show Baselines"
+msgstr "Tampilkan Baseline"
+
+#: gtk/inspector/visual.ui:561
+msgid "Show Layout Borders"
+msgstr "Tampilkan Batas Tata Letak"
+
+#: gtk/inspector/visual.ui:618
+msgid "CSS Padding"
+msgstr "Pengisi CSS"
+
+#: gtk/inspector/visual.ui:628
+msgid "CSS Border"
+msgstr "Batas CSS"
+
+#: gtk/inspector/visual.ui:638
+msgid "CSS Margin"
+msgstr "Margin CSS"
+
+#: gtk/inspector/visual.ui:648
+msgid "Widget Margin"
+msgstr "Margin Widget"
+
+#: gtk/inspector/visual.ui:683
+msgid "Show Focus"
+msgstr "Tampilkan Fokus"
+
+#: gtk/inspector/visual.ui:708
+msgid "Show Accessibility warnings"
+msgstr "Tampilkan peringatan Aksesibilitas"
+
+#: gtk/inspector/visual.ui:733
+msgid "Show Graphics Offload"
+msgstr "Tampilkan Offload Grafis"
+
+#: gtk/inspector/visual.ui:765
+msgid "Inspect Inspector"
+msgstr "Periksa Inspektur"
 
 #: gtk/inspector/visual.ui:800
 msgid "Software Surfaces"
@@ -9822,6 +9900,74 @@ msgstr "Gagal menulis indeks folder\n"
 #, c-format
 msgid "Failed to rewrite header\n"
 msgstr "Gagal menulis ulang judul\n"
+#: modules/printbackends/gtkprintbackendcpdb.c:542
+#: modules/printbackends/gtkprintbackendcups.c:5668
+#, fuzzy
+#| msgid "Urgent"
+msgctxt "Print job priority"
+msgid "Urgent"
+msgstr "Penting"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:543
+#: modules/printbackends/gtkprintbackendcups.c:5669
+msgctxt "Print job priority"
+msgid "High"
+msgstr "Tinggi"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:544
+#: modules/printbackends/gtkprintbackendcups.c:5670
+msgctxt "Print job priority"
+msgid "Medium"
+msgstr "Sedang"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:545
+#: modules/printbackends/gtkprintbackendcups.c:5671
+msgctxt "Print job priority"
+msgid "Low"
+msgstr "Rendah"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the front cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:567
+#: modules/printbackends/gtkprintbackendcups.c:5814
+msgctxt "printer option"
+msgid "Before"
+msgstr "Sebelum"
+
+#. Translators, this is the label used for the option in the print
+#. * dialog that controls the back cover page.
+#.
+#: modules/printbackends/gtkprintbackendcpdb.c:574
+#: modules/printbackends/gtkprintbackendcups.c:5829
+msgctxt "printer option"
+msgid "After"
+msgstr "Sesudah"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:597
+msgid "Print at"
+msgstr "Cetak pada"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:607
+msgid "Print at time"
+msgstr "Cetak pada waktu"
+
+#: modules/printbackends/gtkprintbackendcpdb.c:670
+msgctxt "print option"
+msgid "Borderless"
+msgstr "Tanpa batas"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1530
+#: modules/printbackends/gtkprintbackendcups.c:2636
+msgid "Paused; Rejecting Jobs"
+msgstr "Diistirahatkan; Menolak Tugas"
+
+#. Translators: this is a printer status.
+#: modules/printbackends/gtkprintbackendcpdb.c:1536
+#: modules/printbackends/gtkprintbackendcups.c:2642
+msgid "Rejecting Jobs"
+msgstr "Menolak Tugas"
 
 #: gtk/updateiconcache.c:1502
 #, c-format
@@ -10188,49 +10334,60 @@ msgstr "; "
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4387
 #: modules/printbackends/cups/gtkprintbackendcups.c:4454
+#: modules/printbackends/gtkprintbackendcups.c:4609
+#: modules/printbackends/gtkprintbackendcups.c:4676
 msgctxt "printing option"
 msgid "Two Sided"
 msgstr "Dua Sisi"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4388
+#: modules/printbackends/gtkprintbackendcups.c:4610
 msgctxt "printing option"
 msgid "Paper Type"
 msgstr "Tipe Kertas"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4389
+#: modules/printbackends/gtkprintbackendcups.c:4611
 msgctxt "printing option"
 msgid "Paper Source"
 msgstr "Sumber Kertas"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4390
 #: modules/printbackends/cups/gtkprintbackendcups.c:4455
+#: modules/printbackends/gtkprintbackendcups.c:4612
+#: modules/printbackends/gtkprintbackendcups.c:4677
 msgctxt "printing option"
 msgid "Output Tray"
 msgstr "Baki Keluaran"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4391
+#: modules/printbackends/gtkprintbackendcups.c:4613
 msgctxt "printing option"
 msgid "Resolution"
 msgstr "Resolusi"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4392
+#: modules/printbackends/gtkprintbackendcups.c:4614
 msgctxt "printing option"
 msgid "GhostScript pre-filtering"
 msgstr "Pra penapisan GhostScript"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4401
+#: modules/printbackends/gtkprintbackendcups.c:4623
 msgctxt "printing option value"
 msgid "One Sided"
 msgstr "Satu Sisi"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4403
+#: modules/printbackends/gtkprintbackendcups.c:4625
 msgctxt "printing option value"
 msgid "Long Edge (Standard)"
 msgstr "Sisi Panjang (Standar)"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4405
+#: modules/printbackends/gtkprintbackendcups.c:4627
 msgctxt "printing option value"
 msgid "Short Edge (Flip)"
 msgstr "Sisi Pendek (Putar)"
@@ -10239,6 +10396,9 @@ msgstr "Sisi Pendek (Putar)"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4407
 #: modules/printbackends/cups/gtkprintbackendcups.c:4409
 #: modules/printbackends/cups/gtkprintbackendcups.c:4417
+#: modules/printbackends/gtkprintbackendcups.c:4629
+#: modules/printbackends/gtkprintbackendcups.c:4631
+#: modules/printbackends/gtkprintbackendcups.c:4639
 msgctxt "printing option value"
 msgid "Auto Select"
 msgstr "Seleksi Otomatis"
@@ -10250,30 +10410,38 @@ msgstr "Seleksi Otomatis"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4413
 #: modules/printbackends/cups/gtkprintbackendcups.c:4415
 #: modules/printbackends/cups/gtkprintbackendcups.c:4419
+#: modules/printbackends/gtkprintbackendcups.c:4633
+#: modules/printbackends/gtkprintbackendcups.c:4635
+#: modules/printbackends/gtkprintbackendcups.c:4637
+#: modules/printbackends/gtkprintbackendcups.c:4641
 msgctxt "printing option value"
 msgid "Printer Default"
 msgstr "Bawaan Pencetak"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4421
+#: modules/printbackends/gtkprintbackendcups.c:4643
 msgctxt "printing option value"
 msgid "Embed GhostScript fonts only"
 msgstr "Tempelkan fonta GhostScript saja"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4423
+#: modules/printbackends/gtkprintbackendcups.c:4645
 msgctxt "printing option value"
 msgid "Convert to PS level 1"
 msgstr "Konversi ke PS tingkat 1"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4425
+#: modules/printbackends/gtkprintbackendcups.c:4647
 msgctxt "printing option value"
 msgid "Convert to PS level 2"
 msgstr "Konversi ke PS tingkat 2"
 
 #. Translators: this is an option of "GhostScript"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4427
+#: modules/printbackends/gtkprintbackendcups.c:4649
 msgctxt "printing option value"
 msgid "No pre-filtering"
 msgstr "Tanpa pra penapisan"
@@ -10281,95 +10449,111 @@ msgstr "Tanpa pra penapisan"
 #. Translators: "Miscellaneous" is the label for a button, that opens
 #. up an extra panel of settings in a print dialog.
 #: modules/printbackends/cups/gtkprintbackendcups.c:4436
+#: modules/printbackends/gtkprintbackendcups.c:4658
 msgctxt "printing option group"
 msgid "Miscellaneous"
 msgstr "Rupa-rupa"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:4463
+#: modules/printbackends/gtkprintbackendcups.c:4685
 msgctxt "sides"
 msgid "One Sided"
 msgstr "Satu Sisi"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4465
+#: modules/printbackends/gtkprintbackendcups.c:4687
 msgctxt "sides"
 msgid "Long Edge (Standard)"
 msgstr "Sisi Panjang (Standar)"
 
 #. Translators: this is an option of "Two Sided"
 #: modules/printbackends/cups/gtkprintbackendcups.c:4467
+#: modules/printbackends/gtkprintbackendcups.c:4689
 msgctxt "sides"
 msgid "Short Edge (Flip)"
 msgstr "Sisi Pendek (Putar)"
 
 #. Translators: Top output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4470
+#: modules/printbackends/gtkprintbackendcups.c:4692
 msgctxt "output-bin"
 msgid "Top Bin"
 msgstr "Wadah Puncak"
 
 #. Translators: Middle output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4472
+#: modules/printbackends/gtkprintbackendcups.c:4694
 msgctxt "output-bin"
 msgid "Middle Bin"
 msgstr "Wadah Tengah"
 
 #. Translators: Bottom output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4474
+#: modules/printbackends/gtkprintbackendcups.c:4696
 msgctxt "output-bin"
 msgid "Bottom Bin"
 msgstr "Wadah Dasar"
 
 #. Translators: Side output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4476
+#: modules/printbackends/gtkprintbackendcups.c:4698
 msgctxt "output-bin"
 msgid "Side Bin"
 msgstr "Wadah Sisi"
 
 #. Translators: Left output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4478
+#: modules/printbackends/gtkprintbackendcups.c:4700
 msgctxt "output-bin"
 msgid "Left Bin"
 msgstr "Wadah Kiri"
 
 #. Translators: Right output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4480
+#: modules/printbackends/gtkprintbackendcups.c:4702
 msgctxt "output-bin"
 msgid "Right Bin"
 msgstr "Wadah Kanan"
 
 #. Translators: Center output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4482
+#: modules/printbackends/gtkprintbackendcups.c:4704
 msgctxt "output-bin"
 msgid "Center Bin"
 msgstr "Wadah Pusat"
 
 #. Translators: Rear output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4484
+#: modules/printbackends/gtkprintbackendcups.c:4706
 msgctxt "output-bin"
 msgid "Rear Bin"
 msgstr "Wadah Belakang"
 
 #. Translators: Output bin where one sided output is oriented in the face-up position
 #: modules/printbackends/cups/gtkprintbackendcups.c:4486
+#: modules/printbackends/gtkprintbackendcups.c:4708
 msgctxt "output-bin"
 msgid "Face Up Bin"
 msgstr "Wadah Telentang"
 
 #. Translators: Output bin where one sided output is oriented in the face-down position
 #: modules/printbackends/cups/gtkprintbackendcups.c:4488
+#: modules/printbackends/gtkprintbackendcups.c:4710
 msgctxt "output-bin"
 msgid "Face Down Bin"
 msgstr "Wadah Telungkup"
 
 #. Translators: Large capacity output bin
 #: modules/printbackends/cups/gtkprintbackendcups.c:4490
+#: modules/printbackends/gtkprintbackendcups.c:4712
 msgctxt "output-bin"
 msgid "Large Capacity Bin"
 msgstr "Wadah Kapasitas Besar"
 
 #. Translators: Output stacker number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4512
+#: modules/printbackends/gtkprintbackendcups.c:4734
 #, c-format
 msgctxt "output-bin"
 msgid "Stacker %d"
@@ -10377,6 +10561,7 @@ msgstr "Penumpuk %d"
 
 #. Translators: Output mailbox number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4516
+#: modules/printbackends/gtkprintbackendcups.c:4738
 #, c-format
 msgctxt "output-bin"
 msgid "Mailbox %d"
@@ -10384,12 +10569,14 @@ msgstr "Kotak-surat %d"
 
 #. Translators: Private mailbox
 #: modules/printbackends/cups/gtkprintbackendcups.c:4520
+#: modules/printbackends/gtkprintbackendcups.c:4742
 msgctxt "output-bin"
 msgid "My Mailbox"
 msgstr "Kotak-suratku"
 
 #. Translators: Output tray number %d
 #: modules/printbackends/cups/gtkprintbackendcups.c:4524
+#: modules/printbackends/gtkprintbackendcups.c:4746
 #, c-format
 msgctxt "output-bin"
 msgid "Tray %d"
@@ -10397,6 +10584,7 @@ msgstr "Baki %d"
 
 # "Bawaan Pencetak" bukan "Baku Pencetak"^^
 #: modules/printbackends/cups/gtkprintbackendcups.c:4995
+#: modules/printbackends/gtkprintbackendcups.c:5223
 msgid "Printer Default"
 msgstr "Bawaan Pencetak"
 
@@ -10423,6 +10611,7 @@ msgstr "Rendah"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5466
+#: modules/printbackends/gtkprintbackendcups.c:5702
 msgid "Job Priority"
 msgstr "Prioritas Tugas"
 
@@ -10434,36 +10623,50 @@ msgid "Billing Info"
 msgstr "Info Tagihan"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5501
+#: modules/printbackends/gtkprintbackendcups.c:5713
+msgid "Billing Info"
+msgstr "Info Tagihan"
+
+#. Translators, these strings are names for various 'standard' cover
+#. * pages that the printing system may support.
+#.
+#: modules/printbackends/gtkprintbackendcups.c:5737
 msgctxt "cover page"
 msgid "None"
 msgstr "Nihil"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5502
+#: modules/printbackends/gtkprintbackendcups.c:5738
 msgctxt "cover page"
 msgid "Classified"
 msgstr "Classified"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5503
+#: modules/printbackends/gtkprintbackendcups.c:5739
 msgctxt "cover page"
 msgid "Confidential"
 msgstr "Konfidensial"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5504
+#: modules/printbackends/gtkprintbackendcups.c:5740
 msgctxt "cover page"
 msgid "Secret"
 msgstr "Rahasia"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5505
+#: modules/printbackends/gtkprintbackendcups.c:5741
 msgctxt "cover page"
 msgid "Standard"
 msgstr "Standar"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5506
+#: modules/printbackends/gtkprintbackendcups.c:5742
 msgctxt "cover page"
 msgid "Top Secret"
 msgstr "Top Secret"
 
 #: modules/printbackends/cups/gtkprintbackendcups.c:5507
+#: modules/printbackends/gtkprintbackendcups.c:5743
 msgctxt "cover page"
 msgid "Unclassified"
 msgstr "Unclassified"
@@ -10472,6 +10675,7 @@ msgstr "Unclassified"
 #. * in the print dialog
 #.
 #: modules/printbackends/cups/gtkprintbackendcups.c:5519
+#: modules/printbackends/gtkprintbackendcups.c:5755
 msgctxt "printer option"
 msgid "Pages per Sheet"
 msgstr "Halaman per Lembar"
@@ -10499,9 +10703,7 @@ msgstr "Sebelum"
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcpdb.c:528
 #: bobgui/print/backends/bobguiprintbackendcups.c:5876
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5593
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgctxt "printer option"
 msgid "After"
 msgstr "Sesudah"
@@ -11008,6 +11210,9 @@ msgstr "Halaman per Lembar"
 #. * dialog that controls in what order multiple pages are arranged
 #.
 #: bobgui/print/backends/bobguiprintbackendcups.c:5819
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5772
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Page Ordering"
 msgstr "Urutan Halaman"
@@ -11018,9 +11223,10 @@ msgstr "Urutan Halaman"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5896
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5613
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5849
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at"
 msgstr "Dicetak pada"
@@ -11030,9 +11236,10 @@ msgstr "Dicetak pada"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5907
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5624
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5860
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Print at time"
 msgstr "Dicetak pada waktu"
@@ -11044,19 +11251,21 @@ msgstr "Dicetak pada waktu"
 #.
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:5955
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5666
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:5907
+>>>>>>> origin/4-14-backports
 #, c-format
 msgid "Custom %s×%s"
 msgstr "Gubahan %sx%s"
 
-<<<<<<< HEAD
 #. TRANSLATORS: this is the ICC color profile to use for this job
+<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6067
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5775
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6018
+>>>>>>> origin/4-14-backports
 msgctxt "printer option"
 msgid "Printer Profile"
 msgstr "Profil Pencetak"
@@ -11064,9 +11273,10 @@ msgstr "Profil Pencetak"
 #. TRANSLATORS: this is when color profile information is unavailable
 <<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintbackendcups.c:6074
-=======
 #: modules/printbackends/cups/gtkprintbackendcups.c:5782
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
+=======
+#: modules/printbackends/gtkprintbackendcups.c:6025
+>>>>>>> origin/4-14-backports
 msgctxt "printer option value"
 msgid "Unavailable"
 msgstr "Tak tersedia"
@@ -11105,29 +11315,20 @@ msgstr "F_ormat keluaran"
 
 #. TRANSLATORS: when we're running an old CUPS, and
 #. * it hasn't registered the device with colord
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:245
-=======
 #: modules/printbackends/cups/gtkprintercups.c:269
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Color management unavailable"
 msgstr "Manajemen warna tak tersedia"
 
 #. TRANSLATORS: when there is no color profile available
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:257
-=======
 #: modules/printbackends/cups/gtkprintercups.c:281
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "No profile available"
 msgstr "Profil tak tersedia"
 
 #. TRANSLATORS: when the color profile has no title
-<<<<<<< HEAD
 #: bobgui/print/backends/bobguiprintercups.c:268
-=======
 #: modules/printbackends/cups/gtkprintercups.c:292
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 msgid "Unspecified profile"
 msgstr "Profil tak dinyatakan"
 
@@ -14783,6 +14984,10 @@ msgstr "Gunakan gaya dari berkas CSS"
 #: tools/bobgui-builder-tool-validate.c:274
 #: tools/bobgui-rendernode-tool-benchmark.c:108
 #: tools/bobgui-rendernode-tool-render.c:279 tools/bobgui-rendernode-tool-show.c:129
+#: tools/gtk-builder-tool-preview.c:187 tools/gtk-builder-tool-screenshot.c:370
+#: tools/gtk-builder-tool-validate.c:268
+#: tools/gtk-rendernode-tool-benchmark.c:106
+#: tools/gtk-rendernode-tool-render.c:262 tools/gtk-rendernode-tool-show.c:113
 #, c-format
 msgid "Could not initialize windowing system\n"
 msgstr "Tidak bisa menginisialisasi sistem jendela\n"
@@ -14828,12 +15033,16 @@ msgstr ""
 
 #: tools/bobgui-builder-tool-screenshot.c:332
 #: tools/bobgui-rendernode-tool-render.c:245
+#: tools/gtk-builder-tool-screenshot.c:332
+#: tools/gtk-rendernode-tool-render.c:230
 #, c-format
 msgid "Output written to %s.\n"
 msgstr "Keluaran ditulis ke %s.\n"
 
 #: tools/bobgui-builder-tool-screenshot.c:336
 #: tools/bobgui-rendernode-tool-render.c:249
+#: tools/gtk-builder-tool-screenshot.c:336
+#: tools/gtk-rendernode-tool-render.c:234
 #, c-format
 msgid "Failed to save %s: %s\n"
 msgstr "Gagal menyimpan %s: %s\n"
@@ -14854,6 +15063,9 @@ msgstr "Timpa berkas yang sudah ada"
 #: tools/bobgui-image-tool-convert.c:112 tools/bobgui-image-tool-relabel.c:86
 #: tools/bobgui-image-tool-show.c:119 tools/bobgui-rendernode-tool-benchmark.c:99
 #: tools/bobgui-rendernode-tool-render.c:272
+#: tools/gtk-builder-tool-screenshot.c:363
+#: tools/gtk-rendernode-tool-benchmark.c:97
+#: tools/gtk-rendernode-tool-render.c:255
 msgid "FILE…"
 msgstr "BERKAS…"
 
@@ -15271,6 +15483,7 @@ msgstr "PATH"
 #: tools/bobgui-path-tool-decompose.c:99
 msgid "Decompose a path."
 msgstr "Menguraikan path."
+msgstr "Menguraikan jalur."
 
 #: tools/bobgui-path-tool-decompose.c:112 tools/bobgui-path-tool-info.c:113
 #: tools/bobgui-path-tool-restrict.c:64 tools/bobgui-path-tool-reverse.c:58
@@ -15335,6 +15548,7 @@ msgstr "Penuhi path (baku)"
 #: tools/bobgui-path-tool-render.c:59 tools/bobgui-path-tool-show.c:113
 msgid "Stroke the path"
 msgstr "Sapu path"
+msgstr "Sapu jalur"
 
 #: tools/bobgui-path-tool-render.c:60 tools/bobgui-path-tool-show.c:114
 msgid "Show path points"
@@ -15451,6 +15665,10 @@ msgstr "Opsi yang terkait dengan stroke"
 #: tools/bobgui-path-tool-render.c:131 tools/bobgui-path-tool-show.c:168
 msgid "Show help for stroke options"
 msgstr "Menampilkan bantuan untuk opsi sapuan"
+#: tools/gtk-path-tool-render.c:182 tools/gtk-path-tool-show.c:192
+#, fuzzy
+msgid "Show help for stroke options"
+msgstr "Tampilkan bantuan untuk opsi stroke"
 
 #: tools/bobgui-path-tool-render.c:148 tools/bobgui-path-tool-show.c:185
 msgid "No path specified"
@@ -15459,6 +15677,9 @@ msgstr "Tidak ada path yang dinyatakan"
 #: tools/bobgui-path-tool-render.c:154
 msgid "Can only render a single path"
 msgstr "Hanya dapat merender satu path"
+#: tools/gtk-path-tool-render.c:205
+msgid "Can only render a single path"
+msgstr "Hanya dapat merender satu jalur"
 
 #: tools/bobgui-path-tool-render.c:188 tools/bobgui-path-tool-show.c:201
 msgid "fill rule"
@@ -15471,6 +15692,7 @@ msgstr "tudung garis"
 #: tools/bobgui-path-tool-render.c:195 tools/bobgui-path-tool-show.c:208
 msgid "line join"
 msgstr "gabung garis"
+msgstr "sambung garis"
 
 #: tools/bobgui-path-tool-render.c:271
 #, c-format
@@ -15495,6 +15717,7 @@ msgid "End of segment"
 msgstr "Akhir segmen"
 
 #: tools/bobgui-path-tool-restrict.c:51
+#: tools/gtk-path-tool-restrict.c:51
 msgid "Restrict a path to a segment."
 msgstr "Batasi jalur ke sebuah segmen."
 
@@ -15596,10 +15819,18 @@ msgid "RENDERER"
 msgstr "PERENDER"
 
 #: tools/bobgui-rendernode-tool-benchmark.c:97
+#: tools/gtk-rendernode-tool-benchmark.c:94
+#: tools/gtk-rendernode-tool-compare.c:65
+#: tools/gtk-rendernode-tool-render.c:254
+msgid "RENDERER"
+msgstr "PERENDER"
+
+#: tools/gtk-rendernode-tool-benchmark.c:95
 msgid "Number of runs with each renderer"
 msgstr "Banyaknya eksekusi dengan setiap perender"
 
 #: tools/bobgui-rendernode-tool-benchmark.c:97
+#: tools/gtk-rendernode-tool-benchmark.c:95
 msgid "RUNS"
 msgstr "EKSEKUSI"
 
@@ -15614,6 +15845,11 @@ msgstr "Perenderan uji kinerja dari suatu berkas .node."
 #: tools/bobgui-rendernode-tool-benchmark.c:129
 #: tools/bobgui-rendernode-tool-extract.c:320 tools/bobgui-rendernode-tool-info.c:252
 #: tools/bobgui-rendernode-tool-render.c:300 tools/bobgui-rendernode-tool-show.c:150
+msgstr "Benchmark perenderan suatu berkas .node."
+
+#: tools/gtk-rendernode-tool-benchmark.c:127
+#: tools/gtk-rendernode-tool-info.c:236 tools/gtk-rendernode-tool-render.c:283
+#: tools/gtk-rendernode-tool-show.c:134
 #, c-format
 msgid "No .node file specified\n"
 msgstr "Tidak ada berkas .node yang ditentukan\n"
@@ -15625,6 +15861,8 @@ msgstr "Hanya bisa mem-benchmark berkas tunggal .node\n"
 
 #: tools/bobgui-rendernode-tool-compare.c:65
 #: tools/bobgui-rendernode-tool-render.c:270
+#: tools/gtk-rendernode-tool-compare.c:65
+#: tools/gtk-rendernode-tool-render.c:254
 msgid "Renderer to use"
 msgstr "Perender yang dipakai"
 
@@ -15643,6 +15881,8 @@ msgstr "Harus menyatakan dua berkas\n"
 
 #: tools/bobgui-rendernode-tool-compare.c:102
 #: tools/bobgui-rendernode-tool-render.c:211
+#: tools/gtk-rendernode-tool-compare.c:102
+#: tools/gtk-rendernode-tool-render.c:209
 #, c-format
 msgid "Failed to create renderer: %s\n"
 msgstr "Gagal membuat perender: %s\n"
@@ -15738,6 +15978,7 @@ msgid "Provide information about the render node."
 msgstr "Menyediakan informasi tentang simpul render."
 
 #: tools/bobgui-rendernode-tool-render.c:171
+#: tools/gtk-rendernode-tool-render.c:170
 #, c-format
 msgid ""
 "File %s exists.\n"
@@ -15748,6 +15989,8 @@ msgstr ""
 
 #: tools/bobgui-rendernode-tool-render.c:185
 #: tools/bobgui-rendernode-tool-render.c:197
+#: tools/gtk-rendernode-tool-render.c:184
+#: tools/gtk-rendernode-tool-render.c:196
 #, c-format
 msgid "Failed to generate SVG: %s\n"
 msgstr "Gagal menghasilkan SVG: %s\n"
@@ -15761,6 +16004,11 @@ msgid "Render a .node file to an image."
 msgstr "Render suatu berkas .node ke suatu gambar."
 
 #: tools/bobgui-rendernode-tool-render.c:306
+#: tools/gtk-rendernode-tool-render.c:270
+msgid "Render a .node file to an image."
+msgstr "Render suatu berkas .node ke suatu gambar."
+
+#: tools/gtk-rendernode-tool-render.c:289
 #, c-format
 msgid "Can only render a single .node file to a single output file\n"
 msgstr ""
@@ -15886,3 +16134,12 @@ msgstr ""
 "Tidak ada berkas indeks tema dalam \"%s\".\n"
 "JIka Anda memang ingin membuat singgahan ikon di sini, gunakan --ignore-"
 "theme-index.\n"
+
+#~ msgid "Backend does not support window scaling"
+#~ msgstr "Backend tak mendukung penskalaan jendela"
+
+#~ msgid "Font Scale"
+#~ msgstr "Skala Fonta"
+
+#~ msgid "Window Scaling"
+#~ msgstr "Penskalaan Jendela"

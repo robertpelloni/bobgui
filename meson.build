@@ -1,5 +1,7 @@
 project('bobgui', 'c',
         version: '4.23.0',
+project('gtk', 'c',
+        version: '4.14.4',
         default_options: [
           'buildtype=debugoptimized',
           'warning_level=1',

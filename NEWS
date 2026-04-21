@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 Overview of Changes in 4.23.0, xx-xx-xxxx
+Overview of Changes in 4.14.4, xx-xx-xxxx
 =========================================
 =======
 Overview of Changes in GTK+ 3.24.1
@@ -4340,6 +4341,36 @@ the new property to 'manual'.
  Slovenian
  Swedish
  Turkish
+
+
+Overview of Changes in 4.14.3, 18-04-2024
+=========================================
+
+* GtkShortcutManager:
+ - Track the propagation phase of added controllers
+
+* Accessibility:
+ - Implement GtkAccessibleRange for scrollbars
+
+* X11:
+ - Fix some confusing debug messages
+ - Drop a no-longer-relevant optimization that was interfering with
+   getting the current window manager capabilities
+
+* Tools:
+ - Support generating pdf in gtk4-rendernode-tool
+
+* Translation updates:
+ Basque
+ Brazilian Portuguese
+ Georgian
+ Hebrew
+ Kabyle
+ Persian
+ Polish
+ Slovenian
+ Swedish
+ Ukrainian
 
 
 Overview of Changes in 4.14.2, 03-04-2024

@@ -2137,6 +2137,76 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
           ret = TRUE;
         }
+      else if (G_VALUE_HOLDS (value, GTK_TYPE_SHORTCUT_TRIGGER))
+        {
+          GtkShortcutTrigger *trigger = gtk_shortcut_trigger_parse_string (string);
+
+          if (trigger)
+            g_value_take_object (value, trigger);
+          else
+            {
+              g_set_error (error,
+                           GTK_BUILDER_ERROR,
+                           GTK_BUILDER_ERROR_INVALID_VALUE,
+                           "Could not parse shortcut trigger '%s'",
+                           string);
+              ret = FALSE;
+            }
+        }
+      else if (G_VALUE_HOLDS (value, GTK_TYPE_SHORTCUT_ACTION))
+        {
+          GtkShortcutAction *action = gtk_shortcut_action_parse_builder (builder, string, error);
+
+          if (action)
+            g_value_take_object (value, action);
+          else
+            ret = FALSE;
+        }
+      else
+        {
+          GObject *object = g_hash_table_lookup (priv->objects, string);
+
+          if (object && g_value_type_compatible (G_OBJECT_TYPE (object), type))
+            {
+              g_value_set_object (value, object);
+            }
+          else if (object)
+            {
+              g_set_error (error,
+                           GTK_BUILDER_ERROR,
+                           GTK_BUILDER_ERROR_INVALID_VALUE,
+                           "Object named \"%s\" is of type \"%s\" which is not compatible with expected type \"%s\"",
+                           string, G_OBJECT_TYPE_NAME (object), g_type_name (type));
+              ret = FALSE;
+            }
+          else
+            {
+              g_set_error (error,
+                           GTK_BUILDER_ERROR,
+                           GTK_BUILDER_ERROR_INVALID_VALUE,
+                           "No object named \"%s\"", string);
+              ret = FALSE;
+            }
+        }
+      break;
+    case G_TYPE_POINTER:
+      if (G_VALUE_HOLDS (value, G_TYPE_GTYPE))
+        {
+          GType resolved_type;
+
+          resolved_type = gtk_builder_get_type_from_name (builder, string);
+          if (resolved_type == G_TYPE_INVALID)
+            {
+              g_set_error (error,
+                           GTK_BUILDER_ERROR,
+                           GTK_BUILDER_ERROR_INVALID_VALUE,
+                           "Unsupported GType '%s' for value of type 'GType'", string);
+              return FALSE;
+            }
+          g_value_set_gtype (value, resolved_type);
+
+          ret = TRUE;
+        }
       else
         ret = FALSE;
       break;

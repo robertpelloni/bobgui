@@ -2300,6 +2300,143 @@ gdk_gl_backend_use (GdkGLBackend backend_type)
   g_assert (the_gl_backend_type == backend_type);
 }
 
+static guint
+gdk_gl_context_import_dmabuf_for_target (GdkGLContext    *self,
+                                         int              width,
+                                         int              height,
+                                         const GdkDmabuf *dmabuf,
+                                         int              target)
+{
+#if defined(HAVE_EGL) && defined(HAVE_DMABUF)
+  GdkDisplay *display = gdk_gl_context_get_display (self);
+  EGLImage image;
+  guint texture_id;
+
+  image = gdk_dmabuf_egl_create_image (display,
+                                       width,
+                                       height,
+                                       dmabuf,
+                                       target);
+  if (image == EGL_NO_IMAGE)
+    return 0;
+
+  glGenTextures (1, &texture_id);
+  glBindTexture (target, texture_id);
+  glEGLImageTargetTexture2DOES (target, image);
+  glTexParameteri (target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri (target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+  eglDestroyImageKHR (gdk_display_get_egl_display (display), image);
+
+  return texture_id;
+#else
+  return 0;
+#endif
+}
+
+guint
+gdk_gl_context_import_dmabuf (GdkGLContext    *self,
+                              int              width,
+                              int              height,
+                              const GdkDmabuf *dmabuf,
+                              gboolean        *external)
+{
+  GdkDisplay *display = gdk_gl_context_get_display (self);
+  guint texture_id;
+
+  gdk_display_init_dmabuf (display);
+
+  if (gdk_dmabuf_formats_contains (display->egl_dmabuf_formats, dmabuf->fourcc, dmabuf->modifier))
+    {
+      /* This is the path for modern drivers that support modifiers */
+
+      if (!gdk_dmabuf_formats_contains (display->egl_external_formats, dmabuf->fourcc, dmabuf->modifier))
+        {
+          texture_id = gdk_gl_context_import_dmabuf_for_target (self,
+                                                                width, height,
+                                                                dmabuf,
+                                                                GL_TEXTURE_2D);
+          if (texture_id == 0)
+            {
+              GDK_DISPLAY_DEBUG (display, DMABUF,
+                                 "Import of %dx%d %.4s:%#" G_GINT64_MODIFIER "x dmabuf failed",
+                                 width, height,
+                                 (char *) &dmabuf->fourcc, dmabuf->modifier);
+              return 0;
+            }
+
+          GDK_DISPLAY_DEBUG (display, DMABUF,
+                             "Imported %dx%d %.4s:%#" G_GINT64_MODIFIER "x dmabuf as GL_TEXTURE_2D texture",
+                             width, height,
+                             (char *) &dmabuf->fourcc, dmabuf->modifier);
+          *external = FALSE;
+          return texture_id;
+        }
+
+      if (!gdk_gl_context_get_use_es (self))
+        {
+          GDK_DISPLAY_DEBUG (display, DMABUF,
+                             "Can't import external_only %.4s:%#" G_GINT64_MODIFIER "x outside of GLES",
+                             (char *) &dmabuf->fourcc, dmabuf->modifier);
+          return 0;
+        }
+
+      texture_id = gdk_gl_context_import_dmabuf_for_target (self,
+                                                            width, height,
+                                                            dmabuf,
+                                                            GL_TEXTURE_EXTERNAL_OES);
+      if (texture_id == 0)
+        {
+          GDK_DISPLAY_DEBUG (display, DMABUF,
+                             "Import of external_only %dx%d %.4s:%#" G_GINT64_MODIFIER "x dmabuf failed",
+                             width, height,
+                             (char *) &dmabuf->fourcc, dmabuf->modifier);
+          return 0;
+        }
+
+      GDK_DISPLAY_DEBUG (display, DMABUF,
+                         "Imported %dx%d %.4s:%#" G_GINT64_MODIFIER "x dmabuf as GL_TEXTURE_EXTERNAL_OES texture",
+                         width, height,
+                         (char *) &dmabuf->fourcc, dmabuf->modifier);
+      *external = TRUE;
+      return texture_id;
+    }
+  else
+    {
+      /* This is the opportunistic path.
+       * We hit it both for drivers that do not support modifiers as well as for dmabufs
+       * that the driver did not explicitly advertise. */
+      int target;
+
+      if (gdk_gl_context_get_use_es (self))
+        target = GL_TEXTURE_EXTERNAL_OES;
+      else
+        target = GL_TEXTURE_2D;
+
+      texture_id = gdk_gl_context_import_dmabuf_for_target (self,
+                                                            width, height,
+                                                            dmabuf,
+                                                            target);
+
+      if (texture_id == 0)
+        {
+          GDK_DISPLAY_DEBUG (display, DMABUF,
+                             "Import of %dx%d %.4s:%#" G_GINT64_MODIFIER "x dmabuf failed",
+                             width, height,
+                             (char *) &dmabuf->fourcc, dmabuf->modifier);
+          return 0;
+        }
+
+      GDK_DISPLAY_DEBUG (display, DMABUF,
+                         "Imported %dx%d %.4s:%#" G_GINT64_MODIFIER "x dmabuf as %s texture",
+                         width, height,
+                         (char *) &dmabuf->fourcc, dmabuf->modifier,
+                         target == GL_TEXTURE_EXTERNAL_OES ? "GL_TEXTURE_EXTERNAL_OES" : "GL_TEXTURE_2D");
+      *external = target == GL_TEXTURE_EXTERNAL_OES;
+      return texture_id;
+    }
+}
+
 gboolean
 gdk_gl_context_export_dmabuf (GdkGLContext *self,
                               unsigned int  texture_id,

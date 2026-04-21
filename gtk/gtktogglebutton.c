@@ -547,6 +547,8 @@ gtk_toggle_button_set_inconsistent (GtkToggleButton *toggle_button,
                                     gboolean         setting)
 {
   GtkToggleButtonPrivate *priv;
+  GtkToggleButtonPrivate *priv = gtk_toggle_button_get_instance_private (toggle_button);
+  GtkToggleButtonPrivate *group_priv;
 
   g_return_if_fail (GTK_IS_TOGGLE_BUTTON (toggle_button));
 
@@ -565,6 +567,25 @@ gtk_toggle_button_set_inconsistent (GtkToggleButton *toggle_button,
 
       g_object_notify_by_pspec (G_OBJECT (toggle_button), toggle_button_props[PROP_INCONSISTENT]);
     }
+
+  if (priv->group_next == group)
+    return;
+
+  group_priv = gtk_toggle_button_get_instance_private (group);
+
+  priv->group_prev = NULL;
+  if (group_priv->group_prev)
+    {
+      GtkToggleButtonPrivate *prev = gtk_toggle_button_get_instance_private (group_priv->group_prev);
+
+      prev->group_next = toggle_button;
+      priv->group_prev = group_priv->group_prev;
+    }
+
+  group_priv->group_prev = toggle_button;
+  priv->group_next = group;
+
+  g_object_notify_by_pspec (G_OBJECT (toggle_button), toggle_button_props[PROP_GROUP]);
 }
 
 /**

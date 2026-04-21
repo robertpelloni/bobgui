@@ -46,7 +46,11 @@ bobgui_scaler_paintable_snapshot (GdkPaintable *paintable,
 
   bobgui_snapshot_save (snapshot);
 
+<<<<<<< HEAD:bobgui/bobguiscaler.c
   bobgui_snapshot_scale (snapshot, 1.0 / self->scale, 1.0 / self->scale);
+=======
+  gtk_snapshot_scale (snapshot, 1.0 / self->scale, 1.0 / self->scale);
+>>>>>>> origin/4-14-backports:gtk/gtkscaler.c
 
   gdk_paintable_snapshot (self->paintable,
                           snapshot,
@@ -63,7 +67,11 @@ bobgui_scaler_paintable_get_current_image (GdkPaintable *paintable)
   GdkPaintable *current_paintable, *current_self;
 
   current_paintable = gdk_paintable_get_current_image (self->paintable);
+<<<<<<< HEAD:bobgui/bobguiscaler.c
   current_self = bobgui_scaler_new (current_paintable, self->scale);
+=======
+  current_self = gtk_scaler_new (current_paintable, self->scale);
+>>>>>>> origin/4-14-backports:gtk/gtkscaler.c
   g_object_unref (current_paintable);
 
   return current_self;
@@ -151,7 +159,11 @@ bobgui_scaler_init (BobguiScaler *self)
 }
 
 GdkPaintable *
+<<<<<<< HEAD:bobgui/bobguiscaler.c
 bobgui_scaler_new (GdkPaintable *paintable,
+=======
+gtk_scaler_new (GdkPaintable *paintable,
+>>>>>>> origin/4-14-backports:gtk/gtkscaler.c
                 double        scale)
 {
   BobguiScaler *self;

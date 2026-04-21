@@ -83,6 +83,18 @@
  * These files must be valid key files (see #GKeyFile), and have
  * a section called Settings. Themes can also provide default values
  * for settings by installing a `settings.ini` file
+ * utilities that let the user change these settings.
+ *
+ * On Wayland, the settings are obtained either via a settings portal,
+ * or by reading desktop settings from [class@Gio.Settings].
+ *
+ * On macOS, the settings are obtained from `NSUserDefaults`.
+ *
+ * In the absence of these sharing mechanisms, GTK reads default values for
+ * settings from `settings.ini` files in `/etc/gtk-4.0`, `$XDG_CONFIG_DIRS/gtk-4.0`
+ * and `$XDG_CONFIG_HOME/gtk-4.0`. These files must be valid key files (see
+ * `GKeyFile`), and have a section called Settings. Themes can also provide
+ * default values for settings by installing a `settings.ini` file
  * next to their `gtk.css` file.
  *
  * Applications can override system-wide settings by setting the property
