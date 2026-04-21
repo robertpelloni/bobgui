@@ -184,13 +184,8 @@ int
 main(int argc, char **argv)
 {
   GError *error = NULL;
-<<<<<<< HEAD
   BobguiWidget *da;
   gboolean done = FALSE;
-=======
-  GdkMonitor *monitor;
-  GdkRectangle monitor_bounds;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   GOptionContext *context = g_option_context_new (NULL);
   g_option_context_add_main_entries (context, options, NULL);
@@ -223,12 +218,7 @@ main(int argc, char **argv)
                     G_CALLBACK (on_map), NULL);
   on_frame (0.);
 
-<<<<<<< HEAD
   bobgui_window_present (BOBGUI_WINDOW (window));
-=======
-  monitor = gdk_display_get_primary_monitor (gtk_widget_get_display (window));
-  gdk_monitor_get_geometry (monitor, &monitor_bounds);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   while (!done)
     g_main_context_iteration (NULL, TRUE);

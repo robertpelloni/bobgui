@@ -228,11 +228,7 @@ animation_timer (BobguiEntryCompletion *completion)
 	  g_print ("removing model!\n");
 
 	  old_store = g_object_ref (store);
-<<<<<<< HEAD
 	  bobgui_entry_completion_set_model (completion, NULL);
-=======
-	  gtk_entry_completion_set_model (completion, NULL);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 	}
       else
 	{

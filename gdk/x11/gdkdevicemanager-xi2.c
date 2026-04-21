@@ -480,15 +480,7 @@ create_device (GdkX11DeviceManagerXI2 *device_manager,
 
       tmp_name = g_ascii_strdown (dev->name, -1);
 
-<<<<<<< HEAD
       if (strstr (tmp_name, " pad"))
-=======
-      if (strstr (tmp_name, "eraser"))
-        input_source = GDK_SOURCE_ERASER;
-      else if (strstr (tmp_name, "cursor"))
-        input_source = GDK_SOURCE_CURSOR;
-      else if (strstr (tmp_name, " pad"))
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
         input_source = GDK_SOURCE_TABLET_PAD;
       else if (strstr (tmp_name, "wacom") ||
                strstr (tmp_name, "pen") ||
@@ -527,20 +519,11 @@ create_device (GdkX11DeviceManagerXI2 *device_manager,
       break;
     }
 
-<<<<<<< HEAD
   if (GDK_DISPLAY_DEBUG_CHECK (display, INPUT))
     {
       const char *type_names[] = { "logical", "physical", "floating" };
       const char *source_names[] = { "mouse", "pen", "keyboard", "direct touch", "indirect touch", "trackpoint", "pad" };
       gdk_debug_message ("input device:\n\tname: %s\n\ttype: %s\n\tsource: %s\n\thas cursor: %d\n\ttouches: %d",
-=======
-  GDK_NOTE (INPUT,
-            ({
-              const gchar *type_names[] = { "master", "slave", "floating" };
-              const gchar *source_names[] = { "mouse", "pen", "eraser", "cursor", "keyboard", "direct touch", "indirect touch", "trackpoint", "pad" };
-              const gchar *mode_names[] = { "disabled", "screen", "window" };
-              g_message ("input device:\n\tname: %s\n\ttype: %s\n\tsource: %s\n\tmode: %s\n\thas cursor: %d\n\ttouches: %d",
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                          dev->name,
                          type_names[type],
                          source_names[input_source],
@@ -1025,7 +1008,6 @@ device_get_tool_serial_and_id (GdkDevice *device,
   XFree (data);
 
   return TRUE;
-<<<<<<< HEAD
 }
 
 static GdkDeviceToolType
@@ -1086,8 +1068,6 @@ device_get_tool_type (GdkDevice *device)
     tool_type = GDK_DEVICE_TOOL_TYPE_UNKNOWN;
 
   return tool_type;
-=======
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 static void
@@ -1100,11 +1080,7 @@ handle_property_change (GdkX11DeviceManagerXI2 *device_manager,
                                 GUINT_TO_POINTER (ev->deviceid));
 
   if (device != NULL &&
-<<<<<<< HEAD
       ev->property == gdk_x11_get_xatom_by_name_for_display (gdk_device_get_display (device), "Wacom Serial IDs"))
-=======
-      ev->property == gdk_x11_get_xatom_by_name ("Wacom Serial IDs"))
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     {
       GdkDeviceTool *tool = NULL;
       guint serial_id = 0, tool_id = 0;
@@ -1113,19 +1089,13 @@ handle_property_change (GdkX11DeviceManagerXI2 *device_manager,
       if (ev->what != XIPropertyDeleted &&
           device_get_tool_serial_and_id (device, &serial_id, &tool_id))
         {
-<<<<<<< HEAD
           GdkDeviceToolType tool_type;
-=======
-          seat = gdk_device_get_seat (device);
-          tool = gdk_seat_get_tool (seat, serial_id);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
           seat = gdk_device_get_seat (device);
           tool_type = device_get_tool_type (device);
 
           if (tool_type != GDK_DEVICE_TOOL_TYPE_UNKNOWN)
             {
-<<<<<<< HEAD
               tool = gdk_seat_get_tool (seat, serial_id, tool_id, tool_type);
 
               if (!tool && serial_id > 0)
@@ -1133,11 +1103,6 @@ handle_property_change (GdkX11DeviceManagerXI2 *device_manager,
                   tool = gdk_device_tool_new (serial_id, tool_id, tool_type, 0);
                   gdk_seat_default_add_tool (GDK_SEAT_DEFAULT (seat), tool);
                 }
-=======
-              tool = gdk_device_tool_new (serial_id, tool_id,
-                                          GDK_DEVICE_TOOL_TYPE_UNKNOWN, 0);
-              gdk_seat_default_add_tool (GDK_SEAT_DEFAULT (seat), tool);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
             }
         }
 

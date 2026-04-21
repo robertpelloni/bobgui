@@ -98,7 +98,6 @@ gboolean _gdk_x11_screen_get_monitor_work_area (GdkX11Screen *screen,
                                                 GdkRectangle *area);
 void gdk_x11_screen_get_work_area           (GdkX11Screen *screen,
                                              GdkRectangle *area);
-<<<<<<< HEAD
 gboolean gdk_x11_screen_get_setting         (GdkX11Screen *screen,
                                              const char   *name,
                                              GValue       *value);
@@ -106,11 +105,6 @@ gboolean
 _gdk_x11_screen_get_xft_setting             (GdkX11Screen *screen,
                                              const char   *name,
                                              GValue       *value);
-=======
-gint gdk_x11_screen_get_width               (GdkScreen *screen);
-gint gdk_x11_screen_get_height              (GdkScreen *screen);
-gint gdk_x11_screen_get_number              (GdkScreen *screen);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 G_END_DECLS
 

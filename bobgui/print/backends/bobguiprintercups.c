@@ -516,11 +516,7 @@ colord_client_connect_cb (GObject *source_object,
 {
   gboolean ret;
   GError *error = NULL;
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintercups.c
   BobguiPrinterCups *printer = BOBGUI_PRINTER_CUPS (user_data);
-=======
-  GtkPrinterCups *printer = GTK_PRINTER_CUPS (user_data);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintercups.c
   static gboolean colord_warned = FALSE;
 
   ret = cd_client_connect_finish (CD_CLIENT (source_object),

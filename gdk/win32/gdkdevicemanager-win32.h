@@ -44,15 +44,11 @@ struct _GdkDeviceManagerWin32
   GList *winpointer_devices;
   GList *wintab_devices;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   /* Bumped up every time a wintab device enters the proximity
    * of our context (WT_PROXIMITY). Bumped down when we either
    * receive a WT_PACKET, or a WT_CSRCHANGE.
    */
-<<<<<<< HEAD
   int dev_entered_proximity;
 
   /* used for wintab support */
@@ -65,9 +61,6 @@ struct _GdkDeviceManagerWin32
   gboolean pen_touch_input;
   POINT latest_pen_touch_position;
   LONG last_digitizer_time;
-=======
-  gint dev_entered_proximity;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 };
 
 struct _GdkDeviceManagerWin32Class

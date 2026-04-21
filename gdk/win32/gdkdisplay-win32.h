@@ -19,7 +19,6 @@
 
 #include "gdkdisplayprivate.h"
 
-<<<<<<< HEAD
 #pragma once
 
 #include "gdkwin32cursor.h"
@@ -142,14 +141,6 @@ typedef struct
   /* to store keycodes for shift keys */
   int both_shift_pressed[2];
 } event_records;
-=======
-#ifdef GDK_WIN32_ENABLE_EGL
-# include <epoxy/egl.h>
-#endif
-
-#ifndef __GDK_DISPLAY__WIN32_H__
-#define __GDK_DISPLAY__WIN32_H__
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 /* Define values used to set DPI-awareness */
 typedef enum _GdkWin32ProcessDpiAwareness {
@@ -212,7 +203,6 @@ struct _GdkWin32Display
   ID3D12Device *d3d12_device;
 
   /* WGL/OpenGL Items */
-<<<<<<< HEAD
   int wgl_pixel_format;
   guint hasWglARBCreateContext : 1;
   guint hasWglARBPixelFormat : 1;
@@ -223,36 +213,12 @@ struct _GdkWin32Display
   } wgl_quirks;
 
 #ifdef HAVE_EGL
-=======
-  guint have_wgl : 1;
-  guint gl_version;
-  HWND gl_hwnd;
-
-#ifdef GDK_WIN32_ENABLE_EGL
-  /* EGL (Angle) Items */
-  guint have_egl : 1;
-  guint egl_version;
-  EGLDisplay egl_disp;
-  HDC hdc_egl_temp;
-#endif
-
-  GPtrArray *monitors;
-
-  guint hasWglARBCreateContext : 1;
-  guint hasWglEXTSwapControl : 1;
-  guint hasWglOMLSyncControl : 1;
-  guint hasWglARBPixelFormat : 1;
-  guint hasWglARBmultisample : 1;
-
-#ifdef GDK_WIN32_ENABLE_EGL
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   guint hasEglKHRCreateContext : 1;
   guint hasEglSurfacelessContext : 1;
   EGLint egl_min_swap_interval;
 #endif
 
   /* HiDPI Items */
-<<<<<<< HEAD
   PROCESS_DPI_AWARENESS dpi_aware_type;
   guint surface_scale;
 
@@ -277,15 +243,6 @@ struct _GdkWin32Display
 
   /* Running CPU items */
   guint running_on_arm64 : 1;
-=======
-  guint have_at_least_win81 : 1;
-  GdkWin32ProcessDpiAwareness dpi_aware_type;
-  guint has_fixed_scale : 1;
-  guint window_scale;
-
-  GdkWin32ShcoreFuncs shcore_funcs;
-  GdkWin32User32DPIFuncs user32_dpi_funcs;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 };
 
 struct _GdkWin32DisplayClass
@@ -316,11 +273,3 @@ struct _GdkWin32MessageFilter
   guint ref_count;
 };
 
-<<<<<<< HEAD
-=======
-guint      _gdk_win32_display_get_monitor_scale_factor (GdkWin32Display *win32_display,
-                                                        HMONITOR         hmonitor,
-                                                        HWND             hwnd,
-                                                        gint             *dpi);
-#endif /* __GDK_DISPLAY__WIN32_H__ */
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px

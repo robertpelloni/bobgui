@@ -43,16 +43,7 @@ struct _GdkMacosGLContext
   GLuint target;
   GLuint fbo;
 
-<<<<<<< HEAD:gdk/macos/gdkmacosglcontext-private.h
   guint last_opaque : 1;
-=======
-  gint width;
-  gint height;
-
-  guint screen_changed_id;
-
-  guint emit_monitors_changed : 1;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gdk/quartz/gdkscreen-quartz.h
 };
 
 struct _GdkMacosGLContextClass

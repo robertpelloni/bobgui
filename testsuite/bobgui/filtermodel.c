@@ -6762,15 +6762,9 @@ static int row_changed_count;
 static int filter_row_changed_count;
 
 static void
-<<<<<<< HEAD:testsuite/bobgui/filtermodel.c
 row_changed (BobguiTreeModel *model,
              BobguiTreePath  *path,
              BobguiTreeIter  *iter,
-=======
-row_changed (GtkTreeModel *model,
-             GtkTreePath  *path,
-             GtkTreeIter  *iter,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:testsuite/gtk/filtermodel.c
              gpointer data)
 {
   int *count = data;
@@ -6781,7 +6775,6 @@ row_changed (GtkTreeModel *model,
 static void
 test_row_changed (void)
 {
-<<<<<<< HEAD:testsuite/bobgui/filtermodel.c
   BobguiTreeModel *filter;
   BobguiListStore *store;
   BobguiTreeIter iter1, iter2, iter3;
@@ -6797,23 +6790,6 @@ test_row_changed (void)
   bobgui_tree_model_filter_convert_child_iter_to_iter (BOBGUI_TREE_MODEL_FILTER (filter), &fiter1, &iter1);
   bobgui_tree_model_filter_convert_child_iter_to_iter (BOBGUI_TREE_MODEL_FILTER (filter), &fiter2, &iter2);
   bobgui_tree_model_filter_convert_child_iter_to_iter (BOBGUI_TREE_MODEL_FILTER (filter), &fiter3, &iter3);
-=======
-  GtkTreeModel *filter;
-  GtkListStore *store;
-  GtkTreeIter iter1, iter2, iter3;
-  GtkTreeIter fiter1, fiter2, fiter3;
-
-  store = gtk_list_store_new (1, G_TYPE_INT);
-  filter = gtk_tree_model_filter_new (GTK_TREE_MODEL (store), NULL);
-
-  gtk_list_store_append (store, &iter1);
-  gtk_list_store_append (store, &iter2);
-  gtk_list_store_append (store, &iter3);
-
-  gtk_tree_model_filter_convert_child_iter_to_iter (GTK_TREE_MODEL_FILTER (filter), &fiter1, &iter1);
-  gtk_tree_model_filter_convert_child_iter_to_iter (GTK_TREE_MODEL_FILTER (filter), &fiter2, &iter2);
-  gtk_tree_model_filter_convert_child_iter_to_iter (GTK_TREE_MODEL_FILTER (filter), &fiter3, &iter3);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:testsuite/gtk/filtermodel.c
 
   g_signal_connect (store, "row-changed", G_CALLBACK (row_changed), &row_changed_count);
   g_signal_connect (filter, "row-changed", G_CALLBACK (row_changed), &filter_row_changed_count);
@@ -6821,26 +6797,16 @@ test_row_changed (void)
   row_changed_count = 0;
   filter_row_changed_count = 0;
 
-<<<<<<< HEAD:testsuite/bobgui/filtermodel.c
   bobgui_list_store_set (store, &iter1, 0, 1, -1);
   bobgui_list_store_set (store, &iter2, 0, 1, -1);
   bobgui_list_store_set (store, &iter3, 0, 1, -1);
 
   g_assert_cmpint (row_changed_count, ==, 3);
   g_assert_cmpint (filter_row_changed_count, ==, 0);
-=======
-  gtk_list_store_set (store, &iter1, 0, 1, -1);
-  gtk_list_store_set (store, &iter2, 0, 1, -1);
-  gtk_list_store_set (store, &iter3, 0, 1, -1);
-
-  g_assert (row_changed_count == 3);
-  g_assert (filter_row_changed_count == 0);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:testsuite/gtk/filtermodel.c
 
   row_changed_count = 0;
   filter_row_changed_count = 0;
 
-<<<<<<< HEAD:testsuite/bobgui/filtermodel.c
   bobgui_tree_model_ref_node (filter, &fiter1);
   bobgui_tree_model_ref_node (filter, &fiter2);
   bobgui_tree_model_ref_node (filter, &fiter3);
@@ -6855,22 +6821,6 @@ test_row_changed (void)
   bobgui_tree_model_unref_node (filter, &fiter1);
   bobgui_tree_model_unref_node (filter, &fiter2);
   bobgui_tree_model_unref_node (filter, &fiter3);
-=======
-  gtk_tree_model_ref_node (filter, &fiter1);
-  gtk_tree_model_ref_node (filter, &fiter2);
-  gtk_tree_model_ref_node (filter, &fiter3);
-
-  gtk_list_store_set (store, &iter1, 0, 2, -1);
-  gtk_list_store_set (store, &iter2, 0, 2, -1);
-  gtk_list_store_set (store, &iter3, 0, 2, -1);
-
-  g_assert (row_changed_count == 3);
-  g_assert (filter_row_changed_count == 3);
-
-  gtk_tree_model_unref_node (filter, &fiter1);
-  gtk_tree_model_unref_node (filter, &fiter2);
-  gtk_tree_model_unref_node (filter, &fiter3);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:testsuite/gtk/filtermodel.c
 
   g_object_unref (filter);
   g_object_unref (store);

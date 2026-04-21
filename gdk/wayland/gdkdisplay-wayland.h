@@ -26,19 +26,13 @@
 #include <stdint.h>
 #include <wayland-client.h>
 #include <wayland-egl.h>
-<<<<<<< HEAD
 #include <gdk/wayland/tablet-v2-client-protocol.h>
 #include <gdk/wayland/bobgui-shell-client-protocol.h>
-=======
-#include <gdk/wayland/tablet-unstable-v2-client-protocol.h>
-#include <gdk/wayland/gtk-shell-client-protocol.h>
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 #include <gdk/wayland/xdg-shell-client-protocol.h>
 #include <gdk/wayland/xdg-shell-unstable-v6-client-protocol.h>
 #include <gdk/wayland/xdg-foreign-unstable-v1-client-protocol.h>
 #include <gdk/wayland/keyboard-shortcuts-inhibit-unstable-v1-client-protocol.h>
 #include <gdk/wayland/server-decoration-client-protocol.h>
-<<<<<<< HEAD
 #include <gdk/wayland/xdg-output-unstable-v1-client-protocol.h>
 #include <gdk/wayland/idle-inhibit-unstable-v1-client-protocol.h>
 #include <gdk/wayland/primary-selection-unstable-v1-client-protocol.h>
@@ -52,8 +46,6 @@
 #include <gdk/wayland/cursor-shape-v1-client-protocol.h>
 #include <gdk/wayland/xdg-toplevel-icon-v1-client-protocol.h>
 #include <gdk/wayland/xx-session-management-v1-client-protocol.h>
-=======
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #include <glib.h>
 #include <gdk/gdkkeys.h>
@@ -69,7 +61,6 @@
 
 G_BEGIN_DECLS
 
-<<<<<<< HEAD
 typedef struct _GdkWaylandColor GdkWaylandColor;
 typedef struct _GdkWaylandSelection GdkWaylandSelection;
 
@@ -85,19 +76,6 @@ typedef enum _GdkWaylandShellVariant
 {
   GDK_WAYLAND_SHELL_VARIANT_XDG_SHELL,
   GDK_WAYLAND_SHELL_VARIANT_ZXDG_SHELL_V6
-=======
-#define GDK_WAYLAND_MAX_THEME_SCALE 3
-#define GDK_WAYLAND_THEME_SCALES_COUNT GDK_WAYLAND_MAX_THEME_SCALE
-
-#define GDK_ZWP_POINTER_GESTURES_V1_VERSION 1
-
-typedef struct _GdkWaylandSelection GdkWaylandSelection;
-
-typedef enum _GdkWaylandShellVariant
-{
-  GDK_WAYLAND_SHELL_VARIANT_XDG_SHELL,
-  GDK_WAYLAND_SHELL_VARIANT_ZXDG_SHELL_V6,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 } GdkWaylandShellVariant;
 
 struct _GdkWaylandDisplay
@@ -130,7 +108,6 @@ struct _GdkWaylandDisplay
   struct wl_registry *wl_registry;
   struct wl_compositor *compositor;
   struct wl_shm *shm;
-<<<<<<< HEAD
   struct zwp_linux_dmabuf_v1 *linux_dmabuf;
   DmabufFormatsInfo *dmabuf_formats_info;
   struct xdg_wm_base *xdg_wm_base;
@@ -138,12 +115,6 @@ struct _GdkWaylandDisplay
   struct xdg_wm_dialog_v1 *xdg_wm_dialog;
   struct bobgui_shell1 *bobgui_shell;
   struct xdg_system_bell_v1 *system_bell;
-=======
-  struct xdg_wm_base *xdg_wm_base;
-  struct zxdg_shell_v6 *zxdg_shell_v6;
-  struct gtk_shell1 *gtk_shell;
-  struct wl_input_device *input_device;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   struct wl_data_device_manager *data_device_manager;
   struct wl_subcompositor *subcompositor;
   struct zwp_pointer_gestures_v1 *pointer_gestures;
@@ -152,7 +123,6 @@ struct _GdkWaylandDisplay
   struct zxdg_exporter_v1 *xdg_exporter;
   struct zxdg_exporter_v2 *xdg_exporter_v2;
   struct zxdg_importer_v1 *xdg_importer;
-<<<<<<< HEAD
   struct zxdg_importer_v2 *xdg_importer_v2;
   struct zwp_keyboard_shortcuts_inhibit_manager_v1 *keyboard_shortcuts_inhibit;
   struct org_kde_kwin_server_decoration_manager *server_decoration_manager;
@@ -169,10 +139,6 @@ struct _GdkWaylandDisplay
   struct xx_session_v1 *xx_session;
 
   GdkWaylandColor *color;
-=======
-  struct zwp_keyboard_shortcuts_inhibit_manager_v1 *keyboard_shortcuts_inhibit;
-  struct org_kde_kwin_server_decoration_manager *server_decoration_manager;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   GList *async_roundtrips;
 
@@ -204,21 +170,6 @@ struct _GdkWaylandDisplay
   char *session_id;
 
   gint64 last_bell_time_ms;
-<<<<<<< HEAD
-=======
-
-  /* egl info */
-  EGLDisplay egl_display;
-  int egl_major_version;
-  int egl_minor_version;
-
-  guint have_egl : 1;
-  guint have_egl_khr_create_context : 1;
-  guint have_egl_buffer_age : 1;
-  guint have_egl_swap_buffers_with_damage : 1;
-  guint have_egl_surfaceless_context : 1;
-  EGLint egl_min_swap_interval;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 };
 
 struct _GdkWaylandDisplayClass

@@ -233,30 +233,17 @@ ifiledialogevents_OnTypeChange (IFileDialogEvents * self,
   FileDialogEvents *events = (FileDialogEvents *) self;
   UINT fileType;
   HRESULT hr = IFileDialog_GetFileTypeIndex (pfd, &fileType);
-<<<<<<< HEAD:bobgui/bobguifilechoosernativewin32.c
-=======
-  GSList *filters;
-
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkfilechoosernativewin32.c
   if (FAILED (hr))
     {
       g_warning_hr ("Can't get current file type", hr);
       return S_OK;
     }
-<<<<<<< HEAD:bobgui/bobguifilechoosernativewin32.c
   fileType--; // fileTypeIndex starts at 1 
   GListModel *filters = bobgui_file_chooser_get_filters (BOBGUI_FILE_CHOOSER (events->data->self));
   BobguiFileFilter *filter = g_list_model_get_item (filters, fileType);
   events->data->self->current_filter = filter;
   g_object_unref (filter);
   g_object_unref (filters);
-=======
-
-  fileType--; // fileTypeIndex starts at 1 
-  filters = gtk_file_chooser_list_filters (GTK_FILE_CHOOSER (events->data->self));
-  events->data->self->current_filter = g_slist_nth_data (filters, fileType);
-  g_slist_free (filters);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkfilechoosernativewin32.c
   g_object_notify (G_OBJECT (events->data->self), "filter");
   return S_OK;
 }
@@ -436,11 +423,7 @@ data_add_shell_item (FilechooserWin32ThreadData *data,
   if (file != NULL)
     {
       data->files = g_slist_prepend (data->files, file);
-<<<<<<< HEAD:bobgui/bobguifilechoosernativewin32.c
       data->response = BOBGUI_RESPONSE_ACCEPT;
-=======
-      data->response = GTK_RESPONSE_ACCEPT;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkfilechoosernativewin32.c
     }
 }
 
@@ -612,7 +595,6 @@ filechooser_win32_thread (gpointer _data)
       if (FAILED (hr))
         g_warning_hr ("Can't set file types", hr);
 
-<<<<<<< HEAD:bobgui/bobguifilechoosernativewin32.c
       hr = IFileDialog_SetDefaultExtension (pfd, L"");
       if (FAILED (hr))
         g_warning_hr ("Can't set default extension", hr);
@@ -636,13 +618,6 @@ filechooser_win32_thread (gpointer _data)
               g_object_unref (item);
             }
 	  g_object_unref (filters);
-=======
-      if (data->self->current_filter)
-        {
-          GSList *filters = gtk_file_chooser_list_filters (GTK_FILE_CHOOSER (data->self));
-	  gint current_filter_index = g_slist_index (filters, data->self->current_filter);
-	  g_slist_free (filters);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkfilechoosernativewin32.c
 
 	  if (current_filter_index >= 0)
 	    hr = IFileDialog_SetFileTypeIndex (pfd, current_filter_index + 1);
@@ -940,15 +915,7 @@ bobgui_file_chooser_native_win32_show (BobguiFileChooserNative *self)
             }
           g_object_unref (filter);
         }
-<<<<<<< HEAD:bobgui/bobguifilechoosernativewin32.c
       self->current_filter = bobgui_file_chooser_get_filter (BOBGUI_FILE_CHOOSER (self));
-=======
-      self->current_filter = gtk_file_chooser_get_filter (GTK_FILE_CHOOSER (self));
-    }
-  else
-    {
-      self->current_filter = NULL;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkfilechoosernativewin32.c
     }
   else
     {

@@ -50,7 +50,6 @@ GDK_AVAILABLE_IN_ALL
 struct wl_compositor   *gdk_wayland_display_get_wl_compositor   (GdkDisplay *display);
 GDK_DEPRECATED_IN_4_16
 void                    gdk_wayland_display_set_cursor_theme    (GdkDisplay  *display,
-<<<<<<< HEAD
                                                                  const char *name,
                                                                  int          size);
 GDK_DEPRECATED_IN_4_10
@@ -65,20 +64,6 @@ gboolean                gdk_wayland_display_query_registry      (GdkDisplay  *di
 
 GDK_AVAILABLE_IN_4_4
 gpointer                gdk_wayland_display_get_egl_display     (GdkDisplay  *display);
-=======
-                                                                 const gchar *theme,
-                                                                 gint         size);
-GDK_AVAILABLE_IN_3_22
-void                    gdk_wayland_display_set_startup_notification_id (GdkDisplay *display,
-                                                                         const char *startup_id);
-
-GDK_AVAILABLE_IN_3_22
-gboolean                gdk_wayland_display_prefers_ssd         (GdkDisplay *display);
-
-GDK_AVAILABLE_IN_3_22
-gboolean                gdk_wayland_display_query_registry      (GdkDisplay  *display,
-								 const gchar *global);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 G_END_DECLS
 

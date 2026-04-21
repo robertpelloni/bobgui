@@ -185,7 +185,6 @@ main (int argc, char **argv)
   bobgui_widget_set_hexpand (entry, TRUE);
   bobgui_grid_attach (BOBGUI_GRID (grid), entry, 1, 2, 1, 1);
 
-<<<<<<< HEAD
   bobgui_entry_set_placeholder_text (BOBGUI_ENTRY (entry),
                                   "Type some text, then click an icon");
 
@@ -203,25 +202,6 @@ main (int argc, char **argv)
 
   bobgui_entry_set_icon_tooltip_text (BOBGUI_ENTRY (entry),
                                    BOBGUI_ENTRY_ICON_SECONDARY,
-=======
-  gtk_entry_set_placeholder_text (GTK_ENTRY (entry),
-                                  "Type some text, then click an icon");
-
-  gtk_entry_set_icon_from_icon_name (GTK_ENTRY (entry),
-                                     GTK_ENTRY_ICON_PRIMARY,
-                                     "edit-find-symbolic");
-
-  gtk_entry_set_icon_tooltip_text (GTK_ENTRY (entry),
-                                   GTK_ENTRY_ICON_PRIMARY,
-                                   "Clicking the other icon is more interesting!");
-
-  gtk_entry_set_icon_from_icon_name (GTK_ENTRY (entry),
-                                     GTK_ENTRY_ICON_SECONDARY,
-                                     "edit-clear-symbolic");
-
-  gtk_entry_set_icon_tooltip_text (GTK_ENTRY (entry),
-                                   GTK_ENTRY_ICON_SECONDARY,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                                    "Clear");
 
   g_signal_connect (entry, "icon-press", G_CALLBACK (clear_pressed), NULL);
@@ -249,7 +229,6 @@ main (int argc, char **argv)
   bobgui_widget_set_halign (label, BOBGUI_ALIGN_START);
   bobgui_widget_set_valign (label, BOBGUI_ALIGN_CENTER);
 
-<<<<<<< HEAD
   entry = bobgui_entry_new ();
   bobgui_widget_set_hexpand (entry, TRUE);
   bobgui_entry_set_placeholder_text (BOBGUI_ENTRY (entry),
@@ -258,16 +237,6 @@ main (int argc, char **argv)
                                    BOBGUI_ENTRY_ICON_SECONDARY,
                                    "Use the RadioButtons to change this icon");
   bobgui_grid_attach (BOBGUI_GRID (grid), entry, 1, 4, 1, 1);
-=======
-  entry = gtk_entry_new ();
-  gtk_widget_set_hexpand (entry, TRUE);
-  gtk_entry_set_placeholder_text (GTK_ENTRY (entry),
-                                  "Use the RadioButtons to choose an icon");
-  gtk_entry_set_icon_tooltip_text (GTK_ENTRY (entry),
-                                   GTK_ENTRY_ICON_SECONDARY,
-                                   "Use the RadioButtons to change this icon");
-  gtk_grid_attach (GTK_GRID (grid), entry, 1, 4, 1, 1);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   box = bobgui_box_new (BOBGUI_ORIENTATION_HORIZONTAL, 6);
   bobgui_widget_set_vexpand (BOBGUI_WIDGET (box), TRUE);

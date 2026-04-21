@@ -976,34 +976,11 @@ _gdk_device_translate_surface_coord (GdkDevice *device,
   device_width = axis_info_x->max_value - axis_info_x->min_value;
   device_height = axis_info_y->max_value - axis_info_y->min_value;
 
-<<<<<<< HEAD
   x_min = axis_info_x->min_value;
   y_min = axis_info_y->min_value;
 
   surface_width = gdk_surface_get_width (surface);
   surface_height = gdk_surface_get_height (surface);
-=======
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-  if (device_width > 0)
-    x_min = axis_info_x->min_value;
-  else
-    {
-      device_width = gdk_screen_get_width (gdk_window_get_screen (window));
-      x_min = 0;
-    }
-
-  if (device_height > 0)
-    y_min = axis_info_y->min_value;
-  else
-    {
-      device_height = gdk_screen_get_height (gdk_window_get_screen (window));
-      y_min = 0;
-    }
-G_GNUC_END_IGNORE_DEPRECATIONS
-
-  window_width = gdk_window_get_width (window);
-  window_height = gdk_window_get_height (window);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   x_resolution = axis_info_x->resolution;
   y_resolution = axis_info_y->resolution;

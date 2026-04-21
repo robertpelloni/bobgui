@@ -45,7 +45,6 @@
 #include "gdkglcontext-wayland.h"
 #include "gdkvulkancontext-wayland.h"
 #include "gdkwaylandmonitor.h"
-<<<<<<< HEAD
 #include "gdkprofilerprivate.h"
 #include "gdktoplevel-wayland-private.h"
 #include "gdkwaylandcolor-private.h"
@@ -83,13 +82,6 @@
                                                                        #expr); \
                                          } G_STMT_END
 #endif
-=======
-#include "pointer-gestures-unstable-v1-client-protocol.h"
-#include "tablet-unstable-v2-client-protocol.h"
-#include "xdg-shell-unstable-v6-client-protocol.h"
-#include "xdg-foreign-unstable-v1-client-protocol.h"
-#include "server-decoration-client-protocol.h"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 /**
  * GdkWaylandDisplay:
@@ -107,7 +99,6 @@
 
 #define MIN_SYSTEM_BELL_DELAY_MS 20
 
-<<<<<<< HEAD
 #define COMPOSITOR_VERSION              6
 #define SHM_VERSION                     1
 #define LINUX_DMABUF_MIN_VERSION        4
@@ -141,11 +132,6 @@
 #define XDG_WM_DIALOG_VERSION           1
 #define XDG_TOPLEVEL_ICON_VERSION       1
 #define XDG_WM_BASE_VERSION             7
-=======
-#define GTK_SHELL1_VERSION       2
-
-static void _gdk_wayland_display_load_cursor_theme (GdkWaylandDisplay *display_wayland);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 G_DEFINE_TYPE (GdkWaylandDisplay, gdk_wayland_display, GDK_TYPE_DISPLAY)
 
@@ -272,48 +258,8 @@ _gdk_wayland_display_async_roundtrip (GdkWaylandDisplay *display_wayland)
     g_list_append (display_wayland->async_roundtrips, callback);
 }
 
-<<<<<<< HEAD
 /* }}} */
 /* {{{ Global dependency handling */
-=======
-static void
-xdg_wm_base_ping (void               *data,
-                  struct xdg_wm_base *xdg_wm_base,
-                  uint32_t            serial)
-{
-  GdkWaylandDisplay *display_wayland = data;
-
-  _gdk_wayland_display_update_serial (display_wayland, serial);
-
-  GDK_NOTE (EVENTS,
-            g_message ("ping, shell %p, serial %u\n", xdg_wm_base, serial));
-
-  xdg_wm_base_pong (xdg_wm_base, serial);
-}
-
-static const struct xdg_wm_base_listener xdg_wm_base_listener = {
-  xdg_wm_base_ping,
-};
-
-static void
-zxdg_shell_v6_ping (void                 *data,
-                    struct zxdg_shell_v6 *xdg_shell,
-                    uint32_t              serial)
-{
-  GdkWaylandDisplay *display_wayland = data;
-
-  _gdk_wayland_display_update_serial (display_wayland, serial);
-
-  GDK_NOTE (EVENTS,
-            g_message ("ping, shell %p, serial %u\n", xdg_shell, serial));
-
-  zxdg_shell_v6_pong (xdg_shell, serial);
-}
-
-static const struct zxdg_shell_v6_listener zxdg_shell_v6_listener = {
-  zxdg_shell_v6_ping,
-};
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 static gboolean
 is_known_global (gpointer key, gpointer value, gpointer user_data)
@@ -618,7 +564,6 @@ gdk_registry_handle_global (void               *data,
         wl_registry_bind (display_wayland->wl_registry, id, &wl_shm_interface, SHM_VERSION);
       wl_shm_add_listener (display_wayland->shm, &wl_shm_listener, display_wayland);
     }
-<<<<<<< HEAD
   else if (match_global (display_wayland, interface, version, zwp_linux_dmabuf_v1_interface.name, LINUX_DMABUF_MIN_VERSION))
     {
       struct zwp_linux_dmabuf_feedback_v1 *feedback;
@@ -631,30 +576,6 @@ gdk_registry_handle_global (void               *data,
       display_wayland->dmabuf_formats_info = dmabuf_formats_info_new (GDK_DISPLAY (display_wayland),
                                                                       "default",
                                                                       feedback);
-=======
-  else if (strcmp (interface, "xdg_wm_base") == 0)
-    {
-      display_wayland->xdg_wm_base_id = id;
-    }
-  else if (strcmp (interface, "zxdg_shell_v6") == 0)
-    {
-      display_wayland->zxdg_shell_v6_id = id;
-    }
-  else if (strcmp (interface, "gtk_shell1") == 0)
-    {
-      display_wayland->gtk_shell =
-        wl_registry_bind(display_wayland->wl_registry, id,
-                         &gtk_shell1_interface,
-                         MIN (version, GTK_SHELL1_VERSION));
-      _gdk_wayland_screen_set_has_gtk_shell (display_wayland->screen);
-      display_wayland->gtk_shell_version = version;
-    }
-  else if (strcmp (interface, "wl_output") == 0)
-    {
-      output =
-        wl_registry_bind (display_wayland->wl_registry, id, &wl_output_interface, MIN (version, 2));
-      _gdk_wayland_screen_add_output (display_wayland->screen, id, output, MIN (version, 2));
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
       _gdk_wayland_display_async_roundtrip (display_wayland);
     }
   else if (match_global (display_wayland, interface, version, xdg_wm_base_interface.name, 0))
@@ -854,32 +775,9 @@ gdk_registry_handle_global (void               *data,
         wl_registry_bind (display_wayland->wl_registry, id,
                           &xdg_toplevel_icon_manager_v1_interface, XDG_TOPLEVEL_ICON_VERSION);
     }
-<<<<<<< HEAD
 
   g_hash_table_insert (display_wayland->known_globals,
                        GUINT_TO_POINTER (id), g_strdup (interface));
-=======
-  else if (strcmp (interface, "zwp_keyboard_shortcuts_inhibit_manager_v1") == 0)
-    {
-      display_wayland->keyboard_shortcuts_inhibit =
-        wl_registry_bind (display_wayland->wl_registry, id,
-                          &zwp_keyboard_shortcuts_inhibit_manager_v1_interface, 1);
-    }
-  else if (strcmp (interface, "org_kde_kwin_server_decoration_manager") == 0)
-    {
-      display_wayland->server_decoration_manager =
-        wl_registry_bind (display_wayland->wl_registry, id,
-                          &org_kde_kwin_server_decoration_manager_interface, 1);
-      org_kde_kwin_server_decoration_manager_add_listener (display_wayland->server_decoration_manager,
-                                                           &server_decoration_listener,
-                                                           display_wayland);
-    }
-
-  g_hash_table_insert (display_wayland->known_globals,
-                       GUINT_TO_POINTER (id), g_strdup (interface));
-
-  process_on_globals_closures (display_wayland);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 static void
@@ -971,40 +869,12 @@ _gdk_wayland_display_open (const char *display_name)
         }
     }
 
-<<<<<<< HEAD
   /* Check that we got all the required globals */
   if (display_wayland->compositor == NULL ||
       display_wayland->shm == NULL ||
       display_wayland->data_device_manager == NULL)
     {
       g_warning ("The Wayland compositor does not provide one or more of the required interfaces, "
-=======
-  if (display_wayland->xdg_wm_base_id)
-    {
-      display_wayland->shell_variant = GDK_WAYLAND_SHELL_VARIANT_XDG_SHELL;
-      display_wayland->xdg_wm_base =
-        wl_registry_bind (display_wayland->wl_registry,
-                          display_wayland->xdg_wm_base_id,
-                          &xdg_wm_base_interface, 1);
-      xdg_wm_base_add_listener (display_wayland->xdg_wm_base,
-                                &xdg_wm_base_listener,
-                                display_wayland);
-    }
-  else if (display_wayland->zxdg_shell_v6_id)
-    {
-      display_wayland->shell_variant = GDK_WAYLAND_SHELL_VARIANT_ZXDG_SHELL_V6;
-      display_wayland->zxdg_shell_v6 =
-        wl_registry_bind (display_wayland->wl_registry,
-                          display_wayland->zxdg_shell_v6_id,
-                          &zxdg_shell_v6_interface, 1);
-      zxdg_shell_v6_add_listener (display_wayland->zxdg_shell_v6,
-                                  &zxdg_shell_v6_listener,
-                                  display_wayland);
-    }
-  else
-    {
-      g_warning ("The Wayland compositor does not provide any supported shell interface, "
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                  "not using Wayland display");
       g_object_unref (display);
 
@@ -1146,52 +1016,9 @@ gdk_wayland_display_get_name (GdkDisplay *display)
   return name;
 }
 
-<<<<<<< HEAD
 static void
 gdk_wayland_display_beep (GdkDisplay *display)
 {
-=======
-static GdkScreen *
-gdk_wayland_display_get_default_screen (GdkDisplay *display)
-{
-  g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
-
-  return GDK_WAYLAND_DISPLAY (display)->screen;
-}
-
-void
-gdk_wayland_display_system_bell (GdkDisplay *display,
-                                 GdkWindow  *window)
-{
-  GdkWaylandDisplay *display_wayland;
-  struct gtk_surface1 *gtk_surface;
-  gint64 now_ms;
-
-  g_return_if_fail (GDK_IS_DISPLAY (display));
-
-  display_wayland = GDK_WAYLAND_DISPLAY (display);
-
-  if (!display_wayland->gtk_shell)
-    return;
-
-  if (window)
-    gtk_surface = gdk_wayland_window_get_gtk_surface (window);
-  else
-    gtk_surface = NULL;
-
-  now_ms = g_get_monotonic_time () / 1000;
-  if (now_ms - display_wayland->last_bell_time_ms < MIN_SYSTEM_BELL_DELAY_MS)
-    return;
-
-  display_wayland->last_bell_time_ms = now_ms;
-
-  gtk_shell1_system_bell (display_wayland->gtk_shell, gtk_surface);
-}
-
-static void
-gdk_wayland_display_beep (GdkDisplay *display)
-{
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   gdk_wayland_display_system_bell (display, NULL);
 }
 
@@ -1613,71 +1440,8 @@ gdk_wayland_display_query_registry (GdkDisplay *display,
 
   while (g_hash_table_iter_next (&iter, NULL, (gpointer*) &value))
     {
-<<<<<<< HEAD
       if (strcmp (value, global) == 0)
         return TRUE;
-=======
-#if defined (__NR_memfd_create)
-      if (!force_shm_open)
-        {
-          ret = syscall (__NR_memfd_create, "gdk-wayland", MFD_CLOEXEC);
-
-          /* fall back to shm_open until debian stops shipping 3.16 kernel
-           * See bug 766341
-           */
-          if (ret < 0 && errno == ENOSYS)
-            force_shm_open = TRUE;
-        }
-#endif
-
-      if (force_shm_open)
-        {
-#if defined (__FreeBSD__)
-          ret = shm_open (SHM_ANON, O_CREAT | O_EXCL | O_RDWR | O_CLOEXEC, 0600);
-#else
-          char name[NAME_MAX - 1] = "";
-
-          sprintf (name, "/gdk-wayland-%x", g_random_int ());
-
-          ret = shm_open (name, O_CREAT | O_EXCL | O_RDWR | O_CLOEXEC, 0600);
-
-          if (ret >= 0)
-            shm_unlink (name);
-          else if (errno == EEXIST)
-            continue;
-#endif
-        }
-    }
-  while (ret < 0 && errno == EINTR);
-
-  if (ret < 0)
-    g_critical (G_STRLOC ": creating shared memory file (using %s) failed: %m",
-                force_shm_open? "shm_open" : "memfd_create");
-
-  return ret;
-}
-
-static struct wl_shm_pool *
-create_shm_pool (struct wl_shm  *shm,
-                 int             size,
-                 size_t         *buf_length,
-                 void          **data_out)
-{
-  struct wl_shm_pool *pool;
-  int fd;
-  void *data;
-
-  fd = open_shared_memory ();
-
-  if (fd < 0)
-    return NULL;
-
-  if (ftruncate (fd, size) < 0)
-    {
-      g_critical (G_STRLOC ": Truncating shared memory file failed: %m");
-      close (fd);
-      return NULL;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   return FALSE;
@@ -1710,7 +1474,6 @@ gdk_wayland_display_register_session (GdkDisplay                        *display
   return TRUE;
 }
 
-<<<<<<< HEAD
 void
 gdk_wayland_display_unregister_session (GdkDisplay *display)
 {
@@ -1736,38 +1499,3 @@ gdk_wayland_display_get_session_id (GdkDisplay *display)
 
 /* }}} */
 /* vim:set foldmethod=marker: */
-=======
-/**
- * gdk_wayland_display_query_registry:
- * @display: a wayland #GdkDisplay
- * @interface: global interface to query in the registry
- *
- * Returns %TRUE if the the interface was found in the display
- * wl_registry.global handler.
- *
- * Returns: %TRUE if the global is offered by the compositor
- *
- * Since: 3.22.27
- **/
-gboolean
-gdk_wayland_display_query_registry (GdkDisplay  *display,
-				    const gchar *global)
-{
-  GdkWaylandDisplay *display_wayland = GDK_WAYLAND_DISPLAY (display);
-  GHashTableIter iter;
-  gchar *value;
-
-  g_return_val_if_fail (GDK_IS_WAYLAND_DISPLAY (display), FALSE);
-  g_return_val_if_fail (global != NULL, FALSE);
-
-  g_hash_table_iter_init (&iter, display_wayland->known_globals);
-
-  while (g_hash_table_iter_next (&iter, NULL, (gpointer*) &value))
-    {
-      if (strcmp (value, global) == 0)
-        return TRUE;
-    }
-
-  return FALSE;
-}
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px

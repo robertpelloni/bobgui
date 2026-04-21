@@ -34,15 +34,9 @@ BobguiCssNodeStyleCache *  bobgui_css_node_style_cache_insert         (BobguiCss
                                                                  BobguiCssNodeDeclaration  *decl,
                                                                  gboolean                is_first,
                                                                  gboolean                is_last,
-<<<<<<< HEAD:bobgui/bobguicssnodestylecacheprivate.h
                                                                  BobguiCssStyle            *style);
 BobguiCssNodeStyleCache *  bobgui_css_node_style_cache_lookup         (BobguiCssNodeStyleCache        *parent,
                                                                  const BobguiCssNodeDeclaration *decl,
-=======
-                                                                 GtkCssStyle            *style);
-GtkCssNodeStyleCache *  gtk_css_node_style_cache_lookup         (GtkCssNodeStyleCache        *parent,
-                                                                 const GtkCssNodeDeclaration *decl,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkcssnodestylecacheprivate.h
                                                                  gboolean                     is_first,
                                                                  gboolean                     is_last);
 

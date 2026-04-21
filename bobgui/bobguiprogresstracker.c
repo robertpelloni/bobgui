@@ -82,11 +82,7 @@ bobgui_progress_tracker_start (BobguiProgressTracker *tracker,
   tracker->is_running = TRUE;
   tracker->last_frame_time = 0;
   tracker->duration = duration;
-<<<<<<< HEAD:bobgui/bobguiprogresstracker.c
   tracker->iteration = - delay / (double) MAX (duration, 1);
-=======
-  tracker->iteration = - delay / (gdouble) MAX (duration, 1);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkprogresstracker.c
   tracker->iteration_count = iteration_count;
 }
 
@@ -111,11 +107,7 @@ bobgui_progress_tracker_finish (BobguiProgressTracker *tracker)
  * been started, does nothing.
  **/
 void
-<<<<<<< HEAD:bobgui/bobguiprogresstracker.c
 bobgui_progress_tracker_advance_frame (BobguiProgressTracker *tracker,
-=======
-gtk_progress_tracker_advance_frame (GtkProgressTracker *tracker,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkprogresstracker.c
                                     guint64             frame_time)
 {
   double delta;
@@ -135,11 +127,7 @@ gtk_progress_tracker_advance_frame (GtkProgressTracker *tracker,
       return;
     }
 
-<<<<<<< HEAD:bobgui/bobguiprogresstracker.c
   delta = (frame_time - tracker->last_frame_time) / bobgui_slowdown / MAX (tracker->duration, 1);
-=======
-  delta = (frame_time - tracker->last_frame_time) / gtk_slowdown / MAX (tracker->duration, 1);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkprogresstracker.c
   tracker->last_frame_time = frame_time;
   tracker->iteration += delta;
 }

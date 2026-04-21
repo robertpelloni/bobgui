@@ -550,18 +550,10 @@ gdk_frame_clock_get_timings (GdkFrameClock *frame_clock,
  *
  * Gets the frame timings for the current frame.
  *
-<<<<<<< HEAD
  * Returns: (nullable) (transfer none): the `GdkFrameTimings` for the
  *   frame currently being processed, or even no frame is being
  *   processed, for the previous frame. Before any frames have been
  *   processed, returns %NULL.
-=======
- * Returns: (nullable): the #GdkFrameTimings for the frame currently
- *  being processed, or even no frame is being processed, for the
- *  previous frame. Before any frames have been processed, returns
- *  %NULL.
- * Since: 3.8
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
  */
 GdkFrameTimings *
 gdk_frame_clock_get_current_timings (GdkFrameClock *frame_clock)
@@ -630,7 +622,6 @@ _gdk_frame_clock_debug_print_timings (GdkFrameClock   *clock,
  * @frame_clock: a `GdkFrameClock`
  * @base_time: base time for determining a presentaton time
  * @refresh_interval_return: (out) (optional): a location to store the
-<<<<<<< HEAD
  *   determined refresh interval, or %NULL. A default refresh interval of
  *   1/60th of a second will be stored if no history is present.
  * @presentation_time_return: (out): a location to store the next
@@ -638,13 +629,6 @@ _gdk_frame_clock_debug_print_timings (GdkFrameClock   *clock,
  *   0 will be will be stored if no history is present.
  *
  * Predicts a presentation time, based on history.
-=======
- * determined refresh interval, or %NULL. A default refresh interval of
- * 1/60th of a second will be stored if no history is present.
- * @presentation_time_return: (out): a location to store the next
- *  candidate presentation time after the given base time.
- *  0 will be will be stored if no history is present.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
  *
  * Using the frame history stored in the frame clock, finds the last
  * known presentation time and refresh interval, and assuming that

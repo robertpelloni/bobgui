@@ -209,7 +209,6 @@ static void                 cups_request_execute                   (BobguiPrintB
 								    BobguiPrintCupsResponseCallbackFunc   callback,
 								    gpointer                           user_data,
 								    GDestroyNotify                     notify);
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
 static void                 cups_printer_get_settings_from_options (BobguiPrinter                        *printer,
 								    BobguiPrinterOptionSet               *options,
 								    BobguiPrintSettings                  *settings);
@@ -246,42 +245,6 @@ static void                 set_option_from_settings               (BobguiPrinte
 								    BobguiPrintSettings                  *setting);
 static void                 cups_begin_polling_info                (BobguiPrintBackendCups               *print_backend,
 								    BobguiPrintJob                       *job,
-=======
-static void                 cups_printer_get_settings_from_options (GtkPrinter                        *printer,
-								    GtkPrinterOptionSet               *options,
-								    GtkPrintSettings                  *settings);
-static gboolean             cups_printer_mark_conflicts            (GtkPrinter                        *printer,
-								    GtkPrinterOptionSet               *options);
-static GtkPrinterOptionSet *cups_printer_get_options               (GtkPrinter                        *printer,
-								    GtkPrintSettings                  *settings,
-								    GtkPageSetup                      *page_setup,
-                                                                    GtkPrintCapabilities               capabilities);
-static void                 cups_printer_prepare_for_print         (GtkPrinter                        *printer,
-								    GtkPrintJob                       *print_job,
-								    GtkPrintSettings                  *settings,
-								    GtkPageSetup                      *page_setup);
-static GList *              cups_printer_list_papers               (GtkPrinter                        *printer);
-static GtkPageSetup *       cups_printer_get_default_page_size     (GtkPrinter                        *printer);
-static void                 cups_printer_request_details           (GtkPrinter                        *printer);
-static gboolean             cups_request_default_printer           (GtkPrintBackendCups               *print_backend);
-static gboolean             cups_request_ppd                       (GtkPrinter                        *printer);
-static gboolean             cups_printer_get_hard_margins          (GtkPrinter                        *printer,
-								    gdouble                           *top,
-								    gdouble                           *bottom,
-								    gdouble                           *left,
-								    gdouble                           *right);
-static gboolean             cups_printer_get_hard_margins_for_paper_size (GtkPrinter                  *printer,
-									  GtkPaperSize                *paper_size,
-									  gdouble                     *top,
-									  gdouble                     *bottom,
-									  gdouble                     *left,
-									  gdouble                     *right);
-static GtkPrintCapabilities cups_printer_get_capabilities          (GtkPrinter                        *printer);
-static void                 set_option_from_settings               (GtkPrinterOption                  *option,
-								    GtkPrintSettings                  *setting);
-static void                 cups_begin_polling_info                (GtkPrintBackendCups               *print_backend,
-								    GtkPrintJob                       *job,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
 								    int                                job_id);
 static gboolean             cups_job_info_poll_timeout             (gpointer                           user_data);
 static void                 bobgui_print_backend_cups_print_stream    (BobguiPrintBackend                   *backend,
@@ -829,22 +792,14 @@ bobgui_print_backend_cups_print_stream (BobguiPrintBackend         *print_backen
                                    IPP_TAG_URI, "printer-uri",
                                    NULL, printer_absolute_uri);
 
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
   title = bobgui_print_job_get_title (job);
-=======
-  title = gtk_print_job_get_title (job);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
   if (title) {
     char *title_truncated = NULL;
     size_t title_bytes = strlen (title);
 
     if (title_bytes >= IPP_MAX_NAME)
       {
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
         char *end;
-=======
-        gchar *end;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
 
         end = g_utf8_find_prev_char (title, title + IPP_MAX_NAME - 1);
         title_truncated = g_utf8_substring (title,
@@ -852,23 +807,16 @@ bobgui_print_backend_cups_print_stream (BobguiPrintBackend         *print_backen
                                             g_utf8_pointer_to_offset (title, end));
       }
 
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
     bobgui_cups_request_ipp_add_string (request, IPP_TAG_OPERATION,
-=======
-    gtk_cups_request_ipp_add_string (request, IPP_TAG_OPERATION,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
                                      IPP_TAG_NAME, "job-name",
                                      NULL,
                                      title_truncated ? title_truncated : title);
     g_free (title_truncated);
   }
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
 
   g_object_get (job,
                 "page-setup", &page_setup,
                 NULL);
-=======
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
 
   options_data = g_new0 (CupsOptionsData, 1);
   options_data->request = request;
@@ -1991,12 +1939,8 @@ static const char * const printer_attrs[] =
     "multiple-document-handling-supported",
     "copies-supported",
     "number-up-supported",
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
     "device-uri",
     "printer-is-temporary"
-=======
-    "device-uri"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
   };
 
 /* Attributes we're interested in for printers without PPD */
@@ -2092,12 +2036,8 @@ typedef struct
   int       number_of_covers;
   char     *output_bin_default;
   GList    *output_bin_supported;
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
   char     *original_device_uri;
   gboolean  is_temporary;
-=======
-  gchar    *original_device_uri;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
 } PrinterSetupInfo;
 
 static void
@@ -2483,7 +2423,6 @@ cups_printer_handle_attribute (BobguiPrintBackendCups *cups_backend,
     {
       info->original_device_uri = g_strdup (ippGetString (attr, 0, NULL));
     }
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
   else if (strcmp (ippGetName (attr), "printer-is-temporary") == 0)
     {
       if (ippGetBoolean (attr, 0) == 1)
@@ -2494,12 +2433,6 @@ cups_printer_handle_attribute (BobguiPrintBackendCups *cups_backend,
   else
     {
       BOBGUI_DEBUG (PRINTING, "CUPS Backend: Attribute %s ignored", ippGetName (attr));
-=======
-  else
-    {
-      GTK_NOTE (PRINTING,
-		g_print ("CUPS Backend: Attribute %s ignored\n", ippGetName (attr)));
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
     }
 }
 
@@ -2586,7 +2519,6 @@ cups_create_printer (BobguiPrintBackendCups *cups_backend,
   cups_printer->default_cover_before = g_strdup (info->default_cover_before);
   cups_printer->default_cover_after = g_strdup (info->default_cover_after);
   cups_printer->original_device_uri = g_strdup (info->original_device_uri);
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
   cups_printer->hostname = g_strdup (hostname);
   cups_printer->port = port;
 
@@ -2602,8 +2534,6 @@ cups_create_printer (BobguiPrintBackendCups *cups_backend,
       cups_printer->original_resource = g_strdup (resource);
       cups_printer->original_port = port;
     }
-=======
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
 
   if (info->default_number_up > 0)
     cups_printer->default_number_up = info->default_number_up;
@@ -2975,7 +2905,6 @@ typedef struct
   guint                printer_type;
   gboolean             got_printer_state;
   guint                printer_state;
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
   char                *type;
   char                *domain;
   char                *UUID;
@@ -2996,28 +2925,6 @@ find_printer_by_uuid (BobguiPrintBackendCups *backend,
   for (iter = printers; iter != NULL; iter = iter->next)
     {
       printer = BOBGUI_PRINTER_CUPS (iter->data);
-=======
-  gchar               *type;
-  gchar               *domain;
-  gchar               *UUID;
-  GtkPrintBackendCups *backend;
-} AvahiConnectionTestData;
-
-static GtkPrinter *
-find_printer_by_uuid (GtkPrintBackendCups *backend,
-                      const gchar         *UUID)
-{
-  GtkPrinterCups *printer;
-  GtkPrinter     *result = NULL;
-  GList          *printers;
-  GList          *iter;
-  gchar          *printer_uuid;
-
-  printers = gtk_print_backend_get_printer_list (GTK_PRINT_BACKEND (backend));
-  for (iter = printers; iter != NULL; iter = iter->next)
-    {
-      printer = GTK_PRINTER_CUPS (iter->data);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
       if (printer->original_device_uri != NULL)
         {
           printer_uuid = g_strrstr (printer->original_device_uri, "uuid=");
@@ -3026,21 +2933,11 @@ find_printer_by_uuid (GtkPrintBackendCups *backend,
               printer_uuid += 5;
               printer_uuid = g_strndup (printer_uuid, 36);
 
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
               if (g_uuid_string_is_valid (printer_uuid))
                 {
                   if (g_strcmp0 (printer_uuid, UUID) == 0)
                     {
                       result = BOBGUI_PRINTER (printer);
-=======
-#if GLIB_CHECK_VERSION(2, 52, 0)
-              if (g_uuid_string_is_valid (printer_uuid))
-#endif
-                {
-                  if (g_strcmp0 (printer_uuid, UUID) == 0)
-                    {
-                      result = GTK_PRINTER (printer);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
                       g_free (printer_uuid);
                       break;
                     }
@@ -3056,7 +2953,6 @@ find_printer_by_uuid (GtkPrintBackendCups *backend,
   return result;
 }
 
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
 static void
 cups_create_local_printer_cb (BobguiPrintBackendCups *print_backend,
                               BobguiCupsResult       *result,
@@ -3094,8 +2990,6 @@ cups_create_local_printer_cb (BobguiPrintBackendCups *print_backend,
   g_free (printer_name);
 }
 
-=======
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
 /*
  *  Create CUPS temporary queue.
  */
@@ -3197,12 +3091,8 @@ create_cups_printer_from_avahi_data (AvahiConnectionTestData *data)
 
   set_info_state_message (info);
 
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
   printer = bobgui_print_backend_find_printer (BOBGUI_PRINT_BACKEND (data->backend), data->printer_name);
-=======
-  printer = gtk_print_backend_find_printer (GTK_PRINT_BACKEND (data->backend), data->printer_name);
 
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
   if (printer == NULL && data->UUID != NULL)
     printer = find_printer_by_uuid (data->backend, data->UUID);
 
@@ -7115,57 +7005,12 @@ cups_printer_get_hard_margins (BobguiPrinter *printer,
 }
 
 static gboolean
-<<<<<<< HEAD:bobgui/print/backends/bobguiprintbackendcups.c
 cups_printer_get_hard_margins_for_paper_size (BobguiPrinter   *printer,
 					      BobguiPaperSize *paper_size,
 					      double       *top,
 					      double       *bottom,
 					      double       *left,
 					      double       *right)
-=======
-cups_printer_get_hard_margins_for_paper_size (GtkPrinter   *printer,
-					      GtkPaperSize *paper_size,
-					      gdouble      *top,
-					      gdouble      *bottom,
-					      gdouble      *left,
-					      gdouble      *right)
-{
-  ppd_file_t *ppd_file;
-  ppd_size_t *size;
-  const gchar *paper_name;
-  int i;
-
-  ppd_file = gtk_printer_cups_get_ppd (GTK_PRINTER_CUPS (printer));
-  if (ppd_file == NULL)
-    return FALSE;
-
-  paper_name = gtk_paper_size_get_ppd_name (paper_size);
-
-  for (i = 0; i < ppd_file->num_sizes; i++)
-    {
-      size = &ppd_file->sizes[i];
-      if (g_strcmp0(size->name, paper_name) == 0)
-        {
-	   *top = size->length - size->top;
-	   *bottom = size->bottom;
-	   *left = size->left;
-	   *right = size->width - size->right;
-	   return TRUE;
-	}
-    }
-
-  /* Custom size */
-  *left = ppd_file->custom_margins[0];
-  *bottom = ppd_file->custom_margins[1];
-  *right = ppd_file->custom_margins[2];
-  *top = ppd_file->custom_margins[3];
-
-  return TRUE;
-}
-
-static GtkPrintCapabilities
-cups_printer_get_capabilities (GtkPrinter *printer)
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:modules/printbackends/cups/gtkprintbackendcups.c
 {
 #if CUPS_VERSION_MAJOR < 3
   ppd_file_t *ppd_file;

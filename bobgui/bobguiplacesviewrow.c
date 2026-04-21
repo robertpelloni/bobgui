@@ -26,7 +26,6 @@
  * ensure that internally we only include the files that we need
  * instead of including bobgui.h
  */
-<<<<<<< HEAD:bobgui/bobguiplacesviewrow.c
 #ifdef BOBGUI_COMPILATION
 #include "bobguibutton.h"
 #include "bobguigesture.h"
@@ -38,17 +37,6 @@
 #include "bobguitypebuiltins.h"
 #include "bobguinative.h"
 #include "bobguipopover.h"
-=======
-#ifdef GTK_COMPILATION
-#include "gtkbutton.h"
-#include "gtkeventbox.h"
-#include "gtkimage.h"
-#include "gtkintl.h"
-#include "gtklabel.h"
-#include "gtkspinner.h"
-#include "gtkstack.h"
-#include "gtktypebuiltins.h"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacesviewrow.c
 #else
 #include <bobgui/bobgui.h>
 #endif
@@ -57,7 +45,6 @@ struct _BobguiPlacesViewRow
 {
   BobguiListBoxRow  parent_instance;
 
-<<<<<<< HEAD:bobgui/bobguiplacesviewrow.c
   BobguiLabel      *available_space_label;
   BobguiStack      *mount_stack;
   BobguiSpinner    *busy_spinner;
@@ -66,17 +53,6 @@ struct _BobguiPlacesViewRow
   BobguiImage      *icon_image;
   BobguiLabel      *name_label;
   BobguiLabel      *path_label;
-=======
-  GtkLabel      *available_space_label;
-  GtkStack      *mount_stack;
-  GtkSpinner    *busy_spinner;
-  GtkButton     *eject_button;
-  GtkImage      *eject_icon;
-  GtkEventBox   *event_box;
-  GtkImage      *icon_image;
-  GtkLabel      *name_label;
-  GtkLabel      *path_label;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacesviewrow.c
 
   GVolume       *volume;
   GMount        *mount;
@@ -309,21 +285,12 @@ bobgui_places_view_row_set_property (GObject      *object,
       g_set_object (&self->mount, g_value_get_object (value));
       if (self->mount != NULL)
         {
-<<<<<<< HEAD:bobgui/bobguiplacesviewrow.c
           bobgui_stack_set_visible_child (self->mount_stack, BOBGUI_WIDGET (self->eject_button));
           bobgui_widget_set_child_visible (BOBGUI_WIDGET (self->mount_stack), TRUE);
         }
       else
         {
           bobgui_widget_set_child_visible (BOBGUI_WIDGET (self->mount_stack), FALSE);
-=======
-          gtk_stack_set_visible_child (self->mount_stack, GTK_WIDGET (self->eject_button));
-          gtk_widget_set_child_visible (GTK_WIDGET (self->mount_stack), TRUE);
-        }
-      else
-        {
-          gtk_widget_set_child_visible (GTK_WIDGET (self->mount_stack), FALSE);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacesviewrow.c
         }
       measure_available_space (self);
       break;
@@ -407,7 +374,6 @@ bobgui_places_view_row_class_init (BobguiPlacesViewRowClass *klass)
 
   bobgui_widget_class_set_template_from_resource (widget_class, "/org/bobgui/libbobgui/ui/bobguiplacesviewrow.ui");
 
-<<<<<<< HEAD:bobgui/bobguiplacesviewrow.c
   bobgui_widget_class_bind_template_child (widget_class, BobguiPlacesViewRow, available_space_label);
   bobgui_widget_class_bind_template_child (widget_class, BobguiPlacesViewRow, mount_stack);
   bobgui_widget_class_bind_template_child (widget_class, BobguiPlacesViewRow, busy_spinner);
@@ -416,17 +382,6 @@ bobgui_places_view_row_class_init (BobguiPlacesViewRowClass *klass)
   bobgui_widget_class_bind_template_child (widget_class, BobguiPlacesViewRow, icon_image);
   bobgui_widget_class_bind_template_child (widget_class, BobguiPlacesViewRow, name_label);
   bobgui_widget_class_bind_template_child (widget_class, BobguiPlacesViewRow, path_label);
-=======
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, available_space_label);
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, mount_stack);
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, busy_spinner);
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, eject_button);
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, eject_icon);
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, event_box);
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, icon_image);
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, name_label);
-  gtk_widget_class_bind_template_child (widget_class, GtkPlacesViewRow, path_label);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacesviewrow.c
 }
 
 static void
@@ -485,7 +440,6 @@ bobgui_places_view_row_set_busy (BobguiPlacesViewRow *row,
 
   if (is_busy)
     {
-<<<<<<< HEAD:bobgui/bobguiplacesviewrow.c
       bobgui_stack_set_visible_child (row->mount_stack, BOBGUI_WIDGET (row->busy_spinner));
       bobgui_widget_set_child_visible (BOBGUI_WIDGET (row->mount_stack), TRUE);
       bobgui_spinner_start (row->busy_spinner);
@@ -494,14 +448,6 @@ bobgui_places_view_row_set_busy (BobguiPlacesViewRow *row,
     {
       bobgui_widget_set_child_visible (BOBGUI_WIDGET (row->mount_stack), FALSE);
       bobgui_spinner_stop (row->busy_spinner);
-=======
-      gtk_stack_set_visible_child (row->mount_stack, GTK_WIDGET (row->busy_spinner));
-      gtk_widget_set_child_visible (GTK_WIDGET (row->mount_stack), TRUE);
-    }
-  else
-    {
-      gtk_widget_set_child_visible (GTK_WIDGET (row->mount_stack), FALSE);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkplacesviewrow.c
     }
 }
 

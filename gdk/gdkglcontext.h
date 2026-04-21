@@ -84,11 +84,7 @@ GdkGLAPI                gdk_gl_context_get_api                  (GdkGLContext  *
 GDK_DEPRECATED_IN_4_6_FOR(gdk_gl_context_set_allowed_apis)
 void                    gdk_gl_context_set_use_es               (GdkGLContext  *context,
                                                                  int            use_es);
-<<<<<<< HEAD
 GDK_AVAILABLE_IN_ALL
-=======
-GDK_AVAILABLE_IN_3_22
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 gboolean                gdk_gl_context_get_use_es               (GdkGLContext  *context);
 
 GDK_AVAILABLE_IN_ALL

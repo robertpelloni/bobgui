@@ -74,36 +74,10 @@ gdk_device_win32_query_state (GdkDevice        *device,
 {
   POINT point;
   HWND hwnd, hwndc;
-<<<<<<< HEAD
   int scale;
   GdkDisplay *display = gdk_device_get_display (device);
 
   if (surface)
-=======
-  GdkWindowImplWin32 *impl;
-
-  screen = gdk_window_get_screen (window);
-  impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
-
-  hwnd = GDK_WINDOW_HWND (window);
-  GetCursorPos (&point);
-
-  if (root_x)
-    *root_x = point.x / impl->window_scale;
-
-  if (root_y)
-    *root_y = point.y / impl->window_scale;
-
-  ScreenToClient (hwnd, &point);
-
-  if (win_x)
-    *win_x = point.x / impl->window_scale;
-
-  if (win_y)
-    *win_y = point.y / impl->window_scale;
-
-  if (window == gdk_screen_get_root_window (screen))
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     {
       scale = GDK_WIN32_SURFACE (surface)->surface_scale;
       hwnd = GDK_SURFACE_HWND (surface);
@@ -187,13 +161,8 @@ _gdk_device_win32_surface_at_position (GdkDevice       *device,
                                        double          *win_y,
                                        GdkModifierType *mask)
 {
-<<<<<<< HEAD
   GdkSurface *surface = NULL;
   GdkWin32Surface *impl = NULL;
-=======
-  GdkWindow *window = NULL;
-  GdkWindowImplWin32 *impl = NULL;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   POINT screen_pt, client_pt;
   HWND hwnd;
   RECT rect;
@@ -220,69 +189,10 @@ _gdk_device_win32_surface_at_position (GdkDevice       *device,
     {
       impl = GDK_WIN32_SURFACE (surface);
 
-<<<<<<< HEAD
       if (win_x)
         *win_x = client_pt.x / impl->surface_scale;
       if (win_y)
         *win_y = client_pt.y / impl->surface_scale;
-=======
-        if (window != NULL &&
-            GDK_WINDOW_TYPE (window) != GDK_WINDOW_ROOT &&
-            GDK_WINDOW_TYPE (window) != GDK_WINDOW_FOREIGN)
-          break;
-
-        screen_to_client (hwnd, screen_pt, &client_pt);
-        hwndc = ChildWindowFromPointEx (hwnd, client_pt, CWP_SKIPDISABLED  |
-                                                         CWP_SKIPINVISIBLE);
-
-	/* Verify that we're really inside the client area of the window */
-	if (hwndc != hwnd)
-	  {
-	    GetClientRect (hwndc, &rect);
-	    screen_to_client (hwndc, screen_pt, &client_pt);
-	    if (!PtInRect (&rect, client_pt))
-	      hwndc = hwnd;
-	  }
-
-      } while (hwndc != hwnd && (hwnd = hwndc, 1));
-
-    }
-  else
-    {
-      hwnd = WindowFromPoint (screen_pt);
-
-      /* Verify that we're really inside the client area of the window */
-      GetClientRect (hwnd, &rect);
-      screen_to_client (hwnd, screen_pt, &client_pt);
-      if (!PtInRect (&rect, client_pt))
-	hwnd = NULL;
-
-      /* If we didn't hit any window at that point, return the desktop */
-      if (hwnd == NULL)
-        {
-          window = gdk_get_default_root_window ();
-          impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
-
-          if (win_x)
-            *win_x = (screen_pt.x + _gdk_offset_x) / impl->window_scale;
-          if (win_y)
-            *win_y = (screen_pt.y + _gdk_offset_y) / impl->window_scale;
-
-          return window;
-        }
-
-      window = gdk_win32_handle_table_lookup (hwnd);
-    }
-
-  if (window && (win_x || win_y))
-    {
-      impl = GDK_WINDOW_IMPL_WIN32 (window->impl);
-
-      if (win_x)
-        *win_x = client_pt.x / impl->window_scale;
-      if (win_y)
-        *win_y = client_pt.y / impl->window_scale;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   return surface;

@@ -31,15 +31,7 @@
 /**
  * GdkMonitor:
  *
-<<<<<<< HEAD
  * Represents the individual outputs that are associated with a `GdkDisplay`.
-=======
- * GdkMonitor objects represent the individual outputs that are
- * associated with a #GdkDisplay. GdkDisplay has APIs to enumerate
- * monitors with gdk_display_get_n_monitors() and gdk_display_get_monitor(), and
- * to find particular monitors with gdk_display_get_primary_monitor() or
- * gdk_display_get_monitor_at_window().
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
  *
  * `GdkDisplay` keeps a `GListModel` to enumerate and monitor
  * monitors with [method@Gdk.Display.get_monitors]. You can use
@@ -370,13 +362,8 @@ gdk_monitor_get_display (GdkMonitor *monitor)
 
 /**
  * gdk_monitor_get_geometry:
-<<<<<<< HEAD
  * @monitor: a `GdkMonitor`
  * @geometry: (out): a `GdkRectangle` to be filled with the monitor geometry
-=======
- * @monitor: a #GdkMonitor
- * @geometry: (out): a #GdkRectangle to be filled with the monitor geometry
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
  *
  * Retrieves the size and position of the monitor within the
  * display coordinate space.

@@ -1965,7 +1965,6 @@ scale_format_value (BobguiScale *scale, double value, gpointer user_data)
 }
 
 static void
-<<<<<<< HEAD
 adjustment3_value_changed (BobguiAdjustment *adj, BobguiProgressBar *pbar)
 {
   double fraction;
@@ -2207,15 +2206,6 @@ builder_add_symbolic (BobguiBuilder *builder,
 
   g_object_unref (paintable);
   g_object_unref (file);
-=======
-adjustment3_value_changed (GtkAdjustment *adj, GtkProgressBar *pbar)
-{
-  double fraction;
-
-  fraction = gtk_adjustment_get_value (adj) / (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_lower (adj));
-
-  gtk_progress_bar_set_fraction (pbar, fraction);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 static void
@@ -2391,7 +2381,6 @@ activate (GApplication *app)
   for (i = 0; i < G_N_ELEMENTS (accels); i++)
     bobgui_application_set_accels_for_action (BOBGUI_APPLICATION (app), accels[i].action_and_target, accels[i].accelerators);
 
-<<<<<<< HEAD
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   widget = (BobguiWidget *)bobgui_builder_get_object (builder, "statusbar");
   bobgui_statusbar_push (BOBGUI_STATUSBAR (widget), 0, "All systems are operating normally.");
@@ -2401,15 +2390,6 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_GNUC_END_IGNORE_DEPRECATIONS
 
   widget = (BobguiWidget *)bobgui_builder_get_object (builder, "toolbar");
-=======
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "statusbar");
-  gtk_statusbar_push (GTK_STATUSBAR (widget), 0, "All systems are operating normally.");
-  action = G_ACTION (g_property_action_new ("statusbar", widget, "visible"));
-  g_action_map_add_action (G_ACTION_MAP (window), action);
-  g_object_unref (G_OBJECT (action));
-
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "toolbar");
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   action = G_ACTION (g_property_action_new ("toolbar", widget, "visible"));
   g_action_map_add_action (G_ACTION_MAP (window), action);
   g_object_unref (G_OBJECT (action));
@@ -2610,7 +2590,6 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   g_object_set_data (G_OBJECT (widget), "reset_button", widget2);
   reset_icon_size (widget);
 
-<<<<<<< HEAD
   adj = (BobguiAdjustment *)bobgui_builder_get_object (builder, "adjustment3");
   widget = (BobguiWidget *)bobgui_builder_get_object (builder, "progressbar1");
   widget2 = (BobguiWidget *)bobgui_builder_get_object (builder, "progressbar2");
@@ -2645,15 +2624,6 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   g_object_unref (file);
 
   bobgui_window_present (window);
-=======
-  adj = (GtkAdjustment *)gtk_builder_get_object (builder, "adjustment3");
-  widget = (GtkWidget *)gtk_builder_get_object (builder, "progressbar1");
-  widget2 = (GtkWidget *)gtk_builder_get_object (builder, "progressbar2");
-  g_signal_connect (adj, "value-changed", G_CALLBACK (adjustment3_value_changed), widget);
-  g_signal_connect (adj, "value-changed", G_CALLBACK (adjustment3_value_changed), widget2);
-
-  gtk_widget_show_all (GTK_WIDGET (window));
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   g_object_unref (builder);
 }

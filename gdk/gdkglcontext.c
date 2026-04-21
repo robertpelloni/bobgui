@@ -128,11 +128,6 @@ struct _GdkGLContextPrivate
   guint debug_enabled : 1;
   guint forward_compatible : 1;
   guint is_legacy : 1;
-<<<<<<< HEAD
-=======
-
-  int use_es;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   GdkGLAPI allowed_apis;
   GdkGLAPI api;
@@ -235,21 +230,7 @@ gdk_gl_context_dispose (GObject *gobject)
 }
 
 static void
-<<<<<<< HEAD
 gdk_gl_context_set_property (GObject      *object,
-=======
-gdk_gl_context_finalize (GObject *gobject)
-{
-  GdkGLContext *context = GDK_GL_CONTEXT (gobject);
-  GdkGLContextPrivate *priv = gdk_gl_context_get_instance_private (context);
-
-  g_clear_pointer (&priv->paint_data, g_free);
-  G_OBJECT_CLASS (gdk_gl_context_parent_class)->finalize (gobject);
-}
-
-static void
-gdk_gl_context_set_property (GObject      *gobject,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                              guint         prop_id,
                              const GValue *value,
                              GParamSpec   *pspec)
@@ -888,11 +869,7 @@ gdk_gl_context_class_init (GdkGLContextClass *klass)
   /**
    * GdkGLContext:shared-context:
    *
-<<<<<<< HEAD
    * Always %NULL
-=======
-   * The #GdkGLContext that this context is sharing data with, or %NULL
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
    *
    * As many contexts can share data now and no single shared context exists
    * anymore, this function has been deprecated and now always returns %NULL.
@@ -950,7 +927,6 @@ gdk_gl_context_init (GdkGLContext *self)
 {
   GdkGLContextPrivate *priv = gdk_gl_context_get_instance_private (self);
 
-<<<<<<< HEAD
   priv->allowed_apis = DEFAULT_ALLOWED_APIS;
 }
 
@@ -979,9 +955,6 @@ gdk_gl_context_new (GdkDisplay *display,
   priv->surface_attached = surface_attached;
 
   return result;
-=======
-  priv->use_es = -1;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 void
@@ -1254,25 +1227,6 @@ gdk_gl_context_check_gl_version (GdkGLContext       *self,
       g_return_val_if_reached (FALSE);
 
     }
-<<<<<<< HEAD
-=======
-
-  /* Enforce a minimum context version number of 3.2 */
-  version = (major * 100) + minor;
-
-  if (priv->use_es > 0 || (_gdk_gl_flags & GDK_GL_GLES) != 0)
-    min_ver = 200;
-  else
-    min_ver = 302;
-
-  if (version < min_ver)
-    {
-      g_warning ("gdk_gl_context_set_required_version - GL context versions less than 3.2 are not supported.");
-      version = min_ver;
-    }
-  priv->major = version / 100;
-  priv->minor = version % 100;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 /**
@@ -1297,30 +1251,6 @@ gdk_gl_context_get_required_version (GdkGLContext *context,
 
   g_return_if_fail (GDK_IS_GL_CONTEXT (context));
 
-<<<<<<< HEAD
-=======
-  if (priv->use_es > 0 || (_gdk_gl_flags & GDK_GL_GLES) != 0)
-    {
-      default_major = 2;
-      default_minor = 0;
-    }
-  else
-    {
-      default_major = 3;
-      default_minor = 2;
-    }
-
-  if (priv->major > 0)
-    maj = priv->major;
-  else
-    maj = default_major;
-
-  if (priv->minor > 0)
-    min = priv->minor;
-  else
-    min = default_minor;
-
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   if (major != NULL)
     *major = gdk_gl_version_get_major (&priv->required);
   if (minor != NULL)
@@ -1380,16 +1310,9 @@ gdk_gl_context_set_is_legacy (GdkGLContext *context,
 }
 
 /**
-<<<<<<< HEAD
  * gdk_gl_context_is_shared:
  * @self: a `GdkGLContext`
  * @other: the `GdkGLContext` that should be compatible with @self
-=======
- * gdk_gl_context_set_use_es:
- * @context: a #GdkGLContext:
- * @use_es: whether the context should use OpenGL ES instead of OpenGL,
- *   or -1 to allow auto-detection
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
  *
  * Checks if the two GL contexts can share resources.
  *
@@ -1554,13 +1477,6 @@ gdk_gl_context_is_api_allowed (GdkGLContext  *self,
  * By default, GDK will attempt to automatically detect whether the
  * underlying GL implementation is OpenGL or OpenGL ES once the @context
  * is realized.
-<<<<<<< HEAD
-=======
- *
- * You should check the return value of gdk_gl_context_get_use_es() after
- * calling gdk_gl_context_realize() to decide whether to use the OpenGL or
- * OpenGL ES API, extensions, or shaders.
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
  *
  * You should check the return value of [method@Gdk.GLContext.get_use_es]
  * after calling [method@Gdk.GLContext.realize] to decide whether to use
@@ -1573,7 +1489,6 @@ gdk_gl_context_set_use_es (GdkGLContext *context,
   g_return_if_fail (GDK_IS_GL_CONTEXT (context));
   g_return_if_fail (!gdk_gl_context_is_realized (context));
 
-<<<<<<< HEAD
   switch (use_es)
   {
     case -1:
@@ -1589,10 +1504,6 @@ gdk_gl_context_set_use_es (GdkGLContext *context,
       /* Just ignore the call */
       break;
   }
-=======
-  if (priv->use_es != use_es)
-    priv->use_es = use_es;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 /**
@@ -1612,7 +1523,6 @@ gdk_gl_context_get_use_es (GdkGLContext *context)
 
   g_return_val_if_fail (GDK_IS_GL_CONTEXT (context), FALSE);
 
-<<<<<<< HEAD
   return priv->api == GDK_GL_API_GLES;
 }
 
@@ -1715,12 +1625,6 @@ gl_debug_message_callback (GLenum        source,
                              G_STRFUNC,
                              "OPENGL:\n    Source: %s\n    Type: %s\n    Severity: %s\n    Message: %s",
                              message_source, message_type, message_severity, message);
-=======
-  if (!priv->realized)
-    return FALSE;
-
-  return priv->use_es > 0;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 /**
@@ -1933,7 +1837,6 @@ gdk_gl_context_check_extensions (GdkGLContext *context)
   if (priv->extensions_checked)
     return;
 
-<<<<<<< HEAD
   priv->has_debug_output = epoxy_has_gl_extension ("GL_ARB_debug_output") ||
                            epoxy_has_gl_extension ("GL_KHR_debug");
 
@@ -1945,47 +1848,6 @@ gdk_gl_context_check_extensions (GdkGLContext *context)
       glEnable (GL_DEBUG_OUTPUT);
       glEnable (GL_DEBUG_OUTPUT_SYNCHRONOUS);
       glDebugMessageCallback (gl_debug_message_callback, NULL);
-=======
-  priv->gl_version = epoxy_gl_version ();
-
-  if (priv->use_es < 0)
-    priv->use_es = !epoxy_is_desktop_gl ();
-
-  if (priv->use_es)
-    {
-      has_npot = priv->gl_version >= 20;
-      has_texture_rectangle = FALSE;
-
-      /* This should check for GL_NV_framebuffer_blit as well - see extension at:
-       *
-       * https://www.khronos.org/registry/gles/extensions/NV/NV_framebuffer_blit.txt
-       *
-       * for ANGLE, we can enable bit blitting if we have the
-       * GL_ANGLE_framebuffer_blit extension
-       */
-      if (epoxy_has_gl_extension ("GL_ANGLE_framebuffer_blit"))
-        priv->has_gl_framebuffer_blit = TRUE;
-      else
-        priv->has_gl_framebuffer_blit = FALSE;
-
-      /* No OES version */
-      priv->has_frame_terminator = FALSE;
-
-      priv->has_unpack_subimage = epoxy_has_gl_extension ("GL_EXT_unpack_subimage");
-    }
-  else
-    {
-      has_npot = epoxy_has_gl_extension ("GL_ARB_texture_non_power_of_two");
-      has_texture_rectangle = epoxy_has_gl_extension ("GL_ARB_texture_rectangle");
-
-      priv->has_gl_framebuffer_blit = epoxy_has_gl_extension ("GL_EXT_framebuffer_blit");
-      priv->has_frame_terminator = epoxy_has_gl_extension ("GL_GREMEDY_frame_terminator");
-      priv->has_unpack_subimage = TRUE;
-
-      /* We asked for a core profile, but we didn't get one, so we're in legacy mode */
-      if (priv->gl_version < 32)
-        priv->is_legacy = TRUE;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     }
 
   /* If we asked for a core profile, but didn't get one, we're in legacy mode */
@@ -1993,7 +1855,6 @@ gdk_gl_context_check_extensions (GdkGLContext *context)
       !gdk_gl_version_greater_equal (&priv->gl_version, &GDK_GL_VERSION_INIT (3, 2)))
     priv->is_legacy = TRUE;
 
-<<<<<<< HEAD
   supported_features = gdk_gl_context_check_features (context);
   disabled_features = gdk_parse_debug_var ("GDK_GL_DISABLE",
       "GDK_GL_DISABLE can be set to values which cause GDK to disable\n"
@@ -2036,26 +1897,6 @@ gdk_gl_context_check_extensions (GdkGLContext *context)
                              "Hum, what? This should not happen.")));
         }
     }
-=======
-  GDK_NOTE (OPENGL,
-            g_message ("%s version: %d.%d (%s)\n"
-                       "* GLSL version: %s\n"
-                       "* Extensions checked:\n"
-                       " - GL_ARB_texture_non_power_of_two: %s\n"
-                       " - GL_ARB_texture_rectangle: %s\n"
-                       " - GL_EXT_framebuffer_blit: %s\n"
-                       " - GL_GREMEDY_frame_terminator: %s\n"
-                       "* Using texture rectangle: %s",
-                       priv->use_es ? "OpenGL ES" : "OpenGL",
-                       priv->gl_version / 10, priv->gl_version % 10,
-                       priv->is_legacy ? "legacy" : "core",
-                       glGetString (GL_SHADING_LANGUAGE_VERSION),
-                       has_npot ? "yes" : "no",
-                       has_texture_rectangle ? "yes" : "no",
-                       priv->has_gl_framebuffer_blit ? "yes" : "no",
-                       priv->has_frame_terminator ? "yes" : "no",
-                       priv->use_texture_rectangle ? "yes" : "no"));
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   priv->extensions_checked = TRUE;
 }

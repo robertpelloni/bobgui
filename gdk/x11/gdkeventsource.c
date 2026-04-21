@@ -36,15 +36,10 @@ static gboolean gdk_event_source_dispatch (GSource     *source,
                                            gpointer     user_data);
 static void     gdk_event_source_finalize (GSource     *source);
 
-<<<<<<< HEAD
 static GQuark quark_needs_enter = 0;
 
 #define HAS_FOCUS(toplevel)                           \
   ((toplevel)->has_focus || (toplevel)->has_pointer_focus)
-=======
-#define APPEARS_FOCUSED(toplevel)                           \
-  ((toplevel)->has_focus || (toplevel)->has_focus_window || (toplevel)->has_pointer_focus)
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 struct _GdkEventSource
 {

@@ -15,38 +15,7 @@
  * License along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-<<<<<<< HEAD
 #pragma once
-=======
-/*
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
- * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
- */
-
-#ifndef __GDK_PRIVATE_WIN32_H__
-#define __GDK_PRIVATE_WIN32_H__
-
-#ifndef WINVER
-/* Vista or newer */
-#define WINVER 0x0600
-#endif
-
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT WINVER
-#endif
-
-#include <gdk/gdkprivate.h>
-#include <gdk/gdkcursorprivate.h>
-#include <gdk/win32/gdkwindow-win32.h>
-#include <gdk/win32/gdkwin32display.h>
-#include <gdk/win32/gdkwin32screen.h>
-#include <gdk/win32/gdkwin32keys.h>
-#include <gdk/win32/gdkselection-win32.h>
-
-#include "gdkinternals.h"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 #include "config.h"
 
@@ -61,7 +30,6 @@
 
 /* Old debug macros */
 
-<<<<<<< HEAD
 #define GDK_NOTE(type,action)                             \
     G_STMT_START {                                        \
       if (GDK_DEBUG_CHECK (type))                         \
@@ -69,53 +37,6 @@
     } G_STMT_END
 
 #define GDK_WIN32_HRESULT_ERROR (gdk_win32_hresult_error_quark ())
-=======
-#ifndef WM_GETOBJECT
-#define WM_GETOBJECT 0x3D
-#endif
-#ifndef WM_NCXBUTTONDOWN
-#define WM_NCXBUTTONDOWN 0xAB
-#endif
-#ifndef WM_NCXBUTTONUP
-#define WM_NCXBUTTONUP 0xAC
-#endif
-#ifndef WM_NCXBUTTONDBLCLK
-#define WM_NCXBUTTONDBLCLK 0xAD
-#endif
-#ifndef WM_CHANGEUISTATE
-#define WM_CHANGEUISTATE 0x127
-#endif
-#ifndef WM_UPDATEUISTATE
-#define WM_UPDATEUISTATE 0x128
-#endif
-#ifndef WM_QUERYUISTATE
-#define WM_QUERYUISTATE 0x129
-#endif
-#ifndef WM_XBUTTONDOWN
-#define WM_XBUTTONDOWN 0x20B
-#endif
-#ifndef WM_XBUTTONUP
-#define WM_XBUTTONUP 0x20C
-#endif
-#ifndef WM_XBUTTONDBLCLK
-#define WM_XBUTTONDBLCLK 0x20D
-#endif
-#ifndef WM_NCMOUSEHOVER
-#define WM_NCMOUSEHOVER 0x2A0
-#endif
-#ifndef WM_NCMOUSELEAVE
-#define WM_NCMOUSELEAVE 0x2A2
-#endif
-#ifndef WM_APPCOMMAND
-#define WM_APPCOMMAND 0x319
-#endif
-#ifndef WM_MOUSEHWHEEL
-#define WM_MOUSEHWHEEL 0x20E
-#endif
-#ifndef WM_DPICHANGED
-#define WM_DPICHANGED 0x02E0
-#endif
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 /* According to
  * http://blog.airesoft.co.uk/2009/11/wm_messages/
@@ -171,13 +92,8 @@ cairo_region_t *_gdk_win32_hrgn_to_region    (HRGN  hrgn,
 void    _gdk_win32_adjust_client_rect   (GdkSurface *surface,
                                          RECT      *RECT);
 
-<<<<<<< HEAD
 GdkSurface *_gdk_modal_current       (void);
 gboolean   _gdk_modal_blocked       (GdkSurface *surface);
-=======
-cairo_region_t *_gdk_win32_hrgn_to_region    (HRGN  hrgn,
-                                              guint scale);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 gboolean gdk_win32_ensure_com (void);
 gboolean gdk_win32_ensure_ole (void);
@@ -276,30 +192,12 @@ gboolean                gdk_win32_check_hresult                         (HRESULT
                                                                          const char                     *format,
                                                                          ...) G_GNUC_PRINTF(3,4);
 
-<<<<<<< HEAD
 extern LRESULT CALLBACK _gdk_win32_surface_procedure (HWND, UINT, WPARAM, LPARAM);
-=======
-extern gint		 _gdk_input_ignore_core;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 /* These are thread specific, but GDK/win32 works OK only when invoked
  * from a single thread anyway.
  */
 
-<<<<<<< HEAD
-=======
-extern guint		 _gdk_keymap_serial;
-
-/* The singleton selection object pointer */
-GdkWin32Selection *_win32_selection;
-
-void _gdk_win32_dnd_do_dragdrop (void);
-void _gdk_win32_ole2_dnd_property_change (GdkAtom       type,
-					  gint          format,
-					  const guchar *data,
-					  gint          nelements);
-
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 typedef enum {
   GDK_WIN32_MODAL_OP_NONE = 0x0,
   GDK_WIN32_MODAL_OP_SIZE = 0x1 << 0,
@@ -309,34 +207,6 @@ typedef enum {
 } GdkWin32ModalOpKind;
 
 #define GDK_WIN32_MODAL_OP_SIZEMOVE_MASK (GDK_WIN32_MODAL_OP_SIZE | GDK_WIN32_MODAL_OP_MOVE)
-<<<<<<< HEAD
-=======
-
-/* Non-zero while a modal sizing, moving, or dnd operation is in progress */
-extern GdkWin32ModalOpKind _modal_operation_in_progress;
-
-extern HWND		_modal_move_resize_window;
-
-void  _gdk_win32_begin_modal_call (GdkWin32ModalOpKind kind);
-void  _gdk_win32_end_modal_call (GdkWin32ModalOpKind kind);
-
-
-/* Options */
-extern gboolean		 _gdk_input_ignore_wintab;
-extern gint		 _gdk_max_colors;
-
-#define GDK_WIN32_COLORMAP_DATA(cmap) ((GdkColormapPrivateWin32 *) GDK_COLORMAP (cmap)->windowing_data)
-
-extern GdkCursor *_gdk_win32_grab_cursor;
-
-/* Convert a pixbuf to an HICON (or HCURSOR).  Supports alpha under
- * Windows XP, thresholds alpha otherwise.
- */
-HICON _gdk_win32_pixbuf_to_hicon   (GdkPixbuf *pixbuf);
-HICON _gdk_win32_pixbuf_to_hcursor (GdkPixbuf *pixbuf,
-				    gint       x_hotspot,
-				    gint       y_hotspot);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 void _gdk_win32_display_init_cursors (GdkWin32Display     *display);
 void _gdk_win32_display_finalize_cursors (GdkWin32Display *display);
@@ -433,7 +303,6 @@ gboolean _gdk_win32_surface_fill_min_max_info    (GdkSurface  *surface,
 
 gboolean _gdk_win32_surface_lacks_wm_decorations (GdkSurface *surface);
 
-<<<<<<< HEAD
 void gdk_win32_surface_show (GdkSurface *surface,
                              gboolean    already_mapped);
 void gdk_win32_surface_raise (GdkSurface *surface);
@@ -453,12 +322,6 @@ void     gdk_win32_surface_set_session_callbacks (GdkSurface             *surfac
 gboolean gdk_win32_surface_inhibit_logout        (GdkSurface    *surface,
                                                   const wchar_t *reason);
 void     gdk_win32_surface_uninhibit_logout      (GdkSurface *surface);
-=======
-BOOL WINAPI GtkShowWindow (GdkWindow *window,
-                           int        cmd_show);
-
-void     _gdk_win32_screen_set_font_resolution (GdkWin32Screen *win32_screen);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 /* Initialization */
 void _gdk_win32_surfaceing_init (void);

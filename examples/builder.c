@@ -45,33 +45,15 @@ int
 main (int   argc,
       char *argv[])
 {
-<<<<<<< HEAD
 #ifdef BOBGUI_SRCDIR
   g_chdir (BOBGUI_SRCDIR);
 #endif
-=======
-  GtkBuilder *builder;
-  GObject *window;
-  GObject *button;
-  GError *error = NULL;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   BobguiApplication *app = bobgui_application_new ("org.bobgui.example", G_APPLICATION_DEFAULT_FLAGS);
   g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
 
-<<<<<<< HEAD
   int status = g_application_run (G_APPLICATION (app), argc, argv);
   g_object_unref (app);
-=======
-  /* Construct a GtkBuilder instance and load our UI description */
-  builder = gtk_builder_new ();
-  if (gtk_builder_add_from_file (builder, "builder.ui", &error) == 0)
-    {
-      g_printerr ("Error loading file: %s\n", error->message);
-      g_clear_error (&error);
-      return 1;
-    }
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   return status;
 }

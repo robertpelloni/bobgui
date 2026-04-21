@@ -43,11 +43,7 @@ struct _BobguiFileChooserNative
   GFile *current_folder;
   GFile *current_file;
   char *current_name;
-<<<<<<< HEAD:bobgui/bobguifilechoosernativeprivate.h
   BobguiFileFilter *current_filter;
-=======
-  GtkFileFilter *current_filter;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkfilechoosernativeprivate.h
   GSList *choices;
 
   /* Fallback mode */
@@ -61,7 +57,6 @@ struct _BobguiFileChooserNative
 gboolean bobgui_file_chooser_native_win32_show (BobguiFileChooserNative *self);
 void bobgui_file_chooser_native_win32_hide (BobguiFileChooserNative *self);
 
-<<<<<<< HEAD:bobgui/bobguifilechoosernativeprivate.h
 gboolean bobgui_file_chooser_native_quartz_show (BobguiFileChooserNative *self);
 void bobgui_file_chooser_native_quartz_hide (BobguiFileChooserNative *self);
 
@@ -70,13 +65,6 @@ void bobgui_file_chooser_native_android_hide (BobguiFileChooserNative *self);
 
 gboolean bobgui_file_chooser_native_portal_show (BobguiFileChooserNative *self);
 void bobgui_file_chooser_native_portal_hide (BobguiFileChooserNative *self);
-=======
-gboolean gtk_file_chooser_native_quartz_show (GtkFileChooserNative *self);
-void gtk_file_chooser_native_quartz_hide (GtkFileChooserNative *self);
-
-gboolean gtk_file_chooser_native_portal_show (GtkFileChooserNative *self);
-void gtk_file_chooser_native_portal_hide (GtkFileChooserNative *self);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkfilechoosernativeprivate.h
 
 G_END_DECLS
 

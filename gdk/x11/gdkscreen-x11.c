@@ -46,19 +46,12 @@
 #include <X11/extensions/Xfixes.h>
 #endif
 
-<<<<<<< HEAD
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
 static void gdk_x11_screen_dispose  (GObject      *object);
 static void gdk_x11_screen_finalize (GObject      *object);
 static void init_randr_support	    (GdkX11Screen *screen);
 static void process_monitors_change (GdkX11Screen *screen);
-=======
-static void         gdk_x11_screen_dispose     (GObject		  *object);
-static void         gdk_x11_screen_finalize    (GObject		  *object);
-static void	    init_randr_support	       (GdkScreen	  *screen);
-static void         process_monitors_change    (GdkScreen         *screen);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
 enum
 {
@@ -83,51 +76,6 @@ gdk_x11_screen_init (GdkX11Screen *screen)
 {
 }
 
-<<<<<<< HEAD
-=======
-static GdkDisplay *
-gdk_x11_screen_get_display (GdkScreen *screen)
-{
-  return GDK_X11_SCREEN (screen)->display;
-}
-
-gint
-gdk_x11_screen_get_width (GdkScreen *screen)
-{
-  return GDK_X11_SCREEN (screen)->width;
-}
-
-gint
-gdk_x11_screen_get_height (GdkScreen *screen)
-{
-  return GDK_X11_SCREEN (screen)->height;
-}
-
-static gint
-gdk_x11_screen_get_width_mm (GdkScreen *screen)
-{
-  return WidthMMOfScreen (GDK_X11_SCREEN (screen)->xscreen);
-}
-
-static gint
-gdk_x11_screen_get_height_mm (GdkScreen *screen)
-{
-  return HeightMMOfScreen (GDK_X11_SCREEN (screen)->xscreen);
-}
-
-gint
-gdk_x11_screen_get_number (GdkScreen *screen)
-{
-  return GDK_X11_SCREEN (screen)->screen_num;
-}
-
-static GdkWindow *
-gdk_x11_screen_get_root_window (GdkScreen *screen)
-{
-  return GDK_X11_SCREEN (screen)->root_window;
-}
-
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 static void
 gdk_x11_screen_dispose (GObject *object)
 {
@@ -353,13 +301,8 @@ gdk_x11_screen_get_work_area (GdkX11Screen *x11_screen,
   /* Defaults in case of error */
   area->x = 0;
   area->y = 0;
-<<<<<<< HEAD
   area->width = WidthOfScreen (x11_screen->xscreen);
   area->height = HeightOfScreen (x11_screen->xscreen);
-=======
-  area->width = gdk_x11_screen_get_width (screen);
-  area->height = gdk_x11_screen_get_height (screen);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   if (!gdk_x11_screen_supports_net_wm_hint (x11_screen,
                                             g_intern_static_string ("_NET_WORKAREA")))
@@ -681,24 +624,7 @@ init_randr15 (GdkX11Screen *x11_screen)
   XRRFreeMonitors (rr_monitors);
   XRRFreeScreenResources (resources);
 
-<<<<<<< HEAD
   for (i = g_list_model_get_n_items (G_LIST_MODEL (x11_display->monitors)) - 1; i >= 0; i--)
-=======
-  /* non RandR 1.2+ X driver doesn't return any usable multihead data */
-  if (randr12_compat)
-    {
-      for (i = 0; i < x11_display->monitors->len; i++)
-        {
-          GdkX11Monitor *monitor = x11_display->monitors->pdata[i];
-          if (monitor->remove)
-            gdk_display_monitor_removed (display, GDK_MONITOR (monitor));
-        }
-      g_ptr_array_remove_range (x11_display->monitors, 0, x11_display->monitors->len);
-      return FALSE;
-    }
-
-  for (i = x11_display->monitors->len - 1; i >= 0; i--)
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
     {
       GdkX11Monitor *monitor = g_list_model_get_item (G_LIST_MODEL (x11_display->monitors), i);
 
@@ -751,11 +677,6 @@ init_randr13 (GdkX11Screen *x11_screen)
   RROutput primary_output = None;
   RROutput first_output = None;
   int i;
-<<<<<<< HEAD
-=======
-  gboolean randr12_compat = FALSE;
-  int old_primary;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   if (!x11_display->have_randr13)
       return FALSE;
@@ -818,11 +739,7 @@ init_randr13 (GdkX11Screen *x11_screen)
               if (xmode->id == crtc->mode)
                 {
                   if (xmode->hTotal != 0 && xmode->vTotal != 0)
-<<<<<<< HEAD
                     refresh_rate = (1000ULL * xmode->dotClock) / (xmode->hTotal * xmode->vTotal);
-=======
-                    refresh_rate = (1000 * xmode->dotClock) / (xmode->hTotal * xmode->vTotal);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                   break;
                 }
             }
@@ -934,19 +851,10 @@ init_randr13 (GdkX11Screen *x11_screen)
 static void
 init_no_multihead (GdkX11Screen *x11_screen)
 {
-<<<<<<< HEAD
   GdkX11Display *x11_display = GDK_X11_DISPLAY (x11_screen->display);
   GdkX11Monitor *monitor;
   int width_mm, height_mm;
   int width, height;
-=======
-  GdkDisplay *display = gdk_screen_get_display (screen);
-  GdkX11Display *x11_display = GDK_X11_DISPLAY (display);
-  GdkX11Screen *x11_screen = GDK_X11_SCREEN (screen);
-  GdkX11Monitor *monitor;
-  GdkRectangle geometry;
-  GdkRectangle newgeo;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   int i;
 
   for (i = 0; i < g_list_model_get_n_items (G_LIST_MODEL (x11_display->monitors)); i++)
@@ -970,7 +878,6 @@ init_no_multihead (GdkX11Screen *x11_screen)
       g_list_store_append (x11_display->monitors, monitor);
     }
 
-<<<<<<< HEAD
   width_mm = WidthMMOfScreen (x11_screen->xscreen);
   height_mm = HeightMMOfScreen (x11_screen->xscreen);
   width = WidthOfScreen (x11_screen->xscreen);
@@ -979,33 +886,6 @@ init_no_multihead (GdkX11Screen *x11_screen)
   gdk_monitor_set_geometry (GDK_MONITOR (monitor), &(GdkRectangle) { 0, 0, width, height });
   gdk_monitor_set_physical_size (GDK_MONITOR (monitor), width_mm, height_mm);
   gdk_monitor_set_scale_factor (GDK_MONITOR (monitor), x11_screen->surface_scale);
-=======
-  gdk_monitor_get_geometry (GDK_MONITOR (monitor), &geometry);
-
-  newgeo.x = 0;
-  newgeo.y = 0;
-  newgeo.width = DisplayWidth (x11_display->xdisplay, x11_screen->screen_num) /
-                               x11_screen->window_scale;
-  newgeo.height = DisplayHeight (x11_display->xdisplay, x11_screen->screen_num) /
-                                 x11_screen->window_scale;
-
-  if (newgeo.x != geometry.x ||
-      newgeo.y != geometry.y ||
-      newgeo.width != geometry.width ||
-      newgeo.height != geometry.height ||
-      gdk_x11_screen_get_width_mm (screen) != gdk_monitor_get_width_mm (GDK_MONITOR (monitor)) ||
-      gdk_x11_screen_get_height_mm (screen) != gdk_monitor_get_height_mm (GDK_MONITOR (monitor)))
-    *changed = TRUE;
-
-  gdk_monitor_set_position (GDK_MONITOR (monitor), newgeo.x, newgeo.y);
-  gdk_monitor_set_size (GDK_MONITOR (monitor), newgeo.width, newgeo.height);
-
-  g_object_notify (G_OBJECT (monitor), "workarea");
-  gdk_monitor_set_physical_size (GDK_MONITOR (monitor),
-                                 gdk_x11_screen_get_width_mm (screen),
-                                 gdk_x11_screen_get_height_mm (screen));
-  gdk_monitor_set_scale_factor (GDK_MONITOR (monitor), x11_screen->window_scale);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   x11_display->primary_monitor = 0;
 
@@ -1072,11 +952,7 @@ _gdk_x11_screen_set_surface_scale (GdkX11Screen *x11_screen,
 				  int           scale)
 {
   GList *toplevels, *l;
-<<<<<<< HEAD
   int i;
-=======
-  GdkWindow *root;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   if (x11_screen->surface_scale == scale)
     return;
@@ -1092,7 +968,6 @@ _gdk_x11_screen_set_surface_scale (GdkX11Screen *x11_screen,
       _gdk_x11_surface_set_surface_scale (surface, scale);
     }
 
-<<<<<<< HEAD
   for (i = 0; i < g_list_model_get_n_items (G_LIST_MODEL (x11_display->monitors)); i++)
     {
       GdkMonitor *monitor = g_list_model_get_item (G_LIST_MODEL (x11_display->monitors), i);
@@ -1104,32 +979,6 @@ _gdk_x11_screen_set_surface_scale (GdkX11Screen *x11_screen,
 
   /* We re-read the monitor sizes so we can apply the new scale */
   process_monitors_change (x11_screen);
-=======
-  process_monitors_change (GDK_SCREEN (x11_screen));
-}
-
-/*
- * It is important that we first request the selection
- * notification, and then setup the initial state of
- * is_composited to avoid a race condition here.
- */
-void
-_gdk_x11_screen_setup (GdkScreen *screen)
-{
-  GdkX11Screen *x11_screen = GDK_X11_SCREEN (screen);
-
-  gdk_display_request_selection_notification (x11_screen->display,
-					      gdk_x11_xatom_to_atom_for_display (x11_screen->display, get_cm_atom (x11_screen)));
-  x11_screen->is_composited = check_is_composited (x11_screen->display, x11_screen);
-}
-
-static gboolean
-gdk_x11_screen_is_composited (GdkScreen *screen)
-{
-  GdkX11Screen *x11_screen = GDK_X11_SCREEN (screen);
-
-  return x11_screen->is_composited;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 static void
@@ -1165,15 +1014,7 @@ _gdk_x11_screen_size_changed (GdkX11Screen *screen,
 #ifdef HAVE_RANDR
   GdkX11Display *display_x11;
 
-<<<<<<< HEAD
   display_x11 = GDK_X11_DISPLAY (GDK_SCREEN_DISPLAY (screen));
-=======
-  width = gdk_x11_screen_get_width (screen);
-  height = gdk_x11_screen_get_height (screen);
-
-#ifdef HAVE_RANDR
-  display_x11 = GDK_X11_DISPLAY (gdk_screen_get_display (screen));
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 
   if (display_x11->have_randr13 && event->type == ConfigureNotify)
     return;
@@ -1185,13 +1026,6 @@ _gdk_x11_screen_size_changed (GdkX11Screen *screen,
 #endif
 
   process_monitors_change (screen);
-<<<<<<< HEAD
-=======
-
-  if (width != gdk_x11_screen_get_width (screen) ||
-      height != gdk_x11_screen_get_height (screen))
-    g_signal_emit_by_name (screen, "size-changed");
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 }
 
 void
@@ -1202,20 +1036,11 @@ _gdk_x11_screen_get_edge_monitors (GdkX11Screen *x11_screen,
                                    int       *right)
 {
 #ifdef HAVE_XFREE_XINERAMA
-<<<<<<< HEAD
   int           top_most_pos = HeightOfScreen (x11_screen->xscreen);
   int           left_most_pos = WidthOfScreen (x11_screen->xscreen);
   int           bottom_most_pos = 0;
   int           right_most_pos = 0;
   int           i;
-=======
-  GdkX11Screen *x11_screen = GDK_X11_SCREEN (screen);
-  gint          top_most_pos = x11_screen->height;
-  gint          left_most_pos = x11_screen->width;
-  gint          bottom_most_pos = 0;
-  gint          right_most_pos = 0;
-  gint          i;
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   XineramaScreenInfo *x_monitors;
   int x_n_monitors;
 #endif
@@ -1269,154 +1094,9 @@ _gdk_x11_screen_window_manager_changed (GdkX11Screen *screen)
   g_signal_emit (screen, signals[WINDOW_MANAGER_CHANGED], 0);
 }
 
-<<<<<<< HEAD
 gboolean
 gdk_x11_screen_get_setting (GdkX11Screen   *x11_screen,
 			    const char *name,
-=======
-void
-_gdk_x11_screen_process_owner_change (GdkScreen *screen,
-				      XEvent *event)
-{
-#ifdef HAVE_XFIXES
-  XFixesSelectionNotifyEvent *selection_event = (XFixesSelectionNotifyEvent *)event;
-  GdkX11Screen *x11_screen = GDK_X11_SCREEN (screen);
-
-  if (selection_event->selection == get_cm_atom (x11_screen))
-    {
-      gboolean composited = selection_event->owner != None;
-
-      if (composited != x11_screen->is_composited)
-	{
-	  x11_screen->is_composited = composited;
-
-	  g_signal_emit_by_name (screen, "composited-changed");
-	}
-    }
-#endif
-}
-
-static gchar *
-substitute_screen_number (const gchar *display_name,
-                          gint         screen_number)
-{
-  GString *str;
-  gchar   *p;
-
-  str = g_string_new (display_name);
-
-  p = strrchr (str->str, '.');
-  if (p && p >	strchr (str->str, ':'))
-    g_string_truncate (str, p - str->str);
-
-  g_string_append_printf (str, ".%d", screen_number);
-
-  return g_string_free (str, FALSE);
-}
-
-static gchar *
-gdk_x11_screen_make_display_name (GdkScreen *screen)
-{
-  const gchar *old_display;
-
-  old_display = gdk_display_get_name (gdk_screen_get_display (screen));
-
-  return substitute_screen_number (old_display,
-                                   gdk_x11_screen_get_number (screen));
-}
-
-static GdkWindow *
-gdk_x11_screen_get_active_window (GdkScreen *screen)
-{
-  GdkX11Screen *x11_screen = GDK_X11_SCREEN (screen);
-  GdkWindow *ret = NULL;
-  Atom type_return;
-  gint format_return;
-  gulong nitems_return;
-  gulong bytes_after_return;
-  guchar *data = NULL;
-
-  if (!gdk_x11_screen_supports_net_wm_hint (screen,
-                                            gdk_atom_intern_static_string ("_NET_ACTIVE_WINDOW")))
-    return NULL;
-
-  if (XGetWindowProperty (x11_screen->xdisplay, x11_screen->xroot_window,
-	                  gdk_x11_get_xatom_by_name_for_display (x11_screen->display,
-			                                         "_NET_ACTIVE_WINDOW"),
-		          0, 1, False, XA_WINDOW, &type_return,
-		          &format_return, &nitems_return,
-                          &bytes_after_return, &data)
-      == Success)
-    {
-      if ((type_return == XA_WINDOW) && (format_return == 32) && (data))
-        {
-          Window window = *(Window *) data;
-
-          if (window != None)
-            {
-              ret = gdk_x11_window_foreign_new_for_display (x11_screen->display,
-                                                            window);
-            }
-        }
-    }
-
-  if (data)
-    XFree (data);
-
-  return ret;
-}
-
-static GList *
-gdk_x11_screen_get_window_stack (GdkScreen *screen)
-{
-  GdkX11Screen *x11_screen = GDK_X11_SCREEN (screen);
-  GList *ret = NULL;
-  Atom type_return;
-  gint format_return;
-  gulong nitems_return;
-  gulong bytes_after_return;
-  guchar *data = NULL;
-
-  if (!gdk_x11_screen_supports_net_wm_hint (screen,
-                                            gdk_atom_intern_static_string ("_NET_CLIENT_LIST_STACKING")))
-    return NULL;
-
-  if (XGetWindowProperty (x11_screen->xdisplay, x11_screen->xroot_window,
-	                  gdk_x11_get_xatom_by_name_for_display (x11_screen->display,
-			                                         "_NET_CLIENT_LIST_STACKING"),
-		          0, G_MAXLONG, False, XA_WINDOW, &type_return,
-		          &format_return, &nitems_return,
-                          &bytes_after_return, &data)
-      == Success)
-    {
-      if ((type_return == XA_WINDOW) && (format_return == 32) &&
-          (data) && (nitems_return > 0))
-        {
-          gulong *stack = (gulong *) data;
-          GdkWindow *win;
-          int i;
-
-          for (i = 0; i < nitems_return; i++)
-            {
-              win = gdk_x11_window_foreign_new_for_display (x11_screen->display,
-                                                            (Window)stack[i]);
-
-              if (win != NULL)
-                ret = g_list_append (ret, win);
-            }
-        }
-    }
-
-  if (data)
-    XFree (data);
-
-  return ret;
-}
-
-static gboolean
-gdk_x11_screen_get_setting (GdkScreen   *screen,
-			    const gchar *name,
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 			    GValue      *value)
 {
   const GValue *setting;

@@ -34,21 +34,9 @@
 
 #include <gio/gunixfdlist.h>
 
-<<<<<<< HEAD:bobgui/print/bobguiprintoperation-portal.c
 #include <glib/gi18n-lib.h>
 #include <bobgui/bobgui.h>
 #include "bobguiwindowprivate.h"
-=======
-#include "gtkprintoperation-private.h"
-#include "gtkprintoperation-portal.h"
-#include "gtkprintsettings.h"
-#include "gtkpagesetup.h"
-#include "gtkprintbackend.h"
-#include "gtkshow.h"
-#include "gtkintl.h"
-#include "gtkwindowprivate.h"
-#include "gtkprivate.h"
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkprintoperation-portal.c
 
 #include "bobguiprintoperation-private.h"
 #include "bobguiprintoperation-portal.h"
@@ -565,13 +553,8 @@ prepare_print_called (GObject      *source,
                                             portal->response_signal_id);
       portal->response_signal_id =
         g_dbus_connection_signal_subscribe (g_dbus_proxy_get_connection (G_DBUS_PROXY (portal->proxy)),
-<<<<<<< HEAD:bobgui/print/bobguiprintoperation-portal.c
                                             PORTAL_BUS_NAME,
                                             PORTAL_REQUEST_INTERFACE,
-=======
-                                            "org.freedesktop.portal.Desktop",
-                                            "org.freedesktop.portal.Request",
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkprintoperation-portal.c
                                             "Response",
                                             handle,
                                             NULL,
@@ -668,21 +651,12 @@ call_prepare_print (BobguiPrintOperation *op,
   char *token;
 
   portal->prepare_print_handle =
-<<<<<<< HEAD:bobgui/print/bobguiprintoperation-portal.c
       get_portal_request_path (g_dbus_proxy_get_connection (portal->proxy), &token);
 
   portal->response_signal_id =
     g_dbus_connection_signal_subscribe (g_dbus_proxy_get_connection (G_DBUS_PROXY (portal->proxy)),
                                         PORTAL_BUS_NAME,
                                         PORTAL_REQUEST_INTERFACE,
-=======
-      gtk_get_portal_request_path (g_dbus_proxy_get_connection (portal->proxy), &token);
-
-  portal->response_signal_id =
-    g_dbus_connection_signal_subscribe (g_dbus_proxy_get_connection (G_DBUS_PROXY (portal->proxy)),
-                                        "org.freedesktop.portal.Desktop",
-                                        "org.freedesktop.portal.Request",
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px:gtk/gtkprintoperation-portal.c
                                         "Response",
                                         portal->prepare_print_handle,
                                         NULL,

@@ -458,7 +458,6 @@ gdk_frame_clock_paint_idle (void *data)
           if (!gdk_frame_clock_idle_is_frozen (clock_idle))
             {
               gint64 frame_interval = FRAME_INTERVAL;
-<<<<<<< HEAD
               GdkFrameTimings *prev_timings = gdk_frame_clock_get_current_timings (clock);
 
               if (prev_timings && prev_timings->refresh_interval)
@@ -551,37 +550,6 @@ gdk_frame_clock_paint_idle (void *data)
               priv->smoothed_frame_time_reported = priv->smoothed_frame_time_base;
 
               _gdk_frame_clock_begin_frame (clock, priv->frame_time);
-=======
-              gint64 reset_frame_time;
-              gint64 smoothest_frame_time;
-              gint64 frame_time_error;
-              GdkFrameTimings *prev_timings =
-                gdk_frame_clock_get_current_timings (clock);
-
-              if (prev_timings && prev_timings->refresh_interval)
-                frame_interval = prev_timings->refresh_interval;
-
-              /* We are likely not getting precisely even callbacks in real
-               * time, particularly if the event loop is busy.
-               * This is a documented limitation in the precision of
-               * gdk_threads_add_timeout_full and g_timeout_add_full.
-               *
-               * In order to avoid this imprecision from compounding between
-               * frames and affecting visual smoothness, we correct frame_time
-               * to more precisely match the even refresh interval of the
-               * physical display. This also means we proactively avoid (most)
-               * missed frames before they occur.
-               */
-              smoothest_frame_time = priv->frame_time + frame_interval;
-              reset_frame_time = compute_frame_time (clock_idle);
-              frame_time_error = ABS (reset_frame_time - smoothest_frame_time);
-              if (frame_time_error >= frame_interval)
-                priv->frame_time = reset_frame_time;
-              else
-                priv->frame_time = smoothest_frame_time;
-
-              _gdk_frame_clock_begin_frame (clock);
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
               /* Note "current" is different now so timings != prev_timings */
               timings = gdk_frame_clock_get_current_timings (clock);
 
