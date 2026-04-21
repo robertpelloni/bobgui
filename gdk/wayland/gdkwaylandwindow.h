@@ -77,11 +77,23 @@ GDK_AVAILABLE_IN_3_22
 gboolean                 gdk_wayland_window_set_transient_for_exported (GdkWindow *window,
                                                                         char      *parent_handle_str);
 
+GDK_AVAILABLE_IN_3_24
+void                     gdk_wayland_window_set_application_id (GdkWindow *window,
+                                                                const char *application_id);
+
 GDK_AVAILABLE_IN_3_22
 void gdk_wayland_window_announce_csd                        (GdkWindow *window);
 
 GDK_AVAILABLE_IN_3_24
 void gdk_wayland_window_announce_ssd                        (GdkWindow *window);
+
+GDK_AVAILABLE_IN_3_24
+void gdk_wayland_window_add_frame_callback_surface (GdkWindow         *window,
+                                                    struct wl_surface *surface);
+
+GDK_AVAILABLE_IN_3_24
+void gdk_wayland_window_remove_frame_callback_surface (GdkWindow         *window,
+                                                       struct wl_surface *surface);
 
 G_END_DECLS
 

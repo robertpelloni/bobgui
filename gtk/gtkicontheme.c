@@ -32,8 +32,9 @@
 #ifndef S_ISDIR
 #define S_ISDIR(mode) ((mode)&_S_IFDIR)
 #endif
-#define WIN32_MEAN_AND_LEAN
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <shellapi.h>
 #include "win32/gdkwin32.h"
 #endif /* G_OS_WIN32 */
 
@@ -518,7 +519,7 @@ gtk_icon_theme_class_init (GtkIconThemeClass *klass)
                                  G_SIGNAL_RUN_LAST,
                                  G_STRUCT_OFFSET (GtkIconThemeClass, changed),
                                  NULL, NULL,
-                                 g_cclosure_marshal_VOID__VOID,
+                                 NULL,
                                  G_TYPE_NONE, 0);
 }
 
@@ -609,9 +610,10 @@ unset_screen (GtkIconTheme *icon_theme)
       g_signal_handlers_disconnect_by_func (display,
                                             (gpointer) display_closed,
                                             icon_theme);
-      g_signal_handlers_disconnect_by_func (settings,
-                                            (gpointer) theme_changed,
-                                            icon_theme);
+      if (settings)
+        g_signal_handlers_disconnect_by_func (settings,
+                                              (gpointer) theme_changed,
+                                              icon_theme);
 
       priv->screen = NULL;
     }
@@ -1033,11 +1035,12 @@ void
 gtk_icon_theme_add_resource_path (GtkIconTheme *icon_theme,
                                   const gchar  *path)
 {
-  GtkIconThemePrivate *priv = icon_theme->priv;
+  GtkIconThemePrivate *priv = NULL;
 
   g_return_if_fail (GTK_IS_ICON_THEME (icon_theme));
   g_return_if_fail (path != NULL);
 
+  priv = icon_theme->priv;
   priv->resource_paths = g_list_append (priv->resource_paths, g_strdup (path));
 
   do_theme_change (icon_theme);
@@ -1806,6 +1809,20 @@ real_choose_icon (GtkIconTheme       *icon_theme,
         icon_info->filename = g_strdup (unthemed_icon->svg_filename);
       else if (unthemed_icon->no_svg_filename)
         icon_info->filename = g_strdup (unthemed_icon->no_svg_filename);
+      else
+        {
+          static gboolean warned_once = FALSE;
+
+          if (!warned_once)
+            {
+              g_warning ("Found an icon but could not load it. "
+                         "Most likely gdk-pixbuf does not provide SVG support.");
+              warned_once = TRUE;
+            }
+
+          g_clear_object (&icon_info);
+          goto out;
+        }
 
       if (unthemed_icon->is_resource)
         {
@@ -3190,8 +3207,12 @@ theme_list_contexts (IconTheme  *theme,
     {
       dir = l->data;
 
-      context = g_quark_to_string (dir->context);
-      g_hash_table_replace (contexts, (gpointer) context, NULL);
+      /* The "Context" key can be unset */
+      if (dir->context != 0)
+        {
+          context = g_quark_to_string (dir->context);
+          g_hash_table_replace (contexts, (gpointer) context, NULL);
+        }
 
       l = l->next;
     }
@@ -4147,8 +4168,8 @@ gtk_icon_paintable_snapshot_symbolic (GtkSymbolicPaintable *paintable,
   else
     {
       icon_info->pixbuf = gdk_pixbuf_scale_simple (source_pixbuf,
-                                                   0.5 + image_width * icon_info->scale,
-                                                   0.5 + image_height * icon_info->scale,
+                                                   MAX (1, 0.5 + image_width * icon_info->scale),
+                                                   MAX (1, 0.5 + image_height * icon_info->scale),
                                                    GDK_INTERP_BILINEAR);
       g_object_unref (source_pixbuf);
     }
@@ -4751,7 +4772,7 @@ gtk_icon_info_load_symbolic_svg (GtkIconInfo    *icon_info,
   width = g_strdup_printf ("%d", icon_info->symbolic_width);
   height = g_strdup_printf ("%d", icon_info->symbolic_height);
 
-  escaped_file_data = g_markup_escape_text (file_data, file_len);
+  escaped_file_data = g_base64_encode ((guchar *) file_data, file_len);
   g_free (file_data);
 
   g_ascii_dtostr (alphastr, G_ASCII_DTOSTR_BUF_SIZE, CLAMP (alpha, 0, 1));
@@ -4763,7 +4784,7 @@ gtk_icon_info_load_symbolic_svg (GtkIconInfo    *icon_info,
                       "     width=\"", width, "\"\n"
                       "     height=\"", height, "\">\n"
                       "  <style type=\"text/css\">\n"
-                      "    rect,path,ellipse,circle {\n"
+                      "    rect,path,ellipse,circle,polygon {\n"
                       "      fill: ", css_fg," !important;\n"
                       "    }\n"
                       "    .warning {\n"
@@ -4776,7 +4797,7 @@ gtk_icon_info_load_symbolic_svg (GtkIconInfo    *icon_info,
                       "      fill: ", css_success, " !important;\n"
                       "    }\n"
                       "  </style>\n"
-                      "  <g opacity=\"", alphastr, "\" ><xi:include href=\"data:text/xml,", escaped_file_data, "\"/></g>\n"
+                      "  <g opacity=\"", alphastr, "\" ><xi:include href=\"data:text/xml;base64,", escaped_file_data, "\"/></g>\n"
                       "</svg>",
                       NULL);
   g_free (escaped_file_data);

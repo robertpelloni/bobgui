@@ -501,6 +501,7 @@ prepare_print_response (GDBusConnection *connection,
     }
   else
     {
+<<<<<<< HEAD:bobgui/print/bobguiprintoperation-portal.c
       portal->result = BOBGUI_PRINT_OPERATION_RESULT_CANCEL;
 
       if (portal->print_cb)
@@ -509,7 +510,16 @@ prepare_print_response (GDBusConnection *connection,
 
   if (options)
     g_variant_unref (options);
+=======
+      portal->result = GTK_PRINT_OPERATION_RESULT_CANCEL;
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtkprintoperation-portal.c
 
+      if (portal->print_cb)
+	  portal->print_cb (portal->op, portal->parent, portal->do_print, portal->result);
+
+      if (portal->destroy)
+	  portal->destroy (portal);
+    }
   if (portal->loop)
     g_main_loop_quit (portal->loop);
 

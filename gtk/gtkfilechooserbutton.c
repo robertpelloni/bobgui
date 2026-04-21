@@ -96,6 +96,11 @@
  * > gtk_file_chooser_button_set_width_chars(), or pack the button in
  * > such a way that other interface elements give space to the
  * > widget.
+ *
+ * # CSS nodes
+ *
+ * GtkFileChooserButton has a CSS node with name “filechooserbutton”, containing
+ * a subnode for the internal button with name “button” and style class “.file”.
  */
 
 
@@ -605,9 +610,8 @@ unselect_current_file (GtkFileChooserButton *button)
     {
       g_object_unref (priv->selection_while_inactive);
       priv->selection_while_inactive = NULL;
+      priv->is_changing_selection = TRUE;
     }
-
-  priv->is_changing_selection = TRUE;
 
   update_label_and_image (button);
   update_combo_box (button);
@@ -2546,7 +2550,8 @@ update_label_and_image (GtkFileChooserButton *button)
 	    }
         }
 
-      if (g_file_is_native (file))
+      if (g_file_is_native (file) ||
+          !_gtk_bookmarks_manager_has_bookmark (button->priv->bookmarks_manager, file))
         {
           priv->update_button_cancellable =
             _gtk_file_system_get_info (priv->fs, file,
@@ -2738,7 +2743,11 @@ open_dialog (GtkFileChooserButton *button)
 
   gtk_widget_set_sensitive (priv->combo_box, FALSE);
   if (priv->dialog)
-    gtk_window_present (GTK_WINDOW (priv->dialog));
+    {
+      G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+      gtk_window_present (GTK_WINDOW (priv->dialog));
+      G_GNUC_END_IGNORE_DEPRECATIONS
+    }
   else
     gtk_native_dialog_show (GTK_NATIVE_DIALOG (priv->native));
 }

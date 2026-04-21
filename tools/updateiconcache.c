@@ -596,8 +596,13 @@ scan_directory (const char *base_path,
   GHashTable *dir_hash;
   GDir *dir;
   GList *list = NULL, *iterator = NULL;
+<<<<<<< HEAD:tools/updateiconcache.c
   const char *name;
   char *dir_path;
+=======
+  const gchar *name;
+  gchar *dir_path;
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/updateiconcache.c
   gboolean dir_added = FALSE;
   guint dir_index = 0xffff;
 
@@ -621,14 +626,19 @@ scan_directory (const char *base_path,
   list = g_list_sort (list, (GCompareFunc) strcmp);
   for (iterator = list; iterator; iterator = iterator->next)
     {
+<<<<<<< HEAD:tools/updateiconcache.c
       name = iterator->data;
 
       char *path;
+=======
+      gchar *path;
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/updateiconcache.c
       gboolean retval;
       int flags = 0;
       Image *image;
       char *basename, *dot;
 
+      name = iterator->data;
       path = g_build_filename (dir_path, name, NULL);
 
       retval = g_file_test (path, G_FILE_TEST_IS_DIR);

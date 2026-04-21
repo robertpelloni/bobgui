@@ -1848,6 +1848,38 @@ gdk_gl_context_check_extensions (GdkGLContext *context)
       glEnable (GL_DEBUG_OUTPUT);
       glEnable (GL_DEBUG_OUTPUT_SYNCHRONOUS);
       glDebugMessageCallback (gl_debug_message_callback, NULL);
+      has_npot = priv->gl_version >= 20;
+      has_texture_rectangle = FALSE;
+
+      /* This should check for GL_NV_framebuffer_blit as well - see extension at:
+       *
+       * https://www.khronos.org/registry/gles/extensions/NV/NV_framebuffer_blit.txt
+       *
+       * for ANGLE, we can enable bit blitting if we have the
+       * GL_ANGLE_framebuffer_blit extension
+       */
+      if (epoxy_has_gl_extension ("GL_ANGLE_framebuffer_blit"))
+        priv->has_gl_framebuffer_blit = TRUE;
+      else
+        priv->has_gl_framebuffer_blit = FALSE;
+
+      /* No OES version */
+      priv->has_frame_terminator = FALSE;
+
+      priv->has_unpack_subimage = epoxy_has_gl_extension ("GL_EXT_unpack_subimage");
+    }
+  else
+    {
+      has_npot = priv->gl_version >= 20 || epoxy_has_gl_extension ("GL_ARB_texture_non_power_of_two");
+      has_texture_rectangle = priv->gl_version >= 31 || epoxy_has_gl_extension ("GL_ARB_texture_rectangle");
+
+      priv->has_gl_framebuffer_blit = priv->gl_version >= 30 || epoxy_has_gl_extension ("GL_EXT_framebuffer_blit");
+      priv->has_frame_terminator = epoxy_has_gl_extension ("GL_GREMEDY_frame_terminator");
+      priv->has_unpack_subimage = TRUE;
+
+      /* We asked for a core profile, but we didn't get one, so we're in legacy mode */
+      if (priv->gl_version < 32)
+        priv->is_legacy = TRUE;
     }
 
   /* If we asked for a core profile, but didn't get one, we're in legacy mode */

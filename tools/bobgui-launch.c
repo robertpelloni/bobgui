@@ -21,7 +21,9 @@
 #include <config.h>
 
 #include <stdio.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <locale.h>
 #include <errno.h>
 
@@ -134,6 +136,12 @@ main (int argc, char *argv[])
   info = G_APP_INFO (g_desktop_app_info_new (desktop_file_name));
   g_free (desktop_file_name);
 #else
+<<<<<<< HEAD:tools/bobgui-launch.c
+=======
+  #ifndef _MSC_VER
+    #warning Please add support for creating AppInfo from id for your OS
+  #endif
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtk-launch.c
   g_printerr (_("Creating AppInfo from id not supported on non unix operating systems"));
 #endif
   args++;

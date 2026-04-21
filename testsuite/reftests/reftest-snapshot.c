@@ -23,6 +23,7 @@
 #include "reftest-snapshot.h"
 
 #include "reftest-module.h"
+#include "gtk-reftest.h"
 
 #ifdef GDK_WINDOWING_X11
 #include <gdk/x11/gdkx.h>

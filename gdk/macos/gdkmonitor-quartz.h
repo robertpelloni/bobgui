@@ -20,6 +20,7 @@
 
 #include <glib.h>
 #include <gio/gio.h>
+#include <AppKit/AppKit.h>
 
 #include "gdkmonitorprivate.h"
 
@@ -29,8 +30,7 @@
 struct _GdkQuartzMonitor
 {
   GdkMonitor parent;
-
-  gint monitor_num;
+  CGDirectDisplayID id;
 };
 
 struct _GdkQuartzMonitorClass {
@@ -38,4 +38,3 @@ struct _GdkQuartzMonitorClass {
 };
 
 #endif
-

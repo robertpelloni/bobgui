@@ -270,6 +270,16 @@ hook_surface_changed (GdkWindow *window)
 {
   GdkWindowImplX11 *impl = GDK_WINDOW_IMPL_X11 (window->impl);
 
+  /* The hooking we do below doesn't work if we're rendering with
+   * OpenGL (the cairo surface is not touched) so just always
+   * do the frame.
+   */
+  if (window->current_paint.use_gl)
+    {
+      window_pre_damage (window);
+      return;
+    }
+
   if (impl->cairo_surface)
     {
       cairo_surface_set_mime_data (impl->cairo_surface,
@@ -935,7 +945,7 @@ setup_toplevel_window (GdkWindow *window,
   if (!gdk_running_in_sandbox ())
     {
       /* if sandboxed, we're likely in a pid namespace and would only confuse the wm with this */
-      pid_t pid = getpid ();
+      long pid = getpid ();
       XChangeProperty (xdisplay, xid,
                        gdk_x11_get_xatom_by_name_for_display (x11_screen->display, "_NET_WM_PID"),
                        XA_CARDINAL, 32,
@@ -1003,6 +1013,25 @@ connect_frame_clock (GdkWindow *window)
     }
 }
 
+static void
+clamp_window_size (GdkWindow *window,
+                   gint      *width,
+                   gint      *height)
+{
+  GdkWindowImplX11 *impl = GDK_WINDOW_IMPL_X11 (window->impl);
+
+  if (*width * impl->window_scale > 32767 ||
+      *height * impl->window_scale > 32767)
+    {
+      g_warning ("Native Windows wider or taller than 32767 pixels are not supported");
+
+      if (*width * impl->window_scale > 32767)
+        *width = 32767 / impl->window_scale;
+      if (*height  * impl->window_scale > 32767)
+        *height = 32767 /  impl->window_scale;
+    }
+}
+
 void
 _gdk_x11_display_create_window_impl (GdkDisplay    *display,
                                      GdkWindow     *window,
@@ -1053,6 +1082,12 @@ _gdk_x11_display_create_window_impl (GdkDisplay    *display,
 
   impl->override_redirect = xattributes.override_redirect;
 
+  /* This event mask will be set near the end of the function, but to avoid some
+   * races, the window has to be created with this mask already.
+   */
+  xattributes.event_mask = StructureNotifyMask | PropertyChangeMask;
+  xattributes_mask |= CWEventMask;
+
   /* Sanity checks */
   switch (window->window_type)
     {
@@ -1095,16 +1130,7 @@ _gdk_x11_display_create_window_impl (GdkDisplay    *display,
       class = InputOnly;
     }
 
-  if (window->width * impl->window_scale > 32767 ||
-      window->height * impl->window_scale > 32767)
-    {
-      g_warning ("Native Windows wider or taller than 32767 pixels are not supported");
-
-      if (window->width * impl->window_scale > 32767)
-        window->width = 32767 / impl->window_scale;
-      if (window->height  * impl->window_scale > 32767)
-        window->height = 32767 /  impl->window_scale;
-    }
+  clamp_window_size (window, &window->width, &window->height);
 
   impl->unscaled_width = window->width * impl->window_scale;
   impl->unscaled_height = window->height * impl->window_scale;
@@ -1903,6 +1929,8 @@ gdk_window_x11_move_resize (GdkWindow *window,
     window_x11_move (window, x, y);
   else
     {
+      clamp_window_size (window, &width, &height);
+
       if (with_move)
         window_x11_move_resize (window, x, y, width, height);
       else
@@ -2979,6 +3007,7 @@ gdk_window_x11_set_background (GdkWindow      *window,
   double r, g, b, a;
   cairo_surface_t *surface;
   cairo_matrix_t matrix;
+  cairo_pattern_t *parent_relative_pattern;
 
   if (GDK_WINDOW_DESTROYED (window))
     return;
@@ -2988,6 +3017,51 @@ gdk_window_x11_set_background (GdkWindow      *window,
       XSetWindowBackgroundPixmap (GDK_WINDOW_XDISPLAY (window),
                                   GDK_WINDOW_XID (window), None);
       return;
+    }
+
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  parent_relative_pattern = gdk_x11_get_parent_relative_pattern ();
+G_GNUC_END_IGNORE_DEPRECATIONS
+
+  if (pattern == parent_relative_pattern)
+    {
+      Window xroot, xparent, *xchildren;
+      guint nxchildren, xparent_depth;
+      XWindowAttributes xattrs;
+
+      if (!XQueryTree (GDK_WINDOW_XDISPLAY (window), GDK_WINDOW_XID (window),
+            &xroot, &xparent, &xchildren, &nxchildren))
+        {
+          XSetWindowBackgroundPixmap (GDK_WINDOW_XDISPLAY (window),
+              GDK_WINDOW_XID (window), None);
+          return;
+        }
+
+      if (xchildren)
+        XFree (xchildren);
+
+      if (xparent) {
+        XGetWindowAttributes (GDK_WINDOW_XDISPLAY (window), xparent, &xattrs);
+        xparent_depth = xattrs.depth;
+      }
+
+      /* X throws BadMatch if the parent has a different depth when
+       * using ParentRelative */
+      if (xparent && window->depth == xparent_depth &&
+          cairo_pattern_status (pattern) == CAIRO_STATUS_SUCCESS)
+        {
+          XSetWindowBackgroundPixmap (GDK_WINDOW_XDISPLAY (window),
+                                      GDK_WINDOW_XID (window), ParentRelative);
+          return;
+        }
+      else
+        {
+          g_warning ("Can't set ParentRelative background for window %#lx, depth of parent doesn't match",
+                     GDK_WINDOW_XID (window));
+          XSetWindowBackgroundPixmap (GDK_WINDOW_XDISPLAY (window),
+                                      GDK_WINDOW_XID (window), None);
+          return;
+        }
     }
 
   switch (cairo_pattern_get_type (pattern))
@@ -5397,6 +5471,9 @@ gdk_x11_window_beep (GdkWindow *window)
   GdkDisplay *display;
 
   display = GDK_WINDOW_DISPLAY (window);
+
+  if (!GDK_X11_DISPLAY (display)->trusted_client)
+    return FALSE;
 
 #ifdef HAVE_XKB
   if (GDK_X11_DISPLAY (display)->use_xkb)

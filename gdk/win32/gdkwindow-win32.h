@@ -26,14 +26,11 @@
 #define __GDK_WINDOW_WIN32_H__
 
 #include "gdk/win32/gdkprivate-win32.h"
+#include "gdk/win32/gdkglcontext-win32.h"
 #include "gdk/gdkwindowimpl.h"
 #include "gdk/gdkcursor.h"
 
 #include <windows.h>
-
-#ifdef GDK_WIN32_ENABLE_EGL
-#include <epoxy/egl.h>
-#endif
 
 G_BEGIN_DECLS
 
@@ -239,14 +236,6 @@ struct _GdkWindowImplWin32
   GdkCursor *cursor;
   HICON   hicon_big;
   HICON   hicon_small;
-
-  /* When VK_PACKET sends us a leading surrogate, it's stashed here.
-   * Later, when another VK_PACKET sends a tailing surrogate, we make up
-   * a full unicode character from them, or discard the leading surrogate,
-   * if the next key is not a tailing surrogate.
-   */
-  wchar_t leading_surrogate_keydown;
-  wchar_t leading_surrogate_keyup;
 
   /* Window size hints */
   gint hint_flags;

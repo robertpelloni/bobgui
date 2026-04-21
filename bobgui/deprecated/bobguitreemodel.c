@@ -371,11 +371,19 @@ bobgui_tree_model_base_init (gpointer g_class)
                       NULL, NULL,
                       _bobgui_marshal_VOID__BOXED_BOXED,
                       G_TYPE_NONE, 2,
+<<<<<<< HEAD:bobgui/deprecated/bobguitreemodel.c
                       BOBGUI_TYPE_TREE_PATH | G_SIGNAL_TYPE_STATIC_SCOPE,
                       BOBGUI_TYPE_TREE_ITER);
       g_signal_set_va_marshaller (tree_model_signals[ROW_CHANGED],
                                   G_TYPE_FROM_CLASS (g_class),
                                   _bobgui_marshal_VOID__BOXED_BOXEDv);
+=======
+                      GTK_TYPE_TREE_PATH | G_SIGNAL_TYPE_STATIC_SCOPE,
+                      GTK_TYPE_TREE_ITER);
+      g_signal_set_va_marshaller (tree_model_signals[ROW_CHANGED],
+                                  G_TYPE_FROM_CLASS (g_class),
+                                  _gtk_marshal_VOID__BOXED_BOXEDv);
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtktreemodel.c
 
       /* We need to get notification about structure changes
        * to update row references., so instead of using the
@@ -416,7 +424,11 @@ bobgui_tree_model_base_init (gpointer g_class)
                        row_inserted_params);
       g_signal_set_va_marshaller (tree_model_signals[ROW_INSERTED],
                                   G_TYPE_FROM_CLASS (g_class),
+<<<<<<< HEAD:bobgui/deprecated/bobguitreemodel.c
                                   _bobgui_marshal_VOID__BOXED_BOXEDv);
+=======
+                                  _gtk_marshal_VOID__BOXED_BOXEDv);
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtktreemodel.c
 
       /**
        * BobguiTreeModel::row-has-child-toggled:
@@ -435,11 +447,19 @@ bobgui_tree_model_base_init (gpointer g_class)
                       NULL, NULL,
                       _bobgui_marshal_VOID__BOXED_BOXED,
                       G_TYPE_NONE, 2,
+<<<<<<< HEAD:bobgui/deprecated/bobguitreemodel.c
                       BOBGUI_TYPE_TREE_PATH | G_SIGNAL_TYPE_STATIC_SCOPE,
                       BOBGUI_TYPE_TREE_ITER);
       g_signal_set_va_marshaller (tree_model_signals[ROW_HAS_CHILD_TOGGLED],
                                   G_TYPE_FROM_CLASS (g_class),
                                   _bobgui_marshal_VOID__BOXED_BOXEDv);
+=======
+                      GTK_TYPE_TREE_PATH | G_SIGNAL_TYPE_STATIC_SCOPE,
+                      GTK_TYPE_TREE_ITER);
+      g_signal_set_va_marshaller (tree_model_signals[ROW_HAS_CHILD_TOGGLED],
+                                  G_TYPE_FROM_CLASS (g_class),
+                                  _gtk_marshal_VOID__BOXED_BOXEDv);
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtktreemodel.c
 
       /**
        * BobguiTreeModel::row-deleted:
@@ -498,7 +518,11 @@ bobgui_tree_model_base_init (gpointer g_class)
                        rows_reordered_params);
       g_signal_set_va_marshaller (tree_model_signals[ROWS_REORDERED],
                                   G_TYPE_FROM_CLASS (g_class),
+<<<<<<< HEAD:bobgui/deprecated/bobguitreemodel.c
                                   _bobgui_marshal_VOID__BOXED_BOXED_POINTERv);
+=======
+                                  _gtk_marshal_VOID__BOXED_BOXED_POINTERv);
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtktreemodel.c
       initialized = TRUE;
     }
 }

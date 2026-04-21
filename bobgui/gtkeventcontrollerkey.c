@@ -17,9 +17,22 @@
  * Author(s): Carlos Garnacho <carlosg@gnome.org>
  */
 
+/**
+ * SECTION:gtkeventcontrollerkey
+ * @Short_description: Event controller for key events
+ * @Title: GtkEventControllerKey
+ * @See_also: #GtkEventController
+ *
+ * #GtkEventControllerKey is an event controller meant for situations
+ * where you need access to key events.
+ *
+ * This object was added in 3.24.
+ **/
+
 #include "config.h"
 
 #include "gtkintl.h"
+#include "gtkmarshalers.h"
 #include "gtkprivate.h"
 #include "gtkwidgetprivate.h"
 #include "gtkeventcontrollerprivate.h"
@@ -33,6 +46,8 @@ struct _GtkEventControllerKey
   GtkEventController parent_instance;
   GtkIMContext *im_context;
   GHashTable *pressed_keys;
+
+  GdkModifierType state;
 
   const GdkEvent *current_event;
 };
@@ -74,10 +89,10 @@ gtk_event_controller_key_handle_event (GtkEventController *controller,
 {
   GtkEventControllerKey *key = GTK_EVENT_CONTROLLER_KEY (controller);
   GdkEventType event_type = gdk_event_get_event_type (event);
-  gboolean handled;
   GdkModifierType state;
   guint16 keycode;
   guint keyval;
+  gboolean handled = FALSE;
 
   if (event_type == GDK_FOCUS_CHANGE)
     {
@@ -99,23 +114,15 @@ gtk_event_controller_key_handle_event (GtkEventController *controller,
       return TRUE;
     }
 
-  if (!gdk_event_get_state (event, &state) || !event->key.is_modifier)
-    return FALSE;
-
   key->current_event = event;
 
-  if (event->key.is_modifier)
+  gdk_event_get_state (event, &state);
+  if (key->state != state)
     {
-      if (event_type == GDK_KEY_PRESS)
-        g_signal_emit (controller, signals[MODIFIERS], 0, state, &handled);
-      else
-        handled = TRUE;
+      gboolean unused;
 
-      if (handled == TRUE)
-        {
-          key->current_event = NULL;
-          return TRUE;
-        }
+      key->state = state;
+      g_signal_emit (controller, signals[MODIFIERS], 0, state, &unused);
     }
 
   gdk_event_get_keycode (event, &keycode);
@@ -153,45 +160,84 @@ gtk_event_controller_key_class_init (GtkEventControllerKeyClass *klass)
   object_class->finalize = gtk_event_controller_finalize;
   controller_class->handle_event = gtk_event_controller_key_handle_event;
 
+  /**
+   * GtkEventControllerKey::key-pressed:
+   * @controller: the object which received the signal.
+   * @keyval: the pressed key.
+   * @keycode: the raw code of the pressed key.
+   * @state: the bitmask, representing the state of modifier keys and pointer buttons. See #GdkModifierType.
+   *
+   * This signal is emitted whenever a key is pressed.
+   *
+   * Returns: %TRUE if the key press was handled, %FALSE otherwise.
+   *
+   * Since: 3.24
+   */
   signals[KEY_PRESSED] =
     g_signal_new (I_("key-pressed"),
                   GTK_TYPE_EVENT_CONTROLLER_KEY,
                   G_SIGNAL_RUN_LAST,
-                  0, _gtk_boolean_handled_accumulator, NULL, NULL,
+                  0, _gtk_boolean_handled_accumulator, NULL,
+                  _gtk_marshal_BOOLEAN__UINT_UINT_FLAGS,
                   G_TYPE_BOOLEAN, 3, G_TYPE_UINT, G_TYPE_UINT, GDK_TYPE_MODIFIER_TYPE);
+  g_signal_set_va_marshaller (signals[KEY_PRESSED],
+                              G_TYPE_FROM_CLASS (klass),
+                              _gtk_marshal_BOOLEAN__UINT_UINT_FLAGSv);
+
+  /**
+   * GtkEventControllerKey::key-released:
+   * @controller: the object which received the signal.
+   * @keyval: the released key.
+   * @keycode: the raw code of the released key.
+   * @state: the bitmask, representing the state of modifier keys and pointer buttons. See #GdkModifierType.
+   *
+   * This signal is emitted whenever a key is released.
+   *
+   * Since: 3.24
+   */
   signals[KEY_RELEASED] =
     g_signal_new (I_("key-released"),
                   GTK_TYPE_EVENT_CONTROLLER_KEY,
                   G_SIGNAL_RUN_LAST,
-                  0, NULL, NULL, NULL,
+                  0, NULL, NULL,
+                  _gtk_marshal_VOID__UINT_UINT_FLAGS,
                   G_TYPE_NONE, 3, G_TYPE_UINT, G_TYPE_UINT, GDK_TYPE_MODIFIER_TYPE);
+  g_signal_set_va_marshaller (signals[KEY_RELEASED],
+                              G_TYPE_FROM_CLASS (klass),
+                              _gtk_marshal_VOID__UINT_UINT_FLAGSv);
+
   signals[MODIFIERS] =
     g_signal_new (I_("modifiers"),
                   GTK_TYPE_EVENT_CONTROLLER_KEY,
                   G_SIGNAL_RUN_LAST,
-                  0, NULL, NULL,
-                  g_cclosure_marshal_BOOLEAN__FLAGS,
+                  0, NULL,
+                  NULL,
+                  _gtk_marshal_BOOLEAN__FLAGS,
                   G_TYPE_BOOLEAN, 1, GDK_TYPE_MODIFIER_TYPE);
+  g_signal_set_va_marshaller (signals[MODIFIERS],
+                              G_TYPE_FROM_CLASS (klass),
+                              _gtk_marshal_BOOLEAN__FLAGSv);
+
   signals[IM_UPDATE] =
     g_signal_new (I_("im-update"),
                   GTK_TYPE_EVENT_CONTROLLER_KEY,
                   G_SIGNAL_RUN_LAST,
                   0, NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID,
+                  NULL,
                   G_TYPE_NONE, 0);
   signals[FOCUS_IN] =
     g_signal_new (I_("focus-in"),
                   GTK_TYPE_EVENT_CONTROLLER_KEY,
                   G_SIGNAL_RUN_LAST,
                   0, NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID,
+                  NULL,
                   G_TYPE_NONE, 0);
   signals[FOCUS_OUT] =
     g_signal_new (I_("focus-out"),
                   GTK_TYPE_EVENT_CONTROLLER_KEY,
                   G_SIGNAL_RUN_LAST,
                   0, NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID,
+                  NULL,
                   G_TYPE_NONE, 0);
 }
 

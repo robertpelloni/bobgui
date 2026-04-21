@@ -98,13 +98,14 @@
  * # GtkLabel as GtkBuildable
  *
  * The GtkLabel implementation of the GtkBuildable interface supports a
- * custom <attributes> element, which supports any number of <attribute>
- * elements. The <attribute> element has attributes named “name“, “value“,
+ * custom `<attributes>` element, which supports any number of `<attribute>`
+ * elements. The `<attribute>` element has attributes named “name“, “value“,
  * “start“ and “end“ and allows you to specify #PangoAttribute values for
  * this label.
  *
  * An example of a UI definition fragment specifying Pango attributes:
- * |[
+ *
+ * |[<!-- language="xml" -->
  * <object class="GtkLabel">
  *   <attributes>
  *     <attribute name="weight" value="PANGO_WEIGHT_BOLD"/>
@@ -4227,6 +4228,12 @@ gtk_label_style_updated (GtkWidget *widget)
 
   context = gtk_widget_get_style_context (widget);
   change = gtk_style_context_get_change (context);
+
+  if (change == NULL || gtk_css_style_change_affects (change, GTK_CSS_AFFECTS_FONT))
+    {
+      gtk_label_clear_layout (GTK_LABEL (widget));
+      gtk_widget_queue_resize (label);
+    }
 
   if (change == NULL || gtk_css_style_change_affects (change, GTK_CSS_AFFECTS_TEXT_ATTRS) ||
       (priv->select_info && priv->select_info->links))
@@ -9164,6 +9171,11 @@ emit_activate_link (GtkLabel     *label,
   GtkStateFlags state;
 
   g_signal_emit (label, signals[ACTIVATE_LINK], 0, link->uri, &handled);
+
+  /* signal handler might have invalidated the layout */
+  if (!priv->layout)
+    return;
+
   if (handled && priv->track_links && !link->visited &&
       priv->select_info && priv->select_info->links)
     {

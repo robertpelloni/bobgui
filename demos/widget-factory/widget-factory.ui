@@ -57,6 +57,20 @@
         <attribute name="action">app.about</attribute>
       </item>
     </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Inspector</attribute>
+        <attribute name="action">app.inspector</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+        <attribute name="action">win.show-help-overlay</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_About Widget Factory</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+    </section>
   </menu>
   <menu id="dinner_menu">
     <section>
@@ -142,20 +156,17 @@
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-<<<<<<< HEAD
   <object class="BobguiAdjustment" id="adjustment3">
     <property name="upper">4</property>
     <property name="value">2</property>
     <property name="step-increment">1</property>
     <property name="page-increment">1</property>
-=======
   <object class="GtkAdjustment" id="adjustment3">
     <property name="lower">0</property>
     <property name="upper">4</property>
     <property name="value">2</property>
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
   </object>
   <object class="BobguiAdjustment" id="pg_adjustment">
     <property name="upper">99</property>
@@ -485,9 +496,7 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
             <property name="transition-duration">250</property>
             <property name="transition-type">1</property>
             <child>
-<<<<<<< HEAD
               <object class="BobguiStackPage">
-=======
               <object class="GtkBox" id="page1">
                 <property name="visible">1</property>
                 <property name="orientation">vertical</property>
@@ -1827,7 +1836,6 @@ Suspendisse feugiat quam quis dolor accumsan cursus.</property>
                 </child>
               </object>
               <packing>
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                 <property name="name">page1</property>
                 <property name="title" translatable="1">Page _1</property>
                 <property name="use-underline">1</property>
@@ -4120,12 +4128,9 @@ microphone-sensitivity-medium-symbolic</property>
                                 <property name="margin-bottom">20</property>
                                 <property name="valign">2</property>
                                 <style>
-<<<<<<< HEAD
                                   <class name="osd"/>
-=======
                                   <class name="image-button"/>
                                   <class name="circular"/>
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                                 </style>
                                 <child>
                                   <object class="BobguiBox">
@@ -4303,9 +4308,7 @@ microphone-sensitivity-medium-symbolic</property>
                         <property name="orientation">1</property>
                         <property name="spacing">10</property>
                         <child>
-<<<<<<< HEAD
                           <object class="BobguiBox">
-=======
                           <object class="GtkEntry">
                             <property name="visible">1</property>
                             <property name="can_focus">1</property>
@@ -4345,7 +4348,6 @@ microphone-sensitivity-medium-symbolic</property>
                             <property name="valign">center</property>
                             <property name="popover">notebook_info_popover</property>
                             <property name="relief">none</property>
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                             <child>
                               <object class="BobguiEntry">
                                 <property name="hexpand">1</property>
@@ -4362,12 +4364,9 @@ microphone-sensitivity-medium-symbolic</property>
                               </object>
                             </child>
                             <style>
-<<<<<<< HEAD
                               <class name="linked"/>
-=======
                               <class name="image-button"/>
                               <class name="circular"/>
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
                             </style>
                           </object>
                         </child>
@@ -4582,6 +4581,11 @@ bad things might happen.</property>
                   <property name="column-span">2</property>
                 </layout>
               </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+                <property name="width">2</property>
+              </packing>
             </child>
             <child>
               <object class="BobguiLabel">
@@ -4609,6 +4613,16 @@ bad things might happen.</property>
                   <property name="column-span">2</property>
                 </layout>
               </object>
+              <object class="GtkEntry" id="more_details_entry">
+                <property name="visible">1</property>
+                <property name="valign">baseline</property>
+                <signal name="notify::text" handler="validate_more_details" object="details_entry" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+                <property name="width">2</property>
+              </packing>
             </child>
             <child>
               <object class="BobguiLabel">
@@ -4637,6 +4651,12 @@ bad things might happen.</property>
                   <property name="column-span">2</property>
                 </layout>
               </object>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
+                <property name="width">2</property>
+              </packing>
             </child>
             <child>
               <object class="BobguiLabel">
@@ -4678,7 +4698,27 @@ bad things might happen.</property>
                   <property name="column">2</property>
                   <property name="row">3</property>
                 </layout>
+              <object class="GtkSwitch" id="mode_switch">
+                <property name="visible">1</property>
+                <property name="halign">start</property>
+                <property name="valign">baseline</property>
+                <signal name="state-set" handler="mode_switch_state_set"/>
               </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="error_label">
+                <property name="visible">0</property>
+                <property name="halign">start</property>
+                <property name="valign">baseline</property>
+                <property name="label">Level too low</property>
+                <style>
+                  <class name="error"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">3</property>
+              </packing>
             </child>
           </object>
         </child>

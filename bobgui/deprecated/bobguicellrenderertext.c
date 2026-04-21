@@ -545,7 +545,13 @@ bobgui_cell_renderer_text_class_init (BobguiCellRendererTextClass *class)
 		  G_TYPE_STRING);
   g_signal_set_va_marshaller (text_cell_renderer_signals [EDITED],
                               G_OBJECT_CLASS_TYPE (object_class),
+<<<<<<< HEAD:bobgui/deprecated/bobguicellrenderertext.c
                               _bobgui_marshal_VOID__STRING_STRINGv);
+=======
+                              _gtk_marshal_VOID__STRING_STRINGv);
+
+  gtk_cell_renderer_class_set_accessible_type (cell_class, GTK_TYPE_TEXT_CELL_ACCESSIBLE);
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtkcellrenderertext.c
 }
 
 static void

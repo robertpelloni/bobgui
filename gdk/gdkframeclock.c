@@ -25,6 +25,8 @@
 #include "config.h"
 
 #include "gdkframeclockprivate.h"
+#include "gdkinternals.h"
+#include "gdkprofilerprivate.h"
 
 /**
  * GdkFrameClock:
@@ -89,6 +91,11 @@ static guint fps_counter;
 #define GDK_ARRAY_PREALLOC FRAME_HISTORY_DEFAULT_LENGTH
 #define GDK_ARRAY_FREE_FUNC frame_timings_unref
 #include "gdk/gdkarrayimpl.c"
+#ifdef G_ENABLE_DEBUG
+static guint fps_counter;
+#endif
+
+#define FRAME_HISTORY_MAX_LENGTH 16
 
 struct _GdkFrameClockPrivate
 {
@@ -267,6 +274,12 @@ gdk_frame_clock_init (GdkFrameClock *clock)
 
   if (fps_counter == 0)
     fps_counter = gdk_profiler_define_counter ("fps", "Frames per Second");
+  priv->current = FRAME_HISTORY_MAX_LENGTH - 1;
+
+#ifdef G_ENABLE_DEBUG
+  if (fps_counter == 0)
+    fps_counter = gdk_profiler_define_counter ("fps", "Frames per Second");
+#endif
 }
 
 /**
@@ -534,6 +547,10 @@ _gdk_frame_clock_get_timings (GdkFrameClock *frame_clock,
  *
  * Returns: (nullable) (transfer none): the `GdkFrameTimings` object
  *   for the specified frame, or %NULL if it is not available
+ * Returns: (nullable) (transfer none): the #GdkFrameTimings object for
+ *  the specified frame, or %NULL if it is not available. See
+ *  gdk_frame_clock_get_history_start().
+ * Since: 3.8
  */
 GdkFrameTimings *
 gdk_frame_clock_get_timings (GdkFrameClock *frame_clock,
@@ -554,6 +571,11 @@ gdk_frame_clock_get_timings (GdkFrameClock *frame_clock,
  *   frame currently being processed, or even no frame is being
  *   processed, for the previous frame. Before any frames have been
  *   processed, returns %NULL.
+ * Returns: (nullable) (transfer none): the #GdkFrameTimings for the
+ *  frame currently being processed, or even no frame is being
+ *  processed, for the previous frame. Before any frames have been
+ *  processed, returns %NULL.
+ * Since: 3.8
  */
 GdkFrameTimings *
 gdk_frame_clock_get_current_timings (GdkFrameClock *frame_clock)
@@ -577,6 +599,8 @@ _gdk_frame_clock_debug_print_timings (GdkFrameClock   *clock,
   gint64 previous_smoothed_frame_time = 0;
   GdkFrameTimings *previous_timings = _gdk_frame_clock_get_timings (clock,
                                                                     timings->frame_counter - 1);
+  GdkFrameTimings *previous_timings = gdk_frame_clock_get_timings (clock,
+                                                                   timings->frame_counter - 1);
 
   if (previous_timings != NULL)
     {
@@ -648,6 +672,7 @@ gdk_frame_clock_get_refresh_info (GdkFrameClock *frame_clock,
   g_return_if_fail (GDK_IS_FRAME_CLOCK (frame_clock));
 
   frame_counter = _gdk_frame_clock_get_frame_counter (frame_clock);
+  frame_counter = gdk_frame_clock_get_frame_counter (frame_clock);
 
   while (TRUE)
     {
@@ -755,6 +780,7 @@ _gdk_frame_clock_emit_resume_events (GdkFrameClock *frame_clock)
   g_signal_emit (frame_clock, signals[RESUME_EVENTS], 0);
 }
 
+#ifdef G_ENABLE_DEBUG
 static gint64
 guess_refresh_interval (GdkFrameClock *frame_clock)
 {
@@ -765,6 +791,8 @@ guess_refresh_interval (GdkFrameClock *frame_clock)
 
   for (i = _gdk_frame_clock_get_history_start (frame_clock);
        i < _gdk_frame_clock_get_frame_counter (frame_clock);
+  for (i = gdk_frame_clock_get_history_start (frame_clock);
+       i < gdk_frame_clock_get_frame_counter (frame_clock);
        i++)
     {
       GdkFrameTimings *t, *before;
@@ -772,6 +800,8 @@ guess_refresh_interval (GdkFrameClock *frame_clock)
 
       t = _gdk_frame_clock_get_timings (frame_clock, i);
       before = _gdk_frame_clock_get_timings (frame_clock, i - 1);
+      t = gdk_frame_clock_get_timings (frame_clock, i);
+      before = gdk_frame_clock_get_timings (frame_clock, i - 1);
       if (t == NULL || before == NULL)
         continue;
 
@@ -800,6 +830,8 @@ guess_refresh_interval (GdkFrameClock *frame_clock)
  */
 double
 gdk_frame_clock_get_fps (GdkFrameClock *frame_clock)
+static double
+frame_clock_get_fps (GdkFrameClock *frame_clock)
 {
   GdkFrameTimings *start, *end;
   gint64 start_counter, end_counter;
@@ -815,6 +847,12 @@ gdk_frame_clock_get_fps (GdkFrameClock *frame_clock)
   for (end = _gdk_frame_clock_get_timings (frame_clock, end_counter);
        end_counter > start_counter && end != NULL && !gdk_frame_timings_get_complete (end);
        end = _gdk_frame_clock_get_timings (frame_clock, end_counter))
+  start_counter = gdk_frame_clock_get_history_start (frame_clock);
+  end_counter = gdk_frame_clock_get_frame_counter (frame_clock);
+  start = gdk_frame_clock_get_timings (frame_clock, start_counter);
+  for (end = gdk_frame_clock_get_timings (frame_clock, end_counter);
+       end_counter > start_counter && end != NULL && !gdk_frame_timings_get_complete (end);
+       end = gdk_frame_clock_get_timings (frame_clock, end_counter))
     end_counter--;
   if (end_counter - start_counter < 4)
     return 0.0;
@@ -836,6 +874,11 @@ gdk_frame_clock_get_fps (GdkFrameClock *frame_clock)
 
   return ((double) end_counter - start_counter) * G_USEC_PER_SEC / (end_timestamp - start_timestamp);
 }
+    }   
+    
+  return ((double) end_counter - start_counter) * G_USEC_PER_SEC / (end_timestamp - start_timestamp);
+}
+#endif
 
 void
 _gdk_frame_clock_add_timings_to_profiler (GdkFrameClock   *clock,
@@ -852,4 +895,28 @@ _gdk_frame_clock_add_timings_to_profiler (GdkFrameClock   *clock,
     }
 
   gdk_profiler_set_counter (fps_counter, gdk_frame_clock_get_fps (clock));
+#ifdef G_ENABLE_DEBUG
+  gdk_profiler_add_mark (timings->frame_time * 1000,
+                         (timings->frame_end_time - timings->frame_time) * 1000,
+                         "frame", "");
+
+  if (timings->layout_start_time != 0)
+    gdk_profiler_add_mark (timings->layout_start_time * 1000,
+                           (timings->paint_start_time - timings->layout_start_time) * 1000,
+                            "layout", "");
+
+  if (timings->paint_start_time != 0)
+    gdk_profiler_add_mark (timings->paint_start_time * 1000,
+                           (timings->frame_end_time - timings->paint_start_time) * 1000,
+                            "paint", "");
+
+  if (timings->presentation_time != 0)
+    gdk_profiler_add_mark (timings->presentation_time * 1000,
+                           0,
+                           "presentation", "");
+
+  gdk_profiler_set_counter (fps_counter,
+                            timings->frame_end_time * 1000,
+                            frame_clock_get_fps (clock));
+#endif
 }

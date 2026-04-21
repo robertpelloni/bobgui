@@ -24,10 +24,14 @@
 #include <gdk/gdkdisplayprivate.h>
 
 #include "gdkwindowimpl.h"
+#include "gdkwindow-quartz.h"
 #include "gdkprivate-quartz.h"
 #include "gdkglcontext-quartz.h"
+#include "gdkquartzglcontext.h"
 #include "gdkquartzscreen.h"
 #include "gdkquartzcursor.h"
+#include "gdkquartz-cocoa-access.h"
+#include "gdkinternal-quartz.h"
 
 #include <Carbon/Carbon.h>
 #include <AvailabilityMacros.h>
@@ -52,8 +56,32 @@ typedef struct
   GdkWMDecoration decor;
 } FullscreenSavedGeometry;
 
+#if MAC_OS_X_VERSION_MIN_REQUIRED < 101200
+typedef enum
+{
+ GDK_QUARTZ_BORDERLESS_WINDOW = NSBorderlessWindowMask,
+ GDK_QUARTZ_CLOSABLE_WINDOW = NSClosableWindowMask,
+#if MAC_OS_X_VERSION_MIN_REQUIRED > 1060
+ /* Added in 10.7. Apple's docs are wrong to say it's from earlier. */
+ GDK_QUARTZ_FULLSCREEN_WINDOW = NSFullScreenWindowMask,
+#endif
+ GDK_QUARTZ_MINIATURIZABLE_WINDOW = NSMiniaturizableWindowMask,
+ GDK_QUARTZ_RESIZABLE_WINDOW = NSResizableWindowMask,
+ GDK_QUARTZ_TITLED_WINDOW = NSTitledWindowMask,
+} GdkQuartzWindowMask;
+#else
+typedef enum
+{
+ GDK_QUARTZ_BORDERLESS_WINDOW = NSWindowStyleMaskBorderless,
+ GDK_QUARTZ_CLOSABLE_WINDOW = NSWindowStyleMaskClosable,
+ GDK_QUARTZ_FULLSCREEN_WINDOW = NSWindowStyleMaskFullScreen,
+ GDK_QUARTZ_MINIATURIZABLE_WINDOW = NSWindowStyleMaskMiniaturizable,
+ GDK_QUARTZ_RESIZABLE_WINDOW = NSWindowStyleMaskResizable,
+ GDK_QUARTZ_TITLED_WINDOW = NSWindowStyleMaskTitled,
+} GdkQuartzWindowMask;
+#endif
 
-#ifndef AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
 static FullscreenSavedGeometry *get_fullscreen_geometry (GdkWindow *window);
 #endif
 
@@ -120,7 +148,7 @@ static CGContextRef
 gdk_window_impl_quartz_get_context (GdkWindowImplQuartz *window_impl,
 				    gboolean             antialias)
 {
-  CGContextRef cg_context;
+  CGContextRef cg_context = NULL;
   CGSize scale;
 
   if (GDK_WINDOW_DESTROYED (window_impl->wrapper))
@@ -134,11 +162,28 @@ gdk_window_impl_quartz_get_context (GdkWindowImplQuartz *window_impl,
    */
   if (window_impl->in_paint_rect_count == 0)
     {
-      if (![window_impl->view lockFocusIfCanDraw])
-        return NULL;
+      /* The NSView focus-locking API set was deprecated in MacOS 10.14 and
+       * has a significant cost in MacOS 11 - every lock/unlock seems to 
+       * trigger a drawRect: call for the entire window.  To return the
+       * lost performance, do not use the locking API in MacOS 11+
+       */
+      if(gdk_quartz_osx_version() < GDK_OSX_BIGSUR)
+        {
+          if (![window_impl->view lockFocusIfCanDraw])
+            return NULL;
+        }
     }
+#if MAC_OS_X_VERSION_MAX_ALLOWED < 101000
+    cg_context = [[NSGraphicsContext currentContext] graphicsPort];
+#else
+  if (gdk_quartz_osx_version () < GDK_OSX_YOSEMITE)
+    cg_context = [[NSGraphicsContext currentContext] graphicsPort];
+  else
+    cg_context = [[NSGraphicsContext currentContext] CGContext];
+#endif
 
-  cg_context = [[NSGraphicsContext currentContext] graphicsPort];
+  if (!cg_context)
+    return NULL;
   CGContextSaveGState (cg_context);
   CGContextSetAllowsAntialiasing (cg_context, antialias);
 
@@ -146,8 +191,7 @@ gdk_window_impl_quartz_get_context (GdkWindowImplQuartz *window_impl,
    * in gdk_quartz_ref_cairo_surface () */
   scale = CGContextConvertSizeToDeviceSpace (cg_context,
                                              CGSizeMake (1.0, 1.0));
-  CGContextScaleCTM (cg_context, 1.0 / scale.width, 1.0 / scale.height);
-
+  CGContextScaleCTM (cg_context, 1.0 / fabs(scale.width), 1.0 / fabs(scale.height));
   return cg_context;
 }
 
@@ -155,72 +199,44 @@ static void
 gdk_window_impl_quartz_release_context (GdkWindowImplQuartz *window_impl,
                                         CGContextRef         cg_context)
 {
-  CGContextRestoreGState (cg_context);
-  CGContextSetAllowsAntialiasing (cg_context, TRUE);
+  if (cg_context)
+    {
+      CGContextRestoreGState (cg_context);
+      CGContextSetAllowsAntialiasing (cg_context, TRUE);
+    }
 
   /* See comment in gdk_quartz_window_get_context(). */
   if (window_impl->in_paint_rect_count == 0)
     {
       _gdk_quartz_window_flush (window_impl);
-      [window_impl->view unlockFocus];
+
+      /* As per gdk_window_impl_quartz_get_context(), the NSView
+        * focus-locking API set was deprecated in MacOS 10.14 and has
+        * a significant cost in MacOS 11 - every lock/unlock seems to 
+        * trigger a drawRect: call for the entire window.  To return the
+        * lost performance, do not use the locking API in MacOS 11+
+        */
+      if(gdk_quartz_osx_version() < GDK_OSX_BIGSUR)
+        [window_impl->view unlockFocus];
     }
-}
-
-static void
-check_grab_unmap (GdkWindow *window)
-{
-  GList *list, *l;
-  GdkDisplay *display = gdk_window_get_display (window);
-  GdkDeviceManager *device_manager;
-
-  device_manager = gdk_display_get_device_manager (display);
-  list = gdk_device_manager_list_devices (device_manager,
-                                          GDK_DEVICE_TYPE_FLOATING);
-  for (l = list; l; l = l->next)
-    {
-      _gdk_display_end_device_grab (display, l->data, 0, window, TRUE);
-    }
-
-  g_list_free (list);
-}
-
-static void
-check_grab_destroy (GdkWindow *window)
-{
-  GList *list, *l;
-  GdkDisplay *display = gdk_window_get_display (window);
-  GdkDeviceManager *device_manager;
-
-  /* Make sure there is no lasting grab in this native window */
-  device_manager = gdk_display_get_device_manager (display);
-  list = gdk_device_manager_list_devices (device_manager,
-                                          GDK_DEVICE_TYPE_MASTER);
-
-  for (l = list; l; l = l->next)
-    {
-      GdkDeviceGrabInfo *grab;
-
-      grab = _gdk_display_get_last_device_grab (display, l->data);
-      if (grab && grab->native_window == window)
-        {
-          /* Serials are always 0 in quartz, but for clarity: */
-          grab->serial_end = grab->serial_start;
-          grab->implicit_ungrab = TRUE;
-        }
-    }
-
-  g_list_free (list);
 }
 
 static void
 gdk_window_impl_quartz_finalize (GObject *object)
 {
   GdkWindowImplQuartz *impl = GDK_WINDOW_IMPL_QUARTZ (object);
+  GdkDisplay *display = gdk_window_get_display (impl->wrapper);
+  GdkSeat *seat = gdk_display_get_default_seat (display);
 
-  check_grab_destroy (GDK_WINDOW_IMPL_QUARTZ (object)->wrapper);
+  gdk_seat_ungrab (seat);
 
   if (impl->transient_for)
     g_object_unref (impl->transient_for);
+
+  if (impl->view)
+    [[NSNotificationCenter defaultCenter] removeObserver: impl->toplevel
+                                       name: @"NSViewFrameDidChangeNotification"
+                                     object: impl->view];
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -235,10 +251,14 @@ gdk_window_impl_quartz_finalize (GObject *object)
  *
  * If drawable NULL, no flushing is done, only registering that a flush was
  * done externally.
+ *
+ * Note: As of MacOS 10.14 NSWindow flushWindow is deprecated because
+ * Quartz has the ability to handle deferred drawing on its own.
  */
 void
 _gdk_quartz_window_flush (GdkWindowImplQuartz *window_impl)
 {
+#if MAC_OS_X_VERSION_MIN_REQUIRED < 101400
   static struct timeval prev_tv;
   static gint intervals[4];
   static gint index;
@@ -264,6 +284,7 @@ _gdk_quartz_window_flush (GdkWindowImplQuartz *window_impl)
     }
   else
     prev_tv = tv;
+#endif
 }
 
 static cairo_user_data_key_t gdk_quartz_cairo_key;
@@ -297,15 +318,15 @@ gdk_quartz_create_cairo_surface (GdkWindowImplQuartz *impl,
 
   cg_context = gdk_quartz_window_get_context (impl, TRUE);
 
-  if (!cg_context)
-    return NULL;
-
   surface_data = g_new (GdkQuartzCairoSurfaceData, 1);
   surface_data->window_impl = impl;
   surface_data->cg_context = cg_context;
 
-  surface = cairo_quartz_surface_create_for_cg_context (cg_context,
-                                                        width, height);
+  if (cg_context)
+    surface = cairo_quartz_surface_create_for_cg_context (cg_context,
+                                                          width, height);
+  else
+    surface = cairo_quartz_surface_create(CAIRO_FORMAT_ARGB32, width, height);
 
   cairo_surface_set_user_data (surface, &gdk_quartz_cairo_key,
                                surface_data,
@@ -394,7 +415,7 @@ _gdk_quartz_window_process_updates_recurse (GdkWindow *window,
 
           toplevel_impl = (GdkWindowImplQuartz *)toplevel->impl;
           nswindow = toplevel_impl->toplevel;
-
+#if MAC_OS_X_VERSION_MIN_REQUIRED < 101400
           /* In theory, we could skip the flush disabling, since we only
            * have one NSView.
            */
@@ -404,6 +425,7 @@ _gdk_quartz_window_process_updates_recurse (GdkWindow *window,
               [nswindow disableFlushWindow];
               update_nswindows = g_slist_prepend (update_nswindows, nswindow);
             }
+#endif
         }
     }
 
@@ -427,16 +449,17 @@ _gdk_quartz_display_before_process_all_updates (GdkDisplay *display)
     {
       [NSAnimationContext endGrouping];
     }
+#if MAC_OS_X_VERSION_MIN_REQUIRED < 101100
   else
     {
       NSDisableScreenUpdates ();
     }
+#endif
 }
 
 void
 _gdk_quartz_display_after_process_all_updates (GdkDisplay *display)
 {
-  GSList *old_update_nswindows = update_nswindows;
   GSList *tmp_list = update_nswindows;
 
   update_nswindows = NULL;
@@ -448,15 +471,14 @@ _gdk_quartz_display_after_process_all_updates (GdkDisplay *display)
       [[nswindow contentView] displayIfNeeded];
 
       _gdk_quartz_window_flush (NULL);
-
+#if MAC_OS_X_VERSION_MIN_REQUIRED < 101400
       [nswindow enableFlushWindow];
       [nswindow flushWindow];
+#endif
       [nswindow release];
 
-      tmp_list = tmp_list->next;
+      tmp_list = g_slist_remove_link (tmp_list, tmp_list);
     }
-
-  g_slist_free (old_update_nswindows);
 
   in_process_all_updates = FALSE;
 
@@ -464,10 +486,12 @@ _gdk_quartz_display_after_process_all_updates (GdkDisplay *display)
     {
       [NSAnimationContext beginGrouping];
     }
+#if MAC_OS_X_VERSION_MIN_REQUIRED < 101100
   else
     {
       NSEnableScreenUpdates ();
     }
+#endif
 }
 
 static const gchar *
@@ -549,7 +573,11 @@ _gdk_quartz_window_debug_highlight (GdkWindow *window, gint number)
     [debug_window[number] close];
 
   debug_window[number] = [[NSWindow alloc] initWithContentRect:rect
-                                                     styleMask:NSBorderlessWindowMask
+#if MAC_OS_X_VERSION_MIN_REQUIRED < 101200
+                                                     styleMask:(NSUInteger)GDK_QUARTZ_BORDERLESS_WINDOW
+#else
+                                                     styleMask:(NSWindowStyleMask)GDK_QUARTZ_BORDERLESS_WINDOW
+#endif
 			                               backing:NSBackingStoreBuffered
 			                                 defer:NO];
 
@@ -611,10 +639,10 @@ _gdk_quartz_window_gdk_xy_to_xy (gint  gdk_x,
   GdkQuartzScreen *screen_quartz = GDK_QUARTZ_SCREEN (_gdk_screen);
 
   if (ns_y)
-    *ns_y = screen_quartz->height - gdk_y + screen_quartz->min_y;
+    *ns_y = screen_quartz->orig_y - gdk_y;
 
   if (ns_x)
-    *ns_x = gdk_x + screen_quartz->min_x;
+    *ns_x = gdk_x + screen_quartz->orig_x;
 }
 
 void
@@ -626,10 +654,10 @@ _gdk_quartz_window_xy_to_gdk_xy (gint  ns_x,
   GdkQuartzScreen *screen_quartz = GDK_QUARTZ_SCREEN (_gdk_screen);
 
   if (gdk_y)
-    *gdk_y = screen_quartz->height - ns_y + screen_quartz->min_y;
+    *gdk_y = screen_quartz->orig_y - ns_y;
 
   if (gdk_x)
-    *gdk_x = ns_x - screen_quartz->min_x;
+    *gdk_x = ns_x - screen_quartz->orig_x;
 }
 
 void
@@ -731,14 +759,37 @@ _gdk_quartz_window_find_child (GdkWindow *window,
   return NULL;
 }
 
+/* Raises a transient window.
+ */
+static void
+raise_transient (GdkWindowImplQuartz *impl)
+{
+  /* In quartz the transient-for behavior is implemented by
+   * attaching the transient-for GdkNSWindows to the parent's
+   * GdkNSWindow. Stacking is managed by Quartz and the order
+   * is that of the parent's childWindows array. The only way
+   * to change that order is to remove the child from the
+   * parent and then add it back in.
+   */
+  GdkWindowImplQuartz *parent_impl =
+        GDK_WINDOW_IMPL_QUARTZ (impl->transient_for->impl);
+  [parent_impl->toplevel removeChildWindow:impl->toplevel];
+  [parent_impl->toplevel addChildWindow:impl->toplevel
+                         ordered:NSWindowAbove];
+}
 
 void
 _gdk_quartz_window_did_become_main (GdkWindow *window)
 {
+  GdkWindowImplQuartz *impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
+
   main_window_stack = g_slist_remove (main_window_stack, window);
 
   if (window->window_type != GDK_WINDOW_TEMP)
     main_window_stack = g_slist_prepend (main_window_stack, window);
+
+  if (impl->transient_for)
+    raise_transient (impl);
 
   clear_toplevel_order ();
 }
@@ -812,6 +863,7 @@ _gdk_quartz_display_create_window_impl (GdkDisplay    *display,
 {
   GdkWindowImplQuartz *impl;
   GdkWindowImplQuartz *parent_impl;
+  GdkWindowTypeHint    type_hint = GDK_WINDOW_TYPE_HINT_NORMAL;
 
   GDK_QUARTZ_ALLOC_POOL;
 
@@ -843,6 +895,13 @@ _gdk_quartz_display_create_window_impl (GdkDisplay    *display,
 				  NULL));
 
   impl->view = NULL;
+  impl->toplevel = NULL;
+
+  if (attributes_mask & GDK_WA_TYPE_HINT)
+    {
+      type_hint = attributes->type_hint;
+      gdk_window_set_type_hint (window, type_hint);
+    }
 
   switch (window->window_type)
     {
@@ -873,17 +932,16 @@ _gdk_quartz_display_create_window_impl (GdkDisplay    *display,
                                    window->height);
 
         if (window->window_type == GDK_WINDOW_TEMP ||
-            ((attributes_mask & GDK_WA_TYPE_HINT) &&
-              attributes->type_hint == GDK_WINDOW_TYPE_HINT_SPLASHSCREEN))
+            type_hint == GDK_WINDOW_TYPE_HINT_SPLASHSCREEN)
           {
-            style_mask = NSBorderlessWindowMask;
+            style_mask = GDK_QUARTZ_BORDERLESS_WINDOW;
           }
         else
           {
-            style_mask = (NSTitledWindowMask |
-                          NSClosableWindowMask |
-                          NSMiniaturizableWindowMask |
-                          NSResizableWindowMask);
+            style_mask = (GDK_QUARTZ_TITLED_WINDOW |
+                          GDK_QUARTZ_CLOSABLE_WINDOW |
+                          GDK_QUARTZ_MINIATURIZABLE_WINDOW |
+                          GDK_QUARTZ_RESIZABLE_WINDOW);
           }
 
 	impl->toplevel = [[GdkQuartzNSWindow alloc] initWithContentRect:content_rect 
@@ -891,6 +949,9 @@ _gdk_quartz_display_create_window_impl (GdkDisplay    *display,
 			                                        backing:NSBackingStoreBuffered
 			                                          defer:NO
                                                                   screen:screen];
+
+        if (type_hint != GDK_WINDOW_TYPE_HINT_NORMAL)
+          impl->toplevel.excludedFromWindowsMenu = true;
 
 	if (attributes_mask & GDK_WA_TITLE)
 	  title = attributes->title;
@@ -911,6 +972,10 @@ _gdk_quartz_display_create_window_impl (GdkDisplay    *display,
 	impl->view = [[GdkQuartzView alloc] initWithFrame:content_rect];
 	[impl->view setGdkWindow:window];
 	[impl->toplevel setContentView:impl->view];
+        [[NSNotificationCenter defaultCenter] addObserver: impl->toplevel
+                                      selector: @selector (windowDidResize:)
+                                      name: @"NSViewFrameDidChangeNotification"
+                                      object: impl->view];
 	[impl->view release];
       }
       break;
@@ -943,9 +1008,6 @@ _gdk_quartz_display_create_window_impl (GdkDisplay    *display,
     }
 
   GDK_QUARTZ_RELEASE_POOL;
-
-  if (attributes_mask & GDK_WA_TYPE_HINT)
-    gdk_window_set_type_hint (window, attributes->type_hint);
 }
 
 void
@@ -1143,14 +1205,15 @@ void
 gdk_window_quartz_hide (GdkWindow *window)
 {
   GdkWindowImplQuartz *impl;
+  GdkDisplay *display = gdk_window_get_display (window);
+  GdkSeat *seat = gdk_display_get_default_seat (display);
+  gdk_seat_ungrab (seat);
 
   /* Make sure we're not stuck in fullscreen mode. */
-#ifndef AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
   if (get_fullscreen_geometry (window))
     SetSystemUIMode (kUIModeNormal, 0);
 #endif
-
-  check_grab_unmap (window);
 
   _gdk_window_clear_update_area (window);
 
@@ -1315,6 +1378,9 @@ move_resize_window_internal (GdkWindow *window,
           cairo_region_destroy (old_region);
         }
     }
+
+  if (window->gl_paint_context != NULL)
+    [GDK_QUARTZ_GL_CONTEXT (window->gl_paint_context)->gl_context update];
 
   GDK_QUARTZ_RELEASE_POOL;
 }
@@ -1490,7 +1556,11 @@ gdk_window_quartz_raise (GdkWindow *window)
       GdkWindowImplQuartz *impl;
 
       impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
-      [impl->toplevel orderFront:impl->toplevel];
+
+      if (impl->transient_for)
+        raise_transient (impl);
+      else
+        [impl->toplevel orderFront:impl->toplevel];
 
       clear_toplevel_order ();
     }
@@ -1622,7 +1692,7 @@ gdk_window_quartz_get_geometry (GdkWindow *window,
        * windows with borders and the root relative coordinates
        * otherwise.
        */
-      if ([impl->toplevel styleMask] == NSBorderlessWindowMask)
+      if ([impl->toplevel styleMask] == GDK_QUARTZ_BORDERLESS_WINDOW)
         {
           _gdk_quartz_window_xy_to_gdk_xy (ns_rect.origin.x,
                                            ns_rect.origin.y + ns_rect.size.height,
@@ -2171,6 +2241,46 @@ _gdk_quartz_window_update_has_shadow (GdkWindowImplQuartz *impl)
 }
 
 static void
+_gdk_quartz_window_set_collection_behavior (NSWindow *nswindow,
+                                            GdkWindowTypeHint hint)
+{
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= 101100
+#define GDK_QUARTZ_ALLOWS_TILING NSWindowCollectionBehaviorFullScreenAllowsTiling
+#define GDK_QUARTZ_DISALLOWS_TILING NSWindowCollectionBehaviorFullScreenDisallowsTiling
+#else
+#define GDK_QUARTZ_ALLOWS_TILING 1 << 11
+#define GDK_QUARTZ_DISALLOWS_TILING 1 << 12
+#endif
+  if (gdk_quartz_osx_version() >= GDK_OSX_LION)
+    {
+      /* Fullscreen Collection Behavior */
+      NSWindowCollectionBehavior behavior = [nswindow collectionBehavior];
+      switch (hint)
+        {
+        case GDK_WINDOW_TYPE_HINT_NORMAL:
+        case GDK_WINDOW_TYPE_HINT_SPLASHSCREEN:
+          behavior &= ~(NSWindowCollectionBehaviorFullScreenAuxiliary &
+                        GDK_QUARTZ_DISALLOWS_TILING);
+          behavior |= (NSWindowCollectionBehaviorFullScreenPrimary |
+                       GDK_QUARTZ_ALLOWS_TILING);
+
+          break;
+        default:
+          behavior &= ~(NSWindowCollectionBehaviorFullScreenPrimary &
+                        GDK_QUARTZ_ALLOWS_TILING);
+          behavior |= (NSWindowCollectionBehaviorFullScreenAuxiliary |
+                       GDK_QUARTZ_DISALLOWS_TILING);
+          break;
+        }
+      [nswindow setCollectionBehavior:behavior];
+    }
+#undef GDK_QUARTZ_ALLOWS_TILING
+#undef GDK_QUARTZ_DISALLOWS_TILING
+#endif
+}
+
+static void
 gdk_quartz_window_set_type_hint (GdkWindow        *window,
                                  GdkWindowTypeHint hint)
 {
@@ -2189,6 +2299,8 @@ gdk_quartz_window_set_type_hint (GdkWindow        *window,
     return;
 
   _gdk_quartz_window_update_has_shadow (impl);
+  if (impl->toplevel)
+    _gdk_quartz_window_set_collection_behavior (impl->toplevel, hint);
   [impl->toplevel setLevel: window_type_hint_to_level (hint)];
   [impl->toplevel setHidesOnDeactivate: window_type_hint_to_hides_on_deactivate (hint)];
 }
@@ -2346,16 +2458,20 @@ gdk_quartz_window_set_decorations (GdkWindow       *window,
 
   impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
 
-  if (decorations == 0 || GDK_WINDOW_TYPE (window) == GDK_WINDOW_TEMP ||
+  if (GDK_WINDOW_TYPE (window) == GDK_WINDOW_TEMP ||
       impl->type_hint == GDK_WINDOW_TYPE_HINT_SPLASHSCREEN )
     {
-      new_mask = NSBorderlessWindowMask;
+      new_mask = GDK_QUARTZ_BORDERLESS_WINDOW;
+    }
+  else if (decorations == 0) {
+      new_mask = GDK_QUARTZ_BORDERLESS_WINDOW | GDK_QUARTZ_MINIATURIZABLE_WINDOW;
     }
   else
     {
       /* FIXME: Honor other GDK_DECOR_* flags. */
-      new_mask = (NSTitledWindowMask | NSClosableWindowMask |
-                    NSMiniaturizableWindowMask | NSResizableWindowMask);
+      new_mask = (GDK_QUARTZ_TITLED_WINDOW | GDK_QUARTZ_CLOSABLE_WINDOW |
+                  GDK_QUARTZ_MINIATURIZABLE_WINDOW |
+                  GDK_QUARTZ_RESIZABLE_WINDOW);
     }
 
   GDK_QUARTZ_ALLOC_POOL;
@@ -2373,14 +2489,14 @@ gdk_quartz_window_set_decorations (GdkWindow       *window,
       /* Properly update the size of the window when the titlebar is
        * added or removed.
        */
-      if (old_mask == NSBorderlessWindowMask &&
-          new_mask != NSBorderlessWindowMask)
+      if (old_mask == GDK_QUARTZ_BORDERLESS_WINDOW &&
+          new_mask != GDK_QUARTZ_BORDERLESS_WINDOW)
         {
           rect = [NSWindow frameRectForContentRect:rect styleMask:new_mask];
 
         }
-      else if (old_mask != NSBorderlessWindowMask &&
-               new_mask == NSBorderlessWindowMask)
+      else if (old_mask != GDK_QUARTZ_BORDERLESS_WINDOW &&
+               new_mask == GDK_QUARTZ_BORDERLESS_WINDOW)
         {
           rect = [NSWindow contentRectForFrameRect:rect styleMask:old_mask];
         }
@@ -2396,13 +2512,14 @@ gdk_quartz_window_set_decorations (GdkWindow       *window,
 
           [(id<CanSetStyleMask>)impl->toplevel setStyleMask:new_mask];
 
-          /* It appears that unsetting and then resetting NSTitledWindowMask
-           * does not reset the title in the title bar as might be expected.
+          /* It appears that unsetting and then resetting
+           * GDK_QUARTZ_TITLED_WINDOW does not reset the title in the
+           * title bar as might be expected.
            *
            * In theory we only need to set this if new_mask includes
-           * NSTitledWindowMask. This behaved extremely oddly when
+           * GDK_QUARTZ_TITLED_WINDOW. This behaved extremely oddly when
            * conditionalized upon that and since it has no side effects (i.e.
-           * if NSTitledWindowMask is not requested, the title will not be
+           * if GDK_QUARTZ_TITLED_WINDOW is not requested, the title will not be
            * displayed) just do it unconditionally. We also must null check
            * 'title' before setting it to avoid crashing.
            */
@@ -2435,10 +2552,9 @@ gdk_quartz_window_set_decorations (GdkWindow       *window,
           [impl->toplevel setContentView:old_view];
         }
 
-      if (new_mask == NSBorderlessWindowMask)
+      if (new_mask == GDK_QUARTZ_BORDERLESS_WINDOW)
         {
           [impl->toplevel setContentSize:rect.size];
-          [impl->toplevel setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
         }
       else
         [impl->toplevel setFrame:rect display:YES];
@@ -2470,7 +2586,7 @@ gdk_quartz_window_get_decorations (GdkWindow       *window,
   if (decorations)
     {
       /* Borderless is 0, so we can't check it as a bit being set. */
-      if ([impl->toplevel styleMask] == NSBorderlessWindowMask)
+      if ([impl->toplevel styleMask] == GDK_QUARTZ_BORDERLESS_WINDOW)
         {
           *decorations = 0;
         }
@@ -2513,19 +2629,19 @@ gdk_quartz_window_set_functions (GdkWindow    *window,
       NSUInteger mask = [impl->toplevel styleMask];
 
       if (min)
-        mask = mask | NSMiniaturizableWindowMask;
+        mask = mask | GDK_QUARTZ_MINIATURIZABLE_WINDOW;
       else
-        mask = mask & ~NSMiniaturizableWindowMask;
+        mask = mask & ~GDK_QUARTZ_MINIATURIZABLE_WINDOW;
 
       if (max)
-        mask = mask | NSResizableWindowMask;
+        mask = mask | GDK_QUARTZ_RESIZABLE_WINDOW;
       else
-        mask = mask & ~NSResizableWindowMask;
+        mask = mask & ~GDK_QUARTZ_RESIZABLE_WINDOW;
 
       if (close)
-        mask = mask | NSClosableWindowMask;
+        mask = mask | GDK_QUARTZ_CLOSABLE_WINDOW;
       else
-        mask = mask & ~NSClosableWindowMask;
+        mask = mask & ~GDK_QUARTZ_CLOSABLE_WINDOW;
 
       [impl->toplevel setStyleMask:mask];
     }
@@ -2651,14 +2767,17 @@ gdk_quartz_window_deiconify (GdkWindow *window)
     }
 }
 
-#ifdef AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER
-
 static gboolean
 window_is_fullscreen (GdkWindow *window)
 {
   GdkWindowImplQuartz *impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
 
-  return ([impl->toplevel styleMask] & NSFullScreenWindowMask) != 0;
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+  if (gdk_quartz_osx_version() >= GDK_OSX_LION)
+    return ([impl->toplevel styleMask] & GDK_QUARTZ_FULLSCREEN_WINDOW) != 0;
+  else
+#endif
+    return g_object_get_data (G_OBJECT (window), FULLSCREEN_DATA) != NULL;
 }
 
 static void
@@ -2672,8 +2791,58 @@ gdk_quartz_window_fullscreen (GdkWindow *window)
 
   impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
 
-  if (!window_is_fullscreen (window))
-    [impl->toplevel toggleFullScreen:nil];
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+  if (gdk_quartz_osx_version() >= GDK_OSX_LION)
+    {
+      if (!window_is_fullscreen (window))
+        [impl->toplevel toggleFullScreen:nil];
+    }
+  else
+    {
+#endif
+      FullscreenSavedGeometry *geometry;
+      GdkWindowImplQuartz *impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
+      NSRect frame;
+
+      if (GDK_WINDOW_DESTROYED (window) ||
+          !WINDOW_IS_TOPLEVEL (window))
+        return;
+
+      geometry = get_fullscreen_geometry (window);
+      if (!geometry)
+        {
+          geometry = g_new (FullscreenSavedGeometry, 1);
+
+          geometry->x = window->x;
+          geometry->y = window->y;
+          geometry->width = window->width;
+          geometry->height = window->height;
+
+          if (!gdk_window_get_decorations (window, &geometry->decor))
+            geometry->decor = GDK_DECOR_ALL;
+
+          g_object_set_data_full (G_OBJECT (window),
+                                  FULLSCREEN_DATA, geometry, 
+                                  g_free);
+
+          gdk_window_set_decorations (window, 0);
+
+          frame = [[impl->toplevel screen] frame];
+          move_resize_window_internal (window,
+                                       0, 0, 
+                                       frame.size.width, frame.size.height);
+          [impl->toplevel setContentSize:frame.size];
+          [impl->toplevel makeKeyAndOrderFront:impl->toplevel];
+
+          clear_toplevel_order ();
+        }
+
+      SetSystemUIMode (kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+
+      gdk_synthesize_window_state (window, 0, GDK_WINDOW_STATE_FULLSCREEN);
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+    }
+#endif
 }
 
 static void
@@ -2685,116 +2854,81 @@ gdk_quartz_window_unfullscreen (GdkWindow *window)
       !WINDOW_IS_TOPLEVEL (window))
     return;
 
-  impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
-
-  if (window_is_fullscreen (window))
-    [impl->toplevel toggleFullScreen:nil];
-}
-
-void
-_gdk_quartz_window_update_fullscreen_state (GdkWindow *window)
-{
-  gboolean is_fullscreen;
-  gboolean was_fullscreen;
-
-  is_fullscreen = window_is_fullscreen (window);
-  was_fullscreen = (gdk_window_get_state (window) & GDK_WINDOW_STATE_FULLSCREEN) != 0;
-
-  if (is_fullscreen != was_fullscreen)
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+  if (gdk_quartz_osx_version() >= GDK_OSX_LION)
     {
-      if (is_fullscreen)
-        gdk_synthesize_window_state (window, 0, GDK_WINDOW_STATE_FULLSCREEN);
-      else
-        gdk_synthesize_window_state (window, GDK_WINDOW_STATE_FULLSCREEN, 0);
+      impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
+
+      if (window_is_fullscreen (window))
+        [impl->toplevel toggleFullScreen:nil];
     }
+  else
+    {
+#endif
+      GdkWindowImplQuartz *impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
+      FullscreenSavedGeometry *geometry;
+
+      if (GDK_WINDOW_DESTROYED (window) ||
+          !WINDOW_IS_TOPLEVEL (window))
+        return;
+
+      geometry = get_fullscreen_geometry (window);
+      if (geometry)
+        {
+          SetSystemUIMode (kUIModeNormal, 0);
+
+          move_resize_window_internal (window,
+                                       geometry->x,
+                                       geometry->y,
+                                       geometry->width,
+                                       geometry->height);
+
+          gdk_window_set_decorations (window, geometry->decor);
+
+          g_object_set_data (G_OBJECT (window), FULLSCREEN_DATA, NULL);
+
+          [impl->toplevel makeKeyAndOrderFront:impl->toplevel];
+          clear_toplevel_order ();
+
+          gdk_synthesize_window_state (window, GDK_WINDOW_STATE_FULLSCREEN, 0);
+        }
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+    }
+#endif
 }
 
-#else
-
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
 static FullscreenSavedGeometry *
 get_fullscreen_geometry (GdkWindow *window)
 {
   return g_object_get_data (G_OBJECT (window), FULLSCREEN_DATA);
 }
-
-static void
-gdk_quartz_window_fullscreen (GdkWindow *window)
-{
-  FullscreenSavedGeometry *geometry;
-  GdkWindowImplQuartz *impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
-  NSRect frame;
-
-  if (GDK_WINDOW_DESTROYED (window) ||
-      !WINDOW_IS_TOPLEVEL (window))
-    return;
-
-  geometry = get_fullscreen_geometry (window);
-  if (!geometry)
-    {
-      geometry = g_new (FullscreenSavedGeometry, 1);
-
-      geometry->x = window->x;
-      geometry->y = window->y;
-      geometry->width = window->width;
-      geometry->height = window->height;
-
-      if (!gdk_window_get_decorations (window, &geometry->decor))
-        geometry->decor = GDK_DECOR_ALL;
-
-      g_object_set_data_full (G_OBJECT (window),
-                              FULLSCREEN_DATA, geometry, 
-                              g_free);
-
-      gdk_window_set_decorations (window, 0);
-
-      frame = [[impl->toplevel screen] frame];
-      move_resize_window_internal (window,
-                                   0, 0, 
-                                   frame.size.width, frame.size.height);
-      [impl->toplevel setContentSize:frame.size];
-      [impl->toplevel makeKeyAndOrderFront:impl->toplevel];
-
-      clear_toplevel_order ();
-    }
-
-  SetSystemUIMode (kUIModeAllHidden, kUIOptionAutoShowMenuBar);
-
-  gdk_synthesize_window_state (window, 0, GDK_WINDOW_STATE_FULLSCREEN);
-}
-
-static void
-gdk_quartz_window_unfullscreen (GdkWindow *window)
-{
-  GdkWindowImplQuartz *impl = GDK_WINDOW_IMPL_QUARTZ (window->impl);
-  FullscreenSavedGeometry *geometry;
-
-  if (GDK_WINDOW_DESTROYED (window) ||
-      !WINDOW_IS_TOPLEVEL (window))
-    return;
-
-  geometry = get_fullscreen_geometry (window);
-  if (geometry)
-    {
-      SetSystemUIMode (kUIModeNormal, 0);
-
-      move_resize_window_internal (window,
-                                   geometry->x,
-                                   geometry->y,
-                                   geometry->width,
-                                   geometry->height);
-      
-      gdk_window_set_decorations (window, geometry->decor);
-
-      g_object_set_data (G_OBJECT (window), FULLSCREEN_DATA, NULL);
-
-      [impl->toplevel makeKeyAndOrderFront:impl->toplevel];
-      clear_toplevel_order ();
-
-      gdk_synthesize_window_state (window, GDK_WINDOW_STATE_FULLSCREEN, 0);
-    }
-}
-
 #endif
+
+void
+_gdk_quartz_window_update_fullscreen_state (GdkWindow *window)
+{
+  if (GDK_WINDOW_DESTROYED (window) || !WINDOW_IS_TOPLEVEL (window))
+    return;
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+  if (gdk_quartz_osx_version() >= GDK_OSX_LION)
+    {
+      gboolean is_fullscreen = window_is_fullscreen (window);
+      gboolean was_fullscreen = (gdk_window_get_state (window) &
+                                 GDK_WINDOW_STATE_FULLSCREEN) != 0;
+
+      if (is_fullscreen != was_fullscreen)
+        {
+          if (is_fullscreen)
+            gdk_synthesize_window_state (window, 0, GDK_WINDOW_STATE_FULLSCREEN);
+          else
+            gdk_synthesize_window_state (window, GDK_WINDOW_STATE_FULLSCREEN, 0);
+        }
+    }
+#endif
+}
 
 static void
 gdk_quartz_window_set_keep_above (GdkWindow *window,
@@ -2834,31 +2968,26 @@ gdk_quartz_window_set_keep_below (GdkWindow *window,
   [impl->toplevel setLevel: level - (setting ? 1 : 0)];
 }
 
+/* X11 "feature" not useful in other backends. */
 static GdkWindow *
 gdk_quartz_window_get_group (GdkWindow *window)
 {
-  g_return_val_if_fail (GDK_WINDOW_TYPE (window) != GDK_WINDOW_CHILD, NULL);
-
-  if (GDK_WINDOW_DESTROYED (window) ||
-      !WINDOW_IS_TOPLEVEL (window))
     return NULL;
-
-  /* FIXME: Implement */
-
-  return NULL;
 }
 
+/* X11 "feature" not useful in other backends. */
 static void
 gdk_quartz_window_set_group (GdkWindow *window,
                              GdkWindow *leader)
 {
-  /* FIXME: Implement */	
 }
 
 static void
 gdk_quartz_window_destroy_notify (GdkWindow *window)
 {
-  check_grab_destroy (window);
+  GdkDisplay *display = gdk_window_get_display (window);
+  GdkSeat *seat = gdk_display_get_default_seat (display);
+  gdk_seat_ungrab (seat);
 }
 
 static void
@@ -3007,7 +3136,6 @@ gdk_window_impl_quartz_class_init (GdkWindowImplQuartzClass *klass)
   impl_class->set_decorations = gdk_quartz_window_set_decorations;
   impl_class->get_decorations = gdk_quartz_window_get_decorations;
   impl_class->set_functions = gdk_quartz_window_set_functions;
-  impl_class->set_functions = gdk_quartz_window_set_functions;
   impl_class->begin_resize_drag = gdk_quartz_window_begin_resize_drag;
   impl_class->begin_move_drag = gdk_quartz_window_begin_move_drag;
   impl_class->set_opacity = gdk_quartz_window_set_opacity;
@@ -3024,6 +3152,7 @@ gdk_window_impl_quartz_class_init (GdkWindowImplQuartzClass *klass)
   impl_class->delete_property = _gdk_quartz_window_delete_property;
 
   impl_class->create_gl_context = gdk_quartz_window_create_gl_context;
+  impl_class->invalidate_for_new_frame = gdk_quartz_window_invalidate_for_new_frame;
 
   impl_quartz_class->get_context = gdk_window_impl_quartz_get_context;
   impl_quartz_class->release_context = gdk_window_impl_quartz_release_context;
@@ -3104,7 +3233,7 @@ gdk_root_window_impl_quartz_get_context (GdkWindowImplQuartz *window,
   colorspace = CGColorSpaceCreateWithName (kCGColorSpaceGenericRGB);
   cg_context = CGBitmapContextCreate (NULL,
                                       1, 1, 8, 4, colorspace,
-                                      kCGImageAlphaPremultipliedLast);
+                                      (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
   CGColorSpaceRelease (colorspace);
 
   return cg_context;

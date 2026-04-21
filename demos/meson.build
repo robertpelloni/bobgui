@@ -17,3 +17,6 @@ subdir('print-editor')
 if cc.get_id() != 'msvc'
   subdir('icon-editor')
 endif
+  subdir('icon-browser')
+  subdir('widget-factory')
+  subdir('gtk-demo')

@@ -68,8 +68,8 @@
  *
  * # GtkScale as GtkBuildable
  *
- * GtkScale supports a custom <marks> element, which can contain multiple
- * <mark> elements. The “value” and “position” attributes have the same
+ * GtkScale supports a custom `<marks>` element, which can contain multiple
+ * `<mark>` elements. The “value” and “position” attributes have the same
  * meaning as gtk_scale_add_mark() parameters of the same name. If the
  * element is not empty, its content is taken as the markup to show at
  * the mark. It can be translated with the usual ”translatable” and
@@ -1951,7 +1951,7 @@ weed_out_neg_zero (gchar *str,
       gchar neg_zero[8];
       g_snprintf (neg_zero, 8, "%0.*f", digits, -0.0);
       if (strcmp (neg_zero, str) == 0)
-        memmove (str, str + 1, strlen (str) - 1);
+        memmove (str, str + 1, strlen (str));
     }
   return str;
 }
@@ -2020,23 +2020,26 @@ gtk_scale_get_layout (GtkScale *scale)
 
   if (!priv->layout && priv->draw_value)
     {
+      PangoLayout *layout;
       int min_layout_width;
 
-      priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (scale), NULL);
-      gtk_css_node_update_layout_attributes (gtk_css_gadget_get_node (priv->value_gadget), priv->layout);
-
+      layout = gtk_widget_create_pango_layout (GTK_WIDGET (scale), NULL);
+      gtk_css_node_update_layout_attributes (gtk_css_gadget_get_node (priv->value_gadget), layout);
       gtk_css_gadget_get_preferred_size (priv->value_gadget,
                                          GTK_ORIENTATION_HORIZONTAL, -1,
                                          &min_layout_width, NULL,
                                          NULL, NULL);
-      pango_layout_set_width (priv->layout, min_layout_width * PANGO_SCALE);
+
+      pango_layout_set_width (layout, min_layout_width * PANGO_SCALE);
 
       if (priv->value_pos == GTK_POS_LEFT)
-        pango_layout_set_alignment (priv->layout, PANGO_ALIGN_RIGHT);
+        pango_layout_set_alignment (layout, PANGO_ALIGN_RIGHT);
       else if (priv->value_pos == GTK_POS_RIGHT)
-        pango_layout_set_alignment (priv->layout, PANGO_ALIGN_LEFT);
+        pango_layout_set_alignment (layout, PANGO_ALIGN_LEFT);
       else
-        pango_layout_set_alignment (priv->layout, PANGO_ALIGN_CENTER);
+        pango_layout_set_alignment (layout, PANGO_ALIGN_CENTER);
+
+      priv->layout = layout;
     }
 
   if (priv->draw_value)

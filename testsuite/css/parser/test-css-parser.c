@@ -31,6 +31,10 @@
 # include <io.h>
 #endif
 
+#ifdef G_OS_WIN32
+# include <io.h>
+#endif
+
 static char *
 test_get_reference_file (const char *css_file)
 {

@@ -82,6 +82,12 @@
                                                                        #expr); \
                                          } G_STMT_END
 #endif
+#include "gdk-private.h"
+#include "pointer-gestures-unstable-v1-client-protocol.h"
+#include "tablet-unstable-v2-client-protocol.h"
+#include "xdg-shell-unstable-v6-client-protocol.h"
+#include "xdg-foreign-unstable-v1-client-protocol.h"
+#include "server-decoration-client-protocol.h"
 
 /**
  * GdkWaylandDisplay:
@@ -132,6 +138,9 @@
 #define XDG_WM_DIALOG_VERSION           1
 #define XDG_TOPLEVEL_ICON_VERSION       1
 #define XDG_WM_BASE_VERSION             7
+#define GTK_SHELL1_VERSION       4
+
+static void _gdk_wayland_display_load_cursor_theme (GdkWaylandDisplay *display_wayland);
 
 G_DEFINE_TYPE (GdkWaylandDisplay, gdk_wayland_display, GDK_TYPE_DISPLAY)
 
@@ -260,6 +269,39 @@ _gdk_wayland_display_async_roundtrip (GdkWaylandDisplay *display_wayland)
 
 /* }}} */
 /* {{{ Global dependency handling */
+static void
+xdg_wm_base_ping (void               *data,
+                  struct xdg_wm_base *xdg_wm_base,
+                  uint32_t            serial)
+{
+  GDK_NOTE (EVENTS,
+            g_message ("ping, shell %p, serial %u\n", xdg_wm_base, serial));
+
+  xdg_wm_base_pong (xdg_wm_base, serial);
+}
+
+static const struct xdg_wm_base_listener xdg_wm_base_listener = {
+  xdg_wm_base_ping,
+};
+
+static void
+zxdg_shell_v6_ping (void                 *data,
+                    struct zxdg_shell_v6 *xdg_shell,
+                    uint32_t              serial)
+{
+  GdkWaylandDisplay *display_wayland = data;
+
+  _gdk_wayland_display_update_serial (display_wayland, serial);
+
+  GDK_NOTE (EVENTS,
+            g_message ("ping, shell %p, serial %u\n", xdg_shell, serial));
+
+  zxdg_shell_v6_pong (xdg_shell, serial);
+}
+
+static const struct zxdg_shell_v6_listener zxdg_shell_v6_listener = {
+  zxdg_shell_v6_ping,
+};
 
 static gboolean
 is_known_global (gpointer key, gpointer value, gpointer user_data)
@@ -735,19 +777,28 @@ gdk_registry_handle_global (void               *data,
         wl_registry_bind (display_wayland->wl_registry, id, &wl_subcompositor_interface, SUBCOMPOSITOR_VERSION);
     }
   else if (match_global (display_wayland, interface, version, zwp_pointer_gestures_v1_interface.name, 0))
+  else if (strcmp (interface, "zwp_pointer_gestures_v1") == 0)
     {
       display_wayland->pointer_gestures =
         wl_registry_bind (display_wayland->wl_registry,
                           id, &zwp_pointer_gestures_v1_interface,
                           MIN (version, POINTER_GESTURES_VERSION));
+                          MIN (version, GDK_ZWP_POINTER_GESTURES_V1_VERSION));
     }
   else if (match_global (display_wayland, interface, version, zwp_primary_selection_device_manager_v1_interface.name, 0))
     {
-      display_wayland->primary_selection_manager =
+      display_wayland->gtk_primary_selection_manager =
         wl_registry_bind(display_wayland->wl_registry, id,
                          &zwp_primary_selection_device_manager_v1_interface, PRIMARY_SELECTION_VERSION);
     }
   else if (match_global (display_wayland, interface, version, zwp_tablet_manager_v2_interface.name, 0))
+  else if (strcmp (interface, "zwp_primary_selection_device_manager_v1") == 0)
+    {
+      display_wayland->zwp_primary_selection_manager_v1 =
+        wl_registry_bind(display_wayland->wl_registry, id,
+                         &zwp_primary_selection_device_manager_v1_interface, 1);
+    }
+  else if (strcmp (interface, "zwp_tablet_manager_v2") == 0)
     {
       display_wayland->tablet_manager =
         wl_registry_bind(display_wayland->wl_registry, id,
@@ -864,6 +915,17 @@ gdk_registry_handle_global (void               *data,
       display_wayland->toplevel_icon =
         wl_registry_bind (display_wayland->wl_registry, id,
                           &xdg_toplevel_icon_manager_v1_interface, XDG_TOPLEVEL_ICON_VERSION);
+    }
+  else if (strcmp(interface, "zxdg_output_manager_v1") == 0)
+    {
+      display_wayland->xdg_output_manager_version = MIN (version, 3);
+      display_wayland->xdg_output_manager =
+        wl_registry_bind (display_wayland->wl_registry, id,
+                          &zxdg_output_manager_v1_interface,
+                          display_wayland->xdg_output_manager_version);
+      display_wayland->xdg_output_version = version;
+      _gdk_wayland_screen_init_xdg_output (display_wayland->screen);
+      _gdk_wayland_display_async_roundtrip (display_wayland);
     }
 
   g_hash_table_insert (display_wayland->known_globals,
@@ -1091,6 +1153,8 @@ gdk_wayland_display_finalize (GObject *object)
 
   g_strfreev (display_wayland->skip_protocols);
 
+  wl_display_disconnect(display_wayland->wl_display);
+
   G_OBJECT_CLASS (gdk_wayland_display_parent_class)->finalize (object);
 }
 
@@ -1145,6 +1209,82 @@ gdk_wayland_display_make_default (GdkDisplay *display)
   startup_id = gdk_get_startup_notification_id ();
   if (startup_id)
     display_wayland->startup_notification_id = g_strdup (startup_id);
+  startup_id = gdk_get_desktop_startup_id ();
+  if (startup_id)
+    display_wayland->startup_notification_id = g_strdup (startup_id);
+}
+
+static gboolean
+gdk_wayland_display_has_pending (GdkDisplay *display)
+{
+  return FALSE;
+}
+
+static GdkWindow *
+gdk_wayland_display_get_default_group (GdkDisplay *display)
+{
+  g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
+
+  return NULL;
+}
+
+
+static gboolean
+gdk_wayland_display_supports_selection_notification (GdkDisplay *display)
+{
+  return FALSE;
+}
+
+static gboolean
+gdk_wayland_display_request_selection_notification (GdkDisplay *display,
+						    GdkAtom     selection)
+
+{
+    return FALSE;
+}
+
+static gboolean
+gdk_wayland_display_supports_clipboard_persistence (GdkDisplay *display)
+{
+  return FALSE;
+}
+
+static void
+gdk_wayland_display_store_clipboard (GdkDisplay    *display,
+				     GdkWindow     *clipboard_window,
+				     guint32        time_,
+				     const GdkAtom *targets,
+				     gint           n_targets)
+{
+}
+
+static gboolean
+gdk_wayland_display_supports_shapes (GdkDisplay *display)
+{
+  return FALSE;
+}
+
+static gboolean
+gdk_wayland_display_supports_input_shapes (GdkDisplay *display)
+{
+  return TRUE;
+}
+
+static gboolean
+gdk_wayland_display_supports_composite (GdkDisplay *display)
+{
+  return FALSE;
+}
+
+static void
+gdk_wayland_display_before_process_all_updates (GdkDisplay *display)
+{
+}
+
+static void
+gdk_wayland_display_after_process_all_updates (GdkDisplay *display)
+{
+  /* Post the damage here instead? */
 }
 
 static gulong
@@ -1194,8 +1334,7 @@ gdk_wayland_display_notify_startup_complete (GdkDisplay  *display,
 
   if (startup_id == NULL)
     {
-      startup_id = free_this = display_wayland->startup_notification_id;
-      display_wayland->startup_notification_id = NULL;
+      startup_id = display_wayland->startup_notification_id;
 
       if (startup_id == NULL)
         return;
@@ -1205,6 +1344,8 @@ gdk_wayland_display_notify_startup_complete (GdkDisplay  *display,
     bobgui_shell1_set_startup_id (display_wayland->bobgui_shell, startup_id);
 
   g_free (free_this);
+  if (display_wayland->gtk_shell)
+    gtk_shell1_set_startup_id (display_wayland->gtk_shell, startup_id);
 }
 
 static GdkKeymap *

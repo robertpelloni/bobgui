@@ -1839,6 +1839,7 @@ drag_drop_callback (BobguiDropTarget    *target,
       if (sidebar->row_placeholder != NULL)
         g_object_get (sidebar->row_placeholder, "order-index", &target_order_index, NULL);
 
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
       reorder_bookmarks (sidebar, BOBGUI_SIDEBAR_ROW (source_row), target_order_index);
       result = TRUE;
     }
@@ -1861,6 +1862,10 @@ drag_drop_callback (BobguiDropTarget    *target,
           g_object_unref (dest_file);
         }
       result = TRUE;
+=======
+      reorder_bookmarks (sidebar, GTK_SIDEBAR_ROW (*source_row), target_order_index);
+      success = TRUE;
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtkplacessidebar.c
     }
   else
     {
@@ -4045,6 +4050,10 @@ bobgui_places_sidebar_dispose (GObject *object)
     }
   g_list_free_full (sidebar->unready_accounts, g_object_unref);
   sidebar->unready_accounts = NULL;
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
+=======
+
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtkplacessidebar.c
   if (sidebar->cloud_manager)
     {
       g_signal_handlers_disconnect_by_data (sidebar->cloud_manager, sidebar);
@@ -4064,6 +4073,7 @@ bobgui_places_sidebar_dispose (GObject *object)
 static void
 bobgui_places_sidebar_finalize (GObject *object)
 {
+<<<<<<< HEAD:bobgui/bobguiplacessidebar.c
   BobguiPlacesSidebar *sidebar = BOBGUI_PLACES_SIDEBAR (object);
 
   g_clear_object (&sidebar->row_actions);
@@ -4071,6 +4081,9 @@ bobgui_places_sidebar_finalize (GObject *object)
   g_clear_pointer (&sidebar->swin, bobgui_widget_unparent);
 
   G_OBJECT_CLASS (bobgui_places_sidebar_parent_class)->finalize (object);
+=======
+  G_OBJECT_CLASS (gtk_places_sidebar_parent_class)->finalize (object);
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtkplacessidebar.c
 }
 
 static void

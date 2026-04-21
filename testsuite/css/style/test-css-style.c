@@ -29,6 +29,10 @@
 
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
+#ifdef G_OS_WIN32
+# include <io.h>
+#endif
+
 /* There shall be no other styles */
 #define BOBGUI_STYLE_PROVIDER_PRIORITY_FORCE G_MAXUINT
 

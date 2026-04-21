@@ -38,6 +38,7 @@
 #ifdef HAVE_EGL
 # include <epoxy/egl.h>
 #endif
+#include "gdkglcontext-win32.h"
 
 struct _GdkWin32PointerDeviceItems
 {
@@ -149,6 +150,15 @@ typedef enum _GdkWin32ProcessDpiAwareness {
   PROCESS_PER_MONITOR_DPI_AWARE = 2
 } GdkWin32ProcessDpiAwareness;
 
+/* Define values for GL type used */
+typedef enum _GdkWin32GLContextType
+{
+  GDK_WIN32_GL_PENDING,
+  GDK_WIN32_GL_NONE,
+  GDK_WIN32_GL_WGL,
+  GDK_WIN32_GL_EGL
+} GdkWin32GLContextType;
+
 /* APIs from shcore.dll */
 typedef HRESULT (WINAPI *funcSetProcessDpiAwareness) (GdkWin32ProcessDpiAwareness value);
 typedef HRESULT (WINAPI *funcGetProcessDpiAwareness) (HANDLE                       handle,
@@ -204,6 +214,11 @@ struct _GdkWin32Display
 
   /* WGL/OpenGL Items */
   int wgl_pixel_format;
+  /* OpenGL Items */
+  GdkWin32GLContextType gl_type;
+  guint gl_version;
+
+  /* WGL Items */
   guint hasWglARBCreateContext : 1;
   guint hasWglARBPixelFormat : 1;
   guint hasGlWINSwapHint : 1;
@@ -213,10 +228,21 @@ struct _GdkWin32Display
   } wgl_quirks;
 
 #ifdef HAVE_EGL
+  /* compensate around Intel OpenGL driver issues on blitting, see issue #3487 */
+  guint needIntelGLWorkaround : 1; 
+
+  /* EGL (Angle) Items */
+  HDC hdc_egl_temp;
+
+#ifdef GDK_WIN32_ENABLE_EGL
+  EGLDisplay egl_disp;
+  EGLConfig egl_config;
   guint hasEglKHRCreateContext : 1;
   guint hasEglSurfacelessContext : 1;
   EGLint egl_min_swap_interval;
 #endif
+
+  GPtrArray *monitors;
 
   /* HiDPI Items */
   PROCESS_DPI_AWARENESS dpi_aware_type;
@@ -243,6 +269,7 @@ struct _GdkWin32Display
 
   /* Running CPU items */
   guint running_on_arm64 : 1;
+  /* Running CPU items */
 };
 
 struct _GdkWin32DisplayClass

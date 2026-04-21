@@ -110,10 +110,10 @@ handle_focus_change (GdkEvent *event)
   if (!gdk_crossing_event_get_focus (event) || toplevel->has_focus_window)
     return;
 
-  had_focus = APPEARS_FOCUSED (toplevel);
+  had_focus = HAS_FOCUS (toplevel);
   toplevel->has_pointer_focus = focus_in;
 
-  if (APPEARS_FOCUSED (toplevel) != had_focus)
+  if (HAS_FOCUS (toplevel) != had_focus)
     {
       GdkEvent *focus_event;
 

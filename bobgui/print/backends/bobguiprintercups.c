@@ -75,7 +75,10 @@ bobgui_printer_cups_init (BobguiPrinterCups *printer)
   printer->original_resource = NULL;
   printer->original_port = 0;
   printer->request_original_uri = FALSE;
+<<<<<<< HEAD:bobgui/print/backends/bobguiprintercups.c
 #if CUPS_VERSION_MAJOR < 3
+=======
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:modules/printbackends/cups/gtkprintercups.c
   printer->ppd_name = NULL;
   printer->ppd_file = NULL;
 #endif
@@ -127,6 +130,10 @@ bobgui_printer_cups_finalize (GObject *object)
   g_free (printer->hostname);
   g_free (printer->original_hostname);
   g_free (printer->original_resource);
+<<<<<<< HEAD:bobgui/print/backends/bobguiprintercups.c
+=======
+  g_free (printer->ppd_name);
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:modules/printbackends/cups/gtkprintercups.c
   g_free (printer->default_cover_before);
   g_free (printer->default_cover_after);
   g_strfreev (printer->auth_info_required);
@@ -155,11 +162,16 @@ bobgui_printer_cups_finalize (GObject *object)
 
   G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 
+<<<<<<< HEAD:bobgui/print/backends/bobguiprintercups.c
 #if CUPS_VERSION_MAJOR < 3
   g_free (printer->ppd_name);
+=======
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:modules/printbackends/cups/gtkprintercups.c
   if (printer->ppd_file)
     ppdClose (printer->ppd_file);
 #endif
+
+  G_GNUC_END_IGNORE_DEPRECATIONS
 
   G_GNUC_END_IGNORE_DEPRECATIONS
 

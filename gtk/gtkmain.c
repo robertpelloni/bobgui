@@ -167,7 +167,6 @@ typedef struct {
 
 DisplayDebugFlags debug_flags[N_DEBUG_DISPLAYS];
 
-#ifdef G_ENABLE_DEBUG
 static const GDebugKey gtk_debug_keys[] = {
   { "misc", GTK_DEBUG_MISC },
   { "plugsocket", GTK_DEBUG_PLUGSOCKET },
@@ -192,7 +191,6 @@ static const GDebugKey gtk_debug_keys[] = {
   { "resize", GTK_DEBUG_RESIZE },
   { "layout", GTK_DEBUG_LAYOUT }
 };
-#endif /* G_ENABLE_DEBUG */
 
 /**
  * gtk_get_major_version:
@@ -657,16 +655,21 @@ do_pre_parse_initialization (int    *argc,
   GDK_PRIVATE_CALL (gdk_pre_parse) ();
   gdk_event_handler_set ((GdkEventFunc)gtk_main_do_event, NULL, NULL);
 
-#ifdef G_ENABLE_DEBUG
   env_string = g_getenv ("GTK_DEBUG");
   if (env_string != NULL)
     {
       debug_flags[0].flags = g_parse_debug_string (env_string,
                                                    gtk_debug_keys,
                                                    G_N_ELEMENTS (gtk_debug_keys));
+#ifndef G_ENABLE_DEBUG
+      /* No need to print the warning for "interactive" since it's kept anyway. */
+      if (debug_flags[0].flags != GTK_DEBUG_INTERACTIVE)
+        g_warning ("GTK_DEBUG set but ignored because gtk isn't built with G_ENABLE_DEBUG");
+      /* Only keep "interactive" if not with G_ENABLE_DEBUG. */
+      debug_flags[0].flags &= GTK_DEBUG_INTERACTIVE;
+#endif  /* G_ENABLE_DEBUG */
       env_string = NULL;
     }
-#endif  /* G_ENABLE_DEBUG */
 
   env_string = g_getenv ("GTK3_MODULES");
   if (env_string)
@@ -1087,6 +1090,9 @@ gtk_parse_args (int    *argc,
  * This way the application can fall back to some other means of
  * communication with the user - for example a curses or command line
  * interface.
+ *
+ * Note that calling any GTK function or instantiating any GTK type after
+ * this function returns %FALSE results in undefined behavior.
  *
  * Returns: %TRUE if the commandline arguments (if any) were valid and
  *     the windowing system has been successfully initialized, %FALSE

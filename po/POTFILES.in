@@ -37,6 +37,9 @@ gdk/macos/gdkmacospasteboard.c
 gdk/wayland/gdkclipboard-wayland.c
 gdk/wayland/gdkdrag-wayland.c
 gdk/wayland/gdkdrop-wayland.c
+gdk/gdkwindow.c
+gdk/keyname-table.h
+gdk/quartz/gdkglcontext-quartz.c
 gdk/wayland/gdkglcontext-wayland.c
 gdk/wayland/gdkprimary-wayland.c
 gdk/win32/gdkclipdrop-win32.c
@@ -57,7 +60,6 @@ gdk/x11/gdkglcontext-egl.c
 gdk/x11/gdkglcontext-glx.c
 gdk/x11/gdkglcontext-x11.c
 gdk/x11/gdkmain-x11.c
-<<<<<<< HEAD
 gdk/x11/gdkselectioninputstream-x11.c
 gdk/x11/gdktextlistconverter-x11.c
 gsk/gpu/gskgldevice.c
@@ -459,7 +461,6 @@ tools/bobgui-rendernode-tool-render.c
 tools/bobgui-rendernode-tool-show.c
 tools/bobgui-tool-utils.c
 tools/updateiconcache.c
-=======
 gtk/a11y/gtkbooleancellaccessible.c
 gtk/a11y/gtkbuttonaccessible.c
 gtk/a11y/gtkcellaccessible.c
@@ -467,6 +468,7 @@ gtk/a11y/gtkcolorswatchaccessible.c
 gtk/a11y/gtkcomboboxaccessible.c
 gtk/a11y/gtkentryaccessible.c
 gtk/a11y/gtkexpanderaccessible.c
+gtk/a11y/gtkfilechooserwidgetaccessible.c
 gtk/a11y/gtkimageaccessible.c
 gtk/a11y/gtkmenubuttonaccessible.c
 gtk/a11y/gtkmenuitemaccessible.c
@@ -833,12 +835,9 @@ modules/input/imviqr.c
 modules/input/imwayland.c
 modules/input/imwaylandgtk.c
 modules/input/imxim.c
-modules/printbackends/cloudprint/gtkprintbackendcloudprint.c
-modules/printbackends/cloudprint/gtkprintercloudprint.c
 modules/printbackends/cups/gtkprintbackendcups.c
 modules/printbackends/cups/gtkprintercups.c
 modules/printbackends/file/gtkprintbackendfile.c
 modules/printbackends/lpr/gtkprintbackendlpr.c
 modules/printbackends/papi/gtkprintbackendpapi.c
 modules/printbackends/test/gtkprintbackendtest.c
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px

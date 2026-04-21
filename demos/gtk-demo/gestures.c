@@ -96,11 +96,12 @@ drawing_area_draw (GtkWidget *widget,
       cairo_pattern_t *pat;
       cairo_matrix_t matrix;
       gdouble angle, scale;
+      gdouble x_center, y_center;
+
+      gtk_gesture_get_bounding_box_center (GTK_GESTURE (zoom), &x_center, &y_center);
 
       cairo_get_matrix (cr, &matrix);
-      cairo_matrix_translate (&matrix,
-                              allocation.width / 2,
-                              allocation.height / 2);
+      cairo_matrix_translate (&matrix, x_center, y_center);
 
       cairo_save (cr);
 
@@ -159,7 +160,7 @@ do_gestures (GtkWidget *do_widget)
       gtk_container_add (GTK_CONTAINER (window), drawing_area);
       gtk_widget_add_events (drawing_area,
                              GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-                             GDK_POINTER_MOTION_MASK | GDK_TOUCH_MASK);
+                             GDK_POINTER_MOTION_MASK | GDK_TOUCH_MASK | GDK_TOUCHPAD_GESTURE_MASK);
 
       g_signal_connect (drawing_area, "draw",
                         G_CALLBACK (drawing_area_draw), NULL);

@@ -42,6 +42,9 @@
 #include "gtkintl.h"
 #include "gtkquartz.h"
 #include "gdk/quartz/gdkquartz.h"
+#include "gdk/quartz/gdkquartz-cocoa-access.h"
+#include "gdk/quartz/gdkquartz-gtk-only.h"
+#include "gdk/quartz/gdkquartzdnd.h"
 #include "gtkselectionprivate.h"
 #include "gtksettings.h"
 #include "gtkiconhelperprivate.h"
@@ -442,7 +445,7 @@ gtk_drag_dest_set (GtkWidget            *widget,
 
   old_site = g_object_get_data (G_OBJECT (widget), "gtk-drag-dest");
 
-  site = g_new (GtkDragDestSite, 1);
+  site = g_new0 (GtkDragDestSite, 1);
   site->flags = flags;
   site->have_drag = FALSE;
   if (targets)
@@ -517,6 +520,7 @@ gtk_drag_dest_unset (GtkWidget *widget)
 /**
  * gtk_drag_dest_get_target_list: (method)
  * @widget: a #GtkWidget
+ * Returns: (nullable) (transfer none): the #GtkTargetList, or %NULL if none
  */
 GtkTargetList*
 gtk_drag_dest_get_target_list (GtkWidget *widget)
@@ -1084,8 +1088,10 @@ gtk_drag_begin_idle (gpointer arg)
   [types release];
 
   if ((nswindow = get_toplevel_nswindow (info->source_widget)) == NULL)
-     return G_SOURCE_REMOVE;
-  
+    {
+      _gdk_quartz_drag_source_context_destroy_gtk_only ();
+      return G_SOURCE_REMOVE;
+    }
   /* Ref the context. It's unreffed when the drag has been aborted */
   g_object_ref (info->context);
 
@@ -1097,6 +1103,7 @@ gtk_drag_begin_idle (gpointer arg)
   if (drag_image == NULL)
     {
       g_object_unref (info->context);
+      _gdk_quartz_drag_source_context_destroy_gtk_only ();
       return G_SOURCE_REMOVE;
     }
 
@@ -1128,7 +1135,7 @@ gtk_drag_begin_idle (gpointer arg)
 
 GdkDragContext *
 gtk_drag_begin_internal (GtkWidget         *widget,
-			 GtkImageDefinition *icon,
+			 gboolean          *out_needs_icon,
 			 GtkTargetList     *target_list,
 			 GdkDragAction      actions,
 			 gint               button,
@@ -1200,7 +1207,8 @@ gtk_drag_begin_internal (GtkWidget         *widget,
 
   window = [(id<GdkNSView>)[nswindow contentView] gdkWindow];
   g_return_val_if_fail (nsevent != NULL, NULL);
-
+  g_return_val_if_fail (target_list != NULL, NULL);
+  
   context = gdk_drag_begin (window, g_list_copy (target_list->list));
   g_return_val_if_fail (context != NULL, NULL);
 
@@ -1221,29 +1229,11 @@ gtk_drag_begin_internal (GtkWidget         *widget,
    * application may have set one in ::drag_begin, or it may
    * not have set one.
    */
-  if (!info->icon_surface && icon)
-    {
-      switch (gtk_image_definition_get_storage_type (icon))
-        {
-          case GTK_IMAGE_PIXBUF:
-              gtk_drag_set_icon_pixbuf (context,
-                                        gtk_image_definition_get_pixbuf (icon),
-                                        -2, -2);
-              break;
-          case GTK_IMAGE_STOCK:
-              gtk_drag_set_icon_stock (context,
-                                       gtk_image_definition_get_stock (icon),
-                                       -2, -2);
-              break;
-          case GTK_IMAGE_ICON_NAME:
-              gtk_drag_set_icon_name (context,
-                                      gtk_image_definition_get_icon_name (icon),
-                                      -2, -2);
-              break;
-          default:
-              break;
-        }
-    }
+  if (info->icon_surface == NULL && out_needs_icon == NULL)
+    gtk_drag_set_icon_default (context);
+
+  if (out_needs_icon != NULL)
+    *out_needs_icon = (info->icon_surface == NULL);
 
   /* no image def or no supported type -> set the default */
   if (!info->icon_surface)
@@ -1606,7 +1596,7 @@ gtk_drag_source_info_destroy (GtkDragSourceInfo *info)
    * info->context after it has been destroyed.
    */
   pasteboard = [NSPasteboard pasteboardWithName: NSDragPboard];
-  [pasteboard declareTypes: nil owner: nil];
+  [pasteboard clearContents];
 
   [pool release];
 
@@ -1682,7 +1672,7 @@ _gtk_drag_source_handle_event (GtkWidget *widget,
       break;
     default:
       g_assert_not_reached ();
-    }  
+    }
 }
 
 /**

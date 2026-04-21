@@ -23,6 +23,7 @@
 #include "config.h"
 #include "gtkglarea.h"
 #include "gtkintl.h"
+#include "gtkmarshalers.h"
 #include "gtkstylecontext.h"
 #include "gtkmarshalers.h"
 #include "gtkprivate.h"
@@ -390,7 +391,7 @@ gtk_gl_area_ensure_buffers (GtkGLArea *area)
 
   priv->have_buffers = TRUE;
 
-  glGenFramebuffersEXT (1, &priv->frame_buffer);
+  glGenFramebuffers (1, &priv->frame_buffer);
 
   if (priv->has_alpha)
     {
@@ -401,7 +402,7 @@ gtk_gl_area_ensure_buffers (GtkGLArea *area)
       /* Delete old render buffer if any */
       if (priv->render_buffer != 0)
         {
-          glDeleteRenderbuffersEXT(1, &priv->render_buffer);
+          glDeleteRenderbuffers (1, &priv->render_buffer);
           priv->render_buffer = 0;
         }
     }
@@ -409,7 +410,7 @@ gtk_gl_area_ensure_buffers (GtkGLArea *area)
     {
     /* For non-alpha we use render buffers so we can blit instead of texture the result */
       if (priv->render_buffer == 0)
-        glGenRenderbuffersEXT (1, &priv->render_buffer);
+        glGenRenderbuffers (1, &priv->render_buffer);
 
       /* Delete old texture if any */
       if (priv->texture != 0)
@@ -422,12 +423,12 @@ gtk_gl_area_ensure_buffers (GtkGLArea *area)
   if ((priv->has_depth_buffer || priv->has_stencil_buffer))
     {
       if (priv->depth_stencil_buffer == 0)
-        glGenRenderbuffersEXT (1, &priv->depth_stencil_buffer);
+        glGenRenderbuffers (1, &priv->depth_stencil_buffer);
     }
   else if (priv->depth_stencil_buffer != 0)
     {
       /* Delete old depth/stencil buffer */
-      glDeleteRenderbuffersEXT (1, &priv->depth_stencil_buffer);
+      glDeleteRenderbuffers (1, &priv->depth_stencil_buffer);
       priv->depth_stencil_buffer = 0;
     }
 
@@ -514,23 +515,23 @@ gtk_gl_area_attach_buffers (GtkGLArea *area)
   else if (priv->needs_resize)
     gtk_gl_area_allocate_buffers (area);
 
-  glBindFramebufferEXT (GL_FRAMEBUFFER_EXT, priv->frame_buffer);
+  glBindFramebuffer (GL_FRAMEBUFFER, priv->frame_buffer);
 
   if (priv->texture)
-    glFramebufferTexture2D (GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
+    glFramebufferTexture2D (GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                             GL_TEXTURE_2D, priv->texture, 0);
   else if (priv->render_buffer)
-    glFramebufferRenderbufferEXT (GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
-                                  GL_RENDERBUFFER_EXT, priv->render_buffer);
+    glFramebufferRenderbuffer (GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+                               GL_RENDERBUFFER, priv->render_buffer);
 
   if (priv->depth_stencil_buffer)
     {
       if (priv->has_depth_buffer)
-        glFramebufferRenderbufferEXT (GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT,
-                                      GL_RENDERBUFFER_EXT, priv->depth_stencil_buffer);
+        glFramebufferRenderbuffer (GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
+                                   GL_RENDERBUFFER, priv->depth_stencil_buffer);
       if (priv->has_stencil_buffer)
-        glFramebufferRenderbufferEXT (GL_FRAMEBUFFER_EXT, GL_STENCIL_ATTACHMENT_EXT,
-                                      GL_RENDERBUFFER_EXT, priv->depth_stencil_buffer);
+        glFramebufferRenderbuffer (GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT,
+                                   GL_RENDERBUFFER, priv->depth_stencil_buffer);
     }
 }
 
@@ -546,7 +547,7 @@ gtk_gl_area_delete_buffers (GtkGLArea *area)
 
   if (priv->render_buffer != 0)
     {
-      glDeleteRenderbuffersEXT (1, &priv->render_buffer);
+      glDeleteRenderbuffers (1, &priv->render_buffer);
       priv->render_buffer = 0;
     }
 
@@ -558,14 +559,14 @@ gtk_gl_area_delete_buffers (GtkGLArea *area)
 
   if (priv->depth_stencil_buffer != 0)
     {
-      glDeleteRenderbuffersEXT (1, &priv->depth_stencil_buffer);
+      glDeleteRenderbuffers (1, &priv->depth_stencil_buffer);
       priv->depth_stencil_buffer = 0;
     }
 
   if (priv->frame_buffer != 0)
     {
-      glBindFramebufferEXT (GL_FRAMEBUFFER_EXT, 0);
-      glDeleteFramebuffersEXT (1, &priv->frame_buffer);
+      glBindFramebuffer (GL_FRAMEBUFFER, 0);
+      glDeleteFramebuffers (1, &priv->frame_buffer);
       priv->frame_buffer = 0;
     }
 }
@@ -706,8 +707,8 @@ gtk_gl_area_draw (GtkWidget *widget,
   w = gtk_widget_get_allocated_width (widget) * scale;
   h = gtk_widget_get_allocated_height (widget) * scale;
 
-  status = glCheckFramebufferStatusEXT (GL_FRAMEBUFFER_EXT);
-  if (status == GL_FRAMEBUFFER_COMPLETE_EXT)
+  status = glCheckFramebufferStatus (GL_FRAMEBUFFER);
+  if (status == GL_FRAMEBUFFER_COMPLETE)
     {
       if (priv->needs_render || priv->auto_render)
         {
@@ -913,9 +914,12 @@ gtk_gl_area_class_init (GtkGLAreaClass *klass)
                   G_SIGNAL_RUN_LAST,
                   G_STRUCT_OFFSET (GtkGLAreaClass, render),
                   _gtk_boolean_handled_accumulator, NULL,
-                  NULL,
+                  _gtk_marshal_BOOLEAN__OBJECT,
                   G_TYPE_BOOLEAN, 1,
                   GDK_TYPE_GL_CONTEXT);
+  g_signal_set_va_marshaller (area_signals[RENDER],
+                              G_TYPE_FROM_CLASS (klass),
+                              _gtk_marshal_BOOLEAN__OBJECTv);
 
   /**
    * GtkGLArea::resize:
@@ -943,6 +947,9 @@ gtk_gl_area_class_init (GtkGLAreaClass *klass)
                   NULL, NULL,
                   _gtk_marshal_VOID__INT_INT,
                   G_TYPE_NONE, 2, G_TYPE_INT, G_TYPE_INT);
+  g_signal_set_va_marshaller (area_signals[RESIZE],
+                              G_TYPE_FROM_CLASS (klass),
+                              _gtk_marshal_VOID__INT_INTv);
 
   /**
    * GtkGLArea::create-context:
@@ -972,6 +979,9 @@ gtk_gl_area_class_init (GtkGLAreaClass *klass)
                   create_context_accumulator, NULL,
                   _gtk_marshal_OBJECT__VOID,
                   GDK_TYPE_GL_CONTEXT, 0);
+  g_signal_set_va_marshaller (area_signals[CREATE_CONTEXT],
+                              G_TYPE_FROM_CLASS (klass),
+                              _gtk_marshal_OBJECT__VOIDv);
 }
 
 static void

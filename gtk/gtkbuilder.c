@@ -67,27 +67,27 @@
  * It is common to use `.ui` as the filename extension for files containing
  * GtkBuilder UI definitions.
  *
- * [RELAX NG Compact Syntax](https://git.gnome.org/browse/gtk+/tree/gtk/gtkbuilder.rnc)
+ * [RELAX NG Compact Syntax](https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/gtkbuilder.rnc)
  *
- * The toplevel element is <interface>. It optionally takes a “domain”
+ * The toplevel element is `<interface>`. It optionally takes a “domain”
  * attribute, which will make the builder look for translated strings
  * using dgettext() in the domain specified. This can also be done by
  * calling gtk_builder_set_translation_domain() on the builder.
- * Objects are described by <object> elements, which can contain
- * <property> elements to set properties, <signal> elements which
- * connect signals to handlers, and <child> elements, which describe
+ * Objects are described by `<object>` elements, which can contain
+ * `<property>` elements to set properties, `<signal>` elements which
+ * connect signals to handlers, and `<child>` elements, which describe
  * child objects (most often widgets inside a container, but also e.g.
- * actions in an action group, or columns in a tree model). A <child>
- * element contains an <object> element which describes the child object.
- * The target toolkit version(s) are described by <requires> elements,
+ * actions in an action group, or columns in a tree model). A `<child>`
+ * element contains an `<object>` element which describes the child object.
+ * The target toolkit version(s) are described by `<requires>` elements,
  * the “lib” attribute specifies the widget library in question (currently
  * the only supported value is “gtk+”) and the “version” attribute specifies
- * the target version in the form “<major>.<minor>”. The builder will error
+ * the target version in the form `<major>.<minor>`. The builder will error
  * out if the version requirements are not met.
  *
- * Typically, the specific kind of object represented by an <object>
+ * Typically, the specific kind of object represented by an `<object>`
  * element is specified by the “class” attribute. If the type has not
- * been loaded yet, GTK+ tries to find the get_type() function from the
+ * been loaded yet, GTK+ tries to find the `get_type()` function from the
  * class name by applying heuristics. This works in most cases, but if
  * necessary, it is possible to specify the name of the get_type() function
  * explictly with the "type-func" attribute. As a special case, GtkBuilder
@@ -100,10 +100,10 @@
  * application to retrieve them from the builder with gtk_builder_get_object().
  * An id is also necessary to use the object as property value in other
  * parts of the UI definition. GTK+ reserves ids starting and ending
- * with ___ (3 underscores) for its own purposes.
+ * with `___` (3 underscores) for its own purposes.
  *
  * Setting properties of objects is pretty straightforward with the
- * <property> element: the “name” attribute specifies the name of the
+ * `<property>` element: the “name” attribute specifies the name of the
  * property, and the content of the element specifies the value.
  * If the “translatable” attribute is set to a true value, GTK+ uses
  * gettext() (or dgettext() if the builder has a translation domain set)
@@ -137,11 +137,11 @@
  * property value using the attributes
  * "bind-source" to specify the source object of the binding,
  * "bind-property" to specify the source property and optionally
- * "bind-flags" to specify the binding flags
- * Internally builder implement this using GBinding objects.
+ * "bind-flags" to specify the binding flags.
+ * Internally builder implements this using GBinding objects.
  * For more information see g_object_bind_property()
  *
- * Signal handlers are set up with the <signal> element. The “name”
+ * Signal handlers are set up with the `<signal>` element. The “name”
  * attribute specifies the name of the signal, and the “handler” attribute
  * specifies the function to connect to the signal. By default, GTK+ tries
  * to find the handler using g_module_symbol(), but this can be changed by
@@ -157,19 +157,19 @@
  * been constructed by GTK+ as part of a composite widget, to set
  * properties on them or to add further children (e.g. the @vbox of
  * a #GtkDialog). This can be achieved by setting the “internal-child”
- * propery of the <child> element to a true value. Note that GtkBuilder
- * still requires an <object> element for the internal child, even if it
+ * property of the `<child>` element to a true value. Note that GtkBuilder
+ * still requires an `<object>` element for the internal child, even if it
  * has already been constructed.
  *
  * A number of widgets have different places where a child can be added
  * (e.g. tabs vs. page content in notebooks). This can be reflected in
- * a UI definition by specifying the “type” attribute on a <child>
+ * a UI definition by specifying the “type” attribute on a `<child>`
  * The possible values for the “type” attribute are described in the
  * sections describing the widget-specific portions of UI definitions.
  *
  * # A GtkBuilder UI Definition
  *
- * |[
+ * |[<!-- language="xml" -->
  * <interface>
  *   <object class="GtkDialog" id="dialog1">
  *     <child internal-child="vbox">
@@ -195,14 +195,14 @@
  *
  * Beyond this general structure, several object classes define their
  * own XML DTD fragments for filling in the ANY placeholders in the DTD
- * above. Note that a custom element in a <child> element gets parsed by
+ * above. Note that a custom element in a `<child>` element gets parsed by
  * the custom tag handler of the parent object, while a custom element in
- * an <object> element gets parsed by the custom tag handler of the object.
+ * an `<object>` element gets parsed by the custom tag handler of the object.
  *
  * These XML fragments are explained in the documentation of the
  * respective objects.
  *
- * Additionally, since 3.10 a special <template> tag has been added
+ * Additionally, since 3.10 a special `<template>` tag has been added
  * to the format allowing one to define a widget class’s components.
  * See the [GtkWidget documentation][composite-templates] for details.
  */
@@ -458,6 +458,7 @@ gtk_builder_get_parameters (GtkBuilder  *builder,
                             GType        object_type,
                             const gchar *object_name,
                             GSList      *properties,
+                            gsize        n_properties,
                             GParamFlags  filter_flags,
                             GArray      **parameters,
                             GArray      **filtered_parameters)
@@ -466,10 +467,23 @@ gtk_builder_get_parameters (GtkBuilder  *builder,
   DelayedProperty *property;
   GError *error = NULL;
 
+  /* Create the two arrays with size @n_properties. The total number of elements
+   * between them will eventually be @n_properties, but it’s more important to
+   * avoid realloc()/memcpy() calls on these arrays than to be tight with memory
+   * allocations (and overallocating by 100% is no worse than what #GArray does
+   * internally with doubling its size every time it’s full).
+   *
+   * @n_properties is typically ≤ 8, so it’s
+   *  (a) not much of an impact to overallocate
+   *  (b) disproportionally subject to realloc()/memcpy() since the array size
+   *      doubles 3 times in the first 8 elements
+   *
+   * gtk_builder_get_parameters() gets called twice for every object in every
+   * #GtkBuilder file, so it’s a fairly hot path. */
   if (parameters)
-    *parameters = g_array_new (FALSE, FALSE, sizeof (GParameter));
+    *parameters = g_array_sized_new (FALSE, FALSE, sizeof (GParameter), n_properties);
   if (filtered_parameters)
-    *filtered_parameters = g_array_new (FALSE, FALSE, sizeof (GParameter));
+    *filtered_parameters = g_array_sized_new (FALSE, FALSE, sizeof (GParameter), n_properties);
 
   for (l = properties; l; l = l->next)
     {
@@ -670,6 +684,7 @@ _gtk_builder_construct (GtkBuilder  *builder,
   gtk_builder_get_parameters (builder, info->type,
                               info->id,
                               info->properties,
+                              info->n_properties,
                               param_filter_flags,
                               &parameters,
                               &construct_parameters);
@@ -742,6 +757,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
           g_value_unset (&param->value);
         }
     }
+
   g_array_free (construct_parameters, TRUE);
 
   custom_set_property = FALSE;
@@ -755,6 +771,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
         custom_set_property = TRUE;
     }
 
+  /* We're going to set multiple properties in one go, so it's better
+   * to notify changes at the end
+   */
+  g_object_freeze_notify (obj);
+
   for (i = 0; i < parameters->len; i++)
     {
       GParameter *param = &g_array_index (parameters, GParameter, i);
@@ -763,7 +784,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
       else
         g_object_set_property (obj, param->name, &param->value);
 
-#if G_ENABLE_DEBUG
+#ifdef G_ENABLE_DEBUG
       if (GTK_DEBUG_CHECK (BUILDER))
         {
           gchar *str = g_strdup_value_contents ((const GValue*)&param->value);
@@ -773,6 +794,9 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 #endif
       g_value_unset (&param->value);
     }
+
+  g_object_thaw_notify (obj);
+
   g_array_free (parameters, TRUE);
 
   if (info->bindings)
@@ -805,6 +829,7 @@ _gtk_builder_apply_properties (GtkBuilder  *builder,
   gtk_builder_get_parameters (builder, info->type,
                               info->id,
                               info->properties,
+                              info->n_properties,
                               G_PARAM_CONSTRUCT_ONLY,
                               &parameters, NULL);
 
@@ -819,6 +844,8 @@ _gtk_builder_apply_properties (GtkBuilder  *builder,
         custom_set_property = TRUE;
     }
 
+  g_object_freeze_notify (info->object);
+
   for (i = 0; i < parameters->len; i++)
     {
       GParameter *param = &g_array_index (parameters, GParameter, i);
@@ -827,7 +854,7 @@ _gtk_builder_apply_properties (GtkBuilder  *builder,
       else
         g_object_set_property (info->object, param->name, &param->value);
 
-#if G_ENABLE_DEBUG
+#ifdef G_ENABLE_DEBUG
       if (GTK_DEBUG_CHECK (BUILDER))
         {
           gchar *str = g_strdup_value_contents ((const GValue*)&param->value);
@@ -837,6 +864,9 @@ _gtk_builder_apply_properties (GtkBuilder  *builder,
 #endif
       g_value_unset (&param->value);
     }
+
+  g_object_thaw_notify (info->object);
+
   g_array_free (parameters, TRUE);
 }
 

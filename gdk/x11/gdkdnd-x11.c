@@ -634,12 +634,14 @@ gdk_window_cache_new (GdkScreen *screen)
    */
   if (gdk_screen_is_composited (screen))
     {
+      gdk_x11_display_error_trap_push (GDK_X11_SCREEN (screen)->display);
       cow = XCompositeGetOverlayWindow (xdisplay, GDK_WINDOW_XID (root_window));
       gdk_window_cache_add (result, cow, 0, 0, 
 			    gdk_x11_screen_get_width (screen) * GDK_X11_SCREEN(screen)->window_scale, 
 			    gdk_x11_screen_get_height (screen) * GDK_X11_SCREEN(screen)->window_scale, 
 			    TRUE);
       XCompositeReleaseOverlayWindow (xdisplay, GDK_WINDOW_XID (root_window));
+      gdk_x11_display_error_trap_pop_ignored (GDK_X11_SCREEN (screen)->display);
     }
 #endif
 
@@ -2613,8 +2615,10 @@ gdk_drag_anim_timeout (gpointer data)
 
   gdk_window_show (context->drag_window);
   gdk_window_move (context->drag_window,
-                   context->last_x + (context->start_x - context->last_x) * t,
-                   context->last_y + (context->start_y - context->last_y) * t);
+                   (context->last_x - context->hot_x) +
+                   (context->start_x - context->last_x) * t,
+                   (context->last_y - context->hot_y) +
+                   (context->start_y - context->last_y) * t);
   gdk_window_set_opacity (context->drag_window, 1.0 - f);
 
   return G_SOURCE_CONTINUE;

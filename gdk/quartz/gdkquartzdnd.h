@@ -19,8 +19,8 @@
 #ifndef __GDK_QUARTZ_DND_H__
 #define __GDK_QUARTZ_DND_H__
 
-#if !defined(__GDKQUARTZ_H_INSIDE__) && !defined (GDK_COMPILATION)
-#error "Only <gdk/gdkquartz.h> can be included directly."
+#if !defined (GTK_COMPILATION) && !defined (GDK_COMPILATION)
+#error "gdkquartzdnd.h is for Gtk's internal use only"
 #endif
 
 #include <gdk/gdk.h>
@@ -50,6 +50,9 @@ id        gdk_quartz_drag_context_get_dragging_info_libgtk_only (GdkDragContext 
 
 GDK_AVAILABLE_IN_ALL
 GdkDragContext *gdk_quartz_drag_source_context_libgtk_only (void);
+
+GDK_AVAILABLE_IN_3_24
+void _gdk_quartz_drag_source_context_destroy_gtk_only ();
 
 G_END_DECLS
 

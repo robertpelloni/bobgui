@@ -46,6 +46,7 @@
 #include <gdk/wayland/cursor-shape-v1-client-protocol.h>
 #include <gdk/wayland/xdg-toplevel-icon-v1-client-protocol.h>
 #include <gdk/wayland/xx-session-management-v1-client-protocol.h>
+#include <gdk/wayland/primary-selection-unstable-v1-client-protocol.h>
 
 #include <glib.h>
 #include <gdk/gdkkeys.h>
@@ -62,6 +63,11 @@
 G_BEGIN_DECLS
 
 typedef struct _GdkWaylandColor GdkWaylandColor;
+#define GDK_WAYLAND_MAX_THEME_SCALE 4
+#define GDK_WAYLAND_THEME_SCALES_COUNT GDK_WAYLAND_MAX_THEME_SCALE
+
+#define GDK_ZWP_POINTER_GESTURES_V1_VERSION 1
+
 typedef struct _GdkWaylandSelection GdkWaylandSelection;
 
 typedef struct {
@@ -119,6 +125,8 @@ struct _GdkWaylandDisplay
   struct wl_subcompositor *subcompositor;
   struct zwp_pointer_gestures_v1 *pointer_gestures;
   struct zwp_primary_selection_device_manager_v1 *primary_selection_manager;
+  struct gtk_primary_selection_device_manager *gtk_primary_selection_manager;
+  struct zwp_primary_selection_device_manager_v1 *zwp_primary_selection_manager_v1;
   struct zwp_tablet_manager_v2 *tablet_manager;
   struct zxdg_exporter_v1 *xdg_exporter;
   struct zxdg_exporter_v2 *xdg_exporter_v2;
@@ -139,6 +147,7 @@ struct _GdkWaylandDisplay
   struct xx_session_v1 *xx_session;
 
   GdkWaylandColor *color;
+  uint32_t xdg_output_version;
 
   GList *async_roundtrips;
 
@@ -160,6 +169,11 @@ struct _GdkWaylandDisplay
   GSource *poll_source;
 
   uint32_t server_decoration_mode;
+  int compositor_version;
+  int seat_version;
+  int data_device_manager_version;
+  int gtk_shell_version;
+  int xdg_output_manager_version;
 
   uint32_t server_decoration_mode;
 

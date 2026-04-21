@@ -61,6 +61,9 @@ struct _GdkSeatClass
                                GdkSeatCapabilities  capabilities);
 
   GList * (* get_tools) (GdkSeat *seat);
+  GdkDeviceTool * (* get_tool) (GdkSeat *seat,
+                                guint64  serial,
+                                guint64  tool_id);
 };
 
 void gdk_seat_device_added   (GdkSeat   *seat,
@@ -89,4 +92,7 @@ GdkGrabStatus  gdk_seat_grab             (GdkSeat                *seat,
                                           gpointer                prepare_func_data);
 void           gdk_seat_ungrab           (GdkSeat                *seat);
 
+     gdk_seat_get_tool       (GdkSeat   *seat,
+                              guint64    serial,
+                              guint64    hw_id);
 

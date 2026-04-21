@@ -75,6 +75,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+<<<<<<< HEAD:bobgui/bobguitexttag.c
 #include "bobguitexttag.h"
 #include "bobguitexttypesprivate.h"
 #include "bobguitexttagtable.h"
@@ -82,6 +83,22 @@
 #include "bobguimarshalers.h"
 #include "bobguiprivate.h"
 #include "bobguitypebuiltins.h"
+=======
+#include "gtktextattributesprivate.h"
+#include "gtktexttag.h"
+#include "gtktexttypes.h"
+#include "gtktexttagtable.h"
+#include "gtktexttagtableprivate.h"
+#include "gtkintl.h"
+#include "gtkmarshalers.h"
+#include "gtkprivate.h"
+#include "gtktypebuiltins.h"
+
+enum {
+  EVENT,
+  LAST_SIGNAL
+};
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtktexttag.c
 
 enum {
   PROP_0,
@@ -2570,7 +2587,11 @@ bobgui_text_tag_changed (BobguiTextTag *tag,
    * added, this would increase significantly the number of signal connections.
    */
   if (priv->table != NULL)
+<<<<<<< HEAD:bobgui/bobguitexttag.c
     _bobgui_text_tag_table_tag_changed (priv->table, tag, size_changed);
+=======
+    _gtk_text_tag_table_tag_changed (priv->table, tag, size_changed);
+>>>>>>> origin/4627-printing-Unref-old-spool_io-before-setting-new-one-gtk3:gtk/gtktexttag.c
 }
 
 static int

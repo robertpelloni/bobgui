@@ -114,3 +114,23 @@ trunc (double x)
   return (x > 0 ? floor (x) : ceil (x));
 }
 #endif
+
+#ifndef HAVE_DECL_ISNAN
+/* it seems of the supported compilers only
+ * MSVC does not have isnan(), but it does
+ * have _isnan() which does the same as isnan()
+ */
+static inline gboolean
+isnan (double x)
+{
+  return _isnan (x);
+}
+#endif
+
+#ifndef HAVE_FMIN
+static inline double
+fmin (double x, double y)
+{
+  return x < y ? x : y;
+}
+#endif

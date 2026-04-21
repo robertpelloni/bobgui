@@ -66,6 +66,13 @@
  * never need to use most of the functions in this section directly;
  * #GtkClipboard provides a nicer interface to the same functionality.
  *
+ * If an application is expected to exchange image data and work
+ * on Windows, it is highly advised to support at least "image/bmp" target
+ * for the widest possible compatibility with third-party applications.
+ * #GtkClipboard already does that by using gtk_target_list_add_image_targets()
+ * and gtk_selection_data_set_pixbuf() or gtk_selection_data_get_pixbuf(),
+ * which is one of the reasons why it is advised to use #GtkClipboard.
+ *
  * Some of the datatypes defined this section are used in
  * the #GtkClipboard and drag-and-drop API’s as well. The
  * #GtkTargetEntry and #GtkTargetList objects represent
@@ -103,6 +110,10 @@
 
 #ifdef GDK_WINDOWING_WAYLAND
 #include <gdk/wayland/gdkwayland.h>
+#endif
+
+#ifdef GDK_WINDOWING_BROADWAY
+#include "broadway/gdkbroadway.h"
 #endif
 
 #undef DEBUG_SELECTION
@@ -1173,6 +1184,25 @@ gtk_selection_convert (GtkWidget *widget,
 	  return TRUE;
 	}
     }
+
+#if defined GDK_WINDOWING_BROADWAY
+  /* This patch is a workaround to circumvent unimplemented
+     clipboard functionality in broadwayd. It eliminates
+     35s delay on popup menu before first clipboard copy,
+     by preventing conversion to be started.
+   
+     https://gitlab.gnome.org/GNOME/gtk/issues/1630
+  */ 
+  if (GDK_IS_BROADWAY_DISPLAY (display))
+  {
+      g_debug("gtk_selection_convert: disabled for broadway backend");
+
+      gtk_selection_retrieval_report (
+          info, GDK_NONE, 0, NULL, -1, GDK_CURRENT_TIME);
+
+      return FALSE;
+  }
+#endif
   
   /* Otherwise, we need to go through X */
   

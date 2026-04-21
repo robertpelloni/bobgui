@@ -141,21 +141,22 @@
  * @vbox and @action_area as internal children with the names “vbox” and
  * “action_area”.
  *
- * GtkDialog supports a custom <action-widgets> element, which can contain
- * multiple <action-widget> elements. The “response” attribute specifies a
+ * GtkDialog supports a custom `<action-widgets>` element, which can contain
+ * multiple `<action-widget>` elements. The “response” attribute specifies a
  * numeric response, and the content of the element is the id of widget
  * (which should be a child of the dialogs @action_area). To mark a response
- * as default, set the “default“ attribute of the <action-widget> element
+ * as default, set the “default“ attribute of the `<action-widget>` element
  * to true.
  *
  * GtkDialog supports adding action widgets by specifying “action“ as
- * the “type“ attribute of a <child> element. The widget will be added
+ * the “type“ attribute of a `<child>` element. The widget will be added
  * either to the action area or the headerbar of the dialog, depending
  * on the “use-header-bar“ property. The response id has to be associated
- * with the action widget using the <action-widgets> element.
+ * with the action widget using the `<action-widgets>` element.
  *
  * An example of a #GtkDialog UI definition fragment:
- * |[
+ *
+ * |[<!-- language="xml" -->
  * <object class="GtkDialog" id="dialog1">
  *   <child type="action">
  *     <object class="GtkButton" id="button_cancel"/>
@@ -1941,7 +1942,7 @@ gtk_dialog_buildable_add_child (GtkBuildable  *buildable,
  *
  * Returns the action area of @dialog.
  *
- * Returns: (transfer none): the action area
+ * Returns: (type Gtk.Box) (transfer none): the action area
  *
  * Since: 2.14
  *
@@ -1964,7 +1965,7 @@ gtk_dialog_get_action_area (GtkDialog *dialog)
  * headerbar is only used by the dialog if the
  * #GtkDialog:use-header-bar property is %TRUE.
  *
- * Returns: (transfer none): the header bar
+ * Returns: (type Gtk.HeaderBar) (transfer none): the header bar
  *
  * Since: 3.12
  */

@@ -21,7 +21,10 @@ if WIN32_GLES
 AM_CPPFLAGS += "-DGDK_WIN32_ENABLE_EGL=1"
 endif #WIN32_GLES
 
-LDADDS = $(GDK_DEP_LIBS)
+libgdk_win32_DEP_LIBS = \
+	-lhid
+
+LDADDS = $(libgdk_win32_DEP_LIBS) $(GDK_DEP_LIBS)
 
 noinst_LTLIBRARIES = libgdk-win32.la
 
@@ -29,7 +32,8 @@ SUBDIRS=rc
 
 EXTRA_DIST += \
 	bdfcursor.c \
-	makefile.msc
+	makefile.msc \
+	meson.build
 
 libgdk_win32_la_SOURCES = \
 	gdkcursor-win32.c \
@@ -39,6 +43,8 @@ libgdk_win32_la_SOURCES = \
 	gdkdevice-virtual.h \
 	gdkdevice-win32.c \
 	gdkdevice-win32.h \
+	gdkdevice-winpointer.c \
+	gdkdevice-winpointer.h \
 	gdkdevice-wintab.c \
 	gdkdevice-wintab.h \
 	gdkdisplay-win32.c \
@@ -51,6 +57,9 @@ libgdk_win32_la_SOURCES = \
 	gdkglcontext-win32.h \
 	gdkglobals-win32.c \
 	gdkkeys-win32.c \
+	gdkkeys-win32.h \
+	gdkkeys-win32-impl.c \
+	gdkkeys-win32-impl-wow64.c \
 	gdkmain-win32.c \
 	gdkmonitor-win32.c \
 	gdkmonitor-win32.h \
@@ -66,6 +75,8 @@ libgdk_win32_la_SOURCES = \
 	gdkwin32dnd.h \
 	gdkwin32dnd-private.h \
 	gdkwin32glcontext.h \
+	gdkwin32langnotification.c \
+	gdkwin32langnotification.h \
 	gdkwin32.h \
 	gdkwin32id.c \
 	gdkwin32keys.h \
@@ -75,8 +86,13 @@ libgdk_win32_la_SOURCES = \
 	gdkwindow-win32.c \
 	gdkwindow-win32.h \
 	pktdef.h \
+	winpointer.h \
 	wintab.h \
 	xcursors.h
+
+libgdk_win32_la_LIBADD = \
+	$(LDADDS) \
+	$(NULL)
 
 libgdkinclude_HEADERS =		\
 	gdkwin32.h
@@ -104,10 +120,10 @@ gdk3_win32_HEADERS_INST = $(libgdkwin32include_HEADERS)
 
 gdk3_win32_HEADERS_EXCLUDES = dummy
 
-include $(top_srcdir)/build/Makefile.msvcproj
+include $(top_srcdir)/win32/Makefile.msvcproj
 
 dist-hook: \
-	$(top_builddir)/build/win32/vs9/gdk3-win32.vcproj	\
-	$(top_builddir)/build/win32/vs9/gdk3-win32.headers
+	$(top_builddir)/win32/vs9/gdk3-win32.vcproj	\
+	$(top_builddir)/win32/vs9/gdk3-win32.headers
 
 -include $(top_srcdir)/git.mk

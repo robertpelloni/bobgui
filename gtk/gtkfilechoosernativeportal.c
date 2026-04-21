@@ -104,6 +104,7 @@ response_cb (GDBusConnection  *connection,
   int i;
   GVariant *response_data;
   GVariant *choices = NULL;
+  GVariant *current_filter = NULL;
 
   g_variant_get (parameters, "(u@a{sv})", &portal_response, &response_data);
   g_variant_lookup (response_data, "uris", "^a&s", &uris);
@@ -119,6 +120,37 @@ response_cb (GDBusConnection  *connection,
           gtk_file_chooser_set_choice (GTK_FILE_CHOOSER (self), id, selected);
         }
       g_variant_unref (choices);
+    }
+
+  current_filter = g_variant_lookup_value (response_data, "current_filter", G_VARIANT_TYPE ("(sa(us))"));
+  if (current_filter)
+    {
+      GtkFileFilter *filter = gtk_file_filter_new_from_gvariant (current_filter);
+      const gchar *current_filter_name = gtk_file_filter_get_name (filter);
+
+      /* Try to find  the given filter in the list of filters.
+       * Since filters are compared by pointer value, using the passed
+       * filter would otherwise not match in a comparison, even if
+       * a filter in the list of filters has been selected.
+       * We'll use the heuristic that if two filters have the same name,
+       * they must be the same.
+       * If there is no match, just set the filter as it was retrieved.
+       */
+      GtkFileFilter *filter_to_select = filter;
+      GSList *filters = gtk_file_chooser_list_filters (GTK_FILE_CHOOSER (self));
+      GSList *l;
+
+      for (l = filters; l; l = l->next)
+        {
+          GtkFileFilter *f = l->data;
+          if (g_strcmp0 (gtk_file_filter_get_name (f), current_filter_name) == 0)
+            {
+              filter_to_select = f;
+              break;
+            }
+        }
+      g_slist_free (filters);
+      gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (self), filter_to_select);
     }
 
   g_slist_free_full (self->custom_files, g_object_unref);
@@ -294,6 +326,7 @@ show_portal_file_chooser (GtkFileChooserNative *self,
   GDBusMessage *message;
   GVariantBuilder opt_builder;
   gboolean multiple;
+  gboolean directory;
   const char *title;
   char *token;
 
@@ -315,6 +348,7 @@ show_portal_file_chooser (GtkFileChooserNative *self,
                                             self, NULL);
 
   multiple = gtk_file_chooser_get_select_multiple (GTK_FILE_CHOOSER (self));
+  directory = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (self)) == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
   g_variant_builder_init (&opt_builder, G_VARIANT_TYPE_VARDICT);
 
   g_variant_builder_add (&opt_builder, "{sv}", "handle_token",
@@ -323,6 +357,8 @@ show_portal_file_chooser (GtkFileChooserNative *self,
 
   g_variant_builder_add (&opt_builder, "{sv}", "multiple",
                          g_variant_new_boolean (multiple));
+  g_variant_builder_add (&opt_builder, "{sv}", "directory",
+                         g_variant_new_boolean (directory));
   if (self->accept_label)
     g_variant_builder_add (&opt_builder, "{sv}", "accept_label",
                            g_variant_new_string (self->accept_label));
@@ -332,10 +368,13 @@ show_portal_file_chooser (GtkFileChooserNative *self,
   g_variant_builder_add (&opt_builder, "{sv}", "modal",
                          g_variant_new_boolean (data->modal));
   g_variant_builder_add (&opt_builder, "{sv}", "filters", get_filters (GTK_FILE_CHOOSER (self)));
-  if (GTK_FILE_CHOOSER_NATIVE (self)->current_name)
+  if (self->current_filter)
+    g_variant_builder_add (&opt_builder, "{sv}", "current_filter",
+                           gtk_file_filter_to_gvariant (self->current_filter));
+  if (self->current_name)
     g_variant_builder_add (&opt_builder, "{sv}", "current_name",
                            g_variant_new_string (GTK_FILE_CHOOSER_NATIVE (self)->current_name));
-  if (GTK_FILE_CHOOSER_NATIVE (self)->current_folder)
+  if (self->current_folder)
     {
       gchar *path;
 
@@ -344,7 +383,7 @@ show_portal_file_chooser (GtkFileChooserNative *self,
                              g_variant_new_bytestring (path));
       g_free (path);
     }
-  if (GTK_FILE_CHOOSER_NATIVE (self)->current_file)
+  if (self->current_file)
     {
       gchar *path;
 
@@ -354,7 +393,7 @@ show_portal_file_chooser (GtkFileChooserNative *self,
       g_free (path);
     }
 
-  if (GTK_FILE_CHOOSER_NATIVE (self)->choices)
+  if (self->choices)
     g_variant_builder_add (&opt_builder, "{sv}", "choices",
                            serialize_choices (GTK_FILE_CHOOSER_NATIVE (self)));
 
@@ -419,9 +458,18 @@ gtk_file_chooser_native_portal_show (GtkFileChooserNative *self)
     method_name = "OpenFile";
   else if (action == GTK_FILE_CHOOSER_ACTION_SAVE)
     method_name = "SaveFile";
+  else if (action == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER)
+    {
+      if (gtk_get_portal_interface_version (connection, "org.freedesktop.portal.FileChooser") < 3)
+        {
+          g_warning ("GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER is not supported by GtkFileChooserNativePortal because portal is too old");
+          return FALSE;
+        }
+      method_name = "OpenFile";
+    }
   else
     {
-      g_warning ("GTK_FILE_CHOOSER_ACTION_%s is not supported by GtkFileChooserNativePortal", action == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER ? "SELECT_FOLDER" : "CREATE_FOLDER");
+      g_warning ("GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER is not supported by GtkFileChooserNativePortal");
       return FALSE;
     }
 

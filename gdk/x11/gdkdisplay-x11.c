@@ -48,6 +48,9 @@
 #include "gdkvulkancontext-x11.h"
 
 #include "gdkprivate.h"
+#include "gdkglcontext-x11.h"
+#include "gdk-private.h"
+#include "gdkprofilerprivate.h"
 
 #include <glib.h>
 #include <glib/gprintf.h>
@@ -1301,6 +1304,9 @@ _gdk_wm_protocols_filter (const XEvent  *xevent,
 
               if (GDK_PROFILER_IS_RUNNING)
                 _gdk_frame_clock_add_timings_to_profiler (clock, timings);
+              if (gdk_profiler_is_running ())
+                _gdk_frame_clock_add_timings_to_profiler (clock, timings);
+#endif /* G_ENABLE_DEBUG */
             }
         }
     }
@@ -2164,6 +2170,9 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   if (startup_id)
     gdk_x11_display_set_startup_notification_id (display, startup_id);
 G_GNUC_END_IGNORE_DEPRECATIONS
+  startup_id = gdk_get_desktop_startup_id ();
+  if (startup_id)
+    gdk_x11_display_set_startup_notification_id (display, startup_id);
 }
 
 static void

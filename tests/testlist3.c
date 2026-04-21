@@ -9,6 +9,32 @@ prepare (BobguiDragSource *source,
          BobguiWidget     *row)
 {
   return gdk_content_provider_new_typed (BOBGUI_TYPE_LIST_BOX_ROW, row);
+  GtkWidget *row;
+  GtkAllocation alloc;
+  cairo_surface_t *surface;
+  cairo_t *cr;
+  int x, y;
+  double sx, sy;
+
+  row = gtk_widget_get_ancestor (widget, GTK_TYPE_LIST_BOX_ROW);
+  gtk_widget_get_allocation (row, &alloc);
+  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, alloc.width, alloc.height);
+  cr = cairo_create (surface);
+
+  gtk_style_context_add_class (gtk_widget_get_style_context (row), "drag-icon");
+  gtk_widget_draw (row, cr);
+  gtk_style_context_remove_class (gtk_widget_get_style_context (row), "drag-icon");
+
+  gtk_widget_translate_coordinates (widget, row, 0, 0, &x, &y);
+  cairo_surface_get_device_scale (surface, &sx, &sy);
+  cairo_surface_set_device_offset (surface, -x * sy, -y * sy);
+  gtk_drag_set_icon_surface (context, surface);
+
+  cairo_destroy (cr);
+  cairo_surface_destroy (surface);
+
+  g_object_set_data (G_OBJECT (gtk_widget_get_parent (row)), "drag-row", row);
+  gtk_style_context_add_class (gtk_widget_get_style_context (row), "drag-row");
 }
 
 static void

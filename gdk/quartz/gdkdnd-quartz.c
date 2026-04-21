@@ -20,7 +20,8 @@
 #include "gdkdnd.h"
 #include "gdkquartzdnd.h"
 #include "gdkprivate-quartz.h"
-
+#include "gdkinternal-quartz.h"
+#include "gdkquartz-gtk-only.h"
 
 G_DEFINE_TYPE (GdkQuartzDragContext, gdk_quartz_drag_context, GDK_TYPE_DRAG_CONTEXT)
 
@@ -56,6 +57,14 @@ _gdk_quartz_window_drag_begin (GdkWindow *window,
   gdk_drag_context_set_device (_gdk_quartz_drag_source_context, device);
 
   return _gdk_quartz_drag_source_context;
+}
+
+void
+_gdk_quartz_drag_source_context_destroy_gtk_only ()
+{
+     if (_gdk_quartz_drag_source_context)
+          g_object_unref (_gdk_quartz_drag_source_context);
+     _gdk_quartz_drag_source_context = NULL;
 }
 
 static gboolean

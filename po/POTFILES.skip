@@ -1,6 +1,5 @@
 # List of source files that should *not* be translated.
 # Please keep this file sorted alphabetically.
-<<<<<<< HEAD
 demos/constraint-editor/constraint-editor-window.ui
 demos/bobgui-demo/application.ui
 demos/bobgui-demo/appmenu.ui
@@ -60,7 +59,6 @@ demos/bobgui-demo/spinner.c
 demos/bobgui-demo/stack.ui
 demos/bobgui-demo/themes.ui
 demos/bobgui-demo/theming.ui
-=======
 demos/gtk-demo/application.ui
 demos/gtk-demo/appmenu.ui
 demos/gtk-demo/appwindow.c
@@ -100,7 +98,6 @@ demos/gtk-demo/spinner.c
 demos/gtk-demo/stack.ui
 demos/gtk-demo/theming.ui
 demos/icon-browser/menus.ui
->>>>>>> origin/1422-gtkentry-s-minimum-width-is-hardcoded-to-150px
 demos/icon-browser/window.ui
 demos/icon-editor/color-editor.ui
 demos/icon-editor/help-window.ui
