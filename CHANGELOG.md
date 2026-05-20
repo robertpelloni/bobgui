@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [1.0.2] - 2024-05-19
+### Added
+- Completed `UPP_ANALYSIS.md` detailing integration points for Ultimate++ `Core` utilities (Memory Allocation, CoWork concurrency, Serialization, and Callbacks) into the Bobtk 6-pillar framework.
+
 ## [1.0.1] - 2024-05-19
 ### Added
 - Initialized the Go port architecture in the `/go` directory.
