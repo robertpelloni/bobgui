@@ -3790,3 +3790,9 @@ gtk_settings_get_font_features (GtkSettings *settings)
 
   return settings->font_features;
 }
+
+GtkCssProvider *
+gtk_settings_get_theme_provider (GtkSettings *settings)
+{
+  return settings->theme_provider;
+}
