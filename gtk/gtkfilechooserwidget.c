@@ -2606,7 +2606,9 @@ location_entry_changed_cb (GtkEditable          *editable,
         switch_to_home_dir (impl);
     }
 
-  if (priv->action != GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER)
+  if (priv->action == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER)
+    g_signal_emit_by_name (impl, "selection-changed", 0);
+  else
     reset_location_timeout (impl);
     /* Reset location timeout */
     if (impl->location_changed_id > 0)
