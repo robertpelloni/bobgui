@@ -361,6 +361,8 @@ gtk_scale_button_init (GtkScaleButton *button)
 
   gtk_widget_init_template (GTK_WIDGET (button));
   gtk_popover_set_relative_to (GTK_POPOVER (priv->dock), GTK_WIDGET (button));
+  g_signal_connect (button, "state-flags-changed",
+                    G_CALLBACK (gtk_scale_button_state_flags_changed), priv->dock);
 
   /* Need a local reference to the adjustment */
   priv->adjustment = gtk_adjustment_new (0, 0, 100, 2, 20, 0);
