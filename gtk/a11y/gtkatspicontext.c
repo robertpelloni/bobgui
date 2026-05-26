@@ -52,6 +52,7 @@
 #include "gtktextview.h"
 #include "gtktypebuiltins.h"
 #include "gtkwindow.h"
+#include "gtkstack.h"
 
 #include <gio/gio.h>
 
