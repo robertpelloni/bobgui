@@ -258,6 +258,7 @@ struct _GtkWindowPrivate
   guint    use_client_shadow         : 1; /* Decorations use client-side shadows */
   guint    maximized                 : 1;
   guint    fullscreen                : 1;
+  guint    is_set_fullscreen         : 1;
   guint    tiled                     : 1;
   guint    unlimited_guessed_size_x  : 1;
   guint    unlimited_guessed_size_y  : 1;

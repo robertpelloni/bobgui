@@ -2194,6 +2194,7 @@ gtk_inspector_recorder_init (GtkInspectorRecorder *recorder)
   GtkListItemFactory *factory;
   GtkSelectionModel *model;
   GtkColumnViewColumn *column;
+  GSettingsSchema *schema;
 
   gtk_widget_init_template (GTK_WIDGET (recorder));
 
