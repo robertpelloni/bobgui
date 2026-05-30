@@ -410,6 +410,7 @@ gtk_gir_public_headers = files(
   'gtkappchooserdialog.h',
   'gtkappchooserwidget.h',
   'gtkapplication.h',
+  'gtkapplicationlist.h',
   'gtkapplicationwindow.h',
   'gtkaspectframe.h',
   'gtkassistant.h',

@@ -8685,3 +8685,10 @@ GTK_GET_SHORTCUTS_SHORTCUT_CLASS
 GtkShortcutsShortcutClass
 gtk_shortcuts_shortcut_get_type
 </SECTION>
+
+<SECTION>
+<FILE>gtkapplicationlist</FILE>
+<TITLE>GtkApplicationList</TITLE>
+GtkApplicationList
+gtk_application_list_new
+</SECTION>
