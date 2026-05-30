@@ -5335,6 +5335,20 @@ base64_encode_with_linebreaks (const guchar *data,
   return out;
 }
 
+#ifdef HAVE_AVIF
+static gboolean
+texture_should_use_avif (GdkTexture *texture)
+{
+  GdkColorState *color_state;
+  const GdkCicp *cicp;
+
+  color_state = gdk_texture_get_color_state (texture);
+  cicp = gdk_color_state_get_cicp (color_state);
+
+  return cicp->matrix_coefficients != 0;
+}
+#endif
+
 static void
 append_bytes_url (Printer    *p,
                   GBytes     *bytes,
