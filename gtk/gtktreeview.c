@@ -519,6 +519,8 @@ struct _GtkTreeViewPrivate
   guint draw_keyfocus : 1;
   guint model_setup : 1;
   guint in_column_drag : 1;
+
+  guint single_click_activate : 1;
 };
 
 
@@ -7349,6 +7351,15 @@ _gtk_tree_view_column_autosize (GtkTreeView *tree_view,
   while (validate_rows (tree_view));
 
   gtk_widget_queue_resize (GTK_WIDGET (tree_view));
+}
+
+void
+_gtk_tree_view_set_single_click_activate (GtkTreeView *tree_view,
+ gboolean single_click_activate)
+{
+  g_return_if_fail (GTK_IS_TREE_VIEW (tree_view));
+
+  tree_view->priv->single_click_activate = single_click_activate;
 }
 
 /* Drag-and-drop */
