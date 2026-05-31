@@ -4992,6 +4992,8 @@ gtk_cell_area_activate_cell
 gtk_cell_area_stop_editing
 gtk_cell_area_inner_cell_area
 gtk_cell_area_request_renderer
+gtk_cell_area_set_animation_id
+gtk_cell_area_forget_animation_id
 <SUBSECTION Standard>
 GTK_CELL_AREA
 GTK_IS_CELL_AREA
@@ -5084,6 +5086,7 @@ gtk_cell_renderer_set_alignment
 gtk_cell_renderer_get_padding
 gtk_cell_renderer_set_padding
 gtk_cell_renderer_get_state
+gtk_cell_renderer_apply_style
 gtk_cell_renderer_is_activatable
 
 <SUBSECTION Width-for-height>
