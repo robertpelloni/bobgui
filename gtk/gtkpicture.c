@@ -497,7 +497,7 @@ gtk_picture_new (void)
 
 /**
  * gtk_picture_new_for_paintable:
- * @paintable: (nullable): a `GdkPaintable`
+ * @paintable: a `GdkPaintable`
  *
  * Creates a new `GtkPicture` displaying @paintable.
  *
@@ -518,7 +518,7 @@ gtk_picture_new_for_paintable (GdkPaintable *paintable)
 
 /**
  * gtk_picture_new_for_pixbuf:
- * @pixbuf: (nullable): a `GdkPixbuf`
+ * @pixbuf: a `GdkPixbuf`
  *
  * Creates a new `GtkPicture` displaying @pixbuf.
  *
@@ -555,7 +555,7 @@ gtk_picture_new_for_pixbuf (GdkPixbuf *pixbuf)
 
 /**
  * gtk_picture_new_for_file:
- * @file: (nullable): a `GFile`
+ * @file: a `GFile`
  *
  * Creates a new `GtkPicture` displaying the given @file.
  *
@@ -580,7 +580,7 @@ gtk_picture_new_for_file (GFile *file)
 
 /**
  * gtk_picture_new_for_filename:
- * @filename: (type filename) (nullable): a filename
+ * @filename: (type filename): a filename
  *
  * Creates a new `GtkPicture` displaying the file @filename.
  *
@@ -610,7 +610,7 @@ gtk_picture_new_for_filename (const char *filename)
 
 /**
  * gtk_picture_new_for_resource:
- * @resource_path: (nullable): resource path to play back
+ * @resource_path: resource path to play back
  *
  * Creates a new `GtkPicture` displaying the resource at @resource_path.
  *

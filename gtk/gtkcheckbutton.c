@@ -745,7 +745,7 @@ gtk_check_button_new (void)
 
 /**
  * gtk_check_button_new_with_label:
- * @label: (nullable): the text for the check button.
+ * @label: the text for the check button.
  *
  * Creates a new `GtkCheckButton` with the given text.
  *
@@ -759,7 +759,7 @@ gtk_check_button_new_with_label (const char *label)
 
 /**
  * gtk_check_button_new_with_mnemonic:
- * @label: (nullable): The text of the button, with an underscore
+ * @label: The text of the button, with an underscore
  *   in front of the mnemonic character
  *
  * Creates a new `GtkCheckButton` with the given text and a mnemonic.
