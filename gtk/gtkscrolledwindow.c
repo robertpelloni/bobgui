@@ -277,6 +277,7 @@ struct _GtkScrolledWindowPrivate
   guint                  in_drag                   : 1;
 
   guint                  deceleration_id;
+  GdkModifierType        scrolling_modifiers;
 
   gdouble                x_velocity;
   gdouble                y_velocity;

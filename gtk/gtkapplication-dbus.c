@@ -188,7 +188,6 @@ screensaver_signal_portal (GDBusConnection *connection,
                            gpointer          data)
 {
   GtkApplicationImplDBus *dbus = (GtkApplicationImplDBus *)data;
-  GtkApplication *application = data;
   gboolean active;
   GVariant *state;
   guint32 session_state = UNKNOWN;
@@ -210,7 +209,7 @@ screensaver_signal_portal (GDBusConnection *connection,
        */
       if (session_state == ENDING)
         {
-          g_application_quit (G_APPLICATION (application));
+          g_application_quit (G_APPLICATION (dbus->impl.application));
         }
       else if (session_state == QUERY_END)
         {
